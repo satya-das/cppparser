@@ -58,9 +58,11 @@ namespace PoDoFo
     struct TXRefEntry
     {
       inline TXRefEntry()
-        :  lOffset(0), lGeneration(0), cUsed('\x00'), bParsed(false)
+        : lOffset(0)
+        , lGeneration(0)
+        , cUsed('\x00')
+        , bParsed(false)
       {
-
       }
       pdf_long lOffset;
       long lGeneration;
@@ -278,27 +280,27 @@ namespace PoDoFo
      */
     bool IsLinearized() const
     {
- return m_pLinearization != NULL;
+      return m_pLinearization != NULL;
     }
     /** \returns the length of the file
      */
     size_t GetFileSize() const
     {
- return m_nFileSize;
+      return m_nFileSize;
     }
     /** 
      * \returns true if this PdfWriter creates an encrypted PDF file
      */
     bool GetEncrypted() const
     {
- return (m_pEncrypt != NULL);
+      return (m_pEncrypt != NULL);
     }
     /** 
      * \returns the parsers encryption object or NULL if the read PDF file was not encrypted
      */
     const PdfEncrypt* GetEncrypt() const
     {
- return m_pEncrypt;
+      return m_pEncrypt;
     }
     /** 
      * Gives the encryption object from the parser. The internal handle will be set
@@ -591,7 +593,7 @@ namespace PoDoFo
   PdfEncrypt* PdfParser::TakeEncrypt()
   {
     PdfEncrypt* pEncrypt = m_pEncrypt;
-    m_pEncrypt = NULL; 
+    m_pEncrypt = NULL;
     return pEncrypt;
   }
 // -----------------------------------------------------

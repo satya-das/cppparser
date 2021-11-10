@@ -28,7 +28,7 @@ public:
     // Returns NULL if this is not an SkBigPicture.
   static const SkBigPicture* AsSkBigPicture(const sk_sp<const SkPicture> picture)
   {
-        return picture->asSkBigPicture();
+    return picture->asSkBigPicture();
   }
     // V35: Store SkRect (rather then width & height) in header
     // V36: Remove (obsolete) alphatype from SkColorTable

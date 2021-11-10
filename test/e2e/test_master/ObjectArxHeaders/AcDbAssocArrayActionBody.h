@@ -88,8 +88,8 @@ public:
   const AcDbAssocArrayItem* getItemAt(const AcDbItemLocator& index, AcDbFullSubentPath& path) const;
   inline const AcDbAssocArrayItem* getItemAt(const AcDbItemLocator& index) const
   {
-        AcDbFullSubentPath path = AcDbFullSubentPath();
-        return getItemAt(index, path);
+    AcDbFullSubentPath path = AcDbFullSubentPath();
+    return getItemAt(index, path);
   }
     /// <summary> Obtains array item at given subent path of the array. 
     /// </summary>

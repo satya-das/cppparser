@@ -23,7 +23,7 @@ public:
   void DoSelect(const wxBitmap& bitmap) override;
   wxBitmap DoGetAsBitmap(const wxRect* subrect) const override
   {
- return subrect == NULL ? GetSelectedBitmap() : GetSelectedBitmap().GetSubBitmapOfHDC(*subrect, GetHDC() );
+    return subrect == NULL ? GetSelectedBitmap() : GetSelectedBitmap().GetSubBitmapOfHDC(*subrect, GetHDC());
   }
 protected:
     // create DC compatible with the given one or screen if dc == NULL

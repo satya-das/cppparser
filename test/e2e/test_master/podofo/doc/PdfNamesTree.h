@@ -60,7 +60,6 @@ namespace PoDoFo
     PdfNamesTree(PdfObject* pObject, PdfObject* pCatalog);
     virtual ~PdfNamesTree()
     {
-
     }
     /** Insert a key and value in one of the dictionaries of the name tree.
      *  \param tree name of the tree to search for the key.
@@ -151,14 +150,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   PdfObject* PdfNamesTree::GetJavaScriptNode(bool bCreate) const
   {
-    return this->GetRootNode( PdfName("JavaScript"), bCreate );
+    return this->GetRootNode(PdfName("JavaScript"), bCreate);
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfObject* PdfNamesTree::GetDestsNode(bool bCreate) const
   {
-    return this->GetRootNode( PdfName("Dests"), bCreate );
+    return this->GetRootNode(PdfName("Dests"), bCreate);
   }
 }
 #endif

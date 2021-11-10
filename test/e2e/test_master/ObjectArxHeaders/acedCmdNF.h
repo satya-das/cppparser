@@ -13,9 +13,7 @@
 // acedCmdNF.h:
 // Fiberless variants of acedCommand and acedCmd
 // plus supporting functions
-#ifdef __cplusplus
 extern "C" {
-#endif
 #pragma  pack (push, 8)
 // acedFiberWorld:
 // Returns
@@ -191,9 +189,7 @@ extern "C" {
 //
   ACAD_PORT bool acedCmdCWasCancelled();
 #pragma  pack (pop)
-#ifdef __cplusplus
   }
-#endif
 // acedPendingFiberlessDocSwitch:
 //
 // pNextActiveDocument: Optional parameter to receive the next active document

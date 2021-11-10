@@ -47,7 +47,6 @@ protected:
     // objects of this class directly.
   wxStandardPaths()
   {
-
   }
 private:
   wxString m_prefix;

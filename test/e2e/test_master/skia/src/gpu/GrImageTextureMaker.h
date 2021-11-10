@@ -40,7 +40,7 @@ public:
     // it's probably not worth the effort.
   bool hasMixedResolutions() const override
   {
- return true;
+    return true;
   }
 protected:
     // TODO: consider overriding this, for the case where the underlying generator might be

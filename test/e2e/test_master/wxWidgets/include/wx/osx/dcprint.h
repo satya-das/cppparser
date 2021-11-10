@@ -26,13 +26,14 @@ public:
   wxRect GetPaperRect() const override;
   wxPrintData& GetPrintData()
   {
- return m_printData;
+    return m_printData;
   }
   wxSize GetPPI() const override;
 protected:
   void DoGetSize(int* width, int* height) const override;
   wxPrintData m_printData;
   wxNativePrinterDC* m_nativePrinterDC;
+private:
   wxDECLARE_CLASS(wxPrinterDC);
 #  endif
 };

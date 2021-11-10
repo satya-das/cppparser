@@ -41,7 +41,7 @@ public:
     // Must provide overload to avoid hiding it (and warnings about it)
   void Update() override
   {
- wxDialog::Update();
+    wxDialog::Update();
   }
   bool Show(bool show = true) override;
     // This enum is an implementation detail and should not be used
@@ -63,30 +63,30 @@ protected:
     // times respectively.
   static wxString GetElapsedLabel()
   {
- return wxGetTranslation("Elapsed time:");
+    return wxGetTranslation("Elapsed time:");
   }
   static wxString GetEstimatedLabel()
   {
- return wxGetTranslation("Estimated time:");
+    return wxGetTranslation("Estimated time:");
   }
   static wxString GetRemainingLabel()
   {
- return wxGetTranslation("Remaining time:");
+    return wxGetTranslation("Remaining time:");
   }
     // Similar to wxWindow::HasFlag() but tests for a presence of a wxPD_XXX
     // flag in our (separate) flags instead of using m_windowStyle.
   bool HasPDFlag(int flag) const
   {
- return (m_pdStyle & flag) != 0;
+    return (m_pdStyle & flag) != 0;
   }
     // Return the progress dialog style. Prefer to use HasPDFlag() if possible.
   int GetPDStyle() const
   {
- return m_pdStyle;
+    return m_pdStyle;
   }
   void SetPDStyle(int pdStyle)
   {
- m_pdStyle = pdStyle;
+    m_pdStyle = pdStyle;
   }
     // Updates estimated times from a given progress bar value and stores the
     // results in provided arguments.
@@ -112,7 +112,7 @@ protected:
     // return the top level parent window of this dialog (may be NULL)
   wxWindow* GetTopParent() const
   {
- return m_parentTop;
+    return m_parentTop;
   }
     // continue processing or not (return value for Update())
   State m_state;
@@ -149,11 +149,11 @@ private:
   void EnableAbort(bool enable = true);
   void DisableSkip()
   {
- EnableSkip(false);
+    EnableSkip(false);
   }
   void DisableAbort()
   {
- EnableAbort(false);
+    EnableAbort(false);
   }
     // the widget displaying current status (may be NULL)
   wxGauge* m_gauge;

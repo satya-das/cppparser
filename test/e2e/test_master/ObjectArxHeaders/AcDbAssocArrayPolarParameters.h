@@ -135,13 +135,13 @@ public:
   int itemCount(AcString& expression, AcString& evaluatorId) const;
   inline int itemCount() const
   {
-        AcString expression, evaluatorId;
-        return itemCount(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return itemCount(expression, evaluatorId);
   }
   inline int itemCount(AcString& expression) const
   {
-        AcString evaluatorId;
-        return itemCount(expression, evaluatorId);
+    AcString evaluatorId;
+    return itemCount(expression, evaluatorId);
   }
     /// <summary> 
     /// Gets the angle between items of the polar array.
@@ -156,13 +156,13 @@ public:
   double angleBetweenItems(AcString& expression, AcString& evaluatorId) const;
   inline double angleBetweenItems() const
   {
-        AcString expression, evaluatorId;
-        return angleBetweenItems(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return angleBetweenItems(expression, evaluatorId);
   }
   inline double angleBetweenItems(AcString& expression) const
   {
-        AcString evaluatorId;
-        return angleBetweenItems(expression, evaluatorId);
+    AcString evaluatorId;
+    return angleBetweenItems(expression, evaluatorId);
   }
     /// <summary> 
     /// Gets angle between first and last item in array.
@@ -177,13 +177,13 @@ public:
   double fillAngle(AcString& expression, AcString& evaluatorId) const;
   inline double fillAngle() const
   {
-        AcString expression, evaluatorId;
-        return fillAngle(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return fillAngle(expression, evaluatorId);
   }
   inline double fillAngle(AcString& expression) const
   {
-        AcString evaluatorId;
-        return fillAngle(expression, evaluatorId);
+    AcString evaluatorId;
+    return fillAngle(expression, evaluatorId);
   }
     /// <summary> 
     /// Gets the angle for the first item in array.
@@ -220,13 +220,13 @@ public:
   double radius(AcString& expression, AcString& evaluatorId) const;
   inline double radius() const
   {
-        AcString expression, evaluatorId;
-        return radius(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return radius(expression, evaluatorId);
   }
   inline double radius(AcString& expression) const
   {
-        AcString evaluatorId;
-        return radius(expression, evaluatorId);
+    AcString evaluatorId;
+    return radius(expression, evaluatorId);
   }
     /// <summary> 
     /// Sets the item count of the polar array.

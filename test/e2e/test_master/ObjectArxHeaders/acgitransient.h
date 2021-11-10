@@ -30,7 +30,6 @@ class AcGiTransientManager
 public:
   virtual ~AcGiTransientManager()
   {
-
   }
   virtual bool addTransient(AcGiDrawable* pDrawable, AcGiTransientDrawingMode mode, int subDrawingMode, const AcArray<int>& viewportNumbers) = 0;
   virtual bool eraseTransient(AcGiDrawable* pDrawable, const AcArray<int>& viewportNumbers) = 0;

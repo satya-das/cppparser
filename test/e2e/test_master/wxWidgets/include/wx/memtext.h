@@ -20,34 +20,33 @@ public:
     // Constructors.
   wxMemoryText()
   {
-
   }
   wxMemoryText(const wxString& name)
-    :  wxTextBuffer(name)
+    : wxTextBuffer(name)
   {
-
   }
 protected:
   bool OnExists() const override
   {
- return false;
+    return false;
   }
   bool OnOpen(const wxString&, wxTextBufferOpenMode) override
   {
- return true;
+    return true;
   }
   bool OnClose() override
   {
- return true;
+    return true;
   }
   bool OnRead(const wxMBConv&) override
   {
- return true;
+    return true;
   }
   bool OnWrite(wxTextFileType, const wxMBConv& = wxMBConvUTF8()) override
   {
- return true;
+    return true;
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxMemoryText);
 };
 #  endif

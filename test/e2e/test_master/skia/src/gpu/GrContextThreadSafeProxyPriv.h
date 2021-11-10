@@ -19,30 +19,30 @@ public:
     // from GrContext_Base
   uint32_t contextID() const
   {
- return fProxy->contextID();
+    return fProxy->contextID();
   }
   bool matches(GrContext_Base* candidate) const
   {
- return fProxy->matches(candidate);
+    return fProxy->matches(candidate);
   }
   const GrContextOptions& options() const
   {
- return fProxy->options();
+    return fProxy->options();
   }
   const GrCaps* caps() const
   {
- return fProxy->caps();
+    return fProxy->caps();
   }
   sk_sp<const GrCaps> refCaps() const
   {
- return fProxy->refCaps();
+    return fProxy->refCaps();
   }
   sk_sp<GrSkSLFPFactoryCache> fpFactoryCache();
     // GrContextThreadSafeProxyPriv
   static sk_sp<GrContextThreadSafeProxy> Make(GrBackendApi, const GrContextOptions&, uint32_t contextID, sk_sp<const GrCaps>, sk_sp<GrSkSLFPFactoryCache>);
 private:
   explicit GrContextThreadSafeProxyPriv(GrContextThreadSafeProxy* proxy)
-    :  fProxy(proxy)
+    : fProxy(proxy)
   {
   }
   GrContextThreadSafeProxyPriv(const GrContextThreadSafeProxy&) = delete;
@@ -55,10 +55,10 @@ private:
 };
 inline GrContextThreadSafeProxyPriv GrContextThreadSafeProxy::priv()
 {
-    return GrContextThreadSafeProxyPriv(this);
+  return GrContextThreadSafeProxyPriv(this);
 }
 inline const GrContextThreadSafeProxyPriv GrContextThreadSafeProxy::priv() const
 {
-    return GrContextThreadSafeProxyPriv(const_cast<GrContextThreadSafeProxy*>(this));
+  return GrContextThreadSafeProxyPriv(const_cast<GrContextThreadSafeProxy*>(this));
 }
 #endif

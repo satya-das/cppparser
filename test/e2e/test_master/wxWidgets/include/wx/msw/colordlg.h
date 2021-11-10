@@ -18,18 +18,17 @@ class WXDLLIMPEXP_CORE wxColourDialog : public wxDialog
 public:
   wxColourDialog()
   {
- Init();
+    Init();
   }
   wxColourDialog(wxWindow* parent, const wxColourData* data = NULL)
   {
-        Init();
-
-        Create(parent, data);
+    Init();
+    Create(parent, data);
   }
   bool Create(wxWindow* parent, const wxColourData* data = NULL);
   wxColourData& GetColourData()
   {
- return m_colourData;
+    return m_colourData;
   }
     // override some base class virtuals
   void SetTitle(const wxString& title) override;

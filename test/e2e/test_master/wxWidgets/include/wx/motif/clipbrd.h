@@ -40,7 +40,7 @@ public:
     // opened?
   virtual bool IsOpened() const
   {
- return m_open;
+    return m_open;
   }
     // replaces the data on the clipboard with data
   virtual bool SetData(wxDataObject* data);

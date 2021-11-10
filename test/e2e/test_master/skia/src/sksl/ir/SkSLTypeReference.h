@@ -17,28 +17,28 @@ namespace SkSL
   struct TypeReference : public Expression
   {
     TypeReference(const Context& context, int offset, const Type& value)
-      :  INHERITED(offset, kTypeReference_Kind, *context.fInvalid_Type)
-    , fValue(value)
+      : INHERITED(offset, kTypeReference_Kind, *context.fInvalid_Type)
+      , fValue(value)
     {
     }
     bool hasSideEffects() const override
     {
-        return false;
+      return false;
     }
     String description() const override
     {
-        return String(fValue.fName);
+      return String(fValue.fName);
     }
     std::unique_ptr<Expression> clone() const override
     {
-        return std::unique_ptr<Expression>(new TypeReference(fOffset, fValue, &fType));
+      return std::unique_ptr<Expression>(new TypeReference(fOffset, fValue, &fType));
     }
     const Type& fValue;
     typedef Expression INHERITED;
   private:
     TypeReference(int offset, const Type& value, const Type* type)
-      :  INHERITED(offset, kTypeReference_Kind, *type)
-    , fValue(value)
+      : INHERITED(offset, kTypeReference_Kind, *type)
+      , fValue(value)
     {
     }
   };

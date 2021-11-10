@@ -32,11 +32,10 @@ class WXDLLIMPEXP_CORE wxListbook : public wxNavigationEnabled<wxBookCtrlBase>
 public:
   wxListbook()
   {
-
   }
   wxListbook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-        (void)Create(parent, id, pos, size, style, name);
+    (void) Create(parent, id, pos, size, style, name);
   }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString);
@@ -48,18 +47,18 @@ public:
   bool InsertPage(size_t n, wxWindow* page, const wxString& text, bool bSelect = false, int imageId = NO_IMAGE) override;
   int SetSelection(size_t n) override
   {
- return DoSetSelection(n, SetSelection_SendEvent);
+    return DoSetSelection(n, SetSelection_SendEvent);
   }
   int ChangeSelection(size_t n) override
   {
- return DoSetSelection(n);
+    return DoSetSelection(n);
   }
   int HitTest(const wxPoint& pt, long* flags = NULL) const override;
   void SetImageList(wxImageList* imageList) override;
   bool DeleteAllPages() override;
   wxListView* GetListView() const
   {
- return (wxListView*)m_bookctrl;
+    return (wxListView*) m_bookctrl;
   }
 protected:
   wxWindow* DoRemovePage(size_t page) override;

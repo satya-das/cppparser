@@ -88,241 +88,290 @@ private:
 };
 typedef AcArray<AcDbDimData> AcDbDimDataArray;
 inline AcDbDimData::AcDbDimData()
-  :     mpDim(NULL), 
-    mBitFlags(0),
-    mpSetDimValueFunc(NULL),
-    mpAppData (NULL),
-    mpSetCustomStringFunc(NULL)
+  : mpDim(NULL)
+  , mBitFlags(0)
+  , mpSetDimValueFunc(NULL)
+  , mpAppData(NULL)
+  , mpSetCustomStringFunc(NULL)
 {
-
 }
 inline AcDbDimData::AcDbDimData(AcDbDimension* pDim, DimDataSetValueFuncPtr setValueFunc, unsigned int bitFlags, void* appData, DimDataSetCustomStringFuncPtr setCustomStringFunc)
-  :     mpDim(pDim),
-    mBitFlags(bitFlags),
-    mpSetDimValueFunc(setValueFunc),
-    mpAppData(appData),
-    mpSetCustomStringFunc(setCustomStringFunc)
+  : mpDim(pDim)
+  , mBitFlags(bitFlags)
+  , mpSetDimValueFunc(setValueFunc)
+  , mpAppData(appData)
+  , mpSetCustomStringFunc(setCustomStringFunc)
 {
-
 }
 inline AcDbDimData::AcDbDimData(const AcDbDimData& src)
 {
-    *this = src;
+  *this = src;
 }
 inline AcDbDimData::~AcDbDimData()
 {
-    if (mpDim) 
-        delete mpDim;
+  if (mpDim)
+  {
+    delete mpDim;
+  }
 }
 inline AcDbDimData& AcDbDimData::operator =(const AcDbDimData& src)
 {
-    if (this == &src)
-        return *this;
-
-    mpDim = (AcDbDimension*)src.dimension()->clone();
-    mOwnerId = src.ownerId();
-    mpSetDimValueFunc = src.dimValueFunc();
-    mpSetCustomStringFunc = src.customStringFunc();
-    mBitFlags = src.bitFlags();
-    mpAppData = src.appData();
+  if (this == &src)
+  {
     return *this;
+  }
+  mpDim = (AcDbDimension*) src.dimension()->clone();
+  mOwnerId = src.ownerId();
+  mpSetDimValueFunc = src.dimValueFunc();
+  mpSetCustomStringFunc = src.customStringFunc();
+  mBitFlags = src.bitFlags();
+  mpAppData = src.appData();
+  return *this;
 }
 inline AcDbDimension* AcDbDimData::dimension() const
 {
-    return mpDim;
+  return mpDim;
 }
 inline Acad::ErrorStatus AcDbDimData::setDimension(AcDbDimension* pDim)
 {
-    mpDim = pDim;
-    return Acad::eOk;
+  mpDim = pDim;
+  return Acad::eOk;
 }
 inline AcDbObjectId AcDbDimData::ownerId() const
 {
-    return mOwnerId;
+  return mOwnerId;
 }
 inline Acad::ErrorStatus AcDbDimData::setOwnerId(const AcDbObjectId& objId)
 {
-    mOwnerId = objId;
-    return Acad::eOk;
+  mOwnerId = objId;
+  return Acad::eOk;
 }
 inline unsigned int AcDbDimData::bitFlags() const
 {
-    return mBitFlags;
+  return mBitFlags;
 }
 inline Acad::ErrorStatus AcDbDimData::setBitFlags(unsigned int flags)
 {
-    mBitFlags = flags;
-    return Acad::eOk;
+  mBitFlags = flags;
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimFocal() const
 {
-    return !!(mBitFlags & kDimFocal);
+  return !!(mBitFlags & kDimFocal);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimFocal(bool focal)
 {
-    if (focal)
-        mBitFlags |= kDimFocal;
-    else
-        mBitFlags &= ~kDimFocal;
-    return Acad::eOk;
+  if (focal)
+  {
+    mBitFlags |= kDimFocal;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimFocal;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimEditable() const
 {
-    return !!(mBitFlags & kDimEditable);
+  return !!(mBitFlags & kDimEditable);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimEditable(bool editable)
 {
-    if (editable)
-        mBitFlags |= kDimEditable;
-    else
-        mBitFlags &= ~kDimEditable;
-    return Acad::eOk;
+  if (editable)
+  {
+    mBitFlags |= kDimEditable;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimEditable;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimInvisible() const
 {
-    return !!(mBitFlags & kDimInvisible);
+  return !!(mBitFlags & kDimInvisible);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimInvisible(bool invisible)
 {
-    if (invisible)
-        mBitFlags |= kDimInvisible;
-    else
-        mBitFlags &= ~kDimInvisible;
-    return Acad::eOk;
+  if (invisible)
+  {
+    mBitFlags |= kDimInvisible;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimInvisible;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimHideIfValueIsZero() const
 {
-    return !!(mBitFlags & kDimHideIfValueIsZero);
+  return !!(mBitFlags & kDimHideIfValueIsZero);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimHideIfValueIsZero(bool hide)
 {
-    if (hide)
-        mBitFlags |= kDimHideIfValueIsZero;
-    else
-        mBitFlags &= ~kDimHideIfValueIsZero;
-    return Acad::eOk;
+  if (hide)
+  {
+    mBitFlags |= kDimHideIfValueIsZero;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimHideIfValueIsZero;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimResultantLength() const
 {
-    return !!(mBitFlags & kDimResultantLength);
+  return !!(mBitFlags & kDimResultantLength);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimResultantLength(bool bValue)
 {
-    if (bValue)
-        mBitFlags |= kDimResultantLength;
-    else
-        mBitFlags &= ~kDimResultantLength;
-    return Acad::eOk;
+  if (bValue)
+  {
+    mBitFlags |= kDimResultantLength;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimResultantLength;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimDeltaLength() const
 {
-    return !!(mBitFlags & kDimDeltaLength);
+  return !!(mBitFlags & kDimDeltaLength);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimDeltaLength(bool bValue)
 {
-    if (bValue)
-        mBitFlags |= kDimDeltaLength;
-    else
-        mBitFlags &= ~kDimDeltaLength;
-    return Acad::eOk;
+  if (bValue)
+  {
+    mBitFlags |= kDimDeltaLength;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimDeltaLength;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimResultantAngle() const
 {
-    return !!(mBitFlags & kDimResultantAngle);
+  return !!(mBitFlags & kDimResultantAngle);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimResultantAngle(bool bValue)
 {
-    if (bValue)
-        mBitFlags |= kDimResultantAngle;
-    else
-        mBitFlags &= ~kDimResultantAngle;
-    return Acad::eOk;
+  if (bValue)
+  {
+    mBitFlags |= kDimResultantAngle;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimResultantAngle;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimDeltaAngle() const
 {
-    return !!(mBitFlags & kDimDeltaAngle);
+  return !!(mBitFlags & kDimDeltaAngle);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimDeltaAngle(bool bValue)
 {
-    if (bValue)
-        mBitFlags |= kDimDeltaAngle;
-    else
-        mBitFlags &= ~kDimDeltaAngle;
-    return Acad::eOk;
+  if (bValue)
+  {
+    mBitFlags |= kDimDeltaAngle;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimDeltaAngle;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isDimRadius() const
 {
-    return !!(mBitFlags & kDimRadius);
+  return !!(mBitFlags & kDimRadius);
 }
 inline Acad::ErrorStatus AcDbDimData::setDimRadius(bool bValue)
 {
-    if (bValue)
-        mBitFlags |= kDimRadius;
-    else
-        mBitFlags &= ~kDimRadius;
-    return Acad::eOk;
+  if (bValue)
+  {
+    mBitFlags |= kDimRadius;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimRadius;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isCustomDimValue() const
 {
-    return !!(mBitFlags & kDimCustomValue);
+  return !!(mBitFlags & kDimCustomValue);
 }
 inline Acad::ErrorStatus AcDbDimData::setCustomDimValue(bool custom)
 {
-    if (custom)
-        mBitFlags |= kDimCustomValue;
-    else
-        mBitFlags &= ~kDimCustomValue;
-    return Acad::eOk;
+  if (custom)
+  {
+    mBitFlags |= kDimCustomValue;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimCustomValue;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isConstrained() const
 {
-    return !!(mBitFlags & kDimConstrained);
+  return !!(mBitFlags & kDimConstrained);
 }
 inline Acad::ErrorStatus AcDbDimData::setConstrain(bool bValue)
 {
-    if (bValue)
-        mBitFlags |= kDimConstrained;
-    else
-        mBitFlags &= ~kDimConstrained;
-    return Acad::eOk;
+  if (bValue)
+  {
+    mBitFlags |= kDimConstrained;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimConstrained;
+  }
+  return Acad::eOk;
 }
 inline bool AcDbDimData::isCustomString() const
 {
-    return !!(mBitFlags & kDimCustomString);
+  return !!(mBitFlags & kDimCustomString);
 }
 inline Acad::ErrorStatus AcDbDimData::setCustomString(bool bValue)
 {
-    if (bValue)
-        mBitFlags |= kDimCustomString;
-    else
-        mBitFlags &= ~kDimCustomString;
-    return Acad::eOk;
+  if (bValue)
+  {
+    mBitFlags |= kDimCustomString;
+  }
+  else 
+  {
+    mBitFlags &= ~kDimCustomString;
+  }
+  return Acad::eOk;
 }
 inline void* AcDbDimData::appData() const
 {
-    return mpAppData;
+  return mpAppData;
 }
 inline Acad::ErrorStatus AcDbDimData::setAppData(void* appData)
 {
-    mpAppData = appData;
-    return Acad::eOk;
+  mpAppData = appData;
+  return Acad::eOk;
 }
 inline DimDataSetValueFuncPtr AcDbDimData::dimValueFunc() const
 {
-    return mpSetDimValueFunc;
+  return mpSetDimValueFunc;
 }
 inline Acad::ErrorStatus AcDbDimData::setDimValueFunc(DimDataSetValueFuncPtr funcPtr)
 {
-    mpSetDimValueFunc = funcPtr;
-    return Acad::eOk;
+  mpSetDimValueFunc = funcPtr;
+  return Acad::eOk;
 }
 inline DimDataSetCustomStringFuncPtr AcDbDimData::customStringFunc() const
 {
-    return mpSetCustomStringFunc;
+  return mpSetCustomStringFunc;
 }
 inline Acad::ErrorStatus AcDbDimData::setCustomStringFunc(DimDataSetCustomStringFuncPtr funcPtr)
 {
-    mpSetCustomStringFunc = funcPtr;
-    return Acad::eOk;
+  mpSetCustomStringFunc = funcPtr;
+  return Acad::eOk;
 }
 #endif

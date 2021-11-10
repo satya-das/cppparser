@@ -23,37 +23,35 @@ class wxPersistentBookCtrl : public wxPersistentWindow<wxBookCtrlBase>
 {
 public:
   wxPersistentBookCtrl(wxBookCtrlBase* book)
-    :  wxPersistentWindow<wxBookCtrlBase>(book)
+    : wxPersistentWindow<wxBookCtrlBase>(book)
   {
-
   }
   void Save() const override
   {
-        SaveValue(wxPERSIST_BOOK_SELECTION, Get()->GetSelection());
+    SaveValue(wxPERSIST_BOOK_SELECTION, Get()->GetSelection());
   }
   bool Restore() override
   {
-        long sel;
-        if ( RestoreValue(wxPERSIST_BOOK_SELECTION, &sel) )
-        {
-            wxBookCtrlBase * const book = Get();
-            if ( sel >= 0 && (unsigned)sel < book->GetPageCount() )
-            {
-                book->SetSelection(sel);
-                return true;
-            }
-        }
-
-        return false;
+    long sel;
+    if (RestoreValue(wxPERSIST_BOOK_SELECTION, &sel))
+    {
+      wxBookCtrlBase* const book = Get();
+      if (sel >= 0 && (unsigned) sel < book->GetPageCount())
+      {
+        book->SetSelection(sel);
+        return true;
+      }
+    }
+    return false;
   }
   wxString GetKind() const override
   {
- return wxPERSIST_BOOK_KIND;
+    return wxPERSIST_BOOK_KIND;
   }
 };
 inline wxPersistentObject* wxCreatePersistentObject(wxBookCtrlBase* book)
 {
-    return new wxPersistentBookCtrl(book);
+  return new wxPersistentBookCtrl(book);
 }
 #  endif
 #endif

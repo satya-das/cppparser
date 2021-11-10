@@ -16,23 +16,22 @@ class WXDLLIMPEXP_CORE wxControl : public wxControlBase
 public:
   wxControl()
   {
-
   }
   wxControl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr))
   {
-        Create(parent, id, pos, size, style, validator, name);
+    Create(parent, id, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
     // Simulates an event
   void Command(wxCommandEvent& event) override
   {
- ProcessCommand(event);
+    ProcessCommand(event);
   }
     // implementation from now on
     // --------------------------
   wxVisualAttributes GetDefaultAttributes() const override
   {
-        return GetClassDefaultAttributes(GetWindowVariant());
+    return GetClassDefaultAttributes(GetWindowVariant());
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // Calls the callback and appropriate event handlers
@@ -42,15 +41,15 @@ public:
     // For ownerdraw items
   virtual bool MSWOnDraw(WXDRAWITEMSTRUCT*)
   {
- return false;
+    return false;
   }
   virtual bool MSWOnMeasure(WXMEASUREITEMSTRUCT*)
   {
- return false;
+    return false;
   }
   const wxArrayLong& GetSubcontrols() const
   {
- return m_subControls;
+    return m_subControls;
   }
     // default handling of WM_CTLCOLORxxx: this is public so that wxWindow
     // could call it
@@ -64,7 +63,7 @@ protected:
     // display properties in the control panel, so avoid doing this for them.
   virtual bool MSWShouldSetDefaultFont() const
   {
- return true;
+    return true;
   }
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override;
@@ -102,6 +101,7 @@ protected:
     // for controls like radiobuttons which are really composite this array
     // holds the ids (not HWNDs!) of the sub controls
   wxArrayLong m_subControls;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxControl);
 };
 #endif

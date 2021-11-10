@@ -18,13 +18,12 @@ public:
     // construction
   wxTopLevelWindowGTK()
   {
- Init();
+    Init();
   }
   wxTopLevelWindowGTK(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        Create(parent, id, title, pos, size, style, name);
+    Init();
+    Create(parent, id, title, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxTopLevelWindowGTK();
@@ -40,7 +39,7 @@ public:
   bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL) override;
   bool IsFullScreen() const override
   {
- return m_fsIsShowing;
+    return m_fsIsShowing;
   }
   void RequestUserAttention(int flags = wxUSER_ATTENTION_INFO) override;
   void SetWindowStyleFlag(long style) override;
@@ -50,15 +49,15 @@ public:
   void SetTitle(const wxString& title) override;
   wxString GetTitle() const override
   {
- return m_title;
+    return m_title;
   }
   void SetLabel(const wxString& label) override
   {
- SetTitle( label );
+    SetTitle(label);
   }
   wxString GetLabel() const override
   {
- return GetTitle();
+    return GetTitle();
   }
   wxVisualAttributes GetDefaultAttributes() const override;
   bool SetTransparent(wxByte alpha) override;
@@ -88,10 +87,7 @@ public:
   {
     DecorSize()
     {
-            left =
-            right =
-            top =
-            bottom = 0;
+      left = right = top = bottom = 0;
     }
     int left, right, top, bottom;
   };

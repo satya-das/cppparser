@@ -16,7 +16,6 @@ class WXDLLIMPEXP_CORE wxTextEntry : public wxTextEntryBase
 public:
   wxTextEntry()
   {
-
   }
     // implement wxTextEntryBase pure virtual methods
   virtual void WriteText(const wxString& text);

@@ -19,7 +19,7 @@ public:
   wxSlider();
   wxSlider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr))
   {
-        Create(parent, id, value, minValue, maxValue, pos, size, style, validator, name);
+    Create(parent, id, value, minValue, maxValue, pos, size, style, validator, name);
   }
   virtual ~wxSlider();
   bool Create(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr));
@@ -28,24 +28,24 @@ public:
   void SetRange(int minValue, int maxValue) override;
   int GetMin() const override
   {
- return m_rangeMin;
+    return m_rangeMin;
   }
   int GetMax() const override
   {
- return m_rangeMax;
+    return m_rangeMax;
   }
   void SetMin(int minValue)
   {
- SetRange(minValue, m_rangeMax);
+    SetRange(minValue, m_rangeMax);
   }
   void SetMax(int maxValue)
   {
- SetRange(m_rangeMin, maxValue);
+    SetRange(m_rangeMin, maxValue);
   }
     // For trackbars only
   int GetTickFreq() const override
   {
- return m_tickFreq;
+    return m_tickFreq;
   }
   void SetPageSize(int pageSize) override;
   int GetPageSize() const override;
@@ -83,11 +83,11 @@ protected:
 private:
   wxWindowList GetCompositeWindowParts() const override
   {
-        wxWindowList parts;
-        parts.push_back(m_macMinimumStatic);
-        parts.push_back(m_macMaximumStatic);
-        parts.push_back(m_macValueStatic);
-        return parts;
+    wxWindowList parts;
+    parts.push_back(m_macMinimumStatic);
+    parts.push_back(m_macMaximumStatic);
+    parts.push_back(m_macValueStatic);
+    return parts;
   }
   wxDECLARE_EVENT_TABLE();
 };

@@ -29,13 +29,13 @@ public:
   sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*) const override;
   bool onIsTextureBacked() const override
   {
- return fProxies[0] || fRGBProxy;
+    return fProxies[0] || fRGBProxy;
   }
   sk_sp<SkImage> onMakeColorTypeAndColorSpace(GrRecordingContext*, SkColorType, sk_sp<SkColorSpace>) const final;
   sk_sp<SkImage> onReinterpretColorSpace(sk_sp<SkColorSpace>) const final;
   bool isYUVA() const override
   {
- return true;
+    return true;
   }
   bool setupMipmapsForPlanes(GrRecordingContext*) const;
     // Returns a ref-ed texture proxy with miplevels
@@ -44,8 +44,8 @@ public:
   bool testingOnly_IsFlattened() const
   {
         // We should only have the flattened proxy or the planar proxies at one point in time.
-        SkASSERT(SkToBool(fRGBProxy) != SkToBool(fProxies[0]));
-        return SkToBool(fRGBProxy);
+    SkASSERT(SkToBool(fRGBProxy) != SkToBool(fProxies[0]));
+    return SkToBool(fRGBProxy);
   }
 #  endif
     /**

@@ -25,14 +25,14 @@ class WXDLLIMPEXP_CORE wxMenu : public wxMenuBase
 public:
     // ctors & dtor
   wxMenu(const wxString& title, long style = 0)
-    :  wxMenuBase(title, style)
+    : wxMenuBase(title, style)
   {
- Init();
+    Init();
   }
   wxMenu(long style = 0)
-    :  wxMenuBase(style)
+    : wxMenuBase(style)
   {
- Init();
+    Init();
   }
   virtual ~wxMenu();
   void Break() override;
@@ -44,13 +44,15 @@ public:
     // menu handle and will delete it when this object is destroyed.
   static wxMenu* MSWNewFromHMENU(WXHMENU hMenu)
   {
- return new wxMenu(hMenu);
+    return new wxMenu(hMenu);
   }
     // Detaches HMENU so that it isn't deleted when this object is destroyed.
     // Don't use this object after calling this method.
   WXHMENU MSWDetachHMENU()
   {
- WXHMENU m = m_hMenu; m_hMenu = NULL; return m;
+    WXHMENU m = m_hMenu;
+    m_hMenu = NULL;
+    return m;
   }
     // implementation only from now on
     // -------------------------------
@@ -58,7 +60,7 @@ public:
     // get the native menu handle
   WXHMENU GetHMenu() const
   {
- return m_hMenu;
+    return m_hMenu;
   }
     // Return the start and end position of the radio group to which the item
     // at the given position belongs. Returns false if there is no radio group
@@ -68,11 +70,11 @@ public:
     // called by wxMenuBar to build its accel table from the accels of all menus
   bool HasAccels() const
   {
- return !m_accels.empty();
+    return !m_accels.empty();
   }
   size_t GetAccelCount() const
   {
- return m_accels.size();
+    return m_accels.size();
   }
   size_t CopyAccels(wxAcceleratorEntry* accels) const;
     // called by wxMenuItem when its accels changes
@@ -90,13 +92,15 @@ public:
 #  if  wxUSE_OWNER_DRAWN
   int GetMaxAccelWidth()
   {
-        if (m_maxAccelWidth == -1)
-            CalculateMaxAccelWidth();
-        return m_maxAccelWidth;
+    if (m_maxAccelWidth == -1)
+    {
+      CalculateMaxAccelWidth();
+    }
+    return m_maxAccelWidth;
   }
   void ResetMaxAccelWidth()
   {
-        m_maxAccelWidth = -1;
+    m_maxAccelWidth = -1;
   }
 private:
   void CalculateMaxAccelWidth();
@@ -173,7 +177,7 @@ public:
         // get the menu handle
   WXHMENU GetHMenu() const
   {
- return m_hMenu;
+    return m_hMenu;
   }
     // if the menubar is modified, the display is not updated automatically,
     // call this function to update it (m_menuBarFrame should be !NULL)
@@ -181,7 +185,7 @@ public:
     // To avoid compile warning
   void Refresh(bool eraseBackground, const wxRect* rect = (const wxRect*) NULL) override
   {
- wxWindow::Refresh(eraseBackground, rect);
+    wxWindow::Refresh(eraseBackground, rect);
   }
     // Get a top level menu position or wxNOT_FOUND from its handle.
   int MSWGetTopMenuPos(WXHMENU hMenu) const;
@@ -194,6 +198,7 @@ protected:
     // Return the MSW position for a wxMenu which is sometimes different from
     // the wxWidgets position.
   int MSWPositionForWxMenu(wxMenu* menu, int wxpos);
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxMenuBar);
 };
 #endif

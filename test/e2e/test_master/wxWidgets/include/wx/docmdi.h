@@ -25,16 +25,14 @@ class WXDLLIMPEXP_CORE wxDocMDIParentFrame : public wxDocMDIParentFrameBase
 {
 public:
   wxDocMDIParentFrame()
-    :  wxDocMDIParentFrameBase()
+    : wxDocMDIParentFrameBase()
   {
-
   }
   wxDocMDIParentFrame(wxDocManager* manager, wxFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
-    :  wxDocMDIParentFrameBase(manager,
-                                  parent, id, title, pos, size, style, name)
+    : wxDocMDIParentFrameBase(manager, parent, id, title, pos, size, style, name)
   {
-
   }
+private:
   wxDECLARE_CLASS(wxDocMDIParentFrame);
   wxDECLARE_NO_COPY_CLASS(wxDocMDIParentFrame);
 };
@@ -47,14 +45,12 @@ class WXDLLIMPEXP_CORE wxDocMDIChildFrame : public wxDocMDIChildFrameBase
 public:
   wxDocMDIChildFrame()
   {
-
   }
   wxDocMDIChildFrame(wxDocument* doc, wxView* view, wxMDIParentFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
-    :  wxDocMDIChildFrameBase(doc, view,
-                                 parent, id, title, pos, size, style, name)
+    : wxDocMDIChildFrameBase(doc, view, parent, id, title, pos, size, style, name)
   {
-
   }
+private:
   wxDECLARE_CLASS(wxDocMDIChildFrame);
   wxDECLARE_NO_COPY_CLASS(wxDocMDIChildFrame);
 };

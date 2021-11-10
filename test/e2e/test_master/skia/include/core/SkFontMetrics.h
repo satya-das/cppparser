@@ -49,11 +49,12 @@ struct SK_API SkFontMetrics
      */
   bool hasUnderlineThickness(SkScalar* thickness) const
   {
-        if (SkToBool(fFlags & kUnderlineThicknessIsValid_Flag)) {
-            *thickness = fUnderlineThickness;
-            return true;
-        }
-        return false;
+    if (SkToBool(fFlags & kUnderlineThicknessIsValid_Flag))
+    {
+      *thickness = fUnderlineThickness;
+      return true;
+    }
+    return false;
   }
     /** Returns true if SkFontMetrics has a valid underline position, and sets
      position to that value. If the underline position is not valid,
@@ -64,11 +65,12 @@ struct SK_API SkFontMetrics
      */
   bool hasUnderlinePosition(SkScalar* position) const
   {
-        if (SkToBool(fFlags & kUnderlinePositionIsValid_Flag)) {
-            *position = fUnderlinePosition;
-            return true;
-        }
-        return false;
+    if (SkToBool(fFlags & kUnderlinePositionIsValid_Flag))
+    {
+      *position = fUnderlinePosition;
+      return true;
+    }
+    return false;
   }
     /** Returns true if SkFontMetrics has a valid strikeout thickness, and sets
      thickness to that value. If the underline thickness is not valid,
@@ -79,11 +81,12 @@ struct SK_API SkFontMetrics
      */
   bool hasStrikeoutThickness(SkScalar* thickness) const
   {
-        if (SkToBool(fFlags & kStrikeoutThicknessIsValid_Flag)) {
-            *thickness = fStrikeoutThickness;
-            return true;
-        }
-        return false;
+    if (SkToBool(fFlags & kStrikeoutThicknessIsValid_Flag))
+    {
+      *thickness = fStrikeoutThickness;
+      return true;
+    }
+    return false;
   }
     /** Returns true if SkFontMetrics has a valid strikeout position, and sets
      position to that value. If the underline position is not valid,
@@ -94,11 +97,12 @@ struct SK_API SkFontMetrics
      */
   bool hasStrikeoutPosition(SkScalar* position) const
   {
-        if (SkToBool(fFlags & kStrikeoutPositionIsValid_Flag)) {
-            *position = fStrikeoutPosition;
-            return true;
-        }
-        return false;
+    if (SkToBool(fFlags & kStrikeoutPositionIsValid_Flag))
+    {
+      *position = fStrikeoutPosition;
+      return true;
+    }
+    return false;
   }
 };
 #endif

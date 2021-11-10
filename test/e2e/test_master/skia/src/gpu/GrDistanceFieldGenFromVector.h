@@ -24,7 +24,6 @@ class SkMatrix;
 bool GrGenerateDistanceFieldFromPath(unsigned char* distanceField, const SkPath& path, const SkMatrix& viewMatrix, int width, int height, size_t rowBytes);
 inline bool IsDistanceFieldSupportedFillType(SkPath::FillType fFillType)
 {
-    return (SkPath::kEvenOdd_FillType == fFillType ||
-            SkPath::kInverseEvenOdd_FillType == fFillType);
+  return (SkPath::kEvenOdd_FillType == fFillType || SkPath::kInverseEvenOdd_FillType == fFillType);
 }
 #endif

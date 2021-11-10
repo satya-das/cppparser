@@ -17,11 +17,10 @@ class WXDLLIMPEXP_CORE wxGauge : public wxGaugeBase
 public:
   wxGauge()
   {
-
   }
   wxGauge(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr))
   {
-        (void)Create(parent, id, range, pos, size, style, validator, name);
+    (void) Create(parent, id, range, pos, size, style, validator, name);
   }
   virtual ~wxGauge();
   bool Create(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr));
@@ -36,7 +35,7 @@ public:
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
   {
- return false;
+    return false;
   }
 protected:
   wxSize DoGetBestSize() const override;

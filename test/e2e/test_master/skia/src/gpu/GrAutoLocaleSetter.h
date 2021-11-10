@@ -35,45 +35,54 @@ class GrAutoLocaleSetter : public SkNoncopyable
 public:
   GrAutoLocaleSetter(const char* name)
   {
-#if defined(SK_BUILD_FOR_WIN)
-        fOldPerThreadLocale = _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
-        char* oldLocale = setlocale(LC_ALL, name);
-        if (oldLocale) {
-            fOldLocale = oldLocale;
-            fShouldRestoreLocale = true;
-        } else {
-            fShouldRestoreLocale = false;
-        }
-#elif HAVE_LOCALE_T
-#if HAVE_XLOCALE
+#  if  defined(SK_BUILD_FOR_WIN)
+    fOldPerThreadLocale = _configthreadlocale(_ENABLE_PER_THREAD_LOCALE);
+    char* oldLocale = setlocale(LC_ALL, name);
+    if (oldLocale)
+    {
+      fOldLocale = oldLocale;
+      fShouldRestoreLocale = true;
+    }
+    else 
+    {
+      fShouldRestoreLocale = false;
+    }
+#  elif  HAVE_LOCALE_T
+#    if  HAVE_XLOCALE
         // In xlocale nullptr means the C locale.
-        if (0 == strcmp(name, "C")) {
-            name = nullptr;
-        }
-#endif
-        fLocale = newlocale(LC_ALL_MASK, name, nullptr);
-        if (fLocale) {
-            fOldLocale = uselocale(fLocale);
-        } else {
-            fOldLocale = static_cast<locale_t>(nullptr);
-        }
-#else
-        (void) name; // suppress unused param warning.
-#endif
+    if (0 == strcmp(name, "C"))
+    {
+      name = nullptr;
+    }
+#    endif
+    fLocale = newlocale(LC_ALL_MASK, name, nullptr);
+    if (fLocale)
+    {
+      fOldLocale = uselocale(fLocale);
+    }
+    else 
+    {
+      fOldLocale = static_cast<locale_t>(nullptr);
+    }
+#  else 
+    (void) name;
+#  endif
   }
   ~GrAutoLocaleSetter()
   {
-#if defined(SK_BUILD_FOR_WIN)
-        if (fShouldRestoreLocale) {
-            setlocale(LC_ALL, fOldLocale.c_str());
-        }
-        _configthreadlocale(fOldPerThreadLocale);
-#elif HAVE_LOCALE_T
-        if (fLocale) {
-             uselocale(fOldLocale);
-             freelocale(fLocale);
-        }
-#endif
+#  if  defined(SK_BUILD_FOR_WIN)
+    if (fShouldRestoreLocale)
+    {
+      setlocale(LC_ALL, fOldLocale.c_str());
+    }
+    _configthreadlocale(fOldPerThreadLocale);
+#  elif  HAVE_LOCALE_T
+    if (fLocale)
+    {
+      uselocale(fOldLocale);
+      freelocale(fLocale);
+    }
+#  endif
   }
 #  if  defined(SK_BUILD_FOR_WIN)
 private:

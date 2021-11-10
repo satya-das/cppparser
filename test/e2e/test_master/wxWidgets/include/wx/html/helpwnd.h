@@ -69,18 +69,18 @@ class WXDLLIMPEXP_HTML wxHtmlHelpWindow : public wxWindow
 public:
   wxHtmlHelpWindow(wxHtmlHelpData* data = NULL)
   {
- Init(data);
+    Init(data);
   }
   wxHtmlHelpWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int style = wxTAB_TRAVERSAL | wxNO_BORDER, int helpStyle = wxHF_DEFAULT_STYLE, wxHtmlHelpData* data = NULL);
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int style = wxTAB_TRAVERSAL | wxNO_BORDER, int helpStyle = wxHF_DEFAULT_STYLE);
   virtual ~wxHtmlHelpWindow();
   wxHtmlHelpData* GetData()
   {
- return m_Data;
+    return m_Data;
   }
   wxHtmlHelpController* GetController() const
   {
- return m_helpController;
+    return m_helpController;
   }
   void SetController(wxHtmlHelpController* controller);
     // Displays page x. If not found it will offect the user a choice of
@@ -107,19 +107,13 @@ public:
     //   (+ : page must contain the word ; - : page can't contain the word)
     // * if there is no + or - before the word, + is default
   bool KeywordSearch(const wxString& keyword, wxHelpSearchMode mode = wxHELP_SEARCH_ALL);
-#    if  wxUSE_CONFIG
-  void UseConfig(wxConfigBase* config, const wxString& rootpath = wxEmptyString)
-  {
-            m_Config = config;
-            m_ConfigRoot = rootpath;
-            ReadCustomization(config, rootpath);
-  }
     // Saves custom settings into cfg config. it will use the path 'path'
     // if given, otherwise it will save info into currently selected path.
     // saved values : things set by SetFonts, SetBorders.
-  void ReadCustomization(wxConfigBase* cfg, const wxString& path = wxEmptyString);
-  void WriteCustomization(wxConfigBase* cfg, const wxString& path = wxEmptyString);
-#    endif
+    void ReadCustomization(wxConfigBase *cfg, const wxString& path = wxEmptyString);
+    void WriteCustomization(wxConfigBase *cfg, const wxString& path = wxEmptyString);
+#endif // wxUSE_CONFIG
+
     // call this to let wxHtmlHelpWindow know page changed
   void NotifyPageChanged();
     // Refreshes Contents and Index tabs
@@ -127,27 +121,27 @@ public:
     // Gets the HTML window
   wxHtmlWindow* GetHtmlWindow() const
   {
- return m_HtmlWin;
+    return m_HtmlWin;
   }
     // Gets the splitter window
   wxSplitterWindow* GetSplitterWindow() const
   {
- return m_Splitter;
+    return m_Splitter;
   }
     // Gets the toolbar
   wxToolBar* GetToolBar() const
   {
- return m_toolBar;
+    return m_toolBar;
   }
     // Gets the configuration data
   wxHtmlHelpFrameCfg& GetCfgData()
   {
- return m_Cfg;
+    return m_Cfg;
   }
     // Gets the tree control
   wxTreeCtrl* GetTreeCtrl() const
   {
- return m_ContentsBox;
+    return m_ContentsBox;
   }
 protected:
   void Init(wxHtmlHelpData* data = NULL);
@@ -203,10 +197,6 @@ protected:
   wxComboBox* m_Bookmarks;
   wxArrayString m_BookmarksNames, m_BookmarksPages;
   wxHtmlHelpFrameCfg m_Cfg;
-#    if  wxUSE_CONFIG
-  wxConfigBase* m_Config;
-  wxString m_ConfigRoot;
-#    endif
     // pagenumbers of controls in notebook (usually 0,1,2)
   int m_ContentsPage;
   int m_IndexPage;

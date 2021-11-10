@@ -32,7 +32,7 @@ public:
     // DEPRECATED. skbug.com/8941
   bool asColorMode(SkColor* color, SkBlendMode* mode) const
   {
-        return this->onAsAColorMode(color, mode);
+    return this->onAsAColorMode(color, mode);
   }
     /** If the filter can be represented by a source color plus Mode, this
      *  returns true, and sets (if not NULL) the color and mode appropriately.
@@ -40,7 +40,7 @@ public:
      */
   bool asAColorMode(SkColor* color, SkBlendMode* mode) const
   {
-        return this->onAsAColorMode(color, mode);
+    return this->onAsAColorMode(color, mode);
   }
     /** If the filter can be represented by a 5x4 matrix, this
      *  returns true, and sets the matrix appropriately.
@@ -48,7 +48,7 @@ public:
      */
   bool asAColorMatrix(float matrix[20]) const
   {
-        return this->onAsAColorMatrix(matrix);
+    return this->onAsAColorMatrix(matrix);
   }
   bool appendStages(const SkStageRec& rec, bool shaderIsOpaque) const;
   enum Flags {
@@ -60,7 +60,7 @@ public:
     */
   virtual uint32_t getFlags() const
   {
- return 0;
+    return 0;
   }
   SkColor filterColor(SkColor) const;
     /**
@@ -91,22 +91,20 @@ public:
 #  endif
   bool affectsTransparentBlack() const
   {
-        return this->filterColor(SK_ColorTRANSPARENT) != SK_ColorTRANSPARENT;
+    return this->filterColor(SK_ColorTRANSPARENT) != SK_ColorTRANSPARENT;
   }
   static void RegisterFlattenables();
   static SkFlattenable::Type GetFlattenableType()
   {
-        return kSkColorFilter_Type;
+    return kSkColorFilter_Type;
   }
   SkFlattenable::Type getFlattenableType() const override
   {
-        return kSkColorFilter_Type;
+    return kSkColorFilter_Type;
   }
   static sk_sp<SkColorFilter> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
-        return sk_sp<SkColorFilter>(static_cast<SkColorFilter*>(
-                                  SkFlattenable::Deserialize(
-                                  kSkColorFilter_Type, data, size, procs).release()));
+    return sk_sp<SkColorFilter>(static_cast<SkColorFilter*>(SkFlattenable::Deserialize(kSkColorFilter_Type, data, size, procs).release()));
   }
 protected:
   SkColorFilter()
@@ -124,7 +122,7 @@ private:
      */
   virtual int privateComposedFilterCount() const
   {
- return 1;
+    return 1;
   }
   virtual bool onAppendStages(const SkStageRec& rec, bool shaderIsOpaque) const = 0;
   friend class SkComposeColorFilter;
@@ -135,7 +133,7 @@ class SK_API SkColorFilters
 public:
   static sk_sp<SkColorFilter> Compose(sk_sp<SkColorFilter> outer, sk_sp<SkColorFilter> inner)
   {
-        return outer ? outer->makeComposed(inner) : inner;
+    return outer ? outer->makeComposed(inner) : inner;
   }
   static sk_sp<SkColorFilter> Blend(SkColor c, SkBlendMode mode);
   static sk_sp<SkColorFilter> Matrix(const SkColorMatrix&);

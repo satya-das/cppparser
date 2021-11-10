@@ -26,7 +26,7 @@ public:
   wxWebViewWebKit();
   wxWebViewWebKit(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr))
   {
-        Create(parent, id, url, pos, size, style, name);
+    Create(parent, id, url, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override;
   virtual ~wxWebViewWebKit();
@@ -89,11 +89,11 @@ public:
   void RegisterHandler(wxSharedPtr<wxWebViewHandler> handler) override;
   virtual wxVector<wxSharedPtr<wxWebViewHandler> > GetHandlers()
   {
- return m_handlerList;
+    return m_handlerList;
   }
   void* GetNativeBackend() const override
   {
- return m_web_view;
+    return m_web_view;
   }
     /** TODO: check if this can be made private
      * The native control has a getter to check for busy state, but except in
@@ -147,11 +147,11 @@ class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryWebKit : public wxWebViewFactory
 public:
   wxWebView* Create() override
   {
- return new wxWebViewWebKit;
+    return new wxWebViewWebKit;
   }
   wxWebView* Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override
   {
- return new wxWebViewWebKit(parent, id, url, pos, size, style, name);
+    return new wxWebViewWebKit(parent, id, url, pos, size, style, name);
   }
 };
 #  endif

@@ -29,14 +29,14 @@ protected:
   Result onGetPixels(const SkImageInfo& dstInfo, void* dst, size_t dstRowBytes, const Options& options, int* rowsDecoded) override;
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
-        return SkEncodedImageFormat::kHEIF;
+    return SkEncodedImageFormat::kHEIF;
   }
   int onGetFrameCount() override;
   bool onGetFrameInfo(int, FrameInfo*) const override;
   int onGetRepetitionCount() override;
   const SkFrameHolder* getFrameHolder() const override
   {
-        return &fFrameHolder;
+    return &fFrameHolder;
   }
   bool conversionSupported(const SkImageInfo&, bool, bool) override;
   bool onRewind() override;
@@ -67,13 +67,13 @@ private:
   {
   public:
     Frame(int i)
-      :  INHERITED(i)
+      : INHERITED(i)
     {
     }
   protected:
     SkEncodedInfo::Alpha onReportedAlpha() const override
     {
-            return SkEncodedInfo::Alpha::kOpaque_Alpha;
+      return SkEncodedInfo::Alpha::kOpaque_Alpha;
     }
   private:
     typedef SkFrame INHERITED;
@@ -86,19 +86,19 @@ private:
     }
     void setScreenSize(int w, int h)
     {
-            fScreenWidth = w;
-            fScreenHeight = h;
+      fScreenWidth = w;
+      fScreenHeight = h;
     }
     Frame* appendNewFrame();
     const Frame* frame(int i) const;
     Frame* editFrameAt(int i);
     int size() const
     {
-            return static_cast<int>(fFrames.size());
+      return static_cast<int>(fFrames.size());
     }
     void reserve(int size)
     {
-            fFrames.reserve(size);
+      fFrames.reserve(size);
     }
   protected:
     const SkFrame* onGetFrame(int i) const override;

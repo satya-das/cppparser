@@ -9,7 +9,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef _WX_OLEDROPTGT_H
 #  define _WX_OLEDROPTGT_H
-#  if  wxUSE_DRAG_AND_DROP
 // ----------------------------------------------------------------------------
 // forward declarations
 // ----------------------------------------------------------------------------
@@ -68,5 +67,4 @@ private:
   wxIDropTargetHelper* m_dropTargetHelper;
   wxDECLARE_NO_COPY_CLASS(wxDropTarget);
 };
-#  endif
 #endif

@@ -65,9 +65,7 @@
 #        define NSAppKitVersionNumber10_11	1404
 #      endif
 #    endif
-#    ifndef __WXOSX__
-#      define __WXOSX__	1
-#    endif
+#    define __WXOSX__	1
 #    ifndef __WXMAC__
 #      define __WXMAC__	1
 #    endif
@@ -115,17 +113,11 @@
     wxWidgets for compatibility.
  */
 #  if  defined(WXBUILDING) && defined(wxUSE_GUI) && !wxUSE_GUI
-#    ifdef __WXMSW__
-#      undef __WXMSW__
-#    endif
 #    ifdef __WXGTK__
 #      undef __WXGTK__
 #    endif
 #  endif
 #  if  (defined(__WXGTK__) || defined(__WXQT__)) && defined(__WINDOWS__)
-#    ifdef __WXMSW__
-#      undef __WXMSW__
-#    endif
 #  endif
 #  ifdef __ANDROID__
 #    define __WXANDROID__
@@ -183,18 +175,13 @@
 #    undef wxUSE_UNICODE
 #    define wxUSE_UNICODE	1
 #  else 
-#    ifndef wxUSE_UNICODE
-#      define wxUSE_UNICODE	0
-#    endif
 #  endif
 /* and vice versa: define UNICODE and _UNICODE if wxUSE_UNICODE is 1 */
-#  if  wxUSE_UNICODE
-#    ifndef _UNICODE
-#      define _UNICODE
-#    endif
-#    ifndef UNICODE
-#      define UNICODE
-#    endif
+#  ifndef _UNICODE
+#    define _UNICODE
+#  endif
+#  ifndef UNICODE
+#    define UNICODE
 #  endif
 /*
    OS: then test for generic Unix defines, then for particular flavours and
@@ -355,25 +342,9 @@
     for it.
  */
 #  if  defined(__WXOSX_COCOA__) || defined(__WXOSX_IPHONE__)
-#    ifndef __WXOSX__
-#      define __WXOSX__	1
-#    endif
+#    define __WXOSX__	1
 #    ifndef __WXMAC__
 #      define __WXMAC__	1
-#    endif
-#  endif
-#  ifdef __WXOSX__
-/* setup precise defines according to sdk used */
-#    include <TargetConditionals.h>
-#    if  defined(__WXOSX_IPHONE__)
-#      if  !( defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE )
-#      endif
-#    else 
-#      if  wxUSE_GUI && !defined(__WXOSX_COCOA__)
-#      endif
-#      if  !( defined(TARGET_OS_MAC) && TARGET_OS_MAC )
-#      endif
-#      define __WXOSX_MAC__	1
 #    endif
 #  endif
 #  ifdef __WXOSX_MAC__

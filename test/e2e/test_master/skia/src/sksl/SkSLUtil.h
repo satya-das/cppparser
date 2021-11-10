@@ -43,159 +43,159 @@ namespace SkSL
   public:
     GrGLSLGeneration generation() const
     {
-        return k400_GrGLSLGeneration;
+      return k400_GrGLSLGeneration;
     }
     bool atan2ImplementedAsAtanYOverX() const
     {
-        return false;
+      return false;
     }
     bool canUseMinAndAbsTogether() const
     {
-        return true;
+      return true;
     }
     bool mustForceNegatedAtanParamToFloat() const
     {
-        return false;
+      return false;
     }
     bool shaderDerivativeSupport() const
     {
-        return true;
+      return true;
     }
     bool usesPrecisionModifiers() const
     {
-        return true;
+      return true;
     }
     bool mustDeclareFragmentShaderOutput() const
     {
-        return true;
+      return true;
     }
     bool fbFetchSupport() const
     {
-        return true;
+      return true;
     }
     bool fbFetchNeedsCustomOutput() const
     {
-        return false;
+      return false;
     }
     bool flatInterpolationSupport() const
     {
-        return true;
+      return true;
     }
     bool noperspectiveInterpolationSupport() const
     {
-        return true;
+      return true;
     }
     bool multisampleInterpolationSupport() const
     {
-        return true;
+      return true;
     }
     bool sampleVariablesSupport() const
     {
-        return true;
+      return true;
     }
     bool externalTextureSupport() const
     {
-        return true;
+      return true;
     }
     bool mustDoOpBetweenFloorAndAbs() const
     {
-        return false;
+      return false;
     }
     bool mustEnableAdvBlendEqs() const
     {
-        return false;
+      return false;
     }
     bool mustEnableSpecificAdvBlendEqs() const
     {
-        return false;
+      return false;
     }
     bool canUseAnyFunctionInShader() const
     {
-        return false;
+      return false;
     }
     bool noDefaultPrecisionForExternalSamplers() const
     {
-        return false;
+      return false;
     }
     bool floatIs32Bits() const
     {
-        return true;
+      return true;
     }
     bool integerSupport() const
     {
-        return false;
+      return false;
     }
     bool builtinFMASupport() const
     {
-        return true;
+      return true;
     }
     const char* shaderDerivativeExtensionString() const
     {
-        return nullptr;
+      return nullptr;
     }
     const char* fragCoordConventionsExtensionString() const
     {
-        return nullptr;
+      return nullptr;
     }
     const char* geometryShaderExtensionString() const
     {
-        return nullptr;
+      return nullptr;
     }
     const char* gsInvocationsExtensionString() const
     {
-        return nullptr;
+      return nullptr;
     }
     const char* externalTextureExtensionString() const
     {
-        return nullptr;
+      return nullptr;
     }
     const char* secondExternalTextureExtensionString() const
     {
-        return nullptr;
+      return nullptr;
     }
     const char* versionDeclString() const
     {
-        return "";
+      return "";
     }
     bool gsInvocationsSupport() const
     {
-        return true;
+      return true;
     }
     bool canUseFractForNegativeValues() const
     {
-        return true;
+      return true;
     }
     bool canUseFragCoord() const
     {
-        return true;
+      return true;
     }
     bool incompleteShortIntPrecision() const
     {
-        return false;
+      return false;
     }
     bool addAndTrueToLoopCondition() const
     {
-        return false;
+      return false;
     }
     bool unfoldShortCircuitAsTernary() const
     {
-        return false;
+      return false;
     }
     bool emulateAbsIntFunction() const
     {
-        return false;
+      return false;
     }
     bool rewriteDoWhileLoops() const
     {
-        return false;
+      return false;
     }
     bool removePowWithConstantExponent() const
     {
-        return false;
+      return false;
     }
     const char* fbFetchColorName() const
     {
-        return nullptr;
+      return nullptr;
     }
   };
   extern StandaloneShaderCaps standaloneCaps;
@@ -207,168 +207,168 @@ namespace SkSL
   public:
     static sk_sp<GrShaderCaps> Default()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fShaderDerivativeSupport = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fShaderDerivativeSupport = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> Version450Core()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 450 core";
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 450 core";
+      return result;
     }
     static sk_sp<GrShaderCaps> Version110()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 110";
-        result->fGLSLGeneration = GrGLSLGeneration::k110_GrGLSLGeneration;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 110";
+      result->fGLSLGeneration = GrGLSLGeneration::k110_GrGLSLGeneration;
+      return result;
     }
     static sk_sp<GrShaderCaps> UsesPrecisionModifiers()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fUsesPrecisionModifiers = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fUsesPrecisionModifiers = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> CannotUseMinAndAbsTogether()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fCanUseMinAndAbsTogether = false;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fCanUseMinAndAbsTogether = false;
+      return result;
     }
     static sk_sp<GrShaderCaps> CannotUseFractForNegativeValues()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fCanUseFractForNegativeValues = false;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fCanUseFractForNegativeValues = false;
+      return result;
     }
     static sk_sp<GrShaderCaps> MustForceNegatedAtanParamToFloat()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fMustForceNegatedAtanParamToFloat = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fMustForceNegatedAtanParamToFloat = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> ShaderDerivativeExtensionString()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fShaderDerivativeSupport = true;
-        result->fShaderDerivativeExtensionString = "GL_OES_standard_derivatives";
-        result->fUsesPrecisionModifiers = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fShaderDerivativeSupport = true;
+      result->fShaderDerivativeExtensionString = "GL_OES_standard_derivatives";
+      result->fUsesPrecisionModifiers = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> FragCoordsOld()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 110";
-        result->fGLSLGeneration = GrGLSLGeneration::k110_GrGLSLGeneration;
-        result->fFragCoordConventionsExtensionString = "GL_ARB_fragment_coord_conventions";
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 110";
+      result->fGLSLGeneration = GrGLSLGeneration::k110_GrGLSLGeneration;
+      result->fFragCoordConventionsExtensionString = "GL_ARB_fragment_coord_conventions";
+      return result;
     }
     static sk_sp<GrShaderCaps> FragCoordsNew()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fFragCoordConventionsExtensionString = "GL_ARB_fragment_coord_conventions";
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fFragCoordConventionsExtensionString = "GL_ARB_fragment_coord_conventions";
+      return result;
     }
     static sk_sp<GrShaderCaps> GeometryShaderSupport()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fGeometryShaderSupport = true;
-        result->fGSInvocationsSupport = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fGeometryShaderSupport = true;
+      result->fGSInvocationsSupport = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> NoGSInvocationsSupport()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fGeometryShaderSupport = true;
-        result->fGSInvocationsSupport = false;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fGeometryShaderSupport = true;
+      result->fGSInvocationsSupport = false;
+      return result;
     }
     static sk_sp<GrShaderCaps> GeometryShaderExtensionString()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 310es";
-        result->fGeometryShaderSupport = true;
-        result->fGeometryShaderExtensionString = "GL_EXT_geometry_shader";
-        result->fGSInvocationsSupport = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 310es";
+      result->fGeometryShaderSupport = true;
+      result->fGeometryShaderExtensionString = "GL_EXT_geometry_shader";
+      result->fGSInvocationsSupport = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> GSInvocationsExtensionString()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fGeometryShaderSupport = true;
-        result->fGSInvocationsSupport = true;
-        result->fGSInvocationsExtensionString = "GL_ARB_gpu_shader5";
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fGeometryShaderSupport = true;
+      result->fGSInvocationsSupport = true;
+      result->fGSInvocationsExtensionString = "GL_ARB_gpu_shader5";
+      return result;
     }
     static sk_sp<GrShaderCaps> VariousCaps()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fExternalTextureSupport = true;
-        result->fFBFetchSupport = false;
-        result->fCanUseAnyFunctionInShader = false;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fExternalTextureSupport = true;
+      result->fFBFetchSupport = false;
+      result->fCanUseAnyFunctionInShader = false;
+      return result;
     }
     static sk_sp<GrShaderCaps> CannotUseFragCoord()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fCanUseFragCoord = false;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fCanUseFragCoord = false;
+      return result;
     }
     static sk_sp<GrShaderCaps> IncompleteShortIntPrecision()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 310es";
-        result->fUsesPrecisionModifiers = true;
-        result->fIncompleteShortIntPrecision = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 310es";
+      result->fUsesPrecisionModifiers = true;
+      result->fIncompleteShortIntPrecision = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> AddAndTrueToLoopCondition()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fAddAndTrueToLoopCondition = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fAddAndTrueToLoopCondition = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> UnfoldShortCircuitAsTernary()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fUnfoldShortCircuitAsTernary = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fUnfoldShortCircuitAsTernary = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> EmulateAbsIntFunction()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fEmulateAbsIntFunction = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fEmulateAbsIntFunction = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> RewriteDoWhileLoops()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fRewriteDoWhileLoops = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fRewriteDoWhileLoops = true;
+      return result;
     }
     static sk_sp<GrShaderCaps> RemovePowWithConstantExponent()
     {
-        sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
-        result->fVersionDeclString = "#version 400";
-        result->fRemovePowWithConstantExponent = true;
-        return result;
+      sk_sp<GrShaderCaps> result = sk_make_sp<GrShaderCaps>(GrContextOptions());
+      result->fVersionDeclString = "#version 400";
+      result->fRemovePowWithConstantExponent = true;
+      return result;
     }
   };
 #  endif

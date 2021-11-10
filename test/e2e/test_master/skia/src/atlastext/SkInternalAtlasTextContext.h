@@ -26,17 +26,17 @@ public:
   virtual ~SkInternalAtlasTextContext();
   SkAtlasTextRenderer* renderer() const
   {
- return fRenderer.get();
+    return fRenderer.get();
   }
   GrContext* grContext() const
   {
- return fGrContext.get();
+    return fGrContext.get();
   }
   GrStrikeCache* glyphCache();
   GrTextBlobCache* textBlobCache();
   const GrTokenTracker* tokenTracker() final
   {
- return &fTokenTracker;
+    return &fTokenTracker;
   }
   GrDeferredUploadToken addInlineUpload(GrDeferredTextureUploadFn&&) final;
   GrDeferredUploadToken addASAPUpload(GrDeferredTextureUploadFn&&) final;

@@ -21,7 +21,6 @@ class AcDbGeoDataReactor
 public:
   virtual ~AcDbGeoDataReactor()
   {
-
   }
     /// <summary>
     /// This method will be called when the coordinate system is about to change.
@@ -44,7 +43,7 @@ public:
     ///
   virtual Acad::ErrorStatus geoCoordinateSystemWillChange(AcDbDatabase*, const AcString&, const AcString&)
   {
-        return Acad::eOk;
+    return Acad::eOk;
   }
     /// <summary>
     /// This method will be called after the coordinate system has been changed.
@@ -64,7 +63,6 @@ public:
     ///
   virtual void geoCoordinateSystemChanged(AcDbDatabase*, const AcString&, const AcString&)
   {
-
   }
 };
 // AcDbGeoData Object

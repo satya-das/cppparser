@@ -24,47 +24,33 @@ namespace SkSL
   struct InterfaceBlock : public ProgramElement
   {
     InterfaceBlock(int offset, const Variable* var, String typeName, String instanceName, std::vector<std::unique_ptr<Expression>> sizes, std::shared_ptr<SymbolTable> typeOwner)
-      :  INHERITED(offset, kInterfaceBlock_Kind)
-    , fVariable(*var)
-    , fTypeName(std::move(typeName))
-    , fInstanceName(std::move(instanceName))
-    , fSizes(std::move(sizes))
-    , fTypeOwner(typeOwner)
+      : INHERITED(offset, kInterfaceBlock_Kind)
+      , fVariable(*var)
+      , fTypeName(std::move(typeName))
+      , fInstanceName(std::move(instanceName))
+      , fSizes(std::move(sizes))
+      , fTypeOwner(typeOwner)
     {
     }
     std::unique_ptr<ProgramElement> clone() const override
     {
-        std::vector<std::unique_ptr<Expression>> sizesClone;
-        for (const auto& s : fSizes) {
-            sizesClone.push_back(s->clone());
-        }
-        return std::unique_ptr<ProgramElement>(new InterfaceBlock(fOffset, &fVariable, fTypeName,
-                                                                  fInstanceName,
-                                                                  std::move(sizesClone),
-                                                                  fTypeOwner));
+      std::vector<std::unique_ptr<Expression>> sizesClone;
+      return std::unique_ptr<ProgramElement>(new InterfaceBlock(fOffset, &fVariable, fTypeName, fInstanceName, std::move(sizesClone), fTypeOwner));
     }
     String description() const override
     {
-        String result = fVariable.fModifiers.description() + fTypeName + " {\n";
-        const Type* structType = &fVariable.fType;
-        while (structType->kind() == Type::kArray_Kind) {
-            structType = &structType->componentType();
-        }
-        for (const auto& f : structType->fields()) {
-            result += f.description() + "\n";
-        }
-        result += "}";
-        if (fInstanceName.size()) {
-            result += " " + fInstanceName;
-            for (const auto& size : fSizes) {
-                result += "[";
-                if (size) {
-                    result += size->description();
-                }
-                result += "]";
-            }
-        }
-        return result + ";";
+      String result = fVariable.fModifiers.description() + fTypeName + " {\n";
+      const Type* structType = &fVariable.fType;
+      while (structType->kind() == Type::kArray_Kind)
+      {
+        structType = &structType->componentType();
+      }
+      result += "}";
+      if (fInstanceName.size())
+      {
+        result += " " + fInstanceName;
+      }
+      return result + ";";
     }
     const Variable& fVariable;
     const String fTypeName;

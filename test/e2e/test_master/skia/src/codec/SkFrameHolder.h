@@ -22,14 +22,14 @@ class SkFrame : public SkNoncopyable
 {
 public:
   SkFrame(int id)
-    :  fId(id)
-        , fHasAlpha(false)
-        , fRequiredFrame(kUninitialized)
-        , fDisposalMethod(SkCodecAnimation::DisposalMethod::kKeep)
-        , fDuration(0)
-        , fBlend(SkCodecAnimation::Blend::kPriorFrame)
+    : fId(id)
+    , fHasAlpha(false)
+    , fRequiredFrame(kUninitialized)
+    , fDisposalMethod(SkCodecAnimation::DisposalMethod::kKeep)
+    , fDuration(0)
+    , fBlend(SkCodecAnimation::Blend::kPriorFrame)
   {
-        fRect.setEmpty();
+    fRect.setEmpty();
   }
   virtual ~SkFrame()
   {
@@ -49,7 +49,7 @@ public:
      */
   int frameId() const
   {
- return fId;
+    return fId;
   }
     /**
      *  How this frame reports its alpha.
@@ -60,7 +60,7 @@ public:
      */
   SkEncodedInfo::Alpha reportedAlpha() const
   {
-        return this->onReportedAlpha();
+    return this->onReportedAlpha();
   }
     /**
      *  Cached value representing whether the frame has alpha,
@@ -68,14 +68,14 @@ public:
      */
   bool hasAlpha() const
   {
- return fHasAlpha;
+    return fHasAlpha;
   }
     /**
      *  Cache whether the finished frame has alpha.
      */
   void setHasAlpha(bool alpha)
   {
- fHasAlpha = alpha;
+    fHasAlpha = alpha;
   }
     /**
      *  Whether enough of the frame has been read to determine
@@ -83,7 +83,7 @@ public:
      */
   bool reachedStartOfData() const
   {
- return fRequiredFrame != kUninitialized;
+    return fRequiredFrame != kUninitialized;
   }
     /**
      *  The frame this one depends on.
@@ -92,75 +92,75 @@ public:
      */
   int getRequiredFrame() const
   {
-        SkASSERT(this->reachedStartOfData());
-        return fRequiredFrame;
+    SkASSERT(this->reachedStartOfData());
+    return fRequiredFrame;
   }
     /**
      *  Set the frame that this frame depends on.
      */
   void setRequiredFrame(int req)
   {
- fRequiredFrame = req;
+    fRequiredFrame = req;
   }
     /**
      *  Set the rectangle that is updated by this frame.
      */
   void setXYWH(int x, int y, int width, int height)
   {
-        fRect.setXYWH(x, y, width, height);
+    fRect.setXYWH(x, y, width, height);
   }
     /**
      *  The rectangle that is updated by this frame.
      */
   SkIRect frameRect() const
   {
- return fRect;
+    return fRect;
   }
   int xOffset() const
   {
- return fRect.x();
+    return fRect.x();
   }
   int yOffset() const
   {
- return fRect.y();
+    return fRect.y();
   }
   int width() const
   {
- return fRect.width();
+    return fRect.width();
   }
   int height() const
   {
- return fRect.height();
+    return fRect.height();
   }
   SkCodecAnimation::DisposalMethod getDisposalMethod() const
   {
-        return fDisposalMethod;
+    return fDisposalMethod;
   }
   void setDisposalMethod(SkCodecAnimation::DisposalMethod disposalMethod)
   {
-        fDisposalMethod = disposalMethod;
+    fDisposalMethod = disposalMethod;
   }
     /**
      * Set the duration (in ms) to show this frame.
      */
   void setDuration(int duration)
   {
-        fDuration = duration;
+    fDuration = duration;
   }
     /**
      *  Duration in ms to show this frame.
      */
   int getDuration() const
   {
-        return fDuration;
+    return fDuration;
   }
   void setBlend(SkCodecAnimation::Blend blend)
   {
-        fBlend = blend;
+    fBlend = blend;
   }
   SkCodecAnimation::Blend getBlend() const
   {
-        return fBlend;
+    return fBlend;
   }
 protected:
   virtual SkEncodedInfo::Alpha onReportedAlpha() const = 0;
@@ -182,8 +182,8 @@ class SkFrameHolder : public SkNoncopyable
 {
 public:
   SkFrameHolder()
-    :  fScreenWidth(0)
-        , fScreenHeight(0)
+    : fScreenWidth(0)
+    , fScreenHeight(0)
   {
   }
   virtual ~SkFrameHolder()
@@ -195,11 +195,11 @@ public:
      */
   int screenWidth() const
   {
- return fScreenWidth;
+    return fScreenWidth;
   }
   int screenHeight() const
   {
- return fScreenHeight;
+    return fScreenHeight;
   }
     /**
      *  Compute the opacity and required frame, based on
@@ -212,7 +212,7 @@ public:
      */
   const SkFrame* getFrame(int i) const
   {
-        return this->onGetFrame(i);
+    return this->onGetFrame(i);
   }
 protected:
   int fScreenWidth;

@@ -11,9 +11,7 @@
 #  include "wx/containr.h"
 #  include "wx/scrolwin.h"
 #  include "wx/textctrl.h"
-#  if  wxUSE_DRAG_AND_DROP
 class WXDLLIMPEXP_FWD_CORE wxDropTarget;
-#  endif
 //-----------------------------------------------------------------------------
 // internal classes
 //-----------------------------------------------------------------------------
@@ -27,14 +25,14 @@ class WXDLLIMPEXP_CORE wxGenericListCtrl : public wxNavigationEnabled<wxListCtrl
   typedef wxNavigationEnabled<wxListCtrlBase> BaseType;
 public:
   wxGenericListCtrl()
-    :  wxScrollHelper(this)
+    : wxScrollHelper(this)
   {
-        Init();
+    Init();
   }
   wxGenericListCtrl(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr))
-    :  wxScrollHelper(this)
+    : wxScrollHelper(this)
   {
-        Create(parent, winid, pos, size, style, validator, name);
+    Create(parent, winid, pos, size, style, validator, name);
   }
   virtual ~wxGenericListCtrl();
   void Init();
@@ -58,7 +56,7 @@ public:
   bool SetItemPtrData(long item, wxUIntPtr data);
   bool SetItemData(long item, long data)
   {
- return SetItemPtrData(item, data);
+    return SetItemPtrData(item, data);
   }
   bool GetItemRect(long item, wxRect& rect, int code = wxLIST_RECT_BOUNDS) const;
   bool GetSubItemRect(long item, long subItem, wxRect& rect, int code = wxLIST_RECT_BOUNDS) const;
@@ -105,7 +103,7 @@ public:
   bool IsVisible(long item) const override;
   void Edit(long item)
   {
- EditLabel(item);
+    EditLabel(item);
   }
   bool EnsureVisible(long item);
   long FindItem(long start, const wxString& str, bool partial = false);
@@ -121,7 +119,7 @@ public:
     // do we have a header window?
   bool HasHeader() const
   {
- return InReportView() && !HasFlag(wxLC_NO_HEADER);
+    return InReportView() && !HasFlag(wxLC_NO_HEADER);
   }
     // refresh items selectively (only useful for virtual list controls)
   void RefreshItem(long item);
@@ -131,7 +129,7 @@ public:
     // ------------------------------
   wxVisualAttributes GetDefaultAttributes() const override
   {
-        return GetClassDefaultAttributes(GetWindowVariant());
+    return GetClassDefaultAttributes(GetWindowVariant());
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
   void Update() override;
@@ -150,13 +148,11 @@ public:
   bool SetFont(const wxFont& font) override;
   bool SetCursor(const wxCursor& cursor) override;
   void ExtendRulesAndAlternateColour(bool extend = true) override;
-#  if  wxUSE_DRAG_AND_DROP
   void SetDropTarget(wxDropTarget* dropTarget) override;
   wxDropTarget* GetDropTarget() const override;
-#  endif
   bool ShouldInheritColours() const override
   {
- return false;
+    return false;
   }
     // implementation
     // --------------
@@ -200,9 +196,8 @@ public:
   {
   }
   wxListCtrl(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr))
-    :  wxGenericListCtrl(parent, winid, pos, size, style, validator, name)
+    : wxGenericListCtrl(parent, winid, pos, size, style, validator, name)
   {
-
   }
 };
 #  endif

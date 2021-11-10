@@ -73,21 +73,20 @@ public:
     */
   const SkFontMetrics& getFontMetrics() const
   {
-        return fFontMetrics;
+    return fFontMetrics;
   }
   SkMask::Format getMaskFormat() const
   {
-        return fScalerContext->getMaskFormat();
+    return fScalerContext->getMaskFormat();
   }
   bool isSubpixel() const
   {
-        return fIsSubpixel;
+    return fIsSubpixel;
   }
   SkVector rounding() const override;
   SkIPoint subpixelMask() const override
   {
-        return SkIPoint::Make((!fIsSubpixel || fAxisAlignment == kY_SkAxisAlignment) ? 0 : ~0,
-                              (!fIsSubpixel || fAxisAlignment == kX_SkAxisAlignment) ? 0 : ~0);
+    return SkIPoint::Make((!fIsSubpixel || fAxisAlignment == kY_SkAxisAlignment) ? 0 : ~0, (!fIsSubpixel || fAxisAlignment == kX_SkAxisAlignment) ? 0 : ~0);
   }
   const SkDescriptor& getDescriptor() const override;
   SkSpan<const SkGlyph*> metrics(SkSpan<const SkGlyphID> glyphIDs, const SkGlyph* results[]);
@@ -98,12 +97,12 @@ public:
     /** Return the approx RAM usage for this cache. */
   size_t getMemoryUsed() const
   {
- return fMemoryUsed;
+    return fMemoryUsed;
   }
   void dump() const;
   SkScalerContext* getScalerContext() const
   {
- return fScalerContext.get();
+    return fScalerContext.get();
   }
 #  ifdef SK_DEBUG
   void forceValidate() const;
@@ -117,21 +116,23 @@ public:
   {
   public:
     AutoValidate(const SkStrike* cache)
-      :  fCache(cache)
+      : fCache(cache)
     {
-            if (fCache) {
-                fCache->validate();
-            }
+      if (fCache)
+      {
+        fCache->validate();
+      }
     }
     ~AutoValidate()
     {
-            if (fCache) {
-                fCache->validate();
-            }
+      if (fCache)
+      {
+        fCache->validate();
+      }
     }
     void forget()
     {
-            fCache = nullptr;
+      fCache = nullptr;
     }
   private:
     const SkStrike* fCache;
@@ -142,11 +143,11 @@ private:
   public:
     static SkPackedGlyphID GetKey(const SkGlyph* glyph)
     {
-            return glyph->getPackedID();
+      return glyph->getPackedID();
     }
     static uint32_t Hash(SkPackedGlyphID glyphId)
     {
-            return glyphId.hash();
+      return glyphId.hash();
     }
   };
   SkGlyph* makeGlyph(SkPackedGlyphID);

@@ -22,18 +22,18 @@ public:
      */
   size_t size() const
   {
- return fSize;
+    return fSize;
   }
   bool isEmpty() const
   {
- return 0 == fSize;
+    return 0 == fSize;
   }
     /**
      *  Returns the ptr to the data.
      */
   const void* data() const
   {
- return fPtr;
+    return fPtr;
   }
     /**
      *  Like data(), returns a read-only ptr into the data, but in this case
@@ -41,7 +41,7 @@ public:
      */
   const uint8_t* bytes() const
   {
-        return reinterpret_cast<const uint8_t*>(fPtr);
+    return reinterpret_cast<const uint8_t*>(fPtr);
   }
     /**
      *  USE WITH CAUTION.
@@ -50,11 +50,12 @@ public:
      */
   void* writable_data()
   {
-        if (fSize) {
+    if (fSize)
+    {
             // only assert we're unique if we're not empty
-            SkASSERT(this->unique());
-        }
-        return fPtr;
+      SkASSERT(this->unique());
+    }
+    return fPtr;
   }
     /**
      *  Helper to copy a range of the data into a caller-provided buffer.
@@ -100,7 +101,7 @@ public:
      */
   static sk_sp<SkData> MakeWithoutCopy(const void* data, size_t length)
   {
-        return MakeWithProc(data, length, DummyReleaseProc, nullptr);
+    return MakeWithProc(data, length, DummyReleaseProc, nullptr);
   }
     /**
      *  Create a new dataref from a pointer allocated by malloc. The Data object

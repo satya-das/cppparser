@@ -55,7 +55,7 @@ public:
   void swizzle(void* dst, const uint8_t* src);
   int fillWidth() const override
   {
-        return fAllocatedWidth;
+    return fAllocatedWidth;
   }
     /**
      *  If fSampleX > 1, the swizzler is sampling every fSampleX'th pixel and
@@ -67,7 +67,7 @@ public:
      */
   int sampleX() const
   {
- return fSampleX;
+    return fSampleX;
   }
     /**
      *  Returns the actual number of pixels written to destination memory, taking
@@ -75,7 +75,7 @@ public:
      */
   int swizzleWidth() const
   {
- return fSwizzleWidth;
+    return fSwizzleWidth;
   }
     /**
      *  Returns the byte offset at which we write to destination memory, taking
@@ -83,7 +83,7 @@ public:
      */
   size_t swizzleOffsetBytes() const
   {
- return fDstOffsetBytes;
+    return fDstOffsetBytes;
   }
 private:
     /**

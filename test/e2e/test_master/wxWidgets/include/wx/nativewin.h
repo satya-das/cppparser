@@ -60,7 +60,7 @@ public:
     // Default ctor, Create() must be called later to really create the window.
   wxNativeWindow()
   {
-        Init();
+    Init();
   }
     // Create a window from an existing native window handle.
     //
@@ -71,9 +71,8 @@ public:
     // 0 if the handle was invalid.
   wxNativeWindow(wxWindow* parent, wxWindowID winid, wxNativeWindowHandle handle)
   {
-        Init();
-
-        Create(parent, winid, handle);
+    Init();
+    Create(parent, winid, handle);
   }
     // Same as non-default ctor, but with a return code.
   bool Create(wxWindow* parent, wxWindowID winid, wxNativeWindowHandle handle);
@@ -84,21 +83,16 @@ public:
     // it from the user code.
   void Disown()
   {
-        wxCHECK_RET( m_ownedByUser, wxS("Can't disown more than once") );
-
-        m_ownedByUser = false;
-
-        DoDisown();
+    wxCHECK_RET(m_ownedByUser, wxS("Can't disown more than once"));
+    m_ownedByUser = false;
+    DoDisown();
   }
-#    ifdef __WXMSW__
     // Prevent the native window, not owned by us, from being destroyed by the
     // base class dtor, unless Disown() had been called.
-  virtual ~wxNativeWindow();
-#    endif
 private:
   void Init()
   {
-        m_ownedByUser = true;
+    m_ownedByUser = true;
   }
     // This is implemented in platform-specific code.
   void DoDisown();
@@ -117,7 +111,6 @@ public:
     // default ctor, call Create() later
   wxNativeContainerWindow()
   {
-
   }
     // create a window from an existing native window handle
     //
@@ -125,7 +118,7 @@ public:
     // 0 if the handle was invalid
   wxNativeContainerWindow(wxNativeContainerWindowHandle handle)
   {
-        Create(handle);
+    Create(handle);
   }
     // same as ctor above but with a return code
   bool Create(wxNativeContainerWindowHandle handle);
@@ -138,7 +131,7 @@ public:
     // (when GDK_WINDOWING_X11 is defined) or HWND under Win32
   wxNativeContainerWindow(wxNativeContainerWindowId winid)
   {
- Create(winid);
+    Create(winid);
   }
   bool Create(wxNativeContainerWindowId winid);
 #    endif
@@ -148,61 +141,51 @@ public:
     // provide (trivial) implementation of the base class pure virtuals
   void SetTitle(const wxString&) override
   {
-        wxFAIL_MSG( "not implemented for native windows" );
+    wxFAIL_MSG( "not implemented for native windows" );
   }
   wxString GetTitle() const override
   {
-        wxFAIL_MSG( "not implemented for native windows" );
-
-        return wxString();
+    wxFAIL_MSG( "not implemented for native windows" );
+    return wxString();
   }
   void Maximize(bool = true) override
   {
-        wxFAIL_MSG( "not implemented for native windows" );
+    wxFAIL_MSG( "not implemented for native windows" );
   }
   bool IsMaximized() const override
   {
-        wxFAIL_MSG( "not implemented for native windows" );
-
-        return false;
+    wxFAIL_MSG( "not implemented for native windows" );
+    return false;
   }
   void Iconize(bool = true) override
   {
-        wxFAIL_MSG( "not implemented for native windows" );
+    wxFAIL_MSG( "not implemented for native windows" );
   }
   bool IsIconized() const override
   {
         // this is called by wxGTK implementation so don't assert
-        return false;
+    return false;
   }
   void Restore() override
   {
-        wxFAIL_MSG( "not implemented for native windows" );
+    wxFAIL_MSG( "not implemented for native windows" );
   }
   bool ShowFullScreen(bool, long = wxFULLSCREEN_ALL) override
   {
-        wxFAIL_MSG( "not implemented for native windows" );
-
-        return false;
+    wxFAIL_MSG( "not implemented for native windows" );
+    return false;
   }
   bool IsFullScreen() const override
   {
-        wxFAIL_MSG( "not implemented for native windows" );
-
-        return false;
+    wxFAIL_MSG( "not implemented for native windows" );
+    return false;
   }
-#    ifdef __WXMSW__
-  bool IsShown() const override;
-#    endif
     // this is an implementation detail: called when the native window is
     // destroyed by an outside agency; deletes the C++ object too but can in
     // principle be overridden to something else (knowing that the window
     // handle of this object and all of its children is invalid any more)
   virtual void OnNativeDestroyed();
-#    ifdef __WXMSW__
-protected:
-  WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
-#    endif
+private:
   wxDECLARE_NO_COPY_CLASS(wxNativeContainerWindow);
 };
 #  endif

@@ -44,13 +44,13 @@ public:
 #  ifndef PRODUCTION
   void* operator new(size_t size, const char*, int)
   {
- return operator new(size);
+    return operator new(size);
   }
 #    if  _MSC_VER >= 1200
         // vc6 requires matching delete for each new
   void operator delete(void* p, const char*, int)
   {
- delete p;
+    delete p;
   }
 #    endif
 #  endif
@@ -131,7 +131,6 @@ class AcGs2DViewLimitManager
 public:
   virtual ~AcGs2DViewLimitManager()
   {
-
   }
   virtual bool testView(const AcGePoint3d& target, double dFieldHeight) = 0;
 };

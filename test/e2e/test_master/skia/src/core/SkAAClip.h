@@ -19,16 +19,16 @@ public:
   friend bool operator==(const SkAAClip&, const SkAAClip&);
   friend bool operator!=(const SkAAClip& a, const SkAAClip& b)
   {
-        return !(a == b);
+    return !(a == b);
   }
   void swap(SkAAClip&);
   bool isEmpty() const
   {
- return nullptr == fRunHead;
+    return nullptr == fRunHead;
   }
   const SkIRect& getBounds() const
   {
- return fBounds;
+    return fBounds;
   }
     // Returns true iff the clip is not empty, and is just a hard-edged rect (no partial alpha).
     // If true, getBounds() can be used in place of this clip.
@@ -47,7 +47,7 @@ public:
   bool translate(int dx, int dy, SkAAClip* dst) const;
   bool translate(int dx, int dy)
   {
-        return this->translate(dx, dy, this);
+    return this->translate(dx, dy, this);
   }
     /**
      *  Allocates a mask the size of the aaclip, and expands its data into
@@ -58,7 +58,7 @@ public:
   bool quickContains(int left, int top, int right, int bottom) const;
   bool quickContains(const SkIRect& r) const
   {
-        return this->quickContains(r.fLeft, r.fTop, r.fRight, r.fBottom);
+    return this->quickContains(r.fLeft, r.fTop, r.fRight, r.fBottom);
   }
   const uint8_t* findRow(int y, int* lastYForRow = nullptr) const;
   const uint8_t* findX(const uint8_t data[], int x, int* initialCount = nullptr) const;
@@ -93,16 +93,16 @@ class SkAAClipBlitter : public SkBlitter
 {
 public:
   SkAAClipBlitter()
-    :  fScanlineScratch(nullptr)
+    : fScanlineScratch(nullptr)
   {
   }
   virtual ~SkAAClipBlitter();
   void init(SkBlitter* blitter, const SkAAClip* aaclip)
   {
-        SkASSERT(aaclip && !aaclip->isEmpty());
-        fBlitter = blitter;
-        fAAClip = aaclip;
-        fAAClipBounds = aaclip->getBounds();
+    SkASSERT(aaclip && !aaclip->isEmpty());
+    fBlitter = blitter;
+    fAAClip = aaclip;
+    fAAClipBounds = aaclip->getBounds();
   }
   void blitH(int x, int y, int width) override;
   void blitAntiH(int x, int y, const SkAlpha[], const int16_t runs[]) override;

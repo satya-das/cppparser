@@ -25,7 +25,7 @@ public:
     // retrieve IDataObject interface (for other OLE related classes)
   IDataObject* GetInterface() const
   {
- return m_pIDataObject;
+    return m_pIDataObject;
   }
     // tell the object that it should be now owned by IDataObject - i.e. when
     // it is deleted, it should delete us as well
@@ -33,7 +33,7 @@ public:
     // return true if we support this format in "Get" direction
   bool IsSupportedFormat(const wxDataFormat& format) const
   {
- return wxDataObjectBase::IsSupported(format, Get);
+    return wxDataObjectBase::IsSupported(format, Get);
   }
     // if this method returns false, this wxDataObject will be copied to
     // the clipboard with its size prepended to it, which is compatible with
@@ -45,7 +45,7 @@ public:
   virtual bool NeedsVerbatimData(const wxDataFormat&) const
   {
         // return false from here only for compatibility with earlier wx versions
-        return true;
+    return true;
   }
     // function to return symbolic name of clipboard format (for debug messages)
 #  ifdef __WXDEBUG__

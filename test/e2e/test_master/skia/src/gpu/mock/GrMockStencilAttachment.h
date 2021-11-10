@@ -12,14 +12,14 @@ class GrMockStencilAttachment : public GrStencilAttachment
 {
 public:
   GrMockStencilAttachment(GrMockGpu* gpu, int width, int height, int bits, int sampleCnt)
-    :  INHERITED(gpu, width, height, bits, sampleCnt)
+    : INHERITED(gpu, width, height, bits, sampleCnt)
   {
-        this->registerWithCache(SkBudgeted::kYes);
+    this->registerWithCache(SkBudgeted::kYes);
   }
 private:
   size_t onGpuMemorySize() const override
   {
-        return SkTMax(1, (int)(this->bits() / sizeof(char))) * this->width() * this->height();
+    return SkTMax(1, (int) (this->bits() / sizeof(char))) * this->width() * this->height();
   }
   typedef GrStencilAttachment INHERITED;
 };

@@ -27,16 +27,17 @@ private:
   {
   public:
     VkPtr()
-      :  fPtr(NULL)
+      : fPtr(NULL)
     {
     }
     VkPtr operator=(FNPTR_TYPE ptr)
     {
- fPtr = ptr; return *this;
+      fPtr = ptr;
+      return *this;
     }
     operator FNPTR_TYPE() const
     {
- return fPtr;
+      return fPtr;
     }
   private:
     FNPTR_TYPE fPtr;

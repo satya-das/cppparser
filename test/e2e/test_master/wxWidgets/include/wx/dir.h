@@ -50,7 +50,6 @@ public:
     /// a virtual dtor has been provided since this class has virtual members
   virtual ~wxDirTraverser()
   {
-
   }
     // called for each file found by wxDir::Traverse()
     //
@@ -85,14 +84,14 @@ public:
     // default, use Open()
   wxDir()
   {
- m_data = NULL;
+    m_data = NULL;
   }
     // opens the directory for enumeration, use IsOpened() to test success
   wxDir(const wxString& dir);
     // dtor calls Close() automatically
   ~wxDir()
   {
- Close();
+    Close();
   }
     // open the directory for enumerating
   bool Open(const wxString& dir);

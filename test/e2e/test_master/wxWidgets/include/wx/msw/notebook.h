@@ -92,18 +92,18 @@ public:
 #    if  wxUSE_UXTHEME
   bool SetBackgroundColour(const wxColour& colour) override
   {
-      if ( !wxNotebookBase::SetBackgroundColour(colour) )
-          return false;
-
-      UpdateBgBrush();
-
-      return true;
+    if (!wxNotebookBase::SetBackgroundColour(colour))
+    {
+      return false;
+    }
+    UpdateBgBrush();
+    return true;
   }
   // draw child background
   bool MSWPrintChild(WXHDC hDC, wxWindow* win) override;
   bool MSWHasInheritableBackground() const override
   {
- return true;
+    return true;
   }
 #    endif
   // translate wxWin styles to the Windows ones
@@ -125,13 +125,13 @@ protected:
 #    if  wxUSE_UXTHEME
   void MSWAdjustBrushOrg(int* xOrg, int* yOrg) const override
   {
-      *xOrg -= m_bgBrushAdj.x;
-      *yOrg -= m_bgBrushAdj.y;
+    *xOrg -= m_bgBrushAdj.x;
+    *yOrg -= m_bgBrushAdj.y;
   }
   // return the themed brush for painting our children
   WXHBRUSH MSWGetCustomBgBrush() override
   {
- return m_hbrBackground;
+    return m_hbrBackground;
   }
   // gets the bitmap of notebook background and returns a brush from it and
   // sets m_bgBrushAdj

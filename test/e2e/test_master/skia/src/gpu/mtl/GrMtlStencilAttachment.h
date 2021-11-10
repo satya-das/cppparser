@@ -23,11 +23,11 @@ public:
   virtual ~GrMtlStencilAttachment();
   MTLPixelFormat mtlFormat() const
   {
- return fFormat.fInternalFormat;
+    return fFormat.fInternalFormat;
   }
   id<MTLTexture> stencilView() const
   {
- return fStencilView;
+    return fStencilView;
   }
 protected:
   void onRelease() override;

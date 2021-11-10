@@ -33,7 +33,7 @@ public:
   wxControl();
   wxControl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr))
   {
-        Create(parent, id, pos, size, style, validator, name);
+    Create(parent, id, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
   virtual void SetLabel(const wxString& label);
@@ -57,7 +57,7 @@ protected:
     // override this and return true.
   virtual bool UseGTKStyleBase() const
   {
- return false;
+    return false;
   }
     // this field contains the label in wx format, i.e. with "&" mnemonics
   wxString m_label;

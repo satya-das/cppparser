@@ -187,14 +187,14 @@ private:
     // error C2248: 'AcDbRasterImage::operator delete[]' : cannot access private member declared in class 'AcDbRasterImage'
   void* operator new[](size_t nSize)
   {
- return (void*)0;
+    return (void*) 0;
   }
   void operator delete[](void* p)
   {
   }
   void* operator new[](size_t nSize, const char* file, int line)
   {
- return (void*)0;
+    return (void*) 0;
   }
 #ifdef _ADESK_MAC_
   typedef AcDbRasterImage __super;

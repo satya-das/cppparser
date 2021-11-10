@@ -29,16 +29,15 @@ class WXDLLIMPEXP_CORE wxComboCtrl : public wxComboCtrlBase
 public:
     // ctors and such
   wxComboCtrl()
-    :  wxComboCtrlBase()
+    : wxComboCtrlBase()
   {
- Init();
+    Init();
   }
   wxComboCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
-    :  wxComboCtrlBase()
+    : wxComboCtrlBase()
   {
-        Init();
-
-        (void)Create(parent, id, value, pos, size, style, validator, name);
+    Init();
+    (void) Create(parent, id, value, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   virtual ~wxComboCtrl();
@@ -46,12 +45,12 @@ public:
   bool IsKeyPopupToggle(const wxKeyEvent& event) const override;
   static int GetFeatures()
   {
- return wxComboCtrlFeatures::All;
+    return wxComboCtrlFeatures::All;
   }
 #    if  wxUSE_COMBOCTRL_POPUP_ANIMATION
   void OnTimerEvent(wxTimerEvent&)
   {
- DoTimerEvent();
+    DoTimerEvent();
   }
 protected:
   void DoTimerEvent();
@@ -60,7 +59,7 @@ protected:
     // Dummy method - we override all functions that call this
   WXHWND GetEditHWND() const override
   {
- return NULL;
+    return NULL;
   }
     // customization
   void OnResize() override;
@@ -70,7 +69,7 @@ protected:
   void OnMouseEvent(wxMouseEvent& event);
   bool HasTransparentBackground() override
   {
- return IsDoubleBuffered();
+    return IsDoubleBuffered();
   }
 private:
   void Init();

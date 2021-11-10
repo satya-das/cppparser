@@ -8,11 +8,10 @@
 #ifndef _WX_DND_H_
 #  define _WX_DND_H_
 #  include "wx/defs.h"
-#  if  wxUSE_DRAG_AND_DROP
-#    include "wx/object.h"
-#    include "wx/string.h"
-#    include "wx/dataobj.h"
-#    include "wx/cursor.h"
+#  include "wx/object.h"
+#  include "wx/string.h"
+#  include "wx/dataobj.h"
+#  include "wx/cursor.h"
 //-------------------------------------------------------------------------
 // classes
 //-------------------------------------------------------------------------
@@ -32,11 +31,9 @@ public:
   virtual ~wxDropTarget();
   virtual void OnEnter()
   {
-
   }
   virtual void OnLeave()
   {
-
   }
   virtual bool OnDrop(long x, long y, const void* data, size_t size) = 0;
     // Override these to indicate what kind of data you support:
@@ -73,11 +70,11 @@ public:
     // to the clipboard - the latter with the Id "WXWORD_FORMAT".
   void SetId(const wxString& id)
   {
- m_id = id;
+    m_id = id;
   }
   wxString GetId()
   {
- return m_id;
+    return m_id;
   }
 private:
   virtual size_t GetFormatCount() const;
@@ -119,11 +116,11 @@ public:
   wxDragResult DoDragDrop(int flags = wxDrag_CopyOnly);
   virtual bool GiveFeedback(wxDragResult, bool)
   {
- return true;
+    return true;
   }
     // implementation
 };
-#  endif
+#endif
 // wxUSE_DRAG_AND_DROP
 #endif
 //_WX_DND_H_

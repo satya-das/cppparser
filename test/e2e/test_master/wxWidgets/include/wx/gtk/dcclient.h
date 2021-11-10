@@ -19,11 +19,11 @@ public:
   virtual ~wxWindowDCImpl();
   bool CanDrawBitmap() const override
   {
- return true;
+    return true;
   }
   bool CanGetTextExtent() const override
   {
- return true;
+    return true;
   }
   void DoGetSize(int* width, int* height) const override;
   bool DoFloodFill(wxCoord x, wxCoord y, const wxColour& col, wxFloodFillStyle style = wxFLOOD_SURFACE) override;
@@ -91,7 +91,7 @@ public:
   void ComputeScaleAndOrigin() override;
   GdkWindow* GetGDKWindow() const override
   {
- return m_gdkwindow;
+    return m_gdkwindow;
   }
     // Update the internal clip box variables
   void UpdateClipBox();

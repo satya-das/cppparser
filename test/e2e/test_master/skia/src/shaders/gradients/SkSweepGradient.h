@@ -17,11 +17,11 @@ public:
 #  endif
   SkScalar getTBias() const
   {
- return fTBias;
+    return fTBias;
   }
   SkScalar getTScale() const
   {
- return fTScale;
+    return fTScale;
   }
 protected:
   void flatten(SkWriteBuffer& buffer) const override;

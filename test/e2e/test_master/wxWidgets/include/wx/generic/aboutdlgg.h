@@ -35,14 +35,13 @@ public:
     // default ctor, you must use Create() to really initialize the dialog
   wxGenericAboutDialog()
   {
- Init();
+    Init();
   }
     // ctor which fully initializes the object
   wxGenericAboutDialog(const wxAboutDialogInfo& info, wxWindow* parent = NULL)
   {
-        Init();
-
-        (void)Create(info, parent);
+    Init();
+    (void) Create(info, parent);
   }
     // this method must be called if and only if the default ctor was used
   bool Create(const wxAboutDialogInfo& info, wxWindow* parent = NULL);
@@ -55,7 +54,6 @@ protected:
     // virtual function of the derived class wouldn't be called
   virtual void DoAddCustomControls()
   {
-
   }
     // add arbitrary control to the text sizer contents with the specified
     // flags
@@ -72,7 +70,7 @@ private:
     // common part of all ctors
   void Init()
   {
- m_sizerText = NULL;
+    m_sizerText = NULL;
   }
 #    if  !wxUSE_MODAL_ABOUT_DIALOG
     // An explicit handler for deleting the dialog when it's closed is needed

@@ -9,7 +9,6 @@
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef _WX_OLEDROPSRC_H
 #  define _WX_OLEDROPSRC_H
-#  if  wxUSE_DRAG_AND_DROP
 // ----------------------------------------------------------------------------
 // forward declarations
 // ----------------------------------------------------------------------------
@@ -24,7 +23,7 @@ class WXDLLIMPEXP_FWD_CORE wxWindow;
 // the cursor 'name' from the resources under MSW, but will expand to
 // something else under GTK. If you don't use it, you will have to use #ifdef
 // in the application code.
-#    define wxDROP_ICON(name)	   wxCursor(wxT(#name))
+#  define wxDROP_ICON(name)	   wxCursor(wxT(#name))
 // ----------------------------------------------------------------------------
 // wxDropSource is used to start the drag-&-drop operation on associated
 // wxDataObject object. It's responsible for giving UI feedback while dragging.
@@ -52,5 +51,4 @@ private:
   wxIDropSource* m_pIDropSource;
   wxDECLARE_NO_COPY_CLASS(wxDropSource);
 };
-#  endif
 #endif

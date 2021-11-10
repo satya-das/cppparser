@@ -96,7 +96,6 @@ namespace PoDoFo
     PdfXObject(PdfObject* pObject);
     virtual ~PdfXObject()
     {
-
     }
     /** Get access to the contents object of this page.
      *  If you want to draw onto the page, you have to add 
@@ -117,7 +116,7 @@ namespace PoDoFo
      */
     virtual PdfObject* GetContentsForAppending() const
     {
- return GetContents();
+      return GetContents();
     }
     /** Get access to the resources object of this page.
      *  This is most likely an internal object.

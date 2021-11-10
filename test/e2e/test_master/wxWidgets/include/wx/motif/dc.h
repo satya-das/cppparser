@@ -28,44 +28,44 @@ public:
     // implementation
   wxCoord XDEV2LOG(wxCoord x) const
   {
- return DeviceToLogicalX(x);
+    return DeviceToLogicalX(x);
   }
   wxCoord XDEV2LOGREL(wxCoord x) const
   {
- return DeviceToLogicalXRel(x);
+    return DeviceToLogicalXRel(x);
   }
   wxCoord YDEV2LOG(wxCoord y) const
   {
- return DeviceToLogicalY(y);
+    return DeviceToLogicalY(y);
   }
   wxCoord YDEV2LOGREL(wxCoord y) const
   {
- return DeviceToLogicalYRel(y);
+    return DeviceToLogicalYRel(y);
   }
   wxCoord XLOG2DEV(wxCoord x) const
   {
- return LogicalToDeviceX(x);
+    return LogicalToDeviceX(x);
   }
   wxCoord XLOG2DEVREL(wxCoord x) const
   {
- return LogicalToDeviceXRel(x);
+    return LogicalToDeviceXRel(x);
   }
   wxCoord YLOG2DEV(wxCoord y) const
   {
- return LogicalToDeviceY(y);
+    return LogicalToDeviceY(y);
   }
   wxCoord YLOG2DEVREL(wxCoord y) const
   {
- return LogicalToDeviceYRel(y);
+    return LogicalToDeviceYRel(y);
   }
     // Without device translation, for backing pixmap purposes
   wxCoord XLOG2DEV_2(wxCoord x) const
   {
-        return wxRound((double)(x - m_logicalOriginX) * m_scaleX) * m_signX;
+    return wxRound((double) (x - m_logicalOriginX) * m_scaleX) * m_signX;
   }
   wxCoord YLOG2DEV_2(wxCoord y) const
   {
-        return wxRound((double)(y - m_logicalOriginY) * m_scaleY) * m_signY;
+    return wxRound((double) (y - m_logicalOriginY) * m_scaleY) * m_signY;
   }
   wxDECLARE_DYNAMIC_CLASS(wxMotifDCImpl);
 };

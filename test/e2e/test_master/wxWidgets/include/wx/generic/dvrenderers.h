@@ -17,17 +17,18 @@ class WXDLLIMPEXP_ADV wxDataViewCustomRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("string");
+    return wxS("string");
   }
   wxDataViewCustomRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
     // see the explanation of the following WXOnXXX() methods in wx/generic/dvrenderer.h
   bool WXActivateCell(const wxRect& cell, wxDataViewModel* model, const wxDataViewItem& item, unsigned int col, const wxMouseEvent* mouseEvent) override
   {
-        return ActivateCell(cell, model, item, col, mouseEvent);
+    return ActivateCell(cell, model, item, col, mouseEvent);
   }
 #  if  wxUSE_ACCESSIBILITY
   wxString GetAccessibleDescription() const override;
 #  endif
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewCustomRenderer);
 };
 // ---------------------------------------------------------
@@ -38,7 +39,7 @@ class WXDLLIMPEXP_ADV wxDataViewTextRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("string");
+    return wxS("string");
   }
   wxDataViewTextRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   virtual ~wxDataViewTextRenderer();
@@ -72,7 +73,7 @@ class WXDLLIMPEXP_ADV wxDataViewBitmapRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("wxBitmap");
+    return wxS("wxBitmap");
   }
   wxDataViewBitmapRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool SetValue(const wxVariant& value) override;
@@ -85,6 +86,7 @@ public:
 private:
   wxIcon m_icon;
   wxBitmap m_bitmap;
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewBitmapRenderer);
 };
 // ---------------------------------------------------------
@@ -95,12 +97,12 @@ class WXDLLIMPEXP_ADV wxDataViewToggleRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("bool");
+    return wxS("bool");
   }
   wxDataViewToggleRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   void ShowAsRadio()
   {
- m_radio = true;
+    m_radio = true;
   }
   bool SetValue(const wxVariant& value) override;
   bool GetValue(wxVariant& value) const override;
@@ -114,6 +116,7 @@ public:
 private:
   bool m_toggle;
   bool m_radio;
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewToggleRenderer);
 };
 // ---------------------------------------------------------
@@ -124,7 +127,7 @@ class WXDLLIMPEXP_ADV wxDataViewProgressRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("long");
+    return wxS("long");
   }
   wxDataViewProgressRenderer(const wxString& label = wxEmptyString, const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool SetValue(const wxVariant& value) override;
@@ -137,6 +140,7 @@ public:
 private:
   wxString m_label;
   int m_value;
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewProgressRenderer);
 };
 // ---------------------------------------------------------
@@ -147,7 +151,7 @@ class WXDLLIMPEXP_ADV wxDataViewIconTextRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("wxDataViewIconText");
+    return wxS("wxDataViewIconText");
   }
   wxDataViewIconTextRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool SetValue(const wxVariant& value) override;
@@ -159,12 +163,13 @@ public:
   wxSize GetSize() const override;
   bool HasEditorCtrl() const override
   {
- return true;
+    return true;
   }
   wxWindow* CreateEditorCtrl(wxWindow* parent, wxRect labelRect, const wxVariant& value) override;
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
 private:
   wxDataViewIconText m_value;
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewIconTextRenderer);
 };
 #endif

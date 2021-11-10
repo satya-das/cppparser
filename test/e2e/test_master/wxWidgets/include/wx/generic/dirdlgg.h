@@ -29,9 +29,8 @@ class WXDLLIMPEXP_CORE wxGenericDirDialog : public wxDirDialogBase
 {
 public:
   wxGenericDirDialog()
-    :  wxDirDialogBase()
+    : wxDirDialogBase()
   {
-
   }
   wxGenericDirDialog(wxWindow* parent, const wxString& title = wxASCII_STR(wxDirSelectorPromptStr), const wxString& defaultPath = wxEmptyString, long style = wxDD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxDirDialogNameStr));
   bool Create(wxWindow* parent, const wxString& title = wxASCII_STR(wxDirSelectorPromptStr), const wxString& defaultPath = wxEmptyString, long style = wxDD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxDirDialogNameStr));
@@ -44,7 +43,7 @@ public:
     // this one is specific to wxGenericDirDialog
   wxTextCtrl* GetInputCtrl() const
   {
- return m_input;
+    return m_input;
   }
 protected:
     //// Event handlers

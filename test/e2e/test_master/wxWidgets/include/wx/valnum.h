@@ -35,13 +35,13 @@ public:
     // Change the validator style. Usually it's specified during construction.
   void SetStyle(int style)
   {
- m_style = style;
+    m_style = style;
   }
     // Override base class method to not do anything but always return success:
     // we don't need this as we do our validation on the fly here.
   bool Validate(wxWindow*) override
   {
- return true;
+    return true;
   }
     // Override base class method to check that the window is a text control or
     // combobox.
@@ -49,16 +49,16 @@ public:
 protected:
   wxNumValidatorBase(int style)
   {
-        m_style = style;
+    m_style = style;
   }
   wxNumValidatorBase(const wxNumValidatorBase& other)
-    :  wxValidator(other)
+    : wxValidator(other)
   {
-        m_style = other.m_style;
+    m_style = other.m_style;
   }
   bool HasFlag(wxNumValidatorStyle style) const
   {
-        return (m_style & style) != 0;
+    return (m_style & style) != 0;
   }
     // Get the text entry of the associated control. Normally shouldn't ever
     // return NULL (and will assert if it does return it) but the caller should
@@ -75,8 +75,8 @@ protected:
     // at the specified position.
   wxString GetValueAfterInsertingChar(wxString val, int pos, wxChar ch) const
   {
-        val.insert(pos, ch);
-        return val;
+    val.insert(pos, ch);
+    return val;
   }
 private:
     // Check whether the specified character can be inserted in the control at
@@ -121,80 +121,85 @@ namespace wxPrivate
     wxCOMPILE_TIME_ASSERT(sizeof(ValueType) <= sizeof(LongestValueType), UnsupportedType);
     void SetMin(ValueType min)
     {
-        this->DoSetMin(static_cast<LongestValueType>(min));
+      this->DoSetMin(static_cast<LongestValueType>(min));
     }
     ValueType GetMin() const
     {
-        return static_cast<ValueType>(this->DoGetMin());
+      return static_cast<ValueType>(this->DoGetMin());
     }
     void SetMax(ValueType max)
     {
-        this->DoSetMax(static_cast<LongestValueType>(max));
+      this->DoSetMax(static_cast<LongestValueType>(max));
     }
     ValueType GetMax() const
     {
-        return static_cast<ValueType>(this->DoGetMax());
+      return static_cast<ValueType>(this->DoGetMax());
     }
     void SetRange(ValueType min, ValueType max)
     {
-        SetMin(min);
-        SetMax(max);
+      SetMin(min);
+      SetMax(max);
     }
     void GetRange(ValueType& min, ValueType& max) const
     {
-        min = GetMin();
-        max = GetMax();
+      min = GetMin();
+      max = GetMax();
     }
     bool TransferToWindow() override
     {
-        if ( m_value )
+      if (m_value)
+      {
+        wxTextEntry* const control = BaseValidator::GetTextEntry();
+        if (!control)
         {
-            wxTextEntry * const control = BaseValidator::GetTextEntry();
-            if ( !control )
-                return false;
-
-            control->SetValue(NormalizeValue(static_cast<LongestValueType>(*m_value)));
+          return false;
         }
-
-        return true;
+        control->SetValue(NormalizeValue(static_cast<LongestValueType>(*m_value)));
+      }
+      return true;
     }
     bool TransferFromWindow() override
     {
-        if ( m_value )
+      if (m_value)
+      {
+        wxTextEntry* const control = BaseValidator::GetTextEntry();
+        if (!control)
         {
-            wxTextEntry * const control = BaseValidator::GetTextEntry();
-            if ( !control )
-                return false;
-
-            const wxString s(control->GetValue());
-            LongestValueType value;
-            if ( s.empty() && BaseValidator::HasFlag(wxNUM_VAL_ZERO_AS_BLANK) )
-                value = 0;
-            else if ( !BaseValidator::FromString(s, &value) )
-                return false;
-
-            if ( !this->IsInRange(value) )
-                return false;
-
-            *m_value = static_cast<ValueType>(value);
+          return false;
         }
-
-        return true;
+        const wxString s(control->GetValue());
+        LongestValueType value;
+        if (s.empty() && BaseValidator::HasFlag(wxNUM_VAL_ZERO_AS_BLANK))
+        {
+          value = 0;
+        }
+        else 
+        {
+          if (!BaseValidator::FromString(s, &value))
+          {
+            return false;
+          }
+        }
+        if (!this->IsInRange(value))
+        {
+          return false;
+        }
+        *m_value = static_cast<ValueType>(value);
+      }
+      return true;
     }
   protected:
     wxNumValidator(ValueType* value, int style)
-      :  BaseValidator(style),
-          m_value(value)
+      : BaseValidator(style)
+      , m_value(value)
     {
-
     }
     // Implement wxNumValidatorBase virtual method which is the same for
     // both integer and floating point numbers.
     wxString NormalizeString(const wxString& s) const override
     {
-        LongestValueType value;
-        return BaseValidator::FromString(s, &value) ? NormalizeValue(value)
-                                                    : wxString();
+      LongestValueType value;
+      return BaseValidator::FromString(s, &value) ? NormalizeValue(value) : wxString();
     }
   private:
     // Just a helper which is a common part of TransferToWindow() and
@@ -204,15 +209,12 @@ namespace wxPrivate
     {
         // We really want to compare with the exact 0 here, so disable gcc
         // warning about doing this.
-        wxGCC_WARNING_SUPPRESS(float-equal)
-
-        wxString s;
-        if ( value != 0 || !BaseValidator::HasFlag(wxNUM_VAL_ZERO_AS_BLANK) )
-            s = this->ToString(value);
-
-        wxGCC_WARNING_RESTORE(float-equal)
-
-        return s;
+      wxString s;
+      if (value != 0 || !BaseValidator::HasFlag(wxNUM_VAL_ZERO_AS_BLANK))
+      {
+        s = this->ToString(value);
+      }
+      return s;
     }
     ValueType* const m_value;
     wxDECLARE_NO_ASSIGN_CLASS(wxNumValidator);
@@ -238,39 +240,39 @@ protected:
   typedef long LongestValueType;
 #    endif
   wxIntegerValidatorBase(int style)
-    :  wxNumValidatorBase(style)
+    : wxNumValidatorBase(style)
   {
-        wxASSERT_MSG( !(style & wxNUM_VAL_NO_TRAILING_ZEROES),
+    wxASSERT_MSG( !(style & wxNUM_VAL_NO_TRAILING_ZEROES),
                       "This style doesn't make sense for integers." );
   }
   wxIntegerValidatorBase(const wxIntegerValidatorBase& other)
-    :  wxNumValidatorBase(other)
+    : wxNumValidatorBase(other)
   {
-        m_min = other.m_min;
-        m_max = other.m_max;
+    m_min = other.m_min;
+    m_max = other.m_max;
   }
     // Provide methods for wxNumValidator use.
   wxString ToString(LongestValueType value) const;
   static bool FromString(const wxString& s, LongestValueType* value);
   void DoSetMin(LongestValueType min)
   {
- m_min = min;
+    m_min = min;
   }
   LongestValueType DoGetMin() const
   {
- return m_min;
+    return m_min;
   }
   void DoSetMax(LongestValueType max)
   {
- m_max = max;
+    m_max = max;
   }
   LongestValueType DoGetMax() const
   {
- return m_max;
+    return m_max;
   }
   bool IsInRange(LongestValueType value) const
   {
-        return m_min <= value && value <= m_max;
+    return m_min <= value && value <= m_max;
   }
     // Implement wxNumValidatorBase pure virtual method.
   bool IsCharOk(const wxString& val, int pos, wxChar ch) const override;
@@ -293,15 +295,16 @@ public:
     // Sets the range appropriately for the type, including setting 0 as the
     // minimal value for the unsigned types.
   wxIntegerValidator(ValueType* value = NULL, int style = wxNUM_VAL_DEFAULT)
-    :  Base(value, style)
+    : Base(value, style)
   {
-        this->DoSetMin(std::numeric_limits<ValueType>::min());
-        this->DoSetMax(std::numeric_limits<ValueType>::max());
+    this->DoSetMin(std::numeric_limits<ValueType>::min());
+    this->DoSetMax(std::numeric_limits<ValueType>::max());
   }
   wxObject* Clone() const override
   {
- return new wxIntegerValidator(*this);
+    return new wxIntegerValidator(*this);
   }
+private:
   wxDECLARE_NO_ASSIGN_CLASS(wxIntegerValidator);
 };
 // Helper function for creating integer validators which allows to avoid
@@ -309,7 +312,7 @@ public:
 template <typename T>
 inline wxIntegerValidator<T> wxMakeIntegerValidator(T* value, int style = wxNUM_VAL_DEFAULT)
 {
-    return wxIntegerValidator<T>(value, style);
+  return wxIntegerValidator<T>(value, style);
 }
 // ----------------------------------------------------------------------------
 // Validators for floating point numbers.
@@ -325,14 +328,14 @@ public:
     // supported by the type handled by the validator.
   void SetPrecision(unsigned precision)
   {
- m_precision = precision;
+    m_precision = precision;
   }
     // Set multiplier applied for displaying the value, e.g. 100 if the value
     // should be displayed in percents, so that the variable containing 0.5
     // would be displayed as 50.
   void SetFactor(double factor)
   {
- m_factor = factor;
+    m_factor = factor;
   }
 protected:
     // Notice that we can't use "long double" here because it's not supported
@@ -340,41 +343,40 @@ protected:
     // float).
   typedef double LongestValueType;
   wxFloatingPointValidatorBase(int style)
-    :  wxNumValidatorBase(style)
+    : wxNumValidatorBase(style)
   {
-        m_factor = 1.0;
+    m_factor = 1.0;
   }
   wxFloatingPointValidatorBase(const wxFloatingPointValidatorBase& other)
-    :  wxNumValidatorBase(other)
+    : wxNumValidatorBase(other)
   {
-        m_precision = other.m_precision;
-        m_factor = other.m_factor;
-
-        m_min = other.m_min;
-        m_max = other.m_max;
+    m_precision = other.m_precision;
+    m_factor = other.m_factor;
+    m_min = other.m_min;
+    m_max = other.m_max;
   }
     // Provide methods for wxNumValidator use.
   wxString ToString(LongestValueType value) const;
   bool FromString(const wxString& s, LongestValueType* value) const;
   void DoSetMin(LongestValueType min)
   {
- m_min = min;
+    m_min = min;
   }
   LongestValueType DoGetMin() const
   {
- return m_min;
+    return m_min;
   }
   void DoSetMax(LongestValueType max)
   {
- m_max = max;
+    m_max = max;
   }
   LongestValueType DoGetMax() const
   {
- return m_max;
+    return m_max;
   }
   bool IsInRange(LongestValueType value) const
   {
-        return m_min <= value && value <= m_max;
+    return m_min <= value && value <= m_max;
   }
     // Implement wxNumValidatorBase pure virtual method.
   bool IsCharOk(const wxString& val, int pos, wxChar ch) const override;
@@ -397,23 +399,21 @@ public:
   typedef wxPrivate::wxNumValidator<wxFloatingPointValidatorBase, T> Base;
     // Ctor using implicit (maximal) precision for this type.
   wxFloatingPointValidator(ValueType* value = NULL, int style = wxNUM_VAL_DEFAULT)
-    :  Base(value, style)
+    : Base(value, style)
   {
-        DoSetMinMax();
-
-        this->SetPrecision(std::numeric_limits<ValueType>::digits10);
+    DoSetMinMax();
+    this->SetPrecision(std::numeric_limits<ValueType>::digits10);
   }
     // Ctor specifying an explicit precision.
   wxFloatingPointValidator(int precision, ValueType* value = NULL, int style = wxNUM_VAL_DEFAULT)
-    :  Base(value, style)
+    : Base(value, style)
   {
-        DoSetMinMax();
-
-        this->SetPrecision(precision);
+    DoSetMinMax();
+    this->SetPrecision(precision);
   }
   wxObject* Clone() const override
   {
-        return new wxFloatingPointValidator(*this);
+    return new wxFloatingPointValidator(*this);
   }
 private:
   typedef typename Base::LongestValueType LongestValueType;
@@ -422,8 +422,8 @@ private:
         // NB: Do not use min(), it's not the smallest representable value for
         //     the floating point types but rather the smallest representable
         //     positive value.
-        this->DoSetMin(static_cast<LongestValueType>(-std::numeric_limits<ValueType>::max()));
-        this->DoSetMax(static_cast<LongestValueType>( std::numeric_limits<ValueType>::max()));
+    this->DoSetMin(static_cast<LongestValueType>(-std::numeric_limits<ValueType>::max()));
+    this->DoSetMax(static_cast<LongestValueType>(std::numeric_limits<ValueType>::max()));
   }
 };
 // Helper similar to wxMakeIntValidator().
@@ -434,12 +434,12 @@ private:
 template <typename T>
 inline wxFloatingPointValidator<T> wxMakeFloatingPointValidator(T* value, int style = wxNUM_VAL_DEFAULT)
 {
-    return wxFloatingPointValidator<T>(value, style);
+  return wxFloatingPointValidator<T>(value, style);
 }
 template <typename T>
 inline wxFloatingPointValidator<T> wxMakeFloatingPointValidator(int precision, T* value, int style = wxNUM_VAL_DEFAULT)
 {
-    return wxFloatingPointValidator<T>(precision, value, style);
+  return wxFloatingPointValidator<T>(precision, value, style);
 }
 #  endif
 #endif

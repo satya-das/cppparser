@@ -27,18 +27,18 @@ public:
   struct EmitArgs
   {
     EmitArgs(GrGLSLXPFragmentBuilder* fragBuilder, GrGLSLUniformHandler* uniformHandler, const GrShaderCaps* caps, const GrXferProcessor& xp, const char* inputColor, const char* inputCoverage, const char* outputPrimary, const char* outputSecondary, const SamplerHandle dstTextureSamplerHandle, GrSurfaceOrigin dstTextureOrigin, uint16_t outputSwizzleKey)
-      :  fXPFragBuilder(fragBuilder)
-                , fUniformHandler(uniformHandler)
-                , fShaderCaps(caps)
-                , fXP(xp)
-                , fInputColor(inputColor ? inputColor : "half4(1.0)")
-                , fInputCoverage(inputCoverage)
-                , fOutputPrimary(outputPrimary)
-                , fOutputSecondary(outputSecondary)
-                , fDstTextureSamplerHandle(dstTextureSamplerHandle)
-                , fDstTextureOrigin(dstTextureOrigin)
+      : fXPFragBuilder(fragBuilder)
+      , fUniformHandler(uniformHandler)
+      , fShaderCaps(caps)
+      , fXP(xp)
+      , fInputColor(inputColor ? inputColor : "half4(1.0)")
+      , fInputCoverage(inputCoverage)
+      , fOutputPrimary(outputPrimary)
+      , fOutputSecondary(outputSecondary)
+      , fDstTextureSamplerHandle(dstTextureSamplerHandle)
+      , fDstTextureOrigin(dstTextureOrigin)
     {
-            fOutputSwizzle.setFromKey(outputSwizzleKey);
+      fOutputSwizzle.setFromKey(outputSwizzleKey);
     }
     GrGLSLXPFragmentBuilder* fXPFragBuilder;
     GrGLSLUniformHandler* fUniformHandler;
@@ -75,7 +75,7 @@ private:
      */
   virtual void emitOutputsForBlendState(const EmitArgs&)
   {
-        SK_ABORT("emitOutputsForBlendState not implemented.");
+    SK_ABORT("emitOutputsForBlendState not implemented.");
   }
     /**
      * Called by emitCode() when the XP will perform a dst read. This method only needs to supply
@@ -84,7 +84,7 @@ private:
      */
   virtual void emitBlendCodeForDstRead(GrGLSLXPFragmentBuilder*, GrGLSLUniformHandler*, const char* srcColor, const char* srcCoverage, const char* dstColor, const char* outColor, const char* outColorSecondary, const GrXferProcessor&)
   {
-        SK_ABORT("emitBlendCodeForDstRead not implemented.");
+    SK_ABORT("emitBlendCodeForDstRead not implemented.");
   }
   virtual void emitOutputSwizzle(GrGLSLXPFragmentBuilder*, const GrSwizzle&, const char* outColor, const char* outColorSecondary) const;
   virtual void onSetData(const GrGLSLProgramDataManager&, const GrXferProcessor&) = 0;

@@ -21,7 +21,7 @@ public:
   SkArenaAllocList();
   void reset()
   {
- fHead = fTail = nullptr;
+    fHead = fTail = nullptr;
   }
   template <typename... Args>
   inline T& append(SkArenaAlloc* arena, Args... args);
@@ -32,46 +32,46 @@ public:
     inline Iter& operator++();
     T& operator*() const
     {
- return fCurr->fT;
+      return fCurr->fT;
     }
     T* operator->() const
     {
- return &fCurr->fT;
+      return &fCurr->fT;
     }
     bool operator==(const Iter& that) const
     {
- return fCurr == that.fCurr;
+      return fCurr == that.fCurr;
     }
     bool operator!=(const Iter& that) const
     {
- return !(*this == that);
+      return !(*this == that);
     }
   private:
     friend class SkArenaAllocList;
     explicit Iter(Node* node)
-      :  fCurr(node)
+      : fCurr(node)
     {
     }
     Node* fCurr = nullptr;
   };
   Iter begin()
   {
- return Iter(fHead);
+    return Iter(fHead);
   }
   Iter end()
   {
- return Iter();
+    return Iter();
   }
   Iter tail()
   {
- return Iter(fTail);
+    return Iter(fTail);
   }
 private:
   struct Node
   {
     template <typename... Args>
     Node(Args... args)
-      :  fT(std::forward<Args>(args)...)
+      : fT(std::forward<Args>(args)...)
     {
     }
     T fT;
@@ -83,19 +83,22 @@ private:
 template <typename T>
 T& SkArenaAllocList<T>::append(SkArenaAlloc* arena, Args... args)
 {
-    SkASSERT(!fHead == !fTail);
-    auto* n = arena->make<Node>(std::forward<Args>(args)...);
-    if (!fTail) {
-        fHead = fTail = n;
-    } else {
-        fTail = fTail->fNext = n;
-    }
-    return fTail->fT;
+  SkASSERT(!fHead == !fTail);
+  auto* n = arena->make<Node>(std::forward<Args>(args)...);
+  if (!fTail)
+  {
+    fHead = fTail = n;
+  }
+  else 
+  {
+    fTail = fTail->fNext = n;
+  }
+  return fTail->fT;
 }
 template <typename T>
 typename SkArenaAllocList<T>::Iter& SkArenaAllocList<T>::Iter::operator++()
 {
-    fCurr = fCurr->fNext;
-    return *this;
+  fCurr = fCurr->fNext;
+  return *this;
 }
 #endif

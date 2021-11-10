@@ -18,22 +18,21 @@ class GrSingleIntervalGradientColorizer : public GrFragmentProcessor
 public:
   static std::unique_ptr<GrFragmentProcessor> Make(SkPMColor4f start, SkPMColor4f end)
   {
-        return std::unique_ptr<GrFragmentProcessor>(
-                new GrSingleIntervalGradientColorizer(start, end));
+    return std::unique_ptr<GrFragmentProcessor>(new GrSingleIntervalGradientColorizer(start, end));
   }
   GrSingleIntervalGradientColorizer(const GrSingleIntervalGradientColorizer& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
   {
- return "SingleIntervalGradientColorizer";
+    return "SingleIntervalGradientColorizer";
   }
   SkPMColor4f start;
   SkPMColor4f end;
 private:
   GrSingleIntervalGradientColorizer(SkPMColor4f start, SkPMColor4f end)
-    :  INHERITED(kGrSingleIntervalGradientColorizer_ClassID, kNone_OptimizationFlags)
-            , start(start)
-            , end(end)
+    : INHERITED(kGrSingleIntervalGradientColorizer_ClassID, kNone_OptimizationFlags)
+    , start(start)
+    , end(end)
   {
   }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;

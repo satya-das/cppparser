@@ -40,36 +40,36 @@ struct HeifDecoder
 {
   bool init(HeifStream* stream, HeifFrameInfo*)
   {
-        delete stream;
-        return false;
+    delete stream;
+    return false;
   }
   bool getSequenceInfo(HeifFrameInfo* frameInfo, size_t* frameCount)
   {
-        return false;
+    return false;
   }
   bool decode(HeifFrameInfo*)
   {
-        return false;
+    return false;
   }
   bool decodeSequence(int frameIndex, HeifFrameInfo* frameInfo)
   {
-        return false;
+    return false;
   }
   bool setOutputColor(HeifColorFormat)
   {
-        return false;
+    return false;
   }
   bool getScanline(uint8_t*)
   {
-        return false;
+    return false;
   }
   int skipScanlines(int)
   {
-        return 0;
+    return 0;
   }
 };
 static HeifDecoder* createHeifDecoder()
 {
- return new HeifDecoder;
+  return new HeifDecoder;
 }
 #endif

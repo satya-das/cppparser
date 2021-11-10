@@ -241,24 +241,6 @@
 #      define wxUSE_XML	0
 #    endif
 #  endif
-#  ifndef wxUSE_SOCKETS
-#    ifdef wxABORT_ON_CONFIG_ERROR
-#    else 
-#      define wxUSE_SOCKETS	0
-#    endif
-#  endif
-#  ifndef wxUSE_STD_CONTAINERS
-#    ifdef wxABORT_ON_CONFIG_ERROR
-#    else 
-#      define wxUSE_STD_CONTAINERS	0
-#    endif
-#  endif
-#  ifndef wxUSE_STD_CONTAINERS_COMPATIBLY
-#    ifdef wxABORT_ON_CONFIG_ERROR
-#    else 
-#      define wxUSE_STD_CONTAINERS_COMPATIBLY	0
-#    endif
-#  endif
 #  ifndef wxUSE_STD_STRING_CONV_IN_WXSTRING
 #    ifdef wxABORT_ON_CONFIG_ERROR
 #    else 
@@ -287,12 +269,6 @@
 #    ifdef wxABORT_ON_CONFIG_ERROR
 #    else 
 #      define wxUSE_TEXTFILE	0
-#    endif
-#  endif
-#  ifndef wxUSE_UNICODE
-#    ifdef wxABORT_ON_CONFIG_ERROR
-#    else 
-#      define wxUSE_UNICODE	0
 #    endif
 #  endif
 #  ifndef wxUSE_UNSAFE_WXSTRING_CONV
@@ -898,12 +874,6 @@
 #        define wxUSE_TASKBARICON	0
 #      endif
 #    endif
-#    ifndef wxUSE_TEXTCTRL
-#      ifdef wxABORT_ON_CONFIG_ERROR
-#      else 
-#        define wxUSE_TEXTCTRL	0
-#      endif
-#    endif
 #    ifndef wxUSE_TIMEPICKCTRL
 #      ifdef wxABORT_ON_CONFIG_ERROR
 #      else 
@@ -1008,23 +978,7 @@
 /*
    Section 3a: check consistency of the non-GUI settings.
  */
-#  if  WXWIN_COMPATIBILITY_2_8
-#    if  !WXWIN_COMPATIBILITY_3_0
-#      ifdef wxABORT_ON_CONFIG_ERROR
-#      else 
-#        undef WXWIN_COMPATIBILITY_3_0
-#        define WXWIN_COMPATIBILITY_3_0	1
-#      endif
-#    endif
-#  endif
 #  if  wxUSE_ARCHIVE_STREAMS
-#    if  !wxUSE_DATETIME
-#      ifdef wxABORT_ON_CONFIG_ERROR
-#      else 
-#        undef wxUSE_ARCHIVE_STREAMS
-#        define wxUSE_ARCHIVE_STREAMS	0
-#      endif
-#    endif
 #  endif
 #  if  wxUSE_PROTOCOL_FILE || wxUSE_PROTOCOL_FTP || wxUSE_PROTOCOL_HTTP
 #    if  !wxUSE_PROTOCOL
@@ -1045,15 +999,6 @@
 #    endif
 #  endif
 #  if  wxUSE_PROTOCOL
-#    if  !wxUSE_SOCKETS
-#      if  wxUSE_PROTOCOL_HTTP || wxUSE_PROTOCOL_FTP
-#        ifdef wxABORT_ON_CONFIG_ERROR
-#        else 
-#          undef wxUSE_SOCKETS
-#          define wxUSE_SOCKETS	1
-#        endif
-#      endif
-#    endif
 #    if  !wxUSE_STREAMS
 #      ifdef wxABORT_ON_CONFIG_ERROR
 #      else 
@@ -1432,13 +1377,6 @@
 #          define wxUSE_COMBOBOX	1
 #        endif
 #      endif
-#      if  !wxUSE_DATETIME
-#        ifdef wxABORT_ON_CONFIG_ERROR
-#        else 
-#          undef wxUSE_DATETIME
-#          define wxUSE_DATETIME	1
-#        endif
-#      endif
 #    endif
 #    if  wxUSE_DATEPICKCTRL
     /* Only the generic implementation, not used under MSW and OSX, needs
@@ -1453,13 +1391,6 @@
 #      endif
 #    endif
 #    if  wxUSE_DATEPICKCTRL || wxUSE_TIMEPICKCTRL
-#      if  !wxUSE_DATETIME
-#        ifdef wxABORT_ON_CONFIG_ERROR
-#        else 
-#          undef wxUSE_DATETIME
-#          define wxUSE_DATETIME	1
-#        endif
-#      endif
 #    endif
 #    if  wxUSE_CHECKLISTBOX
 #      if  !wxUSE_LISTBOX
@@ -1480,13 +1411,6 @@
 #      endif
 #    endif
 #    if  wxUSE_FILECTRL
-#      if  !wxUSE_DATETIME
-#        ifdef wxABORT_ON_CONFIG_ERROR
-#        else 
-#          undef wxUSE_DATETIME
-#          define wxUSE_DATETIME	1
-#        endif
-#      endif
 #    endif
 #    if  wxUSE_HELP
 #      if  !wxUSE_BMPBUTTON
@@ -1510,10 +1434,8 @@
         define it in wx/setup_inc.h so don't complain if it happens to be
         defined under another platform but just silently fix it.
      */
-#      ifndef __WXMSW__
-#        undef wxUSE_MS_HTML_HELP
-#        define wxUSE_MS_HTML_HELP	0
-#      endif
+#      undef wxUSE_MS_HTML_HELP
+#      define wxUSE_MS_HTML_HELP	0
 #    endif
 #    if  wxUSE_WXHTML_HELP
 #      if  !wxUSE_HELP || !wxUSE_HTML || !wxUSE_COMBOBOX || !wxUSE_NOTEBOOK || !wxUSE_SPINCTRL
@@ -1735,13 +1657,6 @@
 #      endif
 #    endif
 #    if  wxUSE_LOGWINDOW
-#      if  !wxUSE_TEXTCTRL
-#        ifdef wxABORT_ON_CONFIG_ERROR
-#        else 
-#          undef wxUSE_TEXTCTRL
-#          define wxUSE_TEXTCTRL	1
-#        endif
-#      endif
 #    endif
 #    if  wxUSE_LOG_DIALOG
 #      if  !wxUSE_LISTCTRL || !wxUSE_BUTTON

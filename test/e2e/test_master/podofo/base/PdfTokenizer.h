@@ -251,14 +251,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline bool PdfTokenizer::IsWhitespace(const unsigned char ch)
   {
-    return ( PdfTokenizer::s_whitespaceMap[static_cast<size_t>(ch)] != 0 );
+    return (PdfTokenizer::s_whitespaceMap[static_cast<size_t>(ch)] != 0);
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfTokenizer::IsDelimiter(const unsigned char ch)
   {
-    return ( PdfTokenizer::s_delimiterMap[ch] != 0 );
+    return (PdfTokenizer::s_delimiterMap[ch] != 0);
   }
 // -----------------------------------------------------
 // 

@@ -20,10 +20,11 @@ struct SkRect;
 template <typename T>
 bool SkPackedArrayEqual(T* u, T* v, size_t n)
 {
-    SkASSERT(u);
-    SkASSERT(v);
-    return 0 == memcmp(u, v, n * sizeof(T));
+  SkASSERT(u);
+  SkASSERT(v);
+  return 0 == memcmp(u, v, n * sizeof(T));
 }
+#  define PRINT_NOT_IMPL(str)
 #  define NOT_IMPLEMENTED(condition, assert)	                         \
     do {                                                           \
         if ((bool)(condition)) {                                   \
@@ -75,16 +76,12 @@ namespace SkPDFUtils
   }
   inline void WriteUInt16BE(SkDynamicMemoryWStream* wStream, uint16_t value)
   {
-    char result[4] = { SkHexadecimalDigits::gUpper[       value >> 12 ],
-                       SkHexadecimalDigits::gUpper[0xF & (value >> 8 )],
-                       SkHexadecimalDigits::gUpper[0xF & (value >> 4 )],
-                       SkHexadecimalDigits::gUpper[0xF & (value      )] };
+    char result[4] = {SkHexadecimalDigits::gUpper[value >> 12], SkHexadecimalDigits::gUpper[0xF & (value >> 8)], SkHexadecimalDigits::gUpper[0xF & (value >> 4)], SkHexadecimalDigits::gUpper[0xF & (value)]};
     wStream->write(result, 4);
   }
   inline void WriteUInt8(SkDynamicMemoryWStream* wStream, uint8_t value)
   {
-    char result[2] = { SkHexadecimalDigits::gUpper[value >> 4],
-                       SkHexadecimalDigits::gUpper[value & 0xF] };
+    char result[2] = {SkHexadecimalDigits::gUpper[value >> 4], SkHexadecimalDigits::gUpper[value & 0xF]};
     wStream->write(result, 2);
   }
   inline void WriteUTF16beHex(SkDynamicMemoryWStream* wStream, SkUnichar utf32)
@@ -93,15 +90,17 @@ namespace SkPDFUtils
     size_t len = SkUTF::ToUTF16(utf32, utf16);
     SkASSERT(len == 1 || len == 2);
     SkPDFUtils::WriteUInt16BE(wStream, utf16[0]);
-    if (len == 2) {
-        SkPDFUtils::WriteUInt16BE(wStream, utf16[1]);
+    if (len == 2)
+    {
+      SkPDFUtils::WriteUInt16BE(wStream, utf16[1]);
     }
   }
   inline SkMatrix GetShaderLocalMatrix(const SkShader* shader)
   {
     SkMatrix localMatrix;
-    if (sk_sp<SkShader> s = as_SB(shader)->makeAsALocalMatrixShader(&localMatrix)) {
-        return SkMatrix::Concat(as_SB(s)->getLocalMatrix(), localMatrix);
+    if (sk_sp<SkShader> s = as_SB(shader)->makeAsALocalMatrixShader(&localMatrix))
+    {
+      return SkMatrix::Concat(as_SB(s)->getLocalMatrix(), localMatrix);
     }
     return as_SB(shader)->getLocalMatrix();
   }

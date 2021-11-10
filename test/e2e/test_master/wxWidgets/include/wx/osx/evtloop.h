@@ -23,7 +23,7 @@ public:
     // skip wxGUIEventLoop to avoid missing Enter/Exit notifications
   int Run() override
   {
- return wxCFEventLoop::Run();
+    return wxCFEventLoop::Run();
   }
 #  endif
 protected:

@@ -270,6 +270,6 @@ private:
 // deprecated method. Please use the overload taking AcString & arg
 inline Acad::ErrorStatus AcDbModelDocViewStyle::getName(ACHAR*& pName) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbModelDocViewStyle::getName, pName);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbModelDocViewStyle::getName, pName);
 }
 #endif

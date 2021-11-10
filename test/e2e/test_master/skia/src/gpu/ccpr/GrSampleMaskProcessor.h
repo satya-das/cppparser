@@ -14,7 +14,7 @@ class GrSampleMaskProcessor : public GrCCCoverageProcessor
 {
 public:
   GrSampleMaskProcessor()
-    :  GrCCCoverageProcessor(kGrSampleMaskProcessor_ClassID)
+    : GrCCCoverageProcessor(kGrSampleMaskProcessor_ClassID)
   {
   }
 private:

@@ -38,11 +38,11 @@ public:
   virtual ~GrOpsTask();
   GrOpsTask* asOpsTask() override
   {
- return this;
+    return this;
   }
   bool isEmpty() const
   {
- return fOpChains.empty();
+    return fOpChains.empty();
   }
     /**
      * Empties the draw buffer of any queued up draws.
@@ -56,41 +56,30 @@ public:
   bool onExecute(GrOpFlushState* flushState) override;
   void addSampledTexture(GrTextureProxy* proxy)
   {
-        fSampledProxies.push_back(proxy);
+    fSampledProxies.push_back(proxy);
   }
   void addOp(std::unique_ptr<GrOp> op, GrTextureResolveManager textureResolveManager, const GrCaps& caps)
   {
-        auto addDependency = [ textureResolveManager, &caps, this ] (
-                GrTextureProxy* p, GrMipMapped mipmapped) {
-            this->addDependency(p, mipmapped, textureResolveManager, caps);
-        };
-
-        op->visitProxies(addDependency);
-
-        this->recordOp(std::move(op), GrProcessorSet::EmptySetAnalysis(), nullptr, nullptr, caps);
+    auto addDependency = ;
+    op->visitProxies(addDependency);
+    this->recordOp(std::move(op), GrProcessorSet::EmptySetAnalysis(), nullptr, nullptr, caps);
   }
   void addWaitOp(std::unique_ptr<GrOp> op, GrTextureResolveManager textureResolveManager, const GrCaps& caps)
   {
-        fHasWaitOp = true;
-        this->addOp(std::move(op), textureResolveManager, caps);
+    fHasWaitOp = true;
+    this->addOp(std::move(op), textureResolveManager, caps);
   }
   void addDrawOp(std::unique_ptr<GrDrawOp> op, const GrProcessorSet::Analysis& processorAnalysis, GrAppliedClip&& clip, const DstProxy& dstProxy, GrTextureResolveManager textureResolveManager, const GrCaps& caps)
   {
-        auto addDependency = [ textureResolveManager, &caps, this ] (
-                GrTextureProxy* p, GrMipMapped mipmapped) {
-            this->addSampledTexture(p);
-            this->addDependency(p, mipmapped, textureResolveManager, caps);
-        };
-
-        op->visitProxies(addDependency);
-        clip.visitProxies(addDependency);
-        if (dstProxy.proxy()) {
-            this->addSampledTexture(dstProxy.proxy());
-            addDependency(dstProxy.proxy(), GrMipMapped::kNo);
-        }
-
-        this->recordOp(std::move(op), processorAnalysis, clip.doesClip() ? &clip : nullptr,
-                       &dstProxy, caps);
+    auto addDependency = ;
+    op->visitProxies(addDependency);
+    clip.visitProxies(addDependency);
+    if (dstProxy.proxy())
+    {
+      this->addSampledTexture(dstProxy.proxy());
+      addDependency(dstProxy.proxy(), GrMipMapped::kNo);
+    }
+    this->recordOp(std::move(op), processorAnalysis, clip.doesClip() ? &clip : nullptr, &dstProxy, caps);
   }
   void discard();
 private:
@@ -101,7 +90,7 @@ private:
         //
         // TODO: We should also consider stencil load/store here. We get away with it for now
         // because we never discard stencil buffers.
-        return fOpChains.empty() && GrLoadOp::kLoad == fColorLoadOp;
+    return fOpChains.empty() && GrLoadOp::kLoad == fColorLoadOp;
   }
   void deleteOps();
   enum class StencilContent {
@@ -121,21 +110,21 @@ private:
     // NOTE: initialContent must not be kClear if caps.performStencilClearsAsDraws() is true.
   void setInitialStencilContent(StencilContent initialContent)
   {
-        fInitialStencilContent = initialContent;
+    fInitialStencilContent = initialContent;
   }
     // If a renderTargetContext splits its opsTask, it uses this method to guarantee stencil values
     // get preserved across its split tasks.
   void setMustPreserveStencil()
   {
- fMustPreserveStencil = true;
+    fMustPreserveStencil = true;
   }
     // Must only be called if native color buffer clearing is enabled.
   void setColorLoadOp(GrLoadOp op, const SkPMColor4f& color);
     // Sets the clear color to transparent black
   void setColorLoadOp(GrLoadOp op)
   {
-        static const SkPMColor4f kDefaultClearColor = {0.f, 0.f, 0.f, 0.f};
-        this->setColorLoadOp(op, kDefaultClearColor);
+    static const SkPMColor4f kDefaultClearColor = {0.f, 0.f, 0.f, 0.f};
+    this->setColorLoadOp(op, kDefaultClearColor);
   }
   enum class CanDiscardPreviousOps : bool {
         kYes = true,
@@ -154,24 +143,24 @@ private:
     ~OpChain()
     {
             // The ops are stored in a GrMemoryPool and must be explicitly deleted via the pool.
-            SkASSERT(fList.empty());
+      SkASSERT(fList.empty());
     }
     void visitProxies(const GrOp::VisitProxyFunc&) const;
     GrOp* head() const
     {
- return fList.head();
+      return fList.head();
     }
     GrAppliedClip* appliedClip() const
     {
- return fAppliedClip;
+      return fAppliedClip;
     }
     const DstProxy& dstProxy() const
     {
- return fDstProxy;
+      return fDstProxy;
     }
     const SkRect& bounds() const
     {
- return fBounds;
+      return fBounds;
     }
         // Deletes all the ops in the chain via the pool.
     void deleteOps(GrOpMemoryPool* pool);
@@ -185,11 +174,11 @@ private:
     std::unique_ptr<GrOp> appendOp(std::unique_ptr<GrOp> op, GrProcessorSet::Analysis, const DstProxy*, const GrAppliedClip*, const GrCaps&, GrOpMemoryPool*, GrAuditTrail*);
     void setSkipExecuteFlag()
     {
- fSkipExecute = true;
+      fSkipExecute = true;
     }
     bool shouldExecute() const
     {
-            return SkToBool(this->head()) && !fSkipExecute;
+      return SkToBool(this->head()) && !fSkipExecute;
     }
   private:
     class List
@@ -201,15 +190,15 @@ private:
       List& operator=(List&& that);
       bool empty() const
       {
- return !SkToBool(fHead);
+        return !SkToBool(fHead);
       }
       GrOp* head() const
       {
- return fHead.get();
+        return fHead.get();
       }
       GrOp* tail() const
       {
- return fTail;
+        return fTail;
       }
       std::unique_ptr<GrOp> popHead();
       std::unique_ptr<GrOp> removeOp(GrOp* op);

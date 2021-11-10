@@ -18,42 +18,39 @@ class WXDLLIMPEXP_CORE wxColour : public wxColourBase
 public:
     // constructors
     // ------------
-  DEFINE_STD_WXCOLOUR_CONSTRUCTORS bool IsOk() const override
+  DEFINE_STD_WXCOLOUR_CONSTRUCTORS
+  bool IsOk() const override
   {
- return m_isInit;
+    return m_isInit;
   }
   unsigned char Red() const override
   {
- return m_red;
+    return m_red;
   }
   unsigned char Green() const override
   {
- return m_green;
+    return m_green;
   }
   unsigned char Blue() const override
   {
- return m_blue;
+    return m_blue;
   }
   unsigned char Alpha() const override
   {
- return m_alpha ;
+    return m_alpha;
   }
     // comparison
   bool operator==(const wxColour& colour) const
   {
-        return m_isInit == colour.m_isInit
-            && m_red == colour.m_red
-            && m_green == colour.m_green
-            && m_blue == colour.m_blue
-            && m_alpha == colour.m_alpha;
+    return m_isInit == colour.m_isInit && m_red == colour.m_red && m_green == colour.m_green && m_blue == colour.m_blue && m_alpha == colour.m_alpha;
   }
   bool operator!=(const wxColour& colour) const
   {
- return !(*this == colour);
+    return !(*this == colour);
   }
   WXCOLORREF GetPixel() const
   {
- return m_pixel;
+    return m_pixel;
   }
   WXCOLORREF m_pixel;
 protected:

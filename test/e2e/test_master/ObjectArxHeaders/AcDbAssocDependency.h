@@ -241,7 +241,7 @@ public:
     ///
   AcDbObjectId owningAction() const
   {
- return ownerId();
+    return ownerId();
   }
     /// <summary> <para>
     /// Every dependency is owned (in the logical as well as in the AutoCAD 
@@ -317,7 +317,7 @@ public:
     ///
   bool isAttachedToObject() const
   {
- return !dependentOnObject().isNull();
+    return !dependentOnObject().isNull();
   }
     /// <summary> <para>
     /// Attaches this dependency to a given AcDbCompoundObjectId as a persistent 

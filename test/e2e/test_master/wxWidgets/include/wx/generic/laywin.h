@@ -48,58 +48,58 @@ class WXDLLIMPEXP_CORE wxQueryLayoutInfoEvent : public wxEvent
 public:
   wxQueryLayoutInfoEvent(wxWindowID id = 0)
   {
-        SetEventType(wxEVT_QUERY_LAYOUT_INFO);
-        m_requestedLength = 0;
-        m_flags = 0;
-        m_id = id;
-        m_alignment = wxLAYOUT_TOP;
-        m_orientation = wxLAYOUT_HORIZONTAL;
+    SetEventType(wxEVT_QUERY_LAYOUT_INFO);
+    m_requestedLength = 0;
+    m_flags = 0;
+    m_id = id;
+    m_alignment = wxLAYOUT_TOP;
+    m_orientation = wxLAYOUT_HORIZONTAL;
   }
     // Read by the app
   void SetRequestedLength(int length)
   {
- m_requestedLength = length;
+    m_requestedLength = length;
   }
   int GetRequestedLength() const
   {
- return m_requestedLength;
+    return m_requestedLength;
   }
   void SetFlags(int flags)
   {
- m_flags = flags;
+    m_flags = flags;
   }
   int GetFlags() const
   {
- return m_flags;
+    return m_flags;
   }
     // Set by the app
   void SetSize(const wxSize& size)
   {
- m_size = size;
+    m_size = size;
   }
   wxSize GetSize() const
   {
- return m_size;
+    return m_size;
   }
   void SetOrientation(wxLayoutOrientation orient)
   {
- m_orientation = orient;
+    m_orientation = orient;
   }
   wxLayoutOrientation GetOrientation() const
   {
- return m_orientation;
+    return m_orientation;
   }
   void SetAlignment(wxLayoutAlignment align)
   {
- m_alignment = align;
+    m_alignment = align;
   }
   wxLayoutAlignment GetAlignment() const
   {
- return m_alignment;
+    return m_alignment;
   }
   wxEvent* Clone() const override
   {
- return new wxQueryLayoutInfoEvent(*this);
+    return new wxQueryLayoutInfoEvent(*this);
   }
 protected:
   int m_flags;
@@ -107,6 +107,7 @@ protected:
   wxSize m_size;
   wxLayoutOrientation m_orientation;
   wxLayoutAlignment m_alignment;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxQueryLayoutInfoEvent);
 };
 typedef void (*wxQueryLayoutInfoEventFunction) (wxQueryLayoutInfoEvent&);
@@ -122,35 +123,36 @@ class WXDLLIMPEXP_CORE wxCalculateLayoutEvent : public wxEvent
 public:
   wxCalculateLayoutEvent(wxWindowID id = 0)
   {
-        SetEventType(wxEVT_CALCULATE_LAYOUT);
-        m_flags = 0;
-        m_id = id;
+    SetEventType(wxEVT_CALCULATE_LAYOUT);
+    m_flags = 0;
+    m_id = id;
   }
     // Read by the app
   void SetFlags(int flags)
   {
- m_flags = flags;
+    m_flags = flags;
   }
   int GetFlags() const
   {
- return m_flags;
+    return m_flags;
   }
     // Set by the app
   void SetRect(const wxRect& rect)
   {
- m_rect = rect;
+    m_rect = rect;
   }
   wxRect GetRect() const
   {
- return m_rect;
+    return m_rect;
   }
   wxEvent* Clone() const override
   {
- return new wxCalculateLayoutEvent(*this);
+    return new wxCalculateLayoutEvent(*this);
   }
 protected:
   int m_flags;
   wxRect m_rect;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxCalculateLayoutEvent);
 };
 typedef void (*wxCalculateLayoutEventFunction) (wxCalculateLayoutEvent&);
@@ -166,34 +168,34 @@ class WXDLLIMPEXP_CORE wxSashLayoutWindow : public wxSashWindow
 public:
   wxSashLayoutWindow()
   {
-        Init();
+    Init();
   }
   wxSashLayoutWindow(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSW_3D | wxCLIP_CHILDREN, const wxString& name = wxT("layoutWindow"))
   {
-        Create(parent, id, pos, size, style, name);
+    Create(parent, id, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSW_3D | wxCLIP_CHILDREN, const wxString& name = wxT("layoutWindow"));
 // Accessors
   inline wxLayoutAlignment GetAlignment() const
   {
- return m_alignment;
+    return m_alignment;
   }
   inline wxLayoutOrientation GetOrientation() const
   {
- return m_orientation;
+    return m_orientation;
   }
   inline void SetAlignment(wxLayoutAlignment align)
   {
- m_alignment = align;
+    m_alignment = align;
   }
   inline void SetOrientation(wxLayoutOrientation orient)
   {
- m_orientation = orient;
+    m_orientation = orient;
   }
     // Give the window default dimensions
   inline void SetDefaultSize(const wxSize& size)
   {
- m_defaultSize = size;
+    m_defaultSize = size;
   }
 // Event handlers
     // Called by layout algorithm to allow window to take a bit out of the

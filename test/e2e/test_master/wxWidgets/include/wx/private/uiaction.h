@@ -16,11 +16,9 @@ class wxUIActionSimulatorImpl
 public:
   wxUIActionSimulatorImpl()
   {
-
   }
   virtual ~wxUIActionSimulatorImpl()
   {
-
   }
     // Low level mouse methods which must be implemented in the derived class.
   virtual bool MouseMove(long x, long y) = 0;
@@ -35,6 +33,7 @@ public:
     // presses. It should generate exactly one key event with the given
     // parameters.
   virtual bool DoKey(int keycode, int modifiers, bool isDown) = 0;
+private:
   wxDECLARE_NO_COPY_CLASS(wxUIActionSimulatorImpl);
 };
 #endif

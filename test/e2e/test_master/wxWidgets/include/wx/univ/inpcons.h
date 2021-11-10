@@ -30,16 +30,15 @@ class WXDLLIMPEXP_CORE wxInputConsumer
 public:
   wxInputConsumer()
   {
- m_inputHandler = NULL;
+    m_inputHandler = NULL;
   }
   virtual ~wxInputConsumer()
   {
-
   }
     // get the input handler
   wxInputHandler* GetInputHandler() const
   {
- return m_inputHandler;
+    return m_inputHandler;
   }
     // perform a control-dependent action: an action may have an optional
     // numeric and another (also optional) string argument whose interpretation

@@ -59,99 +59,92 @@ class wxAutoOleInterface
 public:
   typedef I Interface;
   explicit wxAutoOleInterface(I* pInterface = NULL)
-    :  m_interface(pInterface)
+    : m_interface(pInterface)
   {
   }
   wxAutoOleInterface(REFIID riid, IUnknown* pUnk)
-    :  m_interface(NULL)
+    : m_interface(NULL)
   {
- QueryInterface(riid, pUnk);
+    QueryInterface(riid, pUnk);
   }
   wxAutoOleInterface(REFIID riid, IDispatch* pDispatch)
-    :  m_interface(NULL)
+    : m_interface(NULL)
   {
- QueryInterface(riid, pDispatch);
+    QueryInterface(riid, pDispatch);
   }
   wxAutoOleInterface(REFCLSID clsid, REFIID riid)
-    :  m_interface(NULL)
+    : m_interface(NULL)
   {
- CreateInstance(clsid, riid);
+    CreateInstance(clsid, riid);
   }
   wxAutoOleInterface(const wxAutoOleInterface& ti)
-    :  m_interface(NULL)
+    : m_interface(NULL)
   {
- operator=(ti);
+    operator=(ti);
   }
   wxAutoOleInterface& operator=(const wxAutoOleInterface& ti)
   {
-        if ( ti.m_interface )
-            ti.m_interface->AddRef();
-        Free();
-        m_interface = ti.m_interface;
-        return *this;
+    if (ti.m_interface)
+    {
+      ti.m_interface->AddRef();
+    }
+    Free();
+    m_interface = ti.m_interface;
+    return *this;
   }
   wxAutoOleInterface& operator=(I*& ti)
   {
-        Free();
-        m_interface = ti;
-        return *this;
+    Free();
+    m_interface = ti;
+    return *this;
   }
   ~wxAutoOleInterface()
   {
- Free();
+    Free();
   }
   void Free()
   {
-        if ( m_interface )
-            m_interface->Release();
-        m_interface = NULL;
+    if (m_interface)
+    {
+      m_interface->Release();
+    }
+    m_interface = NULL;
   }
   HRESULT QueryInterface(REFIID riid, IUnknown* pUnk)
   {
-        Free();
-        wxASSERT(pUnk != NULL);
-        return pUnk->QueryInterface(riid, (void **)&m_interface);
+    Free();
+    wxASSERT(pUnk != NULL);
+    return pUnk->QueryInterface(riid, (void**) &m_interface);
   }
   HRESULT CreateInstance(REFCLSID clsid, REFIID riid)
   {
-        Free();
-        return CoCreateInstance
-               (
-                   clsid,
-                   NULL,
-                   CLSCTX_ALL,
-                   riid,
-                   (void **)&m_interface
-               );
+    Free();
+    return CoCreateInstance(clsid, NULL, CLSCTX_ALL, riid, (void**) &m_interface);
   }
   operator I*() const
   {
-return m_interface;
+    return m_interface;
   }
   I* operator->()
   {
-return m_interface;
+    return m_interface;
   }
   I** GetRef()
   {
-return &m_interface;
+    return &m_interface;
   }
   bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const
   {
- return m_interface != NULL;
+    return m_interface != NULL;
   }
 protected:
   I* m_interface;
 };
-#    if  WXWIN_COMPATIBILITY_2_8
 // this macro is kept for compatibility with older wx versions
-#      define WX_DECLARE_AUTOOLE(wxAutoOleInterfaceType, I)	 \
-    typedef wxAutoOleInterface<I> wxAutoOleInterfaceType;
-#    endif
 typedef wxAutoOleInterface<IDispatch> wxAutoIDispatch;
 typedef wxAutoOleInterface<IOleClientSite> wxAutoIOleClientSite;
 typedef wxAutoOleInterface<IUnknown> wxAutoIUnknown;
@@ -203,10 +196,15 @@ struct wxActiveXEventNativeMSW
   EXCEPINFO* pExcepInfo;
   unsigned int* puArgErr;
   wxActiveXEventNativeMSW(DISPID a_dispIdMember, REFIID a_riid, LCID a_lcid, WORD a_wFlags, DISPPARAMS* a_pDispParams, VARIANT* a_pVarResult, EXCEPINFO* a_pExcepInfo, unsigned int* a_puArgErr)
-    : dispIdMember(a_dispIdMember), riid(a_riid), lcid(a_lcid), wFlags(a_wFlags), pDispParams(a_pDispParams),
-        pVarResult(a_pVarResult), pExcepInfo(a_pExcepInfo), puArgErr(a_puArgErr)
+    : dispIdMember(a_dispIdMember)
+    , riid(a_riid)
+    , lcid(a_lcid)
+    , wFlags(a_wFlags)
+    , pDispParams(a_pDispParams)
+    , pVarResult(a_pVarResult)
+    , pExcepInfo(a_pExcepInfo)
+    , puArgErr(a_puArgErr)
   {
-
   }
 };
 // Events
@@ -219,27 +217,27 @@ private:
 public:
   wxEvent* Clone() const override
   {
- return new wxActiveXEvent(*this);
+    return new wxActiveXEvent(*this);
   }
   size_t ParamCount() const;
   wxString ParamType(size_t idx) const
   {
-        wxASSERT(idx < ParamCount());
-        return m_params[idx].GetType();
+    wxASSERT(idx < ParamCount());
+    return m_params[idx].GetType();
   }
   wxString ParamName(size_t idx) const
   {
-        wxASSERT(idx < ParamCount());
-        return m_params[idx].GetName();
+    wxASSERT(idx < ParamCount());
+    return m_params[idx].GetName();
   }
   wxVariant& operator[](size_t idx);
   DISPID GetDispatchId() const
   {
-   return m_dispid;
+    return m_dispid;
   }
   wxActiveXEventNativeMSW* GetNativeParameters() const
   {
-   return (wxActiveXEventNativeMSW*)GetClientData();
+    return (wxActiveXEventNativeMSW*) GetClientData();
   }
 };
 // #define wxACTIVEX_ID    14001

@@ -60,7 +60,7 @@ public:
   {
     void operator()(SkStrikeForGPU* ptr) const
     {
-            ptr->onAboutToExitScope();
+      ptr->onAboutToExitScope();
     }
   };
 };

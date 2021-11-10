@@ -36,18 +36,18 @@ protected:
   Result onGetPixels(const SkImageInfo& dstInfo, void* dst, size_t dstRowBytes, const Options&, int*) override;
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
-        return SkEncodedImageFormat::kICO;
+    return SkEncodedImageFormat::kICO;
   }
   SkScanlineOrder onGetScanlineOrder() const override;
   bool conversionSupported(const SkImageInfo&, bool, bool) override
   {
         // This will be checked by the embedded codec.
-        return true;
+    return true;
   }
     // Handled by the embedded codec.
   bool usesColorXform() const override
   {
- return false;
+    return false;
   }
 private:
   Result onStartScanlineDecode(const SkImageInfo& dstInfo, const SkCodec::Options& options) override;

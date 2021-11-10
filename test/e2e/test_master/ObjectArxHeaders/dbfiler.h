@@ -312,279 +312,279 @@ private:
 };
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcDbHardOwnershipId* pId)
 {
-   return readHardOwnershipId(pId);
+  return readHardOwnershipId(pId);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcDbHardOwnershipId& pId)
 {
-   return writeHardOwnershipId(pId);
+  return writeHardOwnershipId(pId);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcDbSoftOwnershipId* pId)
 {
-   return readSoftOwnershipId(pId);
+  return readSoftOwnershipId(pId);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcDbSoftOwnershipId& pId)
 {
-   return writeSoftOwnershipId(pId);
+  return writeSoftOwnershipId(pId);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcDbHardPointerId* pId)
 {
-   return readHardPointerId(pId);
+  return readHardPointerId(pId);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcDbHardPointerId& pId)
 {
-   return writeHardPointerId(pId);
+  return writeHardPointerId(pId);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcDbSoftPointerId* pId)
 {
-   return readSoftPointerId(pId);
+  return readSoftPointerId(pId);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcDbSoftPointerId& pId)
 {
-   return writeSoftPointerId(pId);
+  return writeSoftPointerId(pId);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(ACHAR** pVal)
 {
-   return readString(pVal);
+  return readString(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const ACHAR* val)
 {
-   return writeString(val);
+  return writeString(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(ads_binary* pVal)
 {
-   return readBChunk(pVal);
+  return readBChunk(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const ads_binary& val)
 {
-   return writeBChunk(val);
+  return writeBChunk(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcDbHandle* pVal)
 {
-   return readAcDbHandle(pVal);
+  return readAcDbHandle(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcDbHandle& val)
 {
-   return writeAcDbHandle(val);
+  return writeAcDbHandle(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(Adesk::Int32* pVal)
 {
-   return readInt32(pVal);
+  return readInt32(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(Adesk::Int32 val)
 {
-   return writeInt32(val);
+  return writeInt32(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(Adesk::Int16* pVal)
 {
-   return readInt16(pVal);
+  return readInt16(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(Adesk::Int16 val)
 {
-   return writeInt16(val);
+  return writeInt16(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(Adesk::Int8* pVal)
 {
-   return this->readInt8(pVal);
+  return this->readInt8(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(Adesk::Int8 val)
 {
-   return this->writeInt8(val);
+  return this->writeInt8(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(Adesk::UInt32* pVal)
 {
-   return readUInt32(pVal);
+  return readUInt32(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(Adesk::UInt32 val)
 {
-   return writeUInt32(val);
+  return writeUInt32(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(Adesk::UInt16* pVal)
 {
-   return readUInt16(pVal);
+  return readUInt16(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(Adesk::UInt16 val)
 {
-   return writeUInt16(val);
+  return writeUInt16(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(Adesk::UInt8* pVal)
 {
-   return readUInt8(pVal);
+  return readUInt8(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(Adesk::UInt8 val)
 {
-   return writeUInt8(val);
+  return writeUInt8(val);
 }
 #  if  !defined(Adesk_Boolean_is_bool)
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(Adesk::Boolean* pVal)
 {
-   return readBoolean(pVal);
+  return readBoolean(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(Adesk::Boolean val)
 {
-   return writeBoolean(val);
+  return writeBoolean(val);
 }
 #  endif
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(bool* pVal)
 {
-   return readBool(pVal);
+  return readBool(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(bool val)
 {
-   return writeBool(val);
+  return writeBool(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(double* pVal)
 {
-   return readDouble(pVal);
+  return readDouble(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(double val)
 {
-   return writeDouble(val);
+  return writeDouble(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcGePoint2d* pVal)
 {
-   return readPoint2d(pVal);
+  return readPoint2d(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcGePoint2d& val)
 {
-   return writePoint2d(val);
+  return writePoint2d(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcGePoint3d* pVal)
 {
-   return readPoint3d(pVal);
+  return readPoint3d(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcGePoint3d& val)
 {
-   return writePoint3d(val);
+  return writePoint3d(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcGeVector2d* pVal)
 {
-   return readVector2d(pVal);
+  return readVector2d(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcGeVector2d& val)
 {
-   return writeVector2d(val);
+  return writeVector2d(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcGeVector3d* pVal)
 {
-   return readVector3d(pVal);
+  return readVector3d(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcGeVector3d& val)
 {
-   return writeVector3d(val);
+  return writeVector3d(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(AcGeScale3d* pVal)
 {
-   return readScale3d(pVal);
+  return readScale3d(pVal);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcGeScale3d& val)
 {
-   return writeScale3d(val);
+  return writeScale3d(val);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(void* buf, Adesk::UIntPtr cnt)
 {
-   return readBytes(buf, cnt);
+  return readBytes(buf, cnt);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const void* buf, Adesk::UIntPtr cnt)
 {
-   return writeBytes(buf, cnt);
+  return writeBytes(buf, cnt);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::readItem(void** pp)
 {
-   return readAddress(pp);
+  return readAddress(pp);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const void* p)
 {
-   return writeAddress(p);
+  return writeAddress(p);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::readItem(resbuf* pVal)
 {
-   return readResBuf(pVal);
+  return readResBuf(pVal);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(const resbuf& val)
 {
-   return writeResBuf(val);
+  return writeResBuf(val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const AcDbObjectId& id)
 {
-   return writeObjectId(dc, id);
+  return writeObjectId(dc, id);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const ACHAR* val)
 {
-   return writeString(dc, val);
+  return writeString(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const ads_binary& val)
 {
-   return writeBChunk(dc, val);
+  return writeBChunk(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const AcDbHandle& val)
 {
-   return writeAcDbHandle(dc, val);
+  return writeAcDbHandle(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, Adesk::Int32 val)
 {
-   return writeInt32(dc, val);
+  return writeInt32(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, Adesk::Int16 val)
 {
-   return writeInt16(dc, val);
+  return writeInt16(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, Adesk::Int8 val)
 {
-   return this->writeInt8(dc, val);
+  return this->writeInt8(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, Adesk::UInt32 val)
 {
-   return writeUInt32(dc, val);
+  return writeUInt32(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, Adesk::UInt16 val)
 {
-   return writeUInt16(dc, val);
+  return writeUInt16(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, Adesk::UInt8 val)
 {
-   return writeUInt8(dc, val);
+  return writeUInt8(dc, val);
 }
 #  if  !defined(Adesk_Boolean_is_bool) 
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, Adesk::Boolean val)
 {
-   return writeBoolean(dc, val);
+  return writeBoolean(dc, val);
 }
 #  endif
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, bool val)
 {
-   return writeBool(dc, val);
+  return writeBool(dc, val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, double val, int prec)
 {
-   return writeDouble(dc, val, prec);
+  return writeDouble(dc, val, prec);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const AcGePoint2d& val, int prec)
 {
-   return writePoint2d(dc, val, prec);
+  return writePoint2d(dc, val, prec);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const AcGePoint3d& val, int prec)
 {
-   return writePoint3d(dc, val, prec);
+  return writePoint3d(dc, val, prec);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const AcGeVector2d& val, int prec)
 {
-   return writeVector2d(dc, val, prec);
+  return writeVector2d(dc, val, prec);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const AcGeVector3d& val, int prec)
 {
-   return writeVector3d(dc, val, prec);
+  return writeVector3d(dc, val, prec);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const AcGeScale3d& val, int prec)
 {
-   return writeScale3d(dc, val, prec);
+  return writeScale3d(dc, val, prec);
 }
 inline Acad::ErrorStatus AcDbDwgFiler::writeItem(const AcString& val)
 {
-   return writeString(val);
+  return writeString(val);
 }
 inline Acad::ErrorStatus AcDbDxfFiler::writeItem(AcDb::DxfCode dc, const AcString& val)
 {
-   return writeString(dc, val);
+  return writeString(dc, val);
 }
 #  pragma  pack (pop)
 #endif

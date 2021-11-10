@@ -23,10 +23,11 @@ public:
   bool SetCurrent(const wxGLCanvas& win) const override;
   HGLRC GetGLRC() const
   {
- return m_glContext;
+    return m_glContext;
   }
 protected:
   HGLRC m_glContext;
+private:
   wxDECLARE_CLASS(wxGLContext);
 };
 // ----------------------------------------------------------------------------
@@ -48,7 +49,7 @@ public:
     // get the HDC used for OpenGL rendering
   HDC GetHDC() const
   {
- return m_hDC;
+    return m_hDC;
   }
     // Try to find pixel format matching the given attributes list for the
     // specified HDC, return 0 on error, otherwise ppfd is filled in with the
@@ -65,8 +66,6 @@ public:
 #  endif
     // deprecated methods using the implicit wxGLContext, associate the context
     // explicitly with the window instead
-#  if  WXWIN_COMPATIBILITY_2_8
-#  endif
 protected:
     // common part of all ctors
   void Init();

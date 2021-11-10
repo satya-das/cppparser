@@ -18,17 +18,16 @@ class WXDLLIMPEXP_FWD_CORE wxFileDialogBase;
 // ----------------------------------------------------------------------------
 
 // Don't include this code when building the library itself
-#  ifndef WXBUILDING
-#    include "wx/beforestd.h"
-#    include <algorithm>
-#    include <iterator>
-#    include <queue>
-#    include "wx/afterstd.h"
-#    include "wx/cpp.h"
-#    include "wx/dialog.h"
-#    include "wx/msgdlg.h"
-#    include "wx/filedlg.h"
-#    include <typeinfo>
+#  include "wx/beforestd.h"
+#  include <algorithm>
+#  include <iterator>
+#  include <queue>
+#  include "wx/afterstd.h"
+#  include "wx/cpp.h"
+#  include "wx/dialog.h"
+#  include "wx/msgdlg.h"
+#  include "wx/filedlg.h"
+#  include <typeinfo>
 class wxTestingModalHook;
 // This helper is used to construct the best possible name for the dialog of
 // the given type using either wxRTTI or C++ RTTI.
@@ -39,14 +38,12 @@ inline wxString wxGetDialogClassDescription(const wxClassInfo* ci, const std::ty
     // demangled, but if wxRTTI macros were not used for this object, it's
     // better to return a not-very-readable-but-informative mangled name rather
     // than a readable but useless "wxDialog".
-    if ( ci == wxCLASSINFO(wxDialog) )
-    {
-        return wxString::Format(wxASCII_STR("dialog of type \"%s\""),
-                                wxASCII_STR(ti.name()));
-    }
-
+  if (ci == wxCLASSINFO(wxDialog))
+  {
+    return wxString::Format(wxASCII_STR("dialog of type \"%s\""), wxASCII_STR(ti.name()));
+  }
     // We consider that an unmangled name is clear enough to be used on its own.
-    return ci->GetClassName();
+  return ci->GetClassName();
 }
 // Non-template base class for wxExpectModal<T> (via wxExpectModalBase).
 // Only used internally.
@@ -54,7 +51,7 @@ class wxModalExpectation
 {
 public:
   wxModalExpectation()
-    :  m_isOptional(false)
+    : m_isOptional(false)
   {
   }
   virtual ~wxModalExpectation()
@@ -62,11 +59,11 @@ public:
   }
   wxString GetDescription() const
   {
-        return m_description.empty() ? GetDefaultDescription() : m_description;
+    return m_description.empty() ? GetDefaultDescription() : m_description;
   }
   bool IsOptional() const
   {
- return m_isOptional;
+    return m_isOptional;
   }
   virtual int Invoke(wxDialog* dlg) const = 0;
 protected:
@@ -129,9 +126,9 @@ public:
      */
   ExpectationType Optional() const
   {
-        ExpectationType e(*static_cast<const ExpectationType*>(this));
-        e.m_isOptional = true;
-        return e;
+    ExpectationType e(*static_cast<const ExpectationType*>(this));
+    e.m_isOptional = true;
+    return e;
   }
     /**
         Sets a description shown in the error message if the expectation fails.
@@ -142,23 +139,27 @@ public:
      */
   ExpectationType Describe(const wxString& description) const
   {
-        ExpectationType e(*static_cast<const ExpectationType*>(this));
-        e.m_description = description;
-        return e;
+    ExpectationType e(*static_cast<const ExpectationType*>(this));
+    e.m_description = description;
+    return e;
   }
 protected:
   int Invoke(wxDialog* dlg) const override
   {
-        DialogType *t = dynamic_cast<DialogType*>(dlg);
-        if ( t )
-            return OnInvoked(t);
-        else
-            return wxID_NONE; // not handled
+    DialogType* t = dynamic_cast<DialogType*>(dlg);
+    if (t)
+    {
+      return OnInvoked(t);
+    }
+    else 
+    {
+      return wxID_NONE;
+    }
   }
     /// Returns description of the expected dialog (by default, its class).
   wxString GetDefaultDescription() const override
   {
-        return wxGetDialogClassDescription(wxCLASSINFO(T), typeid(T));
+    return wxGetDialogClassDescription(wxCLASSINFO(T), typeid(T));
   }
     /**
         This method is called when ShowModal() was invoked on a dialog of type T.
@@ -174,32 +175,32 @@ class wxExpectDismissableModal : public wxExpectModalBase<T, wxExpectDismissable
 public:
   explicit wxExpectDismissableModal(int id)
   {
-        switch ( id )
-        {
-            case wxYES:
-                m_id = wxID_YES;
-                break;
-            case wxNO:
-                m_id = wxID_NO;
-                break;
-            case wxCANCEL:
-                m_id = wxID_CANCEL;
-                break;
-            case wxOK:
-                m_id = wxID_OK;
-                break;
-            case wxHELP:
-                m_id = wxID_HELP;
-                break;
-            default:
-                m_id = id;
-                break;
-        }
+    switch(id)
+    {
+      case wxYES:
+        m_id = wxID_YES;
+        break;
+      case wxNO:
+        m_id = wxID_NO;
+        break;
+      case wxCANCEL:
+        m_id = wxID_CANCEL;
+        break;
+      case wxOK:
+        m_id = wxID_OK;
+        break;
+      case wxHELP:
+        m_id = wxID_HELP;
+        break;
+default:
+      m_id = id;
+      break;
+  }
   }
 protected:
   int OnInvoked(T*) const override
   {
-        return m_id;
+    return m_id;
   }
   int m_id;
 };
@@ -208,68 +209,62 @@ class wxExpectModal<wxMessageDialog> : public wxExpectDismissableModal<wxMessage
 {
 public:
   explicit wxExpectModal(int id)
-    :  wxExpectDismissableModal<wxMessageDialog>(id)
+    : wxExpectDismissableModal<wxMessageDialog>(id)
   {
-
   }
 protected:
   wxString GetDefaultDescription() const override
   {
         // It can be useful to show which buttons the expected message box was
         // supposed to have, in case there could have been several of them.
-        wxString details;
-        switch ( m_id )
-        {
-            case wxID_YES:
-            case wxID_NO:
-                details = wxASCII_STR("wxYES_NO style");
-                break;
-
-            case wxID_CANCEL:
-                details = wxASCII_STR("wxCANCEL style");
-                break;
-
-            case wxID_OK:
-                details = wxASCII_STR("wxOK style");
-                break;
-
-            default:
-                details.Printf(wxASCII_STR("a button with ID=%d"), m_id);
-                break;
-        }
-
-        return wxASCII_STR("wxMessageDialog with ") + details;
+    wxString details;
+    switch(m_id)
+    {
+      case wxID_YES:
+      case wxID_NO:
+        details = wxASCII_STR("wxYES_NO style");
+        break;
+      case wxID_CANCEL:
+        details = wxASCII_STR("wxCANCEL style");
+        break;
+      case wxID_OK:
+        details = wxASCII_STR("wxOK style");
+        break;
+default:
+      details.Printf(wxASCII_STR("a button with ID=%d"), m_id);
+      break;
+  }
+    return wxASCII_STR("wxMessageDialog with ") + details;
   }
 };
 class wxExpectAny : public wxExpectDismissableModal<wxDialog>
 {
 public:
   explicit wxExpectAny(int id)
-    :  wxExpectDismissableModal<wxDialog>(id)
+    : wxExpectDismissableModal<wxDialog>(id)
   {
-
   }
 };
-#    if  wxUSE_FILEDLG
+#  if  wxUSE_FILEDLG
 template <>
 class wxExpectModal<wxFileDialog> : public wxExpectModalBase<wxFileDialog>
 {
 public:
   wxExpectModal(const wxString& path, int id = wxID_OK)
-    :  m_path(path), m_id(id)
+    : m_path(path)
+    , m_id(id)
   {
-
   }
 protected:
   int OnInvoked(wxFileDialog* dlg) const override
   {
-        dlg->SetPath(m_path);
-        return m_id;
+    dlg->SetPath(m_path);
+    return m_id;
   }
   wxString m_path;
   int m_id;
 };
-#    endif
+#  endif
 // Implementation of wxModalDialogHook for use in testing, with
 // wxExpectModal<T> and the wxTEST_DIALOG() macro. It is not intended for
 // direct use, use the macro instead.
@@ -281,9 +276,11 @@ public:
     // line itself, which is not very useful, so normally you should provide
     // your own values.
   wxTestingModalHook(const char* file = NULL, int line = 0, const char* func = NULL)
-    :  m_file(file), m_line(line), m_func(func)
+    : m_file(file)
+    , m_line(line)
+    , m_func(func)
   {
-        Register();
+    Register();
   }
     // Called to verify that all expectations were met. This cannot be done in
     // the destructor, because ReportFailure() may throw (either because it's
@@ -292,67 +289,45 @@ public:
     // including messing up the order of errors in some cases.
   void CheckUnmetExpectations()
   {
-        while ( !m_expectations.empty() )
-        {
-            const wxModalExpectation *expect = m_expectations.front();
-            m_expectations.pop();
-            if ( expect->IsOptional() )
-                continue;
-
-            ReportFailure
-            (
-                wxString::Format
-                (
-                    wxASCII_STR("Expected %s was not shown."),
-                    expect->GetDescription()
-                )
-            );
-            break;
-        }
+    while (!m_expectations.empty())
+    {
+      const wxModalExpectation* expect = m_expectations.front();
+      m_expectations.pop();
+      if (expect->IsOptional())
+      {
+        continue;
+      }
+      ReportFailure(wxString::Format(wxASCII_STR("Expected %s was not shown."), expect->GetDescription()));
+      break;
+    }
   }
   void AddExpectation(const wxModalExpectation& e)
   {
-        m_expectations.push(&e);
+    m_expectations.push(&e);
   }
 protected:
   int Enter(wxDialog* dlg) override
   {
-        while ( !m_expectations.empty() )
-        {
-            const wxModalExpectation *expect = m_expectations.front();
-            m_expectations.pop();
-
-            int ret = expect->Invoke(dlg);
-            if ( ret != wxID_NONE )
-                return ret; // dialog shown as expected
-
+    while (!m_expectations.empty())
+    {
+      const wxModalExpectation* expect = m_expectations.front();
+      m_expectations.pop();
+      int ret = expect->Invoke(dlg);
+      if (ret != wxID_NONE)
+      {
+        return ret;
+      }
             // not showing an optional dialog is OK, but showing an unexpected
             // one definitely isn't:
-            if ( !expect->IsOptional() )
-            {
-                ReportFailure
-                (
-                    wxString::Format
-                    (
-                        wxASCII_STR("%s was shown unexpectedly, expected %s."),
-                        DescribeUnexpectedDialog(dlg),
-                        expect->GetDescription()
-                    )
-                );
-                return wxID_NONE;
-            }
-            // else: try the next expectation in the chain
-        }
-
-        ReportFailure
-        (
-            wxString::Format
-            (
-                wxASCII_STR("%s was shown unexpectedly."),
-                DescribeUnexpectedDialog(dlg)
-            )
-        );
+      if (!expect->IsOptional())
+      {
+        ReportFailure(wxString::Format(wxASCII_STR("%s was shown unexpectedly, expected %s."), DescribeUnexpectedDialog(dlg), expect->GetDescription()));
         return wxID_NONE;
+      }
+            // else: try the next expectation in the chain
+    }
+    ReportFailure(wxString::Format(wxASCII_STR("%s was shown unexpectedly."), DescribeUnexpectedDialog(dlg)));
+    return wxID_NONE;
   }
     // This method may be overridden to provide a better description of
     // (unexpected) dialogs, e.g. add knowledge of custom dialogs used by the
@@ -361,31 +336,18 @@ protected:
   {
         // Message boxes are handled specially here just because they are so
         // ubiquitous.
-        if ( wxMessageDialog *msgdlg = dynamic_cast<wxMessageDialog*>(dlg) )
-        {
-            return wxString::Format
-                   (
-                        wxASCII_STR("A message box \"%s\""),
-                        msgdlg->GetMessage()
-                   );
-        }
-
-        return wxString::Format
-               (
-                    wxASCII_STR("A %s with title \"%s\""),
-                    wxGetDialogClassDescription(dlg->GetClassInfo(), typeid(*dlg)),
-                    dlg->GetTitle()
-               );
+    if (wxMessageDialog* msgdlg = dynamic_cast<wxMessageDialog*>(dlg))
+    {
+      return wxString::Format(wxASCII_STR("A message box \"%s\""), msgdlg->GetMessage());
+    }
+    return wxString::Format(wxASCII_STR("A %s with title \"%s\""), wxGetDialogClassDescription(dlg->GetClassInfo(), typeid(*dlg)), dlg->GetTitle());
   }
     // This method may be overridden to change the way test failures are
     // handled. By default they result in an assertion failure which, of
     // course, can itself be customized.
   virtual void ReportFailure(const wxString& msg)
   {
-        wxFAIL_MSG_AT( msg,
-                       m_file ? m_file : __FILE__,
-                       m_line ? m_line : __LINE__,
-                       m_func ? m_func : __WXFUNCTION__ );
+    wxFAIL_MSG_AT(msg, m_file ? m_file : __FILE__, m_line ? m_line : __LINE__, m_func ? m_func : __WXFUNCTION__);
   }
 private:
   const char* const m_file;
@@ -396,10 +358,10 @@ private:
 };
 // Redefining this value makes it possible to customize the hook class,
 // including e.g. its error reporting.
-#    ifndef wxTEST_DIALOG_HOOK_CLASS
-#      define wxTEST_DIALOG_HOOK_CLASS	wxTestingModalHook
-#    endif
-#    define WX_TEST_IMPL_ADD_EXPECTATION(pos, expect)	                              \
+#  ifndef wxTEST_DIALOG_HOOK_CLASS
+#    define wxTEST_DIALOG_HOOK_CLASS	wxTestingModalHook
+#  endif
+#  define WX_TEST_IMPL_ADD_EXPECTATION(pos, expect)	                              \
     const wxModalExpectation& wx_exp##pos = expect;                            \
     wx_hook.AddExpectation(wx_exp##pos);
 /**
@@ -455,14 +417,13 @@ private:
           wxExpectModal<> for your dialog type and implement its OnInvoked()
           method.
  */
-#    ifdef HAVE_VARIADIC_MACROS
-#      define wxTEST_DIALOG(codeToRun, ...)	                                          \
+#  ifdef HAVE_VARIADIC_MACROS
+#    define wxTEST_DIALOG(codeToRun, ...)	                                          \
     {                                                                          \
         wxTEST_DIALOG_HOOK_CLASS wx_hook(__FILE__, __LINE__, __WXFUNCTION__);  \
         wxCALL_FOR_EACH(WX_TEST_IMPL_ADD_EXPECTATION, __VA_ARGS__)             \
         codeToRun;                                                             \
         wx_hook.CheckUnmetExpectations();                                      \
     }
-#    endif
 #  endif
 #endif

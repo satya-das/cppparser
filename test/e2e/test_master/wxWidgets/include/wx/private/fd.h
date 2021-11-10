@@ -13,31 +13,31 @@
 #  if  defined(__INTELC__) && defined(__LINUX__)
 inline void wxFD_ZERO(fd_set* fds)
 {
-        #pragma warning(push)
-        #pragma warning(disable:593)
-        FD_ZERO(fds);
-        #pragma warning(pop)
+#    pragma  warning(push)
+#    pragma  warning(disable:593)
+  FD_ZERO(fds);
+#    pragma  warning(pop)
 }
 inline void wxFD_SET(int fd, fd_set* fds)
 {
-        #pragma warning(push, 1)
-        #pragma warning(disable:1469)
-        FD_SET(fd, fds);
-        #pragma warning(pop)
+#    pragma  warning(push, 1)
+#    pragma  warning(disable:1469)
+  FD_SET(fd, fds);
+#    pragma  warning(pop)
 }
 inline bool wxFD_ISSET(int fd, fd_set* fds)
 {
-        #pragma warning(push, 1)
-        #pragma warning(disable:1469)
-        return FD_ISSET(fd, fds);
-        #pragma warning(pop)
+#    pragma  warning(push, 1)
+#    pragma  warning(disable:1469)
+  return FD_ISSET(fd, fds);
+#    pragma  warning(pop)
 }
 inline void wxFD_CLR(int fd, fd_set* fds)
 {
-        #pragma warning(push, 1)
-        #pragma warning(disable:1469)
-        FD_CLR(fd, fds);
-        #pragma warning(pop)
+#    pragma  warning(push, 1)
+#    pragma  warning(disable:1469)
+  FD_CLR(fd, fds);
+#    pragma  warning(pop)
 }
 #  else 
 #    define wxFD_ZERO(fds)	 FD_ZERO(fds)

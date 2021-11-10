@@ -39,20 +39,20 @@ struct SkIRect;
 // Color type conversions
 static GrColor SkColorToPremulGrColor(SkColor c)
 {
-    SkPMColor pm = SkPreMultiplyColor(c);
-    unsigned r = SkGetPackedR32(pm);
-    unsigned g = SkGetPackedG32(pm);
-    unsigned b = SkGetPackedB32(pm);
-    unsigned a = SkGetPackedA32(pm);
-    return GrColorPackRGBA(r, g, b, a);
+  SkPMColor pm = SkPreMultiplyColor(c);
+  unsigned r = SkGetPackedR32(pm);
+  unsigned g = SkGetPackedG32(pm);
+  unsigned b = SkGetPackedB32(pm);
+  unsigned a = SkGetPackedA32(pm);
+  return GrColorPackRGBA(r, g, b, a);
 }
 static GrColor SkColorToUnpremulGrColor(SkColor c)
 {
-    unsigned r = SkColorGetR(c);
-    unsigned g = SkColorGetG(c);
-    unsigned b = SkColorGetB(c);
-    unsigned a = SkColorGetA(c);
-    return GrColorPackRGBA(r, g, b, a);
+  unsigned r = SkColorGetR(c);
+  unsigned g = SkColorGetG(c);
+  unsigned b = SkColorGetB(c);
+  unsigned a = SkColorGetA(c);
+  return GrColorPackRGBA(r, g, b, a);
 }
 /** Similar, but using SkPMColor4f. */
 SkPMColor4f SkColorToPMColor4f(SkColor, const GrColorInfo&);
@@ -62,9 +62,7 @@ SkColor4f SkColor4fPrepForDst(SkColor4f, const GrColorInfo&);
     are supported). */
 static bool SkPMColor4fNeedsWideColor(SkPMColor4f color, GrClampType clampType, const GrCaps& caps)
 {
-    return GrClampType::kNone == clampType &&
-        caps.halfFloatVertexAttributeSupport() &&
-        !color.fitsInBytes();
+  return GrClampType::kNone == clampType && caps.halfFloatVertexAttributeSupport() && !color.fitsInBytes();
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Paint conversion
@@ -87,8 +85,7 @@ bool SkPaintToGrPaintWithXfermode(GrRecordingContext*, const GrColorInfo& dstCol
     applied to the primitive color after interpolation. */
 inline bool SkPaintToGrPaintWithPrimitiveColor(GrRecordingContext* context, const GrColorInfo& dstColorInfo, const SkPaint& skPaint, GrPaint* grPaint)
 {
-    return SkPaintToGrPaintWithXfermode(context, dstColorInfo, skPaint, SkMatrix::I(),
-                                        SkBlendMode::kDst, grPaint);
+  return SkPaintToGrPaintWithXfermode(context, dstColorInfo, skPaint, SkMatrix::I(), SkBlendMode::kDst, grPaint);
 }
 /** This is used when there may or may not be a shader, and the caller wants to plugin a texture
     lookup.  If there is a shader, then its output will only be used if the texture is alpha8. */
@@ -103,15 +100,16 @@ GrSamplerState::Filter GrSkFilterQualityToGrFilterMode(int imageWidth, int image
 //////////////////////////////////////////////////////////////////////////////
 static GrPrimitiveType SkVertexModeToGrPrimitiveType(SkVertices::VertexMode mode)
 {
-    switch (mode) {
-        case SkVertices::kTriangles_VertexMode:
-            return GrPrimitiveType::kTriangles;
-        case SkVertices::kTriangleStrip_VertexMode:
-            return GrPrimitiveType::kTriangleStrip;
-        case SkVertices::kTriangleFan_VertexMode:
-            break;
-    }
-    SK_ABORT("Invalid mode");
+  switch(mode)
+  {
+    case SkVertices::kTriangles_VertexMode:
+      return GrPrimitiveType::kTriangles;
+    case SkVertices::kTriangleStrip_VertexMode:
+      return GrPrimitiveType::kTriangleStrip;
+    case SkVertices::kTriangleFan_VertexMode:
+      break;
+  }
+  SK_ABORT("Invalid mode");
 }
 //////////////////////////////////////////////////////////////////////////////
 GR_STATIC_ASSERT((int) kZero_GrBlendCoeff == (int) SkBlendModeCoeff::kZero);

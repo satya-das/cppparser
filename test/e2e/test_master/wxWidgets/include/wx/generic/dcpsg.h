@@ -39,12 +39,12 @@ public:
   virtual ~wxPostScriptDCImpl();
   virtual bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const override;
   bool CanDrawBitmap() const override
   {
- return true;
+    return true;
   }
   void Clear() override;
   void SetFont(const wxFont& font) override;
@@ -61,29 +61,27 @@ public:
   wxCoord GetCharWidth() const override;
   bool CanGetTextExtent() const override
   {
- return true;
+    return true;
   }
     // Resolution in pixels per logical inch
   wxSize GetPPI() const override;
   void ComputeScaleAndOrigin() override;
   void SetBackgroundMode(int) override
   {
-
   }
 #    if  wxUSE_PALETTE
   void SetPalette(const wxPalette&) override
   {
-
   }
 #    endif
   void SetPrintData(const wxPrintData& data);
   wxPrintData& GetPrintData()
   {
- return m_printData;
+    return m_printData;
   }
   int GetDepth() const override
   {
- return 24;
+    return 24;
   }
   void PsPrint(const wxString& psdata);
     // Overridden for wxPrinterDC Impl
@@ -91,7 +89,7 @@ public:
   wxRect GetPaperRect() const override;
   void* GetHandle() const override
   {
- return NULL;
+    return NULL;
   }
 protected:
   bool DoFloodFill(wxCoord x1, wxCoord y1, const wxColour& col, wxFloodFillStyle style = wxFLOOD_SURFACE) override;
@@ -118,7 +116,7 @@ protected:
   void DoSetClippingRegion(wxCoord x, wxCoord y, wxCoord width, wxCoord height) override;
   void DoSetDeviceClippingRegion(const wxRegion&) override
   {
-        wxFAIL_MSG( "not implemented" );
+    wxFAIL_MSG( "not implemented" );
   }
   void DoGetTextExtent(const wxString& string, wxCoord* x, wxCoord* y, wxCoord* descent = NULL, wxCoord* externalLeading = NULL, const wxFont* theFont = NULL) const override;
   void DoGetSize(int* width, int* height) const override;

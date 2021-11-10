@@ -76,22 +76,10 @@
 #    define __WX_BO_COMPILER
 #  endif
 // WXWIN_COMPATIBILITY macros affect presence of virtual functions
-#  if  WXWIN_COMPATIBILITY_2_8
-#    define __WX_BO_WXWIN_COMPAT_2_8	",compatible with 2.8"
-#  else 
-#    define __WX_BO_WXWIN_COMPAT_2_8
-#  endif
-#  if  WXWIN_COMPATIBILITY_3_0
-#    define __WX_BO_WXWIN_COMPAT_3_0	",compatible with 3.0"
-#  else 
-#    define __WX_BO_WXWIN_COMPAT_3_0
-#  endif
+#  define __WX_BO_WXWIN_COMPAT_2_8
+#  define __WX_BO_WXWIN_COMPAT_3_0
 // deriving wxWin containers from STL ones changes them completely:
-#  if  wxUSE_STD_CONTAINERS
-#    define __WX_BO_STL	",STL containers"
-#  else 
-#    define __WX_BO_STL	",wx containers"
-#  endif
+#  define __WX_BO_STL	",wx containers"
 // This macro is passed as argument to wxAppConsole::CheckBuildOptions()
 #  define WX_BUILD_OPTIONS_SIGNATURE	__WX_BO_VERSION(wxMAJOR_VERSION, wxMINOR_VERSION, wxRELEASE_NUMBER) \
     " (" __WX_BO_UNICODE \

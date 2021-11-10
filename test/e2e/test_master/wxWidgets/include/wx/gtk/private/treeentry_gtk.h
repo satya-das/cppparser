@@ -7,9 +7,7 @@
 /////////////////////////////////////////////////////////////////////////// */
 #ifndef _WX_GTK_TREE_ENTRY_H_
 #  define _WX_GTK_TREE_ENTRY_H_
-#  ifdef __cplusplus
 extern "C" {
-#  endif
 #  include <gtk/gtk.h>
 #  define WX_TYPE_TREE_ENTRY	wx_tree_entry_get_type()
 #  define WX_TREE_ENTRY(obj)	          G_TYPE_CHECK_INSTANCE_CAST(obj, wx_tree_entry_get_type(), wxTreeEntry)
@@ -33,7 +31,5 @@ extern "C" {
   void wx_tree_entry_set_label(wxTreeEntry* entry, const char* label);
   void wx_tree_entry_set_userdata(wxTreeEntry* entry, void* userdata);
   void wx_tree_entry_set_destroy_func(wxTreeEntry* entry, wxTreeEntryDestroy destroy_func, gpointer destroy_func_data);
-#  ifdef __cplusplus
   }
-#  endif
 #endif

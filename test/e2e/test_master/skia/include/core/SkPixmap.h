@@ -34,7 +34,9 @@ public:
         @return  empty SkPixmap
     */
   SkPixmap()
-    :  fPixels(nullptr), fRowBytes(0), fInfo(SkImageInfo::MakeUnknown(0, 0))
+    : fPixels(nullptr)
+    , fRowBytes(0)
+    , fInfo(SkImageInfo::MakeUnknown(0, 0))
   {
   }
     /** Creates SkPixmap from info width, height, SkAlphaType, and SkColorType.
@@ -56,7 +58,9 @@ public:
         @return          initialized SkPixmap
     */
   SkPixmap(const SkImageInfo& info, const void* addr, size_t rowBytes)
-    :  fPixels(addr), fRowBytes(rowBytes), fInfo(info)
+    : fPixels(addr)
+    , fRowBytes(rowBytes)
+    , fInfo(info)
   {
   }
     /** Sets width, height, row bytes to zero; pixel address to nullptr; SkColorType to
@@ -109,7 +113,7 @@ public:
     */
   const SkImageInfo& info() const
   {
- return fInfo;
+    return fInfo;
   }
     /** Returns row bytes, the interval from one pixel row to the next. Row bytes
         is at least as large as: width() * info().bytesPerPixel().
@@ -121,7 +125,7 @@ public:
     */
   size_t rowBytes() const
   {
- return fRowBytes;
+    return fRowBytes;
   }
     /** Returns pixel address, the base address corresponding to the pixel origin.
 
@@ -131,7 +135,7 @@ public:
     */
   const void* addr() const
   {
- return fPixels;
+    return fPixels;
   }
     /** Returns pixel count in each pixel row. Should be equal or less than:
         rowBytes() / info().bytesPerPixel().
@@ -140,7 +144,7 @@ public:
     */
   int width() const
   {
- return fInfo.width();
+    return fInfo.width();
   }
     /** Returns pixel row count.
 
@@ -148,14 +152,14 @@ public:
     */
   int height() const
   {
- return fInfo.height();
+    return fInfo.height();
   }
     /**
      *  Return the dimensions of the pixmap (from its ImageInfo)
      */
   SkISize dimensions() const
   {
- return fInfo.dimensions();
+    return fInfo.dimensions();
   }
     /** Returns SkColorType, one of:
         kUnknown_SkColorType, kAlpha_8_SkColorType, kRGB_565_SkColorType,
@@ -167,7 +171,7 @@ public:
     */
   SkColorType colorType() const
   {
- return fInfo.colorType();
+    return fInfo.colorType();
   }
     /** Returns SkAlphaType, one of:
         kUnknown_SkAlphaType, kOpaque_SkAlphaType, kPremul_SkAlphaType,
@@ -177,7 +181,7 @@ public:
     */
   SkAlphaType alphaType() const
   {
- return fInfo.alphaType();
+    return fInfo.alphaType();
   }
     /** Returns SkColorSpace, the range of colors, associated with SkImageInfo. The
         reference count of SkColorSpace is unchanged. The returned SkColorSpace is
@@ -187,7 +191,7 @@ public:
     */
   SkColorSpace* colorSpace() const
   {
- return fInfo.colorSpace();
+    return fInfo.colorSpace();
   }
     /** Returns smart pointer to SkColorSpace, the range of colors, associated with
         SkImageInfo. The smart pointer tracks the number of objects sharing this
@@ -199,7 +203,7 @@ public:
     */
   sk_sp<SkColorSpace> refColorSpace() const
   {
- return fInfo.refColorSpace();
+    return fInfo.refColorSpace();
   }
     /** Returns true if SkAlphaType is kOpaque_SkAlphaType.
         Does not check if SkColorType allows alpha, or if any pixel value has
@@ -209,7 +213,7 @@ public:
     */
   bool isOpaque() const
   {
- return fInfo.isOpaque();
+    return fInfo.isOpaque();
   }
     /** Returns SkIRect { 0, 0, width(), height() }.
 
@@ -217,7 +221,7 @@ public:
     */
   SkIRect bounds() const
   {
- return SkIRect::MakeWH(this->width(), this->height());
+    return SkIRect::MakeWH(this->width(), this->height());
   }
     /** Returns number of pixels that fit on row. Should be greater than or equal to
         width().
@@ -226,7 +230,7 @@ public:
     */
   int rowBytesAsPixels() const
   {
- return int(fRowBytes >> this->shiftPerPixel());
+    return int(fRowBytes >> this->shiftPerPixel());
   }
     /** Returns bit shift converting row bytes to row pixels.
         Returns zero for kUnknown_SkColorType.
@@ -235,7 +239,7 @@ public:
     */
   int shiftPerPixel() const
   {
- return fInfo.shiftPerPixel();
+    return fInfo.shiftPerPixel();
   }
     /** Returns minimum memory required for pixel storage.
         Does not include unused memory on last row when rowBytesAsPixels() exceeds width().
@@ -247,7 +251,7 @@ public:
     */
   size_t computeByteSize() const
   {
- return fInfo.computeByteSize(fRowBytes);
+    return fInfo.computeByteSize(fRowBytes);
   }
     /** Returns true if all pixels are opaque. SkColorType determines how pixels
         are encoded, and whether pixel describes alpha. Returns true for SkColorType
@@ -306,7 +310,7 @@ public:
     */
   const void* addr(int x, int y) const
   {
-        return (const char*)fPixels + fInfo.computeOffset(x, y, fRowBytes);
+    return (const char*) fPixels + fInfo.computeOffset(x, y, fRowBytes);
   }
     /** Returns readable base pixel address. Result is addressable as unsigned 8-bit bytes.
         Will trigger an assert() if SkColorType is not kAlpha_8_SkColorType or
@@ -318,8 +322,8 @@ public:
     */
   const uint8_t* addr8() const
   {
-        SkASSERT(1 == fInfo.bytesPerPixel());
-        return reinterpret_cast<const uint8_t*>(fPixels);
+    SkASSERT(1 == fInfo.bytesPerPixel());
+    return reinterpret_cast<const uint8_t*>(fPixels);
   }
     /** Returns readable base pixel address. Result is addressable as unsigned 16-bit words.
         Will trigger an assert() if SkColorType is not kRGB_565_SkColorType or
@@ -331,8 +335,8 @@ public:
     */
   const uint16_t* addr16() const
   {
-        SkASSERT(2 == fInfo.bytesPerPixel());
-        return reinterpret_cast<const uint16_t*>(fPixels);
+    SkASSERT(2 == fInfo.bytesPerPixel());
+    return reinterpret_cast<const uint16_t*>(fPixels);
   }
     /** Returns readable base pixel address. Result is addressable as unsigned 32-bit words.
         Will trigger an assert() if SkColorType is not kRGBA_8888_SkColorType or
@@ -344,8 +348,8 @@ public:
     */
   const uint32_t* addr32() const
   {
-        SkASSERT(4 == fInfo.bytesPerPixel());
-        return reinterpret_cast<const uint32_t*>(fPixels);
+    SkASSERT(4 == fInfo.bytesPerPixel());
+    return reinterpret_cast<const uint32_t*>(fPixels);
   }
     /** Returns readable base pixel address. Result is addressable as unsigned 64-bit words.
         Will trigger an assert() if SkColorType is not kRGBA_F16_SkColorType and is built
@@ -357,8 +361,8 @@ public:
     */
   const uint64_t* addr64() const
   {
-        SkASSERT(8 == fInfo.bytesPerPixel());
-        return reinterpret_cast<const uint64_t*>(fPixels);
+    SkASSERT(8 == fInfo.bytesPerPixel());
+    return reinterpret_cast<const uint64_t*>(fPixels);
   }
     /** Returns readable base pixel address. Result is addressable as unsigned 16-bit words.
         Will trigger an assert() if SkColorType is not kRGBA_F16_SkColorType and is built
@@ -371,10 +375,9 @@ public:
     */
   const uint16_t* addrF16() const
   {
-        SkASSERT(8 == fInfo.bytesPerPixel());
-        SkASSERT(kRGBA_F16_SkColorType     == fInfo.colorType() ||
-                 kRGBA_F16Norm_SkColorType == fInfo.colorType());
-        return reinterpret_cast<const uint16_t*>(fPixels);
+    SkASSERT(8 == fInfo.bytesPerPixel());
+    SkASSERT(kRGBA_F16_SkColorType == fInfo.colorType() || kRGBA_F16Norm_SkColorType == fInfo.colorType());
+    return reinterpret_cast<const uint16_t*>(fPixels);
   }
     /** Returns readable pixel address at (x, y).
 
@@ -390,9 +393,9 @@ public:
     */
   const uint8_t* addr8(int x, int y) const
   {
-        SkASSERT((unsigned)x < (unsigned)fInfo.width());
-        SkASSERT((unsigned)y < (unsigned)fInfo.height());
-        return (const uint8_t*)((const char*)this->addr8() + y * fRowBytes + (x << 0));
+    SkASSERT((unsigned) x < (unsigned) fInfo.width());
+    SkASSERT((unsigned) y < (unsigned) fInfo.height());
+    return (const uint8_t*) ((const char*) this->addr8() + y * fRowBytes + (x << 0));
   }
     /** Returns readable pixel address at (x, y).
 
@@ -408,9 +411,9 @@ public:
     */
   const uint16_t* addr16(int x, int y) const
   {
-        SkASSERT((unsigned)x < (unsigned)fInfo.width());
-        SkASSERT((unsigned)y < (unsigned)fInfo.height());
-        return (const uint16_t*)((const char*)this->addr16() + y * fRowBytes + (x << 1));
+    SkASSERT((unsigned) x < (unsigned) fInfo.width());
+    SkASSERT((unsigned) y < (unsigned) fInfo.height());
+    return (const uint16_t*) ((const char*) this->addr16() + y * fRowBytes + (x << 1));
   }
     /** Returns readable pixel address at (x, y).
 
@@ -426,9 +429,9 @@ public:
     */
   const uint32_t* addr32(int x, int y) const
   {
-        SkASSERT((unsigned)x < (unsigned)fInfo.width());
-        SkASSERT((unsigned)y < (unsigned)fInfo.height());
-        return (const uint32_t*)((const char*)this->addr32() + y * fRowBytes + (x << 2));
+    SkASSERT((unsigned) x < (unsigned) fInfo.width());
+    SkASSERT((unsigned) y < (unsigned) fInfo.height());
+    return (const uint32_t*) ((const char*) this->addr32() + y * fRowBytes + (x << 2));
   }
     /** Returns readable pixel address at (x, y).
 
@@ -444,9 +447,9 @@ public:
     */
   const uint64_t* addr64(int x, int y) const
   {
-        SkASSERT((unsigned)x < (unsigned)fInfo.width());
-        SkASSERT((unsigned)y < (unsigned)fInfo.height());
-        return (const uint64_t*)((const char*)this->addr64() + y * fRowBytes + (x << 3));
+    SkASSERT((unsigned) x < (unsigned) fInfo.width());
+    SkASSERT((unsigned) y < (unsigned) fInfo.height());
+    return (const uint64_t*) ((const char*) this->addr64() + y * fRowBytes + (x << 3));
   }
     /** Returns readable pixel address at (x, y).
 
@@ -465,9 +468,8 @@ public:
     */
   const uint16_t* addrF16(int x, int y) const
   {
-        SkASSERT(kRGBA_F16_SkColorType     == fInfo.colorType() ||
-                 kRGBA_F16Norm_SkColorType == fInfo.colorType());
-        return reinterpret_cast<const uint16_t*>(this->addr64(x, y));
+    SkASSERT(kRGBA_F16_SkColorType == fInfo.colorType() || kRGBA_F16Norm_SkColorType == fInfo.colorType());
+    return reinterpret_cast<const uint16_t*>(this->addr64(x, y));
   }
     /** Returns writable base pixel address.
 
@@ -475,7 +477,7 @@ public:
     */
   void* writable_addr() const
   {
- return const_cast<void*>(fPixels);
+    return const_cast<void*>(fPixels);
   }
     /** Returns writable pixel address at (x, y).
 
@@ -488,7 +490,7 @@ public:
     */
   void* writable_addr(int x, int y) const
   {
-        return const_cast<void*>(this->addr(x, y));
+    return const_cast<void*>(this->addr(x, y));
   }
     /** Returns writable pixel address at (x, y). Result is addressable as unsigned
         8-bit bytes. Will trigger an assert() if SkColorType is not kAlpha_8_SkColorType
@@ -502,7 +504,7 @@ public:
     */
   uint8_t* writable_addr8(int x, int y) const
   {
-        return const_cast<uint8_t*>(this->addr8(x, y));
+    return const_cast<uint8_t*>(this->addr8(x, y));
   }
     /** Returns writable_addr pixel address at (x, y). Result is addressable as unsigned
         16-bit words. Will trigger an assert() if SkColorType is not kRGB_565_SkColorType
@@ -516,7 +518,7 @@ public:
     */
   uint16_t* writable_addr16(int x, int y) const
   {
-        return const_cast<uint16_t*>(this->addr16(x, y));
+    return const_cast<uint16_t*>(this->addr16(x, y));
   }
     /** Returns writable pixel address at (x, y). Result is addressable as unsigned
         32-bit words. Will trigger an assert() if SkColorType is not
@@ -531,7 +533,7 @@ public:
     */
   uint32_t* writable_addr32(int x, int y) const
   {
-        return const_cast<uint32_t*>(this->addr32(x, y));
+    return const_cast<uint32_t*>(this->addr32(x, y));
   }
     /** Returns writable pixel address at (x, y). Result is addressable as unsigned
         64-bit words. Will trigger an assert() if SkColorType is not
@@ -545,7 +547,7 @@ public:
     */
   uint64_t* writable_addr64(int x, int y) const
   {
-        return const_cast<uint64_t*>(this->addr64(x, y));
+    return const_cast<uint64_t*>(this->addr64(x, y));
   }
     /** Returns writable pixel address at (x, y). Result is addressable as unsigned
         16-bit words. Will trigger an assert() if SkColorType is not
@@ -560,7 +562,7 @@ public:
     */
   uint16_t* writable_addrF16(int x, int y) const
   {
-        return reinterpret_cast<uint16_t*>(writable_addr64(x, y));
+    return reinterpret_cast<uint16_t*>(writable_addr64(x, y));
   }
     /** Copies a SkRect of pixels to dstPixels. Copy starts at (0, 0), and does not
         exceed SkPixmap (width(), height()).
@@ -586,7 +588,7 @@ public:
     */
   bool readPixels(const SkImageInfo& dstInfo, void* dstPixels, size_t dstRowBytes) const
   {
-        return this->readPixels(dstInfo, dstPixels, dstRowBytes, 0, 0);
+    return this->readPixels(dstInfo, dstPixels, dstRowBytes, 0, 0);
   }
     /** Copies a SkRect of pixels to dstPixels. Copy starts at (srcX, srcY), and does not
         exceed SkPixmap (width(), height()).
@@ -639,7 +641,7 @@ public:
     */
   bool readPixels(const SkPixmap& dst, int srcX, int srcY) const
   {
-        return this->readPixels(dst.info(), dst.writable_addr(), dst.rowBytes(), srcX, srcY);
+    return this->readPixels(dst.info(), dst.writable_addr(), dst.rowBytes(), srcX, srcY);
   }
     /** Copies pixels inside bounds() to dst. dst specifies width, height, SkColorType,
         SkAlphaType, and SkColorSpace of destination.  Returns true if pixels are copied.
@@ -660,7 +662,7 @@ public:
     */
   bool readPixels(const SkPixmap& dst) const
   {
-        return this->readPixels(dst.info(), dst.writable_addr(), dst.rowBytes(), 0, 0);
+    return this->readPixels(dst.info(), dst.writable_addr(), dst.rowBytes(), 0, 0);
   }
     /** Copies SkBitmap to dst, scaling pixels to fit dst.width() and dst.height(), and
         converting pixels to match dst.colorType() and dst.alphaType(). Returns true if
@@ -707,7 +709,7 @@ public:
     */
   bool erase(SkColor color) const
   {
- return this->erase(color, this->bounds());
+    return this->erase(color, this->bounds());
   }
     /** Writes color to pixels bounded by subset; returns true on success.
         if subset is nullptr, writes colors pixels inside bounds(). Returns false if

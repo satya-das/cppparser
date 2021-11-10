@@ -18,11 +18,11 @@ namespace SkSL
   {
   public:
     CodeGenerator(const Program* program, ErrorReporter* errors, OutputStream* out)
-      :  fProgram(*program)
-    , fErrors(*errors)
-    , fOut(out)
+      : fProgram(*program)
+      , fErrors(*errors)
+      , fOut(out)
     {
-        SkASSERT(program->fIsOptimized);
+      SkASSERT(program->fIsOptimized);
     }
     virtual ~CodeGenerator()
     {

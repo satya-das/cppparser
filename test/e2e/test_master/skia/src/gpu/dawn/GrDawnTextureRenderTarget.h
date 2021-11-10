@@ -21,18 +21,18 @@ public:
   bool canAttemptStencilAttachment() const override;
   GrBackendFormat backendFormat() const override
   {
- return GrDawnTexture::backendFormat();
+    return GrDawnTexture::backendFormat();
   }
 protected:
   void onAbandon() override
   {
-        GrDawnRenderTarget::onAbandon();
-        GrDawnTexture::onAbandon();
+    GrDawnRenderTarget::onAbandon();
+    GrDawnTexture::onAbandon();
   }
   void onRelease() override
   {
-        GrDawnRenderTarget::onRelease();
-        GrDawnTexture::onRelease();
+    GrDawnRenderTarget::onRelease();
+    GrDawnTexture::onRelease();
   }
 private:
   size_t onGpuMemorySize() const override;

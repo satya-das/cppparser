@@ -23,37 +23,39 @@ class wxPersistentSplitter : public wxPersistentWindow<wxSplitterWindow>
 {
 public:
   wxPersistentSplitter(wxSplitterWindow* splitter)
-    :  wxPersistentWindow<wxSplitterWindow>(splitter)
+    : wxPersistentWindow<wxSplitterWindow>(splitter)
   {
-
   }
   void Save() const override
   {
-        wxSplitterWindow* const splitter = Get();
-
-        int pos = splitter->IsSplit() ? splitter->GetSashPosition() : -1;
-        SaveValue(wxPERSIST_SPLITTER_POSITION, pos);
+    wxSplitterWindow* const splitter = Get();
+    int pos = splitter->IsSplit() ? splitter->GetSashPosition() : -1;
+    SaveValue(wxPERSIST_SPLITTER_POSITION, pos);
   }
   bool Restore() override
   {
-        int pos;
-        if ( !RestoreValue(wxPERSIST_SPLITTER_POSITION, &pos) )
-            return false;
-
-        if ( pos == -1 )
-            Get()->Unsplit();
-        else
-            Get()->SetSashPosition(pos);
-
-        return true;
+    int pos;
+    if (!RestoreValue(wxPERSIST_SPLITTER_POSITION, &pos))
+    {
+      return false;
+    }
+    if (pos == -1)
+    {
+      Get()->Unsplit();
+    }
+    else 
+    {
+      Get()->SetSashPosition(pos);
+    }
+    return true;
   }
   wxString GetKind() const override
   {
- return wxPERSIST_SPLITTER_KIND;
+    return wxPERSIST_SPLITTER_KIND;
   }
 };
 inline wxPersistentObject* wxCreatePersistentObject(wxSplitterWindow* splitter)
 {
-    return new wxPersistentSplitter(splitter);
+  return new wxPersistentSplitter(splitter);
 }
 #endif

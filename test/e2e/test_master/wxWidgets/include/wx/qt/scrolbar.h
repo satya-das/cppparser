@@ -23,7 +23,7 @@ public:
   void SetScrollbar(int position, int thumbSize, int range, int pageSize, bool refresh = true) override;
   QScrollBar* GetQScrollBar() const
   {
- return m_qtScrollBar;
+    return m_qtScrollBar;
   }
   QWidget* GetHandle() const override;
 private:

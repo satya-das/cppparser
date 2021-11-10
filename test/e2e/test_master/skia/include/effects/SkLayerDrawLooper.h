@@ -114,7 +114,7 @@ public:
          */
     void addLayer()
     {
- this->addLayer(0, 0);
+      this->addLayer(0, 0);
     }
         /// Similar to addLayer, but adds a layer to the top.
     SkPaint* addLayerOnTop(const LayerInfo&);

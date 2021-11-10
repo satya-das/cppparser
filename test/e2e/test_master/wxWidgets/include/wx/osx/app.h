@@ -33,11 +33,11 @@ class WXDLLIMPEXP_CORE wxApp : public wxAppBase
   void WakeUpIdle() override;
   void SetPrintMode(int mode) override
   {
- m_printMode = mode;
+    m_printMode = mode;
   }
   virtual int GetPrintMode() const
   {
- return m_printMode;
+    return m_printMode;
   }
     // calling OnInit with an auto-release pool ready ...
   bool CallOnInit() override;
@@ -62,15 +62,16 @@ public:
     // the installed application event handler
   WXEVENTHANDLERREF MacGetEventHandler()
   {
- return m_macEventHandler ;
+    return m_macEventHandler;
   }
   WXEVENTHANDLERREF MacGetCurrentEventHandlerCallRef()
   {
- return m_macCurrentEventHandlerCallRef ;
+    return m_macCurrentEventHandlerCallRef;
   }
   void MacSetCurrentEvent(WXEVENTREF event, WXEVENTHANDLERCALLREF handler)
   {
- m_macCurrentEvent = event ; m_macCurrentEventHandlerCallRef = handler ;
+    m_macCurrentEvent = event;
+    m_macCurrentEventHandlerCallRef = handler;
   }
     // adding a CFType object to be released only at the end of the current event cycle (increases the
     // refcount of the object passed), needed in case we are in the middle of an event concerning an object
@@ -101,7 +102,7 @@ public:
   static wxString s_macWindowMenuTitleName;
   WXEVENTREF MacGetCurrentEvent()
   {
- return m_macCurrentEvent ;
+    return m_macCurrentEvent;
   }
     // For embedded use. By default does nothing.
   virtual void MacHandleUnhandledEvent(WXEVENTREF ev);
@@ -127,7 +128,7 @@ public:
     // override this to return false from a non-bundled console app in order to stay in background ...
   virtual bool OSXIsGUIApplication()
   {
- return true;
+    return true;
   }
     // Allow the user to disable the tab bar support in the application
   void OSXEnableAutomaticTabbing(bool enable);
@@ -149,19 +150,19 @@ private:
 public:
   bool OSXInitWasCalled()
   {
- return m_inited;
+    return m_inited;
   }
   void OSXStoreOpenFiles(const wxArrayString& files)
   {
- m_openFiles = files ;
+    m_openFiles = files;
   }
   void OSXStorePrintFiles(const wxArrayString& files)
   {
- m_printFiles = files ;
+    m_printFiles = files;
   }
   void OSXStoreOpenURL(const wxString& url)
   {
- m_getURL = url ;
+    m_getURL = url;
   }
 #  endif
     // Hide the application windows the same as the system hide command would do it.

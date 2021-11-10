@@ -21,7 +21,7 @@ public:
     // implementation
   virtual bool IsTransparentForMouse() const
   {
- return TRUE;
+    return TRUE;
   }
 protected:
   void DoApplyWidgetStyle(GtkRcStyle* style);

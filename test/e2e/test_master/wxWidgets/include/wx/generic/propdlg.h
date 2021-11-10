@@ -68,14 +68,14 @@ class WXDLLIMPEXP_ADV wxPropertySheetDialog : public wxDialog
 {
 public:
   wxPropertySheetDialog()
-    :  wxDialog()
+    : wxDialog()
   {
- Init();
+    Init();
   }
   wxPropertySheetDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr))
   {
-        Init();
-        Create(parent, id, title, pos, sz, style, name);
+    Init();
+    Create(parent, id, title, pos, sz, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr));
 //// Accessors
@@ -83,49 +83,49 @@ public:
     // Set and get the notebook
   void SetBookCtrl(wxBookCtrlBase* book)
   {
- m_bookCtrl = book;
+    m_bookCtrl = book;
   }
   wxBookCtrlBase* GetBookCtrl() const
   {
- return m_bookCtrl;
+    return m_bookCtrl;
   }
     // Override function in base
   wxWindow* GetContentWindow() const override;
     // Set and get the inner sizer
   void SetInnerSizer(wxSizer* sizer)
   {
- m_innerSizer = sizer;
+    m_innerSizer = sizer;
   }
   wxSizer* GetInnerSizer() const
   {
- return m_innerSizer ;
+    return m_innerSizer;
   }
     // Set and get the book style
   void SetSheetStyle(long sheetStyle)
   {
- m_sheetStyle = sheetStyle;
+    m_sheetStyle = sheetStyle;
   }
   long GetSheetStyle() const
   {
- return m_sheetStyle ;
+    return m_sheetStyle;
   }
     // Set and get the border around the whole dialog
   void SetSheetOuterBorder(int border)
   {
- m_sheetOuterBorder = border;
+    m_sheetOuterBorder = border;
   }
   int GetSheetOuterBorder() const
   {
- return m_sheetOuterBorder ;
+    return m_sheetOuterBorder;
   }
     // Set and get the border around the book control only
   void SetSheetInnerBorder(int border)
   {
- m_sheetInnerBorder = border;
+    m_sheetInnerBorder = border;
   }
   int GetSheetInnerBorder() const
   {
- return m_sheetInnerBorder ;
+    return m_sheetInnerBorder;
   }
 /// Operations
 

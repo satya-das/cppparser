@@ -228,23 +228,18 @@ protected:
 */
 inline void AcPublishUIReactor::OnInitPublishOptionsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo)
 {
-
 }
 inline void AcPublishUIReactor::OnInitExportOptionsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo)
 {
-
 }
 inline void AcPublishUIReactor::PersistenceRegistryForExportOptionsDialog(const ACHAR* lpszRegRoot, bool bIsReadRegistry)
 {
-
 }
 inline void AcPublishUIReactor::OnInitAutoPublishSettingsDialog(IUnknown** pUnk, AcPublishUIReactorInfo* pInfo)
 {
-
 }
 inline void AcPublishUIReactor::PersistenceRegistryForAutoPublishDialog(const ACHAR* lpszRegRoot, bool bIsReadRegistry)
 {
-
 }
 ////////////////////////////////////////////////////////////////////
 /// class AcPublishUIReactor2

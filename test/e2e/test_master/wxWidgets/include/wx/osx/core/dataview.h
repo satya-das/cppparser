@@ -34,7 +34,6 @@ public:
  //
   virtual ~wxDataViewWidgetImpl()
   {
-
   }
  //
  // column related methods

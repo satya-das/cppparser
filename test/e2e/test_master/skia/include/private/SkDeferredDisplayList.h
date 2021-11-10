@@ -47,7 +47,7 @@ public:
   SK_API ~SkDeferredDisplayList();
   SK_API const SkSurfaceCharacterization& characterization() const
   {
-        return fCharacterization;
+    return fCharacterization;
   }
     // Provides access to functions that aren't part of the public API.
   SkDeferredDisplayListPriv priv();

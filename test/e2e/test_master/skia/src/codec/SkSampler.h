@@ -18,21 +18,21 @@ public:
      */
   int setSampleX(int sampleX)
   {
-        return this->onSetSampleX(sampleX);
+    return this->onSetSampleX(sampleX);
   }
     /**
      *  Update the sampler to sample every sampleY'th row.
      */
   void setSampleY(int sampleY)
   {
-        fSampleY = sampleY;
+    fSampleY = sampleY;
   }
     /**
      *  Retrieve the value set for sampleY.
      */
   int sampleY() const
   {
-        return fSampleY;
+    return fSampleY;
   }
     /**
      *  Based on fSampleY, return whether this row belongs in the output.
@@ -41,7 +41,7 @@ public:
      */
   bool rowNeeded(int row) const
   {
-        return (row - get_start_coord(fSampleY)) % fSampleY == 0;
+    return (row - get_start_coord(fSampleY)) % fSampleY == 0;
   }
     /**
      * Fill the remainder of the destination with 0.
@@ -67,7 +67,7 @@ public:
   static void Fill(const SkImageInfo& info, void* dst, size_t rowBytes, SkCodec::ZeroInitialized zeroInit);
   virtual int fillWidth() const = 0;
   SkSampler()
-    :  fSampleY(1)
+    : fSampleY(1)
   {
   }
   virtual ~SkSampler()

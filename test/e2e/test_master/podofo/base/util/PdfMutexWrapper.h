@@ -72,24 +72,16 @@ namespace PoDoFo
       PdfMutex& m_rMutex;
     };
     PdfMutexWrapper::PdfMutexWrapper(PdfMutex& rMutex)
-      :  m_rMutex( rMutex )
+      : m_rMutex(rMutex)
     {
-    m_rMutex.Lock();
+      m_rMutex.Lock();
     }
     PdfMutexWrapper::~PdfMutexWrapper()
     {
-#if defined(DEBUG)
-    try {
-	m_rMutex.UnLock();
-    }
-    catch( PdfError & rError ) 
-    {
-	rError.PrintErrorMsg();
-        throw rError;
-    }
-#else
-    m_rMutex.UnLock();
-#endif
+#  if  defined(DEBUG)
+#  else 
+      m_rMutex.UnLock();
+#  endif
     }
   }
 }

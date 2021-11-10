@@ -25,15 +25,15 @@ public:
     uint32_t indices[4];
     uint32_t& operator[](int i)
     {
-            SkASSERT(i >= 0);
-            SkASSERT(i < 4);
-            return indices[i];
+      SkASSERT(i >= 0);
+      SkASSERT(i < 4);
+      return indices[i];
     }
     const uint32_t& operator[](int i) const
     {
-            SkASSERT(i >= 0);
-            SkASSERT(i < 4);
-            return indices[i];
+      SkASSERT(i >= 0);
+      SkASSERT(i < 4);
+      return indices[i];
     }
   };
     // BoneWeights stores the interpolation weight for each of the (maximum of 4) bones a given
@@ -44,15 +44,15 @@ public:
     float weights[4];
     float& operator[](int i)
     {
-            SkASSERT(i >= 0);
-            SkASSERT(i < 4);
-            return weights[i];
+      SkASSERT(i >= 0);
+      SkASSERT(i < 4);
+      return weights[i];
     }
     const float& operator[](int i) const
     {
-            SkASSERT(i >= 0);
-            SkASSERT(i < 4);
-            return weights[i];
+      SkASSERT(i >= 0);
+      SkASSERT(i < 4);
+      return weights[i];
     }
   };
     // Bone stores a 3x2 transformation matrix in column major order:
@@ -64,32 +64,33 @@ public:
     float values[6];
     float& operator[](int i)
     {
-            SkASSERT(i >= 0);
-            SkASSERT(i < 6);
-            return values[i];
+      SkASSERT(i >= 0);
+      SkASSERT(i < 6);
+      return values[i];
     }
     const float& operator[](int i) const
     {
-            SkASSERT(i >= 0);
-            SkASSERT(i < 6);
-            return values[i];
+      SkASSERT(i >= 0);
+      SkASSERT(i < 6);
+      return values[i];
     }
     SkPoint mapPoint(const SkPoint& point) const
     {
-            float x = values[0] * point.x() + values[2] * point.y() + values[4];
-            float y = values[1] * point.x() + values[3] * point.y() + values[5];
-            return SkPoint::Make(x, y);
+      float x = values[0] * point.x() + values[2] * point.y() + values[4];
+      float y = values[1] * point.x() + values[3] * point.y() + values[5];
+      return SkPoint::Make(x, y);
     }
     SkRect mapRect(const SkRect& rect) const
     {
-            SkRect dst = SkRect::MakeEmpty();
-            SkPoint quad[4];
-            rect.toQuad(quad);
-            for (int i = 0; i < 4; i ++) {
-                quad[i] = mapPoint(quad[i]);
-            }
-            dst.setBoundsNoCheck(quad, 4);
-            return dst;
+      SkRect dst = SkRect::MakeEmpty();
+      SkPoint quad[4];
+      rect.toQuad(quad);
+      for (int i = 0; i < 4; i++)
+      {
+        quad[i] = mapPoint(quad[i]);
+      }
+      dst.setBoundsNoCheck(quad, 4);
+      return dst;
     }
   };
   enum VertexMode {
@@ -109,33 +110,15 @@ public:
   static sk_sp<SkVertices> MakeCopy(VertexMode mode, int vertexCount, const SkPoint positions[], const SkPoint texs[], const SkColor colors[], const BoneIndices boneIndices[], const BoneWeights boneWeights[], int indexCount, const uint16_t indices[], bool isVolatile = true);
   static sk_sp<SkVertices> MakeCopy(VertexMode mode, int vertexCount, const SkPoint positions[], const SkPoint texs[], const SkColor colors[], const BoneIndices boneIndices[], const BoneWeights boneWeights[], bool isVolatile = true)
   {
-        return MakeCopy(mode,
-                        vertexCount,
-                        positions,
-                        texs,
-                        colors,
-                        boneIndices,
-                        boneWeights,
-                        0,
-                        nullptr,
-                        isVolatile);
+    return MakeCopy(mode, vertexCount, positions, texs, colors, boneIndices, boneWeights, 0, nullptr, isVolatile);
   }
   static sk_sp<SkVertices> MakeCopy(VertexMode mode, int vertexCount, const SkPoint positions[], const SkPoint texs[], const SkColor colors[], int indexCount, const uint16_t indices[], bool isVolatile = true)
   {
-        return MakeCopy(mode,
-                        vertexCount,
-                        positions,
-                        texs,
-                        colors,
-                        nullptr,
-                        nullptr,
-                        indexCount,
-                        indices,
-                        isVolatile);
+    return MakeCopy(mode, vertexCount, positions, texs, colors, nullptr, nullptr, indexCount, indices, isVolatile);
   }
   static sk_sp<SkVertices> MakeCopy(VertexMode mode, int vertexCount, const SkPoint positions[], const SkPoint texs[], const SkColor colors[], bool isVolatile = true)
   {
-        return MakeCopy(mode, vertexCount, positions, texs, colors, nullptr, nullptr, isVolatile);
+    return MakeCopy(mode, vertexCount, positions, texs, colors, nullptr, nullptr, isVolatile);
   }
   struct Sizes;
   enum BuilderFlags {
@@ -150,7 +133,7 @@ public:
     Builder(VertexMode mode, int vertexCount, int indexCount, uint32_t flags);
     bool isValid() const
     {
- return fVertices != nullptr;
+      return fVertices != nullptr;
     }
         // if the builder is invalid, these will return 0
     int vertexCount() const;
@@ -176,67 +159,67 @@ public:
   };
   uint32_t uniqueID() const
   {
- return fUniqueID;
+    return fUniqueID;
   }
   VertexMode mode() const
   {
- return fMode;
+    return fMode;
   }
   const SkRect& bounds() const
   {
- return fBounds;
+    return fBounds;
   }
   bool hasColors() const
   {
- return SkToBool(this->colors());
+    return SkToBool(this->colors());
   }
   bool hasTexCoords() const
   {
- return SkToBool(this->texCoords());
+    return SkToBool(this->texCoords());
   }
   bool hasBones() const
   {
- return SkToBool(this->boneIndices());
+    return SkToBool(this->boneIndices());
   }
   bool hasIndices() const
   {
- return SkToBool(this->indices());
+    return SkToBool(this->indices());
   }
   int vertexCount() const
   {
- return fVertexCnt;
+    return fVertexCnt;
   }
   const SkPoint* positions() const
   {
- return fPositions;
+    return fPositions;
   }
   const SkPoint* texCoords() const
   {
- return fTexs;
+    return fTexs;
   }
   const SkColor* colors() const
   {
- return fColors;
+    return fColors;
   }
   const BoneIndices* boneIndices() const
   {
- return fBoneIndices;
+    return fBoneIndices;
   }
   const BoneWeights* boneWeights() const
   {
- return fBoneWeights;
+    return fBoneWeights;
   }
   int indexCount() const
   {
- return fIndexCnt;
+    return fIndexCnt;
   }
   const uint16_t* indices() const
   {
- return fIndices;
+    return fIndices;
   }
   bool isVolatile() const
   {
- return fIsVolatile;
+    return fIsVolatile;
   }
   sk_sp<SkVertices> applyBones(const Bone bones[], int boneCount) const;
     // returns approximate byte size of the vertices object

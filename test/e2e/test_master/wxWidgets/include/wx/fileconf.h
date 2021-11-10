@@ -11,11 +11,6 @@
 #ifndef _FILECONF_H
 #  define _FILECONF_H
 #  include "wx/defs.h"
-#  if  wxUSE_CONFIG
-#    include "wx/textfile.h"
-#    include "wx/string.h"
-#    include "wx/confbase.h"
-#    include "wx/filename.h"
 // ----------------------------------------------------------------------------
 // wxFileConfig
 // ----------------------------------------------------------------------------
@@ -87,10 +82,12 @@
 class WXDLLIMPEXP_FWD_BASE wxFileConfigGroup;
 class WXDLLIMPEXP_FWD_BASE wxFileConfigEntry;
 class WXDLLIMPEXP_FWD_BASE wxFileConfigLineList;
-#    if  wxUSE_STREAMS
+
+#if wxUSE_STREAMS
 class WXDLLIMPEXP_FWD_BASE wxInputStream;
 class WXDLLIMPEXP_FWD_BASE wxOutputStream;
-#    endif
+#endif // wxUSE_STREAMS
+
 class WXDLLIMPEXP_BASE wxFileConfig : public wxConfigBase
 {
 public:
@@ -106,130 +103,153 @@ public:
   // or .conf (Unix) or .ini (Win) if it has none
   static wxFileName GetGlobalFile(const wxString& szFile);
   static wxFileName GetLocalFile(const wxString& szFile, int style = 0);
+
   static wxString GetGlobalFileName(const wxString& szFile)
   {
       return GetGlobalFile(szFile).GetFullPath();
   }
+
   static wxString GetLocalFileName(const wxString& szFile, int style = 0)
   {
       return GetLocalFile(szFile, style).GetFullPath();
   }
+
   // ctor & dtor
     // New constructor: one size fits all. Specify wxCONFIG_USE_LOCAL_FILE or
     // wxCONFIG_USE_GLOBAL_FILE to say which files should be used.
-  wxFileConfig(const wxString& appName = wxEmptyString, const wxString& vendorName = wxEmptyString, const wxString& localFilename = wxEmptyString, const wxString& globalFilename = wxEmptyString, long style = wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_GLOBAL_FILE, const wxMBConv& conv = wxConvAuto());
-#    if  wxUSE_STREAMS
+  wxFileConfig(const wxString& appName = wxEmptyString,
+               const wxString& vendorName = wxEmptyString,
+               const wxString& localFilename = wxEmptyString,
+               const wxString& globalFilename = wxEmptyString,
+               long style = wxCONFIG_USE_LOCAL_FILE | wxCONFIG_USE_GLOBAL_FILE,
+               const wxMBConv& conv = wxConvAuto());
+
+#if wxUSE_STREAMS
     // ctor that takes an input stream.
-  wxFileConfig(wxInputStream& inStream, const wxMBConv& conv = wxConvAuto());
-#    endif
+  wxFileConfig(wxInputStream &inStream, const wxMBConv& conv = wxConvAuto());
+#endif // wxUSE_STREAMS
+
     // dtor will save unsaved data
   virtual ~wxFileConfig();
+
   // under Unix, set the umask to be used for the file creation, do nothing
   // under other systems
-#    ifdef __UNIX__
-  void SetUmask(int mode)
-  {
- m_umask = mode;
-  }
-#    else 
-  void SetUmask(int)
-  {
+#ifdef __UNIX__
+  void SetUmask(int mode) { m_umask = mode; }
+#else // !__UNIX__
+  void SetUmask(int WXUNUSED(mode)) { }
+#endif // __UNIX__/!__UNIX__
 
-  }
-#    endif
   // implement inherited pure virtual functions
-  void SetPath(const wxString& strPath) override;
-  const wxString& GetPath() const override;
-  bool GetFirstGroup(wxString& str, long& lIndex) const override;
-  bool GetNextGroup(wxString& str, long& lIndex) const override;
-  bool GetFirstEntry(wxString& str, long& lIndex) const override;
-  bool GetNextEntry(wxString& str, long& lIndex) const override;
-  size_t GetNumberOfEntries(bool bRecursive = false) const override;
-  size_t GetNumberOfGroups(bool bRecursive = false) const override;
-  bool HasGroup(const wxString& strName) const override;
-  bool HasEntry(const wxString& strName) const override;
-  bool Flush(bool bCurrentOnly = false) override;
-  bool RenameEntry(const wxString& oldName, const wxString& newName) override;
-  bool RenameGroup(const wxString& oldName, const wxString& newName) override;
-  bool DeleteEntry(const wxString& key, bool bGroupIfEmptyAlso = true) override;
-  bool DeleteGroup(const wxString& szKey) override;
-  bool DeleteAll() override;
+  virtual void SetPath(const wxString& strPath) wxOVERRIDE;
+  virtual const wxString& GetPath() const wxOVERRIDE;
+
+  virtual bool GetFirstGroup(wxString& str, long& lIndex) const wxOVERRIDE;
+  virtual bool GetNextGroup (wxString& str, long& lIndex) const wxOVERRIDE;
+  virtual bool GetFirstEntry(wxString& str, long& lIndex) const wxOVERRIDE;
+  virtual bool GetNextEntry (wxString& str, long& lIndex) const wxOVERRIDE;
+
+  virtual size_t GetNumberOfEntries(bool bRecursive = false) const wxOVERRIDE;
+  virtual size_t GetNumberOfGroups(bool bRecursive = false) const wxOVERRIDE;
+
+  virtual bool HasGroup(const wxString& strName) const wxOVERRIDE;
+  virtual bool HasEntry(const wxString& strName) const wxOVERRIDE;
+
+  virtual bool Flush(bool bCurrentOnly = false) wxOVERRIDE;
+
+  virtual bool RenameEntry(const wxString& oldName, const wxString& newName) wxOVERRIDE;
+  virtual bool RenameGroup(const wxString& oldName, const wxString& newName) wxOVERRIDE;
+
+  virtual bool DeleteEntry(const wxString& key, bool bGroupIfEmptyAlso = true) wxOVERRIDE;
+  virtual bool DeleteGroup(const wxString& szKey) wxOVERRIDE;
+  virtual bool DeleteAll() wxOVERRIDE;
+
   // additional, wxFileConfig-specific, functionality
-#    if  wxUSE_STREAMS
+#if wxUSE_STREAMS
   // save the entire config file text to the given stream, note that the text
   // won't be saved again in dtor when Flush() is called if you use this method
   // as it won't be "changed" any more
   virtual bool Save(wxOutputStream& os, const wxMBConv& conv = wxConvAuto());
-#    endif
-  void EnableAutoSave()
-  {
- m_autosave = true;
-  }
-  void DisableAutoSave()
-  {
- m_autosave = false;
-  }
+#endif // wxUSE_STREAMS
+
+  void EnableAutoSave() { m_autosave = true; }
+  void DisableAutoSave() { m_autosave = false; }
+
+public:
   // functions to work with this list
-  wxFileConfigLineList* LineListAppend(const wxString& str);
-  wxFileConfigLineList* LineListInsert(const wxString& str, wxFileConfigLineList* pLine);
-  void LineListRemove(wxFileConfigLineList* pLine);
-  bool LineListIsEmpty();
+  wxFileConfigLineList *LineListAppend(const wxString& str);
+  wxFileConfigLineList *LineListInsert(const wxString& str,
+                           wxFileConfigLineList *pLine);    // NULL => Prepend()
+  void      LineListRemove(wxFileConfigLineList *pLine);
+  bool      LineListIsEmpty();
+
 protected:
-  bool DoReadString(const wxString& key, wxString* pStr) const override;
-  bool DoReadLong(const wxString& key, long* pl) const override;
-#    if  wxUSE_BASE64
-  bool DoReadBinary(const wxString& key, wxMemoryBuffer* buf) const override;
-#    endif
-  bool DoWriteString(const wxString& key, const wxString& szValue) override;
-  bool DoWriteLong(const wxString& key, long lValue) override;
-#    if  wxUSE_BASE64
-  bool DoWriteBinary(const wxString& key, const wxMemoryBuffer& buf) override;
-#    endif
+  virtual bool DoReadString(const wxString& key, wxString *pStr) const wxOVERRIDE;
+  virtual bool DoReadLong(const wxString& key, long *pl) const wxOVERRIDE;
+#if wxUSE_BASE64
+  virtual bool DoReadBinary(const wxString& key, wxMemoryBuffer* buf) const wxOVERRIDE;
+#endif // wxUSE_BASE64
+
+  virtual bool DoWriteString(const wxString& key, const wxString& szValue) wxOVERRIDE;
+  virtual bool DoWriteLong(const wxString& key, long lValue) wxOVERRIDE;
+#if wxUSE_BASE64
+  virtual bool DoWriteBinary(const wxString& key, const wxMemoryBuffer& buf) wxOVERRIDE;
+#endif // wxUSE_BASE64
+
 private:
   // GetXXXFileName helpers: return ('/' terminated) directory names
   static wxString GetGlobalDir();
   static wxString GetLocalDir(int style = 0);
+
   // common part of all ctors (assumes that m_str{Local|Global}File are already
   // initialized
   void Init();
+
   // common part of from dtor and DeleteAll
   void CleanUp();
+
   // parse the whole file
   void Parse(const wxTextBuffer& buffer, bool bLocal);
+
   // the same as SetPath("/")
   void SetRootPath();
+
   // real SetPath() implementation, returns true if path could be set or false
   // if path doesn't exist and createMissingComponents == false
   bool DoSetPath(const wxString& strPath, bool createMissingComponents);
+
   // set/test the dirty flag
-  void SetDirty()
-  {
- m_isDirty = true;
-  }
-  void ResetDirty()
-  {
- m_isDirty = false;
-  }
-  bool IsDirty() const
-  {
- return m_isDirty;
-  }
+  void SetDirty() { m_isDirty = true; }
+  void ResetDirty() { m_isDirty = false; }
+  bool IsDirty() const { return m_isDirty; }
+
+
   // member variables
   // ----------------
-  wxFileConfigLineList* m_linesHead, *m_linesTail;
-  wxFileName m_fnLocalFile, m_fnGlobalFile;
-  wxString m_strPath;
-  wxFileConfigGroup* m_pRootGroup, *m_pCurrentGroup;
-  wxMBConv* m_conv;
-#    ifdef __UNIX__
-  int m_umask;
-#    endif
-  bool m_isDirty;
-  bool m_autosave;
+  wxFileConfigLineList *m_linesHead,    // head of the linked list
+                       *m_linesTail;    // tail
+
+  wxFileName  m_fnLocalFile,            // local  file name passed to ctor
+              m_fnGlobalFile;           // global
+  wxString    m_strPath;                // current path (not '/' terminated)
+
+  wxFileConfigGroup *m_pRootGroup,      // the top (unnamed) group
+                    *m_pCurrentGroup;   // the current group
+
+  wxMBConv    *m_conv;
+
+#ifdef __UNIX__
+  int m_umask;                          // the umask to use for file creation
+#endif // __UNIX__
+
+  bool m_isDirty;                       // if true, we have unsaved changes
+  bool m_autosave;                      // if true, save changes on destruction
+
   wxDECLARE_NO_COPY_CLASS(wxFileConfig);
   wxDECLARE_ABSTRACT_CLASS(wxFileConfig);
 };
-#  endif
+
+#endif
   // wxUSE_CONFIG
 #endif
   //_FILECONF_H

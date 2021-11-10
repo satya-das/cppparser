@@ -35,16 +35,14 @@ public:
     // needed since this class declares virtual members
   virtual ~wxAppTraitsBase()
   {
-
   }
     // hooks for working with the global objects, may be overridden by the user
     // ------------------------------------------------------------------------
-#  if  wxUSE_CONFIG
+
+#if wxUSE_CONFIG
     // create the default configuration object (base class version is
     // implemented in config.cpp and creates wxRegConfig for wxMSW and
     // wxFileConfig for all the other platforms)
-  virtual wxConfigBase* CreateConfig();
-#  endif
 #  if  wxUSE_LOG
     // create the default log target
   virtual wxLog* CreateLogTarget() = 0;
@@ -76,7 +74,6 @@ public:
   virtual bool ShowAssertDialog(const wxString& msg) = 0;
     // return true if fprintf(stderr) goes somewhere, false otherwise
   virtual bool HasStderr() = 0;
-#  if  wxUSE_SOCKETS
     // this function is used by wxNet library to set the default socket manager
     // to use: doing it like this allows us to keep all socket-related code in
     // wxNet instead of having to pull it in wxBase itself as we'd have to do
@@ -86,15 +83,14 @@ public:
     // greater than that of any socket (e.g. be a pointer to a static object)
   static void SetDefaultSocketManager(wxSocketManager* manager)
   {
-        ms_manager = manager;
+    ms_manager = manager;
   }
     // return socket manager: this is usually different for console and GUI
     // applications (although some ports use the same implementation for both)
   virtual wxSocketManager* GetSocketManager()
   {
- return ms_manager;
+    return ms_manager;
   }
-#  endif
     // create a new, port specific, instance of the event loop used by wxApp
   virtual wxEventLoopBase* CreateEventLoop() = 0;
 #  if  wxUSE_TIMER
@@ -124,10 +120,9 @@ public:
     // passed arrays with the names and the descriptions of those options.
   virtual wxString GetStandardCmdLineOptions(wxArrayString& names, wxArrayString& desc) const
   {
-        wxUnusedVar(names);
-        wxUnusedVar(desc);
-
-        return wxEmptyString;
+    wxUnusedVar(names);
+    wxUnusedVar(desc);
+    return wxEmptyString;
   }
 #  if  wxUSE_STACKWALKER
 protected:
@@ -167,7 +162,7 @@ class WXDLLIMPEXP_BASE wxConsoleAppTraitsBase : public wxAppTraits
 public:
   wxEventLoopBase* CreateEventLoop() override
   {
- return NULL;
+    return NULL;
   }
 #  endif
 #  if  wxUSE_LOG
@@ -186,18 +181,27 @@ public:
         // no toolkits (wxBase is for console applications without GUI support)
         // NB: zero means "no toolkit", -1 means "not initialized yet"
         //     so we must use zero here!
-        if (verMaj) *verMaj = 0;
-        if (verMin) *verMin = 0;
-        if (verMicro) *verMicro = 0;
-        return wxPORT_BASE;
+    if (verMaj)
+    {
+      *verMaj = 0;
+    }
+    if (verMin)
+    {
+      *verMin = 0;
+    }
+    if (verMicro)
+    {
+      *verMicro = 0;
+    }
+    return wxPORT_BASE;
   }
   bool IsUsingUniversalWidgets() const override
   {
- return false;
+    return false;
   }
   wxString GetDesktopEnvironment() const override
   {
- return wxEmptyString;
+    return wxEmptyString;
   }
 };
 // ----------------------------------------------------------------------------
@@ -219,15 +223,15 @@ public:
   bool HasStderr() override;
   bool IsUsingUniversalWidgets() const override
   {
-    #ifdef __WXUNIVERSAL__
-        return true;
-    #else
-        return false;
-    #endif
+#    ifdef __WXUNIVERSAL__
+    return true;
+#    else 
+    return false;
+#    endif
   }
   wxString GetDesktopEnvironment() const override
   {
- return wxEmptyString;
+    return wxEmptyString;
   }
 };
 #  endif

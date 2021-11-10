@@ -16,27 +16,24 @@ namespace SkSL
   struct TernaryExpression : public Expression
   {
     TernaryExpression(int offset, std::unique_ptr<Expression> test, std::unique_ptr<Expression> ifTrue, std::unique_ptr<Expression> ifFalse)
-      :  INHERITED(offset, kTernary_Kind, ifTrue->fType)
-    , fTest(std::move(test))
-    , fIfTrue(std::move(ifTrue))
-    , fIfFalse(std::move(ifFalse))
+      : INHERITED(offset, kTernary_Kind, ifTrue->fType)
+      , fTest(std::move(test))
+      , fIfTrue(std::move(ifTrue))
+      , fIfFalse(std::move(ifFalse))
     {
-        SkASSERT(fIfTrue->fType == fIfFalse->fType);
+      SkASSERT(fIfTrue->fType == fIfFalse->fType);
     }
     bool hasSideEffects() const override
     {
-        return fTest->hasSideEffects() || fIfTrue->hasSideEffects() || fIfFalse->hasSideEffects();
+      return fTest->hasSideEffects() || fIfTrue->hasSideEffects() || fIfFalse->hasSideEffects();
     }
     std::unique_ptr<Expression> clone() const override
     {
-        return std::unique_ptr<Expression>(new TernaryExpression(fOffset, fTest->clone(),
-                                                                 fIfTrue->clone(),
-                                                                 fIfFalse->clone()));
+      return std::unique_ptr<Expression>(new TernaryExpression(fOffset, fTest->clone(), fIfTrue->clone(), fIfFalse->clone()));
     }
     String description() const override
     {
-        return "(" + fTest->description() + " ? " + fIfTrue->description() + " : " +
-               fIfFalse->description() + ")";
+      return "(" + fTest->description() + " ? " + fIfTrue->description() + " : " + fIfFalse->description() + ")";
     }
     std::unique_ptr<Expression> fTest;
     std::unique_ptr<Expression> fIfTrue;

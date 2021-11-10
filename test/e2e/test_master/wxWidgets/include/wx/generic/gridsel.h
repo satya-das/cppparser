@@ -24,21 +24,19 @@ public:
   bool IsInSelection(int row, int col) const;
   bool IsInSelection(const wxGridCellCoords& coords) const
   {
-        return IsInSelection(coords.GetRow(), coords.GetCol());
+    return IsInSelection(coords.GetRow(), coords.GetCol());
   }
   void SetSelectionMode(wxGrid::wxGridSelectionModes selmode);
   wxGrid::wxGridSelectionModes GetSelectionMode()
   {
- return m_selectionMode;
+    return m_selectionMode;
   }
   void SelectRow(int row, const wxKeyboardState& kbd = wxKeyboardState());
   void SelectCol(int col, const wxKeyboardState& kbd = wxKeyboardState());
   void SelectBlock(int topRow, int leftCol, int bottomRow, int rightCol, const wxKeyboardState& kbd = wxKeyboardState(), wxEventType eventType = wxEVT_GRID_RANGE_SELECTED);
   void SelectBlock(const wxGridCellCoords& topLeft, const wxGridCellCoords& bottomRight, const wxKeyboardState& kbd = wxKeyboardState(), wxEventType eventType = wxEVT_GRID_RANGE_SELECTED)
   {
-        SelectBlock(topLeft.GetRow(), topLeft.GetCol(),
-                    bottomRight.GetRow(), bottomRight.GetCol(),
-                    kbd, eventType);
+    SelectBlock(topLeft.GetRow(), topLeft.GetCol(), bottomRight.GetRow(), bottomRight.GetCol(), kbd, eventType);
   }
     // This function replaces all the existing selected blocks (which become
     // redundant) with a single block covering the entire grid.
@@ -84,15 +82,13 @@ public:
   wxArrayInt GetColSelection() const;
   wxVectorGridBlockCoords& GetBlocks()
   {
- return m_selection;
+    return m_selection;
   }
   void EndSelecting();
 private:
   void SelectBlockNoEvent(const wxGridBlockCoords& block)
   {
-        SelectBlock(block.GetTopRow(), block.GetLeftCol(),
-                    block.GetBottomRow(), block.GetRightCol(),
-                    wxKeyboardState(), false);
+    SelectBlock(block.GetTopRow(), block.GetLeftCol(), block.GetBottomRow(), block.GetRightCol(), wxKeyboardState(), false);
   }
     // Really select the block and don't check for the current selection mode.
   void Select(const wxGridBlockCoords& block, const wxKeyboardState& kbd, wxEventType eventType);

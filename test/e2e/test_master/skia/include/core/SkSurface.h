@@ -124,7 +124,7 @@ public:
     */
   static sk_sp<SkSurface> MakeRaster(const SkImageInfo& imageInfo, const SkSurfaceProps* props = nullptr)
   {
-        return MakeRaster(imageInfo, 0, props);
+    return MakeRaster(imageInfo, 0, props);
   }
     /** Allocates raster SkSurface. SkCanvas returned by SkSurface draws directly into pixels.
         Allocates and zeroes pixel memory. Pixel memory size is height times width times
@@ -350,8 +350,7 @@ public:
     */
   static sk_sp<SkSurface> MakeRenderTarget(GrContext* context, SkBudgeted budgeted, const SkImageInfo& imageInfo, int sampleCount, const SkSurfaceProps* surfaceProps)
   {
-        return MakeRenderTarget(context, budgeted, imageInfo, sampleCount,
-                                kBottomLeft_GrSurfaceOrigin, surfaceProps);
+    return MakeRenderTarget(context, budgeted, imageInfo, sampleCount, kBottomLeft_GrSurfaceOrigin, surfaceProps);
   }
     /** Returns SkSurface on GPU indicated by context. Allocates memory for
         pixels, based on the width, height, and SkColorType in SkImageInfo.  budgeted
@@ -369,11 +368,11 @@ public:
     */
   static sk_sp<SkSurface> MakeRenderTarget(GrContext* context, SkBudgeted budgeted, const SkImageInfo& imageInfo)
   {
-        if (!imageInfo.width() || !imageInfo.height()) {
-            return nullptr;
-        }
-        return MakeRenderTarget(context, budgeted, imageInfo, 0, kBottomLeft_GrSurfaceOrigin,
-                                nullptr);
+    if (!imageInfo.width() || !imageInfo.height())
+    {
+      return nullptr;
+    }
+    return MakeRenderTarget(context, budgeted, imageInfo, 0, kBottomLeft_GrSurfaceOrigin, nullptr);
   }
     /** Returns SkSurface on GPU indicated by context that is compatible with the provided
         characterization. budgeted selects whether allocation for pixels is tracked by context.
@@ -428,7 +427,7 @@ public:
     */
   int width() const
   {
- return fWidth;
+    return fWidth;
   }
     /** Returns pixel row count; may be zero or greater.
 
@@ -436,7 +435,7 @@ public:
     */
   int height() const
   {
- return fHeight;
+    return fHeight;
   }
     /** Returns an ImageInfo describing the surface.
      */
@@ -801,7 +800,7 @@ public:
     */
   const SkSurfaceProps& props() const
   {
- return fProps;
+    return fProps;
   }
     /** Issues pending SkSurface commands to the GPU-backed API and resolves any SkSurface MSAA.
 
@@ -893,7 +892,7 @@ protected:
     // called by subclass if their contents have changed
   void dirtyGenerationID()
   {
-        fGenerationID = 0;
+    fGenerationID = 0;
   }
 private:
   const SkSurfaceProps fProps;

@@ -32,7 +32,7 @@ public:
   void drawRect(const SkRect& prePaintRect, const SkPaint&, const SkMatrix* paintMatrix, const SkRect* postPaintRect) const;
   void drawRect(const SkRect& rect, const SkPaint& paint) const
   {
-        this->drawRect(rect, paint, nullptr, nullptr);
+    this->drawRect(rect, paint, nullptr, nullptr);
   }
   void drawRRect(const SkRRect&, const SkPaint&) const;
     /**
@@ -46,7 +46,7 @@ public:
      */
   void drawPath(const SkPath& path, const SkPaint& paint, const SkMatrix* prePathMatrix = nullptr, bool pathIsMutable = false) const
   {
-        this->drawPath(path, paint, prePathMatrix, pathIsMutable, false);
+    this->drawPath(path, paint, prePathMatrix, pathIsMutable, false);
   }
     /* If dstOrNull is null, computes a dst by mapping the bitmap's bounds through the matrix. */
   void drawBitmap(const SkBitmap&, const SkMatrix&, const SkRect* dstOrNull, const SkPaint&) const;
@@ -62,9 +62,8 @@ public:
      */
   void drawPathCoverage(const SkPath& src, const SkPaint& paint, SkBlitter* customBlitter = nullptr) const
   {
-        bool isHairline = paint.getStyle() == SkPaint::kStroke_Style &&
-                          paint.getStrokeWidth() > 0;
-        this->drawPath(src, paint, nullptr, false, !isHairline, customBlitter);
+    bool isHairline = paint.getStyle() == SkPaint::kStroke_Style && paint.getStrokeWidth() > 0;
+    this->drawPath(src, paint, nullptr, false, !isHairline, customBlitter);
   }
   void paintPaths(SkSpan<const SkPathPos> pathsAndPositions, SkScalar scale, const SkPaint& paint) const override;
   void paintMasks(SkSpan<const SkMask> masks, const SkPaint& paint) const override;

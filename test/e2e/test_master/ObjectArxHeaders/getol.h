@@ -77,19 +77,19 @@ private:
 //
 inline void AcGeTol::setEqualVector(double val)
 {
- mTolArr[1] = val;
+  mTolArr[1] = val;
 }
 inline double AcGeTol::equalVector() const
 {
- return mTolArr[1];
+  return mTolArr[1];
 }
 inline void AcGeTol::setEqualPoint(double val)
 {
- mTolArr[0] = val;
+  mTolArr[0] = val;
 }
 inline double AcGeTol::equalPoint() const
 {
- return mTolArr[0];
+  return mTolArr[0];
 }
 #  pragma  pack (pop)
 #endif

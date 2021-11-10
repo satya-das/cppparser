@@ -140,20 +140,20 @@ public:
     // Drawable type. 
   virtual DrawableType drawableType(void) const
   {
- return kGeometry;
+    return kGeometry;
   }
     // nMouseFlags are identical to the WM_MOUSEMOVE wParam windows message. See MSDN for those flags, they are provided as is.
     // reset is true if rollover is resetting or leaving your object.
     // return true if you want rollover to track your object, false to ignore it.
   virtual Adesk::Boolean RolloverHit(Adesk::ULongPtr, Adesk::ULongPtr, Adesk::Boolean)
   {
- return Adesk::kFalse;
+    return Adesk::kFalse;
   }
     // Set the bounds of the drawable.  Return false if the drawable has no
     // bounds, the bounds cannot be set, or the method is unimplemented.
   virtual bool bounds(AcDbExtents&) const
   {
- return false;
+    return false;
   }
     // Draw stream
   ACDBCORE2D_PORT virtual void setDrawStream(AcGiDrawStream* pStream);
@@ -166,7 +166,7 @@ protected:
   virtual void subViewportDraw(AcGiViewportDraw* vd) = 0;
   virtual Adesk::UInt32 subViewportDrawLogicalFlags(AcGiViewportDraw*)
   {
- return 0;
+    return 0;
   }
 private:
   friend class AcGiDrawableAccessory;

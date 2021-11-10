@@ -32,7 +32,7 @@ public:
     //
   static AcRxObject* cast(const AcRxObject* inPtr)
   {
-        return const_cast<AcRxObject *>(inPtr);
+    return const_cast<AcRxObject*>(inPtr);
   }
     // Defined in rxclass.h
   inline bool isKindOf(const AcRxClass* aClass) const;
@@ -61,7 +61,6 @@ protected:
 //
 inline AcRxObject::~AcRxObject()
 {
-
 }
 #  pragma  pack (pop)
 #  include "rxclass.h"

@@ -125,7 +125,7 @@ namespace PoDoFo
   }
   void PdfDate::ToString(PdfString& rsString) const
   {
-    rsString = PdfString(  m_szDate );
+    rsString = PdfString(m_szDate);
   }
   bool PdfDate::IsValid() const
   {

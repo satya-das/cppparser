@@ -16,7 +16,7 @@ public:
     // ----------------------------------------------------
   static bool IsTDI()
   {
- return false;
+    return false;
   }
   void ActivateNext() override;
   void ActivatePrevious() override;

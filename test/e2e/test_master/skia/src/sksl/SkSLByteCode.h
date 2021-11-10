@@ -168,11 +168,11 @@ namespace SkSL
   public:
     int getParameterCount() const
     {
- return fParameterCount;
+      return fParameterCount;
     }
     int getReturnCount() const
     {
- return fReturnCount;
+      return fReturnCount;
     }
     /**
      * Print bytecode disassembly to stdout.
@@ -210,12 +210,7 @@ namespace SkSL
     ByteCode();
     const ByteCodeFunction* getFunction(const char* name) const
     {
-        for (const auto& f : fFunctions) {
-            if (f->fName == name) {
-                return f.get();
-            }
-        }
-        return nullptr;
+      return nullptr;
     }
     /**
      * Invokes the specified function once, with the given arguments.

@@ -22,41 +22,46 @@ public:
     // create the font dialog
   wxFontDialogBase()
   {
-
   }
   wxFontDialogBase(wxWindow* parent)
   {
- m_parent = parent;
+    m_parent = parent;
   }
   wxFontDialogBase(wxWindow* parent, const wxFontData& data)
   {
- m_parent = parent; InitFontData(&data);
+    m_parent = parent;
+    InitFontData (&data);
   }
   bool Create(wxWindow* parent)
   {
- return DoCreate(parent);
+    return DoCreate(parent);
   }
   bool Create(wxWindow* parent, const wxFontData& data)
   {
- InitFontData(&data); return Create(parent);
+    InitFontData (&data);
+    return Create(parent);
   }
     // retrieve the font data
   const wxFontData& GetFontData() const
   {
- return m_fontData;
+    return m_fontData;
   }
   wxFontData& GetFontData()
   {
- return m_fontData;
+    return m_fontData;
   }
 protected:
   virtual bool DoCreate(wxWindow* parent)
   {
- m_parent = parent; return true;
+    m_parent = parent;
+    return true;
   }
   void InitFontData(const wxFontData* data = NULL)
   {
- if ( data ) m_fontData = *data;
+    if (data)
+    {
+      m_fontData = *data;
+    }
   }
   wxFontData m_fontData;
   wxDECLARE_NO_COPY_CLASS(wxFontDialogBase);

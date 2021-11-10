@@ -290,12 +290,9 @@
 #        define wxUSE_OLE_AUTOMATION	0
 #      endif
 #    endif
-#    if  wxUSE_DRAG_AND_DROP
-#      ifdef wxABORT_ON_CONFIG_ERROR
-#      else 
-#        undef wxUSE_DRAG_AND_DROP
-#        define wxUSE_DRAG_AND_DROP	0
-#      endif
+#    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef wxUSE_DRAG_AND_DROP
+#      define wxUSE_DRAG_AND_DROP	0
 #    endif
 #    if  wxUSE_ACCESSIBILITY
 #      ifdef wxABORT_ON_CONFIG_ERROR

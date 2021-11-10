@@ -27,12 +27,10 @@ public:
   virtual void ShowFor(wxWindow* win, const wxRect* rect = NULL) = 0;
   virtual ~wxRichToolTipImpl()
   {
-
   }
 protected:
   wxRichToolTipImpl()
   {
-
   }
 };
 #endif

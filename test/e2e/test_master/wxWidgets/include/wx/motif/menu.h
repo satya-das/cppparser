@@ -21,14 +21,14 @@ class WXDLLIMPEXP_CORE wxMenu : public wxMenuBase
 public:
     // ctors & dtor
   wxMenu(const wxString& title, long style = 0)
-    :  wxMenuBase(title, style)
+    : wxMenuBase(title, style)
   {
- Init();
+    Init();
   }
   wxMenu(long style = 0)
-    :  wxMenuBase(style)
+    : wxMenuBase(style)
   {
- Init();
+    Init();
   }
   virtual ~wxMenu();
     // implement base class virtuals
@@ -41,31 +41,31 @@ public:
     //// Motif-specific
   WXWidget GetButtonWidget() const
   {
- return m_buttonWidget;
+    return m_buttonWidget;
   }
   void SetButtonWidget(WXWidget buttonWidget)
   {
- m_buttonWidget = buttonWidget;
+    m_buttonWidget = buttonWidget;
   }
   WXWidget GetMainWidget() const
   {
- return m_menuWidget;
+    return m_menuWidget;
   }
   int GetId() const
   {
- return m_menuId;
+    return m_menuId;
   }
   void SetId(int id)
   {
- m_menuId = id;
+    m_menuId = id;
   }
   void SetMenuBar(wxMenuBar* menuBar)
   {
- m_menuBar = menuBar;
+    m_menuBar = menuBar;
   }
   wxMenuBar* GetMenuBar() const
   {
- return m_menuBar;
+    return m_menuBar;
   }
   void CreatePopup(WXWidget logicalParent, int x, int y);
   void DestroyPopup();
@@ -78,15 +78,15 @@ public:
   WXWidget FindMenuItem(int id, wxMenuItem** it = NULL) const;
   const wxColour& GetBackgroundColour() const
   {
- return m_backgroundColour;
+    return m_backgroundColour;
   }
   const wxColour& GetForegroundColour() const
   {
- return m_foregroundColour;
+    return m_foregroundColour;
   }
   const wxFont& GetFont() const
   {
- return m_font;
+    return m_font;
   }
   void SetBackgroundColour(const wxColour& colour);
   void SetForegroundColour(const wxColour& colour);
@@ -94,11 +94,11 @@ public:
   void ChangeFont(bool keepOriginalSize = false);
   WXWidget GetHandle() const
   {
- return m_menuWidget;
+    return m_menuWidget;
   }
   bool IsTearOff() const
   {
- return (m_style & wxMENU_TEAROFF) != 0;
+    return (m_style & wxMENU_TEAROFF) != 0;
   }
   void DestroyWidgetAndDetach();
     // Motif-specific data
@@ -125,11 +125,11 @@ class WXDLLIMPEXP_CORE wxMenuBar : public wxMenuBarBase
 public:
   wxMenuBar()
   {
- Init();
+    Init();
   }
   wxMenuBar(long)
   {
- Init();
+    Init();
   }
   wxMenuBar(size_t n, wxMenu* menus[], const wxString titles[], long style = 0);
   wxMenuBar(size_t n, wxMenu* menus[], const wxArrayString& titles, long style = 0);
@@ -149,19 +149,19 @@ public:
     // -------------------------------
   wxFrame* GetMenuBarFrame() const
   {
- return m_menuBarFrame;
+    return m_menuBarFrame;
   }
   void SetMenuBarFrame(wxFrame* frame)
   {
- m_menuBarFrame = frame;
+    m_menuBarFrame = frame;
   }
   WXWidget GetMainWidget() const
   {
- return m_mainWidget;
+    return m_mainWidget;
   }
   void SetMainWidget(WXWidget widget)
   {
- m_mainWidget = widget;
+    m_mainWidget = widget;
   }
     // Create menubar
   bool CreateMenuBar(wxFrame* frame);
@@ -169,15 +169,15 @@ public:
   bool DestroyMenuBar();
   const wxColour& GetBackgroundColour() const
   {
- return m_backgroundColour;
+    return m_backgroundColour;
   }
   const wxColour& GetForegroundColour() const
   {
- return m_foregroundColour;
+    return m_foregroundColour;
   }
   const wxFont& GetFont() const
   {
- return m_font;
+    return m_font;
   }
   virtual bool SetBackgroundColour(const wxColour& colour);
   virtual bool SetForegroundColour(const wxColour& colour);

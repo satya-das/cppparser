@@ -24,7 +24,7 @@ public:
      */
   size_t size() const
   {
- return fAvailable;
+    return fAvailable;
   }
   class SK_API Iter
   {
@@ -72,7 +72,7 @@ public:
   ~SkRWBuffer();
   size_t size() const
   {
- return fTotalUsed;
+    return fTotalUsed;
   }
     /**
      *  Append |length| bytes from |buffer|.
@@ -84,7 +84,7 @@ public:
   void append(const void* buffer, size_t length, size_t reserve = 0);
   sk_sp<SkROBuffer> makeROBufferSnapshot() const
   {
-        return sk_sp<SkROBuffer>(new SkROBuffer(fHead, fTotalUsed, fTail));
+    return sk_sp<SkROBuffer>(new SkROBuffer(fHead, fTotalUsed, fTail));
   }
   std::unique_ptr<SkStreamAsset> makeStreamSnapshot() const;
 #  ifdef SK_DEBUG

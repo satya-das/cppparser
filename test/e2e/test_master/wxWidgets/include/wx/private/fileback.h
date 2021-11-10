@@ -27,16 +27,15 @@ public:
     // backing file is never created and the backing is done with memory.
   wxBackingFile(wxInputStream* stream, size_t bufsize = DefaultBufSize, const wxString& prefix = wxT("wxbf"));
   wxBackingFile()
-    :  m_impl(NULL)
+    : m_impl(NULL)
   {
-
   }
   ~wxBackingFile();
   wxBackingFile(const wxBackingFile& backer);
   wxBackingFile& operator=(const wxBackingFile& backer);
   operator bool() const
   {
- return m_impl != NULL;
+    return m_impl != NULL;
   }
 private:
   class wxBackingFileImpl* m_impl;
@@ -56,7 +55,7 @@ public:
   wxFileOffset FindLength() const;
   bool IsSeekable() const override
   {
- return true;
+    return true;
   }
 protected:
   size_t OnSysRead(void* buffer, size_t size) override;

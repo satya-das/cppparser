@@ -6,27 +6,33 @@
  */
 static bool find_sk(CType from, SKType* to)
 {
-    for (size_t i = 0; i < SK_ARRAY_COUNT(CTypeSkTypeMap); ++i) {
-        if (CTypeSkTypeMap[i].fC == from) {
-            if (to) {
-                *to = CTypeSkTypeMap[i].fSK;
-            }
-            return true;
-        }
+  for (size_t i = 0; i < SK_ARRAY_COUNT(CTypeSkTypeMap); ++i)
+  {
+    if (CTypeSkTypeMap[i].fC == from)
+    {
+      if (to)
+      {
+        *to = CTypeSkTypeMap[i].fSK;
+      }
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 static bool find_c(SKType from, CType* to)
 {
-    for (size_t i = 0; i < SK_ARRAY_COUNT(CTypeSkTypeMap); ++i) {
-        if (CTypeSkTypeMap[i].fSK == from) {
-            if (to) {
-                *to = CTypeSkTypeMap[i].fC;
-            }
-            return true;
-        }
+  for (size_t i = 0; i < SK_ARRAY_COUNT(CTypeSkTypeMap); ++i)
+  {
+    if (CTypeSkTypeMap[i].fSK == from)
+    {
+      if (to)
+      {
+        *to = CTypeSkTypeMap[i].fC;
+      }
+      return true;
     }
-    return false;
+  }
+  return false;
 }
 #undef CType
 #undef SKType

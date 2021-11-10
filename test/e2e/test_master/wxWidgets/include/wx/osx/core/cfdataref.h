@@ -40,7 +40,7 @@ public:
                     using an operator refType() in a different ref-holding class type.
     */
   explicit wxCFDataRef(CFDataRef r)
-    :    super_type(r)
+    : super_type(r)
   {
   }
     /*! @method     wxCFDataRef
@@ -50,7 +50,7 @@ public:
                     the object will be explicitly retained by this new ref.
     */
   wxCFDataRef(const wxCFDataRef& otherRef)
-    :   super_type( otherRef )
+    : super_type(otherRef)
   {
   }
     /*! @method     wxCFDataRef
@@ -59,19 +59,22 @@ public:
         @param length The data length.
     */
   wxCFDataRef(const UInt8* data, CFIndex length)
-    :  super_type(CFDataCreate(kCFAllocatorDefault, data, length))
+    : super_type(CFDataCreate(kCFAllocatorDefault, data, length))
   {
-
   }
     /*! @method     GetLength
         @abstract   returns the length in bytes of the data stored
     */
   CFIndex GetLength() const
   {
-        if ( m_ptr )
-            return CFDataGetLength( *this );
-        else
-            return 0;
+    if (m_ptr)
+    {
+      return CFDataGetLength(*this);
+    }
+    else 
+    {
+      return 0;
+    }
   }
     /*! @method     GetBytes
         @abstract   Copies the data into an external buffer
@@ -80,8 +83,10 @@ public:
     */
   void GetBytes(CFRange range, UInt8* buffer) const
   {
-        if ( m_ptr )
-            CFDataGetBytes(m_ptr, range, buffer);
+    if (m_ptr)
+    {
+      CFDataGetBytes(m_ptr, range, buffer);
+    }
   }
 };
 #endif

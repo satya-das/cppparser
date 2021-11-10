@@ -15,19 +15,18 @@ class WXDLLIMPEXP_CORE wxFontDialog : public wxFontDialogBase
 {
 public:
   wxFontDialog()
-    :  wxFontDialogBase()
+    : wxFontDialogBase()
   {
- /* must be Create()d later */
   }
   wxFontDialog(wxWindow* parent)
-    :  wxFontDialogBase(parent)
+    : wxFontDialogBase(parent)
   {
- Create(parent);
+    Create(parent);
   }
   wxFontDialog(wxWindow* parent, const wxFontData& data)
-    :  wxFontDialogBase(parent, data)
+    : wxFontDialogBase(parent, data)
   {
- Create(parent, data);
+    Create(parent, data);
   }
   virtual ~wxFontDialog();
 protected:

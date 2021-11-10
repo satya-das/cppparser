@@ -17,7 +17,7 @@ class WXDLLIMPEXP_CORE wxTextCtrl : public wxTextCtrlBase
 public:
   wxTextCtrl()
   {
- Init();
+    Init();
   }
   wxTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));
   virtual ~wxTextCtrl();
@@ -47,7 +47,7 @@ public:
   wxTextCtrlHitTestResult HitTest(const wxPoint& pt, long* pos) const override;
   wxTextCtrlHitTestResult HitTest(const wxPoint& pt, wxTextCoord* col, wxTextCoord* row) const override
   {
-        return wxTextCtrlBase::HitTest(pt, col, row);
+    return wxTextCtrlBase::HitTest(pt, col, row);
   }
     // Clipboard operations
   void Copy() override;
@@ -80,14 +80,13 @@ public:
   GtkWidget* GetConnectWidget() override;
   void SetUpdateFont(bool)
   {
-
   }
     // implementation only from now on
 
     // tell the control to ignore next text changed signal
   void IgnoreNextTextUpdate(int n = 1)
   {
- m_countUpdatesToIgnore = n;
+    m_countUpdatesToIgnore = n;
   }
     // should we ignore the changed signal? always resets the flag
   bool IgnoreTextUpdate();
@@ -95,7 +94,7 @@ public:
     // programmatically and so m_modified flag shouldn't be set
   void DontMarkDirtyOnNextChange()
   {
- m_dontMarkDirty = true;
+    m_dontMarkDirty = true;
   }
     // should we mark the control as dirty? always resets the flag
   bool MarkDirtyOnChange();
@@ -117,7 +116,7 @@ protected:
     // override this and return true.
   bool UseGTKStyleBase() const override
   {
- return true;
+    return true;
   }
   wxString DoGetValue() const override;
     // Override this to use either GtkEntry or GtkTextView IME depending on the
@@ -149,8 +148,7 @@ private:
     // both
   void* GetTextObject() const override
   {
-        return IsMultiLine() ? static_cast<void *>(m_buffer)
-                             : static_cast<void *>(m_text);
+    return IsMultiLine() ? static_cast<void*>(m_buffer) : static_cast<void*>(m_text);
   }
     // the widget used for single line controls
   GtkWidget* m_text;

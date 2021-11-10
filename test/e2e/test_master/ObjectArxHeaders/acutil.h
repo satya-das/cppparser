@@ -29,7 +29,7 @@ size_t acutXStrLength(const ACHAR* str);
 Acad::ErrorStatus acutXStrNormalize(ACHAR*& pStr, bool preserveCase);
 inline Acad::ErrorStatus acutXStrUppercase(ACHAR*& pStr)
 {
- return acutXStrNormalize(pStr, false);
+  return acutXStrNormalize(pStr, false);
 }
 #  pragma  pack (pop)
 #endif

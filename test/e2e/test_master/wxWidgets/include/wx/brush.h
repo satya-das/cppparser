@@ -37,7 +37,6 @@ class WXDLLIMPEXP_CORE wxBrushBase : public wxGDIObject
 public:
   virtual ~wxBrushBase()
   {
-
   }
   virtual void SetColour(const wxColour& col) = 0;
   virtual void SetColour(unsigned char r, unsigned char g, unsigned char b) = 0;
@@ -48,18 +47,18 @@ public:
   virtual wxBitmap* GetStipple() const = 0;
   virtual bool IsHatch() const
   {
- return (GetStyle()>=wxBRUSHSTYLE_FIRST_HATCH) && (GetStyle()<=wxBRUSHSTYLE_LAST_HATCH);
+    return (GetStyle() >= wxBRUSHSTYLE_FIRST_HATCH) && (GetStyle() <= wxBRUSHSTYLE_LAST_HATCH);
   }
     // Convenient helpers for testing whether the brush is a transparent one:
     // unlike GetStyle() == wxBRUSHSTYLE_TRANSPARENT, they work correctly even
     // if the brush is invalid (they both return false in this case).
   bool IsTransparent() const
   {
-        return IsOk() && GetStyle() == wxBRUSHSTYLE_TRANSPARENT;
+    return IsOk() && GetStyle() == wxBRUSHSTYLE_TRANSPARENT;
   }
   bool IsNonTransparent() const
   {
-        return IsOk() && GetStyle() != wxBRUSHSTYLE_TRANSPARENT;
+    return IsOk() && GetStyle() != wxBRUSHSTYLE_TRANSPARENT;
   }
 };
 #  if  defined(__WXMSW__)
@@ -81,9 +80,10 @@ class WXDLLIMPEXP_CORE wxBrushList : public wxGDIObjListBase
 {
 public:
   wxBrush* FindOrCreateBrush(const wxColour& colour, wxBrushStyle style = wxBRUSHSTYLE_SOLID);
-  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") wxBrush* FindOrCreateBrush(const wxColour& colour, int style)
+  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants")
+  wxBrush* FindOrCreateBrush(const wxColour& colour, int style)
   {
- return FindOrCreateBrush(colour, (wxBrushStyle)style);
+    return FindOrCreateBrush(colour, (wxBrushStyle) style);
   }
 };
 WXDLLIMPEXP_CORE extern wxBrushList* wxTheBrushList;
@@ -93,12 +93,14 @@ WXDLLIMPEXP_CORE extern wxBrushList* wxTheBrushList;
 //
 // to compile without warnings which it would otherwise provoke from some
 // compilers as it compares elements of different enums
-wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants only") inline bool operator==(wxBrushStyle s, wxDeprecatedGUIConstants t)
+wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants only")
+inline bool operator==(wxBrushStyle s, wxDeprecatedGUIConstants t)
 {
-    return static_cast<int>(s) == static_cast<int>(t);
+  return static_cast<int>(s) == static_cast<int>(t);
 }
-wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants only") inline bool operator!=(wxBrushStyle s, wxDeprecatedGUIConstants t)
+wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants only")
+inline bool operator!=(wxBrushStyle s, wxDeprecatedGUIConstants t)
 {
-    return static_cast<int>(s) != static_cast<int>(t);
+  return static_cast<int>(s) != static_cast<int>(t);
 }
 #endif

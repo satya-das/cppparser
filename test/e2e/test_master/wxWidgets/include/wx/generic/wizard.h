@@ -23,12 +23,12 @@ public:
     // ctor
   wxWizard()
   {
- Init();
+    Init();
   }
   wxWizard(wxWindow* parent, int id = wxID_ANY, const wxString& title = wxEmptyString, const wxBitmap& bitmap = wxNullBitmap, const wxPoint& pos = wxDefaultPosition, long style = wxDEFAULT_DIALOG_STYLE)
   {
-        Init();
-        Create(parent, id, title, bitmap, pos, style);
+    Init();
+    Create(parent, id, title, bitmap, pos, style);
   }
   bool Create(wxWindow* parent, int id = wxID_ANY, const wxString& title = wxEmptyString, const wxBitmap& bitmap = wxNullBitmap, const wxPoint& pos = wxDefaultPosition, long style = wxDEFAULT_DIALOG_STYLE);
   void Init();
@@ -44,7 +44,7 @@ public:
     /// set/get bitmap
   const wxBitmap& GetBitmap() const
   {
- return m_bitmap;
+    return m_bitmap;
   }
   void SetBitmap(const wxBitmap& bitmap);
     // implementation only from now on
@@ -53,7 +53,7 @@ public:
     // is the wizard running?
   bool IsRunning() const
   {
- return m_page != NULL;
+    return m_page != NULL;
   }
     // show the prev/next page, but call TransferDataFromWindow on the current
     // page first and return false without changing the page if
@@ -67,29 +67,29 @@ public:
     // Set/get bitmap background colour
   void SetBitmapBackgroundColour(const wxColour& colour)
   {
- m_bitmapBackgroundColour = colour;
+    m_bitmapBackgroundColour = colour;
   }
   const wxColour& GetBitmapBackgroundColour() const
   {
- return m_bitmapBackgroundColour;
+    return m_bitmapBackgroundColour;
   }
     // Set/get bitmap placement (centred, tiled etc.)
   void SetBitmapPlacement(int placement)
   {
- m_bitmapPlacement = placement;
+    m_bitmapPlacement = placement;
   }
   int GetBitmapPlacement() const
   {
- return m_bitmapPlacement;
+    return m_bitmapPlacement;
   }
     // Set/get minimum bitmap width
   void SetMinimumBitmapWidth(int w)
   {
- m_bitmapMinimumWidth = w;
+    m_bitmapMinimumWidth = w;
   }
   int GetMinimumBitmapWidth() const
   {
- return m_bitmapMinimumWidth;
+    return m_bitmapMinimumWidth;
   }
     // Tile bitmap
   static bool TileBitmap(const wxRect& rect, wxDC& dc, const wxBitmap& bitmap);
@@ -97,7 +97,6 @@ protected:
     // for compatibility only, doesn't do anything any more
   void FinishLayout()
   {
-
   }
     // Do fit, and adjust to screen size if necessary
   virtual void DoWizardLayout();
@@ -106,7 +105,7 @@ protected:
     // was the dialog really created?
   bool WasCreated() const
   {
- return m_btnPrev != NULL;
+    return m_btnPrev != NULL;
   }
     // event handlers
   void OnCancel(wxCommandEvent& event);

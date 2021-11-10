@@ -13,9 +13,9 @@ class WXDLLIMPEXP_CORE wxMessageDialog : public wxMessageDialogBase
 {
 public:
   wxMessageDialog(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxMessageBoxCaptionStr), long style = wxOK | wxCENTRE, const wxPoint& = wxDefaultPosition)
-    :  wxMessageDialogBase(parent, message, caption, style)
+    : wxMessageDialogBase(parent, message, caption, style)
   {
-        m_hook = NULL;
+    m_hook = NULL;
   }
   int ShowModal() override;
   long GetEffectiveIcon() const override;

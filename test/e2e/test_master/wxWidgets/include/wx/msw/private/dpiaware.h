@@ -26,32 +26,29 @@ namespace wxMSWImpl
     typedef WXDPI_AWARENESS_CONTEXT (WINAPI *SetThreadDpiAwarenessContext_t) (WXDPI_AWARENESS_CONTEXT);
   public:
     AutoSystemDpiAware()
-      :  m_prevContext(WXDPI_AWARENESS_CONTEXT_UNAWARE),
-          m_pfnSetThreadDpiAwarenessContext((SetThreadDpiAwarenessContext_t)-1)
+      : m_prevContext(WXDPI_AWARENESS_CONTEXT_UNAWARE)
+      , m_pfnSetThreadDpiAwarenessContext((SetThreadDpiAwarenessContext_t) -1)
     {
-        if ( m_pfnSetThreadDpiAwarenessContext == (SetThreadDpiAwarenessContext_t)-1)
+      if (m_pfnSetThreadDpiAwarenessContext == (SetThreadDpiAwarenessContext_t) -1)
+      {
+        wxLoadedDLL dllUser32("user32.dll");
+        wxDL_INIT_FUNC(m_pfn, SetThreadDpiAwarenessContext, dllUser32);
+      }
+      if (m_pfnSetThreadDpiAwarenessContext)
+      {
+        m_prevContext = m_pfnSetThreadDpiAwarenessContext(WXDPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
+        if (!m_prevContext)
         {
-            wxLoadedDLL dllUser32("user32.dll");
-            wxDL_INIT_FUNC(m_pfn, SetThreadDpiAwarenessContext, dllUser32);
+          m_prevContext = m_pfnSetThreadDpiAwarenessContext(WXDPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
         }
-
-        if ( m_pfnSetThreadDpiAwarenessContext )
-        {
-            m_prevContext = m_pfnSetThreadDpiAwarenessContext(
-                                    WXDPI_AWARENESS_CONTEXT_UNAWARE_GDISCALED);
-            if ( !m_prevContext )
-            {
-                m_prevContext = m_pfnSetThreadDpiAwarenessContext(
-                                    WXDPI_AWARENESS_CONTEXT_SYSTEM_AWARE);
-            }
-        }
+      }
     }
     ~AutoSystemDpiAware()
     {
-        if ( m_pfnSetThreadDpiAwarenessContext )
-        {
-            m_pfnSetThreadDpiAwarenessContext(m_prevContext);
-        }
+      if (m_pfnSetThreadDpiAwarenessContext)
+      {
+        m_pfnSetThreadDpiAwarenessContext(m_prevContext);
+      }
     }
   private:
     WXDPI_AWARENESS_CONTEXT m_prevContext;

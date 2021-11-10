@@ -87,9 +87,8 @@ namespace PoDoFo
       struct TTable
       {
         TTable()
-          :  data( NULL )
+          : data(NULL)
         {
-
         }
         ~TTable()
         {
@@ -171,72 +170,69 @@ namespace PoDoFo
          *                    otherwise this object is simple glyph
          */
         PdfTTFGlyph(int nIndex)
-          :  m_nPosition( 0 ), m_nIndex( nIndex ), m_bComposite( false ), 
-              m_nInstructionLength( 0 ), m_pInstructions( NULL )
+          : m_nPosition(0)
+          , m_nIndex(nIndex)
+          , m_bComposite(false)
+          , m_nInstructionLength(0)
+          , m_pInstructions(NULL)
         {
-                printf("m_nIndex=%i\n", m_nIndex );
+          printf("m_nIndex=%i\n", m_nIndex);
         }
         PdfTTFGlyph(const PdfTTFGlyph& rhs)
         {
-                operator=( rhs );
+          operator=(rhs);
         }
         const PdfTTFGlyph& operator=(const PdfTTFGlyph& rhs)
         {
-                m_nIndex             = rhs.m_nIndex;
-                m_bComposite         = rhs.m_bComposite;
-                m_tHeader            = rhs.m_tHeader;
-                m_nPosition          = rhs.m_nPosition;
-
-                m_nInstructionLength = rhs.m_nInstructionLength;
-                m_pInstructions      = rhs.m_pInstructions;
-
+          m_nIndex = rhs.m_nIndex;
+          m_bComposite = rhs.m_bComposite;
+          m_tHeader = rhs.m_tHeader;
+          m_nPosition = rhs.m_nPosition;
+          m_nInstructionLength = rhs.m_nInstructionLength;
+          m_pInstructions = rhs.m_pInstructions;
                 // simple
-                vecEndPoints       = rhs.vecEndPoints;
-                vecXCoordinates    = rhs.vecXCoordinates;
-                vecYCoordinates    = rhs.vecYCoordinates;
-                vecFlags           = rhs.vecFlags;
-                vecFlagsOrig       = rhs.vecFlagsOrig;
-
+          vecEndPoints = rhs.vecEndPoints;
+          vecXCoordinates = rhs.vecXCoordinates;
+          vecYCoordinates = rhs.vecYCoordinates;
+          vecFlags = rhs.vecFlags;
+          vecFlagsOrig = rhs.vecFlagsOrig;
                 // composite
-                arg1      = rhs.arg1;
-                arg2      = rhs.arg2;
-                
-                xx        = rhs.xx;
-                yy        = rhs.yy;
-                xy        = rhs.xy;
-                yx        = rhs.yx;  
-
-                m_buffer  = rhs.m_buffer;
-
-                return *this;
+          arg1 = rhs.arg1;
+          arg2 = rhs.arg2;
+          xx = rhs.xx;
+          yy = rhs.yy;
+          xy = rhs.xy;
+          yx = rhs.yx;
+          m_buffer = rhs.m_buffer;
+          return *this;
         }
         inline bool IsComposite() const
         {
- return m_bComposite;
+          return m_bComposite;
         }
         inline void SetComposite(bool b)
         {
- m_bComposite = b;
+          m_bComposite = b;
         }
         inline int GetIndex() const
         {
- return m_nIndex;
+          return m_nIndex;
         }
         inline int GetPosition() const
         {
- return m_nPosition;
+          return m_nPosition;
         }
         inline void SetPosition(int nPos)
         {
- m_nPosition = nPos;
+          m_nPosition = nPos;
         }
         inline pdf_ttf_ushort GetInstrunctionLength() const
         {
- return m_nInstructionLength;
+          return m_nInstructionLength;
         }
         inline const char* GetInstrunctions() const
         {
- return m_pInstructions;
+          return m_pInstructions;
         }
         int m_nPosition;
         PdfRefCountedBuffer m_buffer;
@@ -279,24 +275,22 @@ namespace PoDoFo
         pdf_ttf_ushort nOffset;
         TCMapRange()
         {
-
         }
         TCMapRange(const TCMapRange& rhs)
         {
-            this->operator=( rhs );
+          this->operator=(rhs);
         }
         const TCMapRange& operator=(const TCMapRange& rhs)
         {
-            nStart  = rhs.nStart;
-            nEnd    = rhs.nEnd;
-            nDelta  = rhs.nDelta;
-            nOffset = rhs.nOffset;
-
-            return *this;
+          nStart = rhs.nStart;
+          nEnd = rhs.nEnd;
+          nDelta = rhs.nDelta;
+          nOffset = rhs.nOffset;
+          return *this;
         }
         bool operator<(const TCMapRange& rhs) const
         {
-            return nStart < rhs.nStart;
+          return nStart < rhs.nStart;
         }
       };
       typedef std::vector<PdfTTFGlyph> TVecGlyphs;
@@ -611,36 +605,35 @@ namespace PoDoFo
 // -----------------------------------------------------
     inline PdfTTFWriter::pdf_ttf_ulong PdfTTFWriter::CreateTag(char a, char b, char c, char d) const
     {
-    return ( ( a << 24 )| ( b << 16 ) | ( c << 8 ) | d );
+      return ((a << 24) | (b << 16) | (c << 8) | d);
     }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
     inline void PdfTTFWriter::SwapUShort(pdf_ttf_ushort* pShort) const
     {
-    *pShort = ((*pShort << 8) & 0xFF00) | ((*pShort >> 8) & 0x00FF);
+      *pShort = ((*pShort << 8) & 0xFF00) | ((*pShort >> 8) & 0x00FF);
     }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
     inline void PdfTTFWriter::SwapShort(pdf_ttf_short* pShort) const
     {
-    *pShort = ((*pShort << 8) & 0xFF00) | ((*pShort >> 8) & 0x00FF);
+      *pShort = ((*pShort << 8) & 0xFF00) | ((*pShort >> 8) & 0x00FF);
     }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
     inline void PdfTTFWriter::SwapFWord(pdf_ttf_fword* pFword) const
     {
-    *pFword = ((*pFword << 8) & 0xFF00) | ((*pFword >> 8) & 0x00FF);
+      *pFword = ((*pFword << 8) & 0xFF00) | ((*pFword >> 8) & 0x00FF);
     }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
     inline void PdfTTFWriter::SwapULong(pdf_ttf_ulong* pLong) const
     {
-    *pLong = ((*pLong << 24) & 0xFF000000) | ((*pLong << 8) & 0x00FF0000) | 
-             ((*pLong >> 8) & 0x0000FF00) | ((*pLong >> 24) & 0x000000FF) ;
+      *pLong = ((*pLong << 24) & 0xFF000000) | ((*pLong << 8) & 0x00FF0000) | ((*pLong >> 8) & 0x0000FF00) | ((*pLong >> 24) & 0x000000FF);
     }
   }
 }

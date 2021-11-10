@@ -27,7 +27,7 @@ public:
   wxSpinButton();
   wxSpinButton(wxWindow* parent, wxWindowID id = -1, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_VERTICAL | wxSP_ARROW_KEYS, const wxString& name = wxT("wxSpinButton"))
   {
-        Create(parent, id, pos, size, style, name);
+    Create(parent, id, pos, size, style, name);
   }
   virtual ~wxSpinButton();
   bool Create(wxWindow* parent, wxWindowID id = -1, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_VERTICAL | wxSP_ARROW_KEYS, const wxString& name = wxT("wxSpinButton"));

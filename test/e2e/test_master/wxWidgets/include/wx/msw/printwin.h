@@ -21,6 +21,7 @@ public:
   bool Print(wxWindow* parent, wxPrintout* printout, bool prompt = true) override;
   wxDC* PrintDialog(wxWindow* parent) override;
   bool Setup(wxWindow* parent) override;
+private:
   wxDECLARE_NO_COPY_CLASS(wxWindowsPrinter);
 };
 // ---------------------------------------------------------------------------

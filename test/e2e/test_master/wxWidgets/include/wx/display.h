@@ -58,7 +58,7 @@ public:
     // return true if the object was initialized successfully
   bool IsOk() const
   {
- return m_impl != NULL;
+    return m_impl != NULL;
   }
     // get the full display size
   wxRect GetGeometry() const;
@@ -71,15 +71,11 @@ public:
     // get the default resolution for displays on this platform
   static int GetStdPPIValue()
   {
-#ifdef __WXOSX__
-        return 72;
-#else
-        return 96;
-#endif
+    return 96;
   }
   static wxSize GetStdPPI()
   {
-        return wxSize(GetStdPPIValue(), GetStdPPIValue());
+    return wxSize(GetStdPPIValue(), GetStdPPIValue());
   }
     // get the scaling used by this display
   double GetScaleFactor() const;
@@ -105,7 +101,7 @@ public:
     // restore the default video mode (just a more readable synonym)
   void ResetMode()
   {
- (void)ChangeMode();
+    (void) ChangeMode();
   }
 #  endif
     // If the implementation caches any information about the displays, calling

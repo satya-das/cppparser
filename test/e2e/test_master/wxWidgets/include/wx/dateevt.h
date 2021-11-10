@@ -20,26 +20,25 @@ class WXDLLIMPEXP_ADV wxDateEvent : public wxCommandEvent
 public:
   wxDateEvent()
   {
-
   }
   wxDateEvent(wxWindow* win, const wxDateTime& dt, wxEventType type)
-    :  wxCommandEvent(type, win->GetId()),
-          m_date(dt)
+    : wxCommandEvent(type, win->GetId())
+    , m_date(dt)
   {
-        SetEventObject(win);
+    SetEventObject(win);
   }
   const wxDateTime& GetDate() const
   {
- return m_date;
+    return m_date;
   }
   void SetDate(const wxDateTime& date)
   {
- m_date = date;
+    m_date = date;
   }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
   {
- return new wxDateEvent(*this);
+    return new wxDateEvent(*this);
   }
 private:
   wxDateTime m_date;

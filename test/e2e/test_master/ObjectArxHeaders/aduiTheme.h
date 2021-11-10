@@ -537,7 +537,7 @@ public:
     /// </summary>
   void SuspendModifiedNotifications()
   {
- m_nModNotificationsSuspended++;
+    m_nModNotificationsSuspended++;
   }
     /// <summary>
     /// Resumes sending theme-modified notifications to its reactors
@@ -555,7 +555,7 @@ public:
     /// </returns>
   bool UsesActiveThemeColors() const
   {
- return m_pColorTheme == NULL;
+    return m_pColorTheme == NULL;
   }
     /// <summary>
     /// Gets if the theme has a dark color scheme.  This method can help to determine which
@@ -574,7 +574,7 @@ public:
     /// </remarks>
   void IncrementRefCount()
   {
- m_nRefCount++;
+    m_nRefCount++;
   }
     // assignment operator
   CAdUiTheme& operator=(const CAdUiTheme& Theme);
@@ -607,15 +607,15 @@ private:
     // Are XP themes supported (FUTURE USE!)
   BOOL UsesXP()
   {
- return m_bUsesXPThemes;
+    return m_bUsesXPThemes;
   }
   void DecrementRefCount()
   {
- m_nRefCount--;
+    m_nRefCount--;
   }
   int RefCount()
   {
- return m_nRefCount;
+    return m_nRefCount;
   }
   int m_nRefCount;
   CTypedPtrArray<CPtrArray, CAdUiThemeModifiedReactor*> m_arrayModReactors;

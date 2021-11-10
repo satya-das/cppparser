@@ -35,7 +35,7 @@ public:
      */
   int count() const
   {
- return fList.count();
+    return fList.count();
   }
     /**
      *  Copy the ptrs in the set into the specified array (allocated by the
@@ -57,8 +57,8 @@ public:
   {
   public:
     Iter(const SkPtrSet& set)
-      :  fSet(set)
-            , fIndex(0)
+      : fSet(set)
+      , fIndex(0)
     {
     }
         /**
@@ -66,7 +66,7 @@ public:
          */
     void* next()
     {
-            return fIndex < fSet.fList.count() ? fSet.fList[fIndex++].fPtr : nullptr;
+      return fIndex < fSet.fList.count() ? fSet.fList[fIndex++].fPtr : nullptr;
     }
   private:
     const SkPtrSet& fSet;
@@ -103,15 +103,15 @@ class SkTPtrSet : public SkPtrSet
 public:
   uint32_t find(T ptr)
   {
-        return this->INHERITED::find((void*)ptr);
+    return this->INHERITED::find((void*) ptr);
   }
   uint32_t add(T ptr)
   {
-        return this->INHERITED::add((void*)ptr);
+    return this->INHERITED::add((void*) ptr);
   }
   void copyToArray(T* array) const
   {
-        this->INHERITED::copyToArray((void**)array);
+    this->INHERITED::copyToArray((void**) array);
   }
 private:
   typedef SkPtrSet INHERITED;

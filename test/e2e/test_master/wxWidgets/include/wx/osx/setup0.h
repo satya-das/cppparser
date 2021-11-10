@@ -177,9 +177,10 @@
 // now, only set wxUSE_UNICODE to 0 to compile legacy code in ANSI mode if
 // absolutely necessary -- updating it is strongly recommended as the ANSI mode
 // will disappear completely in future wxWidgets releases.
-#  ifndef wxUSE_UNICODE
-#    define wxUSE_UNICODE	1
-#  endif
+#ifndef wxUSE_UNICODE
+    #define wxUSE_UNICODE 1
+#endif
+
 // ----------------------------------------------------------------------------
 // global features
 // ----------------------------------------------------------------------------
@@ -671,11 +672,7 @@
 // Default is 1 on MSW
 //
 // Recommended setting: 1
-#  ifdef __WXMSW__
-#    define wxUSE_WEBVIEW_IE	1
-#  else 
-#    define wxUSE_WEBVIEW_IE	0
-#  endif
+#  define wxUSE_WEBVIEW_IE	0
 // Use the Edge (Chromium) wxWebView backend (Requires WebView2 SDK)
 //
 // Default is 0 because WebView2 is not always available, set it to 1 if you do have it.
@@ -1084,11 +1081,7 @@
 // long-running programs can run into problems with ids reuse without this. On
 // the other platforms, where the ids have the full int range, this shouldn't
 // be necessary.
-#  ifdef __WXMSW__
-#    define wxUSE_AUTOID_MANAGEMENT	1
-#  else 
-#    define wxUSE_AUTOID_MANAGEMENT	0
-#  endif
+#  define wxUSE_AUTOID_MANAGEMENT	0
 // ----------------------------------------------------------------------------
 // common dialogs
 // ----------------------------------------------------------------------------
@@ -1274,11 +1267,7 @@
 // Default is 1 on MSW, 0 elsewhere.
 //
 // Recommended setting (at present): 1 (MSW-only)
-#  ifdef __WXMSW__
-#    define wxUSE_ACCESSIBILITY	1
-#  else 
-#    define wxUSE_ACCESSIBILITY	0
-#  endif
+#  define wxUSE_ACCESSIBILITY	0
 // ----------------------------------------------------------------------------
 // miscellaneous settings
 // ----------------------------------------------------------------------------

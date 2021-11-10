@@ -15,13 +15,12 @@ class WXDLLIMPEXP_CORE wxGauge : public wxGaugeBase
 public:
   wxGauge()
   {
- Init();
+    Init();
   }
   wxGauge(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr))
   {
-        Init();
-
-        Create(parent, id, range, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, range, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr));
   void SetRange(int r);
@@ -30,7 +29,7 @@ public:
   int GetValue() const;
   bool IsVertical() const
   {
- return HasFlag(wxGA_VERTICAL);
+    return HasFlag(wxGA_VERTICAL);
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // implementation
@@ -42,7 +41,7 @@ protected:
     // common part of all ctors
   void Init()
   {
- m_rangeMax = m_gaugePos = 0;
+    m_rangeMax = m_gaugePos = 0;
   }
     // set the gauge value to the value of m_gaugePos
   void DoSetGauge();

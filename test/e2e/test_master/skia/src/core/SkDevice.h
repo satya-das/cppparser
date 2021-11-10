@@ -31,14 +31,14 @@ public:
      */
   const SkImageInfo& imageInfo() const
   {
- return fInfo;
+    return fInfo;
   }
     /**
      *  Return SurfaceProps for this device.
      */
   const SkSurfaceProps& surfaceProps() const
   {
-        return fSurfaceProps;
+    return fSurfaceProps;
   }
     /**
      *  Return the bounds of the device in the coordinate space of the root
@@ -47,27 +47,27 @@ public:
      */
   void getGlobalBounds(SkIRect* bounds) const
   {
-        SkASSERT(bounds);
-        const SkIPoint& origin = this->getOrigin();
-        bounds->setXYWH(origin.x(), origin.y(), this->width(), this->height());
+    SkASSERT(bounds);
+    const SkIPoint& origin = this->getOrigin();
+    bounds->setXYWH(origin.x(), origin.y(), this->width(), this->height());
   }
   SkIRect getGlobalBounds() const
   {
-        SkIRect bounds;
-        this->getGlobalBounds(&bounds);
-        return bounds;
+    SkIRect bounds;
+    this->getGlobalBounds(&bounds);
+    return bounds;
   }
   int width() const
   {
-        return this->imageInfo().width();
+    return this->imageInfo().width();
   }
   int height() const
   {
-        return this->imageInfo().height();
+    return this->imageInfo().height();
   }
   bool isOpaque() const
   {
-        return this->imageInfo().isOpaque();
+    return this->imageInfo().isOpaque();
   }
   bool writePixels(const SkPixmap&, int x, int y);
     /**
@@ -91,49 +91,49 @@ public:
      */
   const SkIPoint& getOrigin() const
   {
- return fOrigin;
+    return fOrigin;
   }
   virtual void* getRasterHandle() const
   {
- return nullptr;
+    return nullptr;
   }
   void save()
   {
- this->onSave();
+    this->onSave();
   }
   void restore(const SkMatrix& ctm)
   {
-        this->onRestore();
-        this->setGlobalCTM(ctm);
+    this->onRestore();
+    this->setGlobalCTM(ctm);
   }
   void clipRect(const SkRect& rect, SkClipOp op, bool aa)
   {
-        this->onClipRect(rect, op, aa);
+    this->onClipRect(rect, op, aa);
   }
   void clipRRect(const SkRRect& rrect, SkClipOp op, bool aa)
   {
-        this->onClipRRect(rrect, op, aa);
+    this->onClipRRect(rrect, op, aa);
   }
   void clipPath(const SkPath& path, SkClipOp op, bool aa)
   {
-        this->onClipPath(path, op, aa);
+    this->onClipPath(path, op, aa);
   }
   void clipRegion(const SkRegion& region, SkClipOp op)
   {
-        this->onClipRegion(region, op);
+    this->onClipRegion(region, op);
   }
   void androidFramework_setDeviceClipRestriction(SkIRect* mutableClipRestriction)
   {
-        this->onSetDeviceClipRestriction(mutableClipRestriction);
+    this->onSetDeviceClipRestriction(mutableClipRestriction);
   }
   bool clipIsWideOpen() const;
   const SkMatrix& ctm() const
   {
- return fCTM;
+    return fCTM;
   }
   void setCTM(const SkMatrix& ctm)
   {
-        fCTM = ctm;
+    fCTM = ctm;
   }
   void setGlobalCTM(const SkMatrix& ctm);
   virtual void validateDevBounds(const SkIRect&)
@@ -249,12 +249,12 @@ protected:
     ///////////////////////////////////////////////////////////////////////////
   virtual GrContext* context() const
   {
- return nullptr;
+    return nullptr;
   }
   virtual sk_sp<SkSurface> makeSurface(const SkImageInfo&, const SkSurfaceProps&);
   virtual bool onPeekPixels(SkPixmap*)
   {
- return false;
+    return false;
   }
     /**
      *  The caller is responsible for "pre-clipping" the dst. The impl can assume that the dst
@@ -272,18 +272,18 @@ protected:
   virtual bool onWritePixels(const SkPixmap&, int x, int y);
   virtual bool onAccessPixels(SkPixmap*)
   {
- return false;
+    return false;
   }
   struct CreateInfo
   {
     static SkPixelGeometry AdjustGeometry(TileUsage, SkPixelGeometry);
         // The constructor may change the pixel geometry based on other parameters.
     CreateInfo(const SkImageInfo& info, TileUsage tileUsage, SkPixelGeometry geo, bool trackCoverage, SkRasterHandleAllocator* allocator)
-      :  fInfo(info)
-            , fTileUsage(tileUsage)
-            , fPixelGeometry(AdjustGeometry(tileUsage, geo))
-            , fTrackCoverage(trackCoverage)
-            , fAllocator(allocator)
+      : fInfo(info)
+      , fTileUsage(tileUsage)
+      , fPixelGeometry(AdjustGeometry(tileUsage, geo))
+      , fTrackCoverage(trackCoverage)
+      , fAllocator(allocator)
     {
     }
     const SkImageInfo fInfo;
@@ -305,7 +305,7 @@ protected:
      */
   virtual SkBaseDevice* onCreateDevice(const CreateInfo&, const SkPaint*)
   {
-        return nullptr;
+    return nullptr;
   }
     // A helper function used by derived classes to log the scale factor of a bitmap or image draw.
   static void LogDrawScaleFactor(const SkMatrix& view, const SkMatrix& srcToDst, SkFilterQuality);
@@ -330,14 +330,14 @@ private:
   }
   virtual bool forceConservativeRasterClip() const
   {
- return false;
+    return false;
   }
     /**
      * Don't call this!
      */
   virtual GrRenderTargetContext* accessRenderTargetContext()
   {
- return nullptr;
+    return nullptr;
   }
     // just called by SkCanvas when built as a layer
   void setOrigin(const SkMatrix& ctm, int x, int y);
@@ -348,13 +348,13 @@ private:
   }
   virtual SkImageFilterCache* getImageFilterCache()
   {
- return nullptr;
+    return nullptr;
   }
   friend class SkNoPixelsDevice;
   friend class SkBitmapDevice;
   void privateResize(int w, int h)
   {
-        *const_cast<SkImageInfo*>(&fInfo) = fInfo.makeWH(w, h);
+    *const_cast<SkImageInfo*>(&fInfo) = fInfo.makeWH(w, h);
   }
   SkIPoint fOrigin;
   const SkImageInfo fInfo;
@@ -366,20 +366,17 @@ class SkNoPixelsDevice : public SkBaseDevice
 {
 public:
   SkNoPixelsDevice(const SkIRect& bounds, const SkSurfaceProps& props, sk_sp<SkColorSpace> colorSpace = nullptr)
-    :  SkBaseDevice(SkImageInfo::Make(bounds.size(), kUnknown_SkColorType,
-                                             kUnknown_SkAlphaType, std::move(colorSpace)),
-                           props)
+    : SkBaseDevice(SkImageInfo::Make(bounds.size(), kUnknown_SkColorType, kUnknown_SkAlphaType, std::move(colorSpace)), props)
   {
         // this fails if we enable this assert: DiscardableImageMapTest.GetDiscardableImagesInRectMaxImage
         //SkASSERT(bounds.width() >= 0 && bounds.height() >= 0);
-
-        this->setOrigin(SkMatrix::I(), bounds.left(), bounds.top());
+    this->setOrigin(SkMatrix::I(), bounds.left(), bounds.top());
   }
   void resetForNextPicture(const SkIRect& bounds)
   {
         //SkASSERT(bounds.width() >= 0 && bounds.height() >= 0);
-        this->privateResize(bounds.width(), bounds.height());
-        this->setOrigin(SkMatrix::I(), bounds.left(), bounds.top());
+    this->privateResize(bounds.width(), bounds.height());
+    this->setOrigin(SkMatrix::I(), bounds.left(), bounds.top());
   }
 protected:
     // We don't track the clip at all (for performance), but we have to respond to some queries.
@@ -407,15 +404,15 @@ protected:
   }
   bool onClipIsAA() const override
   {
- return false;
+    return false;
   }
   void onAsRgnClip(SkRegion* rgn) const override
   {
-        rgn->setRect(SkIRect::MakeWH(this->width(), this->height()));
+    rgn->setRect(SkIRect::MakeWH(this->width(), this->height()));
   }
   ClipType onGetClipType() const override
   {
-        return ClipType::kRect;
+    return ClipType::kRect;
   }
   void drawPaint(const SkPaint& paint) override
   {
@@ -457,14 +454,14 @@ class SkAutoDeviceCTMRestore :  SkNoncopyable
 {
 public:
   SkAutoDeviceCTMRestore(SkBaseDevice* device, const SkMatrix& ctm)
-    :  fDevice(device)
-        , fPrevCTM(device->ctm())
+    : fDevice(device)
+    , fPrevCTM(device->ctm())
   {
-        fDevice->setCTM(ctm);
+    fDevice->setCTM(ctm);
   }
   ~SkAutoDeviceCTMRestore()
   {
-        fDevice->setCTM(fPrevCTM);
+    fDevice->setCTM(fPrevCTM);
   }
 private:
   SkBaseDevice* fDevice;

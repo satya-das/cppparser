@@ -65,7 +65,7 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-        return GetStdInputHandler(handlerDef);
+    return GetStdInputHandler(handlerDef);
   }
     // scrollbars around a normal window should not receive the focus
   bool AcceptsFocus() const override;
@@ -75,15 +75,15 @@ public:
     // implement wxControlWithArrows methods
   wxRenderer* GetRenderer() const override
   {
- return m_renderer;
+    return m_renderer;
   }
   wxWindow* GetWindow() override
   {
- return this;
+    return this;
   }
   bool IsVertical() const override
   {
- return wxScrollBarBase::IsVertical();
+    return wxScrollBarBase::IsVertical();
   }
   int GetArrowState(wxScrollArrows::Arrow arrow) const override;
   void SetArrowFlag(wxScrollArrows::Arrow arrow, int flag, bool set) override;
@@ -92,7 +92,7 @@ public:
     // for wxControlRenderer::DrawScrollbar() only
   const wxScrollArrows& GetArrows() const
   {
- return m_arrows;
+    return m_arrows;
   }
     // returns one of wxHT_SCROLLBAR_XXX constants
   wxHitTest HitTestBar(const wxPoint& pt) const;
@@ -103,7 +103,7 @@ protected:
   void DoDraw(wxControlRenderer* renderer) override;
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
     // forces update of thumb's visual appearance (does nothing if m_dirty=false)
   void UpdateThumb();
@@ -171,7 +171,7 @@ protected:
     // if not (any button under GTK+ unlike left button only which is default)
   virtual bool IsAllowedButton(int button) const
   {
- return button == wxMOUSE_BTN_LEFT;
+    return button == wxMOUSE_BTN_LEFT;
   }
     // set or clear the specified flag on the scrollbar element corresponding
     // to m_htLast
@@ -179,12 +179,12 @@ protected:
     // [un]highlight the scrollbar element corresponding to m_htLast
   virtual void Highlight(wxScrollBar* scrollbar, bool doIt)
   {
- SetElementState(scrollbar, wxCONTROL_CURRENT, doIt);
+    SetElementState(scrollbar, wxCONTROL_CURRENT, doIt);
   }
     // [un]press the scrollbar element corresponding to m_htLast
   virtual void Press(wxScrollBar* scrollbar, bool doIt)
   {
- SetElementState(scrollbar, wxCONTROL_PRESSED, doIt);
+    SetElementState(scrollbar, wxCONTROL_PRESSED, doIt);
   }
     // stop scrolling because we reached the end point
   void StopScrolling(wxScrollBar* scrollbar);

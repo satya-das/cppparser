@@ -44,14 +44,12 @@ protected:
 };
 inline const CAcUiPathname& CAcUiPathname::operator=(const CAcUiPathname& pathSrc)
 {
-    AssignCopy( pathSrc);
-
-    return *this;
+  AssignCopy(pathSrc);
+  return *this;
 }
 inline const CAcUiPathname& CAcUiPathname::operator=(const CAcUiPathname* pathSrc)
 {
-    AssignCopy( *pathSrc);
-
-    return *this;
+  AssignCopy ( *pathSrc);
+  return *this;
 }
 #pragma  pack (pop)

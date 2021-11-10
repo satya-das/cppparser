@@ -21,22 +21,21 @@ class wxPGWindowList
 {
 public:
   wxPGWindowList(wxWindow* primary, wxWindow* secondary = NULL)
-    :  m_primary(primary)
-        , m_secondary(secondary)
+    : m_primary(primary)
+    , m_secondary(secondary)
   {
-
   }
   void SetSecondary(wxWindow* secondary)
   {
- m_secondary = secondary;
+    m_secondary = secondary;
   }
   wxWindow* GetPrimary() const
   {
- return m_primary;
+    return m_primary;
   }
   wxWindow* GetSecondary() const
   {
- return m_secondary;
+    return m_secondary;
   }
   wxWindow* m_primary;
   wxWindow* m_secondary;
@@ -64,9 +63,9 @@ class WXDLLIMPEXP_PROPGRID wxPGEditor : public wxObject
 public:
     // Constructor.
   wxPGEditor()
-    :  wxObject()
+    : wxObject()
   {
-        m_clientData = NULL;
+    m_clientData = NULL;
   }
     // Destructor.
   virtual ~wxPGEditor();
@@ -278,25 +277,24 @@ class WXDLLIMPEXP_PROPGRID wxPGEditorDialogAdapter : public wxObject
   wxDECLARE_ABSTRACT_CLASS(wxPGEditorDialogAdapter);
 public:
   wxPGEditorDialogAdapter()
-    :  wxObject()
+    : wxObject()
   {
-        m_clientData = NULL;
+    m_clientData = NULL;
   }
   virtual ~wxPGEditorDialogAdapter()
   {
-
   }
   bool ShowDialog(wxPropertyGrid* propGrid, wxPGProperty* property);
   virtual bool DoShowDialog(wxPropertyGrid* propGrid, wxPGProperty* property) = 0;
   void SetValue(const wxVariant& value)
   {
-        m_value = value;
+    m_value = value;
   }
     // This method is typically only used if deriving class from existing
     // adapter with value conversion purposes.
   wxVariant& GetValue()
   {
- return m_value;
+    return m_value;
   }
     // This member is public so scripting language bindings
     // wrapper code can access it freely.
@@ -320,21 +318,21 @@ public:
   }
   wxWindow* GetButton(unsigned int i)
   {
- return m_buttons[i];
+    return m_buttons[i];
   }
   const wxWindow* GetButton(unsigned int i) const
   {
- return m_buttons[i];
+    return m_buttons[i];
   }
     // Utility function to be used in event handlers.
   int GetButtonId(unsigned int i) const
   {
- return GetButton(i)->GetId();
+    return GetButton(i)->GetId();
   }
     // Returns number of buttons.
   unsigned int GetCount() const
   {
- return (unsigned int) m_buttons.size();
+    return (unsigned int) m_buttons.size();
   }
   void Add(const wxString& label, int id = -2);
 #    if  wxUSE_BMPBUTTON
@@ -342,7 +340,7 @@ public:
 #    endif
   wxSize GetPrimarySize() const
   {
-        return wxSize(m_fullEditorSize.x - m_buttonsWidth, m_fullEditorSize.y);
+    return wxSize(m_fullEditorSize.x - m_buttonsWidth, m_fullEditorSize.y);
   }
   void Finalize(wxPropertyGrid* propGrid, const wxPoint& pos);
 protected:

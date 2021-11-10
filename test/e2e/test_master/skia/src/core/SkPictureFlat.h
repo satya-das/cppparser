@@ -134,48 +134,49 @@ enum SaveBehindFlatFlags {
 //  doAA:1 | clipOp:4
 static uint32_t ClipParams_pack(SkClipOp op, bool doAA)
 {
-    unsigned doAABit = doAA ? 1 : 0;
-    return (doAABit << 4) | static_cast<int>(op);
+  unsigned doAABit = doAA ? 1 : 0;
+  return (doAABit << 4) | static_cast<int>(op);
 }
 template <typename T>
 T asValidEnum(SkReadBuffer* buffer, uint32_t candidate)
 {
-    if (buffer->validate(candidate <= static_cast<uint32_t>(T::kMax_EnumValue))) {
-        return static_cast<T>(candidate);
-    }
-
-    return T::kMax_EnumValue;
+  if (buffer->validate(candidate <= static_cast<uint32_t>(T::kMax_EnumValue)))
+  {
+    return static_cast<T>(candidate);
+  }
+  return T::kMax_EnumValue;
 }
 static SkClipOp ClipParams_unpackRegionOp(SkReadBuffer* buffer, uint32_t packed)
 {
-    return asValidEnum<SkClipOp>(buffer, packed & 0xF);
+  return asValidEnum<SkClipOp>(buffer, packed & 0xF);
 }
 static bool ClipParams_unpackDoAA(uint32_t packed)
 {
-    return SkToBool((packed >> 4) & 1);
+  return SkToBool((packed >> 4) & 1);
 }
 ///////////////////////////////////////////////////////////////////////////////
 class SkTypefacePlayback
 {
 public:
   SkTypefacePlayback()
-    :  fCount(0), fArray(nullptr)
+    : fCount(0)
+    , fArray(nullptr)
   {
   }
   ~SkTypefacePlayback();
   void setCount(size_t count);
   size_t count() const
   {
- return fCount;
+    return fCount;
   }
   sk_sp<SkTypeface>& operator[](size_t index)
   {
-        SkASSERT(index < fCount);
-        return fArray[index];
+    SkASSERT(index < fCount);
+    return fArray[index];
   }
   void setupBuffer(SkReadBuffer& buffer) const
   {
-        buffer.setTypefaceArray(fArray.get(), fCount);
+    buffer.setTypefaceArray(fArray.get(), fCount);
   }
 protected:
   size_t fCount;
@@ -185,21 +186,21 @@ class SkFactoryPlayback
 {
 public:
   SkFactoryPlayback(int count)
-    :  fCount(count)
+    : fCount(count)
   {
- fArray = new SkFlattenable::Factory[count];
+    fArray = new SkFlattenable::Factory[count];
   }
   ~SkFactoryPlayback()
   {
- delete[] fArray;
+    delete[] fArray;
   }
   SkFlattenable::Factory* base() const
   {
- return fArray;
+    return fArray;
   }
   void setupBuffer(SkReadBuffer& buffer) const
   {
-        buffer.setFactoryPlayback(fArray, fCount);
+    buffer.setFactoryPlayback(fArray, fCount);
   }
 private:
   int fCount;

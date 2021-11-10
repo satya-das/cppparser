@@ -30,23 +30,22 @@ public:
     static sk_sp<Key> Make(uint32_t pathCacheUniqueID, int dataCountU32, const void* data = nullptr);
     uint32_t pathCacheUniqueID() const
     {
- return fPathCacheUniqueID;
+      return fPathCacheUniqueID;
     }
     int dataSizeInBytes() const
     {
- return fDataSizeInBytes;
+      return fDataSizeInBytes;
     }
     const uint32_t* data() const;
     void resetDataCountU32(int dataCountU32)
     {
-            SkASSERT(dataCountU32 <= fDataReserveCountU32);
-            fDataSizeInBytes = dataCountU32 * sizeof(uint32_t);
+      SkASSERT(dataCountU32 <= fDataReserveCountU32);
+      fDataSizeInBytes = dataCountU32 * sizeof(uint32_t);
     }
     uint32_t* data();
     bool operator==(const Key& that) const
     {
-            return fDataSizeInBytes == that.fDataSizeInBytes &&
-                   !memcmp(this->data(), that.data(), fDataSizeInBytes);
+      return fDataSizeInBytes == that.fDataSizeInBytes && !memcmp(this->data(), that.data(), fDataSizeInBytes);
     }
         // Called when our corresponding path is modified or deleted. Not threadsafe.
     void onChange() override;
@@ -54,11 +53,10 @@ public:
     static void operator delete(void* p);
   private:
     Key(uint32_t pathCacheUniqueID, int dataCountU32)
-      :  fPathCacheUniqueID(pathCacheUniqueID)
-                , fDataSizeInBytes(dataCountU32 * sizeof(uint32_t))
-                SkDEBUGCODE(, fDataReserveCountU32(dataCountU32))
+      : fPathCacheUniqueID(pathCacheUniqueID)
+      , fDataSizeInBytes(dataCountU32 * sizeof(uint32_t))
     {
-            SkASSERT(SK_InvalidUniqueID != fPathCacheUniqueID);
+      SkASSERT(SK_InvalidUniqueID != fPathCacheUniqueID);
     }
     const uint32_t fPathCacheUniqueID;
     int fDataSizeInBytes;
@@ -85,33 +83,33 @@ public:
     static OnFlushEntryRef OnFlushRef(GrCCPathCacheEntry*);
     OnFlushEntryRef();
     OnFlushEntryRef(OnFlushEntryRef&& ref)
-      :  fEntry(skstd::exchange(ref.fEntry, nullptr))
+      : fEntry(skstd::exchange(ref.fEntry, nullptr))
     {
     }
     ~OnFlushEntryRef();
     GrCCPathCacheEntry* get() const
     {
- return fEntry;
+      return fEntry;
     }
     GrCCPathCacheEntry* operator->() const
     {
- return fEntry;
+      return fEntry;
     }
     GrCCPathCacheEntry& operator*() const
     {
- return *fEntry;
+      return *fEntry;
     }
     operator bool() const
     {
- return fEntry;
+      return fEntry;
     }
     void operator=(OnFlushEntryRef&& ref)
     {
- fEntry = skstd::exchange(ref.fEntry, nullptr);
+      fEntry = skstd::exchange(ref.fEntry, nullptr);
     }
   private:
     OnFlushEntryRef(GrCCPathCacheEntry* entry)
-      :  fEntry(entry)
+      : fEntry(entry)
     {
     }
     GrCCPathCacheEntry* fEntry = nullptr;
@@ -142,20 +140,21 @@ private:
     static const Key& GetKey(const HashNode&);
     static uint32_t Hash(const Key& key)
     {
-            return GrResourceKeyHash(key.data(), key.dataSizeInBytes());
+      return GrResourceKeyHash(key.data(), key.dataSizeInBytes());
     }
     HashNode();
     HashNode(GrCCPathCache*, sk_sp<Key>, const MaskTransform&, const GrShape&);
     HashNode(HashNode&& node)
-      :  fPathCache(node.fPathCache), fEntry(std::move(node.fEntry))
+      : fPathCache(node.fPathCache)
+      , fEntry(std::move(node.fEntry))
     {
-            SkASSERT(!node.fEntry);
+      SkASSERT(!node.fEntry);
     }
     ~HashNode();
     void operator=(HashNode&& node);
     GrCCPathCacheEntry* entry() const
     {
- return fEntry.get();
+      return fEntry.get();
     }
   private:
     GrCCPathCache* fPathCache = nullptr;
@@ -164,10 +163,11 @@ private:
   GrStdSteadyClock::time_point quickPerFlushTimestamp()
   {
         // time_point::min() means it's time to update fPerFlushTimestamp with a newer clock read.
-        if (GrStdSteadyClock::time_point::min() == fPerFlushTimestamp) {
-            fPerFlushTimestamp = GrStdSteadyClock::now();
-        }
-        return fPerFlushTimestamp;
+    if (GrStdSteadyClock::time_point::min() == fPerFlushTimestamp)
+    {
+      fPerFlushTimestamp = GrStdSteadyClock::now();
+    }
+    return fPerFlushTimestamp;
   }
   void evict(const GrCCPathCache::Key&, GrCCPathCacheEntry* = nullptr);
     // Evicts all the cache entries whose keys have been queued up in fInvalidatedKeysInbox via
@@ -201,13 +201,14 @@ class GrCCPathCacheEntry : public GrNonAtomicRef<GrCCPathCacheEntry>
 public:
   ~GrCCPathCacheEntry()
   {
-        SkASSERT(this->hasBeenEvicted());  // Should have called GrCCPathCache::evict().
-        SkASSERT(!fCachedAtlas);
-        SkASSERT(0 == fOnFlushRefCnt);
+    SkASSERT(this->hasBeenEvicted());
+    SkASSERT(!fCachedAtlas);
+    SkASSERT(0 == fOnFlushRefCnt);
   }
   const GrCCPathCache::Key& cacheKey() const
   {
- SkASSERT(fCacheKey); return *fCacheKey;
+    SkASSERT(fCacheKey);
+    return *fCacheKey;
   }
     // The number of flushes during which this specific entry (path + matrix combination) has been
     // pulled from the path cache. If a path is pulled from the cache more than once in a single
@@ -216,29 +217,29 @@ public:
     // If the entry did not previously exist, its hit count will be 1.
   int hitCount() const
   {
- return fHitCount;
+    return fHitCount;
   }
     // The accumulative region of the path that has been drawn during the lifetime of this cache
     // entry (as defined by the 'clippedDrawBounds' parameter for GrCCPathCache::find).
   const SkIRect& hitRect() const
   {
- return fHitRect;
+    return fHitRect;
   }
   const GrCCCachedAtlas* cachedAtlas() const
   {
- return fCachedAtlas.get();
+    return fCachedAtlas.get();
   }
   const SkIRect& devIBounds() const
   {
- return fDevIBounds;
+    return fDevIBounds;
   }
   int width() const
   {
- return fDevIBounds.width();
+    return fDevIBounds.width();
   }
   int height() const
   {
- return fDevIBounds.height();
+    return fDevIBounds.height();
   }
   enum class ReleaseAtlasResult : bool {
         kNone,
@@ -254,13 +255,13 @@ public:
 private:
   using MaskTransform = GrCCPathCache::MaskTransform;
   GrCCPathCacheEntry(sk_sp<GrCCPathCache::Key> cacheKey, const MaskTransform& maskTransform)
-    :  fCacheKey(std::move(cacheKey)), fMaskTransform(maskTransform)
+    : fCacheKey(std::move(cacheKey))
+    , fMaskTransform(maskTransform)
   {
-
   }
   bool hasBeenEvicted() const
   {
- return fCacheKey->shouldUnregisterFromPath();
+    return fCacheKey->shouldUnregisterFromPath();
   }
     // Resets this entry back to not having an atlas, and purges its previous atlas texture from the
     // resource cache if needed.
@@ -296,47 +297,47 @@ class GrCCCachedAtlas : public GrNonAtomicRef<GrCCCachedAtlas>
 public:
   using ReleaseAtlasResult = GrCCPathCacheEntry::ReleaseAtlasResult;
   GrCCCachedAtlas(GrCCAtlas::CoverageType type, const GrUniqueKey& textureKey, sk_sp<GrTextureProxy> onFlushProxy)
-    :  fCoverageType(type)
-            , fTextureKey(textureKey)
-            , fOnFlushProxy(std::move(onFlushProxy))
+    : fCoverageType(type)
+    , fTextureKey(textureKey)
+    , fOnFlushProxy(std::move(onFlushProxy))
   {
   }
   ~GrCCCachedAtlas()
   {
-        SkASSERT(!fOnFlushProxy);
-        SkASSERT(!fOnFlushRefCnt);
+    SkASSERT(!fOnFlushProxy);
+    SkASSERT(!fOnFlushRefCnt);
   }
   GrCCAtlas::CoverageType coverageType() const
   {
- return fCoverageType;
+    return fCoverageType;
   }
   const GrUniqueKey& textureKey() const
   {
- return fTextureKey;
+    return fTextureKey;
   }
   GrTextureProxy* getOnFlushProxy() const
   {
- return fOnFlushProxy.get();
+    return fOnFlushProxy.get();
   }
   void setOnFlushProxy(sk_sp<GrTextureProxy> proxy)
   {
-        SkASSERT(!fOnFlushProxy);
-        fOnFlushProxy = std::move(proxy);
+    SkASSERT(!fOnFlushProxy);
+    fOnFlushProxy = std::move(proxy);
   }
   void addPathPixels(int numPixels)
   {
- fNumPathPixels += numPixels;
+    fNumPathPixels += numPixels;
   }
   ReleaseAtlasResult invalidatePathPixels(GrCCPathCache*, int numPixels);
   int peekOnFlushRefCnt() const
   {
- return fOnFlushRefCnt;
+    return fOnFlushRefCnt;
   }
   void incrOnFlushRefCnt(int count = 1) const
   {
-        SkASSERT(count > 0);
-        SkASSERT(fOnFlushProxy);
-        fOnFlushRefCnt += count;
+    SkASSERT(count > 0);
+    SkASSERT(fOnFlushProxy);
+    fOnFlushRefCnt += count;
   }
   void decrOnFlushRefCnt(int count = 1) const;
 private:
@@ -351,28 +352,28 @@ public:
   int testingOnly_peekOnFlushRefCnt() const;
 };
 inline GrCCPathCache::HashNode::HashNode(GrCCPathCache* pathCache, sk_sp<Key> key, const MaskTransform& m, const GrShape& shape)
-  :  fPathCache(pathCache)
-        , fEntry(new GrCCPathCacheEntry(key, m))
+  : fPathCache(pathCache)
+  , fEntry(new GrCCPathCacheEntry(key, m))
 {
-    SkASSERT(shape.hasUnstyledKey());
-    shape.addGenIDChangeListener(std::move(key));
+  SkASSERT(shape.hasUnstyledKey());
+  shape.addGenIDChangeListener(std::move(key));
 }
 inline const GrCCPathCache::Key& GrCCPathCache::HashNode::GetKey(const GrCCPathCache::HashNode& node)
 {
-    return *node.entry()->fCacheKey;
+  return *node.entry()->fCacheKey;
 }
 inline GrCCPathCache::HashNode::~HashNode()
 {
-    SkASSERT(!fEntry || fEntry->hasBeenEvicted());  // Should have called GrCCPathCache::evict().
+  SkASSERT(!fEntry || fEntry->hasBeenEvicted());
 }
 inline void GrCCPathCache::HashNode::operator=(HashNode&& node)
 {
-    SkASSERT(!fEntry || fEntry->hasBeenEvicted());  // Should have called GrCCPathCache::evict().
-    fEntry = skstd::exchange(node.fEntry, nullptr);
+  SkASSERT(!fEntry || fEntry->hasBeenEvicted());
+  fEntry = skstd::exchange(node.fEntry, nullptr);
 }
 inline void GrCCPathProcessor::Instance::set(const GrCCPathCacheEntry& entry, const SkIVector& shift, uint64_t color, GrFillRule fillRule)
 {
-    float dx = (float)shift.fX, dy = (float)shift.fY;
-    this->set(entry.fOctoBounds.makeOffset(dx, dy), entry.fAtlasOffset - shift, color, fillRule);
+  float dx = (float) shift.fX, dy;
+  this->set(entry.fOctoBounds.makeOffset(dx, dy), entry.fAtlasOffset - shift, color, fillRule);
 }
 #endif

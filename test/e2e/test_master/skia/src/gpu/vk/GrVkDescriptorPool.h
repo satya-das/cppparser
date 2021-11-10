@@ -20,7 +20,7 @@ public:
   GrVkDescriptorPool(const GrVkGpu* gpu, VkDescriptorType type, uint32_t count);
   VkDescriptorPool descPool() const
   {
- return fDescPool;
+    return fDescPool;
   }
   void reset(const GrVkGpu* gpu);
     // Returns whether or not this descriptor pool could be used, assuming it gets fully reset and
@@ -29,8 +29,7 @@ public:
 #  ifdef SK_TRACE_VK_RESOURCES
   void dumpInfo() const override
   {
-        SkDebugf("GrVkDescriptorPool: %d, type %d (%d refs)\n", fDescPool, fType,
-                 this->getRefCnt());
+    SkDebugf("GrVkDescriptorPool: %d, type %d (%d refs)\n", fDescPool, fType, this->getRefCnt());
   }
 #  endif
 private:

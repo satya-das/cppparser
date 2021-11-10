@@ -165,49 +165,49 @@ namespace PoDoFo
 // -----------------------------------------------------
   const PdfString& PdfInfo::GetAuthor() const
   {
-    return this->GetStringFromInfoDict( PdfName("Author") );
+    return this->GetStringFromInfoDict(PdfName("Author"));
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfString& PdfInfo::GetCreator() const
   {
-    return this->GetStringFromInfoDict( PdfName("Creator") );
+    return this->GetStringFromInfoDict(PdfName("Creator"));
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfString& PdfInfo::GetKeywords() const
   {
-    return this->GetStringFromInfoDict( PdfName("Keywords") );
+    return this->GetStringFromInfoDict(PdfName("Keywords"));
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfString& PdfInfo::GetSubject() const
   {
-    return this->GetStringFromInfoDict( PdfName("Subject") );
+    return this->GetStringFromInfoDict(PdfName("Subject"));
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfString& PdfInfo::GetTitle() const
   {
-    return this->GetStringFromInfoDict( PdfName("Title") );
+    return this->GetStringFromInfoDict(PdfName("Title"));
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfString& PdfInfo::GetProducer() const
   {
-    return this->GetStringFromInfoDict( PdfName("Producer") );
+    return this->GetStringFromInfoDict(PdfName("Producer"));
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   const PdfName& PdfInfo::GetTrapped() const
   {
-	return this->GetNameFromInfoDict( PdfName("Trapped") );
+    return this->GetNameFromInfoDict(PdfName("Trapped"));
   }
 // -----------------------------------------------------
 // 

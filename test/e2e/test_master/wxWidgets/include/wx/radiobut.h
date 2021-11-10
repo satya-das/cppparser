@@ -28,7 +28,6 @@ class WXDLLIMPEXP_CORE wxRadioButtonBase : public wxRadioButtonBaseBase
 public:
   wxRadioButtonBase()
   {
-
   }
     // Methods to be implemented by the derived classes:
   virtual void SetValue(bool value) = 0;
@@ -38,6 +37,7 @@ public:
   wxRadioButton* GetLastInGroup() const;
   wxRadioButton* GetPreviousInGroup() const;
   wxRadioButton* GetNextInGroup() const;
+private:
   wxDECLARE_NO_COPY_CLASS(wxRadioButtonBase);
 };
 WXDLLIMPEXP_CORE extern const char wxRadioButtonNameStr[];

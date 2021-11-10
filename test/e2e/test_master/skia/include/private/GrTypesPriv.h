@@ -86,11 +86,11 @@ enum class GrPrimitiveType {
 static constexpr int kNumGrPrimitiveTypes = (int) GrPrimitiveType::kPath + 1;
 static constexpr bool GrIsPrimTypeLines(GrPrimitiveType type)
 {
-    return GrPrimitiveType::kLines == type || GrPrimitiveType::kLineStrip == type;
+  return GrPrimitiveType::kLines == type || GrPrimitiveType::kLineStrip == type;
 }
 static constexpr bool GrIsPrimTypeTris(GrPrimitiveType type)
 {
-    return GrPrimitiveType::kTriangles == type || GrPrimitiveType::kTriangleStrip == type;
+  return GrPrimitiveType::kTriangles == type || GrPrimitiveType::kTriangleStrip == type;
 }
 enum class GrPrimitiveRestart : bool {
     kNo = false,
@@ -112,17 +112,16 @@ static const int kMaskFormatCount = kLast_GrMaskFormat + 1;
  */
 static int GrMaskFormatBytesPerPixel(GrMaskFormat format)
 {
-    SkASSERT(format < kMaskFormatCount);
+  SkASSERT(format < kMaskFormatCount);
     // kA8   (0) -> 1
     // kA565 (1) -> 2
     // kARGB (2) -> 4
-    static const int sBytesPerPixel[] = {1, 2, 4};
-    static_assert(SK_ARRAY_COUNT(sBytesPerPixel) == kMaskFormatCount, "array_size_mismatch");
-    static_assert(kA8_GrMaskFormat == 0, "enum_order_dependency");
-    static_assert(kA565_GrMaskFormat == 1, "enum_order_dependency");
-    static_assert(kARGB_GrMaskFormat == 2, "enum_order_dependency");
-
-    return sBytesPerPixel[(int)format];
+  static const int sBytesPerPixel[] = {1, 2, 4};
+  static_assert(SK_ARRAY_COUNT(sBytesPerPixel) == kMaskFormatCount, "array_size_mismatch");
+  static_assert(kA8_GrMaskFormat == 0, "enum_order_dependency");
+  static_assert(kA565_GrMaskFormat == 1, "enum_order_dependency");
+  static_assert(kARGB_GrMaskFormat == 2, "enum_order_dependency");
+  return sBytesPerPixel[(int) format];
 }
 /**
  * Describes a surface to be created.
@@ -130,7 +129,9 @@ static int GrMaskFormatBytesPerPixel(GrMaskFormat format)
 struct GrSurfaceDesc
 {
   GrSurfaceDesc()
-    :  fWidth(0), fHeight(0), fConfig(kUnknown_GrPixelConfig)
+    : fWidth(0)
+    , fHeight(0)
+    , fConfig(kUnknown_GrPixelConfig)
   {
   }
   int fWidth;
@@ -223,15 +224,16 @@ enum class GrFillRule : bool {
 };
 inline GrFillRule GrFillRuleForSkPath(const SkPath& path)
 {
-    switch (path.getFillType()) {
-        case SkPath::kWinding_FillType:
-        case SkPath::kInverseWinding_FillType:
-            return GrFillRule::kNonzero;
-        case SkPath::kEvenOdd_FillType:
-        case SkPath::kInverseEvenOdd_FillType:
-            return GrFillRule::kEvenOdd;
-    }
-    SkUNREACHABLE;
+  switch(path.getFillType())
+  {
+    case SkPath::kWinding_FillType:
+    case SkPath::kInverseWinding_FillType:
+      return GrFillRule::kNonzero;
+    case SkPath::kEvenOdd_FillType:
+    case SkPath::kInverseEvenOdd_FillType:
+      return GrFillRule::kEvenOdd;
+  }
+  SkUNREACHABLE;
 }
 /** This enum indicates the type of antialiasing to be performed. */
 enum class GrAAType : unsigned {
@@ -244,15 +246,16 @@ enum class GrAAType : unsigned {
 };
 static constexpr bool GrAATypeIsHW(GrAAType type)
 {
-    switch (type) {
-        case GrAAType::kNone:
-            return false;
-        case GrAAType::kCoverage:
-            return false;
-        case GrAAType::kMSAA:
-            return true;
-    }
-    SkUNREACHABLE;
+  switch(type)
+  {
+    case GrAAType::kNone:
+      return false;
+    case GrAAType::kCoverage:
+      return false;
+    case GrAAType::kMSAA:
+      return true;
+  }
+  SkUNREACHABLE;
 }
 /**
  * Some pixel configs are inherently clamped to [0,1], some are allowed to go outside that range,
@@ -291,7 +294,7 @@ enum class GrQuadAAFlags {
 GR_MAKE_BITFIELD_CLASS_OPS(GrQuadAAFlags)
 static GrQuadAAFlags SkToGrQuadAAFlags(unsigned flags)
 {
-    return static_cast<GrQuadAAFlags>(flags);
+  return static_cast<GrQuadAAFlags>(flags);
 }
 /**
  * Types of shader-language-specific boxed variables we can create.
@@ -373,195 +376,194 @@ enum GrShaderFlags {
 GR_MAKE_BITFIELD_OPS(GrShaderFlags)
 static constexpr bool GrSLTypeIsFloatType(GrSLType type)
 {
-    switch (type) {
-        case kFloat_GrSLType:
-        case kFloat2_GrSLType:
-        case kFloat3_GrSLType:
-        case kFloat4_GrSLType:
-        case kFloat2x2_GrSLType:
-        case kFloat3x3_GrSLType:
-        case kFloat4x4_GrSLType:
-        case kHalf_GrSLType:
-        case kHalf2_GrSLType:
-        case kHalf3_GrSLType:
-        case kHalf4_GrSLType:
-        case kHalf2x2_GrSLType:
-        case kHalf3x3_GrSLType:
-        case kHalf4x4_GrSLType:
-            return true;
-
-        case kVoid_GrSLType:
-        case kTexture2DSampler_GrSLType:
-        case kTextureExternalSampler_GrSLType:
-        case kTexture2DRectSampler_GrSLType:
-        case kBool_GrSLType:
-        case kByte_GrSLType:
-        case kByte2_GrSLType:
-        case kByte3_GrSLType:
-        case kByte4_GrSLType:
-        case kUByte_GrSLType:
-        case kUByte2_GrSLType:
-        case kUByte3_GrSLType:
-        case kUByte4_GrSLType:
-        case kShort_GrSLType:
-        case kShort2_GrSLType:
-        case kShort3_GrSLType:
-        case kShort4_GrSLType:
-        case kUShort_GrSLType:
-        case kUShort2_GrSLType:
-        case kUShort3_GrSLType:
-        case kUShort4_GrSLType:
-        case kInt_GrSLType:
-        case kInt2_GrSLType:
-        case kInt3_GrSLType:
-        case kInt4_GrSLType:
-        case kUint_GrSLType:
-        case kUint2_GrSLType:
-        case kTexture2D_GrSLType:
-        case kSampler_GrSLType:
-            return false;
-    }
-    SkUNREACHABLE;
+  switch(type)
+  {
+    case kFloat_GrSLType:
+    case kFloat2_GrSLType:
+    case kFloat3_GrSLType:
+    case kFloat4_GrSLType:
+    case kFloat2x2_GrSLType:
+    case kFloat3x3_GrSLType:
+    case kFloat4x4_GrSLType:
+    case kHalf_GrSLType:
+    case kHalf2_GrSLType:
+    case kHalf3_GrSLType:
+    case kHalf4_GrSLType:
+    case kHalf2x2_GrSLType:
+    case kHalf3x3_GrSLType:
+    case kHalf4x4_GrSLType:
+      return true;
+    case kVoid_GrSLType:
+    case kTexture2DSampler_GrSLType:
+    case kTextureExternalSampler_GrSLType:
+    case kTexture2DRectSampler_GrSLType:
+    case kBool_GrSLType:
+    case kByte_GrSLType:
+    case kByte2_GrSLType:
+    case kByte3_GrSLType:
+    case kByte4_GrSLType:
+    case kUByte_GrSLType:
+    case kUByte2_GrSLType:
+    case kUByte3_GrSLType:
+    case kUByte4_GrSLType:
+    case kShort_GrSLType:
+    case kShort2_GrSLType:
+    case kShort3_GrSLType:
+    case kShort4_GrSLType:
+    case kUShort_GrSLType:
+    case kUShort2_GrSLType:
+    case kUShort3_GrSLType:
+    case kUShort4_GrSLType:
+    case kInt_GrSLType:
+    case kInt2_GrSLType:
+    case kInt3_GrSLType:
+    case kInt4_GrSLType:
+    case kUint_GrSLType:
+    case kUint2_GrSLType:
+    case kTexture2D_GrSLType:
+    case kSampler_GrSLType:
+      return false;
+  }
+  SkUNREACHABLE;
 }
 /** If the type represents a single value or vector return the vector length, else -1. */
 static constexpr int GrSLTypeVecLength(GrSLType type)
 {
-    switch (type) {
-        case kFloat_GrSLType:
-        case kHalf_GrSLType:
-        case kBool_GrSLType:
-        case kByte_GrSLType:
-        case kUByte_GrSLType:
-        case kShort_GrSLType:
-        case kUShort_GrSLType:
-        case kInt_GrSLType:
-        case kUint_GrSLType:
-            return 1;
-
-        case kFloat2_GrSLType:
-        case kHalf2_GrSLType:
-        case kByte2_GrSLType:
-        case kUByte2_GrSLType:
-        case kShort2_GrSLType:
-        case kUShort2_GrSLType:
-        case kInt2_GrSLType:
-        case kUint2_GrSLType:
-            return 2;
-
-        case kFloat3_GrSLType:
-        case kHalf3_GrSLType:
-        case kByte3_GrSLType:
-        case kUByte3_GrSLType:
-        case kShort3_GrSLType:
-        case kUShort3_GrSLType:
-        case kInt3_GrSLType:
-            return 3;
-
-        case kFloat4_GrSLType:
-        case kHalf4_GrSLType:
-        case kByte4_GrSLType:
-        case kUByte4_GrSLType:
-        case kShort4_GrSLType:
-        case kUShort4_GrSLType:
-        case kInt4_GrSLType:
-            return 4;
-
-        case kFloat2x2_GrSLType:
-        case kFloat3x3_GrSLType:
-        case kFloat4x4_GrSLType:
-        case kHalf2x2_GrSLType:
-        case kHalf3x3_GrSLType:
-        case kHalf4x4_GrSLType:
-        case kVoid_GrSLType:
-        case kTexture2DSampler_GrSLType:
-        case kTextureExternalSampler_GrSLType:
-        case kTexture2DRectSampler_GrSLType:
-        case kTexture2D_GrSLType:
-        case kSampler_GrSLType:
-            return -1;
-    }
-    SkUNREACHABLE;
+  switch(type)
+  {
+    case kFloat_GrSLType:
+    case kHalf_GrSLType:
+    case kBool_GrSLType:
+    case kByte_GrSLType:
+    case kUByte_GrSLType:
+    case kShort_GrSLType:
+    case kUShort_GrSLType:
+    case kInt_GrSLType:
+    case kUint_GrSLType:
+      return 1;
+    case kFloat2_GrSLType:
+    case kHalf2_GrSLType:
+    case kByte2_GrSLType:
+    case kUByte2_GrSLType:
+    case kShort2_GrSLType:
+    case kUShort2_GrSLType:
+    case kInt2_GrSLType:
+    case kUint2_GrSLType:
+      return 2;
+    case kFloat3_GrSLType:
+    case kHalf3_GrSLType:
+    case kByte3_GrSLType:
+    case kUByte3_GrSLType:
+    case kShort3_GrSLType:
+    case kUShort3_GrSLType:
+    case kInt3_GrSLType:
+      return 3;
+    case kFloat4_GrSLType:
+    case kHalf4_GrSLType:
+    case kByte4_GrSLType:
+    case kUByte4_GrSLType:
+    case kShort4_GrSLType:
+    case kUShort4_GrSLType:
+    case kInt4_GrSLType:
+      return 4;
+    case kFloat2x2_GrSLType:
+    case kFloat3x3_GrSLType:
+    case kFloat4x4_GrSLType:
+    case kHalf2x2_GrSLType:
+    case kHalf3x3_GrSLType:
+    case kHalf4x4_GrSLType:
+    case kVoid_GrSLType:
+    case kTexture2DSampler_GrSLType:
+    case kTextureExternalSampler_GrSLType:
+    case kTexture2DRectSampler_GrSLType:
+    case kTexture2D_GrSLType:
+    case kSampler_GrSLType:
+      return -1;
+  }
+  SkUNREACHABLE;
 }
 static GrSLType GrSLCombinedSamplerTypeForTextureType(GrTextureType type)
 {
-    switch (type) {
-        case GrTextureType::k2D:
-            return kTexture2DSampler_GrSLType;
-        case GrTextureType::kRectangle:
-            return kTexture2DRectSampler_GrSLType;
-        case GrTextureType::kExternal:
-            return kTextureExternalSampler_GrSLType;
-        default:
-            SK_ABORT("Unexpected texture type");
-    }
+  switch(type)
+  {
+    case GrTextureType::k2D:
+      return kTexture2DSampler_GrSLType;
+    case GrTextureType::kRectangle:
+      return kTexture2DRectSampler_GrSLType;
+    case GrTextureType::kExternal:
+      return kTextureExternalSampler_GrSLType;
+default:
+    SK_ABORT("Unexpected texture type");
+}
 }
 /** Rectangle and external textures only support the clamp wrap mode and do not support
  *  MIP maps.
  */
 static bool GrTextureTypeHasRestrictedSampling(GrTextureType type)
 {
-    switch (type) {
-        case GrTextureType::k2D:
-            return false;
-        case GrTextureType::kRectangle:
-            return true;
-        case GrTextureType::kExternal:
-            return true;
-        default:
-            SK_ABORT("Unexpected texture type");
-    }
+  switch(type)
+  {
+    case GrTextureType::k2D:
+      return false;
+    case GrTextureType::kRectangle:
+      return true;
+    case GrTextureType::kExternal:
+      return true;
+default:
+    SK_ABORT("Unexpected texture type");
+}
 }
 static constexpr bool GrSLTypeIsCombinedSamplerType(GrSLType type)
 {
-    switch (type) {
-        case kTexture2DSampler_GrSLType:
-        case kTextureExternalSampler_GrSLType:
-        case kTexture2DRectSampler_GrSLType:
-            return true;
-
-        case kVoid_GrSLType:
-        case kFloat_GrSLType:
-        case kFloat2_GrSLType:
-        case kFloat3_GrSLType:
-        case kFloat4_GrSLType:
-        case kFloat2x2_GrSLType:
-        case kFloat3x3_GrSLType:
-        case kFloat4x4_GrSLType:
-        case kHalf_GrSLType:
-        case kHalf2_GrSLType:
-        case kHalf3_GrSLType:
-        case kHalf4_GrSLType:
-        case kHalf2x2_GrSLType:
-        case kHalf3x3_GrSLType:
-        case kHalf4x4_GrSLType:
-        case kInt_GrSLType:
-        case kInt2_GrSLType:
-        case kInt3_GrSLType:
-        case kInt4_GrSLType:
-        case kUint_GrSLType:
-        case kUint2_GrSLType:
-        case kBool_GrSLType:
-        case kByte_GrSLType:
-        case kByte2_GrSLType:
-        case kByte3_GrSLType:
-        case kByte4_GrSLType:
-        case kUByte_GrSLType:
-        case kUByte2_GrSLType:
-        case kUByte3_GrSLType:
-        case kUByte4_GrSLType:
-        case kShort_GrSLType:
-        case kShort2_GrSLType:
-        case kShort3_GrSLType:
-        case kShort4_GrSLType:
-        case kUShort_GrSLType:
-        case kUShort2_GrSLType:
-        case kUShort3_GrSLType:
-        case kUShort4_GrSLType:
-        case kTexture2D_GrSLType:
-        case kSampler_GrSLType:
-            return false;
-    }
-    SkUNREACHABLE;
+  switch(type)
+  {
+    case kTexture2DSampler_GrSLType:
+    case kTextureExternalSampler_GrSLType:
+    case kTexture2DRectSampler_GrSLType:
+      return true;
+    case kVoid_GrSLType:
+    case kFloat_GrSLType:
+    case kFloat2_GrSLType:
+    case kFloat3_GrSLType:
+    case kFloat4_GrSLType:
+    case kFloat2x2_GrSLType:
+    case kFloat3x3_GrSLType:
+    case kFloat4x4_GrSLType:
+    case kHalf_GrSLType:
+    case kHalf2_GrSLType:
+    case kHalf3_GrSLType:
+    case kHalf4_GrSLType:
+    case kHalf2x2_GrSLType:
+    case kHalf3x3_GrSLType:
+    case kHalf4x4_GrSLType:
+    case kInt_GrSLType:
+    case kInt2_GrSLType:
+    case kInt3_GrSLType:
+    case kInt4_GrSLType:
+    case kUint_GrSLType:
+    case kUint2_GrSLType:
+    case kBool_GrSLType:
+    case kByte_GrSLType:
+    case kByte2_GrSLType:
+    case kByte3_GrSLType:
+    case kByte4_GrSLType:
+    case kUByte_GrSLType:
+    case kUByte2_GrSLType:
+    case kUByte3_GrSLType:
+    case kUByte4_GrSLType:
+    case kShort_GrSLType:
+    case kShort2_GrSLType:
+    case kShort3_GrSLType:
+    case kShort4_GrSLType:
+    case kUShort_GrSLType:
+    case kUShort2_GrSLType:
+    case kUShort3_GrSLType:
+    case kUShort4_GrSLType:
+    case kTexture2D_GrSLType:
+    case kSampler_GrSLType:
+      return false;
+  }
+  SkUNREACHABLE;
 }
 //////////////////////////////////////////////////////////////////////////////
 
@@ -616,33 +618,32 @@ static const int kGrVertexAttribTypeCount = kLast_GrVertexAttribType + 1;
 static const int kGrClipEdgeTypeCnt = (int) GrClipEdgeType::kLast + 1;
 static constexpr bool GrProcessorEdgeTypeIsFill(const GrClipEdgeType edgeType)
 {
-    return (GrClipEdgeType::kFillAA == edgeType || GrClipEdgeType::kFillBW == edgeType);
+  return (GrClipEdgeType::kFillAA == edgeType || GrClipEdgeType::kFillBW == edgeType);
 }
 static constexpr bool GrProcessorEdgeTypeIsInverseFill(const GrClipEdgeType edgeType)
 {
-    return (GrClipEdgeType::kInverseFillAA == edgeType ||
-            GrClipEdgeType::kInverseFillBW == edgeType);
+  return (GrClipEdgeType::kInverseFillAA == edgeType || GrClipEdgeType::kInverseFillBW == edgeType);
 }
 static constexpr bool GrProcessorEdgeTypeIsAA(const GrClipEdgeType edgeType)
 {
-    return (GrClipEdgeType::kFillBW != edgeType &&
-            GrClipEdgeType::kInverseFillBW != edgeType);
+  return (GrClipEdgeType::kFillBW != edgeType && GrClipEdgeType::kInverseFillBW != edgeType);
 }
 static GrClipEdgeType GrInvertProcessorEdgeType(const GrClipEdgeType edgeType)
 {
-    switch (edgeType) {
-        case GrClipEdgeType::kFillBW:
-            return GrClipEdgeType::kInverseFillBW;
-        case GrClipEdgeType::kFillAA:
-            return GrClipEdgeType::kInverseFillAA;
-        case GrClipEdgeType::kInverseFillBW:
-            return GrClipEdgeType::kFillBW;
-        case GrClipEdgeType::kInverseFillAA:
-            return GrClipEdgeType::kFillAA;
-        case GrClipEdgeType::kHairlineAA:
-            SK_ABORT("Hairline fill isn't invertible.");
-    }
-    return GrClipEdgeType::kFillAA;  // suppress warning.
+  switch(edgeType)
+  {
+    case GrClipEdgeType::kFillBW:
+      return GrClipEdgeType::kInverseFillBW;
+    case GrClipEdgeType::kFillAA:
+      return GrClipEdgeType::kInverseFillAA;
+    case GrClipEdgeType::kInverseFillBW:
+      return GrClipEdgeType::kFillBW;
+    case GrClipEdgeType::kInverseFillAA:
+      return GrClipEdgeType::kFillAA;
+    case GrClipEdgeType::kHairlineAA:
+      SK_ABORT("Hairline fill isn't invertible.");
+  }
+  return GrClipEdgeType::kFillAA;
 }
 /**
  * Indicates the type of pending IO operations that can be recorded for gpu resources.
@@ -717,8 +718,8 @@ enum class GrBackendObjectOwnership : bool {
 template <typename T>
 T* const * unique_ptr_address_as_pointer_address(const std::unique_ptr<T>* up)
 {
-    static_assert(sizeof(T*) == sizeof(std::unique_ptr<T>), "unique_ptr not expected size.");
-    return reinterpret_cast<T* const*>(up);
+  static_assert(sizeof(T*) == sizeof(std::unique_ptr<T>), "unique_ptr not expected size.");
+  return reinterpret_cast<T* const *>(up);
 }
 /*
  * Object for CPU-GPU synchronization
@@ -752,115 +753,120 @@ enum class GrMipMapsStatus {
 GR_MAKE_BITFIELD_CLASS_OPS(GpuPathRenderers)
 static constexpr GrPixelConfig GrCompressionTypePixelConfig(SkImage::CompressionType compression)
 {
-    switch (compression) {
-        case SkImage::kETC1_CompressionType: return kRGB_ETC1_GrPixelConfig;
-    }
-    SkUNREACHABLE;
+  switch(compression)
+  {
+    case SkImage::kETC1_CompressionType:
+      return kRGB_ETC1_GrPixelConfig;
+  }
+  SkUNREACHABLE;
 }
 static constexpr size_t GrBytesPerPixel(GrPixelConfig config)
 {
-    switch (config) {
-        case kAlpha_8_GrPixelConfig:
-        case kAlpha_8_as_Alpha_GrPixelConfig:
-        case kAlpha_8_as_Red_GrPixelConfig:
-        case kGray_8_GrPixelConfig:
-        case kGray_8_as_Lum_GrPixelConfig:
-        case kGray_8_as_Red_GrPixelConfig:
-            return 1;
-        case kRGB_565_GrPixelConfig:
-        case kRGBA_4444_GrPixelConfig:
-        case kRG_88_GrPixelConfig:
-        case kAlpha_half_GrPixelConfig:
-        case kAlpha_half_as_Lum_GrPixelConfig:
-        case kAlpha_half_as_Red_GrPixelConfig:
-        case kAlpha_16_GrPixelConfig:
-            return 2;
-        case kRGBA_8888_GrPixelConfig:
-        case kRGB_888_GrPixelConfig:  // Assuming GPUs store this 4-byte aligned.
-        case kRGB_888X_GrPixelConfig:
-        case kBGRA_8888_GrPixelConfig:
-        case kSRGBA_8888_GrPixelConfig:
-        case kRGBA_1010102_GrPixelConfig:
-        case kRG_1616_GrPixelConfig:
-        case kRG_half_GrPixelConfig:
-            return 4;
-        case kRGBA_half_GrPixelConfig:
-        case kRGBA_half_Clamped_GrPixelConfig:
-        case kRGBA_16161616_GrPixelConfig:
-            return 8;
-        case kUnknown_GrPixelConfig:
-        case kRGB_ETC1_GrPixelConfig:
-            return 0;
-    }
-    SkUNREACHABLE;
+  switch(config)
+  {
+    case kAlpha_8_GrPixelConfig:
+    case kAlpha_8_as_Alpha_GrPixelConfig:
+    case kAlpha_8_as_Red_GrPixelConfig:
+    case kGray_8_GrPixelConfig:
+    case kGray_8_as_Lum_GrPixelConfig:
+    case kGray_8_as_Red_GrPixelConfig:
+      return 1;
+    case kRGB_565_GrPixelConfig:
+    case kRGBA_4444_GrPixelConfig:
+    case kRG_88_GrPixelConfig:
+    case kAlpha_half_GrPixelConfig:
+    case kAlpha_half_as_Lum_GrPixelConfig:
+    case kAlpha_half_as_Red_GrPixelConfig:
+    case kAlpha_16_GrPixelConfig:
+      return 2;
+    case kRGBA_8888_GrPixelConfig:
+    case kRGB_888_GrPixelConfig:
+    case kRGB_888X_GrPixelConfig:
+    case kBGRA_8888_GrPixelConfig:
+    case kSRGBA_8888_GrPixelConfig:
+    case kRGBA_1010102_GrPixelConfig:
+    case kRG_1616_GrPixelConfig:
+    case kRG_half_GrPixelConfig:
+      return 4;
+    case kRGBA_half_GrPixelConfig:
+    case kRGBA_half_Clamped_GrPixelConfig:
+    case kRGBA_16161616_GrPixelConfig:
+      return 8;
+    case kUnknown_GrPixelConfig:
+    case kRGB_ETC1_GrPixelConfig:
+      return 0;
+  }
+  SkUNREACHABLE;
 }
 static constexpr bool GrPixelConfigIsOpaque(GrPixelConfig config)
 {
-    switch (config) {
-        case kRGB_565_GrPixelConfig:
-        case kRGB_888_GrPixelConfig:
-        case kRGB_888X_GrPixelConfig:
-        case kRG_88_GrPixelConfig:
-        case kGray_8_GrPixelConfig:
-        case kGray_8_as_Lum_GrPixelConfig:
-        case kGray_8_as_Red_GrPixelConfig:
-        case kRGB_ETC1_GrPixelConfig:
-        case kRG_1616_GrPixelConfig:
-        case kRG_half_GrPixelConfig:
-            return true;
-        case kAlpha_8_GrPixelConfig:
-        case kAlpha_8_as_Alpha_GrPixelConfig:
-        case kAlpha_8_as_Red_GrPixelConfig:
-        case kAlpha_16_GrPixelConfig:
-        case kRGBA_4444_GrPixelConfig:
-        case kAlpha_half_GrPixelConfig:
-        case kAlpha_half_as_Lum_GrPixelConfig:
-        case kAlpha_half_as_Red_GrPixelConfig:
-        case kRGBA_8888_GrPixelConfig:
-        case kBGRA_8888_GrPixelConfig:
-        case kSRGBA_8888_GrPixelConfig:
-        case kRGBA_1010102_GrPixelConfig:
-        case kRGBA_half_GrPixelConfig:
-        case kRGBA_half_Clamped_GrPixelConfig:
-        case kRGBA_16161616_GrPixelConfig:
-        case kUnknown_GrPixelConfig:
-            return false;
-    }
-    SkUNREACHABLE;
+  switch(config)
+  {
+    case kRGB_565_GrPixelConfig:
+    case kRGB_888_GrPixelConfig:
+    case kRGB_888X_GrPixelConfig:
+    case kRG_88_GrPixelConfig:
+    case kGray_8_GrPixelConfig:
+    case kGray_8_as_Lum_GrPixelConfig:
+    case kGray_8_as_Red_GrPixelConfig:
+    case kRGB_ETC1_GrPixelConfig:
+    case kRG_1616_GrPixelConfig:
+    case kRG_half_GrPixelConfig:
+      return true;
+    case kAlpha_8_GrPixelConfig:
+    case kAlpha_8_as_Alpha_GrPixelConfig:
+    case kAlpha_8_as_Red_GrPixelConfig:
+    case kAlpha_16_GrPixelConfig:
+    case kRGBA_4444_GrPixelConfig:
+    case kAlpha_half_GrPixelConfig:
+    case kAlpha_half_as_Lum_GrPixelConfig:
+    case kAlpha_half_as_Red_GrPixelConfig:
+    case kRGBA_8888_GrPixelConfig:
+    case kBGRA_8888_GrPixelConfig:
+    case kSRGBA_8888_GrPixelConfig:
+    case kRGBA_1010102_GrPixelConfig:
+    case kRGBA_half_GrPixelConfig:
+    case kRGBA_half_Clamped_GrPixelConfig:
+    case kRGBA_16161616_GrPixelConfig:
+    case kUnknown_GrPixelConfig:
+      return false;
+  }
+  SkUNREACHABLE;
 }
 static constexpr bool GrPixelConfigIsAlphaOnly(GrPixelConfig config)
 {
-    switch (config) {
-        case kAlpha_8_GrPixelConfig:
-        case kAlpha_8_as_Alpha_GrPixelConfig:
-        case kAlpha_8_as_Red_GrPixelConfig:
-        case kAlpha_16_GrPixelConfig:
-        case kAlpha_half_GrPixelConfig:
-        case kAlpha_half_as_Lum_GrPixelConfig:
-        case kAlpha_half_as_Red_GrPixelConfig:
-            return true;
-        case kUnknown_GrPixelConfig:
-        case kGray_8_GrPixelConfig:
-        case kGray_8_as_Lum_GrPixelConfig:
-        case kGray_8_as_Red_GrPixelConfig:
-        case kRGB_565_GrPixelConfig:
-        case kRGBA_4444_GrPixelConfig:
-        case kRGBA_8888_GrPixelConfig:
-        case kRGB_888_GrPixelConfig:
-        case kRGB_888X_GrPixelConfig:
-        case kRG_88_GrPixelConfig:
-        case kBGRA_8888_GrPixelConfig:
-        case kSRGBA_8888_GrPixelConfig:
-        case kRGBA_1010102_GrPixelConfig:
-        case kRGBA_half_GrPixelConfig:
-        case kRGBA_half_Clamped_GrPixelConfig:
-        case kRGB_ETC1_GrPixelConfig:
-        case kRG_1616_GrPixelConfig:
-        case kRGBA_16161616_GrPixelConfig:
-        case kRG_half_GrPixelConfig:
-            return false;
-    }
-    SkUNREACHABLE;
+  switch(config)
+  {
+    case kAlpha_8_GrPixelConfig:
+    case kAlpha_8_as_Alpha_GrPixelConfig:
+    case kAlpha_8_as_Red_GrPixelConfig:
+    case kAlpha_16_GrPixelConfig:
+    case kAlpha_half_GrPixelConfig:
+    case kAlpha_half_as_Lum_GrPixelConfig:
+    case kAlpha_half_as_Red_GrPixelConfig:
+      return true;
+    case kUnknown_GrPixelConfig:
+    case kGray_8_GrPixelConfig:
+    case kGray_8_as_Lum_GrPixelConfig:
+    case kGray_8_as_Red_GrPixelConfig:
+    case kRGB_565_GrPixelConfig:
+    case kRGBA_4444_GrPixelConfig:
+    case kRGBA_8888_GrPixelConfig:
+    case kRGB_888_GrPixelConfig:
+    case kRGB_888X_GrPixelConfig:
+    case kRG_88_GrPixelConfig:
+    case kBGRA_8888_GrPixelConfig:
+    case kSRGBA_8888_GrPixelConfig:
+    case kRGBA_1010102_GrPixelConfig:
+    case kRGBA_half_GrPixelConfig:
+    case kRGBA_half_Clamped_GrPixelConfig:
+    case kRGB_ETC1_GrPixelConfig:
+    case kRG_1616_GrPixelConfig:
+    case kRGBA_16161616_GrPixelConfig:
+    case kRG_half_GrPixelConfig:
+      return false;
+  }
+  SkUNREACHABLE;
 }
 /**
  * Returns true if the pixel config is a GPU-specific compressed format
@@ -868,32 +874,31 @@ static constexpr bool GrPixelConfigIsAlphaOnly(GrPixelConfig config)
  */
 static constexpr bool GrPixelConfigIsCompressed(GrPixelConfig config)
 {
-    switch (config) {
-        case kRGB_ETC1_GrPixelConfig:
-            return true;
-        default:
-            return false;
-    }
-    SkUNREACHABLE;
+  switch(config)
+  {
+    case kRGB_ETC1_GrPixelConfig:
+      return true;
+default:
+    return false;
+}
+  SkUNREACHABLE;
 }
 /**
  * Returns the data size for the given compressed pixel config
  */
 static size_t GrCompressedFormatDataSize(GrPixelConfig config, int width, int height)
 {
-    SkASSERT(GrPixelConfigIsCompressed(config));
-
-    switch (config) {
-        case kRGB_ETC1_GrPixelConfig:
-            SkASSERT((width & 3) == 0);
-            SkASSERT((height & 3) == 0);
-            return (width >> 2) * (height >> 2) * 8;
-
-        default:
-            SK_ABORT("Unknown compressed pixel config");
-    }
-
-    SK_ABORT("Invalid pixel config");
+  SkASSERT(GrPixelConfigIsCompressed(config));
+  switch(config)
+  {
+    case kRGB_ETC1_GrPixelConfig:
+      SkASSERT((width & 3) == 0);
+      SkASSERT((height & 3) == 0);
+      return (width >> 2) * (height >> 2) * 8;
+default:
+    SK_ABORT("Unknown compressed pixel config");
+}
+  SK_ABORT("Invalid pixel config");
 }
 /**
  * Like SkColorType this describes a layout of pixel data in CPU memory. It specifies the channels,
@@ -939,91 +944,154 @@ enum class GrColorType {
 static const int kGrColorTypeCnt = static_cast<int>(GrColorType::kLast) + 1;
 static constexpr SkColorType GrColorTypeToSkColorType(GrColorType ct)
 {
-    switch (ct) {
-        case GrColorType::kUnknown:          return kUnknown_SkColorType;
-        case GrColorType::kAlpha_8:          return kAlpha_8_SkColorType;
-        case GrColorType::kBGR_565:          return kRGB_565_SkColorType;
-        case GrColorType::kABGR_4444:        return kARGB_4444_SkColorType;
-        case GrColorType::kRGBA_8888:        return kRGBA_8888_SkColorType;
+  switch(ct)
+  {
+    case GrColorType::kUnknown:
+      return kUnknown_SkColorType;
+    case GrColorType::kAlpha_8:
+      return kAlpha_8_SkColorType;
+    case GrColorType::kBGR_565:
+      return kRGB_565_SkColorType;
+    case GrColorType::kABGR_4444:
+      return kARGB_4444_SkColorType;
+    case GrColorType::kRGBA_8888:
+      return kRGBA_8888_SkColorType;
         // Once we add kRGBA_8888_SRGB_SkColorType we should return that here.
-        case GrColorType::kRGBA_8888_SRGB:   return kRGBA_8888_SkColorType;
-        case GrColorType::kRGB_888x:         return kRGB_888x_SkColorType;
-        case GrColorType::kRG_88:            return kR8G8_unorm_SkColorType;
-        case GrColorType::kBGRA_8888:        return kBGRA_8888_SkColorType;
-        case GrColorType::kRGBA_1010102:     return kRGBA_1010102_SkColorType;
-        case GrColorType::kGray_8:           return kGray_8_SkColorType;
-        case GrColorType::kAlpha_F16:        return kA16_float_SkColorType;
-        case GrColorType::kRGBA_F16:         return kRGBA_F16_SkColorType;
-        case GrColorType::kRGBA_F16_Clamped: return kRGBA_F16Norm_SkColorType;
-        case GrColorType::kRGBA_F32:         return kRGBA_F32_SkColorType;
-        case GrColorType::kAlpha_8xxx:       return kUnknown_SkColorType;
-        case GrColorType::kAlpha_F32xxx:     return kUnknown_SkColorType;
-        case GrColorType::kGray_8xxx:        return kUnknown_SkColorType;
-        case GrColorType::kAlpha_16:         return kA16_unorm_SkColorType;
-        case GrColorType::kRG_1616:          return kR16G16_unorm_SkColorType;
-        case GrColorType::kRGBA_16161616:    return kR16G16B16A16_unorm_SkColorType;
-        case GrColorType::kRG_F16:           return kR16G16_float_SkColorType;
-    }
-    SkUNREACHABLE;
+    case GrColorType::kRGBA_8888_SRGB:
+      return kRGBA_8888_SkColorType;
+    case GrColorType::kRGB_888x:
+      return kRGB_888x_SkColorType;
+    case GrColorType::kRG_88:
+      return kR8G8_unorm_SkColorType;
+    case GrColorType::kBGRA_8888:
+      return kBGRA_8888_SkColorType;
+    case GrColorType::kRGBA_1010102:
+      return kRGBA_1010102_SkColorType;
+    case GrColorType::kGray_8:
+      return kGray_8_SkColorType;
+    case GrColorType::kAlpha_F16:
+      return kA16_float_SkColorType;
+    case GrColorType::kRGBA_F16:
+      return kRGBA_F16_SkColorType;
+    case GrColorType::kRGBA_F16_Clamped:
+      return kRGBA_F16Norm_SkColorType;
+    case GrColorType::kRGBA_F32:
+      return kRGBA_F32_SkColorType;
+    case GrColorType::kAlpha_8xxx:
+      return kUnknown_SkColorType;
+    case GrColorType::kAlpha_F32xxx:
+      return kUnknown_SkColorType;
+    case GrColorType::kGray_8xxx:
+      return kUnknown_SkColorType;
+    case GrColorType::kAlpha_16:
+      return kA16_unorm_SkColorType;
+    case GrColorType::kRG_1616:
+      return kR16G16_unorm_SkColorType;
+    case GrColorType::kRGBA_16161616:
+      return kR16G16B16A16_unorm_SkColorType;
+    case GrColorType::kRG_F16:
+      return kR16G16_float_SkColorType;
+  }
+  SkUNREACHABLE;
 }
 static constexpr GrColorType SkColorTypeToGrColorType(SkColorType ct)
 {
-    switch (ct) {
-        case kUnknown_SkColorType:            return GrColorType::kUnknown;
-        case kAlpha_8_SkColorType:            return GrColorType::kAlpha_8;
-        case kRGB_565_SkColorType:            return GrColorType::kBGR_565;
-        case kARGB_4444_SkColorType:          return GrColorType::kABGR_4444;
-        case kRGBA_8888_SkColorType:          return GrColorType::kRGBA_8888;
-        case kRGB_888x_SkColorType:           return GrColorType::kRGB_888x;
-        case kBGRA_8888_SkColorType:          return GrColorType::kBGRA_8888;
-        case kGray_8_SkColorType:             return GrColorType::kGray_8;
-        case kRGBA_F16Norm_SkColorType:       return GrColorType::kRGBA_F16_Clamped;
-        case kRGBA_F16_SkColorType:           return GrColorType::kRGBA_F16;
-        case kRGBA_1010102_SkColorType:       return GrColorType::kRGBA_1010102;
-        case kRGB_101010x_SkColorType:        return GrColorType::kUnknown;
-        case kRGBA_F32_SkColorType:           return GrColorType::kRGBA_F32;
-        case kR8G8_unorm_SkColorType:         return GrColorType::kRG_88;
-        case kA16_unorm_SkColorType:          return GrColorType::kAlpha_16;
-        case kR16G16_unorm_SkColorType:       return GrColorType::kRG_1616;
-        case kA16_float_SkColorType:          return GrColorType::kAlpha_F16;
-        case kR16G16_float_SkColorType:       return GrColorType::kRG_F16;
-        case kR16G16B16A16_unorm_SkColorType: return GrColorType::kRGBA_16161616;
-    }
-    SkUNREACHABLE;
+  switch(ct)
+  {
+    case kUnknown_SkColorType:
+      return GrColorType::kUnknown;
+    case kAlpha_8_SkColorType:
+      return GrColorType::kAlpha_8;
+    case kRGB_565_SkColorType:
+      return GrColorType::kBGR_565;
+    case kARGB_4444_SkColorType:
+      return GrColorType::kABGR_4444;
+    case kRGBA_8888_SkColorType:
+      return GrColorType::kRGBA_8888;
+    case kRGB_888x_SkColorType:
+      return GrColorType::kRGB_888x;
+    case kBGRA_8888_SkColorType:
+      return GrColorType::kBGRA_8888;
+    case kGray_8_SkColorType:
+      return GrColorType::kGray_8;
+    case kRGBA_F16Norm_SkColorType:
+      return GrColorType::kRGBA_F16_Clamped;
+    case kRGBA_F16_SkColorType:
+      return GrColorType::kRGBA_F16;
+    case kRGBA_1010102_SkColorType:
+      return GrColorType::kRGBA_1010102;
+    case kRGB_101010x_SkColorType:
+      return GrColorType::kUnknown;
+    case kRGBA_F32_SkColorType:
+      return GrColorType::kRGBA_F32;
+    case kR8G8_unorm_SkColorType:
+      return GrColorType::kRG_88;
+    case kA16_unorm_SkColorType:
+      return GrColorType::kAlpha_16;
+    case kR16G16_unorm_SkColorType:
+      return GrColorType::kRG_1616;
+    case kA16_float_SkColorType:
+      return GrColorType::kAlpha_F16;
+    case kR16G16_float_SkColorType:
+      return GrColorType::kRG_F16;
+    case kR16G16B16A16_unorm_SkColorType:
+      return GrColorType::kRGBA_16161616;
+  }
+  SkUNREACHABLE;
 }
 // This is a temporary means of mapping an SkColorType and format to a
 // GrColorType::kRGBA_8888_SRGB. Once we have an SRGB SkColorType this can go away.
 GrColorType SkColorTypeAndFormatToGrColorType(const GrCaps* caps, SkColorType skCT, const GrBackendFormat& format);
 static constexpr uint32_t GrColorTypeComponentFlags(GrColorType ct)
 {
-    switch (ct) {
-        case GrColorType::kUnknown:          return 0;
-        case GrColorType::kAlpha_8:          return kAlpha_SkColorTypeComponentFlag;
-        case GrColorType::kBGR_565:          return kRGB_SkColorTypeComponentFlags;
-        case GrColorType::kABGR_4444:        return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kRGBA_8888:        return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kRGBA_8888_SRGB:   return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kRGB_888x:         return kRGB_SkColorTypeComponentFlags;
-        case GrColorType::kRG_88:            return kRed_SkColorTypeComponentFlag |
-                                                    kGreen_SkColorTypeComponentFlag;
-        case GrColorType::kBGRA_8888:        return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kRGBA_1010102:     return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kGray_8:           return kGray_SkColorTypeComponentFlag;
-        case GrColorType::kAlpha_F16:        return kAlpha_SkColorTypeComponentFlag;
-        case GrColorType::kRGBA_F16:         return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kRGBA_F16_Clamped: return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kRGBA_F32:         return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kAlpha_8xxx:       return kAlpha_SkColorTypeComponentFlag;
-        case GrColorType::kAlpha_F32xxx:     return kAlpha_SkColorTypeComponentFlag;
-        case GrColorType::kGray_8xxx:        return kGray_SkColorTypeComponentFlag;
-        case GrColorType::kAlpha_16:         return kAlpha_SkColorTypeComponentFlag;
-        case GrColorType::kRG_1616:          return kRed_SkColorTypeComponentFlag |
-                                                    kGreen_SkColorTypeComponentFlag;
-        case GrColorType::kRGBA_16161616:    return kRGBA_SkColorTypeComponentFlags;
-        case GrColorType::kRG_F16:           return kRed_SkColorTypeComponentFlag |
-                                                    kGreen_SkColorTypeComponentFlag;
-    }
-    SkUNREACHABLE;
+  switch(ct)
+  {
+    case GrColorType::kUnknown:
+      return 0;
+    case GrColorType::kAlpha_8:
+      return kAlpha_SkColorTypeComponentFlag;
+    case GrColorType::kBGR_565:
+      return kRGB_SkColorTypeComponentFlags;
+    case GrColorType::kABGR_4444:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kRGBA_8888:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kRGBA_8888_SRGB:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kRGB_888x:
+      return kRGB_SkColorTypeComponentFlags;
+    case GrColorType::kRG_88:
+      return kRed_SkColorTypeComponentFlag | kGreen_SkColorTypeComponentFlag;
+    case GrColorType::kBGRA_8888:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kRGBA_1010102:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kGray_8:
+      return kGray_SkColorTypeComponentFlag;
+    case GrColorType::kAlpha_F16:
+      return kAlpha_SkColorTypeComponentFlag;
+    case GrColorType::kRGBA_F16:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kRGBA_F16_Clamped:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kRGBA_F32:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kAlpha_8xxx:
+      return kAlpha_SkColorTypeComponentFlag;
+    case GrColorType::kAlpha_F32xxx:
+      return kAlpha_SkColorTypeComponentFlag;
+    case GrColorType::kGray_8xxx:
+      return kGray_SkColorTypeComponentFlag;
+    case GrColorType::kAlpha_16:
+      return kAlpha_SkColorTypeComponentFlag;
+    case GrColorType::kRG_1616:
+      return kRed_SkColorTypeComponentFlag | kGreen_SkColorTypeComponentFlag;
+    case GrColorType::kRGBA_16161616:
+      return kRGBA_SkColorTypeComponentFlags;
+    case GrColorType::kRG_F16:
+      return kRed_SkColorTypeComponentFlag | kGreen_SkColorTypeComponentFlag;
+  }
+  SkUNREACHABLE;
 }
 /**
  * Describes the encoding of channel data in a GrColorType.
@@ -1046,73 +1114,78 @@ struct GrColorTypeDesc
 public:
   static constexpr GrColorTypeDesc MakeRGBA(int rgba, GrColorTypeEncoding e)
   {
-        return {rgba, rgba, rgba, rgba, 0, e};
+    return {rgba, rgba, rgba, rgba, 0, e};
   }
   static constexpr GrColorTypeDesc MakeRGBA(int rgb, int a, GrColorTypeEncoding e)
   {
-        return {rgb, rgb, rgb, a, 0, e};
+    return {rgb, rgb, rgb, a, 0, e};
   }
   static constexpr GrColorTypeDesc MakeRGB(int rgb, GrColorTypeEncoding e)
   {
-        return {rgb, rgb, rgb, 0, 0, e};
+    return {rgb, rgb, rgb, 0, 0, e};
   }
   static constexpr GrColorTypeDesc MakeRGB(int r, int g, int b, GrColorTypeEncoding e)
   {
-        return {r, g, b, 0, 0, e};
+    return {r, g, b, 0, 0, e};
   }
   static constexpr GrColorTypeDesc MakeAlpha(int a, GrColorTypeEncoding e)
   {
-        return {0, 0, 0, a, 0, e};
+    return {0, 0, 0, a, 0, e};
   }
   static constexpr GrColorTypeDesc MakeR(int r, GrColorTypeEncoding e)
   {
-        return {r, 0, 0, 0, 0, e};
+    return {r, 0, 0, 0, 0, e};
   }
   static constexpr GrColorTypeDesc MakeRG(int rg, GrColorTypeEncoding e)
   {
-        return {rg, rg, 0, 0, 0, e};
+    return {rg, rg, 0, 0, 0, e};
   }
   static constexpr GrColorTypeDesc MakeGray(int grayBits, GrColorTypeEncoding e)
   {
-        return {0, 0, 0, 0, grayBits, e};
+    return {0, 0, 0, 0, grayBits, e};
   }
   static constexpr GrColorTypeDesc MakeInvalid()
   {
- return {};
+    return {};
   }
   constexpr int r() const
   {
- return fRBits;
+    return fRBits;
   }
   constexpr int g() const
   {
- return fGBits;
+    return fGBits;
   }
   constexpr int b() const
   {
- return fBBits;
+    return fBBits;
   }
   constexpr int a() const
   {
- return fABits;
+    return fABits;
   }
   constexpr int operator[](int c) const
   {
-        switch (c) {
-            case 0: return this->r();
-            case 1: return this->g();
-            case 2: return this->b();
-            case 3: return this->a();
-        }
-        SkUNREACHABLE;
+    switch(c)
+    {
+      case 0:
+        return this->r();
+      case 1:
+        return this->g();
+      case 2:
+        return this->b();
+      case 3:
+        return this->a();
+    }
+    SkUNREACHABLE;
   }
   constexpr int gray() const
   {
- return fGrayBits;
+    return fGrayBits;
   }
   constexpr GrColorTypeEncoding encoding() const
   {
- return fEncoding;
+    return fEncoding;
   }
 private:
   int fRBits = 0;
@@ -1123,205 +1196,252 @@ private:
   GrColorTypeEncoding fEncoding = GrColorTypeEncoding::kUnorm;
   GrColorTypeDesc();
   GrColorTypeDesc(int r, int g, int b, int a, int gray, GrColorTypeEncoding encoding)
-    :  fRBits(r), fGBits(g), fBBits(b), fABits(a), fGrayBits(gray), fEncoding(encoding)
+    : fRBits(r)
+    , fGBits(g)
+    , fBBits(b)
+    , fABits(a)
+    , fGrayBits(gray)
+    , fEncoding(encoding)
   {
-        SkASSERT(r >= 0 && g >= 0 && b >= 0 && a >= 0 && gray >= 0);
-        SkASSERT(!gray || (!r && !g && !b));
-        SkASSERT(r || g || b || a || gray);
+    SkASSERT(r >= 0 && g >= 0 && b >= 0 && a >= 0 && gray >= 0);
+    SkASSERT(!gray || (!r && !g && !b));
+    SkASSERT(r || g || b || a || gray);
   }
 };
 static constexpr GrColorTypeDesc GrGetColorTypeDesc(GrColorType ct)
 {
-    switch (ct) {
-        case GrColorType::kUnknown:
-            return GrColorTypeDesc::MakeInvalid();
-        case GrColorType::kAlpha_8:
-            return GrColorTypeDesc::MakeAlpha(8, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kBGR_565:
-            return GrColorTypeDesc::MakeRGB(5, 6, 5, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kABGR_4444:
-            return GrColorTypeDesc::MakeRGBA(4, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kRGBA_8888:
-            return GrColorTypeDesc::MakeRGBA(8, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kRGBA_8888_SRGB:
-            return GrColorTypeDesc::MakeRGBA(8, GrColorTypeEncoding::kSRGBUnorm);
-        case GrColorType::kRGB_888x:
-            return GrColorTypeDesc::MakeRGB(8, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kRG_88:
-            return GrColorTypeDesc::MakeRG(8, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kBGRA_8888:
-            return GrColorTypeDesc::MakeRGBA(8, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kRGBA_1010102:
-            return GrColorTypeDesc::MakeRGBA(10, 2, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kGray_8:
-            return GrColorTypeDesc::MakeGray(8, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kAlpha_F16:
-            return GrColorTypeDesc::MakeAlpha(16, GrColorTypeEncoding::kFloat);
-        case GrColorType::kRGBA_F16:
-            return GrColorTypeDesc::MakeRGBA(16, GrColorTypeEncoding::kFloat);
-        case GrColorType::kRGBA_F16_Clamped:
-            return GrColorTypeDesc::MakeRGBA(16, GrColorTypeEncoding::kFloat);
-        case GrColorType::kRGBA_F32:
-            return GrColorTypeDesc::MakeRGBA(32, GrColorTypeEncoding::kFloat);
-        case GrColorType::kAlpha_8xxx:
-            return GrColorTypeDesc::MakeAlpha(8, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kAlpha_F32xxx:
-            return GrColorTypeDesc::MakeAlpha(32, GrColorTypeEncoding::kFloat);
-        case GrColorType::kGray_8xxx:
-            return GrColorTypeDesc::MakeGray(8, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kAlpha_16:
-            return GrColorTypeDesc::MakeAlpha(16, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kRG_1616:
-            return GrColorTypeDesc::MakeRG(16, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kRGBA_16161616:
-            return GrColorTypeDesc::MakeRGBA(16, GrColorTypeEncoding::kUnorm);
-        case GrColorType::kRG_F16:
-            return GrColorTypeDesc::MakeRG(16, GrColorTypeEncoding::kFloat);
-    }
-    SkUNREACHABLE;
+  switch(ct)
+  {
+    case GrColorType::kUnknown:
+      return GrColorTypeDesc::MakeInvalid();
+    case GrColorType::kAlpha_8:
+      return GrColorTypeDesc::MakeAlpha(8, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kBGR_565:
+      return GrColorTypeDesc::MakeRGB(5, 6, 5, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kABGR_4444:
+      return GrColorTypeDesc::MakeRGBA(4, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kRGBA_8888:
+      return GrColorTypeDesc::MakeRGBA(8, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kRGBA_8888_SRGB:
+      return GrColorTypeDesc::MakeRGBA(8, GrColorTypeEncoding::kSRGBUnorm);
+    case GrColorType::kRGB_888x:
+      return GrColorTypeDesc::MakeRGB(8, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kRG_88:
+      return GrColorTypeDesc::MakeRG(8, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kBGRA_8888:
+      return GrColorTypeDesc::MakeRGBA(8, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kRGBA_1010102:
+      return GrColorTypeDesc::MakeRGBA(10, 2, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kGray_8:
+      return GrColorTypeDesc::MakeGray(8, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kAlpha_F16:
+      return GrColorTypeDesc::MakeAlpha(16, GrColorTypeEncoding::kFloat);
+    case GrColorType::kRGBA_F16:
+      return GrColorTypeDesc::MakeRGBA(16, GrColorTypeEncoding::kFloat);
+    case GrColorType::kRGBA_F16_Clamped:
+      return GrColorTypeDesc::MakeRGBA(16, GrColorTypeEncoding::kFloat);
+    case GrColorType::kRGBA_F32:
+      return GrColorTypeDesc::MakeRGBA(32, GrColorTypeEncoding::kFloat);
+    case GrColorType::kAlpha_8xxx:
+      return GrColorTypeDesc::MakeAlpha(8, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kAlpha_F32xxx:
+      return GrColorTypeDesc::MakeAlpha(32, GrColorTypeEncoding::kFloat);
+    case GrColorType::kGray_8xxx:
+      return GrColorTypeDesc::MakeGray(8, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kAlpha_16:
+      return GrColorTypeDesc::MakeAlpha(16, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kRG_1616:
+      return GrColorTypeDesc::MakeRG(16, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kRGBA_16161616:
+      return GrColorTypeDesc::MakeRGBA(16, GrColorTypeEncoding::kUnorm);
+    case GrColorType::kRG_F16:
+      return GrColorTypeDesc::MakeRG(16, GrColorTypeEncoding::kFloat);
+  }
+  SkUNREACHABLE;
 }
 static constexpr GrClampType GrColorTypeClampType(GrColorType colorType)
 {
-    if (GrGetColorTypeDesc(colorType).encoding() == GrColorTypeEncoding::kUnorm ||
-        GrGetColorTypeDesc(colorType).encoding() == GrColorTypeEncoding::kSRGBUnorm) {
-        return GrClampType::kAuto;
-    }
-    return GrColorType::kRGBA_F16_Clamped == colorType ? GrClampType::kManual : GrClampType::kNone;
+  if (GrGetColorTypeDesc(colorType).encoding() == GrColorTypeEncoding::kUnorm || GrGetColorTypeDesc(colorType).encoding() == GrColorTypeEncoding::kSRGBUnorm)
+  {
+    return GrClampType::kAuto;
+  }
+  return GrColorType::kRGBA_F16_Clamped == colorType ? GrClampType::kManual : GrClampType::kNone;
 }
 // Consider a color type "wider" than n if it has more than n bits for any its representable
 // channels.
 static constexpr bool GrColorTypeIsWiderThan(GrColorType colorType, int n)
 {
-    SkASSERT(n > 0);
-    auto desc = GrGetColorTypeDesc(colorType);
-    return (desc.r() && desc.r() > n )||
-           (desc.g() && desc.g() > n) ||
-           (desc.b() && desc.b() > n) ||
-           (desc.a() && desc.a() > n) ||
-           (desc.gray() && desc.gray() > n);
+  SkASSERT(n > 0);
+  auto desc = GrGetColorTypeDesc(colorType);
+  return (desc.r() && desc.r() > n) || (desc.g() && desc.g() > n) || (desc.b() && desc.b() > n) || (desc.a() && desc.a() > n) || (desc.gray() && desc.gray() > n);
 }
 static constexpr bool GrColorTypeIsAlphaOnly(GrColorType ct)
 {
-    return kAlpha_SkColorTypeComponentFlag == GrColorTypeComponentFlags(ct);
+  return kAlpha_SkColorTypeComponentFlag == GrColorTypeComponentFlags(ct);
 }
 static constexpr bool GrColorTypeHasAlpha(GrColorType ct)
 {
-    return kAlpha_SkColorTypeComponentFlag & GrColorTypeComponentFlags(ct);
+  return kAlpha_SkColorTypeComponentFlag & GrColorTypeComponentFlags(ct);
 }
 static constexpr size_t GrColorTypeBytesPerPixel(GrColorType ct)
 {
-    switch (ct) {
-        case GrColorType::kUnknown:          return 0;
-        case GrColorType::kAlpha_8:          return 1;
-        case GrColorType::kBGR_565:          return 2;
-        case GrColorType::kABGR_4444:        return 2;
-        case GrColorType::kRGBA_8888:        return 4;
-        case GrColorType::kRGBA_8888_SRGB:   return 4;
-        case GrColorType::kRGB_888x:         return 4;
-        case GrColorType::kRG_88:            return 2;
-        case GrColorType::kBGRA_8888:        return 4;
-        case GrColorType::kRGBA_1010102:     return 4;
-        case GrColorType::kGray_8:           return 1;
-        case GrColorType::kAlpha_F16:        return 2;
-        case GrColorType::kRGBA_F16:         return 8;
-        case GrColorType::kRGBA_F16_Clamped: return 8;
-        case GrColorType::kRGBA_F32:         return 16;
-        case GrColorType::kAlpha_8xxx:       return 4;
-        case GrColorType::kAlpha_F32xxx:     return 16;
-        case GrColorType::kGray_8xxx:        return 4;
-        case GrColorType::kAlpha_16:         return 2;
-        case GrColorType::kRG_1616:          return 4;
-        case GrColorType::kRGBA_16161616:    return 8;
-        case GrColorType::kRG_F16:           return 4;
-    }
-    SkUNREACHABLE;
+  switch(ct)
+  {
+    case GrColorType::kUnknown:
+      return 0;
+    case GrColorType::kAlpha_8:
+      return 1;
+    case GrColorType::kBGR_565:
+      return 2;
+    case GrColorType::kABGR_4444:
+      return 2;
+    case GrColorType::kRGBA_8888:
+      return 4;
+    case GrColorType::kRGBA_8888_SRGB:
+      return 4;
+    case GrColorType::kRGB_888x:
+      return 4;
+    case GrColorType::kRG_88:
+      return 2;
+    case GrColorType::kBGRA_8888:
+      return 4;
+    case GrColorType::kRGBA_1010102:
+      return 4;
+    case GrColorType::kGray_8:
+      return 1;
+    case GrColorType::kAlpha_F16:
+      return 2;
+    case GrColorType::kRGBA_F16:
+      return 8;
+    case GrColorType::kRGBA_F16_Clamped:
+      return 8;
+    case GrColorType::kRGBA_F32:
+      return 16;
+    case GrColorType::kAlpha_8xxx:
+      return 4;
+    case GrColorType::kAlpha_F32xxx:
+      return 16;
+    case GrColorType::kGray_8xxx:
+      return 4;
+    case GrColorType::kAlpha_16:
+      return 2;
+    case GrColorType::kRG_1616:
+      return 4;
+    case GrColorType::kRGBA_16161616:
+      return 8;
+    case GrColorType::kRG_F16:
+      return 4;
+  }
+  SkUNREACHABLE;
 }
 static constexpr GrColorType GrPixelConfigToColorType(GrPixelConfig config)
 {
-    switch (config) {
-        case kUnknown_GrPixelConfig:
-            return GrColorType::kUnknown;
-        case kAlpha_8_GrPixelConfig:
-            return GrColorType::kAlpha_8;
-        case kGray_8_GrPixelConfig:
-            return GrColorType::kGray_8;
-        case kRGB_565_GrPixelConfig:
-            return GrColorType::kBGR_565;
-        case kRGBA_4444_GrPixelConfig:
-            return GrColorType::kABGR_4444;
-        case kRGBA_8888_GrPixelConfig:
-            return GrColorType::kRGBA_8888;
-        case kRGB_888_GrPixelConfig:
-            return GrColorType::kRGB_888x;
-        case kRGB_888X_GrPixelConfig:
-            return GrColorType::kRGB_888x;
-        case kRG_88_GrPixelConfig:
-            return GrColorType::kRG_88;
-        case kBGRA_8888_GrPixelConfig:
-            return GrColorType::kBGRA_8888;
-        case kSRGBA_8888_GrPixelConfig:
-            return GrColorType::kRGBA_8888_SRGB;
-        case kRGBA_1010102_GrPixelConfig:
-            return GrColorType::kRGBA_1010102;
-        case kAlpha_half_GrPixelConfig:
-            return GrColorType::kAlpha_F16;
-        case kRGBA_half_GrPixelConfig:
-            return GrColorType::kRGBA_F16;
-        case kRGBA_half_Clamped_GrPixelConfig:
-            return GrColorType::kRGBA_F16_Clamped;
-        case kRGB_ETC1_GrPixelConfig:
-            // We may need a roughly equivalent color type for a compressed texture. This should be
-            // the logical format for decompressing the data into.
-            return GrColorType::kRGB_888x;
-        case kAlpha_8_as_Alpha_GrPixelConfig:
-            return GrColorType::kAlpha_8;
-        case kAlpha_8_as_Red_GrPixelConfig:
-            return GrColorType::kAlpha_8;
-        case kAlpha_half_as_Lum_GrPixelConfig:  // fall through
-        case kAlpha_half_as_Red_GrPixelConfig:
-            return GrColorType::kAlpha_F16;
-        case kGray_8_as_Lum_GrPixelConfig:
-            return GrColorType::kGray_8;
-        case kGray_8_as_Red_GrPixelConfig:
-            return GrColorType::kGray_8;
-        case kAlpha_16_GrPixelConfig:
-            return GrColorType::kAlpha_16;
-        case kRG_1616_GrPixelConfig:
-            return GrColorType::kRG_1616;
-        case kRGBA_16161616_GrPixelConfig:
-            return GrColorType::kRGBA_16161616;
-        case kRG_half_GrPixelConfig:
-            return GrColorType::kRG_F16;
-    }
-    SkUNREACHABLE;
+  switch(config)
+  {
+    case kUnknown_GrPixelConfig:
+      return GrColorType::kUnknown;
+    case kAlpha_8_GrPixelConfig:
+      return GrColorType::kAlpha_8;
+    case kGray_8_GrPixelConfig:
+      return GrColorType::kGray_8;
+    case kRGB_565_GrPixelConfig:
+      return GrColorType::kBGR_565;
+    case kRGBA_4444_GrPixelConfig:
+      return GrColorType::kABGR_4444;
+    case kRGBA_8888_GrPixelConfig:
+      return GrColorType::kRGBA_8888;
+    case kRGB_888_GrPixelConfig:
+      return GrColorType::kRGB_888x;
+    case kRGB_888X_GrPixelConfig:
+      return GrColorType::kRGB_888x;
+    case kRG_88_GrPixelConfig:
+      return GrColorType::kRG_88;
+    case kBGRA_8888_GrPixelConfig:
+      return GrColorType::kBGRA_8888;
+    case kSRGBA_8888_GrPixelConfig:
+      return GrColorType::kRGBA_8888_SRGB;
+    case kRGBA_1010102_GrPixelConfig:
+      return GrColorType::kRGBA_1010102;
+    case kAlpha_half_GrPixelConfig:
+      return GrColorType::kAlpha_F16;
+    case kRGBA_half_GrPixelConfig:
+      return GrColorType::kRGBA_F16;
+    case kRGBA_half_Clamped_GrPixelConfig:
+      return GrColorType::kRGBA_F16_Clamped;
+    case kRGB_ETC1_GrPixelConfig:
+      return GrColorType::kRGB_888x;
+    case kAlpha_8_as_Alpha_GrPixelConfig:
+      return GrColorType::kAlpha_8;
+    case kAlpha_8_as_Red_GrPixelConfig:
+      return GrColorType::kAlpha_8;
+    case kAlpha_half_as_Lum_GrPixelConfig:
+    case kAlpha_half_as_Red_GrPixelConfig:
+      return GrColorType::kAlpha_F16;
+    case kGray_8_as_Lum_GrPixelConfig:
+      return GrColorType::kGray_8;
+    case kGray_8_as_Red_GrPixelConfig:
+      return GrColorType::kGray_8;
+    case kAlpha_16_GrPixelConfig:
+      return GrColorType::kAlpha_16;
+    case kRG_1616_GrPixelConfig:
+      return GrColorType::kRG_1616;
+    case kRGBA_16161616_GrPixelConfig:
+      return GrColorType::kRGBA_16161616;
+    case kRG_half_GrPixelConfig:
+      return GrColorType::kRG_F16;
+  }
+  SkUNREACHABLE;
 }
 static constexpr GrPixelConfig GrColorTypeToPixelConfig(GrColorType colorType)
 {
-    switch (colorType) {
-        case GrColorType::kUnknown:          return kUnknown_GrPixelConfig;
-        case GrColorType::kAlpha_8:          return kAlpha_8_GrPixelConfig;
-        case GrColorType::kGray_8:           return kGray_8_GrPixelConfig;
-        case GrColorType::kBGR_565:          return kRGB_565_GrPixelConfig;
-        case GrColorType::kABGR_4444:        return kRGBA_4444_GrPixelConfig;
-        case GrColorType::kRGBA_8888:        return kRGBA_8888_GrPixelConfig;
-        case GrColorType::kRGBA_8888_SRGB:   return kSRGBA_8888_GrPixelConfig;
-        case GrColorType::kRGB_888x:         return kRGB_888_GrPixelConfig;
-        case GrColorType::kRG_88:            return kRG_88_GrPixelConfig;
-        case GrColorType::kBGRA_8888:        return kBGRA_8888_GrPixelConfig;
-        case GrColorType::kRGBA_1010102:     return kRGBA_1010102_GrPixelConfig;
-        case GrColorType::kRGBA_F32:         return kUnknown_GrPixelConfig;
-        case GrColorType::kAlpha_F16:        return kAlpha_half_GrPixelConfig;
-        case GrColorType::kRGBA_F16:         return kRGBA_half_GrPixelConfig;
-        case GrColorType::kRGBA_F16_Clamped: return kRGBA_half_Clamped_GrPixelConfig;
-        case GrColorType::kAlpha_8xxx:       return kUnknown_GrPixelConfig;
-        case GrColorType::kAlpha_F32xxx:     return kUnknown_GrPixelConfig;
-        case GrColorType::kGray_8xxx:        return kUnknown_GrPixelConfig;
-        case GrColorType::kAlpha_16:         return kAlpha_16_GrPixelConfig;
-        case GrColorType::kRG_1616:          return kRG_1616_GrPixelConfig;
-        case GrColorType::kRGBA_16161616:    return kRGBA_16161616_GrPixelConfig;
-        case GrColorType::kRG_F16:           return kRG_half_GrPixelConfig;
-    }
-    SkUNREACHABLE;
+  switch(colorType)
+  {
+    case GrColorType::kUnknown:
+      return kUnknown_GrPixelConfig;
+    case GrColorType::kAlpha_8:
+      return kAlpha_8_GrPixelConfig;
+    case GrColorType::kGray_8:
+      return kGray_8_GrPixelConfig;
+    case GrColorType::kBGR_565:
+      return kRGB_565_GrPixelConfig;
+    case GrColorType::kABGR_4444:
+      return kRGBA_4444_GrPixelConfig;
+    case GrColorType::kRGBA_8888:
+      return kRGBA_8888_GrPixelConfig;
+    case GrColorType::kRGBA_8888_SRGB:
+      return kSRGBA_8888_GrPixelConfig;
+    case GrColorType::kRGB_888x:
+      return kRGB_888_GrPixelConfig;
+    case GrColorType::kRG_88:
+      return kRG_88_GrPixelConfig;
+    case GrColorType::kBGRA_8888:
+      return kBGRA_8888_GrPixelConfig;
+    case GrColorType::kRGBA_1010102:
+      return kRGBA_1010102_GrPixelConfig;
+    case GrColorType::kRGBA_F32:
+      return kUnknown_GrPixelConfig;
+    case GrColorType::kAlpha_F16:
+      return kAlpha_half_GrPixelConfig;
+    case GrColorType::kRGBA_F16:
+      return kRGBA_half_GrPixelConfig;
+    case GrColorType::kRGBA_F16_Clamped:
+      return kRGBA_half_Clamped_GrPixelConfig;
+    case GrColorType::kAlpha_8xxx:
+      return kUnknown_GrPixelConfig;
+    case GrColorType::kAlpha_F32xxx:
+      return kUnknown_GrPixelConfig;
+    case GrColorType::kGray_8xxx:
+      return kUnknown_GrPixelConfig;
+    case GrColorType::kAlpha_16:
+      return kAlpha_16_GrPixelConfig;
+    case GrColorType::kRG_1616:
+      return kRG_1616_GrPixelConfig;
+    case GrColorType::kRGBA_16161616:
+      return kRGBA_16161616_GrPixelConfig;
+    case GrColorType::kRG_F16:
+      return kRG_half_GrPixelConfig;
+  }
+  SkUNREACHABLE;
 }
 /**
  * Ref-counted object that calls a callback from its destructor.
@@ -1333,17 +1453,18 @@ public:
   using Callback = void (*) (Context);
 ;
   GrRefCntedCallback(Callback proc, Context ctx)
-    :  fReleaseProc(proc), fReleaseCtx(ctx)
+    : fReleaseProc(proc)
+    , fReleaseCtx(ctx)
   {
-        SkASSERT(proc);
+    SkASSERT(proc);
   }
   virtual ~GrRefCntedCallback()
   {
- fReleaseProc ? fReleaseProc(fReleaseCtx) : void();
+    fReleaseProc ? fReleaseProc(fReleaseCtx) : void();
   }
   Context context() const
   {
- return fReleaseCtx;
+    return fReleaseCtx;
   }
 private:
   Callback fReleaseProc;
@@ -1352,42 +1473,71 @@ private:
 #  if  GR_TEST_UTILS || defined(SK_ENABLE_DUMP_GPU)
 static constexpr const char* GrBackendApiToStr(GrBackendApi api)
 {
-    switch (api) {
-        case GrBackendApi::kMetal:  return "Metal";
-        case GrBackendApi::kDawn:   return "Dawn";
-        case GrBackendApi::kOpenGL: return "OpenGL";
-        case GrBackendApi::kVulkan: return "Vulkan";
-        case GrBackendApi::kMock:   return "Mock";
-    }
-    SkUNREACHABLE;
+  switch(api)
+  {
+    case GrBackendApi::kMetal:
+      return "Metal";
+    case GrBackendApi::kDawn:
+      return "Dawn";
+    case GrBackendApi::kOpenGL:
+      return "OpenGL";
+    case GrBackendApi::kVulkan:
+      return "Vulkan";
+    case GrBackendApi::kMock:
+      return "Mock";
+  }
+  SkUNREACHABLE;
 }
 static constexpr const char* GrColorTypeToStr(GrColorType ct)
 {
-    switch (ct) {
-        case GrColorType::kUnknown:          return "kUnknown";
-        case GrColorType::kAlpha_8:          return "kAlpha_8";
-        case GrColorType::kBGR_565:          return "kRGB_565";
-        case GrColorType::kABGR_4444:        return "kABGR_4444";
-        case GrColorType::kRGBA_8888:        return "kRGBA_8888";
-        case GrColorType::kRGBA_8888_SRGB:   return "kRGBA_8888_SRGB";
-        case GrColorType::kRGB_888x:         return "kRGB_888x";
-        case GrColorType::kRG_88:            return "kRG_88";
-        case GrColorType::kBGRA_8888:        return "kBGRA_8888";
-        case GrColorType::kRGBA_1010102:     return "kRGBA_1010102";
-        case GrColorType::kGray_8:           return "kGray_8";
-        case GrColorType::kAlpha_F16:        return "kAlpha_F16";
-        case GrColorType::kRGBA_F16:         return "kRGBA_F16";
-        case GrColorType::kRGBA_F16_Clamped: return "kRGBA_F16_Clamped";
-        case GrColorType::kRGBA_F32:         return "kRGBA_F32";
-        case GrColorType::kAlpha_8xxx:       return "kAlpha_8xxx";
-        case GrColorType::kAlpha_F32xxx:     return "kAlpha_F32xxx";
-        case GrColorType::kGray_8xxx:        return "kGray_8xxx";
-        case GrColorType::kAlpha_16:         return "kAlpha_16";
-        case GrColorType::kRG_1616:          return "kRG_1616";
-        case GrColorType::kRGBA_16161616:    return "kRGBA_16161616";
-        case GrColorType::kRG_F16:           return "kRG_F16";
-    }
-    SkUNREACHABLE;
+  switch(ct)
+  {
+    case GrColorType::kUnknown:
+      return "kUnknown";
+    case GrColorType::kAlpha_8:
+      return "kAlpha_8";
+    case GrColorType::kBGR_565:
+      return "kRGB_565";
+    case GrColorType::kABGR_4444:
+      return "kABGR_4444";
+    case GrColorType::kRGBA_8888:
+      return "kRGBA_8888";
+    case GrColorType::kRGBA_8888_SRGB:
+      return "kRGBA_8888_SRGB";
+    case GrColorType::kRGB_888x:
+      return "kRGB_888x";
+    case GrColorType::kRG_88:
+      return "kRG_88";
+    case GrColorType::kBGRA_8888:
+      return "kBGRA_8888";
+    case GrColorType::kRGBA_1010102:
+      return "kRGBA_1010102";
+    case GrColorType::kGray_8:
+      return "kGray_8";
+    case GrColorType::kAlpha_F16:
+      return "kAlpha_F16";
+    case GrColorType::kRGBA_F16:
+      return "kRGBA_F16";
+    case GrColorType::kRGBA_F16_Clamped:
+      return "kRGBA_F16_Clamped";
+    case GrColorType::kRGBA_F32:
+      return "kRGBA_F32";
+    case GrColorType::kAlpha_8xxx:
+      return "kAlpha_8xxx";
+    case GrColorType::kAlpha_F32xxx:
+      return "kAlpha_F32xxx";
+    case GrColorType::kGray_8xxx:
+      return "kGray_8xxx";
+    case GrColorType::kAlpha_16:
+      return "kAlpha_16";
+    case GrColorType::kRG_1616:
+      return "kRG_1616";
+    case GrColorType::kRGBA_16161616:
+      return "kRGBA_16161616";
+    case GrColorType::kRG_F16:
+      return "kRG_F16";
+  }
+  SkUNREACHABLE;
 }
 #  endif
 #endif

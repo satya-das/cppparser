@@ -25,7 +25,7 @@ public:
   bool isFormatTexturable(MTLPixelFormat) const;
   bool isFormatCopyable(const GrBackendFormat&) const override
   {
- return true;
+    return true;
   }
   bool isFormatAsColorTypeRenderable(GrColorType ct, const GrBackendFormat& format, int sampleCount = 1) const override;
   bool isFormatRenderable(const GrBackendFormat& format, int sampleCount) const override;
@@ -37,14 +37,14 @@ public:
   SupportedWrite supportedWritePixelsColorType(GrColorType surfaceColorType, const GrBackendFormat& surfaceFormat, GrColorType srcColorType) const override;
   SurfaceReadPixelsSupport surfaceSupportsReadPixels(const GrSurface*) const override
   {
-        return SurfaceReadPixelsSupport::kSupported;
+    return SurfaceReadPixelsSupport::kSupported;
   }
     /**
      * Returns both a supported and most prefered stencil format to use in draws.
      */
   const StencilFormat& preferredStencilFormat() const
   {
-        return fPreferredStencilFormat;
+    return fPreferredStencilFormat;
   }
   bool canCopyAsBlit(MTLPixelFormat dstFormat, int dstSampleCount, MTLPixelFormat srcFormat, int srcSampleCount, const SkIRect& srcRect, const SkIPoint& dstPoint, bool areDstSrcSameObj) const;
   bool canCopyAsResolve(GrSurface* dst, int dstSampleCount, GrSurface* src, int srcSampleCount, const SkIRect& srcRect, const SkIPoint& dstPoint) const;
@@ -52,8 +52,8 @@ public:
   GrBackendFormat getBackendFormatFromCompressionType(SkImage::CompressionType) const override;
   MTLPixelFormat getFormatFromColorType(GrColorType colorType) const
   {
-        int idx = static_cast<int>(colorType);
-        return fColorTypeToFormatTable[idx];
+    int idx = static_cast<int>(colorType);
+    return fColorTypeToFormatTable[idx];
   }
   GrSwizzle getTextureSwizzle(const GrBackendFormat&, GrColorType) const override;
   GrSwizzle getOutputSwizzle(const GrBackendFormat&, GrColorType) const override;
@@ -90,12 +90,14 @@ private:
   {
     uint32_t colorTypeFlags(GrColorType colorType) const
     {
-            for (int i = 0; i < fColorTypeInfoCount; ++i) {
-                if (fColorTypeInfos[i].fColorType == colorType) {
-                    return fColorTypeInfos[i].fFlags;
-                }
-            }
-            return 0;
+      for (int i = 0; i < fColorTypeInfoCount; ++i)
+      {
+        if (fColorTypeInfos[i].fColorType == colorType)
+        {
+          return fColorTypeInfos[i].fFlags;
+        }
+      }
+      return 0;
     }
     enum {
             kTexturable_Flag  = 0x1,
@@ -117,8 +119,8 @@ private:
   FormatInfo fFormatTable[kNumMtlFormats];
   const FormatInfo& getFormatInfo(const MTLPixelFormat pixelFormat) const
   {
-        size_t index = GetFormatIndex(pixelFormat);
-        return fFormatTable[index];
+    size_t index = GetFormatIndex(pixelFormat);
+    return fFormatTable[index];
   }
   MTLPixelFormat fColorTypeToFormatTable[kGrColorTypeCnt];
   void setColorType(GrColorType, std::initializer_list<MTLPixelFormat> formats);
@@ -128,11 +130,11 @@ private:
   };
   bool isMac()
   {
- return Platform::kMac == fPlatform;
+    return Platform::kMac == fPlatform;
   }
   bool isIOS()
   {
- return Platform::kIOS == fPlatform;
+    return Platform::kIOS == fPlatform;
   }
   Platform fPlatform;
   int fFamilyGroup;

@@ -18,14 +18,13 @@ class GrTiledGradientEffect : public GrFragmentProcessor
 public:
   static std::unique_ptr<GrFragmentProcessor> Make(std::unique_ptr<GrFragmentProcessor> colorizer, std::unique_ptr<GrFragmentProcessor> gradLayout, bool mirror, bool makePremul, bool colorsAreOpaque)
   {
-        return std::unique_ptr<GrFragmentProcessor>(new GrTiledGradientEffect(
-                std::move(colorizer), std::move(gradLayout), mirror, makePremul, colorsAreOpaque));
+    return std::unique_ptr<GrFragmentProcessor>(new GrTiledGradientEffect(std::move(colorizer), std::move(gradLayout), mirror, makePremul, colorsAreOpaque));
   }
   GrTiledGradientEffect(const GrTiledGradientEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
   {
- return "TiledGradientEffect";
+    return "TiledGradientEffect";
   }
   int colorizer_index = -1;
   int gradLayout_index = -1;
@@ -34,21 +33,17 @@ public:
   bool colorsAreOpaque;
 private:
   GrTiledGradientEffect(std::unique_ptr<GrFragmentProcessor> colorizer, std::unique_ptr<GrFragmentProcessor> gradLayout, bool mirror, bool makePremul, bool colorsAreOpaque)
-    :  INHERITED(kGrTiledGradientEffect_ClassID,
-                        (OptimizationFlags)kCompatibleWithCoverageAsAlpha_OptimizationFlag |
-                                (colorsAreOpaque && gradLayout->preservesOpaqueInput()
-                                         ? kPreservesOpaqueInput_OptimizationFlag
-                                         : kNone_OptimizationFlags))
-            , mirror(mirror)
-            , makePremul(makePremul)
-            , colorsAreOpaque(colorsAreOpaque)
+    : INHERITED(kGrTiledGradientEffect_ClassID, (OptimizationFlags) kCompatibleWithCoverageAsAlpha_OptimizationFlag | (colorsAreOpaque && gradLayout->preservesOpaqueInput() ? kPreservesOpaqueInput_OptimizationFlag : kNone_OptimizationFlags))
+    , mirror(mirror)
+    , makePremul(makePremul)
+    , colorsAreOpaque(colorsAreOpaque)
   {
-        SkASSERT(colorizer);
-        colorizer_index = this->numChildProcessors();
-        this->registerChildProcessor(std::move(colorizer));
-        SkASSERT(gradLayout);
-        gradLayout_index = this->numChildProcessors();
-        this->registerChildProcessor(std::move(gradLayout));
+    SkASSERT(colorizer);
+    colorizer_index = this->numChildProcessors();
+    this->registerChildProcessor(std::move(colorizer));
+    SkASSERT(gradLayout);
+    gradLayout_index = this->numChildProcessors();
+    this->registerChildProcessor(std::move(gradLayout));
   }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;

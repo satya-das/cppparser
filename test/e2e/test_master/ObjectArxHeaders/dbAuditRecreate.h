@@ -87,10 +87,12 @@ public:
     ///
   virtual bool replace(AcDbObject*& pNewObj, AcDbObjectId originalObjId, AcRxClass* pObjClass, AcDbDatabase* pDb, AcDbAuditInfo* pAuditInfo)
   {
-        ADESK_UNREFED_PARAM(pNewObj); ADESK_UNREFED_PARAM(originalObjId);
-        ADESK_UNREFED_PARAM(pObjClass); ADESK_UNREFED_PARAM(pDb);
-        ADESK_UNREFED_PARAM(pAuditInfo);
-        return false;
+    ADESK_UNREFED_PARAM(pNewObj);
+    ADESK_UNREFED_PARAM(originalObjId);
+    ADESK_UNREFED_PARAM(pObjClass);
+    ADESK_UNREFED_PARAM(pDb);
+    ADESK_UNREFED_PARAM(pAuditInfo);
+    return false;
   }
     /// <summary>
     /// redirect is invoked as the second attempt to establish a
@@ -135,10 +137,12 @@ public:
     ///
   virtual bool redirect(AcDbObjectId& newObjId, AcDbObjectId originalObjId, AcRxClass* pObjClass, AcDbDatabase* pDb, AcDbAuditInfo* pAuditInfo)
   {
-        ADESK_UNREFED_PARAM(newObjId); ADESK_UNREFED_PARAM(originalObjId);
-        ADESK_UNREFED_PARAM(pObjClass); ADESK_UNREFED_PARAM(pDb);
-        ADESK_UNREFED_PARAM(pAuditInfo);
-        return false;
+    ADESK_UNREFED_PARAM(newObjId);
+    ADESK_UNREFED_PARAM(originalObjId);
+    ADESK_UNREFED_PARAM(pObjClass);
+    ADESK_UNREFED_PARAM(pDb);
+    ADESK_UNREFED_PARAM(pAuditInfo);
+    return false;
   }
 };
 #endif

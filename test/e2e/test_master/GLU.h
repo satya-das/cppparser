@@ -17,9 +17,7 @@ Abstract:
 #    define __glu_h__
 #    define __GLU_H__
 #    include <GL/gl.h>
-#    ifdef __cplusplus
 extern "C" {
-#    endif
 /*
 ** Copyright 1991-1993, Silicon Graphics, Inc.
 ** All Rights Reserved.
@@ -63,7 +61,6 @@ extern "C" {
   int APIENTRY gluScaleImage(GLenum format, GLint widthin, GLint heightin, GLenum typein, const void* datain, GLint widthout, GLint heightout, GLenum typeout, void* dataout);
   int APIENTRY gluBuild1DMipmaps(GLenum target, GLint components, GLint width, GLenum format, GLenum type, const void* data);
   int APIENTRY gluBuild2DMipmaps(GLenum target, GLint components, GLint width, GLint height, GLenum format, GLenum type, const void* data);
-#    ifdef __cplusplus
   class GLUnurbs;
   class GLUquadric;
   class GLUtesselator;
@@ -72,16 +69,6 @@ extern "C" {
   typedef class GLUquadric GLUquadricObj;
   typedef class GLUtesselator GLUtesselatorObj;
   typedef class GLUtesselator GLUtriangulatorObj;
-#    else 
-  typedef struct GLUnurbs GLUnurbs;
-  typedef struct GLUquadric GLUquadric;
-  typedef struct GLUtesselator GLUtesselator;
-/* backwards compatibility: */
-  typedef struct GLUnurbs GLUnurbsObj;
-  typedef struct GLUquadric GLUquadricObj;
-  typedef struct GLUtesselator GLUtesselatorObj;
-  typedef struct GLUtesselator GLUtriangulatorObj;
-#    endif
   GLUquadric* APIENTRY gluNewQuadric(void);
   void APIENTRY gluDeleteQuadric(GLUquadric* state);
   void APIENTRY gluQuadricNormals(GLUquadric* quadObject, GLenum normals);
@@ -302,8 +289,6 @@ extern "C" {
 #    define GLU_END	GLU_TESS_END
 #    define GLU_ERROR	GLU_TESS_ERROR
 #    define GLU_EDGE_FLAG	GLU_TESS_EDGE_FLAG
-#    ifdef __cplusplus
   }
-#    endif
 #  endif
 #endif

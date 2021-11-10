@@ -17,7 +17,6 @@ class WXDLLIMPEXP_CORE wxBrush : public wxBrushBase
 public:
   wxBrush()
   {
-
   }
   wxBrush(const wxColour& colour, wxBrushStyle style = wxBRUSHSTYLE_SOLID);
   wxBrush(const wxBitmap& stippleBitmap);
@@ -25,7 +24,7 @@ public:
   bool operator==(const wxBrush& brush) const;
   bool operator!=(const wxBrush& brush) const
   {
- return !(*this == brush);
+    return !(*this == brush);
   }
   wxBrushStyle GetStyle() const override;
   wxColour GetColour() const override;
@@ -34,10 +33,12 @@ public:
   void SetColour(unsigned char r, unsigned char g, unsigned char b) override;
   void SetStyle(wxBrushStyle style) override;
   void SetStipple(const wxBitmap& stipple) override;
-  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") wxBrush(const wxColour& col, int style);
-  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") void SetStyle(int style)
+  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants")
+  wxBrush(const wxColour& col, int style);
+  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants")
+  void SetStyle(int style)
   {
- SetStyle((wxBrushStyle)style);
+    SetStyle((wxBrushStyle) style);
   }
 protected:
   wxGDIRefData* CreateGDIRefData() const override;

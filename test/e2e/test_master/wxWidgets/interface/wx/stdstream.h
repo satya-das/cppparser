@@ -54,7 +54,6 @@ public:
     */
   virtual ~wxStdInputStreamBuffer()
   {
-
   }
 };
 /**
@@ -104,7 +103,6 @@ public:
     */
   virtual ~wxStdInputStream()
   {
-
   }
 };
 /**
@@ -150,7 +148,6 @@ public:
     */
   virtual ~wxStdOutputStreamBuffer()
   {
-
   }
 };
 /**
@@ -189,6 +186,5 @@ public:
     */
   virtual ~wxStdOutputStream()
   {
-
   }
 };

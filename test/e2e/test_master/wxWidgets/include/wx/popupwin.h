@@ -28,7 +28,6 @@ class WXDLLIMPEXP_CORE wxPopupWindowBase : public wxNonOwnedWindow
 public:
   wxPopupWindowBase()
   {
-
   }
   virtual ~wxPopupWindowBase();
     // create the popup window
@@ -46,7 +45,7 @@ public:
   virtual void Position(const wxPoint& ptOrigin, const wxSize& size);
   bool IsTopLevel() const override
   {
- return true;
+    return true;
   }
   wxDECLARE_NO_COPY_CLASS(wxPopupWindowBase);
 };
@@ -88,14 +87,14 @@ public:
     // VZ: where is this used??
   virtual bool CanDismiss()
   {
- return true;
+    return true;
   }
     // called when a mouse is pressed while the popup is shown: return true
     // from here to prevent its normal processing by the popup (which consists
     // in dismissing it if the mouse is clicked outside it)
   virtual bool ProcessLeftDown(wxMouseEvent&)
   {
- return false;
+    return false;
   }
     // Override to implement delayed destruction of this window.
   bool Destroy() override;
@@ -104,41 +103,30 @@ protected:
     // else but direct call to Dismiss()
   virtual void OnDismiss()
   {
-
   }
     // dismiss and notify the derived class
   void DismissAndNotify()
   {
-        Dismiss();
-        OnDismiss();
+    Dismiss();
+    OnDismiss();
   }
 };
-#    ifdef __WXMSW__
-class WXDLLIMPEXP_CORE wxPopupTransientWindow : public wxPopupTransientWindowBase
-{
-public:
     // ctors
-  wxPopupTransientWindow()
-  {
+    wxPopupTransientWindow() { }
+    wxPopupTransientWindow(wxWindow *parent, int style = wxBORDER_NONE)
+        { Create(parent, style); }
 
-  }
-  wxPopupTransientWindow(wxWindow* parent, int style = wxBORDER_NONE)
-  {
- Create(parent, style);
-  }
     // Implement base class pure virtuals.
-  void Popup(wxWindow* focus = NULL) override;
-  void Dismiss() override;
+    virtual void Popup(wxWindow *focus = NULL) wxOVERRIDE;
+    virtual void Dismiss() wxOVERRIDE;
+
     // Override to handle WM_NCACTIVATE.
-  bool MSWHandleMessage(WXLRESULT* result, WXUINT message, WXWPARAM wParam, WXLPARAM lParam) override;
+    virtual bool MSWHandleMessage(WXLRESULT *result,
+                                  WXUINT message,
+                                  WXWPARAM wParam,
+                                  WXLPARAM lParam) wxOVERRIDE;
+
     // Override to dismiss the popup.
-  void MSWDismissUnfocusedPopup() override;
-private:
-  void DismissOnDeactivate();
-  wxDECLARE_DYNAMIC_CLASS(wxPopupTransientWindow);
-  wxDECLARE_NO_COPY_CLASS(wxPopupTransientWindow);
-};
-#    else 
 class WXDLLIMPEXP_FWD_CORE wxPopupWindowHandler;
 class WXDLLIMPEXP_FWD_CORE wxPopupFocusHandler;
 class WXDLLIMPEXP_CORE wxPopupTransientWindow : public wxPopupTransientWindowBase
@@ -147,7 +135,7 @@ public:
     // ctors
   wxPopupTransientWindow()
   {
- Init();
+    Init();
   }
   wxPopupTransientWindow(wxWindow* parent, int style = wxBORDER_NONE);
   virtual ~wxPopupTransientWindow();
@@ -163,11 +151,11 @@ protected:
   void PopHandlers();
     // get alerted when child gets deleted from under us
   void OnDestroy(wxWindowDestroyEvent& event);
-#      if  defined(__WXMAC__) && wxOSX_USE_COCOA_OR_CARBON
+#    if  defined(__WXMAC__) && wxOSX_USE_COCOA_OR_CARBON
     // Check if the mouse needs to be captured or released: we must release
     // when it's inside our window if we want the embedded controls to work.
   void OnIdle(wxIdleEvent& event);
-#      endif
+#    endif
     // the child of this popup if any
   wxWindow* m_child;
     // the window which has the focus while we're shown
@@ -182,7 +170,6 @@ protected:
   wxDECLARE_DYNAMIC_CLASS(wxPopupTransientWindow);
   wxDECLARE_NO_COPY_CLASS(wxPopupTransientWindow);
 };
-#    endif
 #    if  wxUSE_COMBOBOX && defined(__WXUNIVERSAL__)
 // ----------------------------------------------------------------------------
 // wxPopupComboWindow: wxPopupTransientWindow used by wxComboBox
@@ -194,7 +181,7 @@ class WXDLLIMPEXP_CORE wxPopupComboWindow : public wxPopupTransientWindow
 public:
   wxPopupComboWindow()
   {
- m_combo = NULL;
+    m_combo = NULL;
   }
   wxPopupComboWindow(wxComboCtrl* parent);
   bool Create(wxComboCtrl* parent);

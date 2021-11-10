@@ -7,13 +7,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef _WX_DND_H_
 #  define _WX_DND_H_
-#  if  wxUSE_DRAG_AND_DROP
-#    include "wx/defs.h"
-#    include "wx/object.h"
-#    include "wx/string.h"
-#    include "wx/string.h"
-#    include "wx/dataobj.h"
-#    include "wx/cursor.h"
+#  include "wx/defs.h"
+#  include "wx/object.h"
+#  include "wx/string.h"
+#  include "wx/string.h"
+#  include "wx/dataobj.h"
+#  include "wx/cursor.h"
 //-------------------------------------------------------------------------
 // classes
 //-------------------------------------------------------------------------
@@ -31,7 +30,7 @@ class WXDLLIMPEXP_FWD_CORE wxOSXDataSource;
 // the icon 'name' from an XPM file under GTK, but will expand to something
 // else under MSW. If you don't use it, you will have to use #ifdef in the
 // application code.
-#    define wxDROP_ICON(X)	   wxCursor(X##_xpm)
+#  define wxDROP_ICON(X)	   wxCursor(X##_xpm)
 //-------------------------------------------------------------------------
 // wxDropTarget
 //-------------------------------------------------------------------------
@@ -48,7 +47,7 @@ public:
   bool CurrentDragHasSupportedFormat();
   void SetCurrentDragSource(wxOSXDataSource* dragpasteboard)
   {
- m_currentDragPasteboard = dragpasteboard ;
+    m_currentDragPasteboard = dragpasteboard;
   }
 protected:
   wxOSXDataSource* m_currentDragPasteboard;
@@ -72,11 +71,11 @@ public:
   wxDragResult DoDragDrop(int flags = wxDrag_CopyOnly) override;
   wxWindow* GetWindow()
   {
- return m_window ;
+    return m_window;
   }
   void SetCurrentDragPasteboard(void* dragpasteboard)
   {
- m_currentDragPasteboard = dragpasteboard ;
+    m_currentDragPasteboard = dragpasteboard;
   }
   bool MacInstallDefaultCursor(wxDragResult effect);
   static wxDropSource* GetCurrentDropSource();
@@ -84,6 +83,5 @@ protected:
   wxWindow* m_window;
   void* m_currentDragPasteboard;
 };
-#  endif
 #endif
    //_WX_DND_H_

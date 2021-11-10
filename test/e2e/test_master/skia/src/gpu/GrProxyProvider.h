@@ -170,11 +170,11 @@ private:
   {
     static const GrUniqueKey& GetKey(const GrTextureProxy& p)
     {
- return p.getUniqueKey();
+      return p.getUniqueKey();
     }
     static uint32_t Hash(const GrUniqueKey& key)
     {
- return key.hash();
+      return key.hash();
     }
   };
   typedef SkTDynamicHash<GrTextureProxy, GrUniqueKey, UniquelyKeyedProxyHashTraits> UniquelyKeyedProxyHash;

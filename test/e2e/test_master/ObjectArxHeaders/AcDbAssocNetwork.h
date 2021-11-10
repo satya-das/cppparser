@@ -248,10 +248,11 @@ public:
     /// </summary>
     ///
   explicit AcDbAssocNetworkIterator(const AcDbAssocNetwork* pNetwork)
-    :  mpNetwork(pNetwork), mIndex(-1)
+    : mpNetwork(pNetwork)
+    , mIndex(-1)
   {
 #ifdef ASSERT
-        ASSERT(mpNetwork != NULL);
+    ASSERT(mpNetwork != NULL);
 #endif
   }
     /// <summary>
@@ -263,17 +264,17 @@ public:
     ///
   AcDbObjectId current() const
   {
-        if (mpNetwork != NULL && 0 <= mIndex && mIndex < mpNetwork->getActions().length())
-        {
-            return mpNetwork->getActions()[mIndex]; 
-        }
-        else
-        {
+    if (mpNetwork != NULL && 0 <= mIndex && mIndex < mpNetwork->getActions().length())
+    {
+      return mpNetwork->getActions()[mIndex];
+    }
+    else 
+    {
 #ifdef ASSERT
-            ASSERT(false);
+      ASSERT(false);
 #endif
-            return AcDbObjectId::kNull;
-        }
+      return AcDbObjectId::kNull;
+    }
   }
     /// <summary>
     /// Advances the iterator to the next AcDbAssocAction in the network. 
@@ -285,7 +286,7 @@ public:
     ///
   bool moveNext()
   {
-        return mpNetwork != NULL ? ++mIndex < mpNetwork->getActions().length() : false;
+    return mpNetwork != NULL ? ++mIndex < mpNetwork->getActions().length() : false;
   }
     /// <summary>
     /// Position the iterator before the first action in the network.
@@ -293,7 +294,7 @@ public:
     ///
   void reset()
   {
- mIndex = -1;
+    mIndex = -1;
   }
 private:
   const AcDbAssocNetwork* const mpNetwork;

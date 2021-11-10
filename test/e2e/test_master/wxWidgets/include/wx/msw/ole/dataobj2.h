@@ -22,11 +22,10 @@ class WXDLLIMPEXP_CORE wxBitmapDataObject : public wxBitmapDataObjectBase
 public:
     // ctors
   wxBitmapDataObject(const wxBitmap& bitmap = wxNullBitmap)
-    :  wxBitmapDataObjectBase(bitmap)
+    : wxBitmapDataObjectBase(bitmap)
   {
-            SetFormat(wxDF_DIB);
-
-            m_data = NULL;
+    SetFormat(wxDF_DIB);
+    m_data = NULL;
   }
     // implement base class pure virtuals
   size_t GetDataSize() const override;
@@ -34,15 +33,15 @@ public:
   bool SetData(size_t len, const void* buf) override;
   size_t GetDataSize(const wxDataFormat&) const override
   {
- return GetDataSize();
+    return GetDataSize();
   }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
- return GetDataHere(buf);
+    return GetDataHere(buf);
   }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
- return SetData(len, buf);
+    return SetData(len, buf);
   }
 private:
     // the DIB data
@@ -59,9 +58,8 @@ class WXDLLIMPEXP_CORE wxBitmapDataObject2 : public wxBitmapDataObjectBase
 public:
     // ctors
   wxBitmapDataObject2(const wxBitmap& bitmap = wxNullBitmap)
-    :  wxBitmapDataObjectBase(bitmap)
+    : wxBitmapDataObjectBase(bitmap)
   {
-
   }
     // implement base class pure virtuals
   size_t GetDataSize() const override;
@@ -69,16 +67,17 @@ public:
   bool SetData(size_t len, const void* buf) override;
   size_t GetDataSize(const wxDataFormat&) const override
   {
- return GetDataSize();
+    return GetDataSize();
   }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
- return GetDataHere(buf);
+    return GetDataHere(buf);
   }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
- return SetData(len, buf);
+    return SetData(len, buf);
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxBitmapDataObject2);
 };
 // ----------------------------------------------------------------------------
@@ -89,7 +88,6 @@ class WXDLLIMPEXP_CORE wxFileDataObject : public wxFileDataObjectBase
 public:
   wxFileDataObject()
   {
-
   }
     // implement base class pure virtuals
   bool SetData(size_t len, const void* buf) override;
@@ -98,16 +96,17 @@ public:
   virtual void AddFile(const wxString& file);
   size_t GetDataSize(const wxDataFormat&) const override
   {
- return GetDataSize();
+    return GetDataSize();
   }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
- return GetDataHere(buf);
+    return GetDataHere(buf);
   }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
- return SetData(len, buf);
+    return SetData(len, buf);
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxFileDataObject);
 };
 // ----------------------------------------------------------------------------

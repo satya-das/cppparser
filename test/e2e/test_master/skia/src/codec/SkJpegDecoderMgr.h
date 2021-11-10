@@ -48,14 +48,14 @@ public:
      */
   skjpeg_error_mgr* errorMgr()
   {
- return &fErrorMgr;
+    return &fErrorMgr;
   }
     /*
      * Get function for the decompress info struct
      */
   jpeg_decompress_struct* dinfo()
   {
- return &fDInfo;
+    return &fDInfo;
   }
 private:
   jpeg_decompress_struct fDInfo;

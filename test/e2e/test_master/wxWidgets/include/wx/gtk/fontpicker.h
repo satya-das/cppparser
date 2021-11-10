@@ -18,22 +18,21 @@ class WXDLLIMPEXP_CORE wxFontButton : public wxButton, public wxFontPickerWidget
 public:
   wxFontButton()
   {
- Init();
+    Init();
   }
   wxFontButton(wxWindow* parent, wxWindowID id, const wxFont& initial = wxNullFont, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxFONTBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFontPickerWidgetNameStr))
   {
-        Init();
-
-        Create(parent, id, initial, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, initial, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxFont& initial = wxNullFont, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxFONTBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFontPickerWidgetNameStr));
   wxColour GetSelectedColour() const override
   {
- return m_selectedColour;
+    return m_selectedColour;
   }
   void SetSelectedColour(const wxColour& colour) override
   {
- m_selectedColour = colour;
+    m_selectedColour = colour;
   }
   virtual ~wxFontButton();
 protected:
@@ -44,7 +43,7 @@ private:
     // Common part of both ctors.
   void Init()
   {
-        m_selectedColour = *wxBLACK;
+    m_selectedColour = *wxBLACK;
   }
     // This can't be changed by the user, but is provided to
     // satisfy the wxFontPickerWidgetBase interface.

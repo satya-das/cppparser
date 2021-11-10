@@ -22,9 +22,10 @@ wxDECLARE_EXPORTED_EVENT( WXDLLIMPEXP_CORE, wxEVT_TOOLBOOK_PAGE_CHANGING, wxBook
 // Use wxTB_HORZ_LAYOUT style for the controlling toolbar
 #    define wxTBK_HORZ_LAYOUT	0x8000
 // deprecated synonym, don't use
-#    if  WXWIN_COMPATIBILITY_2_8
-#      define wxBK_BUTTONBAR	wxTBK_BUTTONBAR
-#    endif
+#if WXWIN_COMPATIBILITY_2_8
+    #define wxBK_BUTTONBAR wxTBK_BUTTONBAR
+#endif
+
 // ----------------------------------------------------------------------------
 // wxToolbook
 // ----------------------------------------------------------------------------
@@ -33,13 +34,12 @@ class WXDLLIMPEXP_CORE wxToolbook : public wxNavigationEnabled<wxBookCtrlBase>
 public:
   wxToolbook()
   {
-        Init();
+    Init();
   }
   wxToolbook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString)
   {
-        Init();
-
-        (void)Create(parent, id, pos, size, style, name);
+    Init();
+    (void) Create(parent, id, pos, size, style, name);
   }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxEmptyString);
@@ -51,11 +51,11 @@ public:
   bool InsertPage(size_t n, wxWindow* page, const wxString& text, bool bSelect = false, int imageId = NO_IMAGE) override;
   int SetSelection(size_t n) override
   {
- return DoSetSelection(n, SetSelection_SendEvent);
+    return DoSetSelection(n, SetSelection_SendEvent);
   }
   int ChangeSelection(size_t n) override
   {
- return DoSetSelection(n);
+    return DoSetSelection(n);
   }
   void SetImageList(wxImageList* imageList) override;
   bool DeleteAllPages() override;
@@ -65,7 +65,7 @@ public:
     // get the underlying toolbar
   wxToolBarBase* GetToolBar() const
   {
- return (wxToolBarBase*)m_bookctrl;
+    return (wxToolBarBase*) m_bookctrl;
   }
     // enable/disable a page
   bool EnablePage(wxWindow* page, bool enable);

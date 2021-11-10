@@ -24,13 +24,13 @@ namespace wxWinAPI
     };
     Event()
     {
-
     }
     // Wrappers around {Create,Set,Reset}Event() Windows API functions, with
     // the same semantics.
     bool Create(Kind kind = AutomaticReset, InitialState initialState = Nonsignaled, const wxChar* name = NULL);
     bool Set();
     bool Reset();
+  private:
     wxDECLARE_NO_COPY_CLASS(Event);
   };
 }
@@ -41,43 +41,34 @@ namespace wxWinAPI
 // ----------------------------------------------------------------------------
 inline bool wxWinAPI::Event::Create(wxWinAPI::Event::Kind kind, wxWinAPI::Event::InitialState initialState, const wxChar* name)
 {
-    wxCHECK_MSG( !IsOk(), false, wxS("Event can't be created twice") );
-
-    WXHANDLE handle = ::CreateEvent(NULL,
-                                    kind == ManualReset,
-                                    initialState == Signaled,
-                                    name);
-    if ( !handle )
-    {
-        wxLogLastError(wxS("CreateEvent"));
-        return false;
-    }
-
-    m_handle = handle;
-    return true;
+  wxCHECK_MSG( !IsOk(), false, wxS("Event can't be created twice") );
+  WXHANDLE handle = ::CreateEvent(NULL, kind == ManualReset, initialState == Signaled, name);
+  if (!handle)
+  {
+    wxLogLastError(wxS("CreateEvent"));
+    return false;
+  }
+  m_handle = handle;
+  return true;
 }
 inline bool wxWinAPI::Event::Set()
 {
-    wxCHECK_MSG( m_handle, false, wxS("Event must be valid") );
-
-    if ( !::SetEvent(m_handle) )
-    {
-        wxLogLastError(wxS("SetEvent"));
-        return false;
-    }
-
-    return true;
+  wxCHECK_MSG( m_handle, false, wxS("Event must be valid") );
+  if (!::SetEvent(m_handle))
+  {
+    wxLogLastError(wxS("SetEvent"));
+    return false;
+  }
+  return true;
 }
 inline bool wxWinAPI::Event::Reset()
 {
-    wxCHECK_MSG( m_handle, false, wxS("Event must be valid") );
-
-    if ( !::ResetEvent(m_handle) )
-    {
-        wxLogLastError(wxS("ResetEvent"));
-        return false;
-    }
-
-    return true;
+  wxCHECK_MSG( m_handle, false, wxS("Event must be valid") );
+  if (!::ResetEvent(m_handle))
+  {
+    wxLogLastError(wxS("ResetEvent"));
+    return false;
+  }
+  return true;
 }
 #endif

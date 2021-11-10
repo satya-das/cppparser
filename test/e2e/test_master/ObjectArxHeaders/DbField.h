@@ -172,75 +172,86 @@ public:
 // Otherwise we could use default params as in (int * pnErrCode = nullptr)
 inline AcDbField::EvalStatus AcDbField::evaluationStatus(int* pnErrCode) const
 {
-    AcString *pNullStr = nullptr;
-    return this->evaluationStatus(pnErrCode, pNullStr);
+  AcString* pNullStr = nullptr;
+  return this->evaluationStatus(pnErrCode, pNullStr);
 }
 inline AcDbField::EvalStatus AcDbField::evaluationStatus() const
 {
-    return this->evaluationStatus(nullptr);
+  return this->evaluationStatus(nullptr);
 }
 // this overload is deprecated. Please call the one taking AcString * arg
 inline AcDbField::EvalStatus AcDbField::evaluationStatus(int* pnErrCode, ACHAR** pszErrMsg) const
 {
-    AcString sErrMsg;
-    AcString * pErrMsgStr = pszErrMsg ? &sErrMsg : nullptr;
-    const AcDbField::EvalStatus es = this->evaluationStatus(pnErrCode, pErrMsgStr);
-    if (pszErrMsg != nullptr) {
-        if (*pErrMsgStr == nullptr)     // some kind of error
-            *pszErrMsg = nullptr;
-        else
-            ::acutNewString(sErrMsg.kwszPtr(), *pszErrMsg);
+  AcString sErrMsg;
+  AcString* pErrMsgStr = pszErrMsg ? &sErrMsg : nullptr;
+  const AcDbField::EvalStatus es = this->evaluationStatus(pnErrCode, pErrMsgStr);
+  if (pszErrMsg != nullptr)
+  {
+    if (*pErrMsgStr == nullptr)
+    {
+      *pszErrMsg = nullptr;
     }
-    return es;
+    else 
+    {
+      ::acutNewString(sErrMsg.kwszPtr(), *pszErrMsg);
+    }
+  }
+  return es;
 }
 // this overload is deprecated. Please call the one taking AcString * arg
 inline Acad::ErrorStatus AcDbField::getFieldCode(ACHAR*& pszFieldCode, AcDbField::FieldCodeFlag nFlag, AcArray<AcDbField*>* pChildFields, AcDb::OpenMode mode) const
 {
-    AcString sFieldCode;
-    return ::acutAcStringToAChar(sFieldCode, pszFieldCode,
-                                 this->getFieldCode(sFieldCode, nFlag, pChildFields, mode));
+  AcString sFieldCode;
+  return ::acutAcStringToAChar(sFieldCode, pszFieldCode, this->getFieldCode(sFieldCode, nFlag, pChildFields, mode));
 }
 // this overload is deprecated. Please call the one taking AcString * arg
 inline Acad::ErrorStatus AcDbField::getFormat(ACHAR*& pszFormat) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbField::getFormat, pszFormat);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbField::getFormat, pszFormat);
 }
 // this overload is deprecated. Please call the one taking AcString * arg
 inline Acad::ErrorStatus AcDbField::getValue(ACHAR*& pszValue) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbField::getValue, pszValue);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbField::getValue, pszValue);
 }
 // this overload is deprecated. Please call the one taking AcString * args
 inline Acad::ErrorStatus AcDbField::getHyperlink(ACHAR** pszName, ACHAR** pszDescription, ACHAR** pszSubLocation, ACHAR** pszDisplayString, Adesk::Int32* pFlag) const
 {
-    AcString sName, sDescription, sSubLocation, sDisplayString;
-    const Acad::ErrorStatus es = this->getHyperlink(
-                             pszName == nullptr ? nullptr : &sName,
-                      pszDescription == nullptr ? nullptr : &sDescription,
-                      pszSubLocation == nullptr ? nullptr : &sSubLocation,
-                    pszDisplayString == nullptr ? nullptr : &sDisplayString,
-                    pFlag);
-    if (pszName != nullptr) {
-        *pszName = nullptr;
-        if (es == Acad::eOk)
-            ::acutNewString(sName.kwszPtr(), *pszName);
+  AcString sName, sDescription, sSubLocation, sDisplayString;
+  const Acad::ErrorStatus es = this->getHyperlink(pszName == nullptr ? nullptr : &sName, pszDescription == nullptr ? nullptr : &sDescription, pszSubLocation == nullptr ? nullptr : &sSubLocation, pszDisplayString == nullptr ? nullptr : &sDisplayString, pFlag);
+  if (pszName != nullptr)
+  {
+    *pszName = nullptr;
+    if (es == Acad::eOk)
+    {
+      ::acutNewString(sName.kwszPtr(), *pszName);
     }
-    if (pszDescription != nullptr) {
-        *pszDescription = nullptr;
-        if (es == Acad::eOk)
-            ::acutNewString(sDescription.kwszPtr(), *pszDescription);
+  }
+  if (pszDescription != nullptr)
+  {
+    *pszDescription = nullptr;
+    if (es == Acad::eOk)
+    {
+      ::acutNewString(sDescription.kwszPtr(), *pszDescription);
     }
-    if (pszSubLocation != nullptr) {
-        *pszSubLocation = nullptr;
-        if (es == Acad::eOk)
-            ::acutNewString(sSubLocation.kwszPtr(), *pszSubLocation);
+  }
+  if (pszSubLocation != nullptr)
+  {
+    *pszSubLocation = nullptr;
+    if (es == Acad::eOk)
+    {
+      ::acutNewString(sSubLocation.kwszPtr(), *pszSubLocation);
     }
-    if (pszDisplayString != nullptr) {
-        *pszDisplayString = nullptr;
-        if (es == Acad::eOk)
-            ::acutNewString(sDisplayString.kwszPtr(), *pszDisplayString);
+  }
+  if (pszDisplayString != nullptr)
+  {
+    *pszDisplayString = nullptr;
+    if (es == Acad::eOk)
+    {
+      ::acutNewString(sDisplayString.kwszPtr(), *pszDisplayString);
     }
-    return es;
+  }
+  return es;
 }
 //*************************************************************************
 // Global exported functions
@@ -260,8 +271,6 @@ ACDBCORE2D_PORT Acad::ErrorStatus acdbMakeFieldCode(const ACHAR* pszFieldExpr, A
 // Please use the above overload taking AcString & arg instead
 inline Acad::ErrorStatus acdbMakeFieldCode(const ACHAR* pszFieldExpr, ACHAR*& pszFieldCode, const ACHAR* pszEvalId, const ACHAR* pszFormat, const AcHyperlink* pHyperlink)
 {
-    AcString sFieldCode;
-    return ::acutAcStringToAChar(sFieldCode, pszFieldCode,
-                                 ::acdbMakeFieldCode(pszFieldExpr, sFieldCode,
-                                                     pszEvalId, pszFormat, pHyperlink));
+  AcString sFieldCode;
+  return ::acutAcStringToAChar(sFieldCode, pszFieldCode, ::acdbMakeFieldCode(pszFieldExpr, sFieldCode, pszEvalId, pszFormat, pHyperlink));
 }

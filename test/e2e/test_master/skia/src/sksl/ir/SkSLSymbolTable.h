@@ -22,12 +22,12 @@ namespace SkSL
   {
   public:
     SymbolTable(ErrorReporter* errorReporter)
-      :  fErrorReporter(*errorReporter)
+      : fErrorReporter(*errorReporter)
     {
     }
     SymbolTable(std::shared_ptr<SymbolTable> parent, ErrorReporter* errorReporter)
-      :  fParent(parent)
-    , fErrorReporter(*errorReporter)
+      : fParent(parent)
+      , fErrorReporter(*errorReporter)
     {
     }
     const Symbol* operator[](StringFragment name);

@@ -29,7 +29,7 @@ public:
      */
   uint32_t duration()
   {
- return fTotalDuration;
+    return fTotalDuration;
   }
     /**
      *  Finds the closest frame associated with the time code (in milliseconds) and sets that

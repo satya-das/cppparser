@@ -16,9 +16,7 @@
  *    to add freetype's header path can't include podofo's headers even if they have no
  *    intention of using any freetype-related font features.
  */
-#  ifdef __cplusplus
 extern "C" {
-#  endif
 // Provide access to FT_Library
   struct FT_LibraryRec_;
   typedef struct FT_LibraryRec_* FT_Library;
@@ -30,8 +28,6 @@ extern "C" {
   struct _FcConfig;
   typedef struct _FcConfig FcConfig;
 #  endif
-#  ifdef __cplusplus
   }
-#  endif
 // end PDF_FT_FORWARD_DECL
 #endif

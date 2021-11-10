@@ -21,7 +21,6 @@ class WXDLLIMPEXP_CORE wxScrollBarBase : public wxControl
 public:
   wxScrollBarBase()
   {
-
   }
     /*
         Derived classes should provide the following method and ctor with the
@@ -43,7 +42,7 @@ public:
   virtual int GetRange() const = 0;
   bool IsVertical() const
   {
- return (m_windowStyle & wxVERTICAL) != 0;
+    return (m_windowStyle & wxVERTICAL) != 0;
   }
     // operations
   virtual void SetThumbPosition(int viewStart) = 0;
@@ -51,8 +50,9 @@ public:
     // implementation-only
   bool IsNeeded() const
   {
- return GetRange() > GetThumbSize();
+    return GetRange() > GetThumbSize();
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxScrollBarBase);
 };
 #    if  defined(__WXUNIVERSAL__)

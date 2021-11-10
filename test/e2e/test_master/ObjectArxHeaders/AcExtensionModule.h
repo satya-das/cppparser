@@ -62,60 +62,63 @@ public:
   void DetachInstance();
 };
 inline CAcExtensionModule::CAcExtensionModule()
-  :     m_bAttached(FALSE),
-    m_hDefaultResource(NULL),
-    m_hModuleResource(NULL)
+  : m_bAttached(FALSE)
+  , m_hDefaultResource(NULL)
+  , m_hModuleResource(NULL)
 {
-#ifndef _ADESK_MAC_
-    m_module.bInitialized = FALSE;
-    m_module.hModule = NULL;
-    m_module.hResource = NULL;
-    m_module.pFirstSharedClass = NULL;
-    m_module.pFirstSharedFactory = NULL;
-#endif
+#  ifndef _ADESK_MAC_
+  m_module.bInitialized = FALSE;
+  m_module.hModule = NULL;
+  m_module.hResource = NULL;
+  m_module.pFirstSharedClass = NULL;
+  m_module.pFirstSharedFactory = NULL;
+#  endif
 }
 inline CAcExtensionModule::~CAcExtensionModule()
 {
-
 }
 inline BOOL CAcExtensionModule::Attached()
 {
-    return m_bAttached;
+  return m_bAttached;
 }
 inline BOOL CAcExtensionModule::AttachInstance(HINSTANCE hInst)
 {
-    if (m_bAttached)
-        return FALSE;
-#ifndef _ADESK_MAC_
-    m_bAttached = AfxInitExtensionModule(m_module, hInst);
-#else
-    m_bAttached = true;
-#endif
-    if (m_bAttached) {
-        m_hDefaultResource = AfxGetResourceHandle();
-        m_hModuleResource = hInst;
-#ifndef _ADESK_MAC_
-        new CDynLinkLibrary(m_module);
-#endif
-    }
-    return m_bAttached;
+  if (m_bAttached)
+  {
+    return FALSE;
+  }
+#  ifndef _ADESK_MAC_
+  m_bAttached = AfxInitExtensionModule(m_module, hInst);
+#  else 
+  m_bAttached = true;
+#  endif
+  if (m_bAttached)
+  {
+    m_hDefaultResource = AfxGetResourceHandle();
+    m_hModuleResource = hInst;
+#  ifndef _ADESK_MAC_
+    new CDynLinkLibrary(m_module);
+#  endif
+  }
+  return m_bAttached;
 }
 inline HINSTANCE CAcExtensionModule::DefaultResourceInstance()
 {
-    return m_hDefaultResource;
+  return m_hDefaultResource;
 }
 inline void CAcExtensionModule::DetachInstance()
 {
-    if (m_bAttached) {
-#ifndef _ADESK_MAC_
-        AfxTermExtensionModule(m_module);
-#endif
-        m_bAttached = FALSE;
-    }
+  if (m_bAttached)
+  {
+#  ifndef _ADESK_MAC_
+    AfxTermExtensionModule(m_module);
+#  endif
+    m_bAttached = FALSE;
+  }
 }
 inline HINSTANCE CAcExtensionModule::ModuleResourceInstance()
 {
-    return m_hModuleResource;
+  return m_hModuleResource;
 }
 /////////////////////////////////////////////////////////////////////////////
 // CAcModuleResourceOverride - Switch between default and module's resources
@@ -156,30 +159,31 @@ public:
   ~CAcModuleResourceOverride();
   static HINSTANCE ResourceInstance()
   {
- return m_extensionModule.ModuleResourceInstance();
+    return m_extensionModule.ModuleResourceInstance();
   }
 private:
   static CAcExtensionModule& m_extensionModule;
   HINSTANCE m_previousResourceInstance;
 };
 inline CAcModuleResourceOverride::CAcModuleResourceOverride()
-  :  CAcModuleResourceOverride(NULL)
+  : CAcModuleResourceOverride(NULL)
 {
-
 }
 inline CAcModuleResourceOverride::CAcModuleResourceOverride(HINSTANCE hInst)
 {
-    m_previousResourceInstance = AfxGetResourceHandle();
-    HINSTANCE hInstanceToSet = m_extensionModule.ModuleResourceInstance();
-    if (hInst)
-        hInstanceToSet = hInst;
-    AfxSetResourceHandle(hInstanceToSet);
+  m_previousResourceInstance = AfxGetResourceHandle();
+  HINSTANCE hInstanceToSet = m_extensionModule.ModuleResourceInstance();
+  if (hInst)
+  {
+    hInstanceToSet = hInst;
+  }
+  AfxSetResourceHandle(hInstanceToSet);
 }
 inline CAcModuleResourceOverride::~CAcModuleResourceOverride()
 {
-    ASSERT(m_previousResourceInstance);
-    AfxSetResourceHandle(m_previousResourceInstance);
-    m_previousResourceInstance = NULL;
+  ASSERT(m_previousResourceInstance);
+  AfxSetResourceHandle(m_previousResourceInstance);
+  m_previousResourceInstance = NULL;
 }
 /////////////////////////////////////////////////////////////////////////////
 // Extension Module Decalaration and Implementation Macros

@@ -13,14 +13,13 @@ class wxPipeInputStream : public wxFileInputStream
 {
 public:
   explicit wxPipeInputStream(int fd)
-    :  wxFileInputStream(fd)
+    : wxFileInputStream(fd)
   {
-
   }
     // return true if the pipe is still opened
   bool IsOpened() const
   {
- return !Eof();
+    return !Eof();
   }
     // return true if we have anything to read, don't block
   bool CanRead() const override;
@@ -29,9 +28,8 @@ class wxPipeOutputStream : public wxFileOutputStream
 {
 public:
   wxPipeOutputStream(int fd)
-    :  wxFileOutputStream(fd)
+    : wxFileOutputStream(fd)
   {
-
   }
     // Override the base class version to ignore "pipe full" errors: this is
     // not an error for this class.

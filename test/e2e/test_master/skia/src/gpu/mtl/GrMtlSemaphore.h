@@ -24,7 +24,7 @@ public:
   }
   uint64_t value() const
   {
- return fValue;
+    return fValue;
   }
   GrBackendSemaphore backendSemaphore() const override;
 private:

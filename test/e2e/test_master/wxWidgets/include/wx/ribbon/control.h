@@ -20,23 +20,22 @@ class WXDLLIMPEXP_RIBBON wxRibbonControl : public wxControl
 public:
   wxRibbonControl()
   {
- Init();
+    Init();
   }
   wxRibbonControl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
   virtual void SetArtProvider(wxRibbonArtProvider* art);
   wxRibbonArtProvider* GetArtProvider() const
   {
-return m_art;
+    return m_art;
   }
   virtual bool IsSizingContinuous() const
   {
-return true;
+    return true;
   }
   wxSize GetNextSmallerSize(wxOrientation direction, wxSize relative_to) const;
   wxSize GetNextLargerSize(wxOrientation direction, wxSize relative_to) const;
@@ -45,13 +44,13 @@ return true;
   virtual bool Realize();
   bool Realise()
   {
-return Realize();
+    return Realize();
   }
   virtual wxRibbonBar* GetAncestorRibbonBar() const;
     // Finds the best width and height given the parent's width and height
   virtual wxSize GetBestSizeForParentSize(const wxSize&) const
   {
- return GetBestSize();
+    return GetBestSize();
   }
 protected:
   wxRibbonArtProvider* m_art;
@@ -60,11 +59,9 @@ protected:
 private:
   void Init()
   {
- m_art = NULL;
+    m_art = NULL;
   }
-#    ifndef SWIG
   wxDECLARE_CLASS(wxRibbonControl);
-#    endif
 };
 WX_DEFINE_USER_EXPORTED_ARRAY_PTR(wxRibbonControl*, wxArrayRibbonControl, class WXDLLIMPEXP_RIBBON);
 #  endif

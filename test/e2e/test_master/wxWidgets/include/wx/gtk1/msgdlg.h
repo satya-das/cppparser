@@ -22,7 +22,7 @@ public:
   int ShowModal();
   virtual bool Show(bool = true)
   {
- return false;
+    return false;
   }
 protected:
     // implement some base class methods to do nothing to avoid asserts and

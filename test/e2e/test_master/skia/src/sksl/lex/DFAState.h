@@ -15,37 +15,32 @@ struct DFAState
   {
     std::vector<int> fStates;
     Label(std::vector<int> states)
-      :  fStates(std::move(states))
+      : fStates(std::move(states))
     {
     }
     bool operator==(const Label& other) const
     {
-            return fStates == other.fStates;
+      return fStates == other.fStates;
     }
     bool operator!=(const Label& other) const
     {
-            return !(*this == other);
+      return !(*this == other);
     }
     std::string description() const
     {
-            std::string result = "<";
-            const char* separator = "";
-            for (int s : fStates) {
-                result += separator;
-                result += std::to_string(s);
-                separator = ", ";
-            }
-            result += ">";
-            return result;
+      std::string result = "<";
+      const char* separator = "";
+      result += ">";
+      return result;
     }
   };
   DFAState()
-    :  fId(INVALID)
+    : fId(INVALID)
     , fLabel({})
   {
   }
   DFAState(int id, Label label)
-    :  fId(id)
+    : fId(id)
     , fLabel(std::move(label))
   {
   }
@@ -61,11 +56,8 @@ namespace std
   {
     size_t operator()(const DFAState::Label& s) const
     {
-            size_t result = 0;
-            for (int i : s.fStates) {
-                result = result * 101 + i;
-            }
-            return result;
+      size_t result = 0;
+      return result;
     }
   };
 }

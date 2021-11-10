@@ -629,8 +629,8 @@ public:
   */
   void writeFile(const OdString& filename, OdDb::SaveType fileType, OdDb::DwgVersion fileVersion, bool saveThumbnailImage = false, int dxfPrecision = 16)
   {
-    closeInput(); 
-    OdStreamBufPtr pFile = odSystemServices()->createFile(filename, Oda::kFileWrite, Oda::kShareDenyReadWrite, Oda::kCreateAlways); 
+    closeInput();
+    OdStreamBufPtr pFile = odSystemServices()->createFile(filename, Oda::kFileWrite, Oda::kShareDenyReadWrite, Oda::kCreateAlways);
     writeFile(pFile, fileType, fileVersion, saveThumbnailImage, dxfPrecision);
   }
   /** Description: 

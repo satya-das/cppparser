@@ -15,23 +15,24 @@ class SkLocalMatrixShader final : public SkShaderBase
 {
 public:
   SkLocalMatrixShader(sk_sp<SkShader> proxy, const SkMatrix& localMatrix)
-    :  INHERITED(&localMatrix)
+    : INHERITED(&localMatrix)
     , fProxyShader(std::move(proxy))
   {
   }
   GradientType asAGradient(GradientInfo* info) const override
   {
-        return fProxyShader->asAGradient(info);
+    return fProxyShader->asAGradient(info);
   }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(const GrFPArgs&) const override;
 #  endif
   sk_sp<SkShader> makeAsALocalMatrixShader(SkMatrix* localMatrix) const override
   {
-        if (localMatrix) {
-            *localMatrix = this->getLocalMatrix();
-        }
-        return fProxyShader;
+    if (localMatrix)
+    {
+      *localMatrix = this->getLocalMatrix();
+    }
+    return fProxyShader;
   }
   SkPicture* isAPicture(SkMatrix*, SkTileMode[2], SkRect* tile) const override;
 protected:

@@ -25,12 +25,12 @@ private:
   int m_CachePos;
   wxHtmlTagsCacheData& Cache()
   {
- return *m_Cache;
+    return *m_Cache;
   }
 public:
   wxHtmlTagsCache()
   {
-m_Cache = NULL;
+    m_Cache = NULL;
   }
   wxHtmlTagsCache(const wxString& source);
   virtual ~wxHtmlTagsCache();
@@ -55,28 +55,28 @@ public:
   ~wxHtmlTag();
   wxHtmlTag* GetParent() const
   {
-return m_Parent;
+    return m_Parent;
   }
   wxHtmlTag* GetFirstSibling() const;
   wxHtmlTag* GetLastSibling() const;
   wxHtmlTag* GetChildren() const
   {
- return m_FirstChild;
+    return m_FirstChild;
   }
   wxHtmlTag* GetPreviousSibling() const
   {
- return m_Prev;
+    return m_Prev;
   }
   wxHtmlTag* GetNextSibling() const
   {
-return m_Next;
+    return m_Next;
   }
     // Return next tag, as if tree had been flattened
   wxHtmlTag* GetNextTag() const;
     // Returns tag's name in uppercase.
   inline wxString GetName() const
   {
-return m_Name;
+    return m_Name;
   }
     // Returns true if the tag has given parameter. Parameter
     // should always be in uppercase.
@@ -110,7 +110,7 @@ return m_Name;
     // return true if there is matching ending tag
   inline bool HasEnding() const
   {
-return m_hasEnding;
+    return m_hasEnding;
   }
     // returns beginning position of _internal_ block of text as iterator
     // into parser's source string (see wxHtmlParser::GetSource())
@@ -118,33 +118,28 @@ return m_hasEnding;
     // bla bla bla <MYTAG>* bla bla intenal text</MYTAG> bla bla
   wxString::const_iterator GetBeginIter() const
   {
- return m_Begin;
+    return m_Begin;
   }
     // returns ending position of _internal_ block of text as iterator
     // into parser's source string (see wxHtmlParser::GetSource()):
     // bla bla bla <MYTAG> bla bla intenal text*</MYTAG> bla bla
   wxString::const_iterator GetEndIter1() const
   {
- return m_End1;
+    return m_End1;
   }
     // returns end position 2 as iterator
     // into parser's source string (see wxHtmlParser::GetSource()):
     // bla bla bla <MYTAG> bla bla internal text</MYTAG>* bla bla
   wxString::const_iterator GetEndIter2() const
   {
- return m_End2;
+    return m_End2;
   }
-#    if  WXWIN_COMPATIBILITY_2_8
     // use GetBeginIter(), GetEndIter1() and GetEndIter2() instead
-#    endif
 private:
   wxString m_Name;
   bool m_hasEnding;
   wxString::const_iterator m_Begin, m_End1, m_End2;
   wxArrayString m_ParamNames, m_ParamValues;
-#    if  WXWIN_COMPATIBILITY_2_8
-  wxString::const_iterator m_sourceStart;
-#    endif
     // DOM tree relations:
   wxHtmlTag* m_Next;
   wxHtmlTag* m_Prev;
@@ -152,19 +147,5 @@ private:
   wxHtmlTag* m_Parent;
   wxDECLARE_NO_COPY_CLASS(wxHtmlTag);
 };
-#    if  WXWIN_COMPATIBILITY_2_8
-inline int wxHtmlTag::GetBeginPos() const
-{
- return int(m_Begin - m_sourceStart);
-}
-inline int wxHtmlTag::GetEndPos1() const
-{
- return int(m_End1 - m_sourceStart);
-}
-inline int wxHtmlTag::GetEndPos2() const
-{
- return int(m_End2 - m_sourceStart);
-}
-#    endif
 #  endif
 #endif

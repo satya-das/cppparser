@@ -36,7 +36,7 @@ public:
   int ShowModal() override;
   wxFontData& GetFontData()
   {
- return m_fontData;
+    return m_fontData;
   }
 protected:
   wxFontData m_fontData;
@@ -83,7 +83,7 @@ public:
   int ShowModal();
   wxFontData& GetFontData()
   {
- return m_fontData;
+    return m_fontData;
   }
   bool IsShown() const;
   void OnPanelClose();

@@ -25,8 +25,8 @@ namespace SkSL
         kVar_Kind
     };
     ProgramElement(int offset, Kind kind)
-      :  INHERITED(offset)
-    , fKind(kind)
+      : INHERITED(offset)
+      , fKind(kind)
     {
     }
     Kind fKind;

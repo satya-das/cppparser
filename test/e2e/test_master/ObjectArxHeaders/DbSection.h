@@ -987,5 +987,5 @@ protected:
 // This overload is deprecated. Please use one of the other two overloads instead
 inline Acad::ErrorStatus AcDbSection::getName(ACHAR*& pszName) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbSection::getName, pszName);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbSection::getName, pszName);
 }

@@ -17,19 +17,18 @@ namespace SkSL
   struct FunctionDefinition : public ProgramElement
   {
     FunctionDefinition(int offset, const FunctionDeclaration& declaration, std::unique_ptr<Statement> body)
-      :  INHERITED(offset, kFunction_Kind)
-    , fDeclaration(declaration)
-    , fBody(std::move(body))
+      : INHERITED(offset, kFunction_Kind)
+      , fDeclaration(declaration)
+      , fBody(std::move(body))
     {
     }
     std::unique_ptr<ProgramElement> clone() const override
     {
-        return std::unique_ptr<ProgramElement>(new FunctionDefinition(fOffset, fDeclaration,
-                                                                      fBody->clone()));
+      return std::unique_ptr<ProgramElement>(new FunctionDefinition(fOffset, fDeclaration, fBody->clone()));
     }
     String description() const override
     {
-        return fDeclaration.description() + " " + fBody->description();
+      return fDeclaration.description() + " " + fBody->description();
     }
     const FunctionDeclaration& fDeclaration;
     std::unique_ptr<Statement> fBody;

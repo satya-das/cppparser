@@ -117,7 +117,7 @@ public:
     */
   friend bool operator!=(const SkPaint& a, const SkPaint& b)
   {
-        return !(a == b);
+    return !(a == b);
   }
     /** Returns a hash generated from SkPaint values and pointers.
         Identical hashes guarantee that the paints are
@@ -141,7 +141,7 @@ public:
     */
   bool isAntiAlias() const
   {
-        return SkToBool(fBitfields.fAntiAlias);
+    return SkToBool(fBitfields.fAntiAlias);
   }
     /** Requests, but does not require, that edge pixels draw opaque or with
         partial transparency.
@@ -149,21 +149,21 @@ public:
     */
   void setAntiAlias(bool aa)
   {
- fBitfields.fAntiAlias = static_cast<unsigned>(aa);
+    fBitfields.fAntiAlias = static_cast<unsigned>(aa);
   }
     /** Returns true if color error may be distributed to smooth color transition.
         @return  dithering state
     */
   bool isDither() const
   {
-        return SkToBool(fBitfields.fDither);
+    return SkToBool(fBitfields.fDither);
   }
     /** Requests, but does not require, to distribute color error.
         @param dither  setting for ditering
     */
   void setDither(bool dither)
   {
- fBitfields.fDither = static_cast<unsigned>(dither);
+    fBitfields.fDither = static_cast<unsigned>(dither);
   }
     /** Returns SkFilterQuality, the image filtering level. A lower setting
         draws faster; a higher setting looks better when the image is scaled.
@@ -173,7 +173,7 @@ public:
     */
   SkFilterQuality getFilterQuality() const
   {
-        return (SkFilterQuality)fBitfields.fFilterQuality;
+    return (SkFilterQuality) fBitfields.fFilterQuality;
   }
     /** Sets SkFilterQuality, the image filtering level. A lower setting
         draws faster; a higher setting looks better when the image is scaled.
@@ -205,7 +205,7 @@ public:
     */
   Style getStyle() const
   {
- return (Style)fBitfields.fStyle;
+    return (Style) fBitfields.fStyle;
   }
     /** Sets whether the geometry is filled, stroked, or filled and stroked.
         Has no effect if style is not a legal SkPaint::Style value.
@@ -221,7 +221,7 @@ public:
     */
   SkColor getColor() const
   {
- return fColor4f.toSkColor();
+    return fColor4f.toSkColor();
   }
     /** Retrieves alpha and RGB, unpremultiplied, as four floating point values. RGB are
         are extended sRGB values (sRGB gamut, and encoded with the sRGB transfer function).
@@ -230,7 +230,7 @@ public:
     */
   SkColor4f getColor4f() const
   {
- return fColor4f;
+    return fColor4f;
   }
     /** Sets alpha and RGB used when stroking and filling. The color is a 32-bit value,
         unpremultiplied, packing 8-bit components for alpha, red, blue, and green.
@@ -249,7 +249,7 @@ public:
   void setColor(const SkColor4f& color, SkColorSpace* colorSpace = nullptr);
   void setColor4f(const SkColor4f& color, SkColorSpace* colorSpace = nullptr)
   {
-        this->setColor(color, colorSpace);
+    this->setColor(color, colorSpace);
   }
     /** Retrieves alpha from the color used when stroking and filling.
 
@@ -257,12 +257,12 @@ public:
     */
   float getAlphaf() const
   {
- return fColor4f.fA;
+    return fColor4f.fA;
   }
     // Helper that scales the alpha by 255.
   uint8_t getAlpha() const
   {
- return sk_float_round2int(this->getAlphaf() * 255);
+    return sk_float_round2int(this->getAlphaf() * 255);
   }
     /** Replaces alpha, leaving RGB
         unchanged. An out of range value triggers an assert in the debug
@@ -276,7 +276,7 @@ public:
     // Helper that accepts an int between 0 and 255, and divides it by 255.0
   void setAlpha(U8CPU a)
   {
-        this->setAlphaf(a * (1.0f / 255));
+    this->setAlphaf(a * (1.0f / 255));
   }
     /** Sets color used when drawing solid fills. The color components range from 0 to 255.
         The color is unpremultiplied; alpha sets the transparency independent of RGB.
@@ -294,7 +294,7 @@ public:
     */
   SkScalar getStrokeWidth() const
   {
- return fWidth;
+    return fWidth;
   }
     /** Sets the thickness of the pen used by the paint to
         outline the shape.
@@ -309,7 +309,7 @@ public:
     */
   SkScalar getStrokeMiter() const
   {
- return fMiterLimit;
+    return fMiterLimit;
   }
     /** Sets the limit at which a sharp corner is drawn beveled.
         Valid values are zero and greater.
@@ -360,7 +360,7 @@ public:
     */
   Cap getStrokeCap() const
   {
- return (Cap)fBitfields.fCapType;
+    return (Cap) fBitfields.fCapType;
   }
     /** Sets the geometry drawn at the beginning and end of strokes.
 
@@ -374,7 +374,7 @@ public:
     */
   Join getStrokeJoin() const
   {
- return (Join)fBitfields.fJoinType;
+    return (Join) fBitfields.fJoinType;
   }
     /** Sets the geometry drawn at the corners of strokes.
 
@@ -403,7 +403,7 @@ public:
     */
   bool getFillPath(const SkPath& src, SkPath* dst) const
   {
-        return this->getFillPath(src, dst, nullptr, 1);
+    return this->getFillPath(src, dst, nullptr, 1);
   }
     /** Returns optional colors used when filling a path, such as a gradient.
 
@@ -413,7 +413,7 @@ public:
     */
   SkShader* getShader() const
   {
- return fShader.get();
+    return fShader.get();
   }
     /** Returns optional colors used when filling a path, such as a gradient.
 
@@ -437,7 +437,7 @@ public:
     */
   SkColorFilter* getColorFilter() const
   {
- return fColorFilter.get();
+    return fColorFilter.get();
   }
     /** Returns SkColorFilter if set, or nullptr.
         Increases SkColorFilter SkRefCnt by one.
@@ -460,7 +460,7 @@ public:
     */
   SkBlendMode getBlendMode() const
   {
- return (SkBlendMode)fBitfields.fBlendMode;
+    return (SkBlendMode) fBitfields.fBlendMode;
   }
     /** Returns true if SkBlendMode is SkBlendMode::kSrcOver, the default.
 
@@ -468,7 +468,7 @@ public:
     */
   bool isSrcOver() const
   {
- return (SkBlendMode)fBitfields.fBlendMode == SkBlendMode::kSrcOver;
+    return (SkBlendMode) fBitfields.fBlendMode == SkBlendMode::kSrcOver;
   }
     /** Sets SkBlendMode to mode.
         Does not check for valid input.
@@ -477,7 +477,7 @@ public:
     */
   void setBlendMode(SkBlendMode mode)
   {
- fBitfields.fBlendMode = (unsigned)mode;
+    fBitfields.fBlendMode = (unsigned) mode;
   }
     /** Returns SkPathEffect if set, or nullptr.
         Does not alter SkPathEffect SkRefCnt.
@@ -486,7 +486,7 @@ public:
     */
   SkPathEffect* getPathEffect() const
   {
- return fPathEffect.get();
+    return fPathEffect.get();
   }
     /** Returns SkPathEffect if set, or nullptr.
         Increases SkPathEffect SkRefCnt by one.
@@ -509,7 +509,7 @@ public:
     */
   SkMaskFilter* getMaskFilter() const
   {
- return fMaskFilter.get();
+    return fMaskFilter.get();
   }
     /** Returns SkMaskFilter if set, or nullptr.
 
@@ -534,7 +534,7 @@ public:
     */
   SkImageFilter* getImageFilter() const
   {
- return fImageFilter.get();
+    return fImageFilter.get();
   }
     /** Returns SkImageFilter if set, or nullptr.
         Increases SkImageFilter SkRefCnt by one.
@@ -595,20 +595,21 @@ public:
   const SkRect& computeFastBounds(const SkRect& orig, SkRect* storage) const
   {
         // Things like stroking, etc... will do math on the bounds rect, assuming that it's sorted.
-        SkASSERT(orig.isSorted());
-        SkPaint::Style style = this->getStyle();
+    SkASSERT(orig.isSorted());
+    SkPaint::Style style = this->getStyle();
         // ultra fast-case: filling with no effects that affect geometry
-        if (kFill_Style == style) {
-            uintptr_t effects = 0;
-            effects |= reinterpret_cast<uintptr_t>(this->getMaskFilter());
-            effects |= reinterpret_cast<uintptr_t>(this->getPathEffect());
-            effects |= reinterpret_cast<uintptr_t>(this->getImageFilter());
-            if (!effects) {
-                return orig;
-            }
-        }
-
-        return this->doComputeFastBounds(orig, storage, style);
+    if (kFill_Style == style)
+    {
+      uintptr_t effects = 0;
+      effects |= reinterpret_cast<uintptr_t>(this->getMaskFilter());
+      effects |= reinterpret_cast<uintptr_t>(this->getPathEffect());
+      effects |= reinterpret_cast<uintptr_t>(this->getImageFilter());
+      if (!effects)
+      {
+        return orig;
+      }
+    }
+    return this->doComputeFastBounds(orig, storage, style);
   }
     /**     (to be made private)
 
@@ -618,7 +619,7 @@ public:
     */
   const SkRect& computeFastStrokeBounds(const SkRect& orig, SkRect* storage) const
   {
-        return this->doComputeFastBounds(orig, storage, kStroke_Style);
+    return this->doComputeFastBounds(orig, storage, kStroke_Style);
   }
     /**     (to be made private)
         Computes the bounds, overriding the SkPaint SkPaint::Style. This can be used to

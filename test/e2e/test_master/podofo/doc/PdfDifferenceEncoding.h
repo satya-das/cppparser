@@ -109,7 +109,7 @@ namespace PoDoFo
     public:
       inline bool operator()(const TDifference& rDif1, const TDifference& rDif2) const
       {
-              return rDif1.nCode < rDif2.nCode;
+        return rDif1.nCode < rDif2.nCode;
       }
     };
     TVecDifferences m_vecDifferences;

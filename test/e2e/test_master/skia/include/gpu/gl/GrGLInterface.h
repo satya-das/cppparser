@@ -57,7 +57,7 @@ public:
   GrGLExtensions fExtensions;
   bool hasExtension(const char ext[]) const
   {
- return fExtensions.has(ext);
+    return fExtensions.has(ext);
   }
     /**
      * The function pointers are in a struct so that we can have a compiler generated assignment

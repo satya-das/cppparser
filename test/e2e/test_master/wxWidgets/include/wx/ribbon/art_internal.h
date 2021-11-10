@@ -29,13 +29,16 @@ class WXDLLIMPEXP_RIBBON wxRibbonHSLColour
 {
 public:
   wxRibbonHSLColour()
-    :  hue(0.0), saturation(0.0), luminance(0.0)
+    : hue(0.0)
+    , saturation(0.0)
+    , luminance(0.0)
   {
   }
   wxRibbonHSLColour(float H, float S, float L)
-    :  hue(H), saturation(S), luminance(L)
+    : hue(H)
+    , saturation(S)
+    , luminance(L)
   {
-
   }
   wxRibbonHSLColour(const wxColour& C);
   wxColour ToRGB() const;

@@ -58,12 +58,12 @@ public:
   void QtPreparePainter();
   void* GetHandle() const override
   {
- return (void*) m_qtPainter;
+    return (void*) m_qtPainter;
   }
 protected:
   virtual QPixmap* GetQPixmap()
   {
- return m_qtPixmap;
+    return m_qtPixmap;
   }
   QPainter* m_qtPainter;
   QPixmap* m_qtPixmap;

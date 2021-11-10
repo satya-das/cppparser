@@ -259,11 +259,11 @@ namespace PoDoFo
      */
     PdfObject* GetRoot()
     {
- return this->GetObject();
+      return this->GetObject();
     }
     const PdfObject* GetRoot() const
     {
- return this->GetObject();
+      return this->GetObject();
     }
     PdfPagesTreeCache m_cache;
   };

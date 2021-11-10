@@ -20,11 +20,9 @@ public:
     // Default ctor and trivial but virtual dtor.
   wxAddRemoveAdaptor()
   {
-
   }
   virtual ~wxAddRemoveAdaptor()
   {
-
   }
     // Override to return the associated control.
   virtual wxWindow* GetItemsCtrl() const = 0;
@@ -39,6 +37,7 @@ public:
     // Called when the current item should be removed, can only be called if
     // CanRemove() currently returns true.
   virtual void OnRemove() = 0;
+private:
   wxDECLARE_NO_COPY_CLASS(wxAddRemoveAdaptor);
 };
 // ----------------------------------------------------------------------------
@@ -49,13 +48,12 @@ class WXDLLIMPEXP_CORE wxAddRemoveCtrl : public wxPanel
 public:
   wxAddRemoveCtrl()
   {
-        Init();
+    Init();
   }
   wxAddRemoveCtrl(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxAddRemoveCtrlNameStr))
   {
-        Init();
-
-        Create(parent, winid, pos, size, style, name);
+    Init();
+    Create(parent, winid, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxAddRemoveCtrlNameStr));
   virtual ~wxAddRemoveCtrl();
@@ -70,7 +68,7 @@ private:
     // Common part of all ctors.
   void Init()
   {
-        m_impl = NULL;
+    m_impl = NULL;
   }
   class wxAddRemoveImpl* m_impl;
   wxDECLARE_NO_COPY_CLASS(wxAddRemoveCtrl);

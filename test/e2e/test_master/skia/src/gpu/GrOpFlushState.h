@@ -27,7 +27,7 @@ public:
   GrOpFlushState(GrGpu*, GrResourceProvider*, GrTokenTracker*, sk_sp<GrBufferAllocPool::CpuBufferCache> = nullptr);
   virtual ~GrOpFlushState()
   {
- this->reset();
+    this->reset();
   }
     /** This is called after each op has a chance to prepare its draws and before the draws are
         executed. */
@@ -41,69 +41,68 @@ public:
   void executeDrawsAndUploadsForMeshDrawOp(const GrOp* op, const SkRect& chainBounds, GrProcessorSet&&, GrPipeline::InputFlags = GrPipeline::InputFlags::kNone, const GrUserStencilSettings* = &GrUserStencilSettings::kUnused);
   GrOpsRenderPass* opsRenderPass()
   {
- return fOpsRenderPass;
+    return fOpsRenderPass;
   }
   void setOpsRenderPass(GrOpsRenderPass* renderPass)
   {
- fOpsRenderPass = renderPass;
+    fOpsRenderPass = renderPass;
   }
   GrGpu* gpu()
   {
- return fGpu;
+    return fGpu;
   }
   void reset();
     /** Additional data required on a per-op basis when executing GrOps. */
   struct OpArgs
   {
     explicit OpArgs(GrOp* op, GrRenderTargetProxy* proxy, GrAppliedClip* appliedClip, const GrXferProcessor::DstProxy& dstProxy)
-      :  fOp(op)
-            , fProxy(proxy)
-            , fAppliedClip(appliedClip)
-            , fDstProxy(dstProxy)
+      : fOp(op)
+      , fProxy(proxy)
+      , fAppliedClip(appliedClip)
+      , fDstProxy(dstProxy)
     {
-
     }
     int numSamples() const
     {
- return fProxy->numSamples();
+      return fProxy->numSamples();
     }
     GrSurfaceOrigin origin() const
     {
- return fProxy->origin();
+      return fProxy->origin();
     }
     GrSwizzle outputSwizzle() const
     {
- return fProxy->outputSwizzle();
+      return fProxy->outputSwizzle();
     }
     GrOp* op()
     {
- return fOp;
+      return fOp;
     }
     GrRenderTargetProxy* proxy() const
     {
- return fProxy;
+      return fProxy;
     }
     GrRenderTarget* renderTarget() const
     {
- return fProxy->peekRenderTarget();
+      return fProxy->peekRenderTarget();
     }
     GrAppliedClip* appliedClip()
     {
- return fAppliedClip;
+      return fAppliedClip;
     }
     const GrAppliedClip* appliedClip() const
     {
- return fAppliedClip;
+      return fAppliedClip;
     }
     const GrXferProcessor::DstProxy& dstProxy() const
     {
- return fDstProxy;
+      return fDstProxy;
     }
 #  ifdef SK_DEBUG
     void validate() const
     {
-            SkASSERT(fOp);
-            SkASSERT(fProxy);
+      SkASSERT(fOp);
+      SkASSERT(fProxy);
     }
 #  endif
   private:
@@ -114,26 +113,25 @@ public:
   };
   void setOpArgs(OpArgs* opArgs)
   {
- fOpArgs = opArgs;
+    fOpArgs = opArgs;
   }
   const OpArgs& drawOpArgs() const
   {
-        SkASSERT(fOpArgs);
-        SkDEBUGCODE(fOpArgs->validate());
-        return *fOpArgs;
+    SkASSERT(fOpArgs);
+    return *fOpArgs;
   }
   void setSampledProxyArray(SkTArray<GrTextureProxy*, true>* sampledProxies)
   {
-        fSampledProxies = sampledProxies;
+    fSampledProxies = sampledProxies;
   }
   SkTArray<GrTextureProxy*, true>* sampledProxyArray() override
   {
-        return fSampledProxies;
+    return fSampledProxies;
   }
     /** Overrides of GrDeferredUploadTarget. */
   const GrTokenTracker* tokenTracker() final
   {
- return fTokenTracker;
+    return fTokenTracker;
   }
   GrDeferredUploadToken addInlineUpload(GrDeferredTextureUploadFn&&) final;
   GrDeferredUploadToken addASAPUpload(GrDeferredTextureUploadFn&&) final;
@@ -147,25 +145,25 @@ public:
   void putBackVertices(int vertices, size_t vertexStride) final;
   GrRenderTargetProxy* proxy() const final
   {
- return fOpArgs->proxy();
+    return fOpArgs->proxy();
   }
   const GrAppliedClip* appliedClip() final
   {
- return fOpArgs->appliedClip();
+    return fOpArgs->appliedClip();
   }
   GrAppliedClip detachAppliedClip() final;
   const GrXferProcessor::DstProxy& dstProxy() const final
   {
- return fOpArgs->dstProxy();
+    return fOpArgs->dstProxy();
   }
   GrDeferredUploadTarget* deferredUploadTarget() final
   {
- return this;
+    return this;
   }
   const GrCaps& caps() const final;
   GrResourceProvider* resourceProvider() const final
   {
- return fResourceProvider;
+    return fResourceProvider;
   }
   GrStrikeCache* glyphCache() const final;
     // At this point we know we're flushing so full access to the GrAtlasManager is required (and
@@ -174,13 +172,14 @@ public:
     /** GrMeshDrawOp::Target override. */
   SkArenaAlloc* allocator() override
   {
- return &fArena;
+    return &fArena;
   }
 private:
   struct InlineUpload
   {
     InlineUpload(GrDeferredTextureUploadFn&& upload, GrDeferredUploadToken token)
-      :  fUpload(std::move(upload)), fUploadBeforeToken(token)
+      : fUpload(std::move(upload))
+      , fUploadBeforeToken(token)
     {
     }
     GrDeferredTextureUploadFn fUpload;

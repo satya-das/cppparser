@@ -36,7 +36,7 @@ namespace GrPathUtils
         // Initialize the matrix from the control pts
     QuadUVMatrix(const SkPoint controlPts[3])
     {
- this->set(controlPts);
+      this->set(controlPts);
     }
     void set(const SkPoint controlPts[3]);
         /**
@@ -49,22 +49,23 @@ namespace GrPathUtils
          */
     void apply(void* vertices, int vertexCount, size_t stride, size_t uvOffset) const
     {
-            intptr_t xyPtr = reinterpret_cast<intptr_t>(vertices);
-            intptr_t uvPtr = reinterpret_cast<intptr_t>(vertices) + uvOffset;
-            float sx = fM[0];
-            float kx = fM[1];
-            float tx = fM[2];
-            float ky = fM[3];
-            float sy = fM[4];
-            float ty = fM[5];
-            for (int i = 0; i < vertexCount; ++i) {
-                const SkPoint* xy = reinterpret_cast<const SkPoint*>(xyPtr);
-                SkPoint* uv = reinterpret_cast<SkPoint*>(uvPtr);
-                uv->fX = sx * xy->fX + kx * xy->fY + tx;
-                uv->fY = ky * xy->fX + sy * xy->fY + ty;
-                xyPtr += stride;
-                uvPtr += stride;
-            }
+      intptr_t xyPtr = reinterpret_cast<intptr_t>(vertices);
+      intptr_t uvPtr = reinterpret_cast<intptr_t>(vertices) + uvOffset;
+      float sx = fM[0];
+      float kx = fM[1];
+      float tx = fM[2];
+      float ky = fM[3];
+      float sy = fM[4];
+      float ty = fM[5];
+      for (int i = 0; i < vertexCount; ++i)
+      {
+        const SkPoint* xy = reinterpret_cast<const SkPoint*>(xyPtr);
+        SkPoint* uv = reinterpret_cast<SkPoint*>(uvPtr);
+        uv->fX = sx * xy->fX + kx * xy->fY + tx;
+        uv->fY = ky * xy->fX + sy * xy->fY + ty;
+        xyPtr += stride;
+        uvPtr += stride;
+      }
     }
   private:
     float fM[6];

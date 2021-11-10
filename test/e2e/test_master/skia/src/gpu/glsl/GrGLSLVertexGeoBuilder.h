@@ -15,12 +15,12 @@ class GrGLSLVertexGeoBuilder : public GrGLSLShaderBuilder
 {
 protected:
   GrGLSLVertexGeoBuilder(GrGLSLProgramBuilder* program)
-    :  INHERITED(program)
+    : INHERITED(program)
   {
   }
   void emitNormalizedSkPosition(const char* devPos, const char* rtAdjustName, GrSLType devPosType = GrSLType::kFloat2_GrSLType)
   {
-        this->emitNormalizedSkPosition(&this->code(), devPos, rtAdjustName, devPosType);
+    this->emitNormalizedSkPosition(&this->code(), devPos, rtAdjustName, devPosType);
   }
   void emitNormalizedSkPosition(SkString* out, const char* devPos, const char* rtAdjustName, GrSLType devPosType = GrSLType::kFloat2_GrSLType);
   friend class GrGLSLGeometryProcessor;
@@ -30,7 +30,7 @@ class GrGLSLVertexBuilder : public GrGLSLVertexGeoBuilder
 {
 public:
   GrGLSLVertexBuilder(GrGLSLProgramBuilder* program)
-    :  INHERITED(program)
+    : INHERITED(program)
   {
   }
 private:
@@ -42,7 +42,7 @@ class GrGLSLGeometryBuilder : public GrGLSLVertexGeoBuilder
 {
 public:
   GrGLSLGeometryBuilder(GrGLSLProgramBuilder* program)
-    :  INHERITED(program)
+    : INHERITED(program)
   {
   }
   enum class InputType {
@@ -58,11 +58,11 @@ public:
   void configure(InputType, OutputType, int maxVertices, int numInvocations = 1);
   bool isConfigured() const
   {
- return fNumInvocations;
+    return fNumInvocations;
   }
   void emitVertex(const char* devPos, const char* rtAdjustName, GrSLType devPosType = GrSLType::kFloat2_GrSLType)
   {
-        this->emitVertex(&this->code(), devPos, rtAdjustName, devPosType);
+    this->emitVertex(&this->code(), devPos, rtAdjustName, devPosType);
   }
   void emitVertex(SkString* out, const char* devPos, const char* rtAdjustName, GrSLType devPosType = GrSLType::kFloat2_GrSLType);
   void endPrimitive();

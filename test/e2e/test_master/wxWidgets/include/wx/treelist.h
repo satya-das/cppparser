@@ -52,9 +52,8 @@ class wxTreeListItem : public wxItemId<wxTreeListModelNode*>
 {
 public:
   wxTreeListItem(wxTreeListModelNode* item = NULL)
-    :  wxItemId<wxTreeListModelNode*>(item)
+    : wxItemId<wxTreeListModelNode*>(item)
   {
-
   }
 };
 // Container of multiple items.
@@ -70,7 +69,6 @@ class wxTreeListItemComparator
 public:
   wxTreeListItemComparator()
   {
-
   }
     // The comparison function should return negative, null or positive value
     // depending on whether the first item is less than, equal to or greater
@@ -81,8 +79,8 @@ public:
     // provide virtual dtor in case it's used like this in the user code.
   virtual ~wxTreeListItemComparator()
   {
-
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxTreeListItemComparator);
 };
 // ----------------------------------------------------------------------------
@@ -103,13 +101,12 @@ public:
     // ---------------------
   wxTreeListCtrl()
   {
- Init();
+    Init();
   }
   wxTreeListCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxTreeListCtrlNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTL_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxTreeListCtrlNameStr));
   virtual ~wxTreeListCtrl();
@@ -120,7 +117,7 @@ public:
     // the new column or -1 on failure.
   int AppendColumn(const wxString& title, int width = wxCOL_WIDTH_AUTOSIZE, wxAlignment align = wxALIGN_LEFT, int flags = wxCOL_RESIZABLE)
   {
-        return DoInsertColumn(title, -1, width, align, flags);
+    return DoInsertColumn(title, -1, width, align, flags);
   }
     // Return the total number of columns.
   unsigned GetColumnCount() const;
@@ -153,18 +150,15 @@ public:
     // is destroyed).
   wxTreeListItem AppendItem(wxTreeListItem parent, const wxString& text, int imageClosed = NO_IMAGE, int imageOpened = NO_IMAGE, wxClientData* data = NULL)
   {
-        return DoInsertItem(parent, wxTLI_LAST, text,
-                            imageClosed, imageOpened, data);
+    return DoInsertItem(parent, wxTLI_LAST, text, imageClosed, imageOpened, data);
   }
   wxTreeListItem InsertItem(wxTreeListItem parent, wxTreeListItem previous, const wxString& text, int imageClosed = NO_IMAGE, int imageOpened = NO_IMAGE, wxClientData* data = NULL)
   {
-        return DoInsertItem(parent, previous, text,
-                            imageClosed, imageOpened, data);
+    return DoInsertItem(parent, previous, text, imageClosed, imageOpened, data);
   }
   wxTreeListItem PrependItem(wxTreeListItem parent, const wxString& text, int imageClosed = NO_IMAGE, int imageOpened = NO_IMAGE, wxClientData* data = NULL)
   {
-        return DoInsertItem(parent, wxTLI_FIRST, text,
-                            imageClosed, imageOpened, data);
+    return DoInsertItem(parent, wxTLI_FIRST, text, imageClosed, imageOpened, data);
   }
     // Deleting items.
   void DeleteItem(wxTreeListItem item);
@@ -184,7 +178,7 @@ public:
     // the tree in depth-first traversal order.
   wxTreeListItem GetFirstItem() const
   {
- return GetFirstChild(GetRootItem());
+    return GetFirstChild(GetRootItem());
   }
     // Get item after the given one in the depth-first tree-traversal order.
     // Calling this function starting with the result of GetFirstItem() allows
@@ -197,7 +191,7 @@ public:
   void SetItemText(wxTreeListItem item, unsigned col, const wxString& text);
   void SetItemText(wxTreeListItem item, const wxString& text)
   {
-        SetItemText(item, 0, text);
+    SetItemText(item, 0, text);
   }
     // By default the opened image is the same as the normal, closed one (if
     // it's used at all).
@@ -241,7 +235,7 @@ public:
   void CheckItem(wxTreeListItem item, wxCheckBoxState state = wxCHK_CHECKED);
   void UncheckItem(wxTreeListItem item)
   {
- CheckItem(item, wxCHK_UNCHECKED);
+    CheckItem(item, wxCHK_UNCHECKED);
   }
     // The same but do it recursively for this item itself and its children.
   void CheckItemRecursively(wxTreeListItem item, wxCheckBoxState state = wxCHK_CHECKED);
@@ -297,7 +291,7 @@ public:
   wxWindow* GetView() const;
   wxDataViewCtrl* GetDataView() const
   {
- return m_view;
+    return m_view;
   }
 private:
     // Common part of all ctors.
@@ -342,55 +336,53 @@ public:
     // Default ctor is provided for wxRTTI needs only but should never be used.
   wxTreeListEvent()
   {
- Init();
+    Init();
   }
     // The item affected by the event. Valid for all events except
     // column-specific ones such as COLUMN_SORTED.
   wxTreeListItem GetItem() const
   {
- return m_item;
+    return m_item;
   }
     // The previous state of the item checkbox for ITEM_CHECKED events only.
   wxCheckBoxState GetOldCheckedState() const
   {
- return m_oldCheckedState;
+    return m_oldCheckedState;
   }
     // The index of the column affected by the event. Currently only used by
     // COLUMN_SORTED event.
   unsigned GetColumn() const
   {
- return m_column;
+    return m_column;
   }
   wxEvent* Clone() const override
   {
- return new wxTreeListEvent(*this);
+    return new wxTreeListEvent(*this);
   }
 private:
     // Common part of all ctors.
   void Init()
   {
-        m_column = static_cast<unsigned>(-1);
-
-        m_oldCheckedState = wxCHK_UNDETERMINED;
+    m_column = static_cast<unsigned>(-1);
+    m_oldCheckedState = wxCHK_UNDETERMINED;
   }
     // Ctor is private, only wxTreeListCtrl can create events of this type.
   wxTreeListEvent(wxEventType evtType, wxTreeListCtrl* treelist, wxTreeListItem item)
-    :  wxNotifyEvent(evtType, treelist->GetId()),
-          m_item(item)
+    : wxNotifyEvent(evtType, treelist->GetId())
+    , m_item(item)
   {
-        SetEventObject(treelist);
-
-        Init();
+    SetEventObject(treelist);
+    Init();
   }
     // Set the checkbox state before this event for ITEM_CHECKED events.
   void SetOldCheckedState(wxCheckBoxState state)
   {
-        m_oldCheckedState = state;
+    m_oldCheckedState = state;
   }
     // Set the column affected by this event for COLUMN_SORTED events.
   void SetColumn(unsigned column)
   {
-        m_column = column;
+    m_column = column;
   }
   const wxTreeListItem m_item;
   wxCheckBoxState m_oldCheckedState;

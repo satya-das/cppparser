@@ -84,7 +84,6 @@ namespace PoDoFo
     PdfHexFilter();
     virtual ~PdfHexFilter()
     {
-
     }
     /** Check wether the encoding is implemented for this filter.
      * 
@@ -184,7 +183,6 @@ namespace PoDoFo
     PdfAscii85Filter();
     virtual ~PdfAscii85Filter()
     {
-
     }
     /** Check wether the encoding is implemented for this filter.
      * 

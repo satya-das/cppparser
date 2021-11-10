@@ -42,7 +42,7 @@ class FIRSTDLL_EXPORT OdBaseObjectPtr
 {
 protected:
   OdBaseObjectPtr()
-    :  m_pObject(0)
+    : m_pObject(0)
   {
   }
   OdRxObject* m_pObject;
@@ -57,14 +57,14 @@ public:
   */
   OdRxObject* get() const
   {
-return m_pObject;
+    return m_pObject;
   }
   /** Description: 
     Returns true if and only if this SmartPointer contains a null reference. 
   */
   bool isNull() const
   {
- return m_pObject == 0;
+    return m_pObject == 0;
   }
 };
 /** Description: 
@@ -92,8 +92,10 @@ class OdSmartPtr : public OdBaseObjectPtr
   */
   void internalAddRef()
   {
-    if(m_pObject) 
+    if (m_pObject)
+    {
       m_pObject->addRef();
+    }
   }
   /** Description: 
     Assigns the specified object to this SmartPointer object.   
@@ -109,8 +111,8 @@ class OdSmartPtr : public OdBaseObjectPtr
   */
   void assign(const T* pObject)
   {
-    release(); 
-    m_pObject = const_cast<T*>(pObject); 
+    release();
+    m_pObject = const_cast<T*>(pObject);
     internalAddRef();
   }
   /** Description: 
@@ -124,18 +126,22 @@ class OdSmartPtr : public OdBaseObjectPtr
   */
   void internalQueryX(const OdRxObject* pObject)
   {
-    if(pObject) 
-    { 
-      OdRxObject* pX = pObject->queryX(T::desc()); 
-      if(pX) 
-        m_pObject = pX; 
+    if (pObject)
+    {
+      OdRxObject* pX = pObject->queryX(T::desc());
+      if (pX)
+      {
+        m_pObject = pX;
+      }
       else 
-        throw OdError_NotThatKindOfClass(pObject->isA(), T::desc()); 
+      {
+        throw OdError_NotThatKindOfClass(pObject->isA(), T::desc());
+      }
     }
   }
   void assign(const OdRxObject* pObject)
   {
-    release(); 
+    release();
     internalQueryX(pObject);
   }
   // Note: Using of SmartPtr<T> as bool expression produce ambiguous call with some compilers. 
@@ -148,7 +154,8 @@ class OdSmartPtr : public OdBaseObjectPtr
   */
   bool operator !() const
   {
- ODA_FAIL(); return false;
+    ODA_FAIL();
+    return false;
   }
   /** Description: 
     Declared private to prevent use. 
@@ -157,7 +164,8 @@ class OdSmartPtr : public OdBaseObjectPtr
   */
   operator bool() const
   {
- ODA_FAIL(); return false;
+    ODA_FAIL();
+    return false;
   }
   /** Description: 
     Declared private to prevent use. 
@@ -166,7 +174,8 @@ class OdSmartPtr : public OdBaseObjectPtr
   */
   operator bool()
   {
- ODA_FAIL(); return false;
+    ODA_FAIL();
+    return false;
   }
 public:
   /** Description: 
@@ -182,7 +191,6 @@ public:
   */
   OdSmartPtr()
   {
-
   }
   OdSmartPtr(const T* pObject, OdRxObjMod)
   {
@@ -190,7 +198,7 @@ public:
   }
   OdSmartPtr(const T* pObject)
   {
-    m_pObject = const_cast<T*>(pObject); 
+    m_pObject = const_cast<T*>(pObject);
     internalAddRef();
   }
   OdSmartPtr(const OdRxObject* pObject)
@@ -199,13 +207,15 @@ public:
   }
   OdSmartPtr(OdRxObject* pObject, OdRxObjMod)
   {
-    internalQueryX(pObject); 
-    if(pObject) 
+    internalQueryX(pObject);
+    if (pObject)
+    {
       pObject->release();
+    }
   }
   OdSmartPtr(const OdSmartPtr& pObject)
   {
-    m_pObject = const_cast<T*>(pObject.get()); 
+    m_pObject = const_cast<T*>(pObject.get());
     internalAddRef();
   }
   OdSmartPtr(const OdRxObjectPtr& pObject)
@@ -230,15 +240,17 @@ public:
   */
   void attach(const T* pObject)
   {
-    release(); 
+    release();
     m_pObject = const_cast<T*>(pObject);
   }
   void attach(OdRxObject* pObject)
   {
-    release(); 
-    internalQueryX(pObject); 
-    if(pObject) 
+    release();
+    internalQueryX(pObject);
+    if (pObject)
+    {
       pObject->release();
+    }
   }
   /** 
     Remarks: 
@@ -261,10 +273,10 @@ public:
   */
   void release()
   {
-    if (m_pObject) 
-    { 
-      m_pObject->release(); 
-      m_pObject = 0; 
+    if (m_pObject)
+    {
+      m_pObject->release();
+      m_pObject = 0;
     }
   }
   /** Description: 
@@ -277,8 +289,8 @@ public:
   */
   T* detach()
   {
-    T* pRes = static_cast<T*>(m_pObject); 
-    m_pObject = 0; 
+    T* pRes = static_cast<T*>(m_pObject);
+    m_pObject = 0;
     return pRes;
   }
   /** 
@@ -290,17 +302,17 @@ public:
   */
   OdSmartPtr& operator =(const OdSmartPtr& pObject)
   {
-    assign(pObject); 
+    assign(pObject);
     return *this;
   }
   OdSmartPtr& operator =(const OdBaseObjectPtr& pObject)
   {
-    assign(pObject.get()); 
+    assign(pObject.get());
     return *this;
   }
   OdSmartPtr& operator =(const T* pObject)
   {
-    assign(pObject); 
+    assign(pObject);
     return *this;
   }
   /** Description: 
@@ -366,19 +378,19 @@ public:
 #  endif
   bool operator==(const void* pObject) const
   {
-    return (m_pObject==pObject);
+    return (m_pObject == pObject);
   }
   bool operator==(const OdSmartPtr& pObject) const
   {
-    return operator==((void*)pObject.get());
+    return operator==((void*) pObject.get());
   }
   bool operator!=(const void* pObject) const
   {
-    return (m_pObject!=pObject);
+    return (m_pObject != pObject);
   }
   bool operator!=(const OdSmartPtr& pObject) const
   {
-    return operator!=((void*)pObject.get());
+    return operator!=((void*) pObject.get());
   }
 };
 #  include "DD_PackPop.h"

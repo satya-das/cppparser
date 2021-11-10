@@ -11,8 +11,7 @@
 #ifndef _WX_SCKADDR_H_
 #  define _WX_SCKADDR_H_
 #  include "wx/defs.h"
-#  if  wxUSE_SOCKETS
-#    include "wx/string.h"
+#  include "wx/string.h"
 class wxSockAddressImpl;
 // forward declare it instead of including the system headers defining it which
 // can bring in <windows.h> under Windows which we don't want to include from
@@ -43,7 +42,7 @@ public:
     // implementation only, don't use
   const wxSockAddressImpl& GetAddress() const
   {
- return *m_impl;
+    return *m_impl;
   }
   void SetAddress(const wxSockAddressImpl& address);
 protected:
@@ -68,14 +67,14 @@ public:
   unsigned short Service() const;
   wxString OrigHostname() const
   {
- return m_origHostname;
+    return m_origHostname;
   }
 protected:
     // get m_impl initialized to the right family if it hadn't been done yet
   wxSockAddressImpl& GetImpl();
   const wxSockAddressImpl& GetImpl() const
   {
-        return const_cast<wxIPaddress *>(this)->GetImpl();
+    return const_cast<wxIPaddress*>(this)->GetImpl();
   }
     // host name originally passed to Hostname()
   wxString m_origHostname;
@@ -92,11 +91,11 @@ public:
     // implement wxSockAddress pure virtuals:
   Family Type() override
   {
- return IPV4;
+    return IPV4;
   }
   wxSockAddress* Clone() const override
   {
- return new wxIPV4address(*this);
+    return new wxIPV4address(*this);
   }
     // implement wxIPaddress pure virtuals:
   bool IsLocalHost() const override;
@@ -110,7 +109,7 @@ private:
   void DoInitImpl() override;
   wxDECLARE_DYNAMIC_CLASS(wxIPV4address);
 };
-#    if  wxUSE_IPV6
+#  if  wxUSE_IPV6
 // An IPv6 address
 class WXDLLIMPEXP_NET wxIPV6address : public wxIPaddress
 {
@@ -118,11 +117,11 @@ public:
     // implement wxSockAddress pure virtuals:
   Family Type() override
   {
- return IPV6;
+    return IPV6;
   }
   wxSockAddress* Clone() const override
   {
- return new wxIPV6address(*this);
+    return new wxIPV6address(*this);
   }
     // implement wxIPaddress pure virtuals:
   bool IsLocalHost() const override;
@@ -134,12 +133,12 @@ private:
   void DoInitImpl() override;
   wxDECLARE_DYNAMIC_CLASS(wxIPV6address);
 };
-#    endif
+#  endif
 // Unix domain sockets are only available under, well, Unix
-#    if  defined(__UNIX__) && !defined(__WINDOWS__) && !defined(__WINE__)
-#      define wxHAS_UNIX_DOMAIN_SOCKETS
-#    endif
-#    ifdef wxHAS_UNIX_DOMAIN_SOCKETS
+#  if  defined(__UNIX__) && !defined(__WINDOWS__) && !defined(__WINE__)
+#    define wxHAS_UNIX_DOMAIN_SOCKETS
+#  endif
+#  ifdef wxHAS_UNIX_DOMAIN_SOCKETS
 // A Unix domain socket address
 class WXDLLIMPEXP_NET wxUNIXaddress : public wxSockAddress
 {
@@ -148,20 +147,19 @@ public:
   wxString Filename() const;
   Family Type() override
   {
- return UNIX;
+    return UNIX;
   }
   wxSockAddress* Clone() const override
   {
- return new wxUNIXaddress(*this);
+    return new wxUNIXaddress(*this);
   }
 private:
   wxSockAddressImpl& GetUNIX();
   const wxSockAddressImpl& GetUNIX() const
   {
-        return const_cast<wxUNIXaddress *>(this)->GetUNIX();
+    return const_cast<wxUNIXaddress*>(this)->GetUNIX();
   }
   wxDECLARE_DYNAMIC_CLASS(wxUNIXaddress);
 };
-#    endif
 #  endif
 #endif

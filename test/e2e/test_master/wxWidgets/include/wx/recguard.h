@@ -21,19 +21,18 @@ class WXDLLIMPEXP_BASE wxRecursionGuard
 {
 public:
   wxRecursionGuard(wxRecursionGuardFlag& flag)
-    :  m_flag(flag)
+    : m_flag(flag)
   {
-        m_isInside = flag++ != 0;
+    m_isInside = flag++ != 0;
   }
   ~wxRecursionGuard()
   {
-        wxASSERT_MSG( m_flag > 0, wxT("unbalanced wxRecursionGuards!?") );
-
-        m_flag--;
+    wxASSERT_MSG( m_flag > 0, wxT("unbalanced wxRecursionGuards!?") );
+    m_flag--;
   }
   bool IsInside() const
   {
- return m_isInside;
+    return m_isInside;
   }
 private:
   wxRecursionGuardFlag& m_flag;

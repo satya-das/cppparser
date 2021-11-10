@@ -16,9 +16,7 @@ Abstract:
 #  ifndef __GL_H__
 #    define __gl_h_
 #    define __GL_H__
-#    ifdef __cplusplus
 extern "C" {
-#    endif
 /*
 ** Copyright 1996 Silicon Graphics, Inc.
 ** All Rights Reserved.
@@ -1448,8 +1446,6 @@ extern "C" {
   typedef void (APIENTRY *PFNGLGETCOLORTABLEEXTPROC) (GLenum target, GLenum format, GLenum type, GLvoid* data);
   typedef void (APIENTRY *PFNGLGETCOLORTABLEPARAMETERIVEXTPROC) (GLenum target, GLenum pname, GLint* params);
   typedef void (APIENTRY *PFNGLGETCOLORTABLEPARAMETERFVEXTPROC) (GLenum target, GLenum pname, GLfloat* params);
-#    ifdef __cplusplus
   }
-#    endif
 #  endif
 #endif

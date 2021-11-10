@@ -203,25 +203,25 @@ public:
     // origin of the rectangular region we represent
   wxPoint GetOrigin() const
   {
- return m_ptOrigin;
+    return m_ptOrigin;
   }
     // width and height of the region we represent
   int GetWidth() const
   {
- return m_width;
+    return m_width;
   }
   int GetHeight() const
   {
- return m_height;
+    return m_height;
   }
   wxSize GetSize() const
   {
- return wxSize(m_width, m_height);
+    return wxSize(m_width, m_height);
   }
     // the distance between two rows
   int GetRowStride() const
   {
- return m_stride;
+    return m_stride;
   }
 // private: -- see comment in the beginning of the file
 
@@ -241,9 +241,7 @@ protected:
     // base class by wxPixelData
   wxPixelDataBase()
   {
-        m_width =
-        m_height =
-        m_stride = 0;
+    m_width = m_height = m_stride = 0;
   }
 };
 /*
@@ -308,31 +306,30 @@ struct wxPixelDataOut<wxImage>
             // go back to (0, 0)
       void Reset(const PixelData& data)
       {
-                *this = data.GetPixels();
+        *this = data.GetPixels();
       }
             // creates the iterator pointing to the beginning of data
       Iterator(PixelData& data)
       {
-                Reset(data);
+        Reset(data);
       }
             // creates the iterator initially pointing to the image origin
       Iterator(const wxImage& image)
       {
-                m_pRGB = image.GetData();
-
-                if ( image.HasAlpha() )
-                {
-                    m_pAlpha = image.GetAlpha();
-                }
-                else // alpha is not used at all
-                {
-                    m_pAlpha = NULL;
-                }
+        m_pRGB = image.GetData();
+        if (image.HasAlpha())
+        {
+          m_pAlpha = image.GetAlpha();
+        }
+        else 
+        {
+          m_pAlpha = NULL;
+        }
       }
             // true if the iterator is valid
       bool IsOk() const
       {
- return m_pRGB != NULL;
+        return m_pRGB != NULL;
       }
             // navigation
             // ----------
@@ -340,48 +337,55 @@ struct wxPixelDataOut<wxImage>
             // advance the iterator to the next pixel, prefix version
       Iterator& operator++()
       {
-                m_pRGB += PixelFormat::SizePixel;
-                if ( m_pAlpha )
-                    ++m_pAlpha;
-
-                return *this;
+        m_pRGB += PixelFormat::SizePixel;
+        if (m_pAlpha)
+        {
+          ++m_pAlpha;
+        }
+        return *this;
       }
             // postfix (hence less efficient -- don't use it unless you
             // absolutely must) version
       Iterator operator++(int)
       {
-                Iterator p(*this);
-                ++*this;
-                return p;
+        Iterator p(*this);
+        ++*this;
+        return p;
       }
             // move x pixels to the right and y down
             //
             // note that the rows don't wrap!
       void Offset(const PixelData& data, int x, int y)
       {
-                m_pRGB += data.GetRowStride()*y + PixelFormat::SizePixel*x;
-                if ( m_pAlpha )
-                    m_pAlpha += data.GetWidth()*y + x;
+        m_pRGB += data.GetRowStride() * y + PixelFormat::SizePixel * x;
+        if (m_pAlpha)
+        {
+          m_pAlpha += data.GetWidth() * y + x;
+        }
       }
             // move x pixels to the right (again, no row wrapping)
       void OffsetX(const PixelData&, int x)
       {
-                m_pRGB += PixelFormat::SizePixel*x;
-                if ( m_pAlpha )
-                    m_pAlpha += x;
+        m_pRGB += PixelFormat::SizePixel * x;
+        if (m_pAlpha)
+        {
+          m_pAlpha += x;
+        }
       }
             // move y rows to the bottom
       void OffsetY(const PixelData& data, int y)
       {
-                m_pRGB += data.GetRowStride()*y;
-                if ( m_pAlpha )
-                    m_pAlpha += data.GetWidth()*y;
+        m_pRGB += data.GetRowStride() * y;
+        if (m_pAlpha)
+        {
+          m_pAlpha += data.GetWidth() * y;
+        }
       }
             // go to the given position
       void MoveTo(const PixelData& data, int x, int y)
       {
-                Reset(data);
-                Offset(data, x, y);
+        Reset(data);
+        Offset(data, x, y);
       }
             // data access
             // -----------
@@ -389,19 +393,19 @@ struct wxPixelDataOut<wxImage>
             // access to individual colour components
       PixelFormat::ChannelType& Red()
       {
- return m_pRGB[PixelFormat::RED];
+        return m_pRGB[PixelFormat::RED];
       }
       PixelFormat::ChannelType& Green()
       {
- return m_pRGB[PixelFormat::GREEN];
+        return m_pRGB[PixelFormat::GREEN];
       }
       PixelFormat::ChannelType& Blue()
       {
- return m_pRGB[PixelFormat::BLUE];
+        return m_pRGB[PixelFormat::BLUE];
       }
       PixelFormat::ChannelType& Alpha()
       {
- return *m_pAlpha;
+        return *m_pAlpha;
       }
             // address the pixel contents directly (always RGB, without alpha)
             //
@@ -410,7 +414,7 @@ struct wxPixelDataOut<wxImage>
             // pixel or beyond the end of image
       const typename PixelFormat::PixelType& Data()
       {
- return *(typename PixelFormat::PixelType *)m_pRGB;
+        return *(typename PixelFormat::PixelType*) m_pRGB;
       }
         // private: -- see comment in the beginning of the file
 
@@ -421,47 +425,47 @@ struct wxPixelDataOut<wxImage>
     };
         // initializes us with the data of the given image
     wxPixelDataIn(ImageType& image)
-      :  m_image(image), m_pixels(image)
+      : m_image(image)
+      , m_pixels(image)
     {
-            m_width = image.GetWidth();
-            m_height = image.GetHeight();
-            m_stride = Iterator::PixelFormat::SizePixel * m_width;
+      m_width = image.GetWidth();
+      m_height = image.GetHeight();
+      m_stride = Iterator::PixelFormat::SizePixel * m_width;
     }
         // initializes us with the given region of the specified image
     wxPixelDataIn(ImageType& image, const wxPoint& pt, const wxSize& sz)
-      :  m_image(image), m_pixels(image)
+      : m_image(image)
+      , m_pixels(image)
     {
-            m_stride = Iterator::PixelFormat::SizePixel * m_width;
-
-            InitRect(pt, sz);
+      m_stride = Iterator::PixelFormat::SizePixel * m_width;
+      InitRect(pt, sz);
     }
         // initializes us with the given region of the specified image
     wxPixelDataIn(ImageType& image, const wxRect& rect)
-      :  m_image(image), m_pixels(image)
+      : m_image(image)
+      , m_pixels(image)
     {
-            m_stride = Iterator::PixelFormat::SizePixel * m_width;
-
-            InitRect(rect.GetPosition(), rect.GetSize());
+      m_stride = Iterator::PixelFormat::SizePixel * m_width;
+      InitRect(rect.GetPosition(), rect.GetSize());
     }
         // we evaluate to true only if we could get access to bitmap data
         // successfully
     operator bool() const
     {
- return m_pixels.IsOk();
+      return m_pixels.IsOk();
     }
         // get the iterator pointing to the origin
     Iterator GetPixels() const
     {
- return m_pixels;
+      return m_pixels;
     }
   private:
     void InitRect(const wxPoint& pt, const wxSize& sz)
     {
-            m_width = sz.x;
-            m_height = sz.y;
-
-            m_ptOrigin = pt;
-            m_pixels.Offset(*this, pt.x, pt.y);
+      m_width = sz.x;
+      m_height = sz.y;
+      m_ptOrigin = pt;
+      m_pixels.Offset(*this, pt.x, pt.y);
     }
         // the image we're working with
     ImageType& m_image;
@@ -494,13 +498,13 @@ struct wxPixelDataOut<wxBitmap>
             // go back to (0, 0)
       void Reset(const PixelData& data)
       {
-                *this = data.GetPixels();
+        *this = data.GetPixels();
       }
             // initializes the iterator to point to the origin of the given
             // pixel data
       Iterator(PixelData& data)
       {
-                Reset(data);
+        Reset(data);
       }
             // initializes the iterator to point to the origin of the given
             // bitmap
@@ -511,18 +515,17 @@ struct wxPixelDataOut<wxBitmap>
                 // BitsPerPixel (which is in turn defined by ChannelType) and
                 // this is the only thing we can do without making GetRawData()
                 // a template function which is undesirable
-                m_ptr = (ChannelType *)
-                            bmp.GetRawData(data, PixelFormat::BitsPerPixel);
+        m_ptr = (ChannelType*) bmp.GetRawData(data, PixelFormat::BitsPerPixel);
       }
             // default constructor
       Iterator()
       {
-                m_ptr = NULL;
+        m_ptr = NULL;
       }
             // return true if this iterator is valid
       bool IsOk() const
       {
- return m_ptr != NULL;
+        return m_ptr != NULL;
       }
             // navigation
             // ----------
@@ -530,40 +533,39 @@ struct wxPixelDataOut<wxBitmap>
             // advance the iterator to the next pixel, prefix version
       Iterator& operator++()
       {
-                m_ptr += PixelFormat::SizePixel;
-
-                return *this;
+        m_ptr += PixelFormat::SizePixel;
+        return *this;
       }
             // postfix (hence less efficient -- don't use it unless you
             // absolutely must) version
       Iterator operator++(int)
       {
-                Iterator p(*this);
-                ++*this;
-                return p;
+        Iterator p(*this);
+        ++*this;
+        return p;
       }
             // move x pixels to the right and y down
             //
             // note that the rows don't wrap!
       void Offset(const PixelData& data, int x, int y)
       {
-                m_ptr += data.GetRowStride()*y + PixelFormat::SizePixel*x;
+        m_ptr += data.GetRowStride() * y + PixelFormat::SizePixel * x;
       }
             // move x pixels to the right (again, no row wrapping)
       void OffsetX(const PixelData&, int x)
       {
-                m_ptr += PixelFormat::SizePixel*x;
+        m_ptr += PixelFormat::SizePixel * x;
       }
             // move y rows to the bottom
       void OffsetY(const PixelData& data, int y)
       {
-                m_ptr += data.GetRowStride()*y;
+        m_ptr += data.GetRowStride() * y;
       }
             // go to the given position
       void MoveTo(const PixelData& data, int x, int y)
       {
-                Reset(data);
-                Offset(data, x, y);
+        Reset(data);
+        Offset(data, x, y);
       }
             // data access
             // -----------
@@ -571,19 +573,19 @@ struct wxPixelDataOut<wxBitmap>
             // access to individual colour components
       ChannelType& Red()
       {
- return m_ptr[PixelFormat::RED];
+        return m_ptr[PixelFormat::RED];
       }
       ChannelType& Green()
       {
- return m_ptr[PixelFormat::GREEN];
+        return m_ptr[PixelFormat::GREEN];
       }
       ChannelType& Blue()
       {
- return m_ptr[PixelFormat::BLUE];
+        return m_ptr[PixelFormat::BLUE];
       }
       ChannelType& Alpha()
       {
- return m_ptr[PixelFormat::ALPHA];
+        return m_ptr[PixelFormat::ALPHA];
       }
             // address the pixel contents directly
             //
@@ -594,7 +596,7 @@ struct wxPixelDataOut<wxBitmap>
             //            one extra byte and so can't be done
       typename PixelFormat::PixelType& Data()
       {
- return *(typename PixelFormat::PixelType *)m_ptr;
+        return *(typename PixelFormat::PixelType*) m_ptr;
       }
         // private: -- see comment in the beginning of the file
 
@@ -608,48 +610,53 @@ struct wxPixelDataOut<wxBitmap>
         // objects should normally be only created on the stack, i.e. have
         // limited life-time
     wxPixelDataIn(wxBitmap& bmp)
-      :  m_bmp(bmp), m_pixels(bmp, *this)
+      : m_bmp(bmp)
+      , m_pixels(bmp, *this)
     {
-
     }
     wxPixelDataIn(wxBitmap& bmp, const wxRect& rect)
-      :  m_bmp(bmp), m_pixels(bmp, *this)
+      : m_bmp(bmp)
+      , m_pixels(bmp, *this)
     {
-            InitRect(rect.GetPosition(), rect.GetSize());
+      InitRect(rect.GetPosition(), rect.GetSize());
     }
     wxPixelDataIn(wxBitmap& bmp, const wxPoint& pt, const wxSize& sz)
-      :  m_bmp(bmp), m_pixels(bmp, *this)
+      : m_bmp(bmp)
+      , m_pixels(bmp, *this)
     {
-            InitRect(pt, sz);
+      InitRect(pt, sz);
     }
         // we evaluate to true only if we could get access to bitmap data
         // successfully
     operator bool() const
     {
- return m_pixels.IsOk();
+      return m_pixels.IsOk();
     }
         // get the iterator pointing to the origin
     Iterator GetPixels() const
     {
- return m_pixels;
+      return m_pixels;
     }
         // dtor unlocks the bitmap
     ~wxPixelDataIn()
     {
-            if ( m_pixels.IsOk() )
-            {
-#if defined(__WXMSW__) || defined(__WXMAC__)
+      if (m_pixels.IsOk())
+      {
+#      if  defined(__WXMSW__) || defined(__WXMAC__)
                 // this is a hack to mark wxBitmap as using alpha channel
-                if ( Format::HasAlpha )
-                    m_bmp.UseAlpha();
-#endif
-                m_bmp.UngetRawData(*this);
-            }
+        if (Format::HasAlpha)
+        {
+          m_bmp.UseAlpha();
+        }
+#      endif
+        m_bmp.UngetRawData(*this);
+      }
             // else: don't call UngetRawData() if GetRawData() failed
     }
-#      if  WXWIN_COMPATIBILITY_2_8
         // not needed anymore, calls to it should be simply removed
-#      endif
+        wxDEPRECATED_INLINE( void UseAlpha(), wxEMPTY_PARAMETER_VALUE )
+#endif
+
     // private: -- see comment in the beginning of the file
 
         // the bitmap we're associated with
@@ -659,11 +666,10 @@ struct wxPixelDataOut<wxBitmap>
   private:
     void InitRect(const wxPoint& pt, const wxSize& sz)
     {
-            m_pixels.Offset(*this, pt.x, pt.y);
-
-            m_ptOrigin = pt;
-            m_width = sz.x;
-            m_height = sz.y;
+      m_pixels.Offset(*this, pt.x, pt.y);
+      m_ptOrigin = pt;
+      m_width = sz.x;
+      m_height = sz.y;
     }
   };
 };
@@ -681,22 +687,21 @@ public:
   public:
     Reference& operator=(bool b)
     {
-                    wxByte mask = static_cast<wxByte>(1 << m_bit);
-                    wxByte value = static_cast<wxByte>(b << m_bit);
-                    (*m_ptr &= ~mask) |= value;
-                    return *this;
+      wxByte mask = static_cast<wxByte>(1 << m_bit);
+      wxByte value = static_cast<wxByte>(b << m_bit);
+      (*m_ptr &= ~mask) |= value;
+      return *this;
     }
     operator bool() const
     {
-                    wxByte mask = static_cast<wxByte>(1 << m_bit);
-                    return (*m_ptr & mask) != 0;
+      wxByte mask = static_cast<wxByte>(1 << m_bit);
+      return (*m_ptr & mask) != 0;
     }
   private:
     Reference(const Iterator& i)
-      :                     m_ptr(i.m_ptr),
-                    m_bit(i.m_bit)
+      : m_ptr(i.m_ptr)
+      , m_bit(i.m_bit)
     {
-
     }
     wxByte* m_ptr;
     wxInt8 m_bit;
@@ -714,13 +719,13 @@ public:
                 // go back to (0, 0)
     void Reset(const PixelData& data)
     {
-                    *this = data.GetPixels();
+      *this = data.GetPixels();
     }
                 // initializes the iterator to point to the origin of the given
                 // pixel data
     Iterator(PixelData& data)
     {
-                    Reset(data);
+      Reset(data);
     }
                 // initializes the iterator to point to the origin of the given
                 // bitmap
@@ -731,20 +736,19 @@ public:
                     // BitsPerPixel (which is in turn defined by ChannelType) and
                     // this is the only thing we can do without making GetRawData()
                     // a template function which is undesirable
-                    m_ptr = (wxByte*)
-                        bmp.GetRawData(data, PixelFormat::BitsPerPixel);
-                    m_bit = 7;
+      m_ptr = (wxByte*) bmp.GetRawData(data, PixelFormat::BitsPerPixel);
+      m_bit = 7;
     }
                 // default constructor
     Iterator()
     {
-                    m_ptr = NULL;
+      m_ptr = NULL;
                     // m_bit doesn't need to be set until m_ptr != NULL
     }
                 // return true if this iterator is valid
     bool IsOk() const
     {
- return m_ptr != NULL;
+      return m_ptr != NULL;
     }
                 // navigation
                 // ----------
@@ -752,47 +756,46 @@ public:
                 // advance the iterator to the next pixel, prefix version
     Iterator& operator++()
     {
-                    --m_bit;
-                    m_ptr += (m_bit < 0);
-                    m_bit &= 0x7;
-
-                    return *this;
+      --m_bit;
+      m_ptr += (m_bit < 0);
+      m_bit &= 0x7;
+      return *this;
     }
                 // postfix (hence less efficient -- don't use it unless you
                 // absolutely must) version
     Iterator operator++(int)
     {
-                    Iterator p(*this);
-                    ++* this;
-                    return p;
+      Iterator p(*this);
+      ++*this;
+      return p;
     }
                 // move x pixels to the right and y down
                 //
                 // note that the rows don't wrap!
     void Offset(const PixelData& data, int x, int y)
     {
-                    m_ptr += data.GetRowStride() * y;
-                    x += 7 - m_bit;
-                    m_ptr += x >> 3;
-                    m_bit = 7 - (x & 0x7);
+      m_ptr += data.GetRowStride() * y;
+      x += 7 - m_bit;
+      m_ptr += x >> 3;
+      m_bit = 7 - (x & 0x7);
     }
                 // move x pixels to the right (again, no row wrapping)
     void OffsetX(const PixelData&, int x)
     {
-                    x += 7 - m_bit;
-                    m_ptr += x >> 3;
-                    m_bit = 7 - (x & 0x7);
+      x += 7 - m_bit;
+      m_ptr += x >> 3;
+      m_bit = 7 - (x & 0x7);
     }
                 // move y rows to the bottom
     void OffsetY(const PixelData& data, int y)
     {
-                    m_ptr += data.GetRowStride() * y;
+      m_ptr += data.GetRowStride() * y;
     }
                 // go to the given position
     void MoveTo(const PixelData& data, int x, int y)
     {
-                    Reset(data);
-                    Offset(data, x, y);
+      Reset(data);
+      Offset(data, x, y);
     }
                 // data access
                 // -----------
@@ -800,7 +803,7 @@ public:
                 // access to individual pixels
     Reference Pixel()
     {
- return Reference(*this);
+      return Reference(*this);
     }
             // private: -- see comment in the beginning of the file
 
@@ -813,38 +816,40 @@ public:
             // objects should normally be only created on the stack, i.e. have
             // limited life-time
   wxPixelDataIn(wxBitmap& bmp)
-    :  m_bmp(bmp), m_pixels(bmp, *this)
+    : m_bmp(bmp)
+    , m_pixels(bmp, *this)
   {
-
   }
   wxPixelDataIn(wxBitmap& bmp, const wxRect& rect)
-    :  m_bmp(bmp), m_pixels(bmp, *this)
+    : m_bmp(bmp)
+    , m_pixels(bmp, *this)
   {
-                InitRect(rect.GetPosition(), rect.GetSize());
+    InitRect(rect.GetPosition(), rect.GetSize());
   }
   wxPixelDataIn(wxBitmap& bmp, const wxPoint& pt, const wxSize& sz)
-    :  m_bmp(bmp), m_pixels(bmp, *this)
+    : m_bmp(bmp)
+    , m_pixels(bmp, *this)
   {
-                InitRect(pt, sz);
+    InitRect(pt, sz);
   }
             // we evaluate to true only if we could get access to bitmap data
             // successfully
   operator bool() const
   {
- return m_pixels.IsOk();
+    return m_pixels.IsOk();
   }
             // get the iterator pointing to the origin
   Iterator GetPixels() const
   {
- return m_pixels;
+    return m_pixels;
   }
             // dtor unlocks the bitmap
   ~wxPixelDataIn()
   {
-                if ( m_pixels.IsOk() )
-                {
-                    m_bmp.UngetRawData(*this);
-                }
+    if (m_pixels.IsOk())
+    {
+      m_bmp.UngetRawData(*this);
+    }
                 // else: don't call UngetRawData() if GetRawData() failed
   }
         // private: -- see comment in the beginning of the file
@@ -856,11 +861,10 @@ public:
 private:
   void InitRect(const wxPoint& pt, const wxSize& sz)
   {
-                m_pixels.Offset(*this, pt.x, pt.y);
-
-                m_ptOrigin = pt;
-                m_width = sz.x;
-                m_height = sz.y;
+    m_pixels.Offset(*this, pt.x, pt.y);
+    m_ptOrigin = pt;
+    m_width = sz.x;
+    m_height = sz.y;
   }
 };
 #      endif
@@ -871,19 +875,16 @@ class wxPixelData : public wxPixelDataOut<Image>::template wxPixelDataIn<PixelFo
 public:
   typedef typename wxPixelDataOut<Image>::template wxPixelDataIn<PixelFormat> Base;
   wxPixelData(Image& image)
-    :  Base(image)
+    : Base(image)
   {
-
   }
   wxPixelData(Image& i, const wxRect& rect)
-    :  Base(i, rect)
+    : Base(i, rect)
   {
-
   }
   wxPixelData(Image& i, const wxPoint& pt, const wxSize& sz)
-    :  Base(i, pt, sz)
+    : Base(i, pt, sz)
   {
-
   }
 };
 // some "predefined" pixel data classes

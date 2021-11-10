@@ -19,73 +19,82 @@ struct SkPathCounter
     // Some ops have a paint, some have an optional paint.  Either way, get back a pointer.
   static const SkPaint* AsPtr(const SkPaint& p)
   {
- return &p;
+    return &p;
   }
   static const SkPaint* AsPtr(const SkRecords::Optional<SkPaint>& p)
   {
- return p;
+    return p;
   }
   SkPathCounter()
-    :  fNumSlowPathsAndDashEffects(0)
+    : fNumSlowPathsAndDashEffects(0)
   {
   }
   void checkPaint(const SkPaint* paint)
   {
-        if (paint && paint->getPathEffect()) {
+    if (paint && paint->getPathEffect())
+    {
             // Initially assume it's slow.
-            fNumSlowPathsAndDashEffects++;
-        }
+      fNumSlowPathsAndDashEffects++;
+    }
   }
   void operator()(const SkRecords::DrawPoints& op)
   {
-        this->checkPaint(&op.paint);
-        const SkPathEffect* effect = op.paint.getPathEffect();
-        if (effect) {
-            SkPathEffect::DashInfo info;
-            SkPathEffect::DashType dashType = effect->asADash(&info);
-            if (2 == op.count && SkPaint::kRound_Cap != op.paint.getStrokeCap() &&
-                SkPathEffect::kDash_DashType == dashType && 2 == info.fCount) {
-                fNumSlowPathsAndDashEffects--;
-            }
-        }
+    this->checkPaint(&op.paint);
+    const SkPathEffect* effect = op.paint.getPathEffect();
+    if (effect)
+    {
+      SkPathEffect::DashInfo info;
+      SkPathEffect::DashType dashType = effect->asADash(&info);
+      if (2 == op.count && SkPaint::kRound_Cap != op.paint.getStrokeCap() && SkPathEffect::kDash_DashType == dashType && 2 == info.fCount)
+      {
+        fNumSlowPathsAndDashEffects--;
+      }
+    }
   }
   void operator()(const SkRecords::DrawPath& op)
   {
-        this->checkPaint(&op.paint);
-        if (op.paint.isAntiAlias() && !op.path.isConvex()) {
-            SkPaint::Style paintStyle = op.paint.getStyle();
-            const SkRect& pathBounds = op.path.getBounds();
-            if (SkPaint::kStroke_Style == paintStyle &&
-                0 == op.paint.getStrokeWidth()) {
+    this->checkPaint(&op.paint);
+    if (op.paint.isAntiAlias() && !op.path.isConvex())
+    {
+      SkPaint::Style paintStyle = op.paint.getStyle();
+      const SkRect& pathBounds = op.path.getBounds();
+      if (SkPaint::kStroke_Style == paintStyle && 0 == op.paint.getStrokeWidth())
+      {
                 // AA hairline concave path is not slow.
-            } else if (SkPaint::kFill_Style == paintStyle && pathBounds.width() < 64.f &&
-                       pathBounds.height() < 64.f && !op.path.isVolatile()) {
+      }
+      else 
+      {
+        if (SkPaint::kFill_Style == paintStyle && pathBounds.width() < 64.f && pathBounds.height() < 64.f && !op.path.isVolatile())
+        {
                 // AADF eligible concave path is not slow.
-            } else {
-                fNumSlowPathsAndDashEffects++;
-            }
         }
+        else 
+        {
+          fNumSlowPathsAndDashEffects++;
+        }
+      }
+    }
   }
   void operator()(const SkRecords::ClipPath& op)
   {
         // TODO: does the SkRegion op matter?
-        if (op.opAA.aa() && !op.path.isConvex()) {
-            fNumSlowPathsAndDashEffects++;
-        }
+    if (op.opAA.aa() && !op.path.isConvex())
+    {
+      fNumSlowPathsAndDashEffects++;
+    }
   }
   void operator()(const SkRecords::SaveLayer& op)
   {
-        this->checkPaint(AsPtr(op.paint));
+    this->checkPaint(AsPtr(op.paint));
   }
   template <typename T>
   SK_WHEN(T::kTags & SkRecords::kHasPaint_Tag, void) operator()(const T& op)
   {
-        this->checkPaint(AsPtr(op.paint));
+    this->checkPaint(AsPtr(op.paint));
   }
   template <typename T>
   SK_WHEN(!(T::kTags & SkRecords::kHasPaint_Tag), void) operator()(const T& op)
   {
- /* do nothing */
   }
   int fNumSlowPathsAndDashEffects;
 };

@@ -20,13 +20,12 @@ class WXDLLIMPEXP_CORE wxGenericCollapsiblePane : public wxNavigationEnabled<wxC
 public:
   wxGenericCollapsiblePane()
   {
- Init();
+    Init();
   }
   wxGenericCollapsiblePane(wxWindow* parent, wxWindowID winid, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCP_DEFAULT_STYLE, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCollapsiblePaneNameStr))
   {
-        Init();
-
-        Create(parent, winid, label, pos, size, style, val, name);
+    Init();
+    Create(parent, winid, label, pos, size, style, val, name);
   }
   virtual ~wxGenericCollapsiblePane();
   bool Create(wxWindow* parent, wxWindowID winid, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCP_DEFAULT_STYLE, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCollapsiblePaneNameStr));
@@ -35,18 +34,18 @@ public:
   void SetLabel(const wxString& label) override;
   bool IsCollapsed() const override
   {
- return m_pPane==NULL || !m_pPane->IsShown();
+    return m_pPane == NULL || !m_pPane->IsShown();
   }
   wxWindow* GetPane() const override
   {
- return m_pPane;
+    return m_pPane;
   }
   wxString GetLabel() const override;
   bool Layout() override;
     // for the generic collapsible pane only:
   wxControl* GetControlWidget() const
   {
- return (wxControl*)m_pButton;
+    return (wxControl*) m_pButton;
   }
     // implementation only, don't use
   void OnStateChange(const wxSize& sizeNew);

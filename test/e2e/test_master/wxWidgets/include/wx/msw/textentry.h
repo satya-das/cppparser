@@ -32,7 +32,7 @@ public:
   long GetLastPosition() const override;
   void SetSelection(long from, long to) override
   {
- DoSetSelection(from, to);
+    DoSetSelection(from, to);
   }
   void GetSelection(long* from, long* to) const override;
   bool IsEditable() const override;

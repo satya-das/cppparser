@@ -171,7 +171,7 @@ namespace PoDoFo
         // Convenience inline for buffer switching
       PODOFO_NOTHROW inline char* GetRealBuffer()
       {
-            return m_bOnHeap? m_pHeapBuffer : &(m_sInternalBuffer[0]);
+        return m_bOnHeap ? m_pHeapBuffer : &(m_sInternalBuffer[0]);
       }
         // size in bytes of the buffer. If and only if this is strictly >INTERNAL_BUFSIZE,
         // this buffer is on the heap in memory pointed to by m_pHeapBuffer . If it is <=INTERNAL_BUFSIZE,
@@ -194,17 +194,16 @@ namespace PoDoFo
 // 
 // -----------------------------------------------------
   PdfRefCountedBuffer::PdfRefCountedBuffer()
-    :  m_pBuffer( NULL )
+    : m_pBuffer(NULL)
   {
-
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   PdfRefCountedBuffer::PdfRefCountedBuffer(size_t lSize)
-    :  m_pBuffer( NULL )
+    : m_pBuffer(NULL)
   {
-    this->Resize( lSize );
+    this->Resize(lSize);
   }
 // -----------------------------------------------------
 // 
@@ -212,10 +211,12 @@ namespace PoDoFo
 // We define the copy ctor separately to the assignment
 // operator since it's a *LOT* faster this way.
   PdfRefCountedBuffer::PdfRefCountedBuffer(const PdfRefCountedBuffer& rhs)
-    :  m_pBuffer( rhs.m_pBuffer )
+    : m_pBuffer(rhs.m_pBuffer)
   {
     if (m_pBuffer)
-        ++(m_pBuffer->m_lRefCount);
+    {
+      ++(m_pBuffer->m_lRefCount);
+    }
   }
 // -----------------------------------------------------
 // 
@@ -229,7 +230,10 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline char* PdfRefCountedBuffer::GetBuffer() const
   {
-    if (!m_pBuffer) return NULL;
+    if (!m_pBuffer)
+    {
+      return NULL;
+    }
     return m_pBuffer->GetRealBuffer();
   }
 // -----------------------------------------------------
@@ -244,8 +248,10 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline void PdfRefCountedBuffer::SetTakePossesion(bool bTakePossession)
   {
-    if( m_pBuffer )
-        m_pBuffer->m_bPossesion = bTakePossession;
+    if (m_pBuffer)
+    {
+      m_pBuffer->m_bPossesion = bTakePossession;
+    }
   }
 // -----------------------------------------------------
 // 
@@ -260,23 +266,25 @@ namespace PoDoFo
   inline void PdfRefCountedBuffer::Detach(size_t lExtraLen)
   {
     if (m_pBuffer && m_pBuffer->m_lRefCount > 1L)
-        ReallyDetach(lExtraLen);
+    {
+      ReallyDetach(lExtraLen);
+    }
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline void PdfRefCountedBuffer::Resize(size_t lSize)
   {
-    if (m_pBuffer && m_pBuffer->m_lRefCount == 1L  && static_cast<size_t>(m_pBuffer->m_lBufferSize) >= lSize)
+    if (m_pBuffer && m_pBuffer->m_lRefCount == 1L && static_cast<size_t>(m_pBuffer->m_lBufferSize) >= lSize)
     {
         // We have a solely owned buffer the right size already; no need to
         // waste any time detaching or resizing it. Just let the client see
         // more of it (or less if they're shrinking their view).
-        m_pBuffer->m_lVisibleSize = lSize;
+      m_pBuffer->m_lVisibleSize = lSize;
     }
-    else
+    else 
     {
-        ReallyResize( lSize );
+      ReallyResize(lSize);
     }
   }
 // -----------------------------------------------------
@@ -284,8 +292,10 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline void PdfRefCountedBuffer::DerefBuffer()
   {
-    if ( m_pBuffer && !(--m_pBuffer->m_lRefCount) )
-        FreeBuffer();
+    if (m_pBuffer && !(--m_pBuffer->m_lRefCount))
+    {
+      FreeBuffer();
+    }
     // Whether or not it still exists, we no longer have anything to do with
     // the buffer we just released our claim on.
     m_pBuffer = NULL;

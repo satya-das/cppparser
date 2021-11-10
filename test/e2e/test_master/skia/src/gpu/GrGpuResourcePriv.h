@@ -22,13 +22,13 @@ public:
      */
   void setUniqueKey(const GrUniqueKey& key)
   {
- fResource->setUniqueKey(key);
+    fResource->setUniqueKey(key);
   }
     /** Removes the unique key from a resource. If the resource has a scratch key, it may be
         preserved for recycling as scratch. */
   void removeUniqueKey()
   {
- fResource->removeUniqueKey();
+    fResource->removeUniqueKey();
   }
     /**
      * If the resource is uncached make it cached. Has no effect on resources that are wrapped or
@@ -36,7 +36,7 @@ public:
      */
   void makeBudgeted()
   {
- fResource->makeBudgeted();
+    fResource->makeBudgeted();
   }
     /**
      * If the resource is cached make it uncached. Has no effect on resources that are wrapped or
@@ -44,7 +44,7 @@ public:
      */
   void makeUnbudgeted()
   {
- fResource->makeUnbudgeted();
+    fResource->makeUnbudgeted();
   }
     /**
      * Get the resource's budgeted-type which indicates whether it counts against the resource cache
@@ -52,16 +52,15 @@ public:
      */
   GrBudgetedType budgetedType() const
   {
-        SkASSERT(GrBudgetedType::kBudgeted == fResource->fBudgetedType ||
-                 !fResource->getUniqueKey().isValid() || fResource->fRefsWrappedObjects);
-        return fResource->fBudgetedType;
+    SkASSERT(GrBudgetedType::kBudgeted == fResource->fBudgetedType || !fResource->getUniqueKey().isValid() || fResource->fRefsWrappedObjects);
+    return fResource->fBudgetedType;
   }
     /**
      * Is the resource object wrapping an externally allocated GPU resource?
      */
   bool refsWrappedObjects() const
   {
- return fResource->fRefsWrappedObjects;
+    return fResource->fRefsWrappedObjects;
   }
     /**
      * If this resource can be used as a scratch resource this returns a valid scratch key.
@@ -70,7 +69,7 @@ public:
      */
   const GrScratchKey& getScratchKey() const
   {
- return fResource->fScratchKey;
+    return fResource->fScratchKey;
   }
     /**
      * If the resource has a scratch key, the key will be removed. Since scratch keys are installed
@@ -78,24 +77,23 @@ public:
      */
   void removeScratchKey() const
   {
- fResource->removeScratchKey();
+    fResource->removeScratchKey();
   }
   bool isPurgeable() const
   {
- return fResource->isPurgeable();
+    return fResource->isPurgeable();
   }
   bool hasRef() const
   {
- return fResource->hasRef();
+    return fResource->hasRef();
   }
 protected:
   ResourcePriv(GrGpuResource* resource)
-    :  fResource(resource)
+    : fResource(resource)
   {
-
   }
   ResourcePriv(const ResourcePriv& that)
-    :  fResource(that.fResource)
+    : fResource(that.fResource)
   {
   }
   ResourcePriv& operator=(const CacheAccess&);
@@ -107,10 +105,10 @@ protected:
 };
 inline GrGpuResource::ResourcePriv GrGpuResource::resourcePriv()
 {
- return ResourcePriv(this);
+  return ResourcePriv(this);
 }
 inline const GrGpuResource::ResourcePriv GrGpuResource::resourcePriv() const
 {
-    return ResourcePriv(const_cast<GrGpuResource*>(this));
+  return ResourcePriv(const_cast<GrGpuResource*>(this));
 }
 #endif

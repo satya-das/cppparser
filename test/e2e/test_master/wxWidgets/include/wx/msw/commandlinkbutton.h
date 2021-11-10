@@ -19,14 +19,13 @@ class WXDLLIMPEXP_ADV wxCommandLinkButton : public wxGenericCommandLinkButton
 {
 public:
   wxCommandLinkButton()
-    :  wxGenericCommandLinkButton()
+    : wxGenericCommandLinkButton()
   {
-
   }
   wxCommandLinkButton(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
-    :  wxGenericCommandLinkButton()
+    : wxGenericCommandLinkButton()
   {
-        Create(parent, id, mainLabel, note, pos, size, style, validator, name);
+    Create(parent, id, mainLabel, note, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& mainLabel = wxEmptyString, const wxString& note = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
     // overridden base class methods
@@ -35,13 +34,14 @@ public:
     // do the same thing as in the generic case here
   void SetLabel(const wxString& label) override
   {
-        SetMainLabelAndNote(label.BeforeFirst('\n'), label.AfterFirst('\n'));
+    SetMainLabelAndNote(label.BeforeFirst('\n'), label.AfterFirst('\n'));
   }
   void SetMainLabelAndNote(const wxString& mainLabel, const wxString& note) override;
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
 protected:
   wxSize DoGetBestSize() const override;
   bool HasNativeBitmap() const override;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxCommandLinkButton);
 };
 #endif

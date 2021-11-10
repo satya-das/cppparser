@@ -17,7 +17,7 @@ namespace SkSL
   struct IRNode
   {
     IRNode(int offset)
-      :  fOffset(offset)
+      : fOffset(offset)
     {
     }
     virtual ~IRNode()

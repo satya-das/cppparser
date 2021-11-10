@@ -24,29 +24,29 @@ struct SkOTTableGlyph
   {
   public:
     Iterator(const SkOTTableGlyph& glyf, const SkOTTableIndexToLocation& loca, SkOTTableHead::IndexToLocFormat locaFormat)
-      :  fGlyf(glyf)
-        , fLocaFormat(SkOTTableHead::IndexToLocFormat::ShortOffsets == locaFormat.value ? 0 : 1)
-        , fCurrentGlyphOffset(0)
+      : fGlyf(glyf)
+      , fLocaFormat(SkOTTableHead::IndexToLocFormat::ShortOffsets == locaFormat.value ? 0 : 1)
+      , fCurrentGlyphOffset(0)
     {
- fLocaPtr.shortOffset = reinterpret_cast<const SK_OT_USHORT*>(&loca);
+      fLocaPtr.shortOffset = reinterpret_cast<const SK_OT_USHORT*>(&loca);
     }
     void advance(uint16_t num)
     {
-            fLocaPtr.shortOffset += num << fLocaFormat;
-            fCurrentGlyphOffset = fLocaFormat ? SkEndian_SwapBE32(*fLocaPtr.longOffset)
-                                              : uint32_t(SkEndian_SwapBE16(*fLocaPtr.shortOffset) << 1);
+      fLocaPtr.shortOffset += num << fLocaFormat;
+      fCurrentGlyphOffset = fLocaFormat ? SkEndian_SwapBE32(*fLocaPtr.longOffset) : uint32_t(SkEndian_SwapBE16(*fLocaPtr.shortOffset) << 1);
     }
     const SkOTTableGlyphData* next()
     {
-            uint32_t previousGlyphOffset = fCurrentGlyphOffset;
-            advance(1);
-            if (previousGlyphOffset == fCurrentGlyphOffset) {
-                return reinterpret_cast<const SkOTTableGlyphData*>(&SK_OT_GlyphData_NoOutline);
-            } else {
-                return reinterpret_cast<const SkOTTableGlyphData*>(
-                    reinterpret_cast<const SK_OT_BYTE*>(&fGlyf) + previousGlyphOffset
-                );
-            }
+      uint32_t previousGlyphOffset = fCurrentGlyphOffset;
+      advance(1);
+      if (previousGlyphOffset == fCurrentGlyphOffset)
+      {
+        return reinterpret_cast<const SkOTTableGlyphData*>(&SK_OT_GlyphData_NoOutline);
+      }
+      else 
+      {
+        return reinterpret_cast<const SkOTTableGlyphData*>(reinterpret_cast<const SK_OT_BYTE*>(&fGlyf) + previousGlyphOffset);
+      }
     }
   private:
     const SkOTTableGlyph& fGlyf;

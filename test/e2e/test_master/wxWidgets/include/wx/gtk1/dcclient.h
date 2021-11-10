@@ -26,11 +26,11 @@ public:
   virtual ~wxWindowDCImpl();
   virtual bool CanDrawBitmap() const
   {
- return true;
+    return true;
   }
   virtual bool CanGetTextExtent() const
   {
- return true;
+    return true;
   }
 protected:
   virtual void DoGetSize(int* width, int* height) const;
@@ -73,7 +73,7 @@ public:
   virtual int GetDepth() const;
   virtual GdkWindow* GetGDKWindow() const
   {
- return m_window;
+    return m_window;
   }
     // implementation
     // --------------
@@ -93,7 +93,7 @@ public:
   virtual void ComputeScaleAndOrigin();
   GdkWindow* GetWindow()
   {
- return m_window;
+    return m_window;
   }
 private:
   wxDECLARE_DYNAMIC_CLASS(wxWindowDCImpl);
@@ -105,9 +105,8 @@ class WXDLLIMPEXP_CORE wxClientDCImpl : public wxWindowDCImpl
 {
 public:
   wxClientDCImpl(wxDC* owner)
-    :  wxWindowDCImpl(owner)
+    : wxWindowDCImpl(owner)
   {
-
   }
   wxClientDCImpl(wxDC* owner, wxWindow* win);
 protected:
@@ -122,9 +121,8 @@ class WXDLLIMPEXP_CORE wxPaintDCImpl : public wxClientDCImpl
 {
 public:
   wxPaintDCImpl(wxDC* owner)
-    :  wxClientDCImpl(owner)
+    : wxClientDCImpl(owner)
   {
-
   }
   wxPaintDCImpl(wxDC* owner, wxWindow* win);
 private:

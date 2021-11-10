@@ -42,8 +42,8 @@ public:
     /// </remarks>
   AcNameValuePair()
   {
-        m_pName = NULL;
-        m_pValue = NULL;
+    m_pName = NULL;
+    m_pValue = NULL;
   }
     /// <summary>
     /// destructor
@@ -51,10 +51,14 @@ public:
     ///
   ~AcNameValuePair()
   {
-        if (NULL != m_pName)
-            delete [] m_pName;
-        if (NULL != m_pValue)
-            delete [] m_pValue;
+    if (NULL != m_pName)
+    {
+      delete[] m_pName;
+    }
+    if (NULL != m_pValue)
+    {
+      delete[] m_pValue;
+    }
   }
     /// <summary>
     /// constructs a name value pair from a name and a value
@@ -70,21 +74,28 @@ public:
     ///
   AcNameValuePair(const ACHAR* name, const ACHAR* value)
   {
-        if (NULL != name) {
-            size_t nSize = ::wcslen(name) + 1;
-            m_pName = new ACHAR[nSize];
-            errno_t err = ::wcscpy_s(m_pName, nSize, name);
-            assert(err == 0);
-        } else
-            m_pName = NULL;
-        
-        if (NULL != value) {
-            size_t nSize = ::wcslen(value) + 1;
-            m_pValue = new ACHAR[nSize];
-            errno_t err = ::wcscpy_s(m_pValue, nSize, value);
-            assert(err == 0);
-        } else
-            m_pValue = NULL;
+    if (NULL != name)
+    {
+      size_t nSize = ::wcslen(name) + 1;
+      m_pName = new ACHAR[nSize];
+      errno_t err = ::wcscpy_s(m_pName, nSize, name);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_pName = NULL;
+    }
+    if (NULL != value)
+    {
+      size_t nSize = ::wcslen(value) + 1;
+      m_pValue = new ACHAR[nSize];
+      errno_t err = ::wcscpy_s(m_pValue, nSize, value);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_pValue = NULL;
+    }
   }
     /// <summary>
     /// Copy constructor
@@ -95,10 +106,10 @@ public:
     /// </param>
     ///
   AcNameValuePair(const AcNameValuePair& src)
-    :  m_pName(NULL),
-      m_pValue(NULL)
+    : m_pName(NULL)
+    , m_pValue(NULL)
   {
-        *this = src;
+    *this = src;
   }
     /// <summary>
     /// accessor for the item name
@@ -109,7 +120,7 @@ public:
     /// </returns>
   const ACHAR* name() const
   {
-return m_pName;
+    return m_pName;
   }
     /// <summary>
     /// accessor for the item value
@@ -120,7 +131,7 @@ return m_pName;
     /// </returns>
   const ACHAR* value() const
   {
-return m_pValue;
+    return m_pValue;
   }
     /// <summary>
     /// mutator for the item name
@@ -131,15 +142,21 @@ return m_pValue;
     /// </param>
   void setName(const ACHAR* name)
   {
-        if (NULL != m_pName)
-            delete [] m_pName;
-        if (NULL != name) {
-            size_t nSize = ::wcslen(name) + 1;
-            m_pName = new ACHAR[nSize];
-            errno_t err = ::wcscpy_s(m_pName, nSize, name);
-            assert(err == 0);
-        } else
-            m_pName = NULL;
+    if (NULL != m_pName)
+    {
+      delete[] m_pName;
+    }
+    if (NULL != name)
+    {
+      size_t nSize = ::wcslen(name) + 1;
+      m_pName = new ACHAR[nSize];
+      errno_t err = ::wcscpy_s(m_pName, nSize, name);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_pName = NULL;
+    }
   }
     /// <summary>
     /// mutator for the item value
@@ -150,15 +167,21 @@ return m_pValue;
     /// </param>
   void setValue(const ACHAR* value)
   {
-        if (NULL != m_pValue)
-            delete [] m_pValue;
-        if (NULL != value) {
-            size_t nSize = ::wcslen(value) + 1;
-            m_pValue = new ACHAR[nSize];
-            errno_t err = ::wcscpy_s(m_pValue, nSize, value);
-            assert(err == 0);
-        } else
-            m_pValue = NULL;
+    if (NULL != m_pValue)
+    {
+      delete[] m_pValue;
+    }
+    if (NULL != value)
+    {
+      size_t nSize = ::wcslen(value) + 1;
+      m_pValue = new ACHAR[nSize];
+      errno_t err = ::wcscpy_s(m_pValue, nSize, value);
+      assert(err == 0);
+    }
+    else 
+    {
+      m_pValue = NULL;
+    }
   }
     /// <summary>
     /// operator= also used by copy constructor
@@ -173,12 +196,13 @@ return m_pValue;
     /// </returns>
   AcNameValuePair& operator=(const AcNameValuePair& src)
   {
-        if (this == &src)
-            return *this;
-
-        setName(src.m_pName);
-        setValue(src.m_pValue);
-        return *this;
+    if (this == &src)
+    {
+      return *this;
+    }
+    setName(src.m_pName);
+    setValue(src.m_pValue);
+    return *this;
   }
 private:
     // TODO: Should we upgrade to use XML instead of INI?

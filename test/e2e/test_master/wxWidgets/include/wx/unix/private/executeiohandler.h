@@ -21,42 +21,40 @@ class wxExecuteIOHandlerBase : public T
 {
 public:
   wxExecuteIOHandlerBase(int fd, wxStreamTempInputBuffer& buf)
-    :  m_fd(fd),
-          m_buf(buf)
+    : m_fd(fd)
+    , m_buf(buf)
   {
-        m_callbackDisabled = false;
+    m_callbackDisabled = false;
   }
     // Called when the associated descriptor is available for reading.
   void OnReadWaiting() override
   {
         // Sync process, process all data coming at us from the pipe so that
         // the pipe does not get full and cause a deadlock situation.
-        m_buf.Update();
-
-        if ( m_buf.Eof() )
-            DisableCallback();
+    m_buf.Update();
+    if (m_buf.Eof())
+    {
+      DisableCallback();
+    }
   }
     // These methods are never called as we only monitor the associated FD for
     // reading, but we still must implement them as they're pure virtual in the
     // base class.
   void OnWriteWaiting() override
   {
-
   }
   void OnExceptionWaiting() override
   {
-
   }
     // Disable any future calls to our OnReadWaiting(), can be called when
     // we're sure that no more input is forthcoming.
   void DisableCallback()
   {
-        if ( !m_callbackDisabled )
-        {
-            m_callbackDisabled = true;
-
-            DoDisable();
-        }
+    if (!m_callbackDisabled)
+    {
+      m_callbackDisabled = true;
+      DoDisable();
+    }
   }
 protected:
   const int m_fd;
@@ -73,19 +71,19 @@ class wxExecuteFDIOHandler : public wxExecuteIOHandlerBase<wxFDIOHandler>
 {
 public:
   wxExecuteFDIOHandler(wxFDIODispatcher& dispatcher, int fd, wxStreamTempInputBuffer& buf)
-    :  wxExecuteIOHandlerBase<wxFDIOHandler>(fd, buf),
-          m_dispatcher(dispatcher)
+    : wxExecuteIOHandlerBase<wxFDIOHandler>(fd, buf)
+    , m_dispatcher(dispatcher)
   {
-        dispatcher.RegisterFD(fd, this, wxFDIO_INPUT);
+    dispatcher.RegisterFD(fd, this, wxFDIO_INPUT);
   }
   virtual ~wxExecuteFDIOHandler()
   {
-        DisableCallback();
+    DisableCallback();
   }
 private:
   void DoDisable() override
   {
-        m_dispatcher.UnregisterFD(m_fd);
+    m_dispatcher.UnregisterFD(m_fd);
   }
   wxFDIODispatcher& m_dispatcher;
   wxDECLARE_NO_COPY_CLASS(wxExecuteFDIOHandler);
@@ -97,19 +95,19 @@ class wxExecuteEventLoopSourceHandler : public wxExecuteIOHandlerBase<wxEventLoo
 {
 public:
   wxExecuteEventLoopSourceHandler(int fd, wxStreamTempInputBuffer& buf)
-    :  wxExecuteIOHandlerBase<wxEventLoopSourceHandler>(fd, buf)
+    : wxExecuteIOHandlerBase<wxEventLoopSourceHandler>(fd, buf)
   {
-        m_source = wxEventLoop::AddSourceForFD(fd, this, wxEVENT_SOURCE_INPUT);
+    m_source = wxEventLoop::AddSourceForFD(fd, this, wxEVENT_SOURCE_INPUT);
   }
   virtual ~wxExecuteEventLoopSourceHandler()
   {
-        DisableCallback();
+    DisableCallback();
   }
 private:
   void DoDisable() override
   {
-        delete m_source;
-        m_source = NULL;
+    delete m_source;
+    m_source = NULL;
   }
   wxEventLoopSource* m_source;
   wxDECLARE_NO_COPY_CLASS(wxExecuteEventLoopSourceHandler);

@@ -87,7 +87,7 @@ protected:
 //
 inline Acad::ErrorStatus AcDbLayout::getLayoutName(ACHAR*& layoutName) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbLayout::getName, layoutName);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbLayout::getName, layoutName);
 }
 #  pragma  pack(pop)
 #endif

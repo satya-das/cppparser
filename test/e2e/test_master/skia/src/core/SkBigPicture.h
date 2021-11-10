@@ -23,20 +23,24 @@ public:
   {
   public:
     SnapshotArray(const SkPicture* pics[], int count)
-      :  fPics(pics), fCount(count)
+      : fPics(pics)
+      , fCount(count)
     {
     }
     ~SnapshotArray()
     {
- for (int i = 0; i < fCount; i++) { fPics[i]->unref(); }
+      for (int i = 0; i < fCount; i++)
+      {
+        fPics[i]->unref();
+      }
     }
     const SkPicture* const * begin() const
     {
- return fPics;
+      return fPics;
     }
     int count() const
     {
- return fCount;
+      return fCount;
     }
   private:
     SkAutoTMalloc<const SkPicture*> fPics;
@@ -50,18 +54,18 @@ public:
   size_t approximateBytesUsed() const override;
   const SkBigPicture* asSkBigPicture() const override
   {
- return this;
+    return this;
   }
 // Used by GrLayerHoister
   void partialPlayback(SkCanvas*, int start, int stop, const SkMatrix& initialCTM) const;
 // Used by GrRecordReplaceDraw
   const SkBBoxHierarchy* bbh() const
   {
- return fBBH.get();
+    return fBBH.get();
   }
   const SkRecord* record() const
   {
- return fRecord.get();
+    return fRecord.get();
   }
 private:
   int drawableCount() const;

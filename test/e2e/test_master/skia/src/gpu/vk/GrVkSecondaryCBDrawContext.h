@@ -83,7 +83,7 @@ public:
   void releaseResources();
   const SkSurfaceProps& props() const
   {
- return fProps;
+    return fProps;
   }
     // TODO: Fill out these calls to support DDL
   bool characterize(SkSurfaceCharacterization* characterization) const;

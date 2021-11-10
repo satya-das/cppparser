@@ -15,15 +15,15 @@ class WXDLLIMPEXP_CORE wxGTKTimerImpl : public wxTimerImpl
 {
 public:
   wxGTKTimerImpl(wxTimer* timer)
-    :  wxTimerImpl(timer)
+    : wxTimerImpl(timer)
   {
- m_tag = -1;
+    m_tag = -1;
   }
   virtual bool Start(int millisecs = -1, bool oneShot = FALSE);
   virtual void Stop();
   virtual bool IsRunning() const
   {
- return m_tag != -1;
+    return m_tag != -1;
   }
 private:
     // registered timeout id, -1 if the timer isn't running

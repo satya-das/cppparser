@@ -67,96 +67,98 @@ private:
 // inlines
 inline AcDb::SubentType AcDbSubentId::type() const
 {
-    return mType;
+  return mType;
 }
 inline void AcDbSubentId::setType(AcDb::SubentType type)
 {
-    mType = type;
-    if (mType != AcDb::kClassSubentType)
-        mpTypeClass = nullptr;
+  mType = type;
+  if (mType != AcDb::kClassSubentType)
+  {
+    mpTypeClass = nullptr;
+  }
 }
 inline Adesk::GsMarker AcDbSubentId::index() const
 {
-    return mIndex;
+  return mIndex;
 }
 inline void AcDbSubentId::setIndex(Adesk::GsMarker index)
 {
-    mIndex = index;
+  mIndex = index;
 }
 inline AcRxClass* AcDbSubentId::typeClass() const
 {
-    return mpTypeClass;
+  return mpTypeClass;
 }
 inline void AcDbSubentId::setTypeClass(AcRxClass* pTypeClass)
 {
-    mpTypeClass = pTypeClass;
-    if (mpTypeClass != nullptr)
-        mType = AcDb::kClassSubentType;
+  mpTypeClass = pTypeClass;
+  if (mpTypeClass != nullptr)
+  {
+    mType = AcDb::kClassSubentType;
+  }
 }
 inline AcDbSubentId::AcDbSubentId()
-  :  mType(AcDb::kNullSubentType), mIndex(kNullSubentIndex), mpTypeClass(nullptr)
+  : mType(AcDb::kNullSubentType)
+  , mIndex(kNullSubentIndex)
+  , mpTypeClass(nullptr)
 {
-
 }
 inline AcDbSubentId::AcDbSubentId(AcDb::SubentType t, Adesk::GsMarker i)
-  :  mType(t), mIndex(i), mpTypeClass(nullptr)
+  : mType(t)
+  , mIndex(i)
+  , mpTypeClass(nullptr)
 {
-
 }
 inline AcDbSubentId::AcDbSubentId(AcRxClass* pTypeClass, Adesk::GsMarker i)
-  :  mType(AcDb::kClassSubentType), mIndex(i), mpTypeClass(pTypeClass)
+  : mType(AcDb::kClassSubentType)
+  , mIndex(i)
+  , mpTypeClass(pTypeClass)
 {
-
 }
 inline bool AcDbSubentId::operator ==(const AcDbSubentId& id) const
 {
-    return ((mIndex == id.mIndex) 
-            && (mType == id.mType) 
-            && (mpTypeClass == id.mpTypeClass));
+  return ((mIndex == id.mIndex) && (mType == id.mType) && (mpTypeClass == id.mpTypeClass));
 }
 inline bool AcDbSubentId::operator !=(const AcDbSubentId& id) const
 {
-    return ((mIndex != id.mIndex) 
-            || (mType != id.mType)
-            || (mpTypeClass != id.mpTypeClass));
+  return ((mIndex != id.mIndex) || (mType != id.mType) || (mpTypeClass != id.mpTypeClass));
 }
 inline AcDbFullSubentPath::AcDbFullSubentPath()
-  :  mpUserAppData(NULL)
+  : mpUserAppData(NULL)
 {
-
 }
 inline AcDbFullSubentPath::AcDbFullSubentPath(AcDb::SubentType type, Adesk::GsMarker index)
-  :  mSubentId(type, index), mpUserAppData(NULL)
+  : mSubentId(type, index)
+  , mpUserAppData(NULL)
 {
-
 }
 inline void AcDbFullSubentPath::objectIds(AcDbObjectIdArray& objectIds) const
 {
-    objectIds = mObjectIds;
+  objectIds = mObjectIds;
 }
 inline AcDbObjectIdArray& AcDbFullSubentPath::objectIds()
 {
-    return mObjectIds;
+  return mObjectIds;
 }
 inline const AcDbObjectIdArray& AcDbFullSubentPath::objectIds() const
 {
-    return mObjectIds;
+  return mObjectIds;
 }
 inline const AcDbSubentId AcDbFullSubentPath::subentId() const
 {
-    return mSubentId;
+  return mSubentId;
 }
 inline AcDbSubentId& AcDbFullSubentPath::subentId()
 {
-    return mSubentId;
+  return mSubentId;
 }
 inline void* AcDbFullSubentPath::userAppData() const
 {
-    return mpUserAppData;
+  return mpUserAppData;
 }
 inline void AcDbFullSubentPath::setUserAppData(void* pData)
 {
-    mpUserAppData = pData;
+  mpUserAppData = pData;
 }
 #  pragma  pack (pop)
 #endif

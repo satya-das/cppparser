@@ -17,7 +17,7 @@ class GrGLRenderTarget : public GrRenderTarget
 public:
   bool alwaysClearStencil() const override
   {
- return 0 == fRTFBOID;
+    return 0 == fRTFBOID;
   }
     // set fTexFBOID to this value to indicate that it is multisampled but
     // Gr doesn't know how to resolve it.
@@ -37,12 +37,12 @@ public:
     // FBO ID used to render into
   GrGLuint renderFBOID() const
   {
- return fRTFBOID;
+    return fRTFBOID;
   }
     // FBO ID that has texture ID attached.
   GrGLuint textureFBOID() const
   {
- return fTexFBOID;
+    return fTexFBOID;
   }
   GrBackendRenderTarget getBackendRenderTarget() const override;
   GrBackendFormat backendFormat() const override;
@@ -52,7 +52,7 @@ public:
   void dumpMemoryStatistics(SkTraceMemoryDump* traceMemoryDump) const override;
   GrGLFormat format() const
   {
- return fRTFormat;
+    return fRTFormat;
   }
 protected:
     // Constructor for subclasses.
@@ -62,7 +62,7 @@ protected:
   void onRelease() override;
   int numSamplesOwnedPerPixel() const
   {
- return fNumSamplesOwnedPerPixel;
+    return fNumSamplesOwnedPerPixel;
   }
 private:
     // Constructor for instances wrapping backend objects.

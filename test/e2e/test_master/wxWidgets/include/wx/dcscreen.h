@@ -17,15 +17,15 @@ public:
   wxScreenDC();
   static bool StartDrawingOnTop(wxWindow*)
   {
- return true;
+    return true;
   }
   static bool StartDrawingOnTop(wxRect* = NULL)
   {
- return true;
+    return true;
   }
   static bool EndDrawingOnTop()
   {
- return true;
+    return true;
   }
 private:
   wxDECLARE_DYNAMIC_CLASS(wxScreenDC);

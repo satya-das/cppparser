@@ -20,8 +20,8 @@ struct Sk4fGradientInterval
   {
         // True if t is in [p0,p1].  Note: this helper assumes a
         // natural/increasing interval - so it's not usable in Sk4fLinearGradient.
-        SkASSERT(fT0 < fT1);
-        return t >= fT0 && t <= fT1;
+    SkASSERT(fT0 < fT1);
+    return t >= fT0 && t <= fT1;
   }
     // Color bias and color gradient, such that for a t in this interval
     //
@@ -38,7 +38,7 @@ public:
   using BufferType = SkSTArray<8, Sk4fGradientInterval, true>;
   const BufferType* operator->() const
   {
- return &fIntervals;
+    return &fIntervals;
   }
 private:
   BufferType fIntervals;
@@ -49,7 +49,7 @@ public:
   GradientShaderBase4fContext(const SkGradientShaderBase&, const ContextRec&);
   uint32_t getFlags() const override
   {
- return fFlags;
+    return fFlags;
   }
   bool isValid() const;
 protected:

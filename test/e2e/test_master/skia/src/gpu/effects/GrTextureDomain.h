@@ -41,9 +41,8 @@ public:
   static const int kModeCount = kLastMode + 1;
   static const GrTextureDomain& IgnoredDomain()
   {
-        static const GrTextureDomain gDomain((GrTextureProxy*)nullptr,
-                                             SkRect::MakeEmpty(), kIgnore_Mode, kIgnore_Mode);
-        return gDomain;
+    static const GrTextureDomain gDomain((GrTextureProxy*) nullptr, SkRect::MakeEmpty(), kIgnore_Mode, kIgnore_Mode);
+    return gDomain;
   }
     /**
      * @param index     Pass a value >= 0 if using multiple texture domains in the same effect.
@@ -53,15 +52,15 @@ public:
   GrTextureDomain(const GrTextureDomain&);
   const SkRect& domain() const
   {
- return fDomain;
+    return fDomain;
   }
   Mode modeX() const
   {
- return fModeX;
+    return fModeX;
   }
   Mode modeY() const
   {
- return fModeY;
+    return fModeY;
   }
     /*
      * Computes a domain that bounds all the texels in texelRect, possibly insetting by half a pixel
@@ -69,42 +68,32 @@ public:
      */
   static const SkRect MakeTexelDomain(const SkIRect& texelRect, Mode mode)
   {
-        return MakeTexelDomain(texelRect, mode, mode);
+    return MakeTexelDomain(texelRect, mode, mode);
   }
   static const SkRect MakeTexelDomain(const SkIRect& texelRect, Mode modeX, Mode modeY)
   {
         // For Clamp and decal modes, inset by half a texel
-        SkScalar insetX = ((modeX == kClamp_Mode || modeX == kDecal_Mode) && texelRect.width() > 0)
-                ? SK_ScalarHalf : 0;
-        SkScalar insetY = ((modeY == kClamp_Mode || modeY == kDecal_Mode) && texelRect.height() > 0)
-                ? SK_ScalarHalf : 0;
-        return SkRect::MakeLTRB(texelRect.fLeft + insetX, texelRect.fTop + insetY,
-                                texelRect.fRight - insetX, texelRect.fBottom - insetY);
+    SkScalar insetX = ((modeX == kClamp_Mode || modeX == kDecal_Mode) && texelRect.width() > 0) ? SK_ScalarHalf : 0;
+    SkScalar insetY = ((modeY == kClamp_Mode || modeY == kDecal_Mode) && texelRect.height() > 0) ? SK_ScalarHalf : 0;
+    return SkRect::MakeLTRB(texelRect.fLeft + insetX, texelRect.fTop + insetY, texelRect.fRight - insetX, texelRect.fBottom - insetY);
   }
     // Convenience to determine if any axis of a texture uses an explicit decal mode or the hardware
     // clamp to border decal mode.
   static bool IsDecalSampled(GrSamplerState::WrapMode wrapX, GrSamplerState::WrapMode wrapY, Mode modeX, Mode modeY)
   {
-        return wrapX == GrSamplerState::WrapMode::kClampToBorder ||
-               wrapY == GrSamplerState::WrapMode::kClampToBorder ||
-               modeX == kDecal_Mode ||
-               modeY == kDecal_Mode;
+    return wrapX == GrSamplerState::WrapMode::kClampToBorder || wrapY == GrSamplerState::WrapMode::kClampToBorder || modeX == kDecal_Mode || modeY == kDecal_Mode;
   }
   static bool IsDecalSampled(const GrSamplerState::WrapMode wraps[2], Mode modeX, Mode modeY)
   {
-        return IsDecalSampled(wraps[0], wraps[1], modeX, modeY);
+    return IsDecalSampled(wraps[0], wraps[1], modeX, modeY);
   }
   static bool IsDecalSampled(const GrSamplerState& sampler, Mode modeX, Mode modeY)
   {
-        return IsDecalSampled(sampler.wrapModeX(), sampler.wrapModeY(), modeX, modeY);
+    return IsDecalSampled(sampler.wrapModeX(), sampler.wrapModeY(), modeX, modeY);
   }
   bool operator==(const GrTextureDomain& that) const
   {
-        return fModeX == that.fModeX && fModeY == that.fModeY &&
-               (kIgnore_Mode == fModeX || (fDomain.fLeft == that.fDomain.fLeft &&
-                                           fDomain.fRight == that.fDomain.fRight)) &&
-               (kIgnore_Mode == fModeY || (fDomain.fTop == that.fDomain.fTop &&
-                                           fDomain.fBottom == that.fDomain.fBottom));
+    return fModeX == that.fModeX && fModeY == that.fModeY && (kIgnore_Mode == fModeX || (fDomain.fLeft == that.fDomain.fLeft && fDomain.fRight == that.fDomain.fRight)) && (kIgnore_Mode == fModeY || (fDomain.fTop == that.fDomain.fTop && fDomain.fBottom == that.fDomain.fBottom));
   }
     /**
      * A GrGLSLFragmentProcessor subclass that corresponds to a GrProcessor subclass that uses
@@ -117,9 +106,10 @@ public:
   public:
     GLDomain()
     {
-            for (int i = 0; i < kPrevDomainCount; i++) {
-                fPrevDomain[i] = SK_FloatNaN;
-            }
+      for (int i = 0; i < kPrevDomainCount; i++)
+      {
+        fPrevDomain[i] = SK_FloatNaN;
+      }
     }
         /**
          * Call this from GrGLSLFragmentProcessor::emitCode() to sample the texture W.R.T. the
@@ -148,8 +138,8 @@ public:
          */
     static uint32_t DomainKey(const GrTextureDomain& domain)
     {
-            GR_STATIC_ASSERT(kModeCount <= (1 << kModeBits));
-            return domain.modeX() | (domain.modeY() << kModeBits);
+      GR_STATIC_ASSERT(kModeCount <= (1 << kModeBits));
+      return domain.modeX() | (domain.modeY() << kModeBits);
     }
   private:
     static const int kPrevDomainCount = 4;
@@ -176,21 +166,19 @@ public:
   static std::unique_ptr<GrFragmentProcessor> Make(sk_sp<GrTextureProxy>, const SkMatrix&, const SkRect& domain, GrTextureDomain::Mode modeX, GrTextureDomain::Mode modeY, const GrSamplerState& sampler);
   const char* name() const override
   {
- return "TextureDomain";
+    return "TextureDomain";
   }
   std::unique_ptr<GrFragmentProcessor> clone() const override
   {
-        return std::unique_ptr<GrFragmentProcessor>(new GrTextureDomainEffect(*this));
+    return std::unique_ptr<GrFragmentProcessor>(new GrTextureDomainEffect(*this));
   }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
-        SkString str;
-        str.appendf("Domain: [L: %.2f, T: %.2f, R: %.2f, B: %.2f]",
-                    fTextureDomain.domain().fLeft, fTextureDomain.domain().fTop,
-                    fTextureDomain.domain().fRight, fTextureDomain.domain().fBottom);
-        str.append(INHERITED::dumpInfo());
-        return str;
+    SkString str;
+    str.appendf("Domain: [L: %.2f, T: %.2f, R: %.2f, B: %.2f]", fTextureDomain.domain().fLeft, fTextureDomain.domain().fTop, fTextureDomain.domain().fRight, fTextureDomain.domain().fBottom);
+    str.append(INHERITED::dumpInfo());
+    return str;
   }
 #  endif
 private:
@@ -204,7 +192,7 @@ private:
   bool onIsEqual(const GrFragmentProcessor&) const override;
   const TextureSampler& onTextureSampler(int) const override
   {
- return fTextureSampler;
+    return fTextureSampler;
   }
   GR_DECLARE_FRAGMENT_PROCESSOR_TEST
   typedef GrFragmentProcessor INHERITED;
@@ -215,18 +203,15 @@ public:
   static std::unique_ptr<GrFragmentProcessor> Make(sk_sp<GrTextureProxy>, const SkIRect& subset, const SkIPoint& deviceSpaceOffset);
   const char* name() const override
   {
- return "GrDeviceSpaceTextureDecalFragmentProcessor";
+    return "GrDeviceSpaceTextureDecalFragmentProcessor";
   }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
-        SkString str;
-        str.appendf("Domain: [L: %.2f, T: %.2f, R: %.2f, B: %.2f] Offset: [%d %d]",
-                    fTextureDomain.domain().fLeft, fTextureDomain.domain().fTop,
-                    fTextureDomain.domain().fRight, fTextureDomain.domain().fBottom,
-                    fDeviceSpaceOffset.fX, fDeviceSpaceOffset.fY);
-        str.append(INHERITED::dumpInfo());
-        return str;
+    SkString str;
+    str.appendf("Domain: [L: %.2f, T: %.2f, R: %.2f, B: %.2f] Offset: [%d %d]", fTextureDomain.domain().fLeft, fTextureDomain.domain().fTop, fTextureDomain.domain().fRight, fTextureDomain.domain().fBottom, fDeviceSpaceOffset.fX, fDeviceSpaceOffset.fY);
+    str.append(INHERITED::dumpInfo());
+    return str;
   }
 #  endif
   std::unique_ptr<GrFragmentProcessor> clone() const override;
@@ -244,7 +229,7 @@ private:
   bool onIsEqual(const GrFragmentProcessor& fp) const override;
   const TextureSampler& onTextureSampler(int) const override
   {
- return fTextureSampler;
+    return fTextureSampler;
   }
   GR_DECLARE_FRAGMENT_PROCESSOR_TEST
   typedef GrFragmentProcessor INHERITED;

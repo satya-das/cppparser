@@ -11,14 +11,8 @@
 #  define sk_types_DEFINED
 #  include <stdint.h>
 #  include <stddef.h>
-#  ifdef __cplusplus
-#    define SK_C_PLUS_PLUS_BEGIN_GUARD	extern "C" {
-#    define SK_C_PLUS_PLUS_END_GUARD	}
-#  else 
-#    include <stdbool.h>
-#    define SK_C_PLUS_PLUS_BEGIN_GUARD
-#    define SK_C_PLUS_PLUS_END_GUARD
-#  endif
+#  define SK_C_PLUS_PLUS_BEGIN_GUARD	extern "C" {
+#  define SK_C_PLUS_PLUS_END_GUARD	}
 #  if  !defined(SK_API)
 #    if  defined(SKIA_DLL)
 #      if  defined(_MSC_VER)

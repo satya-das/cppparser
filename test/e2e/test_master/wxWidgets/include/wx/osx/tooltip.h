@@ -22,13 +22,13 @@ public:
   void SetTip(const wxString& tip);
   const wxString& GetTip() const
   {
- return m_text;
+    return m_text;
   }
         // the window we're associated with
   void SetWindow(wxWindow* win);
   wxWindow* GetWindow() const
   {
- return m_window;
+    return m_window;
   }
     // controlling tooltip behaviour: globally change tooltip parameters
         // enable or disable the tooltips globally

@@ -30,13 +30,12 @@ public:
     // construction
   wxNonOwnedWindow()
   {
- Init();
+    Init();
   }
   wxNonOwnedWindow(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr));
   virtual ~wxNonOwnedWindow();
@@ -50,13 +49,13 @@ public:
   void OnInternalIdle();
   wxIDirectFBWindowPtr GetDirectFBWindow() const
   {
- return m_dfbwin;
+    return m_dfbwin;
   }
     // Returns true if some invalidated area of the TLW is currently being
     // painted
   bool IsPainting() const
   {
- return m_isPainting;
+    return m_isPainting;
   }
 protected:
     // common part of all ctors

@@ -26,16 +26,12 @@ WXDLLIMPEXP_BASE wxTextOutputStream& endl(wxTextOutputStream& stream);
 // with whitespace (i.e. usually a newline).
 class WXDLLIMPEXP_BASE wxTextInputStream
 {
-#    if  wxUSE_UNICODE
 public:
   wxTextInputStream(wxInputStream& s, const wxString& sep = wxT(" \t"), const wxMBConv& conv = wxConvAuto());
-#    else 
-  wxTextInputStream(wxInputStream& s, const wxString& sep = wxT(" \t"));
-#    endif
   ~wxTextInputStream();
   const wxInputStream& GetInputStream() const
   {
- return m_input;
+    return m_input;
   }
     // base may be between 2 and 36, inclusive, or the special 0 (= C format)
   wxUint64 Read64(int base = 10);
@@ -52,11 +48,11 @@ public:
   wxChar GetChar();
   wxString GetStringSeparators() const
   {
- return m_separators;
+    return m_separators;
   }
   void SetStringSeparators(const wxString& c)
   {
- m_separators = c;
+    m_separators = c;
   }
     // Operators
   wxTextInputStream& operator>>(wxString& word);
@@ -74,7 +70,7 @@ public:
   wxTextInputStream& operator>>(float& f);
   wxTextInputStream& operator>>(__wxTextInputManip func)
   {
- return func(*this);
+    return func(*this);
   }
 protected:
   wxInputStream& m_input;
@@ -92,16 +88,14 @@ protected:
     // decoded and returned during the next call (again, this interval can, and
     // usually will, be empty too if m_validBegin == m_validEnd).
   size_t m_validBegin, m_validEnd;
-#    if  wxUSE_UNICODE
   wxMBConv* m_conv;
     // The second half of a surrogate character when using UTF-16 for wchar_t:
     // we can't return it immediately from GetChar() when we read a Unicode
     // code point outside of the BMP, but we can't keep it in m_lastBytes
     // neither because it can't separately decoded, so we have a separate 1
     // wchar_t buffer just for this case.
-#      if  SIZEOF_WCHAR_T == 2
+#    if  SIZEOF_WCHAR_T == 2
   wchar_t m_lastWChar;
-#      endif
 #    endif
   bool EatEOL(const wxChar& c);
   void UngetLast();
@@ -116,29 +110,24 @@ enum wxEOL {
 };
 class WXDLLIMPEXP_BASE wxTextOutputStream
 {
-#    if  wxUSE_UNICODE
 public:
   wxTextOutputStream(wxOutputStream& s, wxEOL mode = wxEOL_NATIVE, const wxMBConv& conv = wxConvAuto());
-#    else 
-  wxTextOutputStream(wxOutputStream& s, wxEOL mode = wxEOL_NATIVE);
-#    endif
   virtual ~wxTextOutputStream();
   const wxOutputStream& GetOutputStream() const
   {
- return m_output;
+    return m_output;
   }
   void SetMode(wxEOL mode = wxEOL_NATIVE);
   wxEOL GetMode()
   {
- return m_mode;
+    return m_mode;
   }
   template <typename T>
   void Write(const T& i)
   {
-        wxString str;
-        str << i;
-
-        WriteString(str);
+    wxString str;
+    str << i;
+    WriteString(str);
   }
   void Write64(wxUint64 i);
   void Write32(wxUint32 i);
@@ -163,18 +152,16 @@ public:
   wxTextOutputStream& operator<<(float f);
   wxTextOutputStream& operator<<(__wxTextOutputManip func)
   {
- return func(*this);
+    return func(*this);
   }
 protected:
   wxOutputStream& m_output;
   wxEOL m_mode;
-#    if  wxUSE_UNICODE
   wxMBConv* m_conv;
-#      if  SIZEOF_WCHAR_T == 2
+#    if  SIZEOF_WCHAR_T == 2
     // The first half of a surrogate character if one was passed to PutChar()
     // and couldn't be output when it was called the last time.
   wchar_t m_lastWChar;
-#      endif
 #    endif
   wxDECLARE_NO_COPY_CLASS(wxTextOutputStream);
 };

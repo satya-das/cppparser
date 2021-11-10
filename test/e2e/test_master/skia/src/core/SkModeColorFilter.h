@@ -13,7 +13,7 @@ class SkModeColorFilter : public SkColorFilter
 public:
   static sk_sp<SkColorFilter> Make(SkColor color, SkBlendMode mode)
   {
-        return sk_sp<SkColorFilter>(new SkModeColorFilter(color, mode));
+    return sk_sp<SkColorFilter>(new SkModeColorFilter(color, mode));
   }
   uint32_t getFlags() const override;
 #  if  SK_SUPPORT_GPU

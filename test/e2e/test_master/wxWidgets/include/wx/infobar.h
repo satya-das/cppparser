@@ -24,7 +24,6 @@ public:
     // user code would result in flicker)
   wxInfoBarBase()
   {
-
   }
     // show the info bar with the given message and optionally an icon
   virtual void ShowMessage(const wxString& msg, int flags = wxICON_INFORMATION) = 0;
@@ -39,6 +38,7 @@ public:
   virtual size_t GetButtonCount() const = 0;
   virtual wxWindowID GetButtonId(size_t idx) const = 0;
   virtual bool HasButtonId(wxWindowID btnid) const = 0;
+private:
   wxDECLARE_NO_COPY_CLASS(wxInfoBarBase);
 };
 // currently only GTK+ has a native implementation

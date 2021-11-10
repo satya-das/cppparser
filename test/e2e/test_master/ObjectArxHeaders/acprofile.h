@@ -21,7 +21,6 @@ class AcApProfileManager
 public:
   virtual ~AcApProfileManager()
   {
-
   }
   virtual void ProfileRegistryKey(ACHAR*& strRegProfileKey, const ACHAR* strProfileName) = 0;
   virtual Acad::ErrorStatus ProfileStorage(AcApProfileStorage*& pStore, const ACHAR* strProfileName, BOOL bCreateIfNotExists = TRUE) = 0;

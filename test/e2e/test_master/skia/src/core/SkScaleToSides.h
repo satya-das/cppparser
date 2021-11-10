@@ -19,51 +19,44 @@ public:
     // This code assumes that NaN and Inf are never passed in.
   static void AdjustRadii(double limit, double scale, SkScalar* a, SkScalar* b)
   {
-        SkASSERTF(scale < 1.0 && scale > 0.0, "scale: %g", scale);
-
-        *a = (float)((double)*a * scale);
-        *b = (float)((double)*b * scale);
-
-        if (*a + *b > limit) {
-            float* minRadius = a;
-            float* maxRadius = b;
-
+    SkASSERTF(scale < 1.0 && scale > 0.0, "scale: %g", scale);
+    *a = (float) ((double) *a * scale);
+    *b = (float) ((double) *b * scale);
+    if (*a + *b > limit)
+    {
+      float* minRadius = a;
+      float* maxRadius = b;
             // Force minRadius to be the smaller of the two.
-            if (*minRadius > *maxRadius) {
-                using std::swap;
-                swap(minRadius, maxRadius);
-            }
-
+      if (*minRadius > *maxRadius)
+      {
+        using std::swap;
+        swap(minRadius, maxRadius);
+      }
             // newMinRadius must be float in order to give the actual value of the radius.
             // The newMinRadius will always be smaller than limit. The largest that minRadius can be
             // is 1/2 the ratio of minRadius : (minRadius + maxRadius), therefore in the resulting
             // division, minRadius can be no larger than 1/2 limit + ULP. The newMinRadius can be
             // 1/2 a ULP off at this point.
-            float newMinRadius = *minRadius;
-
+      float newMinRadius = *minRadius;
             // Because newMaxRadius is the result of a double to float conversion, it can be larger
             // than limit, but only by one ULP.
-            float newMaxRadius = (float)(limit - newMinRadius);
-
+      float newMaxRadius = (float) (limit - newMinRadius);
             // The total sum of newMinRadius and newMaxRadius can be upto 1.5 ULPs off. If the
             // sum is greater than the limit then newMaxRadius may have to be reduced twice.
             // Note: nextafterf is a c99 call and should be std::nextafter, but this is not
             // implemented in the GCC ARM compiler.
-            if (newMaxRadius + newMinRadius > limit) {
-                newMaxRadius = nextafterf(newMaxRadius, 0.0f);
-                if (newMaxRadius + newMinRadius > limit) {
-                    newMaxRadius = nextafterf(newMaxRadius, 0.0f);
-                }
-            }
-            *maxRadius = newMaxRadius;
+      if (newMaxRadius + newMinRadius > limit)
+      {
+        newMaxRadius = nextafterf(newMaxRadius, 0.0f);
+        if (newMaxRadius + newMinRadius > limit)
+        {
+          newMaxRadius = nextafterf(newMaxRadius, 0.0f);
         }
-
-        SkASSERTF(*a >= 0.0f && *b >= 0.0f, "a: %g, b: %g, limit: %g, scale: %g", *a, *b, limit,
-                  scale);
-
-        SkASSERTF(*a + *b <= limit,
-                  "\nlimit: %.17f, sum: %.17f, a: %.10f, b: %.10f, scale: %.20f",
-                  limit, *a + *b, *a, *b, scale);
+      }
+      *maxRadius = newMaxRadius;
+    }
+    SkASSERTF(*a >= 0.0f && *b >= 0.0f, "a: %g, b: %g, limit: %g, scale: %g", *a, *b, limit, scale);
+    SkASSERTF(*a + *b <= limit, "\nlimit: %.17f, sum: %.17f, a: %.10f, b: %.10f, scale: %.20f", limit, *a + *b, *a, *b, scale);
   }
 };
 #endif

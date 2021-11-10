@@ -12,10 +12,11 @@ class GrRectanizer
 {
 public:
   GrRectanizer(int width, int height)
-    :  fWidth(width), fHeight(height)
+    : fWidth(width)
+    , fHeight(height)
   {
-        SkASSERT(width >= 0);
-        SkASSERT(height >= 0);
+    SkASSERT(width >= 0);
+    SkASSERT(height >= 0);
   }
   virtual ~GrRectanizer()
   {
@@ -23,11 +24,11 @@ public:
   virtual void reset() = 0;
   int width() const
   {
- return fWidth;
+    return fWidth;
   }
   int height() const
   {
- return fHeight;
+    return fHeight;
   }
     // Attempt to add a rect. Return true on success; false on failure. If
     // successful the position in the atlas is returned in 'loc'.

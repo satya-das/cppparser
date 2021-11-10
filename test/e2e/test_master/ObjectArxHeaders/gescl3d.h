@@ -68,24 +68,24 @@ public:
 };
 inline bool AcGeScale3d::operator ==(const AcGeScale3d& s) const
 {
-    return this->isEqualTo(s);
+  return this->isEqualTo(s);
 }
 // This operator is the logical negation of the `==' operator.
 //
 inline bool AcGeScale3d::operator !=(const AcGeScale3d& s) const
 {
-    return !(this->isEqualTo(s));
+  return !(this->isEqualTo(s));
 }
 // Indexes the scale vector as if it were an array.  `sx' is index `0',
 // `sy' is index `1' and `sz' is index `2'.
 //
 inline double AcGeScale3d::operator [](unsigned int i) const
 {
-    return *(&sx+i);
+  return *(&sx + i);
 }
 inline double& AcGeScale3d::operator [](unsigned int i)
 {
-    return *(&sx+i);
+  return *(&sx + i);
 }
 #  pragma  pack (pop)
 #endif

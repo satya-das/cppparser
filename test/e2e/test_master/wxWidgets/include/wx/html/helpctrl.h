@@ -39,7 +39,7 @@ public:
   void SetTitleFormat(const wxString& format);
   void SetTempDir(const wxString& path)
   {
- m_helpData.SetTempDir(path);
+    m_helpData.SetTempDir(path);
   }
   bool AddBook(const wxString& book_url, bool show_wait_msg = false);
   bool AddBook(const wxFileName& book_file, bool show_wait_msg = false);
@@ -50,29 +50,28 @@ public:
   bool KeywordSearch(const wxString& keyword, wxHelpSearchMode mode = wxHELP_SEARCH_ALL) override;
   wxHtmlHelpWindow* GetHelpWindow()
   {
- return m_helpWindow;
+    return m_helpWindow;
   }
   void SetHelpWindow(wxHtmlHelpWindow* helpWindow);
   wxHtmlHelpFrame* GetFrame()
   {
- return m_helpFrame;
+    return m_helpFrame;
   }
   wxHtmlHelpDialog* GetDialog()
   {
- return m_helpDialog;
+    return m_helpDialog;
   }
-#    if  wxUSE_CONFIG
-  void UseConfig(wxConfigBase* config, const wxString& rootpath = wxEmptyString);
     // Assigns config object to the Ctrl. This config is then
     // used in subsequent calls to Read/WriteCustomization of both help
     // Ctrl and it's wxHtmlWindow
-  virtual void ReadCustomization(wxConfigBase* cfg, const wxString& path = wxEmptyString);
-  virtual void WriteCustomization(wxConfigBase* cfg, const wxString& path = wxEmptyString);
-#    endif
+    virtual void ReadCustomization(wxConfigBase *cfg, const wxString& path = wxEmptyString);
+    virtual void WriteCustomization(wxConfigBase *cfg, const wxString& path = wxEmptyString);
+#endif // wxUSE_CONFIG
+
     //// Backward compatibility with wxHelpController API
   bool Initialize(const wxString& file, int) override
   {
- return Initialize(file);
+    return Initialize(file);
   }
   bool Initialize(const wxString& file) override;
   void SetViewer(const wxString&, long = 0) override
@@ -82,11 +81,11 @@ public:
   bool DisplaySection(int sectionNo) override;
   bool DisplaySection(const wxString& section) override
   {
- return Display(section);
+    return Display(section);
   }
   bool DisplayBlock(long blockNo) override
   {
- return DisplaySection(blockNo);
+    return DisplaySection(blockNo);
   }
   bool DisplayTextPopup(const wxString& text, const wxPoint& pos) override;
   void SetFrameParameters(const wxString& titleFormat, const wxSize& size, const wxPoint& pos = wxDefaultPosition, bool newFrameEachTime = false) override;
@@ -96,7 +95,7 @@ public:
     // Get direct access to help data:
   wxHtmlHelpData* GetHelpData()
   {
- return &m_helpData;
+    return &m_helpData;
   }
   bool Quit() override;
   void OnQuit() override
@@ -116,10 +115,6 @@ protected:
   virtual void DestroyHelpWindow();
   wxHtmlHelpData m_helpData;
   wxHtmlHelpWindow* m_helpWindow;
-#    if  wxUSE_CONFIG
-  wxConfigBase* m_Config;
-  wxString m_ConfigRoot;
-#    endif
   wxString m_titleFormat;
   int m_FrameStyle;
   wxHtmlHelpFrame* m_helpFrame;

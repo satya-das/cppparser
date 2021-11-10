@@ -58,9 +58,9 @@ namespace PoDoFo
      * \param pszData a null-terminated string to be copied.
      */
     PdfData(const char* pszData)
-      :  PdfDataType(), m_sData( pszData )
+      : PdfDataType()
+      , m_sData(pszData)
     {
-
     }
     /**
      * Create a new PdfData object with valid PdfData.
@@ -69,17 +69,17 @@ namespace PoDoFo
      * \param dataSize size of buffer
      */
     PdfData(const char* pszData, size_t dataSize)
-      :  PdfDataType(), m_sData( pszData, dataSize )
+      : PdfDataType()
+      , m_sData(pszData, dataSize)
     {
-
     }
     /** Copy an existing PdfData 
      *  \param rhs another PdfData to copy
      */
     PdfData(const PdfData& rhs)
-      :  PdfDataType()
+      : PdfDataType()
     {
-            this->operator=( rhs );
+      this->operator=(rhs);
     }
     /** Write the complete datatype to a file.
      *  \param pDevice write the object to this device

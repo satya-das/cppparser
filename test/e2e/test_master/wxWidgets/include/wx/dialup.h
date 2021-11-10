@@ -49,7 +49,6 @@ public:
     // virtual dtor for any base class
   virtual ~wxDialUpManager()
   {
-
   }
     // operations
     // ----------
@@ -132,28 +131,28 @@ class WXDLLIMPEXP_CORE wxDialUpEvent : public wxEvent
 {
 public:
   wxDialUpEvent(bool isConnected, bool isOwnEvent)
-    :  wxEvent(isOwnEvent)
+    : wxEvent(isOwnEvent)
   {
-        SetEventType(isConnected ? wxEVT_DIALUP_CONNECTED
-                                 : wxEVT_DIALUP_DISCONNECTED);
+    SetEventType(isConnected ? wxEVT_DIALUP_CONNECTED : wxEVT_DIALUP_DISCONNECTED);
   }
     // is this a CONNECTED or DISCONNECTED event?
   bool IsConnectedEvent() const
   {
- return GetEventType() == wxEVT_DIALUP_CONNECTED;
+    return GetEventType() == wxEVT_DIALUP_CONNECTED;
   }
     // does this event come from wxDialUpManager::Dial() or from some external
     // process (i.e. does it result from our own attempt to establish the
     // connection)?
   bool IsOwnEvent() const
   {
- return m_id != 0;
+    return m_id != 0;
   }
     // implement the base class pure virtual
   wxEvent* Clone() const override
   {
- return new wxDialUpEvent(*this);
+    return new wxDialUpEvent(*this);
   }
+private:
   wxDECLARE_NO_ASSIGN_CLASS(wxDialUpEvent);
 };
 // the type of dialup event handler function

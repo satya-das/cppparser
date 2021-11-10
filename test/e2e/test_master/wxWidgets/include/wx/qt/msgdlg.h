@@ -15,6 +15,7 @@ public:
   virtual ~wxMessageDialog();
     // Reimplemented to translate return codes from Qt to wx
   int ShowModal() override;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxMessageDialog);
 };
 #endif

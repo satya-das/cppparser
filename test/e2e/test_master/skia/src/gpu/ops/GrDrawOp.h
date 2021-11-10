@@ -18,7 +18,7 @@ class GrDrawOp : public GrOp
 {
 public:
   GrDrawOp(uint32_t classID)
-    :  INHERITED(classID)
+    : INHERITED(classID)
   {
   }
     /**
@@ -46,7 +46,7 @@ public:
   bool fAddDrawOpCalled = false;
   void validate() const override
   {
-        SkASSERT(fAddDrawOpCalled);
+    SkASSERT(fAddDrawOpCalled);
   }
 #  endif
 private:

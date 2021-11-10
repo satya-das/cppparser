@@ -203,11 +203,11 @@ public:
   virtual void SetColour(int id, const wxColor& colour) = 0;
   wxColour GetColor(int id) const
   {
- return GetColour(id);
+    return GetColour(id);
   }
   void SetColor(int id, const wxColour& color)
   {
- SetColour(id, color);
+    SetColour(id, color);
   }
   virtual void GetColourScheme(wxColour* primary, wxColour* secondary, wxColour* tertiary) const = 0;
   virtual void SetColourScheme(const wxColour& primary, const wxColour& secondary, const wxColour& tertiary) = 0;

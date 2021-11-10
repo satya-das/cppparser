@@ -160,7 +160,7 @@ public:
 };
 inline bool AcGiMaterialTexture::operator==(const AcGiMaterialTexture& texture) const
 {
-        return (texture.isA() == isA());
+  return (texture.isA() == isA());
 }
 class AcGiImageTexture : public AcGiMaterialTexture
 {
@@ -366,7 +366,7 @@ public:
   bool operator==(const AcGiMapper& mapper) const;
   bool operator!=(const AcGiMapper& mapper) const
   {
-        return !(*this == mapper);
+    return !(*this == mapper);
   }
     // Set properties of material mapper.
     //

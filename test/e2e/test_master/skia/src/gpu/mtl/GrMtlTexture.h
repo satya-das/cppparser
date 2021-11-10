@@ -16,7 +16,7 @@ public:
   virtual ~GrMtlTexture();
   id<MTLTexture> mtlTexture() const
   {
- return fTexture;
+    return fTexture;
   }
   GrBackendTexture getBackendTexture() const override;
   GrBackendFormat backendFormat() const override;
@@ -29,17 +29,17 @@ protected:
   GrMtlGpu* getMtlGpu() const;
   void onAbandon() override
   {
-        fTexture = nil;
-        INHERITED::onAbandon();
+    fTexture = nil;
+    INHERITED::onAbandon();
   }
   void onRelease() override
   {
-        fTexture = nil;
-        INHERITED::onRelease();
+    fTexture = nil;
+    INHERITED::onRelease();
   }
   bool onStealBackendTexture(GrBackendTexture*, SkImage::BackendTextureReleaseProc*) override
   {
-         return false;
+    return false;
   }
 private:
   enum Wrapped {

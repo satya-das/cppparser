@@ -71,11 +71,6 @@ class WXDLLIMPEXP_FWD_CORE wxMemoryDC;
 #    if  wxUSE_PRINTING_ARCHITECTURE
 class WXDLLIMPEXP_FWD_CORE wxPrinterDC;
 #    endif
-#    ifdef __WXMSW__
-#      if  wxUSE_ENH_METAFILE
-class WXDLLIMPEXP_FWD_CORE wxEnhMetaFileDC;
-#      endif
-#    endif
 class WXDLLIMPEXP_FWD_CORE wxGraphicsContext;
 class WXDLLIMPEXP_FWD_CORE wxGraphicsPath;
 class WXDLLIMPEXP_FWD_CORE wxGraphicsMatrix;
@@ -177,11 +172,11 @@ public:
   void* GetNativeBitmap() const;
   const wxGraphicsBitmapData* GetBitmapData() const
   {
- return (const wxGraphicsBitmapData*) GetRefData();
+    return (const wxGraphicsBitmapData*) GetRefData();
   }
   wxGraphicsBitmapData* GetBitmapData()
   {
- return (wxGraphicsBitmapData*) GetRefData();
+    return (wxGraphicsBitmapData*) GetRefData();
   }
 private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsBitmap);
@@ -200,7 +195,7 @@ public:
   virtual void Concat(const wxGraphicsMatrix* t);
   void Concat(const wxGraphicsMatrix& t)
   {
- Concat( &t );
+    Concat ( &t );
   }
     // sets the matrix to the respective values
   virtual void Set(wxDouble a = 1.0, wxDouble b = 0.0, wxDouble c = 0.0, wxDouble d = 1.0, wxDouble tx = 0.0, wxDouble ty = 0.0);
@@ -212,7 +207,7 @@ public:
   virtual bool IsEqual(const wxGraphicsMatrix* t) const;
   bool IsEqual(const wxGraphicsMatrix& t) const
   {
- return IsEqual( &t );
+    return IsEqual(&t);
   }
     // return true if this is the identity matrix
   virtual bool IsIdentity() const;
@@ -238,11 +233,11 @@ public:
   virtual void* GetNativeMatrix() const;
   const wxGraphicsMatrixData* GetMatrixData() const
   {
- return (const wxGraphicsMatrixData*) GetRefData();
+    return (const wxGraphicsMatrixData*) GetRefData();
   }
   wxGraphicsMatrixData* GetMatrixData()
   {
- return (wxGraphicsMatrixData*) GetRefData();
+    return (wxGraphicsMatrixData*) GetRefData();
   }
 private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsMatrix);
@@ -262,29 +257,27 @@ class wxGraphicsGradientStop
 {
 public:
   wxGraphicsGradientStop(wxColour col = wxTransparentColour, float pos = 0.0f)
-    :  m_col(col),
-          m_pos(pos)
+    : m_col(col)
+    , m_pos(pos)
   {
-
   }
     // default copy ctor, assignment operator and dtor are ok
   const wxColour& GetColour() const
   {
- return m_col;
+    return m_col;
   }
   void SetColour(const wxColour& col)
   {
- m_col = col;
+    m_col = col;
   }
   float GetPosition() const
   {
- return m_pos;
+    return m_pos;
   }
   void SetPosition(float pos)
   {
-        wxASSERT_MSG( pos >= 0 && pos <= 1, "invalid gradient stop position" );
-
-        m_pos = pos;
+    wxASSERT_MSG( pos >= 0 && pos <= 1, "invalid gradient stop position" );
+    m_pos = pos;
   }
 private:
     // The colour of this gradient band.
@@ -305,8 +298,8 @@ public:
   {
         // we can't use Add() here as it relies on having start/end stops as
         // first/last array elements so do it manually
-        m_stops.push_back(wxGraphicsGradientStop(startCol, 0.f));
-        m_stops.push_back(wxGraphicsGradientStop(endCol, 1.f));
+    m_stops.push_back(wxGraphicsGradientStop(startCol, 0.f));
+    m_stops.push_back(wxGraphicsGradientStop(endCol, 1.f));
   }
     // default copy ctor, assignment operator and dtor are ok for this class
 
@@ -315,34 +308,34 @@ public:
   void Add(const wxGraphicsGradientStop& stop);
   void Add(wxColour col, float pos)
   {
- Add(wxGraphicsGradientStop(col, pos));
+    Add(wxGraphicsGradientStop(col, pos));
   }
     // Get the number of stops.
   size_t GetCount() const
   {
- return m_stops.size();
+    return m_stops.size();
   }
     // Return the stop at the given index (which must be valid).
   wxGraphicsGradientStop Item(unsigned n) const
   {
- return m_stops.at(n);
+    return m_stops.at(n);
   }
     // Get/set start and end colours.
   void SetStartColour(wxColour col)
   {
- m_stops[0].SetColour(col);
+    m_stops[0].SetColour(col);
   }
   wxColour GetStartColour() const
   {
- return m_stops[0].GetColour();
+    return m_stops[0].GetColour();
   }
   void SetEndColour(wxColour col)
   {
- m_stops[m_stops.size() - 1].SetColour(col);
+    m_stops[m_stops.size() - 1].SetColour(col);
   }
   wxColour GetEndColour() const
   {
- return m_stops[m_stops.size() - 1].GetColour();
+    return m_stops[m_stops.size() - 1].GetColour();
   }
 private:
     // All the stops stored in ascending order of positions.
@@ -355,116 +348,117 @@ class wxGraphicsPenInfo : public wxPenInfoBase<wxGraphicsPenInfo>
 {
 public:
   explicit wxGraphicsPenInfo(const wxColour& colour = wxColour(), wxDouble width = 1.0, wxPenStyle style = wxPENSTYLE_SOLID)
-    :  wxPenInfoBase<wxGraphicsPenInfo>(colour, style)
+    : wxPenInfoBase<wxGraphicsPenInfo>(colour, style)
   {
-        m_width = width;
-        m_gradientType = wxGRADIENT_NONE;
+    m_width = width;
+    m_gradientType = wxGRADIENT_NONE;
   }
     // Setters
   wxGraphicsPenInfo& Width(wxDouble width)
   {
- m_width = width; return *this;
+    m_width = width;
+    return *this;
   }
   wxGraphicsPenInfo& LinearGradient(wxDouble x1, wxDouble y1, wxDouble x2, wxDouble y2, const wxColour& c1, const wxColour& c2, const wxGraphicsMatrix& matrix = wxNullGraphicsMatrix)
   {
-        m_gradientType = wxGRADIENT_LINEAR;
-        m_x1 = x1;
-        m_y1 = y1;
-        m_x2 = x2;
-        m_y2 = y2;
-        m_stops.SetStartColour(c1);
-        m_stops.SetEndColour(c2);
-        m_matrix = matrix;
-        return *this;
+    m_gradientType = wxGRADIENT_LINEAR;
+    m_x1 = x1;
+    m_y1 = y1;
+    m_x2 = x2;
+    m_y2 = y2;
+    m_stops.SetStartColour(c1);
+    m_stops.SetEndColour(c2);
+    m_matrix = matrix;
+    return *this;
   }
   wxGraphicsPenInfo& LinearGradient(wxDouble x1, wxDouble y1, wxDouble x2, wxDouble y2, const wxGraphicsGradientStops& stops, const wxGraphicsMatrix& matrix = wxNullGraphicsMatrix)
   {
-        m_gradientType = wxGRADIENT_LINEAR;
-        m_x1 = x1;
-        m_y1 = y1;
-        m_x2 = x2;
-        m_y2 = y2;
-        m_stops = stops;
-        m_matrix = matrix;
-        return *this;
+    m_gradientType = wxGRADIENT_LINEAR;
+    m_x1 = x1;
+    m_y1 = y1;
+    m_x2 = x2;
+    m_y2 = y2;
+    m_stops = stops;
+    m_matrix = matrix;
+    return *this;
   }
   wxGraphicsPenInfo& RadialGradient(wxDouble startX, wxDouble startY, wxDouble endX, wxDouble endY, wxDouble radius, const wxColour& oColor, const wxColour& cColor, const wxGraphicsMatrix& matrix = wxNullGraphicsMatrix)
   {
-        m_gradientType = wxGRADIENT_RADIAL;
-        m_x1 = startX;
-        m_y1 = startY;
-        m_x2 = endX;
-        m_y2 = endY;
-        m_radius = radius;
-        m_stops.SetStartColour(oColor);
-        m_stops.SetEndColour(cColor);
-        m_matrix = matrix;
-        return *this;
+    m_gradientType = wxGRADIENT_RADIAL;
+    m_x1 = startX;
+    m_y1 = startY;
+    m_x2 = endX;
+    m_y2 = endY;
+    m_radius = radius;
+    m_stops.SetStartColour(oColor);
+    m_stops.SetEndColour(cColor);
+    m_matrix = matrix;
+    return *this;
   }
   wxGraphicsPenInfo& RadialGradient(wxDouble startX, wxDouble startY, wxDouble endX, wxDouble endY, wxDouble radius, const wxGraphicsGradientStops& stops, const wxGraphicsMatrix& matrix = wxNullGraphicsMatrix)
   {
-        m_gradientType = wxGRADIENT_RADIAL;
-        m_x1 = startX;
-        m_y1 = startY;
-        m_x2 = endX;
-        m_y2 = endY;
-        m_radius = radius;
-        m_stops = stops;
-        m_matrix = matrix;
-        return *this;
+    m_gradientType = wxGRADIENT_RADIAL;
+    m_x1 = startX;
+    m_y1 = startY;
+    m_x2 = endX;
+    m_y2 = endY;
+    m_radius = radius;
+    m_stops = stops;
+    m_matrix = matrix;
+    return *this;
   }
     // Accessors
   wxDouble GetWidth() const
   {
- return m_width;
+    return m_width;
   }
   wxGradientType GetGradientType() const
   {
- return m_gradientType;
+    return m_gradientType;
   }
   wxDouble GetX1() const
   {
- return m_x1;
+    return m_x1;
   }
   wxDouble GetY1() const
   {
- return m_y1;
+    return m_y1;
   }
   wxDouble GetX2() const
   {
- return m_x2;
+    return m_x2;
   }
   wxDouble GetY2() const
   {
- return m_y2;
+    return m_y2;
   }
   wxDouble GetStartX() const
   {
- return m_x1;
+    return m_x1;
   }
   wxDouble GetStartY() const
   {
- return m_y1;
+    return m_y1;
   }
   wxDouble GetEndX() const
   {
- return m_x2;
+    return m_x2;
   }
   wxDouble GetEndY() const
   {
- return m_y2;
+    return m_y2;
   }
   wxDouble GetRadius() const
   {
- return m_radius;
+    return m_radius;
   }
   const wxGraphicsGradientStops& GetStops() const
   {
- return m_stops;
+    return m_stops;
   }
   const wxGraphicsMatrix& GetMatrix() const
   {
- return m_matrix;
+    return m_matrix;
   }
 private:
   wxDouble m_width;
@@ -536,11 +530,11 @@ public:
   bool Contains(const wxPoint2DDouble& c, wxPolygonFillMode fillStyle = wxODDEVEN_RULE) const;
   const wxGraphicsPathData* GetPathData() const
   {
- return (const wxGraphicsPathData*) GetRefData();
+    return (const wxGraphicsPathData*) GetRefData();
   }
   wxGraphicsPathData* GetPathData()
   {
- return (wxGraphicsPathData*) GetRefData();
+    return (wxGraphicsPathData*) GetRefData();
   }
 private:
   wxDECLARE_DYNAMIC_CLASS(wxGraphicsPath);
@@ -556,18 +550,10 @@ public:
 #    if  wxUSE_PRINTING_ARCHITECTURE
   static wxGraphicsContext* Create(const wxPrinterDC& dc);
 #    endif
-#    ifdef __WXMSW__
-#      if  wxUSE_ENH_METAFILE
-  static wxGraphicsContext* Create(const wxEnhMetaFileDC& dc);
-#      endif
-#    endif
     // Create a context from a DC of unknown type, if supported, returns NULL otherwise
   static wxGraphicsContext* CreateFromUnknownDC(const wxDC& dc);
   static wxGraphicsContext* CreateFromNative(void* context);
   static wxGraphicsContext* CreateFromNativeWindow(void* window);
-#    ifdef __WXMSW__
-  static wxGraphicsContext* CreateFromNativeHDC(WXHDC dc);
-#    endif
   static wxGraphicsContext* Create(wxWindow* window);
 #    if  wxUSE_IMAGE
     // Create a context for drawing onto a wxImage. The image life time must be
@@ -580,7 +566,7 @@ public:
     // Return the window this context is associated with, if any.
   wxWindow* GetWindow() const
   {
- return m_window;
+    return m_window;
   }
     // begin a new document (relevant only for printing / pdf etc) if there is a progress dialog, message will be shown
   virtual bool StartDoc(const wxString& message);
@@ -597,7 +583,7 @@ public:
   wxGraphicsPen CreatePen(const wxPen& pen) const;
   wxGraphicsPen CreatePen(const wxGraphicsPenInfo& info) const
   {
- return DoCreatePen(info);
+    return DoCreatePen(info);
   }
   virtual wxGraphicsBrush CreateBrush(const wxBrush& brush) const;
     // sets the brush to a linear gradient, starting at (x1,y1) and ending at
@@ -623,12 +609,10 @@ public:
   virtual wxGraphicsMatrix CreateMatrix(wxDouble a = 1.0, wxDouble b = 0.0, wxDouble c = 0.0, wxDouble d = 1.0, wxDouble tx = 0.0, wxDouble ty = 0.0) const;
   wxGraphicsMatrix CreateMatrix(const wxAffineMatrix2DBase& mat) const
   {
-        wxMatrix2D mat2D;
-        wxPoint2DDouble tr;
-        mat.Get(&mat2D, &tr);
-
-        return CreateMatrix(mat2D.m_11, mat2D.m_12, mat2D.m_21, mat2D.m_22,
-                            tr.m_x, tr.m_y);
+    wxMatrix2D mat2D;
+    wxPoint2DDouble tr;
+    mat.Get(&mat2D, &tr);
+    return CreateMatrix(mat2D.m_11, mat2D.m_12, mat2D.m_21, mat2D.m_22, tr.m_x, tr.m_y);
   }
     // push the current state of the context, ie the transformation matrix on a stack
   virtual void PushState() = 0;
@@ -647,31 +631,35 @@ public:
     // returns the current shape antialiasing mode
   virtual wxAntialiasMode GetAntialiasMode() const
   {
- return m_antialias;
+    return m_antialias;
   }
     // sets the antialiasing mode, returns true if it supported
   virtual bool SetAntialiasMode(wxAntialiasMode antialias) = 0;
     // returns the current interpolation quality
   virtual wxInterpolationQuality GetInterpolationQuality() const
   {
- return m_interpolation;
+    return m_interpolation;
   }
     // sets the interpolation quality, returns true if it supported
   virtual bool SetInterpolationQuality(wxInterpolationQuality interpolation) = 0;
     // returns the current compositing operator
   virtual wxCompositionMode GetCompositionMode() const
   {
- return m_composition;
+    return m_composition;
   }
     // sets the compositing operator, returns true if it supported
   virtual bool SetCompositionMode(wxCompositionMode op) = 0;
     // returns the size of the graphics context in device coordinates
   void GetSize(wxDouble* width, wxDouble* height) const
   {
-        if ( width )
-            *width = m_width;
-        if ( height )
-            *height = m_height;
+    if (width)
+    {
+      *width = m_width;
+    }
+    if (height)
+    {
+      *height = m_height;
+    }
   }
     // returns the resolution of the graphics context in device points per inch
   virtual void GetDPI(wxDouble* dpiX, wxDouble* dpiY) const;
@@ -729,19 +717,19 @@ public:
     //
   void DrawText(const wxString& str, wxDouble x, wxDouble y)
   {
- DoDrawText(str, x, y);
+    DoDrawText(str, x, y);
   }
   void DrawText(const wxString& str, wxDouble x, wxDouble y, wxDouble angle)
   {
- DoDrawRotatedText(str, x, y, angle);
+    DoDrawRotatedText(str, x, y, angle);
   }
   void DrawText(const wxString& str, wxDouble x, wxDouble y, const wxGraphicsBrush& backgroundBrush)
   {
- DoDrawFilledText(str, x, y, backgroundBrush);
+    DoDrawFilledText(str, x, y, backgroundBrush);
   }
   void DrawText(const wxString& str, wxDouble x, wxDouble y, wxDouble angle, const wxGraphicsBrush& backgroundBrush)
   {
- DoDrawRotatedFilledText(str, x, y, angle, backgroundBrush);
+    DoDrawRotatedFilledText(str, x, y, angle, backgroundBrush);
   }
   virtual void GetTextExtent(const wxString& text, wxDouble* width, wxDouble* height, wxDouble* descent = NULL, wxDouble* externalLeading = NULL) const = 0;
   virtual void GetPartialTextExtents(const wxString& text, wxArrayDouble& widths) const = 0;
@@ -774,18 +762,18 @@ public:
     // helper to determine if a 0.5 offset should be applied for the drawing operation
   virtual bool ShouldOffset() const
   {
- return false;
+    return false;
   }
     // indicates whether the context should try to offset for pixel boundaries, this only makes sense on
     // bitmap devices like screen, by default this is turned off
   virtual void EnableOffset(bool enable = true);
   void DisableOffset()
   {
- EnableOffset(false);
+    EnableOffset(false);
   }
   bool OffsetEnabled()
   {
- return m_enableOffset;
+    return m_enableOffset;
   }
 protected:
     // These fields must be initialized in the derived class ctors.
@@ -862,31 +850,15 @@ public:
   }
   static wxGraphicsRenderer* GetDefaultRenderer();
   static wxGraphicsRenderer* GetCairoRenderer();
-#    ifdef __WXMSW__
-#      if  wxUSE_GRAPHICS_GDIPLUS
-  static wxGraphicsRenderer* GetGDIPlusRenderer();
-#      endif
-#      if  wxUSE_GRAPHICS_DIRECT2D
-  static wxGraphicsRenderer* GetDirect2DRenderer();
-#      endif
-#    endif
     // Context
   virtual wxGraphicsContext* CreateContext(const wxWindowDC& dc) = 0;
   virtual wxGraphicsContext* CreateContext(const wxMemoryDC& dc) = 0;
 #    if  wxUSE_PRINTING_ARCHITECTURE
   virtual wxGraphicsContext* CreateContext(const wxPrinterDC& dc) = 0;
 #    endif
-#    ifdef __WXMSW__
-#      if  wxUSE_ENH_METAFILE
-  virtual wxGraphicsContext* CreateContext(const wxEnhMetaFileDC& dc) = 0;
-#      endif
-#    endif
   wxGraphicsContext* CreateContextFromUnknownDC(const wxDC& dc);
   virtual wxGraphicsContext* CreateContextFromNativeContext(void* context) = 0;
   virtual wxGraphicsContext* CreateContextFromNativeWindow(void* window) = 0;
-#    ifdef __WXMSW__
-  virtual wxGraphicsContext* CreateContextFromNativeHDC(WXHDC dc) = 0;
-#    endif
   virtual wxGraphicsContext* CreateContext(wxWindow* window) = 0;
 #    if  wxUSE_IMAGE
   virtual wxGraphicsContext* CreateContextFromImage(wxImage& image) = 0;
@@ -921,14 +893,15 @@ public:
   virtual wxGraphicsBitmap CreateSubBitmap(const wxGraphicsBitmap& bitmap, wxDouble x, wxDouble y, wxDouble w, wxDouble h) = 0;
   virtual wxString GetName() const = 0;
   virtual void GetVersion(int* major, int* minor = NULL, int* micro = NULL) const = 0;
+private:
   wxDECLARE_NO_COPY_CLASS(wxGraphicsRenderer);
   wxDECLARE_ABSTRACT_CLASS(wxGraphicsRenderer);
 };
 #    if  wxUSE_IMAGE
 inline wxImage wxGraphicsBitmap::ConvertToImage() const
 {
-    wxGraphicsRenderer* renderer = GetRenderer();
-    return renderer ? renderer->CreateImageFromBitmap(*this) : wxNullImage;
+  wxGraphicsRenderer* renderer = GetRenderer();
+  return renderer ? renderer->CreateImageFromBitmap(*this) : wxNullImage;
 }
 #    endif
 #  endif

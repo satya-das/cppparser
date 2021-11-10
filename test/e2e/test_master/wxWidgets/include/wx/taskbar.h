@@ -33,14 +33,13 @@ class WXDLLIMPEXP_CORE wxTaskBarIconBase : public wxEvtHandler
 public:
   wxTaskBarIconBase()
   {
-
   }
 #    if  defined(__WXGTK__) || defined(__WXX11__) || defined(__WXMOTIF__) || defined(__WXQT__)
   static bool IsAvailable();
 #    else 
   static bool IsAvailable()
   {
- return true;
+    return true;
   }
 #    endif
     // Operations:
@@ -57,12 +56,12 @@ protected:
     // creates menu to be displayed when user clicks on the icon
   virtual wxMenu* CreatePopupMenu()
   {
- return NULL;
+    return NULL;
   }
     // same as CreatePopupMenu but the returned menu won't be destroyed
   virtual wxMenu* GetPopupMenu()
   {
- return NULL;
+    return NULL;
   }
 private:
     // default events handling, calls CreatePopupMenu:
@@ -91,14 +90,15 @@ class WXDLLIMPEXP_CORE wxTaskBarIconEvent : public wxEvent
 {
 public:
   wxTaskBarIconEvent(wxEventType evtType, wxTaskBarIcon* tbIcon)
-    :  wxEvent(wxID_ANY, evtType)
+    : wxEvent(wxID_ANY, evtType)
   {
-        SetEventObject(tbIcon);
+    SetEventObject(tbIcon);
   }
   wxEvent* Clone() const override
   {
- return new wxTaskBarIconEvent(*this);
+    return new wxTaskBarIconEvent(*this);
   }
+private:
   wxDECLARE_NO_ASSIGN_CLASS(wxTaskBarIconEvent);
 };
 typedef void (*wxTaskBarIconEventFunction) (wxTaskBarIconEvent&);
@@ -125,11 +125,7 @@ wxDECLARE_EXPORTED_EVENT( WXDLLIMPEXP_CORE, wxEVT_TASKBAR_BALLOON_CLICK, wxTaskB
 // taskbar menu is shown on right button press under all platforms except MSW
 // where it's shown on right button release, using this event type and macro
 // allows to write code which works correctly on all platforms
-#    ifdef __WXMSW__
-#      define wxEVT_TASKBAR_CLICK	wxEVT_TASKBAR_RIGHT_UP
-#    else 
-#      define wxEVT_TASKBAR_CLICK	wxEVT_TASKBAR_RIGHT_DOWN
-#    endif
+#    define wxEVT_TASKBAR_CLICK	wxEVT_TASKBAR_RIGHT_DOWN
 #    define EVT_TASKBAR_CLICK(fn)	        wx__DECLARE_TASKBAREVT(CLICK, fn)
 // these events are currently generated only under wxMSW and only after (MSW-
 // specific) ShowBalloon() had been called, don't use them in portable code

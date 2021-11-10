@@ -30,38 +30,34 @@ public:
   virtual void RemoveFileFromHistory(size_t i);
   virtual int GetMaxFiles() const
   {
- return (int)m_fileMaxFiles;
+    return (int) m_fileMaxFiles;
   }
   virtual void UseMenu(wxMenu* menu);
     // Remove menu from the list (MDI child may be closing)
   virtual void RemoveMenu(wxMenu* menu);
-#    if  wxUSE_CONFIG
-  virtual void Load(const wxConfigBase& config);
-  virtual void Save(wxConfigBase& config);
-#    endif
   virtual void AddFilesToMenu();
   virtual void AddFilesToMenu(wxMenu* menu);
     // Accessors
   virtual wxString GetHistoryFile(size_t i) const
   {
- return m_fileHistory[i];
+    return m_fileHistory[i];
   }
   virtual size_t GetCount() const
   {
- return m_fileHistory.GetCount();
+    return m_fileHistory.GetCount();
   }
   const wxList& GetMenus() const
   {
- return m_fileMenus;
+    return m_fileMenus;
   }
     // Set/get base id
   void SetBaseId(wxWindowID baseId)
   {
- m_idBase = baseId;
+    m_idBase = baseId;
   }
   wxWindowID GetBaseId() const
   {
- return m_idBase;
+    return m_idBase;
   }
 protected:
     // Last n files
@@ -88,7 +84,7 @@ class WXDLLIMPEXP_CORE wxFileHistory : public wxFileHistoryBase
 {
 public:
   wxFileHistory(size_t maxFiles = 9, wxWindowID idBase = wxID_FILE1)
-    :  wxFileHistoryBase(maxFiles, idBase)
+    : wxFileHistoryBase(maxFiles, idBase)
   {
   }
   wxDECLARE_DYNAMIC_CLASS(wxFileHistory);

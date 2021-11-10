@@ -144,11 +144,11 @@ protected:
   void OnDPIChanged(wxDPIChangedEvent& event);
   bool HasMenu() const
   {
-#if wxUSE_MENUS
-        return m_menu != NULL;
-#else // !wxUSE_MENUS
-        return false;
-#endif // wxUSE_MENUS/!wxUSE_MENUS
+#    if  wxUSE_MENUS
+    return m_menu != NULL;
+#    else 
+    return false;
+#    endif
   }
 private:
   friend class wxSearchButton;

@@ -12,26 +12,27 @@ class QColor;
 class WXDLLIMPEXP_CORE wxColour : public wxColourBase
 {
 public:
-  DEFINE_STD_WXCOLOUR_CONSTRUCTORS wxColour(const QColor& color);
+  DEFINE_STD_WXCOLOUR_CONSTRUCTORS
+  wxColour(const QColor& color);
   bool IsOk() const override
   {
- return m_valid;
+    return m_valid;
   }
   ChannelType Red() const override
   {
- return m_red;
+    return m_red;
   }
   ChannelType Green() const override
   {
- return m_green;
+    return m_green;
   }
   ChannelType Blue() const override
   {
- return m_blue;
+    return m_blue;
   }
   ChannelType Alpha() const override
   {
- return m_alpha;
+    return m_alpha;
   }
   bool operator==(const wxColour& color) const;
   bool operator!=(const wxColour& color) const;

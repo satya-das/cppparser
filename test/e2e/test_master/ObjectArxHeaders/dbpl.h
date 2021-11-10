@@ -112,17 +112,17 @@ protected:
 };
 inline Adesk::Boolean AcDbPolyline::isPlanar() const
 {
-    return Adesk::kTrue;
+  return Adesk::kTrue;
 }
 inline Acad::ErrorStatus AcDbPolyline::getStartParam(double& startParam) const
 {
-    startParam = 0.;
-    return Acad::eOk;
+  startParam = 0.;
+  return Acad::eOk;
 }
 inline Acad::ErrorStatus AcDbPolyline::getSpline(AcDbSpline*& spline) const
 {
-    ADESK_UNREFED_PARAM(spline);     // unreferenced parameter
-    return Acad::eNotApplicable;
+  ADESK_UNREFED_PARAM(spline);
+  return Acad::eNotApplicable;
 }
 #  pragma  pack(pop)
 #endif

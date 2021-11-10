@@ -30,31 +30,31 @@ public:
   ~SkDeque();
   bool empty() const
   {
- return 0 == fCount;
+    return 0 == fCount;
   }
   int count() const
   {
- return fCount;
+    return fCount;
   }
   size_t elemSize() const
   {
- return fElemSize;
+    return fElemSize;
   }
   const void* front() const
   {
- return fFront;
+    return fFront;
   }
   const void* back() const
   {
- return fBack;
+    return fBack;
   }
   void* front()
   {
-        return (void*)((const SkDeque*)this)->front();
+    return (void*) ((const SkDeque*) this)->front();
   }
   void* back()
   {
-        return (void*)((const SkDeque*)this)->back();
+    return (void*) ((const SkDeque*) this)->back();
   }
     /**
      * push_front and push_back return a pointer to the memory space
@@ -99,7 +99,7 @@ public:
          * beginning of the deque
          */
     F2BIter(const SkDeque& d)
-      :  INHERITED(d, kFront_IterStart)
+      : INHERITED(d, kFront_IterStart)
     {
     }
     using Iter::next;
@@ -109,7 +109,7 @@ public:
          */
     void reset(const SkDeque& d)
     {
-            this->INHERITED::reset(d, kFront_IterStart);
+      this->INHERITED::reset(d, kFront_IterStart);
     }
   private:
     typedef Iter INHERITED;

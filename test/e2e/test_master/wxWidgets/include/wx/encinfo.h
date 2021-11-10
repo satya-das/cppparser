@@ -35,11 +35,10 @@ struct WXDLLIMPEXP_CORE wxNativeEncodingInfo
     defined(__WXMAC__) || \
     defined(__WXQT__)
   wxNativeEncodingInfo()
-    :  facename()
-        , encoding(wxFONTENCODING_SYSTEM)
-        , charset(0) /* ANSI_CHARSET */
+    : facename()
+    , encoding(wxFONTENCODING_SYSTEM)
+    , charset(0)
   {
-
   }
   int charset;
 #  elif  defined(_WX_X_FONTLIKE)

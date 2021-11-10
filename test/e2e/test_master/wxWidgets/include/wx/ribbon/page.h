@@ -26,7 +26,7 @@ public:
   void SetArtProvider(wxRibbonArtProvider* art) override;
   wxBitmap& GetIcon()
   {
-return m_icon;
+    return m_icon;
   }
   wxSize GetMinSize() const override;
   void SetSizeWithScrollButtonAdjustment(int x, int y, int width, int height);
@@ -45,7 +45,7 @@ protected:
   wxSize DoGetBestSize() const override;
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
   void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO) override;
   bool DoActualLayout();
@@ -70,10 +70,8 @@ protected:
   int m_scroll_amount_limit;
   int m_size_in_major_axis_for_children;
   bool m_scroll_buttons_visible;
-#    ifndef SWIG
   wxDECLARE_CLASS(wxRibbonPage);
   wxDECLARE_EVENT_TABLE();
-#    endif
 };
 #  endif
 #endif

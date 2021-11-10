@@ -16,12 +16,12 @@ class WXDLLIMPEXP_ADV wxGenericNotificationMessage : public wxNotificationMessag
 public:
   wxGenericNotificationMessage()
   {
-        Init();
+    Init();
   }
   wxGenericNotificationMessage(const wxString& title, const wxString& message = wxString(), wxWindow* parent = NULL, int flags = wxICON_INFORMATION)
   {
-        Init();
-        Create(title, message, parent, flags);
+    Init();
+    Create(title, message, parent, flags);
   }
     // generic implementation-specific methods
 

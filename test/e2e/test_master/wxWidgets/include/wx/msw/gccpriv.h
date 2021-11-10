@@ -22,10 +22,6 @@
         without them being defined, better give a clearer error right now.
      */
 #    if  !defined(UNICODE)
-#      ifndef wxUSE_UNICODE
-#      endif
-#      if  wxUSE_UNICODE
-#      endif
 #    endif
     /*
         MinGW 5.3.0 (and presumably later) predefines _WIN32_WINNT and WINVER

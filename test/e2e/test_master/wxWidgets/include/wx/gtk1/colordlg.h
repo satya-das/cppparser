@@ -25,7 +25,7 @@ public:
   bool Create(wxWindow* parent, wxColourData* data = NULL);
   wxColourData& GetColourData()
   {
- return m_data;
+    return m_data;
   }
   virtual int ShowModal();
 protected:

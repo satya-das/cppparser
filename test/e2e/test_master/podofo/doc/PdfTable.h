@@ -377,14 +377,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetBorderEnabled(bool bEnable)
   {
-	m_bBorder = bEnable;
+    m_bBorder = bEnable;
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetBorderWidth(double dWidth)
   {
-	m_dBorder = dWidth;
+    m_dBorder = dWidth;
   }
 // -----------------------------------------------------
 // 
@@ -405,11 +405,10 @@ namespace PoDoFo
 // -----------------------------------------------------
   void PdfSimpleTableModel::SetText(int col, int row, const PdfString& rsString)
   {
-    if( !m_ppData || row >= m_nRows || col >= m_nCols )
+    if (!m_ppData || row >= m_nRows || col >= m_nCols)
     {
-        PODOFO_RAISE_ERROR( ePdfError_InvalidHandle );
+      PODOFO_RAISE_ERROR(ePdfError_InvalidHandle);
     }
-
     m_ppData[row][col] = rsString;
   }
 // -----------------------------------------------------
@@ -417,10 +416,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   PdfString PdfSimpleTableModel::GetText(int col, int row) const
   {
-    if( !m_ppData || row >= m_nRows || col >= m_nCols )
-        return PdfString();
-    else
-        return m_ppData[row][col].IsValid() ? m_ppData[row][col] : PdfString("");
+    if (!m_ppData || row >= m_nRows || col >= m_nCols)
+    {
+      return PdfString();
+    }
+    else 
+    {
+      return m_ppData[row][col].IsValid() ? m_ppData[row][col] : PdfString("");
+    }
   }
 // -----------------------------------------------------
 // 
@@ -476,14 +479,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   bool PdfSimpleTableModel::HasBorders() const
   {
-	return m_bBorder;
+    return m_bBorder;
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   double PdfSimpleTableModel::GetBorderWidth() const
   {
-	return m_dBorder;
+    return m_dBorder;
   }
 // -----------------------------------------------------
 // 
@@ -491,7 +494,7 @@ namespace PoDoFo
   PdfColor PdfSimpleTableModel::GetBorderColor(int, int) const
   {
     // always return black
-    return PdfColor( 0.0, 0.0, 0.0 );
+    return PdfColor(0.0, 0.0, 0.0);
   }
 // -----------------------------------------------------
 // 
@@ -771,8 +774,8 @@ namespace PoDoFo
   void PdfTable::SetAutoPageBreak(bool bPageBreak, CreatePageCallback callback, void* pCustomData)
   {
     m_bAutoPageBreak = bPageBreak;
-    m_fpCallback     = callback;
-    m_pCustomData    = pCustomData;
+    m_fpCallback = callback;
+    m_pCustomData = pCustomData;
   }
 // -----------------------------------------------------
 // 

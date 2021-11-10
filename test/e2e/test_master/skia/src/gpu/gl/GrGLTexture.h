@@ -33,28 +33,28 @@ public:
     // TODO: Remove once clients are no longer calling this.
   void textureParamsModified() override
   {
- fParameters->invalidate();
+    fParameters->invalidate();
   }
   GrGLTextureParameters* parameters()
   {
- return fParameters.get();
+    return fParameters.get();
   }
   GrGLuint textureID() const
   {
- return fID;
+    return fID;
   }
   GrGLenum target() const;
   GrGLFormat format() const
   {
- return fFormat;
+    return fFormat;
   }
   bool hasBaseLevelBeenBoundToFBO() const
   {
- return fBaseLevelHasBeenBoundToFBO;
+    return fBaseLevelHasBeenBoundToFBO;
   }
   void baseLevelWasBoundToFBO()
   {
- fBaseLevelHasBeenBoundToFBO = true;
+    fBaseLevelHasBeenBoundToFBO = true;
   }
   static sk_sp<GrGLTexture> MakeWrapped(GrGLGpu*, GrMipMapsStatus, const Desc&, sk_sp<GrGLTextureParameters>, GrWrapCacheable, GrIOType);
   void dumpMemoryStatistics(SkTraceMemoryDump* traceMemoryDump) const override;

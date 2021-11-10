@@ -58,7 +58,7 @@ public:
      */
   bool isFinished() const
   {
- return fFinished;
+    return fFinished;
   }
     /**
      * Returned by decodeNextFrame and currentFrameDuration if the animation
@@ -80,7 +80,7 @@ public:
      */
   int currentFrameDuration()
   {
-        return fCurrentFrameDuration;
+    return fCurrentFrameDuration;
   }
     /**
      *  Change the repetition count.
@@ -97,7 +97,7 @@ public:
      */
   int getRepetitionCount() const
   {
-        return fRepetitionCount;
+    return fRepetitionCount;
   }
 protected:
   SkRect onGetBounds() override;

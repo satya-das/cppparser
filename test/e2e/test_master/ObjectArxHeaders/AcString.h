@@ -130,7 +130,7 @@ public:
     // Deprecated. Please use length() instead
   unsigned tcharLength() const
   {
-        return this->length();
+    return this->length();
   }
     // Returns the number of characters (not including the null terminator)
     // that this string can contain without growing its buffer
@@ -618,7 +618,7 @@ public:
     ///
   int remove()
   {
-        return this->remove(0);
+    return this->remove(0);
   }
     /// <summary> Extract substring up to the first instance of a designated character.</summary>
     /// <returns> AcString that contains the substring</returns>
@@ -845,323 +845,323 @@ AcString operator +(const wchar_t* pwsz, const AcString& acs);
 //
 operator const wchar_t*() const
 {
-    return this->kwszPtr();
+  return this->kwszPtr();
 }
 inline const wchar_t* AcString::constPtr() const
 {
-    return this->kwszPtr();
+  return this->kwszPtr();
 }
 inline const wchar_t* AcString::kTCharPtr() const
 {
-    return this->kwszPtr();
+  return this->kwszPtr();
 }
 inline const ACHAR* AcString::kACharPtr() const
 {
-    return this->kwszPtr();
+  return this->kwszPtr();
 }
 inline bool AcString::isEmpty() const
 {
-    return this->m_wsz[0] == L'\0';
+  return this->m_wsz[0] == L'\0';
 }
 inline wchar_t AcString::getAt(int nIndex) const
 {
-    return this->m_wsz[nIndex];
+  return this->m_wsz[nIndex];
 }
 // Searching inlines
 //
 inline int AcString::find(ACHAR ch) const
 {
-    const ACHAR str[2] = {ch, '\0'};
-    return this->findOneOf(str);
+  const ACHAR str[2] = {ch, '\0'};
+  return this->findOneOf(str);
 }
 inline int AcString::findRev(ACHAR ch) const
 {
-    const ACHAR str[2] = {ch, '\0'};
-    return this->findOneOfRev(str);
+  const ACHAR str[2] = {ch, '\0'};
+  return this->findOneOfRev(str);
 }
 // Extraction inlines
 //
 inline AcString AcString::mid(int nStart, int nNumChars) const
 {
-    return this->substr(nStart, nNumChars);
+  return this->substr(nStart, nNumChars);
 }
 inline AcString AcString::mid(int nStart) const
 {
-    return this->mid(nStart, -1);
+  return this->mid(nStart, -1);
 }
 inline AcString AcString::substr(int nNumChars) const
 {
-    return this->substr(0, nNumChars);
+  return this->substr(0, nNumChars);
 }
 inline AcString AcString::left(int nNumChars) const
 {
-    return this->substr(nNumChars);
+  return this->substr(nNumChars);
 }
 inline AcString AcString::right(int nNumChars) const
 {
-    return this->substrRev(nNumChars);
+  return this->substrRev(nNumChars);
 }
 inline AcString& AcString::trimLeft(wchar_t wch)
 {
-    const wchar_t wszChars[] = { wch, L'\0' };
-    return this->trimLeft(wszChars);
+  const wchar_t wszChars[] = {wch, L'\0'};
+  return this->trimLeft(wszChars);
 }
 inline AcString& AcString::trimLeft()
 {
-    return this->trimLeft(nullptr);     // trim whitespace
+  return this->trimLeft(nullptr);
 }
 inline AcString& AcString::trimRight(wchar_t wch)
 {
-    const wchar_t wszChars[] = { wch, L'\0' };
-    return this->trimRight(wszChars);
+  const wchar_t wszChars[] = {wch, L'\0'};
+  return this->trimRight(wszChars);
 }
 inline AcString& AcString::trimRight()
 {
-    return this->trimRight(nullptr);    // trim whitespace
+  return this->trimRight(nullptr);
 }
 inline AcString& AcString::trim(wchar_t wch)
 {
-    const wchar_t wszChars[] = { wch, L'\0' };
-    return this->trim(wszChars);
+  const wchar_t wszChars[] = {wch, L'\0'};
+  return this->trim(wszChars);
 }
 inline AcString& AcString::trim()
 {
-    return this->trim(nullptr);         // trim whitespace
+  return this->trim(nullptr);
 }
 inline AcString& AcString::trim(const wchar_t* pwszChars)
 {
-    return this->trimRight(pwszChars).trimLeft(pwszChars);
+  return this->trimRight(pwszChars).trimLeft(pwszChars);
 }
 // Assignment inlines
 //
 inline AcString& AcString::assign(wchar_t wch)
 {
-    const wchar_t wstr[2] = {wch, L'\0'};
-    return this->assign(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->assign(wstr);
 }
 inline AcString& AcString::operator =(wchar_t wch)
 {
-    return this->assign(wch);
+  return this->assign(wch);
 }
 inline AcString& AcString::operator =(const wchar_t* pwsz)
 {
-    return this->assign(pwsz);
+  return this->assign(pwsz);
 }
 inline AcString& AcString::operator =(const AcString& acs)
 {
-    return this->assign(acs);
+  return this->assign(acs);
 }
 inline AcString& AcString::operator =(const AcDbHandle& h)
 {
-    return this->assign(h);
+  return this->assign(h);
 }
 // Modifying inlines
 //
 inline AcString& AcString::operator +=(wchar_t wch)
 {
-    return this->append(wch);
+  return this->append(wch);
 }
 inline AcString& AcString::operator +=(const wchar_t* pwsz)
 {
-    return this->append(pwsz);
+  return this->append(pwsz);
 }
 inline AcString& AcString::operator +=(const AcString& acs)
 {
-    return this->append(acs);
+  return this->append(acs);
 }
 inline AcString& AcString::append(wchar_t wch)
 {
-    const wchar_t wstr[2] = {wch, L'\0'};
-    return this->append(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->append(wstr);
 }
 // Concatenation inlines
 inline AcString AcString::operator +(wchar_t wch) const
 {
-    return this->concat(wch);
+  return this->concat(wch);
 }
 inline AcString AcString::operator +(const wchar_t* pwsz) const
 {
-    return this->concat(pwsz);
+  return this->concat(pwsz);
 }
 inline AcString AcString::operator +(const AcString& acs) const
 {
-    return this->concat(acs);
+  return this->concat(acs);
 }
 inline AcString AcString::concat(wchar_t wch) const
 {
-    const wchar_t wstr[2] = {wch, L'\0'};
-    return this->concat(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->concat(wstr);
 }
 inline AcString AcString::precat(wchar_t ch) const
 {
-    const wchar_t str[2] = {ch, '\0'};
-    return this->precat(str);
+  const wchar_t str[2] = {ch, '\0'};
+  return this->precat(str);
 }
 // Comparison inlines
 //
 inline const wchar_t* AcString::kwszPtr() const
 {
-    return this->m_wsz; // this pointer is never null
+  return this->m_wsz;
 }
 inline int AcString::compare(wchar_t wch) const
 {
-    const wchar_t wstr[2] = {wch, L'\0'};
-    return this->compare(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->compare(wstr);
 }
 inline int AcString::compare(const AcString& acs) const
 {
-    return this->compare(acs.kwszPtr());
+  return this->compare(acs.kwszPtr());
 }
 inline int AcString::compareNoCase(wchar_t wch) const
 {
-    const wchar_t wstr[2] = {wch, L'\0'};
-    return this->compareNoCase(wstr);
+  const wchar_t wstr[2] = {wch, L'\0'};
+  return this->compareNoCase(wstr);
 }
 inline int AcString::compareNoCase(const AcString& acs) const
 {
-    return this->compareNoCase(acs.kwszPtr());
+  return this->compareNoCase(acs.kwszPtr());
 }
 inline int AcString::collate(const AcString& acs) const
 {
-    return this->collate(acs.kwszPtr());
+  return this->collate(acs.kwszPtr());
 }
 inline int AcString::collateNoCase(const AcString& acs) const
 {
-    return this->collateNoCase(acs.kwszPtr());
+  return this->collateNoCase(acs.kwszPtr());
 }
 inline bool AcString::operator ==(wchar_t wch) const
 {
-    return this->compare(wch) == 0;
+  return this->compare(wch) == 0;
 }
 inline bool AcString::operator ==(const wchar_t* pwsz) const
 {
-    return this->compare(pwsz) == 0;
+  return this->compare(pwsz) == 0;
 }
 inline bool AcString::operator ==(const AcString& acs) const
 {
-    return this->compare(acs) == 0;
+  return this->compare(acs) == 0;
 }
 inline bool AcString::operator !=(wchar_t wch) const
 {
-    return this->compare(wch) != 0;
+  return this->compare(wch) != 0;
 }
 inline bool AcString::operator !=(const wchar_t* pwsz) const
 {
-    return this->compare(pwsz) != 0;
+  return this->compare(pwsz) != 0;
 }
 inline bool AcString::operator !=(const AcString& acs) const
 {
-    return this->compare(acs) != 0;
+  return this->compare(acs) != 0;
 }
 inline bool AcString::operator >(wchar_t wch) const
 {
-    return this->compare(wch) > 0;
+  return this->compare(wch) > 0;
 }
 inline bool AcString::operator >(const wchar_t* pwsz) const
 {
-    return this->compare(pwsz) > 0;
+  return this->compare(pwsz) > 0;
 }
 inline bool AcString::operator >(const AcString& acs) const
 {
-    return this->compare(acs) > 0;
+  return this->compare(acs) > 0;
 }
 inline bool AcString::operator >=(wchar_t wch) const
 {
-    return this->compare(wch) >= 0;
+  return this->compare(wch) >= 0;
 }
 inline bool AcString::operator >=(const wchar_t* pwsz) const
 {
-    return this->compare(pwsz) >= 0;
+  return this->compare(pwsz) >= 0;
 }
 inline bool AcString::operator >=(const AcString& acs) const
 {
-    return this->compare(acs) >= 0;
+  return this->compare(acs) >= 0;
 }
 inline bool AcString::operator <(wchar_t wch) const
 {
-    return this->compare(wch) < 0;
+  return this->compare(wch) < 0;
 }
 inline bool AcString::operator <(const wchar_t* pwsz) const
 {
-    return this->compare(pwsz) < 0;
+  return this->compare(pwsz) < 0;
 }
 inline bool AcString::operator <(const AcString& acs) const
 {
-    return this->compare(acs) < 0;
+  return this->compare(acs) < 0;
 }
 inline bool AcString::operator <=(wchar_t wch) const
 {
-    return this->compare(wch) <= 0;
+  return this->compare(wch) <= 0;
 }
 inline bool AcString::operator <=(const wchar_t* pwsz) const
 {
-    return this->compare(pwsz) <= 0;
+  return this->compare(pwsz) <= 0;
 }
 inline bool AcString::operator <=(const AcString& acs) const
 {
-    return this->compare(acs) <= 0;
+  return this->compare(acs) <= 0;
 }
 // Inline global operators
 inline bool operator ==(wchar_t wch, const AcString& acs)
 {
-    return acs.compare(wch) == 0;
+  return acs.compare(wch) == 0;
 }
 inline bool operator ==(const wchar_t* pwsz, const AcString& acs)
 {
-    return acs.compare(pwsz) == 0;
+  return acs.compare(pwsz) == 0;
 }
 inline bool operator !=(wchar_t wch, const AcString& acs)
 {
-    return acs.compare(wch) != 0;
+  return acs.compare(wch) != 0;
 }
 inline bool operator !=(const wchar_t* pwsz, const AcString& acs)
 {
-    return acs.compare(pwsz) != 0;
+  return acs.compare(pwsz) != 0;
 }
 inline bool operator >(wchar_t wch, const AcString& acs)
 {
-    return acs.compare(wch) < 0;
+  return acs.compare(wch) < 0;
 }
 inline bool operator >(const wchar_t* pwsz, const AcString& acs)
 {
-    return acs.compare(pwsz) < 0;
+  return acs.compare(pwsz) < 0;
 }
 inline bool operator >=(wchar_t wch, const AcString& acs)
 {
-    return acs.compare(wch) <= 0;
+  return acs.compare(wch) <= 0;
 }
 inline bool operator >=(const wchar_t* pwsz, const AcString& acs)
 {
-    return acs.compare(pwsz) <= 0;
+  return acs.compare(pwsz) <= 0;
 }
 inline bool operator <(wchar_t wch, const AcString& acs)
 {
-    return acs.compare(wch) > 0;
+  return acs.compare(wch) > 0;
 }
 inline bool operator <(const wchar_t* pwsz, const AcString& acs)
 {
-    return acs.compare(pwsz) > 0;
+  return acs.compare(pwsz) > 0;
 }
 inline bool operator <=(wchar_t wch, const AcString& acs)
 {
-    return acs.compare(wch) >= 0;
+  return acs.compare(wch) >= 0;
 }
 inline bool operator <=(const wchar_t* pwsz, const AcString& acs)
 {
-    return acs.compare(pwsz) >= 0;
+  return acs.compare(pwsz) >= 0;
 }
 // These don't modify the AcString.  They return a copy.
 inline AcString operator +(ACHAR ch, const AcString& acs)
 {
-    return acs.precat(ch);
+  return acs.precat(ch);
 }
 inline AcString operator +(const wchar_t* pwsz, const AcString& acs)
 {
-    return acs.precat(pwsz);
+  return acs.precat(pwsz);
 }
 inline bool AcString::equalsNoCase(const AcString& left, const AcString& right)
 {
-    return left.compareNoCase(right) == 0;
+  return left.compareNoCase(right) == 0;
 }
 // Return a unique identifier (pointer) for the input string, to allow fast compares
 // using pointer values instead of strings.
@@ -1181,96 +1181,96 @@ public:
 //
 #  if  defined(_AFX) || defined(__OSX_WINAPI_UNIX_STRING_H__) || defined(__ATLSTR_H__)
 inline AcString::AcString(const CStringW& csw)
-  :  AcString()
+  : AcString()
 {
-    const wchar_t *pwsz = (const wchar_t *)csw;
-    *this = pwsz;
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  *this = pwsz;
 }
 inline AcString& AcString::operator=(const CStringW& csw)
 {
-    const wchar_t *pwsz = (const wchar_t *)csw;
-    return this->assign(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->assign(pwsz);
 }
 inline AcString& AcString::operator+=(const CStringW& csw)
 {
-    const wchar_t *pwsz = (const wchar_t *)csw;
-    return this->append(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->append(pwsz);
 }
 inline int AcString::compare(const CStringW& csw) const
 {
-    const wchar_t *pwsz = (const wchar_t *)csw;
-    return this->compare(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->compare(pwsz);
 }
 inline int AcString::compareNoCase(const CStringW& csw) const
 {
-    const wchar_t *pwsz = (const wchar_t *)csw;
-    return this->compareNoCase(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->compareNoCase(pwsz);
 }
 inline int AcString::match(const CStringW& csw) const
 {
-    const wchar_t *pwsz = (const wchar_t *)csw;
-    return this->match(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->match(pwsz);
 }
 inline int AcString::matchNoCase(const CStringW& csw) const
 {
-    const wchar_t *pwsz = (const wchar_t *)csw;
-    return this->matchNoCase(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return this->matchNoCase(pwsz);
 }
 inline bool AcString::operator ==(const CStringW& csw) const
 {
-    return this->compare(csw) == 0;
+  return this->compare(csw) == 0;
 }
 inline bool AcString::operator !=(const CStringW& csw) const
 {
-    return this->compare(csw) != 0;
+  return this->compare(csw) != 0;
 }
 inline bool AcString::operator >(const CStringW& csw) const
 {
-    return this->compare(csw) > 0;
+  return this->compare(csw) > 0;
 }
 inline bool AcString::operator >=(const CStringW& csw) const
 {
-    return this->compare(csw) >= 0;
+  return this->compare(csw) >= 0;
 }
 inline bool AcString::operator <(const CStringW& csw) const
 {
-    return this->compare(csw) < 0;
+  return this->compare(csw) < 0;
 }
 inline bool AcString::operator <=(const CStringW& csw) const
 {
-    return this->compare(csw) <= 0;
+  return this->compare(csw) <= 0;
 }
 #    if  defined(_AFX) && !defined(__cplusplus_cli)
 // Global CString-related operators
 inline bool operator ==(const CStringW& csw, const AcString& acs)
 {
-    return acs.compare(csw) == 0;
+  return acs.compare(csw) == 0;
 }
 inline bool operator !=(const CStringW& csw, const AcString& acs)
 {
-    return acs.compare(csw) != 0;
+  return acs.compare(csw) != 0;
 }
 inline bool operator >(const CStringW& csw, const AcString& acs)
 {
-    return acs.compare(csw) < 0;
+  return acs.compare(csw) < 0;
 }
 inline bool operator >=(const CStringW& csw, const AcString& acs)
 {
-    return acs.compare(csw) <= 0;
+  return acs.compare(csw) <= 0;
 }
 inline bool operator <(const CStringW& csw, const AcString& acs)
 {
-    return acs.compare(csw) > 0;
+  return acs.compare(csw) > 0;
 }
 inline bool operator <=(const CStringW& csw, const AcString& acs)
 {
-    return acs.compare(csw) >= 0;
+  return acs.compare(csw) >= 0;
 }
 #      ifndef DISABLE_CSTRING_PLUS_ACSTRING
 inline AcString operator +(const CStringW& csw, const AcString& acs)
 {
-    const wchar_t *pwsz = (const wchar_t *)csw;
-    return acs.precat(pwsz);
+  const wchar_t* pwsz = (const wchar_t*) csw;
+  return acs.precat(pwsz);
 }
 #      endif
 #    endif

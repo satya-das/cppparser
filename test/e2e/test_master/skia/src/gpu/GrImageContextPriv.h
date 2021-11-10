@@ -16,51 +16,51 @@ public:
     // from GrContext_Base
   uint32_t contextID() const
   {
- return fContext->contextID();
+    return fContext->contextID();
   }
   bool matches(GrContext_Base* candidate) const
   {
- return fContext->matches(candidate);
+    return fContext->matches(candidate);
   }
   const GrContextOptions& options() const
   {
- return fContext->options();
+    return fContext->options();
   }
   const GrCaps* caps() const
   {
- return fContext->caps();
+    return fContext->caps();
   }
   sk_sp<const GrCaps> refCaps() const;
   sk_sp<GrSkSLFPFactoryCache> fpFactoryCache();
   GrImageContext* asImageContext()
   {
- return fContext->asImageContext();
+    return fContext->asImageContext();
   }
   GrRecordingContext* asRecordingContext()
   {
- return fContext->asRecordingContext();
+    return fContext->asRecordingContext();
   }
   GrContext* asDirectContext()
   {
- return fContext->asDirectContext();
+    return fContext->asDirectContext();
   }
     // from GrImageContext
   GrProxyProvider* proxyProvider()
   {
- return fContext->proxyProvider();
+    return fContext->proxyProvider();
   }
   const GrProxyProvider* proxyProvider() const
   {
- return fContext->proxyProvider();
+    return fContext->proxyProvider();
   }
   bool abandoned() const
   {
- return fContext->abandoned();
+    return fContext->abandoned();
   }
     /** This is only useful for debug purposes */
 private:
   explicit GrImageContextPriv(GrImageContext* context)
-    :  fContext(context)
+    : fContext(context)
   {
   }
   GrImageContextPriv(const GrImageContextPriv&);
@@ -73,10 +73,10 @@ private:
 };
 inline GrImageContextPriv GrImageContext::priv()
 {
- return GrImageContextPriv(this);
+  return GrImageContextPriv(this);
 }
 inline const GrImageContextPriv GrImageContext::priv() const
 {
-    return GrImageContextPriv(const_cast<GrImageContext*>(this));
+  return GrImageContextPriv(const_cast<GrImageContext*>(this));
 }
 #endif

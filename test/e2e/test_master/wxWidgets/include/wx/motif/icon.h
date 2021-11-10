@@ -21,18 +21,18 @@ public:
   wxIcon(const char* const * data);
   wxIcon(const wxString& name, wxBitmapType type = wxICON_DEFAULT_TYPE, int desiredWidth = -1, int desiredHeight = -1)
   {
-        LoadFile(name, type, desiredWidth, desiredHeight);
+    LoadFile(name, type, desiredWidth, desiredHeight);
   }
   wxIcon(const wxIconLocation& loc)
   {
-        LoadFile(loc.GetFileName(), wxBITMAP_TYPE_ANY);
+    LoadFile(loc.GetFileName(), wxBITMAP_TYPE_ANY);
   }
   virtual ~wxIcon();
   bool LoadFile(const wxString& name, wxBitmapType type, int desiredWidth, int desiredHeight);
     // unhide the base class version
   virtual bool LoadFile(const wxString& name, wxBitmapType flags = wxICON_DEFAULT_TYPE)
   {
- return LoadFile(name, flags);
+    return LoadFile(name, flags);
   }
     // create from bitmap (which should have a mask unless it's monochrome):
     // there shouldn't be any implicit bitmap -> icon conversion (i.e. no

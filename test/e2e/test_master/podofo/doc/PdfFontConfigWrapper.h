@@ -102,14 +102,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   void* PdfFontConfigWrapper::GetFontConfig()
   {
-    if( m_pFontConfig != NULL ) 
+    if (m_pFontConfig != NULL)
     {
-        InitializeFontConfig();
-        return m_pFontConfig->m_pFcConfig;
-    } 
+      InitializeFontConfig();
+      return m_pFontConfig->m_pFcConfig;
+    }
     else 
     {
-        return NULL;
+      return NULL;
     }
   }
 #  if  defined(PODOFO_HAVE_FONTCONFIG)

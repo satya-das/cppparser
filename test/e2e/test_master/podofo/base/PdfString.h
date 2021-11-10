@@ -306,7 +306,7 @@ namespace PoDoFo
      */
     bool operator!=(const PdfString& rhs) const
     {
- return !operator==(rhs);
+      return !operator==(rhs);
     }
 #  ifdef PODOFO_PUBLIC_STRING_HEX_CODEC
     /** Converts this string to a hex-encoded string.
@@ -444,9 +444,10 @@ namespace PoDoFo
 // -----------------------------------------------------
   const std::string& PdfString::GetStringUtf8() const
   {
-    if( this->IsValid() && !m_sUtf8.length() && m_buffer.GetSize() - 2) 
-        const_cast<PdfString*>(this)->InitUtf8();
-
+    if (this->IsValid() && !m_sUtf8.length() && m_buffer.GetSize() - 2)
+    {
+      const_cast<PdfString*>(this)->InitUtf8();
+    }
     return m_sUtf8;
   }
 // -----------------------------------------------------
@@ -454,14 +455,12 @@ namespace PoDoFo
 // -----------------------------------------------------
   pdf_long PdfString::GetLength() const
   {
-    if ( !IsValid() )
+    if (!IsValid())
     {
-        PdfError::LogMessage( eLogSeverity_Error, "PdfString::GetLength invalid PdfString" );
-        return 0;
+      PdfError::LogMessage(eLogSeverity_Error, "PdfString::GetLength invalid PdfString");
+      return 0;
     }
-    
-    PODOFO_ASSERT( m_buffer.GetSize() >= 2 );
-    
+    PODOFO_ASSERT(m_buffer.GetSize() >= 2);
     return m_buffer.GetSize() - 2;
   }
 // -----------------------------------------------------
@@ -476,14 +475,12 @@ namespace PoDoFo
 // -----------------------------------------------------
   pdf_long PdfString::GetUnicodeLength() const
   {
-    if ( !IsValid() )
+    if (!IsValid())
     {
-        PdfError::LogMessage( eLogSeverity_Error, "PdfString::GetUnicodeLength invalid PdfString" );
-        return 0;
+      PdfError::LogMessage(eLogSeverity_Error, "PdfString::GetUnicodeLength invalid PdfString");
+      return 0;
     }
-    
-    PODOFO_ASSERT( (m_buffer.GetSize() / sizeof(pdf_utf16be)) >= 1 );
-    
+    PODOFO_ASSERT((m_buffer.GetSize() / sizeof(pdf_utf16be)) >= 1);
     return (m_buffer.GetSize() / sizeof(pdf_utf16be)) - 1;
   }
 }

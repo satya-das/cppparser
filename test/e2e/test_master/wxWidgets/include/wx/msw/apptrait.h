@@ -27,7 +27,7 @@ public:
 #  endif
   bool CanUseStderr() override
   {
- return true;
+    return true;
   }
   bool WriteToStderr(const wxString& text) override;
 };
@@ -57,11 +57,10 @@ public:
   virtual wxEventLoopBase* CreateEventLoop();
   virtual void* BeforeChildWaitLoop()
   {
- return NULL;
+    return NULL;
   }
   virtual void AfterChildWaitLoop(void*)
   {
-
   }
 #      if  wxUSE_TIMER
   virtual wxTimerImpl* CreateTimerImpl(wxTimer* timer);
@@ -73,21 +72,21 @@ public:
 #      if  wxUSE_THREADS
   virtual bool DoMessageFromThreadWait()
   {
- return true;
+    return true;
   }
   virtual WXDWORD WaitForThread(WXHANDLE hThread, int)
   {
- return DoSimpleWaitForThread(hThread);
+    return DoSimpleWaitForThread(hThread);
   }
 #      endif
   virtual wxPortId GetToolkitVersion(int* majVer = NULL, int* minVer = NULL, int* microVer = NULL) const;
   virtual bool CanUseStderr()
   {
- return false;
+    return false;
   }
   virtual bool WriteToStderr(const wxString&)
   {
- return false;
+    return false;
   }
 };
 #    elif  defined(__WXQT__)
@@ -97,11 +96,10 @@ public:
   virtual wxEventLoopBase* CreateEventLoop();
   virtual void* BeforeChildWaitLoop()
   {
- return NULL;
+    return NULL;
   }
   virtual void AfterChildWaitLoop(void*)
   {
-
   }
 #      if  wxUSE_TIMER
   virtual wxTimerImpl* CreateTimerImpl(wxTimer* timer);
@@ -109,21 +107,21 @@ public:
 #      if  wxUSE_THREADS
   virtual bool DoMessageFromThreadWait()
   {
- return true;
+    return true;
   }
   virtual WXDWORD WaitForThread(WXHANDLE hThread, int)
   {
- return DoSimpleWaitForThread(hThread);
+    return DoSimpleWaitForThread(hThread);
   }
 #      endif
   virtual wxPortId GetToolkitVersion(int* majVer = NULL, int* minVer = NULL, int* microVer = NULL) const;
   virtual bool CanUseStderr()
   {
- return false;
+    return false;
   }
   virtual bool WriteToStderr(const wxString&)
   {
- return false;
+    return false;
   }
 };
 #    endif

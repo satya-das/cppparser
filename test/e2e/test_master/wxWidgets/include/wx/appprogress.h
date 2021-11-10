@@ -23,6 +23,7 @@ public:
   virtual void SetRange(int range) = 0;
   virtual void Pulse() = 0;
   virtual void Reset() = 0;
+private:
   wxDECLARE_NO_COPY_CLASS(wxAppProgressIndicatorBase);
 };
 #  if  defined(__WXMSW__) && wxUSE_TASKBARBUTTON
@@ -35,27 +36,22 @@ class wxAppProgressIndicator : public wxAppProgressIndicatorBase
 public:
   wxAppProgressIndicator(wxWindow* = NULL, int = 100)
   {
-
   }
   bool IsAvailable() const override
   {
- return false;
+    return false;
   }
   void SetValue(int) override
   {
-
   }
   void SetRange(int) override
   {
-
   }
   void Pulse() override
   {
-
   }
   void Reset() override
   {
-
   }
 };
 #  endif

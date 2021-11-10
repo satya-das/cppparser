@@ -13,11 +13,11 @@ struct SkDQuadPair
 {
   const SkDQuad& first() const
   {
- return (const SkDQuad&) pts[0];
+    return (const SkDQuad&) pts[0];
   }
   const SkDQuad& second() const
   {
- return (const SkDQuad&) pts[2];
+    return (const SkDQuad&) pts[2];
   }
   SkDPoint pts[5];
 };
@@ -29,44 +29,45 @@ struct SkDQuad
   SkDPoint fPts[kPointCount];
   bool collapsed() const
   {
-        return fPts[0].approximatelyEqual(fPts[1]) && fPts[0].approximatelyEqual(fPts[2]);
+    return fPts[0].approximatelyEqual(fPts[1]) && fPts[0].approximatelyEqual(fPts[2]);
   }
   bool controlsInside() const
   {
-        SkDVector v01 = fPts[0] - fPts[1];
-        SkDVector v02 = fPts[0] - fPts[2];
-        SkDVector v12 = fPts[1] - fPts[2];
-        return v02.dot(v01) > 0 && v02.dot(v12) > 0;
+    SkDVector v01 = fPts[0] - fPts[1];
+    SkDVector v02 = fPts[0] - fPts[2];
+    SkDVector v12 = fPts[1] - fPts[2];
+    return v02.dot(v01) > 0 && v02.dot(v12) > 0;
   }
   void debugInit()
   {
-        sk_bzero(fPts, sizeof(fPts));
+    sk_bzero(fPts, sizeof(fPts));
   }
   void debugSet(const SkDPoint* pts);
   SkDQuad flip() const
   {
-        SkDQuad result = {{fPts[2], fPts[1], fPts[0]}  SkDEBUGPARAMS(fDebugGlobalState) };
-        return result;
+    SkDQuad result = {{fPts[2], fPts[1], fPts[0]}};
+    return result;
   }
   static bool IsConic()
   {
- return false;
+    return false;
   }
   const SkDQuad& set(const SkPoint pts[kPointCount])
   {
-        fPts[0] = pts[0];
-        fPts[1] = pts[1];
-        fPts[2] = pts[2];
-        SkDEBUGCODE(fDebugGlobalState = state);
-        return *this;
+    fPts[0] = pts[0];
+    fPts[1] = pts[1];
+    fPts[2] = pts[2];
+    return *this;
   }
   const SkDPoint& operator[](int n) const
   {
- SkASSERT(n >= 0 && n < kPointCount); return fPts[n];
+    SkASSERT(n >= 0 && n < kPointCount);
+    return fPts[n];
   }
   SkDPoint& operator[](int n)
   {
- SkASSERT(n >= 0 && n < kPointCount); return fPts[n];
+    SkASSERT(n >= 0 && n < kPointCount);
+    return fPts[n];
   }
   static int AddValidTs(double s[], int realRoots, double* t);
   void align(int endIndex, SkDPoint* dstPt) const;
@@ -76,7 +77,7 @@ struct SkDQuad
 #  ifdef SK_DEBUG
   SkOpGlobalState* globalState() const
   {
- return fDebugGlobalState;
+    return fDebugGlobalState;
   }
 #  endif
     /**
@@ -90,18 +91,18 @@ struct SkDQuad
   bool isLinear(int startIndex, int endIndex) const;
   static int maxIntersections()
   {
- return kMaxIntersections;
+    return kMaxIntersections;
   }
   bool monotonicInX() const;
   bool monotonicInY() const;
   void otherPts(int oddMan, const SkDPoint* endPt[2]) const;
   static int pointCount()
   {
- return kPointCount;
+    return kPointCount;
   }
   static int pointLast()
   {
- return kPointLast;
+    return kPointLast;
   }
   SkDPoint ptAtT(double t) const;
   static int RootsReal(double A, double B, double C, double t[2]);
@@ -110,20 +111,20 @@ struct SkDQuad
   SkDQuad subDivide(double t1, double t2) const;
   void subDivide(double t1, double t2, SkDQuad* quad) const
   {
- *quad = this->subDivide(t1, t2);
+    *quad = this->subDivide(t1, t2);
   }
   static SkDQuad SubDivide(const SkPoint a[kPointCount], double t1, double t2)
   {
-        SkDQuad quad;
-        quad.set(a);
-        return quad.subDivide(t1, t2);
+    SkDQuad quad;
+    quad.set(a);
+    return quad.subDivide(t1, t2);
   }
   SkDPoint subDivide(const SkDPoint& a, const SkDPoint& c, double t1, double t2) const;
   static SkDPoint SubDivide(const SkPoint pts[kPointCount], const SkDPoint& a, const SkDPoint& c, double t1, double t2)
   {
-        SkDQuad quad;
-        quad.set(pts);
-        return quad.subDivide(a, c, t1, t2);
+    SkDQuad quad;
+    quad.set(pts);
+    return quad.subDivide(a, c, t1, t2);
   }
     /**
      *  Return the number of valid roots (0 < root < 1) for this cubic intersecting the
@@ -144,92 +145,91 @@ public:
   {
   }
   SkTQuad(const SkDQuad& q)
-    :  fQuad(q)
+    : fQuad(q)
   {
-
   }
   virtual ~SkTQuad()
   {
   }
   const SkDPoint& operator[](int n) const override
   {
- return fQuad[n];
+    return fQuad[n];
   }
   SkDPoint& operator[](int n) override
   {
- return fQuad[n];
+    return fQuad[n];
   }
   bool collapsed() const override
   {
- return fQuad.collapsed();
+    return fQuad.collapsed();
   }
   bool controlsInside() const override
   {
- return fQuad.controlsInside();
+    return fQuad.controlsInside();
   }
   void debugInit() override
   {
- return fQuad.debugInit();
+    return fQuad.debugInit();
   }
 #  if  DEBUG_T_SECT
   void dumpID(int id) const override
   {
- return fQuad.dumpID(id);
+    return fQuad.dumpID(id);
   }
 #  endif
   SkDVector dxdyAtT(double t) const override
   {
- return fQuad.dxdyAtT(t);
+    return fQuad.dxdyAtT(t);
   }
 #  ifdef SK_DEBUG
   SkOpGlobalState* globalState() const override
   {
- return fQuad.globalState();
+    return fQuad.globalState();
   }
 #  endif
   bool hullIntersects(const SkDQuad& quad, bool* isLinear) const override
   {
-        return quad.hullIntersects(fQuad, isLinear);
+    return quad.hullIntersects(fQuad, isLinear);
   }
   bool hullIntersects(const SkDConic& conic, bool* isLinear) const override;
   bool hullIntersects(const SkDCubic& cubic, bool* isLinear) const override;
   bool hullIntersects(const SkTCurve& curve, bool* isLinear) const override
   {
-        return curve.hullIntersects(fQuad, isLinear);
+    return curve.hullIntersects(fQuad, isLinear);
   }
   int intersectRay(SkIntersections* i, const SkDLine& line) const override;
   bool IsConic() const override
   {
- return false;
+    return false;
   }
   SkTCurve* make(SkArenaAlloc& heap) const override
   {
- return heap.make<SkTQuad>();
+    return heap.make<SkTQuad>();
   }
   int maxIntersections() const override
   {
- return SkDQuad::kMaxIntersections;
+    return SkDQuad::kMaxIntersections;
   }
   void otherPts(int oddMan, const SkDPoint* endPt[2]) const override
   {
-        fQuad.otherPts(oddMan, endPt);
+    fQuad.otherPts(oddMan, endPt);
   }
   int pointCount() const override
   {
- return SkDQuad::kPointCount;
+    return SkDQuad::kPointCount;
   }
   int pointLast() const override
   {
- return SkDQuad::kPointLast;
+    return SkDQuad::kPointLast;
   }
   SkDPoint ptAtT(double t) const override
   {
- return fQuad.ptAtT(t);
+    return fQuad.ptAtT(t);
   }
   void setBounds(SkDRect*) const override;
   void subDivide(double t1, double t2, SkTCurve* curve) const override
   {
-        ((SkTQuad*) curve)->fQuad = fQuad.subDivide(t1, t2);
+    ((SkTQuad*) curve)->fQuad = fQuad.subDivide(t1, t2);
   }
 };
 #endif

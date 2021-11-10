@@ -46,40 +46,42 @@ public:
   }
   wxDirDialogBase(wxWindow* parent, const wxString& title = wxASCII_STR(wxDirSelectorPromptStr), const wxString& defaultPath = wxEmptyString, long style = wxDD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxDirDialogNameStr))
   {
-        Create(parent, title, defaultPath, style, pos, sz, name);
+    Create(parent, title, defaultPath, style, pos, sz, name);
   }
   virtual ~wxDirDialogBase()
   {
   }
   bool Create(wxWindow* parent, const wxString& title = wxASCII_STR(wxDirSelectorPromptStr), const wxString& defaultPath = wxEmptyString, long style = wxDD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, const wxString& name = wxASCII_STR(wxDirDialogNameStr))
   {
-        if (!wxDialog::Create(parent, wxID_ANY, title, pos, sz, style, name))
-            return false;
-        m_path = defaultPath;
-        m_message = title;
-        return true;
+    if (!wxDialog::Create(parent, wxID_ANY, title, pos, sz, style, name))
+    {
+      return false;
+    }
+    m_path = defaultPath;
+    m_message = title;
+    return true;
   }
   virtual void SetMessage(const wxString& message)
   {
- m_message = message;
+    m_message = message;
   }
   virtual void SetPath(const wxString& path)
   {
- m_path = path;
+    m_path = path;
   }
   virtual wxString GetMessage() const
   {
- return m_message;
+    return m_message;
   }
   virtual wxString GetPath() const
   {
-        wxCHECK_MSG( !HasFlag(wxDD_MULTIPLE), wxString(),
+    wxCHECK_MSG( !HasFlag(wxDD_MULTIPLE), wxString(),
                      "When using wxDD_MULTIPLE, must call GetPaths() instead" );
-        return m_path;
+    return m_path;
   }
   virtual void GetPaths(wxArrayString& paths) const
   {
-        paths = m_paths;
+    paths = m_paths;
   }
 protected:
   wxString m_message;

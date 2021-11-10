@@ -15,7 +15,6 @@ class WXDLLIMPEXP_CORE wxPen : public wxPenBase
 public:
   wxPen()
   {
-
   }
   wxPen(const wxColour& colour, int width = 1, wxPenStyle style = wxPENSTYLE_SOLID);
   wxPen(const wxPenInfo& info);
@@ -23,7 +22,7 @@ public:
   bool operator==(const wxPen& pen) const;
   bool operator!=(const wxPen& pen) const
   {
- return !(*this == pen);
+    return !(*this == pen);
   }
   void SetColour(const wxColour& colour) override;
   void SetColour(unsigned char red, unsigned char green, unsigned char blue) override;
@@ -42,10 +41,12 @@ public:
   int GetDashCount() const;
   wxDash* GetDash() const;
   wxBitmap* GetStipple() const override;
-  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") wxPen(const wxColour& col, int width, int style);
-  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") void SetStyle(int style)
+  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
+  wxPen(const wxColour& col, int width, int style);
+  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
+  void SetStyle(int style)
   {
- SetStyle((wxPenStyle)style);
+    SetStyle((wxPenStyle) style);
   }
 protected:
   wxGDIRefData* CreateGDIRefData() const override;

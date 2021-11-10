@@ -133,11 +133,11 @@ public:
   virtual ~SkWGLPbufferContext();
   HDC getDC() const
   {
- return fDC;
+    return fDC;
   }
   HGLRC getGLRC() const
   {
- return fGLRC;
+    return fGLRC;
   }
 private:
   SkWGLPbufferContext(HPBUFFER pbuffer, HDC dc, HGLRC glrc);

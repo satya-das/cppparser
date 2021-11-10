@@ -18,13 +18,12 @@ class WXDLLIMPEXP_ADV wxGenericAnimationCtrl : public wxAnimationCtrlBase
 public:
   wxGenericAnimationCtrl()
   {
- Init();
+    Init();
   }
   wxGenericAnimationCtrl(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr))
   {
-        Init();
-
-        Create(parent, id, anim, pos, size, style, name);
+    Init();
+    Create(parent, id, anim, pos, size, style, name);
   }
   void Init();
   bool Create(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr));
@@ -34,11 +33,11 @@ public:
   void Stop() override;
   bool Play() override
   {
- return Play(true /* looped */);
+    return Play(true);
   }
   bool IsPlaying() const override
   {
- return m_isPlaying;
+    return m_isPlaying;
   }
   void SetAnimation(const wxAnimation& animation) override;
   void SetInactiveBitmap(const wxBitmap& bmp) override;
@@ -52,11 +51,11 @@ public:
     // or whether the window background should show through
   void SetUseWindowBackgroundColour(bool useWinBackground = true)
   {
- m_useWinBackgroundColour = useWinBackground;
+    m_useWinBackgroundColour = useWinBackground;
   }
   bool IsUsingWindowBackgroundColour() const
   {
- return m_useWinBackgroundColour;
+    return m_useWinBackgroundColour;
   }
     // This overload of Play() lets you specify if the animation must loop or not
   bool Play(bool looped);
@@ -66,7 +65,7 @@ public:
     // Returns a wxBitmap with the current frame drawn in it
   wxBitmap& GetBackingStore()
   {
- return m_backingStore;
+    return m_backingStore;
   }
 protected:
   wxAnimationImpl* DoCreateAnimationImpl() const override;

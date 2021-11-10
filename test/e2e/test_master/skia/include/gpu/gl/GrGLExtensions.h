@@ -28,9 +28,9 @@ public:
   GrGLExtensions& operator=(const GrGLExtensions&);
   void swap(GrGLExtensions* that)
   {
-        using std::swap;
-        swap(fStrings, that->fStrings);
-        swap(fInitialized, that->fInitialized);
+    using std::swap;
+    swap(fStrings, that->fStrings);
+    swap(fInitialized, that->fInitialized);
   }
     /**
      * We sometimes need to use this class without having yet created a GrGLInterface. This version
@@ -40,7 +40,7 @@ public:
   bool init(GrGLStandard standard, GrGLFunction<GrGLGetStringFn> getString, GrGLFunction<GrGLGetStringiFn> getStringi, GrGLFunction<GrGLGetIntegervFn> getIntegerv, GrGLFunction<GrEGLQueryStringFn> queryString = nullptr, GrEGLDisplay eglDisplay = nullptr);
   bool isInitialized() const
   {
- return fInitialized;
+    return fInitialized;
   }
     /**
      * Queries whether an extension is present. This will fail if init() has not been called.
@@ -56,7 +56,7 @@ public:
   void add(const char[]);
   void reset()
   {
- fStrings.reset();
+    fStrings.reset();
   }
   void dumpJSON(SkJSONWriter*) const;
 private:

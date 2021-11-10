@@ -70,7 +70,7 @@ public:
 };
 inline AcDbTransactionManager* acdbTransactionManagerPtr()
 {
-    return acdbHostApplicationServices()->workingTransactionManager();
+  return acdbHostApplicationServices()->workingTransactionManager();
 }
 #  define acdbTransactionManager	acdbTransactionManagerPtr()
 #  pragma  pack (pop)

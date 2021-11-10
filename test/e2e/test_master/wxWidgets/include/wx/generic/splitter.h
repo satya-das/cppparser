@@ -48,38 +48,37 @@ public:
     // Default constructor
   wxSplitterWindow()
   {
-        Init();
+    Init();
   }
     // Normal constructor
   wxSplitterWindow(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_3D, const wxString& name = wxT("splitter"))
   {
-        Init();
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   virtual ~wxSplitterWindow();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_3D, const wxString& name = wxT("splitter"));
     // Gets the only or left/top pane
   wxWindow* GetWindow1() const
   {
- return m_windowOne;
+    return m_windowOne;
   }
     // Gets the right/bottom pane
   wxWindow* GetWindow2() const
   {
- return m_windowTwo;
+    return m_windowTwo;
   }
     // Sets the split mode
   void SetSplitMode(int mode)
   {
-        wxASSERT_MSG( mode == wxSPLIT_VERTICAL || mode == wxSPLIT_HORIZONTAL,
+    wxASSERT_MSG( mode == wxSPLIT_VERTICAL || mode == wxSPLIT_HORIZONTAL,
                       wxT("invalid split mode") );
-
-        m_splitMode = (wxSplitMode)mode;
+    m_splitMode = (wxSplitMode) mode;
   }
     // Gets the split mode
   wxSplitMode GetSplitMode() const
   {
- return m_splitMode;
+    return m_splitMode;
   }
     // Initialize with one window
   void Initialize(wxWindow* window);
@@ -91,11 +90,11 @@ public:
     // absolute value rather than the size of left/upper pane.
   virtual bool SplitVertically(wxWindow* window1, wxWindow* window2, int sashPosition = 0)
   {
- return DoSplit(wxSPLIT_VERTICAL, window1, window2, sashPosition);
+    return DoSplit(wxSPLIT_VERTICAL, window1, window2, sashPosition);
   }
   virtual bool SplitHorizontally(wxWindow* window1, wxWindow* window2, int sashPosition = 0)
   {
- return DoSplit(wxSPLIT_HORIZONTAL, window1, window2, sashPosition);
+    return DoSplit(wxSPLIT_HORIZONTAL, window1, window2, sashPosition);
   }
     // Removes the specified (or second) window from the view
     // Doesn't actually delete the window.
@@ -110,18 +109,17 @@ public:
     // Is the window split?
   bool IsSplit() const
   {
- return (m_windowTwo != NULL);
+    return (m_windowTwo != NULL);
   }
     // Sets the border size
   void SetBorderSize(int)
   {
-
   }
     // Hide or show the sash and test whether it's currently hidden.
   void SetSashInvisible(bool invisible = true);
   bool IsSashInvisible() const
   {
- return HasFlag(wxSP_NOSASH);
+    return HasFlag(wxSP_NOSASH);
   }
     // Gets the current sash size which may be 0 if it's hidden and the default
     // sash size.
@@ -134,20 +132,20 @@ public:
     // Gets the sash position
   int GetSashPosition() const
   {
- return m_sashPosition;
+    return m_sashPosition;
   }
     // Set the sash gravity
   void SetSashGravity(double gravity);
     // Gets the sash gravity
   double GetSashGravity() const
   {
- return m_sashGravity;
+    return m_sashGravity;
   }
     // If this is zero, we can remove panes by dragging the sash.
   void SetMinimumPaneSize(int min);
   int GetMinimumPaneSize() const
   {
- return m_minimumPaneSize;
+    return m_minimumPaneSize;
   }
     // NB: the OnXXX() functions below are for backwards compatibility only,
     //     don't use them in new code but handle the events instead!
@@ -192,7 +190,7 @@ public:
 #  ifdef __WXMAC__
   bool MacClipGrandChildren() const override
   {
- return true ;
+    return true;
   }
 #  endif
     // Sets the sash size: this doesn't do anything and shouldn't be used at
@@ -272,15 +270,18 @@ class WXDLLIMPEXP_CORE wxSplitterEvent : public wxNotifyEvent
 {
 public:
   wxSplitterEvent(wxEventType type = wxEVT_NULL, wxSplitterWindow* splitter = NULL)
-    :  wxNotifyEvent(type)
+    : wxNotifyEvent(type)
   {
-        SetEventObject(splitter);
-        if (splitter) m_id = splitter->GetId();
+    SetEventObject(splitter);
+    if (splitter)
+    {
+      m_id = splitter->GetId();
+    }
   }
   wxSplitterEvent(const wxSplitterEvent& event)
-    :  wxNotifyEvent(event), m_data(event.m_data)
+    : wxNotifyEvent(event)
+    , m_data(event.m_data)
   {
-
   }
     // SASH_POS_CHANGED methods
 
@@ -288,41 +289,34 @@ public:
     // all
   void SetSashPosition(int pos)
   {
-        wxASSERT( GetEventType() == wxEVT_SPLITTER_SASH_POS_CHANGED
-                || GetEventType() == wxEVT_SPLITTER_SASH_POS_CHANGING);
-
-        m_data.pos = pos;
+    wxASSERT(GetEventType() == wxEVT_SPLITTER_SASH_POS_CHANGED || GetEventType() == wxEVT_SPLITTER_SASH_POS_CHANGING);
+    m_data.pos = pos;
   }
   int GetSashPosition() const
   {
-        wxASSERT( GetEventType() == wxEVT_SPLITTER_SASH_POS_CHANGED
-                || GetEventType() == wxEVT_SPLITTER_SASH_POS_CHANGING);
-
-        return m_data.pos;
+    wxASSERT(GetEventType() == wxEVT_SPLITTER_SASH_POS_CHANGED || GetEventType() == wxEVT_SPLITTER_SASH_POS_CHANGING);
+    return m_data.pos;
   }
     // UNSPLIT event methods
   wxWindow* GetWindowBeingRemoved() const
   {
-        wxASSERT( GetEventType() == wxEVT_SPLITTER_UNSPLIT );
-
-        return m_data.win;
+    wxASSERT(GetEventType() == wxEVT_SPLITTER_UNSPLIT);
+    return m_data.win;
   }
     // DCLICK event methods
   int GetX() const
   {
-        wxASSERT( GetEventType() == wxEVT_SPLITTER_DOUBLECLICKED );
-
-        return m_data.pt.x;
+    wxASSERT(GetEventType() == wxEVT_SPLITTER_DOUBLECLICKED);
+    return m_data.pt.x;
   }
   int GetY() const
   {
-        wxASSERT( GetEventType() == wxEVT_SPLITTER_DOUBLECLICKED );
-
-        return m_data.pt.y;
+    wxASSERT(GetEventType() == wxEVT_SPLITTER_DOUBLECLICKED);
+    return m_data.pt.y;
   }
   wxEvent* Clone() const override
   {
- return new wxSplitterEvent(*this);
+    return new wxSplitterEvent(*this);
   }
 private:
   friend class WXDLLIMPEXP_FWD_CORE wxSplitterWindow;

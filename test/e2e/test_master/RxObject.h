@@ -226,11 +226,11 @@ class OdRxObjectPtr
   */
   void assign(const OdRxObject* pObject)
   {
-    if (m_pObject != pObject)  // To prevent reference counter dec/inc which 
-    {                       // may cause object destruction or subClose 
-      release(); 
-      m_pObject = (OdRxObject*)pObject; 
-      internalAddRef(); 
+    if (m_pObject != pObject)
+    {
+      release();
+      m_pObject = (OdRxObject*) pObject;
+      internalAddRef();
     }
   }
 public:
@@ -246,24 +246,22 @@ public:
     is *not* incremented.  
   */
   OdRxObjectPtr()
-    :  m_pObject(0)
+    : m_pObject(0)
   {
-
   }
   OdRxObjectPtr(const OdRxObject* pSource, OdRxObjMod)
-    :  m_pObject(const_cast<OdRxObject*>(pSource))
+    : m_pObject(const_cast<OdRxObject*>(pSource))
   {
-
   }
   OdRxObjectPtr(const OdRxObject* pSource)
-    :  m_pObject((OdRxObject*)pSource)
+    : m_pObject((OdRxObject*) pSource)
   {
- internalAddRef();
+    internalAddRef();
   }
   OdRxObjectPtr(const OdRxObjectPtr& pSource)
-    :  m_pObject((OdRxObject*)pSource.get())
+    : m_pObject((OdRxObject*) pSource.get())
   {
- internalAddRef();
+    internalAddRef();
   }
   /** Description: 
     Assigns the specifed object to this SmartPointer object.   
@@ -279,7 +277,8 @@ public:
   */
   void attach(const OdRxObject* pObject)
   {
- release(); m_pObject = (OdRxObject*)pObject;
+    release();
+    m_pObject = (OdRxObject*) pObject;
   }
   /** 
     Remarks: 
@@ -290,7 +289,7 @@ public:
   */
   ~OdRxObjectPtr()
   {
- release();
+    release();
   }
   /** Description: 
     Releases this SmartPointer's reference to the referenced object. 
@@ -311,8 +310,8 @@ public:
   */
   OdRxObject* detach()
   {
-    OdRxObject* res = m_pObject; 
-    m_pObject = 0; 
+    OdRxObject* res = m_pObject;
+    m_pObject = 0;
     return res;
   }
   /** 
@@ -324,11 +323,13 @@ public:
   */
   OdRxObjectPtr& operator =(const OdRxObjectPtr& source)
   {
- assign(source); return *this;
+    assign(source);
+    return *this;
   }
   OdRxObjectPtr& operator =(const OdRxObject* source)
   {
- assign(source); return *this;
+    assign(source);
+    return *this;
   }
   /** Description: 
     Returns the referenced object. 
@@ -340,11 +341,11 @@ public:
   */
   OdRxObject* get()
   {
- return m_pObject;
+    return m_pObject;
   }
   const OdRxObject* get() const
   {
- return m_pObject;
+    return m_pObject;
   }
   /** Description: 
     Returns the referenced object. 
@@ -354,11 +355,11 @@ public:
   */
   OdRxObject* operator ->()
   {
- return m_pObject;
+    return m_pObject;
   }
   const OdRxObject* operator ->() const
   {
- return m_pObject;
+    return m_pObject;
   }
 #  ifdef ODA_GCC_2_95
   /** Description: 
@@ -375,7 +376,7 @@ public:
   */
   operator OdRxObject*() const
   {
- return m_pObject;
+    return m_pObject;
   }
 #  else 
   /** Description: 
@@ -388,27 +389,27 @@ public:
   */
   operator OdRxObject*()
   {
- return m_pObject;
+    return m_pObject;
   }
   operator const OdRxObject*() const
   {
- return m_pObject;
+    return m_pObject;
   }
 #  endif
   bool operator==(const OdRxObject* pObject) const
   {
- return (m_pObject==pObject);
+    return (m_pObject == pObject);
   }
   bool operator!=(const OdRxObject* pObject) const
   {
- return (m_pObject!=pObject);
+    return (m_pObject != pObject);
   }
   /** Description: 
     Returns true if and only if this SmartPointer contains a null reference. 
   */
   bool isNull() const
   {
- return m_pObject == 0;
+    return m_pObject == 0;
   }
 };
 /** Description: 
@@ -435,7 +436,6 @@ protected:
 public:
   OdRxObject()
   {
-
   }
   virtual ~OdRxObject();
   /** Description: 
@@ -472,9 +472,11 @@ public:
   */
   static OdRxObjectPtr cast(const OdRxObject* pointer)
   {
-    OdRxObjectPtr pRes; 
-    if (pointer) 
-      pRes.attach(pointer->queryX(desc())); 
+    OdRxObjectPtr pRes;
+    if (pointer)
+    {
+      pRes.attach(pointer->queryX(desc()));
+    }
     return pRes;
   }
   /** Description: Returns the static OdRxClass description object associated with this object. **/ 
@@ -510,8 +512,8 @@ public:
   */
   bool isKindOf(const OdRxClass* pClass) const
   {
-    OdRxObjectPtr pRes; 
-    pRes.attach(queryX(pClass)); 
+    OdRxObjectPtr pRes;
+    pRes.attach(queryX(pClass));
     return (!pRes.isNull());
   }
   /** Description: 
@@ -567,14 +569,17 @@ public:
 };
 void OdRxObjectPtr::internalAddRef()
 {
-  if(m_pObject) { m_pObject->addRef(); }
+  if (m_pObject)
+  {
+    m_pObject->addRef();
+  }
 }
 void OdRxObjectPtr::release()
 {
-  if (m_pObject) 
-  { 
-    m_pObject->release(); 
-    m_pObject = NULL; 
+  if (m_pObject)
+  {
+    m_pObject->release();
+    m_pObject = NULL;
   }
 }
 #  include "SmartPtr.h"
@@ -723,19 +728,21 @@ typedef OdSmartPtr<OdRxClass> OdRxClassPtr;
 template <typename Class, typename Parent>
 OdRxObject* odQueryXImpl(const Class* pThis, const OdRxClass* pClass)
 {
-    OdRxObject* pObj = 0; 
-    if(pClass == Class::desc()) 
-    { 
-      pObj = (OdRxObject*)pThis; 
-      pObj->addRef(); 
-    } 
-    else 
-    { 
-      pObj = Class::desc()->getX(pClass).detach(); 
-      if(!pObj) 
-        pObj = pThis->Parent::queryX(pClass); 
-    } 
-    return pObj;
+  OdRxObject* pObj = 0;
+  if (pClass == Class::desc())
+  {
+    pObj = (OdRxObject*) pThis;
+    pObj->addRef();
+  }
+  else 
+  {
+    pObj = Class::desc()->getX(pClass).detach();
+    if (!pObj)
+    {
+      pObj = pThis->Parent::queryX(pClass);
+    }
+  }
+  return pObj;
 }
 FIRSTDLL_EXPORT OdRxObjectPtr odrxCreateObject(const OdString& szClassName);
 FIRSTDLL_EXPORT OdRxClass* newOdRxClass(const OdString& szClassName, OdRxClass* pBaseClass, OdPseudoConstructorType pConstr = 0, int DwgVer = 0, int MaintVer = 0, int nProxyFlags = 0, const OdString& szDxfName = "", const OdString& szAppName = "");

@@ -14,16 +14,13 @@
 #  include "acmem.h"
 #  include "AdAChar.h"
 #  pragma  pack (push, 8)
-#  ifdef __cplusplus
-#    include "adesk.h"
-#    include "acdbcore2ddefs.h"
-#  endif
+#  include "adesk.h"
+#  include "acdbcore2ddefs.h"
 // These functions are exported with both extern "C" and C++ linkage. Some day
 // we may drop support for C applications, however.
 void acdbFail(const ACHAR* str);
 int acdbHandEnt(const ACHAR* handle, ads_name entres);
 // These functions are only available to C++ apps.
-#  ifdef __cplusplus
 ACDBCORE2D_PORT int acdbXdRoom(const ads_name ent, Adesk::Int32* result);
 ACDBCORE2D_PORT int acdbXdSize(const resbuf* rb, Adesk::Int32* result);
 // Function to save a string ensuring no buffer overflow if,
@@ -31,7 +28,6 @@ ACDBCORE2D_PORT int acdbXdSize(const resbuf* rb, Adesk::Int32* result);
 ACDBCORE2D_PORT ACHAR* acdbXStrSave(ACHAR* pSource, ACHAR** pDest);
 // Function to uppercase a table name
 ACDBCORE2D_PORT int acdbXStrCase(ACHAR* str, size_t strLen);
-#  endif
 /* Define macros to copy them.  NOTE that the result is the SECOND argument,
    consistent with ADS usage.  The standard C ones require <string.h> */
 #  ifdef __STDC__

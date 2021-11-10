@@ -24,19 +24,17 @@ public:
     // TODO: remove after clipping overhaul.
   void setLastClip(uint32_t clipStackGenID, const SkIRect& devClipBounds, int numClipAnalyticFPs)
   {
-        GrOpsTask* opsTask = fRenderTargetContext->getOpsTask();
-        opsTask->fLastClipStackGenID = clipStackGenID;
-        opsTask->fLastDevClipBounds = devClipBounds;
-        opsTask->fLastClipNumAnalyticFPs = numClipAnalyticFPs;
+    GrOpsTask* opsTask = fRenderTargetContext->getOpsTask();
+    opsTask->fLastClipStackGenID = clipStackGenID;
+    opsTask->fLastDevClipBounds = devClipBounds;
+    opsTask->fLastClipNumAnalyticFPs = numClipAnalyticFPs;
   }
     // called to determine if we have to render the clip into SB.
     // TODO: remove after clipping overhaul.
   bool mustRenderClip(uint32_t clipStackGenID, const SkIRect& devClipBounds, int numClipAnalyticFPs) const
   {
-        GrOpsTask* opsTask = fRenderTargetContext->getOpsTask();
-        return opsTask->fLastClipStackGenID != clipStackGenID ||
-               !opsTask->fLastDevClipBounds.contains(devClipBounds) ||
-               opsTask->fLastClipNumAnalyticFPs != numClipAnalyticFPs;
+    GrOpsTask* opsTask = fRenderTargetContext->getOpsTask();
+    return opsTask->fLastClipStackGenID != clipStackGenID || !opsTask->fLastDevClipBounds.contains(devClipBounds) || opsTask->fLastClipNumAnalyticFPs != numClipAnalyticFPs;
   }
   using CanClearFullscreen = GrRenderTargetContext::CanClearFullscreen;
   void clear(const GrFixedClip&, const SkPMColor4f&, CanClearFullscreen);
@@ -48,10 +46,8 @@ public:
   {
         // Since this provides stencil settings to drawFilledQuad, it performs a different AA type
         // resolution compared to regular rect draws, which is the main reason it remains separate.
-        GrQuad localQuad = localMatrix ? GrQuad::MakeFromRect(rect, *localMatrix) : GrQuad(rect);
-        fRenderTargetContext->drawFilledQuad(
-                clip, std::move(paint), doStencilMSAA, GrQuadAAFlags::kNone,
-                GrQuad::MakeFromRect(rect, viewMatrix), localQuad, ss);
+    GrQuad localQuad = localMatrix ? GrQuad::MakeFromRect(rect, *localMatrix) : GrQuad(rect);
+    fRenderTargetContext->drawFilledQuad(clip, std::move(paint), doStencilMSAA, GrQuadAAFlags::kNone, GrQuad::MakeFromRect(rect, viewMatrix), localQuad, ss);
   }
   void stencilPath(const GrHardClip&, GrAA doStencilMSAA, const SkMatrix& viewMatrix, sk_sp<const GrPath>);
     /**
@@ -67,7 +63,7 @@ public:
      */
   GrSurfaceProxy::UniqueID uniqueID() const
   {
-        return fRenderTargetContext->fRenderTargetProxy->uniqueID();
+    return fRenderTargetContext->fRenderTargetProxy->uniqueID();
   }
   uint32_t testingOnly_getOpsTaskID();
   using WillAddOpFn = GrRenderTargetContext::WillAddOpFn;
@@ -75,11 +71,11 @@ public:
   void testingOnly_addDrawOp(const GrClip&, std::unique_ptr<GrDrawOp>, const std::function<WillAddOpFn>& = std::function<WillAddOpFn>());
   bool refsWrappedObjects() const
   {
-        return fRenderTargetContext->fRenderTargetProxy->refsWrappedObjects();
+    return fRenderTargetContext->fRenderTargetProxy->refsWrappedObjects();
   }
 private:
   explicit GrRenderTargetContextPriv(GrRenderTargetContext* renderTargetContext)
-    :  fRenderTargetContext(renderTargetContext)
+    : fRenderTargetContext(renderTargetContext)
   {
   }
   GrRenderTargetContextPriv(const GrRenderTargetPriv&)
@@ -94,10 +90,10 @@ private:
 };
 inline GrRenderTargetContextPriv GrRenderTargetContext::priv()
 {
-    return GrRenderTargetContextPriv(this);
+  return GrRenderTargetContextPriv(this);
 }
 inline const GrRenderTargetContextPriv GrRenderTargetContext::priv() const
 {
-    return GrRenderTargetContextPriv(const_cast<GrRenderTargetContext*>(this));
+  return GrRenderTargetContextPriv(const_cast<GrRenderTargetContext*>(this));
 }
 #endif

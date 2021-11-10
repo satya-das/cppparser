@@ -23,7 +23,7 @@ public:
 protected:
   Context* onMakeContext(const ContextRec&, SkArenaAlloc*) const override
   {
-        return nullptr;
+    return nullptr;
   }
 #  endif
   void flatten(SkWriteBuffer& buffer) const override
@@ -34,7 +34,7 @@ protected:
   }
   bool onAppendStages(const SkStageRec&) const override
   {
-        return false;
+    return false;
   }
 private:
   SK_FLATTENABLE_HOOKS(SkEmptyShader)

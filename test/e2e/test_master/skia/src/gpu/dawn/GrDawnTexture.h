@@ -25,11 +25,11 @@ public:
   void upload(const GrMipLevel texels[], int mipLevels, const SkIRect& dstRect, dawn::CommandEncoder copyEncoder);
   dawn::Texture texture() const
   {
- return fInfo.fTexture;
+    return fInfo.fTexture;
   }
   dawn::TextureView textureView() const
   {
- return fTextureView;
+    return fTextureView;
   }
 protected:
   GrDawnTexture(GrDawnGpu*, const SkISize& size, GrPixelConfig config, dawn::TextureView, const GrDawnImageInfo&, GrMipMapsStatus);
@@ -38,7 +38,7 @@ protected:
   void onRelease() override;
   bool onStealBackendTexture(GrBackendTexture*, SkImage::BackendTextureReleaseProc*) override
   {
-        return false;
+    return false;
   }
 private:
   GrDawnTexture(GrDawnGpu*, const GrSurfaceDesc&, const GrDawnImageInfo&, GrMipMapsStatus);

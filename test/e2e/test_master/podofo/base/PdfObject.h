@@ -309,7 +309,7 @@ namespace PoDoFo
   protected:
     PODOFO_NOTHROW bool DelayedStreamLoadInProgress() const
     {
- return m_bDelayedStreamLoadInProgress;
+      return m_bDelayedStreamLoadInProgress;
     }
   private:
     mutable bool m_bDelayedStreamLoadInProgress;
@@ -372,8 +372,7 @@ namespace PoDoFo
   inline bool PdfObject::HasStream() const
   {
     DelayedStreamLoad();
-
-    return ( m_pStream != NULL );
+    return (m_pStream != NULL);
   }
 // -----------------------------------------------------
 // 
@@ -382,7 +381,9 @@ namespace PoDoFo
   {
     PdfObject* obj = GetIndirectKey(key);
     if (!obj)
-        PODOFO_RAISE_ERROR( ePdfError_NoObject );
+    {
+      PODOFO_RAISE_ERROR(ePdfError_NoObject);
+    }
     return obj;
   }
 // -----------------------------------------------------
@@ -393,29 +394,29 @@ namespace PoDoFo
 // except by types that support it.
   inline void PdfObject::DelayedStreamLoadImpl()
   {
-   PODOFO_RAISE_ERROR( ePdfError_InternalLogic );
+    PODOFO_RAISE_ERROR(ePdfError_InternalLogic);
   }
   inline void PdfObject::DelayedStreamLoad() const
   {
     DelayedLoad();
-
-#if defined(PODOFO_EXTRA_CHECKS)
-    if( m_bDelayedStreamLoadInProgress )
-        PODOFO_RAISE_ERROR_INFO( ePdfError_InternalLogic, "Recursive DelayedStreamLoad() detected" );
-#endif
-
-    if( !m_bDelayedStreamLoadDone )
+#  if  defined(PODOFO_EXTRA_CHECKS)
+    if (m_bDelayedStreamLoadInProgress)
     {
-#if defined(PODOFO_EXTRA_CHECKS)
-        m_bDelayedStreamLoadInProgress = true;
-#endif
-        const_cast<PdfObject*>(this)->DelayedStreamLoadImpl();
+      PODOFO_RAISE_ERROR_INFO(ePdfError_InternalLogic, "Recursive DelayedStreamLoad() detected");
+    }
+#  endif
+    if (!m_bDelayedStreamLoadDone)
+    {
+#  if  defined(PODOFO_EXTRA_CHECKS)
+      m_bDelayedStreamLoadInProgress = true;
+#  endif
+      const_cast<PdfObject*>(this)->DelayedStreamLoadImpl();
         // Nothing was thrown, so if the implementer of DelayedstreamLoadImpl() is
         // following the rules we're done.
-        m_bDelayedStreamLoadDone = true;
-#if defined(PODOFO_EXTRA_CHECKS)
-        m_bDelayedStreamLoadInProgress = false;
-#endif
+      m_bDelayedStreamLoadDone = true;
+#  if  defined(PODOFO_EXTRA_CHECKS)
+      m_bDelayedStreamLoadInProgress = false;
+#  endif
     }
   }
 }

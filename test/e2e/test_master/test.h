@@ -30,7 +30,6 @@ public:
   ~TestClass();
   ~TestClass()
   {
-
   }
   virtual int PureVirtualMethod() = 0;
 	// Line comment to document code.

@@ -76,8 +76,11 @@ private:
   {
   public:
     TypefaceUse(SkFontID id, int index, std::unique_ptr<SkStream> data, SkTScopedComPtr<IXpsOMFontResource> xps, size_t numGlyphs)
-      :  typefaceId(id), ttcIndex(index), fontData(std::move(data))
-            , xpsFont(std::move(xps)), glyphsUsed(numGlyphs)
+      : typefaceId(id)
+      , ttcIndex(index)
+      , fontData(std::move(data))
+      , xpsFont(std::move(xps))
+      , glyphsUsed(numGlyphs)
     {
     }
     const SkFontID typefaceId;

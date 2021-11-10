@@ -62,16 +62,16 @@ class GrTFlagsMask
 {
 public:
   explicit GrTFlagsMask(TFlags value)
-    :  GrTFlagsMask(static_cast<int>(value))
+    : GrTFlagsMask(static_cast<int>(value))
   {
   }
   explicit GrTFlagsMask(int value)
-    :  fValue(value)
+    : fValue(value)
   {
   }
   constexpr int value() const
   {
- return fValue;
+    return fValue;
   }
 private:
   const int fValue;
@@ -80,43 +80,43 @@ private:
 template <typename TFlags>
 constexpr GrTFlagsMask<TFlags> operator|(GrTFlagsMask<TFlags> a, GrTFlagsMask<TFlags> b)
 {
-    return GrTFlagsMask<TFlags>(a.value() | b.value());
+  return GrTFlagsMask<TFlags>(a.value() | b.value());
 }
 template <typename TFlags>
 constexpr GrTFlagsMask<TFlags> operator|(GrTFlagsMask<TFlags> a, TFlags b)
 {
-    return GrTFlagsMask<TFlags>(a.value() | static_cast<int>(b));
+  return GrTFlagsMask<TFlags>(a.value() | static_cast<int>(b));
 }
 template <typename TFlags>
 constexpr GrTFlagsMask<TFlags> operator|(TFlags a, GrTFlagsMask<TFlags> b)
 {
-    return GrTFlagsMask<TFlags>(static_cast<int>(a) | b.value());
+  return GrTFlagsMask<TFlags>(static_cast<int>(a) | b.value());
 }
 template <typename TFlags>
 inline GrTFlagsMask<TFlags>& operator|=(GrTFlagsMask<TFlags>& a, GrTFlagsMask<TFlags> b)
 {
-    return (a = a | b);
+  return (a = a | b);
 }
 // And-ing two masks returns another mask; and-ing one with regular flags returns flags.
 template <typename TFlags>
 constexpr GrTFlagsMask<TFlags> operator&(GrTFlagsMask<TFlags> a, GrTFlagsMask<TFlags> b)
 {
-    return GrTFlagsMask<TFlags>(a.value() & b.value());
+  return GrTFlagsMask<TFlags>(a.value() & b.value());
 }
 template <typename TFlags>
 constexpr TFlags operator&(GrTFlagsMask<TFlags> a, TFlags b)
 {
-    return static_cast<TFlags>(a.value() & static_cast<int>(b));
+  return static_cast<TFlags>(a.value() & static_cast<int>(b));
 }
 template <typename TFlags>
 constexpr TFlags operator&(TFlags a, GrTFlagsMask<TFlags> b)
 {
-    return static_cast<TFlags>(static_cast<int>(a) & b.value());
+  return static_cast<TFlags>(static_cast<int>(a) & b.value());
 }
 template <typename TFlags>
 inline TFlags& operator&=(TFlags& a, GrTFlagsMask<TFlags> b)
 {
-    return (a = a & b);
+  return (a = a & b);
 }
 /**
  * Defines bitwise operators that make it possible to use an enum class as a
@@ -151,49 +151,49 @@ inline TFlags& operator&=(TFlags& a, GrTFlagsMask<TFlags> b)
  */
 static constexpr int32_t GrIDivRoundUp(int x, int y)
 {
-    SkASSERT(y > 0);
-    return (x + (y-1)) / y;
+  SkASSERT(y > 0);
+  return (x + (y - 1)) / y;
 }
 static constexpr uint32_t GrUIDivRoundUp(uint32_t x, uint32_t y)
 {
-    return (x + (y-1)) / y;
+  return (x + (y - 1)) / y;
 }
 static constexpr size_t GrSizeDivRoundUp(size_t x, size_t y)
 {
- return (x + (y - 1)) / y;
+  return (x + (y - 1)) / y;
 }
 /**
  *  align up
  */
 static constexpr uint32_t GrUIAlignUp(uint32_t x, uint32_t alignment)
 {
-    return GrUIDivRoundUp(x, alignment) * alignment;
+  return GrUIDivRoundUp(x, alignment) * alignment;
 }
 static constexpr size_t GrSizeAlignUp(size_t x, size_t alignment)
 {
-    return GrSizeDivRoundUp(x, alignment) * alignment;
+  return GrSizeDivRoundUp(x, alignment) * alignment;
 }
 /**
  * amount of pad needed to align up
  */
 static constexpr uint32_t GrUIAlignUpPad(uint32_t x, uint32_t alignment)
 {
-    return (alignment - x % alignment) % alignment;
+  return (alignment - x % alignment) % alignment;
 }
 static constexpr size_t GrSizeAlignUpPad(size_t x, size_t alignment)
 {
-    return (alignment - x % alignment) % alignment;
+  return (alignment - x % alignment) % alignment;
 }
 /**
  *  align down
  */
 static constexpr uint32_t GrUIAlignDown(uint32_t x, uint32_t alignment)
 {
-    return (x / alignment) * alignment;
+  return (x / alignment) * alignment;
 }
 static constexpr size_t GrSizeAlignDown(size_t x, uint32_t alignment)
 {
-    return (x / alignment) * alignment;
+  return (x / alignment) * alignment;
 }
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -353,7 +353,7 @@ struct GrPrepareForExternalIORequests
   bool* fPrepareSurfaceForPresent = nullptr;
   bool hasRequests() const
   {
- return fNumImages || fNumSurfaces;
+    return fNumImages || fNumSurfaces;
   }
 };
 #endif

@@ -19,7 +19,6 @@ class WXDLLIMPEXP_CORE wxGenericImageList : public wxObject
 public:
   wxGenericImageList()
   {
-
   }
   wxGenericImageList(int width, int height, bool mask = true, int initialCount = 1);
   virtual ~wxGenericImageList();
@@ -28,7 +27,7 @@ public:
   virtual bool GetSize(int index, int& width, int& height) const;
   virtual wxSize GetSize() const
   {
- return m_size;
+    return m_size;
   }
   int Add(const wxBitmap& bitmap);
   int Add(const wxBitmap& bitmap, const wxBitmap& mask);
@@ -39,16 +38,6 @@ public:
   bool Remove(int index);
   bool RemoveAll();
   virtual bool Draw(int index, wxDC& dc, int x, int y, int flags = wxIMAGELIST_DRAW_NORMAL, bool solidBackground = false);
-#  if  WXWIN_COMPATIBILITY_3_0
-  wxDEPRECATED_MSG("Don't use this overload: it's not portable and does nothing") bool Create()
-  {
- return true;
-  }
-  wxDEPRECATED_MSG("Use GetBitmap() instead") const wxBitmap* GetBitmapPtr(int index) const
-  {
- return DoGetPtr(index);
-  }
-#  endif
 private:
   const wxBitmap* DoGetPtr(int index) const;
   wxVector<wxBitmap> m_images;
@@ -69,9 +58,8 @@ public:
   {
   }
   wxImageList(int width, int height, bool mask = true, int initialCount = 1)
-    :  wxGenericImageList(width, height, mask, initialCount)
+    : wxGenericImageList(width, height, mask, initialCount)
   {
-
   }
 };
 #  endif

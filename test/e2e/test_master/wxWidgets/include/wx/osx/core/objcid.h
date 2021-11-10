@@ -11,9 +11,5 @@
 // ----------------------------------------------------------------------------
 // wxObjCID: Equivalent of Objective-C "id" that works in C++ code.
 // ----------------------------------------------------------------------------
-#  ifdef __OBJC__
-#    define wxObjCID	id
-#  else 
 typedef struct objc_object* wxObjCID;
-#  endif
 #endif

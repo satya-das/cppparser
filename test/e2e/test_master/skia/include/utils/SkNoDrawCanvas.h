@@ -27,11 +27,11 @@ public:
     // Optimization to reset state to be the same as after construction.
   void resetCanvas(int w, int h)
   {
- this->resetForNextPicture(SkIRect::MakeWH(w, h));
+    this->resetForNextPicture(SkIRect::MakeWH(w, h));
   }
   void resetCanvas(const SkIRect& rect)
   {
- this->resetForNextPicture(rect);
+    this->resetForNextPicture(rect);
   }
 protected:
   SaveLayerStrategy getSaveLayerStrategy(const SaveLayerRec& rec) override;

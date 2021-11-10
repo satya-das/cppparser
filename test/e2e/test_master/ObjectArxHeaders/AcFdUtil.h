@@ -61,65 +61,71 @@ Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
 // Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdMakeFieldCode(const AcDbObjectId& objId, AcDbEvalNodeId blockParamId, const ACHAR* pszPropOrConnectionName, AcFdEval::ObjectFieldOption nOption, const ACHAR* pszFormat, AcHyperlink* pHyperlink, ACHAR*& pszFieldCode)
 {
-    AcString sFieldCode;
-    const bool bRet = ::AcFdMakeFieldCode(objId, blockParamId, pszPropOrConnectionName, 
-                                          nOption, pszFormat, pHyperlink, sFieldCode);
-    pszFieldCode = nullptr;
-    if (bRet)
-        ::acutNewString(sFieldCode.kwszPtr(), pszFieldCode);
-    return bRet;
+  AcString sFieldCode;
+  const bool bRet = ::AcFdMakeFieldCode(objId, blockParamId, pszPropOrConnectionName, nOption, pszFormat, pHyperlink, sFieldCode);
+  pszFieldCode = nullptr;
+  if (bRet)
+  {
+    ::acutNewString(sFieldCode.kwszPtr(), pszFieldCode);
+  }
+  return bRet;
 }
 ACFD_PORT bool AcFdMakeFieldCode(IAcSmDatabase* pSmDb, IAcSmSheetSet* pSmSheetSet, IAcSmComponent* pSmComp, const ACHAR* pszCompName, const ACHAR* pszPropName, AcFdEval::SheetSetFieldOption nOption, const ACHAR* pszFormat, AcString& pszFieldCode);
 // Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdMakeFieldCode(IAcSmDatabase* pSmDb, IAcSmSheetSet* pSmSheetSet, IAcSmComponent* pSmComp, const ACHAR* pszCompName, const ACHAR* pszPropName, AcFdEval::SheetSetFieldOption nOption, const ACHAR* pszFormat, ACHAR*& pszFieldCode)
 {
-    AcString sFieldCode;
-    const bool bRet = ::AcFdMakeFieldCode(pSmDb, pSmSheetSet, pSmComp, 
-                                          pszCompName, pszPropName, nOption,
-                                          pszFormat, sFieldCode);
-    pszFieldCode = nullptr;
-    if (bRet)
-        ::acutNewString(sFieldCode.kwszPtr(), pszFieldCode);
-    return bRet;
+  AcString sFieldCode;
+  const bool bRet = ::AcFdMakeFieldCode(pSmDb, pSmSheetSet, pSmComp, pszCompName, pszPropName, nOption, pszFormat, sFieldCode);
+  pszFieldCode = nullptr;
+  if (bRet)
+  {
+    ::acutNewString(sFieldCode.kwszPtr(), pszFieldCode);
+  }
+  return bRet;
 }
 ACFD_PORT bool AcFdMakeFieldCode(const AcDbObjectId& tableId, const AcDbObjectId& targetTableId, AcFdEval::ExpressionFieldOption nOption, const AcCellRangeArray& cellRanges, const ACHAR* pszFormat, AcHyperlink* pHyperlink, AcString& sFieldCode);
 // Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdMakeFieldCode(const AcDbObjectId& tableId, const AcDbObjectId& targetTableId, AcFdEval::ExpressionFieldOption nOption, const AcCellRangeArray& cellRanges, const ACHAR* pszFormat, AcHyperlink* pHyperlink, ACHAR*& pszFieldCode)
 {
-    AcString sFieldCode;
-    const bool bRet = ::AcFdMakeFieldCode(tableId, targetTableId, nOption, 
-                                     cellRanges, pszFormat, pHyperlink, sFieldCode);
-    pszFieldCode = nullptr;
-    if (bRet)
-        ::acutNewString(sFieldCode.kwszPtr(), pszFieldCode);
-    return bRet;
+  AcString sFieldCode;
+  const bool bRet = ::AcFdMakeFieldCode(tableId, targetTableId, nOption, cellRanges, pszFormat, pHyperlink, sFieldCode);
+  pszFieldCode = nullptr;
+  if (bRet)
+  {
+    ::acutNewString(sFieldCode.kwszPtr(), pszFieldCode);
+  }
+  return bRet;
 }
 ACFD_PORT bool AcFdExtractData(AcDbField* pField, AcString& sSheetSetFile, AcString& sSheetSetId, AcString& sCompName, AcString& sCompId, AcString& sPropName);
 // Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdExtractData(AcDbField* pField, ACHAR*& pszSheetSetFile, ACHAR*& pszSheetSetId, ACHAR*& pszCompName, ACHAR*& pszCompId, ACHAR*& pszPropName)
 {
-    AcString sSheetSetFile, sSheetSetId, sCompName, sCompId, sPropName;
-    const bool bRet = ::AcFdExtractData(pField, sSheetSetFile, sSheetSetId, 
-                                     sCompName, sCompId, sPropName);
-    if (!bRet)
-        pszSheetSetFile = pszSheetSetId = pszCompName = pszCompId = pszPropName = nullptr;
-    else {
-        ::acutNewString(sSheetSetFile, pszSheetSetFile);
-        ::acutNewString(sSheetSetId, pszSheetSetId);
-        ::acutNewString(sCompName, pszCompName);
-        ::acutNewString(sCompId, pszCompId);
-        ::acutNewString(sPropName, pszPropName);
-    }
-    return bRet;
+  AcString sSheetSetFile, sSheetSetId, sCompName, sCompId, sPropName;
+  const bool bRet = ::AcFdExtractData(pField, sSheetSetFile, sSheetSetId, sCompName, sCompId, sPropName);
+  if (!bRet)
+  {
+    pszSheetSetFile = pszSheetSetId = pszCompName = pszCompId = pszPropName = nullptr;
+  }
+  else 
+  {
+    ::acutNewString(sSheetSetFile, pszSheetSetFile);
+    ::acutNewString(sSheetSetId, pszSheetSetId);
+    ::acutNewString(sCompName, pszCompName);
+    ::acutNewString(sCompId, pszCompId);
+    ::acutNewString(sPropName, pszPropName);
+  }
+  return bRet;
 }
 ACFD_PORT bool AcFdExtractData(AcDbField* pField, AcDbObjectId& objId, AcString& sPropName);
 // Deprecated inline. Please use above overload taking AcString & instead
 inline bool AcFdExtractData(AcDbField* pField, AcDbObjectId& objId, ACHAR*& pszPropName)
 {
-    AcString sPropName;
-    const bool bRet = ::AcFdExtractData(pField, objId, sPropName);
-    pszPropName = nullptr;
-    if (bRet)
-        ::acutNewString(sPropName.kwszPtr(), pszPropName);
-    return bRet;
+  AcString sPropName;
+  const bool bRet = ::AcFdExtractData(pField, objId, sPropName);
+  pszPropName = nullptr;
+  if (bRet)
+  {
+    ::acutNewString(sPropName.kwszPtr(), pszPropName);
+  }
+  return bRet;
 }

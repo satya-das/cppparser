@@ -30,13 +30,12 @@ public:
     // ctors and such
   wxGenericComboCtrl()
   {
- Init();
+    Init();
   }
   wxGenericComboCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, value, pos, size, style, validator, name);
+    Init();
+    (void) Create(parent, id, value, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   virtual ~wxGenericComboCtrl();
@@ -44,7 +43,7 @@ public:
   bool IsKeyPopupToggle(const wxKeyEvent& event) const override;
   static int GetFeatures()
   {
- return wxComboCtrlFeatures::All;
+    return wxComboCtrlFeatures::All;
   }
 #      if  defined(__WXUNIVERSAL__)
     // we have our own input handler and our own actions
@@ -57,17 +56,17 @@ protected:
 #      elif  defined(__WXMOTIF__)
   virtual WXWidget GetTextWidget() const
   {
- return NULL;
+    return NULL;
   }
 #      elif  defined(__WXGTK__)
 #        if  defined(__WXGTK20__)
   GtkEditable* GetEditable() const override
   {
- return NULL;
+    return NULL;
   }
   GtkEntry* GetEntry() const override
   {
- return NULL;
+    return NULL;
   }
 #        endif
 #      elif  defined(__WXOSX__)
@@ -92,13 +91,13 @@ class WXDLLIMPEXP_CORE wxComboCtrl : public wxGenericComboCtrl
 {
 public:
   wxComboCtrl()
-    :  wxGenericComboCtrl()
+    : wxGenericComboCtrl()
   {
   }
   wxComboCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
-    :  wxGenericComboCtrl()
+    : wxGenericComboCtrl()
   {
-        (void)Create(parent, id, value, pos, size, style, validator, name);
+    (void) Create(parent, id, value, pos, size, style, validator, name);
   }
   virtual ~wxComboCtrl()
   {

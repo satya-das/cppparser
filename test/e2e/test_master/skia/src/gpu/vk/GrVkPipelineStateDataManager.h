@@ -44,7 +44,7 @@ public:
     // for nvpr only
   void setPathFragmentInputTransform(VaryingHandle u, int components, const SkMatrix& matrix) const override
   {
-        SK_ABORT("Only supported in NVPR, which is not in vulkan");
+    SK_ABORT("Only supported in NVPR, which is not in vulkan");
   }
     // Returns true if either the geometry or fragment buffers needed to generate a new underlying
     // VkBuffer object in order upload data. If true is returned, this is a signal to the caller

@@ -103,39 +103,39 @@ namespace PoDoFo
 // for several flavours.
     static int strcasecmp(const char* s1, const char* s2)
     {
-#if defined(_WIN32) || defined (_WIN64)
-#   if defined(_MSC_VER)
+#  if  defined(_WIN32) || defined (_WIN64)
+#    if  defined(_MSC_VER)
         // MSVC++
-        return ::_stricmp(s1, s2);
-#   else
-        return ::stricmp(s1, s2);
-#   endif
-#else
+      return ::_stricmp(s1, s2);
+#    else 
+      return ::stricmp(s1, s2);
+#    endif
+#  else 
     // POSIX.1-2001
-    return ::strcasecmp(s1, s2);
-#endif
+      return ::strcasecmp(s1, s2);
+#  endif
     }
     static int strncasecmp(const char* s1, const char* s2, size_t n)
     {
-#if defined(_WIN32) || defined(_WIN64)
-#   if defined(_MSC_VER)
+#  if  defined(_WIN32) || defined(_WIN64)
+#    if  defined(_MSC_VER)
         // MSVC++
-        return ::_strnicmp(s1, s2, n);
-#   else
-        return ::strnicmp(s1, s2, n);
-#   endif
-#else
+      return ::_strnicmp(s1, s2, n);
+#    else 
+      return ::strnicmp(s1, s2, n);
+#    endif
+#  else 
     // POSIX.1-2001
-    return ::strncasecmp(s1, s2, n);
-#endif
+      return ::strncasecmp(s1, s2, n);
+#  endif
     }
     static double logb(double x)
     {
-#if defined(_WIN32) || defined(_WIN64)
-  return ::log(x);
-#else
-  return ::logb(x);
-#endif
+#  if  defined(_WIN32) || defined(_WIN64)
+      return ::log(x);
+#  else 
+      return ::logb(x);
+#  endif
     }
 /*
  * We define inline wrappers for htons and friends here so that
@@ -149,35 +149,35 @@ namespace PoDoFo
  */
     static pdf_uint32 podofo_ntohl(pdf_uint32 i)
     {
-#if defined(_WIN32) && defined(_MSC_VER)
-   return (pdf_uint32)( ntohl( i ) );
-#else
-   return static_cast<pdf_uint32>( ntohl( i ) );
-#endif // _WIN32
+#  if  defined(_WIN32) && defined(_MSC_VER)
+      return (pdf_uint32) (ntohl(i));
+#  else 
+      return static_cast<pdf_uint32>(ntohl(i));
+#  endif
     }
     static pdf_uint16 podofo_ntohs(pdf_uint16 i)
     {
-#if defined(_WIN32) && defined(_MSC_VER)
-   return (pdf_uint16)( ntohs( i ) );
-#else
-   return static_cast<pdf_uint16>( ntohs( i ) );
-#endif // _WIN32
+#  if  defined(_WIN32) && defined(_MSC_VER)
+      return (pdf_uint16) (ntohs(i));
+#  else 
+      return static_cast<pdf_uint16>(ntohs(i));
+#  endif
     }
     static pdf_uint32 podofo_htonl(pdf_uint32 i)
     {
-#if defined(_WIN32) && defined(_MSC_VER)
-    return (pdf_uint32)( htonl( i ) );
-#else
-    return static_cast<pdf_uint32>( htonl( i ) );
-#endif // _WIN32
+#  if  defined(_WIN32) && defined(_MSC_VER)
+      return (pdf_uint32) (htonl(i));
+#  else 
+      return static_cast<pdf_uint32>(htonl(i));
+#  endif
     }
     static pdf_uint16 podofo_htons(pdf_uint16 i)
     {
-#if defined(_WIN32) && defined(_MSC_VER)
-    return (pdf_uint16)( htons( i ) );
-#else
-    return static_cast<pdf_uint16>( htons( i ) );
-#endif // _WIN32
+#  if  defined(_WIN32) && defined(_MSC_VER)
+      return (pdf_uint16) (htons(i));
+#  else 
+      return static_cast<pdf_uint16>(htons(i));
+#  endif
     }
   }
 }
@@ -210,7 +210,7 @@ namespace PoDoFo
 template <typename T>
 inline void podofo_unused(T& t)
 {
- (void)t;
+  (void) t;
 }
 #    define PODOFO_UNUSED( x ) podofo_unused( x );
 #  else 

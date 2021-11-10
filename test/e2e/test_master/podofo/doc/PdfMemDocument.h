@@ -290,14 +290,14 @@ namespace PoDoFo
      */
     void SetWriteMode(EPdfWriteMode eWriteMode)
     {
- m_eWriteMode = eWriteMode;
+      m_eWriteMode = eWriteMode;
     }
     /** Get the write mode used for wirting the PDF
      *  \returns the write mode
      */
     virtual EPdfWriteMode GetWriteMode() const
     {
- return m_eWriteMode;
+      return m_eWriteMode;
     }
     /** Set the PDF Version of the document. Has to be called before Write() to
      *  have an effect.
@@ -305,14 +305,14 @@ namespace PoDoFo
      */
     void SetPdfVersion(EPdfVersion eVersion)
     {
- m_eVersion = eVersion;
+      m_eVersion = eVersion;
     }
     /** Get the PDF version of the document
      *  \returns EPdfVersion version of the pdf document
      */
     EPdfVersion GetPdfVersion() const
     {
- return m_eVersion;
+      return m_eVersion;
     }
     /** Add a vendor-specific extension to the current PDF version.
      *  \param ns  namespace of the extension
@@ -375,7 +375,7 @@ namespace PoDoFo
      */
     bool GetEncrypted() const
     {
- return (m_pEncrypt != NULL);
+      return (m_pEncrypt != NULL);
     }
     /** Returns wether this PDF document is linearized, aka
      *  weboptimized
@@ -383,14 +383,14 @@ namespace PoDoFo
      */
     bool IsLinearized() const
     {
- return m_bLinearized;
+      return m_bLinearized;
     }
     /** Get a reference to the sorted internal objects vector.
      *  \returns the internal objects vector.
      */
     const PdfVecObjects& GetObjects() const
     {
- return *(PdfDocument::GetObjects());
+      return *(PdfDocument::GetObjects());
     }
     /** Get a reference to the sorted internal objects vector.
      *  This is an overloaded function for your convinience.
@@ -398,7 +398,7 @@ namespace PoDoFo
      */
     PdfVecObjects& GetObjects()
     {
- return *(PdfDocument::GetObjects());
+      return *(PdfDocument::GetObjects());
     }
     /** Get access to the internal Catalog dictionary
      *  or root object.
@@ -408,7 +408,7 @@ namespace PoDoFo
      */
     PdfObject* GetCatalog()
     {
- return PdfDocument::GetCatalog();
+      return PdfDocument::GetCatalog();
     }
     /** Get access to the internal Catalog dictionary
      *  or root object.
@@ -418,42 +418,42 @@ namespace PoDoFo
      */
     const PdfObject* GetCatalog() const
     {
- return PdfDocument::GetCatalog();
+      return PdfDocument::GetCatalog();
     }
     /** Get the trailer dictionary
      *  which can be written unmodified to a pdf file.
      */
     const PdfObject* GetTrailer() const
     {
- return PdfDocument::GetTrailer();
+      return PdfDocument::GetTrailer();
     }
     /** Get access to the StructTreeRoot dictionary
      *  \returns PdfObject the StructTreeRoot dictionary
      */
     PdfObject* GetStructTreeRoot() const
     {
- return GetNamedObjectFromCatalog( "StructTreeRoot" );
+      return GetNamedObjectFromCatalog("StructTreeRoot");
     }
     /** Get access to the Metadata stream
      *  \returns PdfObject the Metadata stream (should be in XML, using XMP grammar)
      */
     PdfObject* GetMetadata() const
     {
- return GetNamedObjectFromCatalog( "Metadata" );
+      return GetNamedObjectFromCatalog("Metadata");
     }
     /** Get access to the MarkInfo dictionary (ISO 32000-1:2008 14.7.1)
      *  \returns PdfObject the MarkInfo dictionary
      */
     PdfObject* GetMarkInfo() const
     {
- return GetNamedObjectFromCatalog( "MarkInfo" );
+      return GetNamedObjectFromCatalog("MarkInfo");
     }
     /** Get access to the RFC 3066 natural language id for the document (ISO 32000-1:2008 14.9.2.1)
      *  \returns PdfObject the language ID string
      */
     PdfObject* GetLanguage() const
     {
- return GetNamedObjectFromCatalog( "Lang" );
+      return GetNamedObjectFromCatalog("Lang");
     }
     /** Creates a PdfFont object from an existing font.
      *
@@ -701,14 +701,11 @@ namespace PoDoFo
 // -----------------------------------------------------
   bool PdfMemDocument::IsLoadedForUpdate(void) const
   {
-#ifdef _WIN32
-    return m_pszUpdatingFilename ||
-        m_wchar_pszUpdatingFilename ||
-        m_pUpdatingInputDevice;
-#else
-    return m_pszUpdatingFilename ||
-        m_pUpdatingInputDevice;
-#endif
+#  ifdef _WIN32
+    return m_pszUpdatingFilename || m_wchar_pszUpdatingFilename || m_pUpdatingInputDevice;
+#  else 
+    return m_pszUpdatingFilename || m_pUpdatingInputDevice;
+#  endif
   }
 }
 #endif

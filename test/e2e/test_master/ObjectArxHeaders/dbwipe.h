@@ -87,14 +87,14 @@ private:
     //
   void* operator new[](size_t nSize)
   {
- return 0;
+    return 0;
   }
   void operator delete[](void* p)
   {
   }
   void* operator new[](size_t nSize, const char* file, int line)
   {
- return 0;
+    return 0;
   }
 };
 #  pragma  warning(pop)

@@ -17,11 +17,11 @@ public:
   virtual ~GrMtlBuffer();
   id<MTLBuffer> mtlBuffer() const
   {
- return fMtlBuffer;
+    return fMtlBuffer;
   }
   size_t offset() const
   {
- return fOffset;
+    return fOffset;
   }
   void bind();
 protected:

@@ -18,24 +18,21 @@ class GrSaturateProcessor : public GrFragmentProcessor
 public:
   SkPMColor4f constantOutputForConstantInput(const SkPMColor4f& input) const override
   {
-        return {SkTPin(input.fR, 0.f, 1.f), SkTPin(input.fG, 0.f, 1.f), SkTPin(input.fB, 0.f, 1.f),
-                SkTPin(input.fA, 0.f, 1.f)};
+    return {SkTPin(input.fR, 0.f, 1.f), SkTPin(input.fG, 0.f, 1.f), SkTPin(input.fB, 0.f, 1.f), SkTPin(input.fA, 0.f, 1.f)};
   }
   static std::unique_ptr<GrFragmentProcessor> Make()
   {
-        return std::unique_ptr<GrFragmentProcessor>(new GrSaturateProcessor());
+    return std::unique_ptr<GrFragmentProcessor>(new GrSaturateProcessor());
   }
   GrSaturateProcessor(const GrSaturateProcessor& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
   {
- return "SaturateProcessor";
+    return "SaturateProcessor";
   }
 private:
   GrSaturateProcessor()
-    :  INHERITED(kGrSaturateProcessor_ClassID,
-                        (OptimizationFlags)kConstantOutputForConstantInput_OptimizationFlag |
-                                kPreservesOpaqueInput_OptimizationFlag)
+    : INHERITED(kGrSaturateProcessor_ClassID, (OptimizationFlags) kConstantOutputForConstantInput_OptimizationFlag | kPreservesOpaqueInput_OptimizationFlag)
   {
   }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;

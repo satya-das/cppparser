@@ -72,12 +72,12 @@ namespace SkSL
         kTopLevel_Precedence       = kSequence_Precedence
     };
     MetalCodeGenerator(const Context* context, const Program* program, ErrorReporter* errors, OutputStream* out)
-      :  INHERITED(program, errors, out)
-    , fReservedWords({"atan2", "rsqrt", "dfdx", "dfdy", "vertex", "fragment"})
-    , fLineEnding("\n")
-    , fContext(*context)
+      : INHERITED(program, errors, out)
+      , fReservedWords({"atan2", "rsqrt", "dfdx", "dfdy", "vertex", "fragment"})
+      , fLineEnding("\n")
+      , fContext(*context)
     {
-        this->setupIntrinsics();
+      this->setupIntrinsics();
     }
     bool generateCode() override;
   protected:

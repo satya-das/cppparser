@@ -41,7 +41,7 @@ public:
         // file type
   wxString GetExtension(size_t index)
   {
- return m_aExtensions[index];
+    return m_aExtensions[index];
   }
 protected:
   void InitIfNeeded();
@@ -75,29 +75,32 @@ public:
     // the first extension found, index 1 for the second and so on
   void Init(wxMimeTypesManagerImpl* manager, size_t index)
   {
- m_manager = manager; m_index.Add(index);
+    m_manager = manager;
+    m_index.Add(index);
   }
     // accessors
   bool GetExtensions(wxArrayString& extensions);
   bool GetMimeType(wxString* mimeType) const
   {
- *mimeType = m_manager->m_aTypes[m_index[0]]; return true;
+    *mimeType = m_manager->m_aTypes[m_index[0]];
+    return true;
   }
   bool GetMimeTypes(wxArrayString& mimeTypes) const;
   bool GetIcon(wxIconLocation* iconLoc) const;
   bool GetDescription(wxString* desc) const
   {
- *desc = m_manager->m_aDescriptions[m_index[0]]; return true;
+    *desc = m_manager->m_aDescriptions[m_index[0]];
+    return true;
   }
   bool GetOpenCommand(wxString* openCmd, const wxFileType::MessageParameters& params) const
   {
-        *openCmd = GetExpandedCommand(wxT("open"), params);
-        return (! openCmd -> IsEmpty() );
+    *openCmd = GetExpandedCommand(wxT("open"), params);
+    return (!openCmd->IsEmpty());
   }
   bool GetPrintCommand(wxString* printCmd, const wxFileType::MessageParameters& params) const
   {
-        *printCmd = GetExpandedCommand(wxT("print"), params);
-        return (! printCmd -> IsEmpty() );
+    *printCmd = GetExpandedCommand(wxT("print"), params);
+    return (!printCmd->IsEmpty());
   }
         // return the number of commands defined for this file type, 0 if none
   size_t GetAllCommands(wxArrayString* verbs, wxArrayString* commands, const wxFileType::MessageParameters& params) const;
@@ -105,7 +108,7 @@ public:
     // probably a mistake to come here, use wxMimeTypesManager.Unassociate (ft) instead
   bool Unassociate(wxFileType* ft)
   {
-        return m_manager->Unassociate(ft);
+    return m_manager->Unassociate(ft);
   }
     // set an arbitrary command, ask confirmation if it already exists and
     // overwriteprompt is TRUE

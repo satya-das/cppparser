@@ -25,7 +25,7 @@ public:
      */
   SK_API GrBackendApi backend() const
   {
- return fBackend;
+    return fBackend;
   }
     /*
      * Retrieve the default GrBackendFormat for a given SkColorType and renderability.
@@ -51,33 +51,33 @@ protected:
      */
   uint32_t contextID() const
   {
- return fContextID;
+    return fContextID;
   }
   bool matches(GrContext_Base* candidate) const
   {
-        return candidate->contextID() == this->contextID();
+    return candidate->contextID() == this->contextID();
   }
     /*
      * The options in effect for this context
      */
   const GrContextOptions& options() const
   {
- return fOptions;
+    return fOptions;
   }
   const GrCaps* caps() const;
   sk_sp<const GrCaps> refCaps() const;
   sk_sp<GrSkSLFPFactoryCache> fpFactoryCache();
   virtual GrImageContext* asImageContext()
   {
- return nullptr;
+    return nullptr;
   }
   virtual GrRecordingContext* asRecordingContext()
   {
- return nullptr;
+    return nullptr;
   }
   virtual GrContext* asDirectContext()
   {
- return nullptr;
+    return nullptr;
   }
 private:
   const GrBackendApi fBackend;

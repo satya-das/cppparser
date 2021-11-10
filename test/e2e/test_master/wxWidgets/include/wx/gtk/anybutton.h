@@ -16,8 +16,7 @@ class WXDLLIMPEXP_CORE wxAnyButton : public wxAnyButtonBase
 public:
   wxAnyButton()
   {
-        m_isCurrent =
-        m_isPressed = false;
+    m_isCurrent = m_isPressed = false;
   }
     // implementation
     // --------------

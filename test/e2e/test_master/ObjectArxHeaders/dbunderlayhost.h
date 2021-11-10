@@ -150,7 +150,7 @@ public:
     /// <returns>Returns number of layers or 0 if no layer information available</returns>
   virtual Adesk::UInt32 underlayLayerCount() const
   {
- return 0;
+    return 0;
   }
     /// <summary>
     /// Get Underlay layer name
@@ -159,7 +159,7 @@ public:
     /// <returns>Returns Acad::eOk if successful</returns>
   virtual Acad::ErrorStatus getUnderlayLayer(int, AcUnderlayLayer&) const
   {
-        return Acad::eNotImplemented;
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Used to determine the version of the underlayItem.

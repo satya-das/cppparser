@@ -18,14 +18,13 @@ class GrMagnifierEffect : public GrFragmentProcessor
 public:
   static std::unique_ptr<GrFragmentProcessor> Make(sk_sp<GrTextureProxy> src, SkIRect bounds, SkRect srcRect, float xInvZoom, float yInvZoom, float xInvInset, float yInvInset)
   {
-        return std::unique_ptr<GrFragmentProcessor>(new GrMagnifierEffect(
-                src, bounds, srcRect, xInvZoom, yInvZoom, xInvInset, yInvInset));
+    return std::unique_ptr<GrFragmentProcessor>(new GrMagnifierEffect(src, bounds, srcRect, xInvZoom, yInvZoom, xInvInset, yInvInset));
   }
   GrMagnifierEffect(const GrMagnifierEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
   {
- return "MagnifierEffect";
+    return "MagnifierEffect";
   }
   GrCoordTransform srcCoordTransform;
   TextureSampler src;
@@ -37,18 +36,18 @@ public:
   float yInvInset;
 private:
   GrMagnifierEffect(sk_sp<GrTextureProxy> src, SkIRect bounds, SkRect srcRect, float xInvZoom, float yInvZoom, float xInvInset, float yInvInset)
-    :  INHERITED(kGrMagnifierEffect_ClassID, kNone_OptimizationFlags)
-            , srcCoordTransform(SkMatrix::I(), src.get())
-            , src(std::move(src))
-            , bounds(bounds)
-            , srcRect(srcRect)
-            , xInvZoom(xInvZoom)
-            , yInvZoom(yInvZoom)
-            , xInvInset(xInvInset)
-            , yInvInset(yInvInset)
+    : INHERITED(kGrMagnifierEffect_ClassID, kNone_OptimizationFlags)
+    , srcCoordTransform(SkMatrix::I(), src.get())
+    , src(std::move(src))
+    , bounds(bounds)
+    , srcRect(srcRect)
+    , xInvZoom(xInvZoom)
+    , yInvZoom(yInvZoom)
+    , xInvInset(xInvInset)
+    , yInvInset(yInvInset)
   {
-        this->setTextureSamplerCnt(1);
-        this->addCoordTransform(&srcCoordTransform);
+    this->setTextureSamplerCnt(1);
+    this->addCoordTransform(&srcCoordTransform);
   }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;

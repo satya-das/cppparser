@@ -38,7 +38,7 @@ SK_API sk_sp<SkImage> SkMakeImageFromCGImage(CGImageRef);
 SK_API bool SkCopyPixelsFromCGImage(const SkImageInfo& info, size_t rowBytes, void* dstPixels, CGImageRef src);
 static bool SkCopyPixelsFromCGImage(const SkPixmap& dst, CGImageRef src)
 {
-    return SkCopyPixelsFromCGImage(dst.info(), dst.rowBytes(), dst.writable_addr(), src);
+  return SkCopyPixelsFromCGImage(dst.info(), dst.rowBytes(), dst.writable_addr(), src);
 }
 /**
  *  Create an imageref from the specified bitmap using the specified colorspace.
@@ -51,7 +51,7 @@ SK_API CGImageRef SkCreateCGImageRefWithColorspace(const SkBitmap& bm, CGColorSp
  */
 static CGImageRef SkCreateCGImageRef(const SkBitmap& bm)
 {
-    return SkCreateCGImageRefWithColorspace(bm, NULL);
+  return SkCreateCGImageRefWithColorspace(bm, NULL);
 }
 /**
  *  Draw the bitmap into the specified CG context. The bitmap will be converted

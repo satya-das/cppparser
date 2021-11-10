@@ -15,14 +15,14 @@ class GrTextureProxy::CacheAccess
 private:
   void setUniqueKey(GrProxyProvider* proxyProvider, const GrUniqueKey& key)
   {
-        fTextureProxy->setUniqueKey(proxyProvider, key);
+    fTextureProxy->setUniqueKey(proxyProvider, key);
   }
   void clearUniqueKey()
   {
-        fTextureProxy->clearUniqueKey();
+    fTextureProxy->clearUniqueKey();
   }
   explicit CacheAccess(GrTextureProxy* textureProxy)
-    :  fTextureProxy(textureProxy)
+    : fTextureProxy(textureProxy)
   {
   }
   CacheAccess(const CacheAccess&)
@@ -38,10 +38,10 @@ private:
 };
 inline GrTextureProxy::CacheAccess GrTextureProxy::cacheAccess()
 {
- return CacheAccess(this);
+  return CacheAccess(this);
 }
 inline const GrTextureProxy::CacheAccess GrTextureProxy::cacheAccess() const
 {
-    return CacheAccess(const_cast<GrTextureProxy*>(this));
+  return CacheAccess(const_cast<GrTextureProxy*>(this));
 }
 #endif

@@ -30,7 +30,7 @@ protected:
   Result onGetPixels(const SkImageInfo& dstInfo, void* dst, size_t dstRowBytes, const Options&, int*) override;
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
-        return SkEncodedImageFormat::kDNG;
+    return SkEncodedImageFormat::kDNG;
   }
   SkISize onGetScaledDimensions(float desiredScale) const override;
   bool onDimensionsSupported(const SkISize&) override;
@@ -38,7 +38,7 @@ protected:
     // conversion. SkRawCodec will always convert, so tell SkCodec not to.
   bool usesColorXform() const override
   {
- return false;
+    return false;
   }
 private:
     /*

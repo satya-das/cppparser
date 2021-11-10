@@ -16,13 +16,12 @@ public:
     // ctors and creation functions
   wxRadioButton()
   {
- Init();
+    Init();
   }
   wxRadioButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioButtonNameStr))
   {
-        Init();
-
-        Create(parent, id, label, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, label, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioButtonNameStr));
     // implement the radio button interface
@@ -33,13 +32,13 @@ public:
   void Command(wxCommandEvent& event) override;
   bool HasTransparentBackground() override
   {
- return true;
+    return true;
   }
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
 protected:
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
   wxSize DoGetBestSize() const override;
     // Implement wxMSWOwnerDrawnButtonBase methods.

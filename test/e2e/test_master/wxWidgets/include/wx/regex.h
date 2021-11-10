@@ -59,18 +59,18 @@ public:
     // default ctor: use Compile() later
   wxRegEx()
   {
- Init();
+    Init();
   }
     // create and compile
   wxRegEx(const wxString& expr, int flags = wxRE_DEFAULT)
   {
-        Init();
-        (void)Compile(expr, flags);
+    Init();
+    (void) Compile(expr, flags);
   }
     // return true if this is a valid compiled regular expression
   bool IsValid() const
   {
- return m_impl != NULL;
+    return m_impl != NULL;
   }
     // compile the string into regular expression, return true if ok or false
     // if string has a syntax error
@@ -85,7 +85,7 @@ public:
   bool Matches(const wxString& text, int flags = 0) const;
   bool Matches(const wxChar* text, int flags, size_t len) const
   {
- return Matches(wxString(text, len), flags);
+    return Matches(wxString(text, len), flags);
   }
     // get the start index and the length of the match of the expression
     // (index 0) or a bracketed subexpression (index != 0)
@@ -119,12 +119,12 @@ public:
     // replace the first occurrence
   int ReplaceFirst(wxString* text, const wxString& replacement) const
   {
- return Replace(text, replacement, 1);
+    return Replace(text, replacement, 1);
   }
     // replace all occurrences: this is actually a synonym for Replace()
   int ReplaceAll(wxString* text, const wxString& replacement) const
   {
- return Replace(text, replacement, 0);
+    return Replace(text, replacement, 0);
   }
   static wxString QuoteMeta(const wxString& str);
     // dtor not virtual, don't derive from this class

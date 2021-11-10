@@ -24,15 +24,15 @@ public:
     State(const SkImage_Base*, const SkMatrix& inv, SkFilterQuality);
     const SkPixmap& pixmap() const
     {
- return fPixmap;
+      return fPixmap;
     }
     const SkMatrix& invMatrix() const
     {
- return fInvMatrix;
+      return fInvMatrix;
     }
     SkFilterQuality quality() const
     {
- return fQuality;
+      return fQuality;
     }
   private:
     bool processHighRequest(const SkImage_Base*);

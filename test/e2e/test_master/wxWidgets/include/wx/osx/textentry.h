@@ -9,16 +9,14 @@
 /////////////////////////////////////////////////////////////////////////////
 #ifndef _WX_OSX_TEXTENTRY_H_
 #  define _WX_OSX_TEXTENTRY_H_
-#  if  wxUSE_SYSTEM_OPTIONS
     // set this to 'true' if you want to use the 'classic' MLTE-based implementation
     // instead of the HIView-based implementation in 10.3 and upwards, the former
     // has more features (backgrounds etc.), but may show redraw artefacts and other
     // problems depending on your usage; hence, the default is 'false'.
-#    define wxMAC_TEXTCONTROL_USE_MLTE	wxT("mac.textcontrol-use-mlte")
+#  define wxMAC_TEXTCONTROL_USE_MLTE	wxT("mac.textcontrol-use-mlte")
     // set this to 'true' if you want editable text controls to have spell checking turned
     // on by default, you can change this setting individually on a control using MacCheckSpelling
-#    define wxMAC_TEXTCONTROL_USE_SPELL_CHECKER	wxT("mac.textcontrol-use-spell-checker")
-#  endif
+#  define wxMAC_TEXTCONTROL_USE_SPELL_CHECKER	wxT("mac.textcontrol-use-spell-checker")
 #  include "wx/control.h"
 // forward decl for wxListWidgetImpl implementation type.
 class WXDLLIMPEXP_FWD_CORE wxTextWidgetImpl;
@@ -71,7 +69,7 @@ public:
   virtual wxTextWidgetImpl* GetTextPeer() const;
   wxTextCompleter* OSXGetCompleter() const
   {
- return m_completer;
+    return m_completer;
   }
 protected:
   wxString DoGetValue() const override;

@@ -245,11 +245,10 @@ public:
   virtual void reset(AcDbEntity* pThis) = 0;
 };
 inline AcDbMultiModesGripPE::GripMode::GripMode()
-  :  Mode(AcDbMultiModesGripPE::kMove)
-        , ActionType(kDragOn)
-        , CursorType(kcNone)
+  : Mode(AcDbMultiModesGripPE::kMove)
+  , ActionType(kDragOn)
+  , CursorType(kcNone)
 {
-
 }
 #  pragma  pack (pop)
 #endif

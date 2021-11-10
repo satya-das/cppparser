@@ -15,11 +15,11 @@ public:
     // Accessors
   bool IsOk() const
   {
- return false;
+    return false;
   }
   bool IsIconInstalled() const
   {
- return false;
+    return false;
   }
     // Operations
   bool SetIcon(const wxIcon& icon, const wxString& tooltip = wxEmptyString) override;

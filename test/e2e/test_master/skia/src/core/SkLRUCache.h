@@ -19,8 +19,8 @@ private:
   struct Entry
   {
     Entry(const K& key, V&& value)
-      :  fKey(key)
-        , fValue(std::move(value))
+      : fKey(key)
+      , fValue(std::move(value))
     {
     }
     K fKey;
@@ -29,83 +29,88 @@ private:
   };
 public:
   explicit SkLRUCache(int maxCount)
-    :  fMaxCount(maxCount)
+    : fMaxCount(maxCount)
   {
   }
   ~SkLRUCache()
   {
-        Entry* node = fLRU.head();
-        while (node) {
-            fLRU.remove(node);
-            delete node;
-            node = fLRU.head();
-        }
+    Entry* node = fLRU.head();
+    while (node)
+    {
+      fLRU.remove(node);
+      delete node;
+      node = fLRU.head();
+    }
   }
   V* find(const K& key)
   {
-        Entry** value = fMap.find(key);
-        if (!value) {
-            return nullptr;
-        }
-        Entry* entry = *value;
-        if (entry != fLRU.head()) {
-            fLRU.remove(entry);
-            fLRU.addToHead(entry);
-        } // else it's already at head position, don't need to do anything
-        return &entry->fValue;
+    Entry** value = fMap.find(key);
+    if (!value)
+    {
+      return nullptr;
+    }
+    Entry* entry = *value;
+    if (entry != fLRU.head())
+    {
+      fLRU.remove(entry);
+      fLRU.addToHead(entry);
+    }
+    return &entry->fValue;
   }
   V* insert(const K& key, V value)
   {
-        Entry* entry = new Entry(key, std::move(value));
-        fMap.set(entry);
-        fLRU.addToHead(entry);
-        while (fMap.count() > fMaxCount) {
-            this->remove(fLRU.tail()->fKey);
-        }
-        return &entry->fValue;
+    Entry* entry = new Entry(key, std::move(value));
+    fMap.set(entry);
+    fLRU.addToHead(entry);
+    while (fMap.count() > fMaxCount)
+    {
+      this->remove(fLRU.tail()->fKey);
+    }
+    return &entry->fValue;
   }
   int count()
   {
-        return fMap.count();
+    return fMap.count();
   }
   template <typename Fn>
   void foreach(Fn&& fn)
   {
-        typename SkTInternalLList<Entry>::Iter iter;
-        for (Entry* e = iter.init(fLRU, SkTInternalLList<Entry>::Iter::kHead_IterStart); e;
-             e = iter.next()) {
-            fn(&e->fValue);
-        }
+    typename SkTInternalLList<Entry>::Iter iter;
+    for (Entry* e = iter.init(fLRU, SkTInternalLList<Entry>::Iter::kHead_IterStart); e; e = iter.next())
+    {
+      fn(&e->fValue);
+    }
   }
   void reset()
   {
-        fMap.reset();
-        for (Entry* e = fLRU.head(); e; e = fLRU.head()) {
-            fLRU.remove(e);
-            delete e;
-        }
+    fMap.reset();
+    for (Entry* e = fLRU.head(); e; e = fLRU.head())
+    {
+      fLRU.remove(e);
+      delete e;
+    }
   }
 private:
   struct Traits
   {
     static const K& GetKey(Entry* e)
     {
-            return e->fKey;
+      return e->fKey;
     }
     static uint32_t Hash(const K& k)
     {
-            return HashK()(k);
+      return HashK()(k);
     }
   };
   void remove(const K& key)
   {
-        Entry** value = fMap.find(key);
-        SkASSERT(value);
-        Entry* entry = *value;
-        SkASSERT(key == entry->fKey);
-        fMap.remove(key);
-        fLRU.remove(entry);
-        delete entry;
+    Entry** value = fMap.find(key);
+    SkASSERT(value);
+    Entry* entry = *value;
+    SkASSERT(key == entry->fKey);
+    fMap.remove(key);
+    fLRU.remove(entry);
+    delete entry;
   }
   int fMaxCount;
   SkTHashTable<Entry*, K, Traits> fMap;

@@ -99,11 +99,12 @@ namespace AcDbSymbolUtilities
   inline Acad::ErrorStatus getSymbolName(AcString& sName, AcDbObjectId objId)
   {
     sName.setEmpty();
-    AcDbSymbolTableRecord *pRec = NULL;
+    AcDbSymbolTableRecord* pRec = NULL;
     Acad::ErrorStatus es = ::acdbOpenObject(pRec, objId, AcDb::kForRead);
-    if (es == Acad::eOk) {
-        es = pRec->getName(sName);
-        pRec->close();
+    if (es == Acad::eOk)
+    {
+      es = pRec->getName(sName);
+      pRec->close();
     }
     return es;
   }
@@ -125,7 +126,7 @@ namespace AcDbSymbolUtilities
 // --------- Inline definitions ---------
   inline const Services* servicesPtr()
   {
-    const Services * pSymUtil = ACDBSYMUTIL_SERVICES_NAME();
+    const Services* pSymUtil = ACDBSYMUTIL_SERVICES_NAME();
     // We could do this assert if an assert macro is available
     // assert(pSymUtil->version() == Services::kCurrentVersion);
     return pSymUtil;
@@ -178,20 +179,28 @@ get ## T_TABLE ## Id( \
   inline Acad::ErrorStatus getTextStyleId(AcDbObjectId& objId, const ACHAR* name, AcDbDatabase* pDb)
   {
     if (pDb == NULL)
-        return Acad::eNullObjectPointer;
-    AcDbTextStyleTable *pTable = NULL;
+    {
+      return Acad::eNullObjectPointer;
+    }
+    AcDbTextStyleTable* pTable = NULL;
     Acad::ErrorStatus es = pDb->getSymbolTable(pTable, AcDb::kForRead);
-    if (es == Acad::eOk) {
-        AcDbTextStyleTableRecord *pRec = NULL;
-        es = pTable->getAt(name, pRec, AcDb::kForRead);
-        if (es == Acad::eOk) {
-            if (pRec->isShapeFile())
-                es = Acad::eKeyNotFound;
-            else
-                objId = pRec->objectId();
-            pRec->close();
+    if (es == Acad::eOk)
+    {
+      AcDbTextStyleTableRecord* pRec = NULL;
+      es = pTable->getAt(name, pRec, AcDb::kForRead);
+      if (es == Acad::eOk)
+      {
+        if (pRec->isShapeFile())
+        {
+          es = Acad::eKeyNotFound;
         }
-        pTable->close();
+        else 
+        {
+          objId = pRec->objectId();
+        }
+        pRec->close();
+      }
+      pTable->close();
     }
     return es;
   }
@@ -285,13 +294,13 @@ ACDBCORE2D_PORT Acad::ErrorStatus getTableStyleNameFromDbById(const AcDbObjectId
 // Please use the above overload which takes an AcString & arg.
 inline Acad::ErrorStatus getTableStyleNameFromDbById(const AcDbObjectId& objId, ACHAR*& pName)
 {
-    AcString sName;
-    return ::acutAcStringToAChar(sName, pName, ::getTableStyleNameFromDbById(objId, sName));
+  AcString sName;
+  return ::acutAcStringToAChar(sName, pName, ::getTableStyleNameFromDbById(objId, sName));
 }
 typedef AcDbSymbolUtilities::Services AcDbSymUtilServices;
 inline const AcDbSymUtilServices* acdbSymUtil()
 {
-    return AcDbSymbolUtilities::servicesPtr();
+  return AcDbSymbolUtilities::servicesPtr();
 }
 #  pragma  pack (pop)
 #endif

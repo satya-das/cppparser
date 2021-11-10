@@ -48,11 +48,11 @@ public:
     /// Determines whether the style name can be edited
   bool GetNameIsEditable() const
   {
- return m_nameIsEditable;
+    return m_nameIsEditable;
   }
   void SetNameIsEditable(bool editable)
   {
- m_nameIsEditable = editable;
+    m_nameIsEditable = editable;
   }
 ////@begin wxRichTextStylePage event handler declarations
 

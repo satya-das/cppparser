@@ -38,70 +38,48 @@ namespace SkSL
     SectionAndParameterHelper(const Program* program, ErrorReporter& errors);
     const Section* getSection(const char* name)
     {
-        SkASSERT(!SectionPermitsDuplicates(name));
-        auto found = fSections.find(name);
-        if (found == fSections.end()) {
-            return nullptr;
-        }
-        SkASSERT(found->second.size() == 1);
-        return found->second[0];
+      SkASSERT(!SectionPermitsDuplicates(name));
+      auto found = fSections.find(name);
+      if (found == fSections.end())
+      {
+        return nullptr;
+      }
+      SkASSERT(found->second.size() == 1);
+      return found->second[0];
     }
     std::vector<const Section*> getSections(const char* name)
     {
-        auto found = fSections.find(name);
-        if (found == fSections.end()) {
-            return std::vector<const Section*>();
-        }
-        return found->second;
+      auto found = fSections.find(name);
+      if (found == fSections.end())
+      {
+        return std::vector<const Section*>();
+      }
+      return found->second;
     }
     const std::vector<const Variable*>& getParameters()
     {
-        return fParameters;
+      return fParameters;
     }
     bool hasCoordOverrides(const Variable& fp);
     static bool IsParameter(const Variable& var)
     {
-        return (var.fModifiers.fFlags & Modifiers::kIn_Flag) &&
-               -1 == var.fModifiers.fLayout.fBuiltin;
+      return (var.fModifiers.fFlags & Modifiers::kIn_Flag) && -1 == var.fModifiers.fLayout.fBuiltin;
     }
     static bool IsSupportedSection(const char* name)
     {
-        return !strcmp(name, CLASS_SECTION) ||
-               !strcmp(name, CLONE_SECTION) ||
-               !strcmp(name, CONSTRUCTOR_SECTION) ||
-               !strcmp(name, CONSTRUCTOR_CODE_SECTION) ||
-               !strcmp(name, CONSTRUCTOR_PARAMS_SECTION) ||
-               !strcmp(name, COORD_TRANSFORM_SECTION) ||
-               !strcmp(name, CPP_SECTION) ||
-               !strcmp(name, CPP_END_SECTION) ||
-               !strcmp(name, EMIT_CODE_SECTION) ||
-               !strcmp(name, FIELDS_SECTION) ||
-               !strcmp(name, HEADER_SECTION) ||
-               !strcmp(name, HEADER_END_SECTION) ||
-               !strcmp(name, INITIALIZERS_SECTION) ||
-               !strcmp(name, MAKE_SECTION) ||
-               !strcmp(name, OPTIMIZATION_FLAGS_SECTION) ||
-               !strcmp(name, SAMPLER_PARAMS_SECTION) ||
-               !strcmp(name, SET_DATA_SECTION) ||
-               !strcmp(name, TEST_CODE_SECTION);
+      return !strcmp(name, CLASS_SECTION) || !strcmp(name, CLONE_SECTION) || !strcmp(name, CONSTRUCTOR_SECTION) || !strcmp(name, CONSTRUCTOR_CODE_SECTION) || !strcmp(name, CONSTRUCTOR_PARAMS_SECTION) || !strcmp(name, COORD_TRANSFORM_SECTION) || !strcmp(name, CPP_SECTION) || !strcmp(name, CPP_END_SECTION) || !strcmp(name, EMIT_CODE_SECTION) || !strcmp(name, FIELDS_SECTION) || !strcmp(name, HEADER_SECTION) || !strcmp(name, HEADER_END_SECTION) || !strcmp(name, INITIALIZERS_SECTION) || !strcmp(name, MAKE_SECTION) || !strcmp(name, OPTIMIZATION_FLAGS_SECTION) || !strcmp(name, SAMPLER_PARAMS_SECTION) || !strcmp(name, SET_DATA_SECTION) || !strcmp(name, TEST_CODE_SECTION);
     }
     static bool SectionAcceptsArgument(const char* name)
     {
-        return !strcmp(name, COORD_TRANSFORM_SECTION) ||
-               !strcmp(name, SAMPLER_PARAMS_SECTION) ||
-               !strcmp(name, SET_DATA_SECTION) ||
-               !strcmp(name, TEST_CODE_SECTION);
+      return !strcmp(name, COORD_TRANSFORM_SECTION) || !strcmp(name, SAMPLER_PARAMS_SECTION) || !strcmp(name, SET_DATA_SECTION) || !strcmp(name, TEST_CODE_SECTION);
     }
     static bool SectionRequiresArgument(const char* name)
     {
-        return !strcmp(name, SAMPLER_PARAMS_SECTION) ||
-               !strcmp(name, SET_DATA_SECTION) ||
-               !strcmp(name, TEST_CODE_SECTION);
+      return !strcmp(name, SAMPLER_PARAMS_SECTION) || !strcmp(name, SET_DATA_SECTION) || !strcmp(name, TEST_CODE_SECTION);
     }
     static bool SectionPermitsDuplicates(const char* name)
     {
-        return !strcmp(name, COORD_TRANSFORM_SECTION) ||
-               !strcmp(name, SAMPLER_PARAMS_SECTION);
+      return !strcmp(name, COORD_TRANSFORM_SECTION) || !strcmp(name, SAMPLER_PARAMS_SECTION);
     }
   private:
     bool hasCoordOverrides(const Statement& s, const Variable& fp);

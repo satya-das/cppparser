@@ -77,14 +77,13 @@ struct AcGiRequestScanLines
         kFromIeWholeImage
   };
   AcGiRequestScanLines()
-    :  mImageOrg           (kAcGiBitonal)
-        , mImageOrient        (kAcGiXLeftToRightTopFirst)
-        , mPaletteType        (kFromDevice)
-        , mScalingType        (kDefaultScale)
-        , mScaleFilterType    (kDefaultScaleFilter)
-        , mRotationFilterType (kDefaultRotationFilter)
+    : mImageOrg(kAcGiBitonal)
+    , mImageOrient(kAcGiXLeftToRightTopFirst)
+    , mPaletteType(kFromDevice)
+    , mScalingType(kDefaultScale)
+    , mScaleFilterType(kDefaultScaleFilter)
+    , mRotationFilterType(kDefaultRotationFilter)
   {
-
   }
   Adesk::UInt32 mPixelMinX = 0;
   Adesk::UInt32 mPixelMinY = 0;
@@ -165,18 +164,16 @@ class AcGiColorRGB
 {
 public:
   AcGiColorRGB(void)
-    :  red   (0.0)
-        , green (0.0)
-        , blue  (0.0)
+    : red(0.0)
+    , green(0.0)
+    , blue(0.0)
   {
-
   }
   AcGiColorRGB(double r, double g, double b)
-    :  red   (r)
-        , green (g)
-        , blue  (b)
+    : red(r)
+    , green(g)
+    , blue(b)
   {
-
   }
   double red;
   double green;
@@ -184,44 +181,36 @@ public:
 };
 inline AcGiColorRGB operator*(const AcGiColorRGB& c1, const AcGiColorRGB& c2)
 {
-    return AcGiColorRGB(c1.red   * c2.red, 
-                        c1.green * c2.green, 
-                        c1.blue  * c2.blue);
+  return AcGiColorRGB(c1.red * c2.red, c1.green * c2.green, c1.blue * c2.blue);
 }
 inline AcGiColorRGB operator*(const AcGiColorRGB& c, double s)
 {
-    return AcGiColorRGB(s * c.red, 
-                        s * c.green, 
-                        s * c.blue);
+  return AcGiColorRGB(s * c.red, s * c.green, s * c.blue);
 }
 inline AcGiColorRGB operator*(double s, const AcGiColorRGB& c)
 {
-    return c * s;
+  return c * s;
 }
 inline AcGiColorRGB operator+(const AcGiColorRGB& c1, const AcGiColorRGB& c2)
 {
-    return AcGiColorRGB(c1.red   + c2.red, 
-                        c1.green + c2.green, 
-                        c1.blue  + c2.blue);
+  return AcGiColorRGB(c1.red + c2.red, c1.green + c2.green, c1.blue + c2.blue);
 }
 class AcGiColorRGBA
 {
 public:
   AcGiColorRGBA(void)
-    :  red   (0.0)
-        , green (0.0)
-        , blue  (0.0)
-        , alpha (1.0)
+    : red(0.0)
+    , green(0.0)
+    , blue(0.0)
+    , alpha(1.0)
   {
-
   }
   AcGiColorRGBA(double r, double g, double b, double a)
-    :  red   (r)
-        , green (g)
-        , blue  (b)
-        , alpha (a)
+    : red(r)
+    , green(g)
+    , blue(b)
+    , alpha(a)
   {
-
   }
   double red;
   double green;
@@ -230,50 +219,40 @@ public:
 };
 inline AcGiColorRGBA operator*(const AcGiColorRGBA& c1, const AcGiColorRGBA& c2)
 {
-    return AcGiColorRGBA(c1.red   * c2.red, 
-                         c1.green * c2.green, 
-                         c1.blue  * c2.blue, 
-                         c1.alpha * c2.alpha);
+  return AcGiColorRGBA(c1.red * c2.red, c1.green * c2.green, c1.blue * c2.blue, c1.alpha * c2.alpha);
 }
 inline AcGiColorRGBA operator*(const AcGiColorRGBA& c, double s)
 {
-    return AcGiColorRGBA(s * c.red, 
-                         s * c.green, 
-                         s * c.blue, 
-                         s * c.alpha);
+  return AcGiColorRGBA(s * c.red, s * c.green, s * c.blue, s * c.alpha);
 }
 inline AcGiColorRGBA operator*(double s, const AcGiColorRGBA& c)
 {
-    return c * s;
+  return c * s;
 }
 inline AcGiColorRGBA operator+(const AcGiColorRGBA& c1, const AcGiColorRGBA& c2)
 {
-    return AcGiColorRGBA(c1.red   + c2.red, 
-                         c1.green + c2.green, 
-                         c1.blue  + c2.blue, 
-                         c1.alpha + c2.alpha);
+  return AcGiColorRGBA(c1.red + c2.red, c1.green + c2.green, c1.blue + c2.blue, c1.alpha + c2.alpha);
 }
 class AcGiPixelBGRA32
 {
 public:
   AcGiPixelBGRA32()
   {
-        m_bgra.b = 0;
-        m_bgra.g = 0;
-        m_bgra.r = 0;
-        m_bgra.a = 255;
+    m_bgra.b = 0;
+    m_bgra.g = 0;
+    m_bgra.r = 0;
+    m_bgra.a = 255;
   }
   AcGiPixelBGRA32(Adesk::UInt32 bgra)
-    :  m_whole (bgra)
+    : m_whole(bgra)
   {
-
   }
   AcGiPixelBGRA32(Adesk::UInt8 blue, Adesk::UInt8 green, Adesk::UInt8 red, Adesk::UInt8 alpha)
   {
-        m_bgra.b = blue;
-        m_bgra.g = green;
-        m_bgra.r = red;
-        m_bgra.a = alpha;
+    m_bgra.b = blue;
+    m_bgra.g = green;
+    m_bgra.r = red;
+    m_bgra.a = alpha;
   }
   Adesk::UInt32 getBGRA() const;
   Adesk::UInt32 getRGBA() const;
@@ -306,88 +285,83 @@ private:
 };
 inline Adesk::UInt32 AcGiPixelBGRA32::getBGRA() const
 {
-    return m_whole;
+  return m_whole;
 }
 inline Adesk::UInt32 AcGiPixelBGRA32::getRGBA() const
 {
-    return (Adesk::UInt32)(m_bgra.a)<<24 
-           | (Adesk::UInt32)(m_bgra.b)<<16
-           | (Adesk::UInt32)(m_bgra.g)<<8 
-           | (Adesk::UInt32)(m_bgra.r);
+  return (Adesk::UInt32) (m_bgra.a) << 24 | (Adesk::UInt32) (m_bgra.b) << 16 | (Adesk::UInt32) (m_bgra.g) << 8 | (Adesk::UInt32) (m_bgra.r);
 }
 inline Adesk::UInt8 AcGiPixelBGRA32::blue() const
 {
-    return m_bgra.b;
+  return m_bgra.b;
 }
 inline Adesk::UInt8 AcGiPixelBGRA32::green() const
 {
-    return m_bgra.g;
+  return m_bgra.g;
 }
 inline Adesk::UInt8 AcGiPixelBGRA32::red() const
 {
-    return m_bgra.r;
+  return m_bgra.r;
 }
 inline Adesk::UInt8 AcGiPixelBGRA32::alpha() const
 {
-    return m_bgra.a;
+  return m_bgra.a;
 }
 inline void AcGiPixelBGRA32::setBGRA(Adesk::UInt32 bgra)
 {
-    m_whole = bgra;
+  m_whole = bgra;
 }
 inline void AcGiPixelBGRA32::setBGRA(Adesk::UInt8 blue, Adesk::UInt8 green, Adesk::UInt8 red, Adesk::UInt8 alpha)
 {
-    m_bgra.b = blue;
-    m_bgra.g = green;
-    m_bgra.r = red;
-    m_bgra.a = alpha;
+  m_bgra.b = blue;
+  m_bgra.g = green;
+  m_bgra.r = red;
+  m_bgra.a = alpha;
 }
 inline void AcGiPixelBGRA32::setRGBA(Adesk::UInt32 rgba)
 {
-    m_bgra.r = (Adesk::UInt8)(rgba & 0x000000FF);
-    m_bgra.g = (Adesk::UInt8)((rgba & 0x0000FF00) >> 8);
-    m_bgra.b = (Adesk::UInt8)((rgba & 0x00FF0000) >> 16);
-    m_bgra.a = (Adesk::UInt8)((rgba & 0xFF000000) >> 24);
+  m_bgra.r = (Adesk::UInt8) (rgba & 0x000000FF);
+  m_bgra.g = (Adesk::UInt8) ((rgba & 0x0000FF00) >> 8);
+  m_bgra.b = (Adesk::UInt8) ((rgba & 0x00FF0000) >> 16);
+  m_bgra.a = (Adesk::UInt8) ((rgba & 0xFF000000) >> 24);
 }
 inline void AcGiPixelBGRA32::setRGBA(Adesk::UInt8 red, Adesk::UInt8 green, Adesk::UInt8 blue, Adesk::UInt8 alpha)
 {
-    m_bgra.r = red;
-    m_bgra.g = green;
-    m_bgra.b = blue;
-    m_bgra.a = alpha;
+  m_bgra.r = red;
+  m_bgra.g = green;
+  m_bgra.b = blue;
+  m_bgra.a = alpha;
 }
 inline void AcGiPixelBGRA32::setBlue(Adesk::UInt8 blue)
 {
-    m_bgra.b = blue;
+  m_bgra.b = blue;
 }
 inline void AcGiPixelBGRA32::setGreen(Adesk::UInt8 green)
 {
-    m_bgra.g = green;
+  m_bgra.g = green;
 }
 inline void AcGiPixelBGRA32::setRed(Adesk::UInt8 red)
 {
-    m_bgra.r = red;
+  m_bgra.r = red;
 }
 inline void AcGiPixelBGRA32::setAlpha(Adesk::UInt8 alpha)
 {
-    m_bgra.a = alpha;
+  m_bgra.a = alpha;
 }
 class AcGiImageBGRA32
 {
 public:
   AcGiImageBGRA32()
-    :  m_nImageWidth  (0)
-        , m_nImageHeight (0)
-        , m_pImageData   (NULL)
+    : m_nImageWidth(0)
+    , m_nImageHeight(0)
+    , m_pImageData(NULL)
   {
-
   }
   AcGiImageBGRA32(Adesk::UInt32 imageWidth, Adesk::UInt32 imageHeight, AcGiPixelBGRA32* imageData)
-    :  m_nImageWidth  (imageWidth)
-        , m_nImageHeight (imageHeight)
-        , m_pImageData   (imageData)
+    : m_nImageWidth(imageWidth)
+    , m_nImageHeight(imageHeight)
+    , m_pImageData(imageData)
   {
-
   }
   AcGiPixelBGRA32* image() const;
   Adesk::UInt32 width() const;
@@ -400,21 +374,21 @@ private:
 };
 inline AcGiPixelBGRA32* AcGiImageBGRA32::image() const
 {
-    return m_pImageData;
+  return m_pImageData;
 }
 inline Adesk::UInt32 AcGiImageBGRA32::width() const
 {
-    return m_nImageWidth;
+  return m_nImageWidth;
 }
 inline Adesk::UInt32 AcGiImageBGRA32::height() const
 {
-    return m_nImageHeight;
+  return m_nImageHeight;
 }
 inline void AcGiImageBGRA32::setImage(Adesk::UInt32 imageWidth, Adesk::UInt32 imageHeight, AcGiPixelBGRA32* imageData)
 {
-    m_nImageWidth   = imageWidth;
-    m_nImageHeight  = imageHeight;
-    m_pImageData    = imageData;
+  m_nImageWidth = imageWidth;
+  m_nImageHeight = imageHeight;
+  m_pImageData = imageData;
 }
 class AcGiSubEntityTraits;
 class AcGiDrawableTraits;
@@ -483,24 +457,23 @@ public:
   {
   public:
     explicit EnumType(int value)
-      :  m_value(value)
+      : m_value(value)
     {
-
     }
     template <typename T>
     operator T()
     {
- return static_cast<T>(m_value);
+      return static_cast<T>(m_value);
     }
     template <typename T>
     bool operator==(T right) const
     {
- return static_cast<int>(right) == m_value;
+      return static_cast<int>(right) == m_value;
     }
     template <typename T>
     bool operator!=(T right) const
     {
- return !(*this == right);
+      return !(*this == right);
     }
   protected:
     int m_value;
@@ -551,30 +524,34 @@ private:
 // caller is responsible for deleting returned ACHAR*
 inline Acad::ErrorStatus AcGiVariant::getElemAt(int nIndex, ACHAR*& pStr, AcGiVariant& var) const
 {
-    AcString sElem;
-    const Acad::ErrorStatus es = this->getElemAt(nIndex, sElem, var);
-    if (es != Acad::eOk)
-        pStr = nullptr;
-    else
-        ::acutNewString(sElem.constPtr(), pStr);
-    return es;
+  AcString sElem;
+  const Acad::ErrorStatus es = this->getElemAt(nIndex, sElem, var);
+  if (es != Acad::eOk)
+  {
+    pStr = nullptr;
+  }
+  else 
+  {
+    ::acutNewString(sElem.constPtr(), pStr);
+  }
+  return es;
 }
 inline AcGiVariant* AcGiVariant::getElemAt(int nIndex, ACHAR*& pStr) const
 {
-    AcString sElem;
-    AcGiVariant *pVar = this->getElemAt(nIndex, sElem);
-    ::acutNewString(sElem.constPtr(), pStr);
-    return pVar;
+  AcString sElem;
+  AcGiVariant* pVar = this->getElemAt(nIndex, sElem);
+  ::acutNewString(sElem.constPtr(), pStr);
+  return pVar;
 }
 template <typename T>
 inline bool operator==(T left, const AcGiVariant::EnumType right)
 {
-    return (right == left);
+  return (right == left);
 }
 template <typename T>
 inline bool operator!=(T left, const AcGiVariant::EnumType right)
 {
-    return (right != left);
+  return (right != left);
 }
 //
 // AcGiKernelDescriptor is used to describe the capabilities of
@@ -593,23 +570,27 @@ public:
     // Require support for a given capability.
   void addRequirement(const AcUniqueString* capability)
   {
-        if (capability != nullptr)
-            append(capability);
+    if (capability != nullptr)
+    {
+      append(capability);
+    }
   }
     // Query support for a given capability.
   bool supports(const AcUniqueString* capability) const
   {
-        return capability ? contains(capability) : false;
+    return capability ? contains(capability) : false;
   }
   bool supports(const AcGiKernelDescriptor& desc) const
   {
-        int len = desc.length();
-        for (int i=0; i<len; i++)
-        {
-            if (!contains(desc[i]) && desc[i] != nullptr)
-                return false;
-        }
-        return true;
+    int len = desc.length();
+    for (int i = 0; i < len; i++)
+    {
+      if (!contains(desc[i]) && desc[i] != nullptr)
+      {
+        return false;
+      }
+    }
+    return true;
   }
 };
 class AcGiGraphicsKernel
@@ -617,11 +598,10 @@ class AcGiGraphicsKernel
 public:
   virtual ~AcGiGraphicsKernel()
   {
-
   }
   virtual const AcGiKernelDescriptor& getDescriptor(void) const
   {
- return m_descriptor;
+    return m_descriptor;
   }
 private:
   AcGiKernelDescriptor m_descriptor;
@@ -640,7 +620,8 @@ public:
     // The default implementation is a kernel that supports nothing.
   virtual class AcGiGraphicsKernel& graphicsKernel()
   {
- static AcGiGraphicsKernel kernel; return kernel;
+    static AcGiGraphicsKernel kernel;
+    return kernel;
   }
     // If your object requires to be redrawn for translation
     // transforms (MOVE) you can force the system to rerequest 
@@ -651,7 +632,6 @@ public:
     // 
   virtual void disableFastMoveDrag() const
   {
-
   }
     // Returns false if this is root level entity, e.g. a line in modelspace
     // and true if the object is contained within another object like a
@@ -659,35 +639,35 @@ public:
     //
   virtual bool isNesting() const
   {
- return false;
+    return false;
   }
   virtual AcCmEntityColor effectiveColor() const
   {
- return AcCmEntityColor();
+    return AcCmEntityColor();
   }
   virtual AcDb::LineWeight byBlockLineWeight() const
   {
- return AcDb::kLnWt000;
+    return AcDb::kLnWt000;
   }
   virtual AcDbObjectId byBlockPlotStyleNameId() const
   {
- return AcDbObjectId::kNull;
+    return AcDbObjectId::kNull;
   }
   virtual AcDbObjectId byBlockMaterialId() const
   {
- return AcDbObjectId::kNull;
+    return AcDbObjectId::kNull;
   }
   virtual bool supportsTrueTypeText()
   {
- return false;
+    return false;
   }
   virtual bool supportsOwnerDraw()
   {
- return false;
+    return false;
   }
   virtual bool supportsFillTrait() const
   {
- return false;
+    return false;
   }
     /// <description>
     /// Indicate whether or not the backend driver supports fast AcGiRenderBuffer.
@@ -700,7 +680,7 @@ public:
     /// <returns>True if fast render buffers supported, false otherwise.</returns>
   virtual Adesk::Boolean supportsFastRenderBuffer() const
   {
- return Adesk::kFalse;
+    return Adesk::kFalse;
   }
     /// <description>
     /// Indicate whether or not the backend driver supports native AcGiPointCloud.
@@ -708,7 +688,7 @@ public:
     /// <returns>True if native point clouds supported, false otherwise.</returns>
   virtual Adesk::Boolean supportsNativePointCloudRender() const
   {
- return Adesk::kFalse;
+    return Adesk::kFalse;
   }
     ///////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -717,11 +697,11 @@ public:
     //
   virtual AcGiContextImp* getImpPtr()
   {
- return nullptr;
+    return nullptr;
   }
   virtual const AcGiContextImp* getConstImpPtr() const
   {
- return nullptr;
+    return nullptr;
   }
     //
     // End of Internal use only API
@@ -738,36 +718,35 @@ protected:
     //
   virtual AcGiWorldSegmentCallback wSegTaker() const
   {
- return nullptr;
+    return nullptr;
   }
   virtual int getTrueTypeBoundingBox(const AcGePoint3d&, const wchar_t*, int, const TextParams*, AcGePoint3d*, float*)
   {
- return 0;
+    return 0;
   }
   virtual int getTrueTypeTextExtents(const ACHAR*, Charset, double, int, int, int, short, short, double, double, AcGePoint2d&, AcGePoint2d&)
   {
- return -1;
+    return -1;
   }
   virtual int setTrueTypeTransform(const AcGePoint3d&, const AcGeVector3d&, double, double, double, bool, bool)
   {
- return 0;
+    return 0;
   }
   virtual int drawTrueTypeText(const ACHAR*, double, int, bool, const TextParams&, Charset)
   {
- return 0;
+    return 0;
   }
   virtual int restoreTrueTypeTransform()
   {
- return 0;
+    return 0;
   }
   virtual void bypassHiddenLineRemoval()
   {
-
   }
   virtual int setTextStyle(int);
   virtual AcFontHandle* loadTrueTypeFont(const ACHAR*, bool, bool, Charset, int, FontInfo&)
   {
- return nullptr;
+    return nullptr;
   }
     //
     // End of Internal use only API
@@ -790,7 +769,7 @@ public:
   virtual AcGiContext* context() = 0;
   virtual bool secondaryCall() const
   {
- return false;
+    return false;
   }
 };
 class AcGiWorldDraw : public AcGiCommonDraw
@@ -858,17 +837,17 @@ public:
     //
   virtual Adesk::Boolean layerVisible(const AcDbObjectId&) const
   {
- return Adesk::kTrue;
+    return Adesk::kTrue;
   }
   virtual AcGeVector3d viewDir() const
   {
- return AcGeVector3d::kZAxis;
+    return AcGeVector3d::kZAxis;
   }
     // Provides access to color information that is context-sensitive.
     //
   virtual const AcGiContextualColors* contextualColors() const
   {
- return NULL;
+    return NULL;
   }
 };
 class AcGiContextualColors : public AcRxObject
@@ -1022,7 +1001,6 @@ public:
   virtual void setVisualStyle(const AcDbObjectId visualStyleId);
   virtual void setPlotStyleName(AcDb::PlotStyleNameType, const AcDbObjectId& = AcDbObjectId::kNull)
   {
-
   }
   virtual void setMaterial(const AcDbObjectId materialId);
   virtual void setMapper(const AcGiMapper* mapper);
@@ -1045,7 +1023,7 @@ public:
   virtual AcDbObjectId visualStyle(void) const;
   virtual AcDb::PlotStyleNameType getPlotStyleNameId(AcDbObjectId&) const
   {
- return AcDb::kPlotStyleNameByLayer;
+    return AcDb::kPlotStyleNameByLayer;
   }
   virtual AcDbObjectId materialId(void) const;
   virtual const AcGiMapper* mapper(void) const;
@@ -1057,88 +1035,78 @@ public:
   virtual const AcGiFill* fill(void) const;
   virtual void pushMarkerOverride(bool, const Adesk::LongPtr)
   {
-
   }
   virtual void popMarkerOverride(void)
   {
-
   }
   virtual void clearMarkerOverride(void)
   {
-
   }
 };
 inline void AcGiSubEntityTraits::setMaterial(const AcDbObjectId)
 {
-
 }
 inline AcDbObjectId AcGiSubEntityTraits::materialId(void) const
 {
-    return AcDbObjectId::kNull;
+  return AcDbObjectId::kNull;
 }
 inline void AcGiSubEntityTraits::setMapper(const AcGiMapper*)
 {
-
 }
 inline const AcGiMapper* AcGiSubEntityTraits::mapper(void) const
 {
-    return NULL;
+  return NULL;
 }
 inline void AcGiSubEntityTraits::setVisualStyle(AcDbObjectId)
 {
-
 }
 inline AcDbObjectId AcGiSubEntityTraits::visualStyle(void) const
 {
-    return AcDbObjectId::kNull;
+  return AcDbObjectId::kNull;
 }
 inline void AcGiSubEntityTraits::setSectionable(bool)
 {
-
 }
 inline bool AcGiSubEntityTraits::sectionable(void) const
 {
-    return false;
+  return false;
 }
 inline Acad::ErrorStatus AcGiSubEntityTraits::setDrawFlags(Adesk::UInt32)
 {
-    return Acad::eNotImplementedYet;
+  return Acad::eNotImplementedYet;
 }
 inline Adesk::UInt32 AcGiSubEntityTraits::drawFlags(void) const
 {
-    return 0;
+  return 0;
 }
 inline Acad::ErrorStatus AcGiSubEntityTraits::setShadowFlags(ShadowFlags)
 {
-    return Acad::eNotImplementedYet;
+  return Acad::eNotImplementedYet;
 }
 inline AcGiSubEntityTraits::ShadowFlags AcGiSubEntityTraits::shadowFlags(void) const
 {
-    return kShadowsCastAndReceive;
+  return kShadowsCastAndReceive;
 }
 inline void AcGiSubEntityTraits::setSelectionGeom(bool)
 {
-
 }
 inline bool AcGiSubEntityTraits::selectionGeom(void) const
 {
-    return false;
+  return false;
 }
 inline void AcGiSubEntityTraits::setTransparency(const AcCmTransparency&)
 {
-
 }
 inline AcCmTransparency AcGiSubEntityTraits::transparency(void) const
 {
-   return AcCmTransparency();   // empty object
+  return AcCmTransparency();
 }
 inline void AcGiSubEntityTraits::setFill(const AcGiFill*)
 {
-
 }
 inline const AcGiFill* AcGiSubEntityTraits::fill(void) const
 {
-    return nullptr;
+  return nullptr;
 }
 class AcGiDrawableTraits : public AcGiSubEntityTraits
 {
@@ -1166,7 +1134,7 @@ public:
   virtual AcGiVariant highlightProperty(HighlightProperty property) const;
   virtual AcGiContext* context(void) const
   {
- return nullptr;
+    return nullptr;
   }
 protected:
   friend class AcDbImpLayerTableRecord;
@@ -1179,38 +1147,35 @@ protected:
   };
   virtual void setLayerFlags(Adesk::UInt8)
   {
-
   }
 };
 // Default implementation does nothing with the illumination data.
 //
 inline void AcGiDrawableTraits::addLight(const AcDbObjectId&)
 {
-
 }
 inline void AcGiDrawableTraits::setLinePattern(const AcGiLineType)
 {
-
 }
 inline AcGiLineType AcGiDrawableTraits::linePattern(void) const
 {
-    return kLineTypeSolid;
+  return kLineTypeSolid;
 }
 inline Acad::ErrorStatus AcGiDrawableTraits::setSelectionFlags(const SelectionFlags)
 {
-    return Acad::eOk;
+  return Acad::eOk;
 }
 inline AcGiSubEntityTraits::SelectionFlags AcGiDrawableTraits::selectionFlags(void) const
 {
-    return kNoSelectionFlags;
+  return kNoSelectionFlags;
 }
 inline Acad::ErrorStatus AcGiDrawableTraits::setHighlightProperty(HighlightProperty, AcGiVariant&)
 {
-    return Acad::eOk;
+  return Acad::eOk;
 }
 inline AcGiVariant AcGiDrawableTraits::highlightProperty(HighlightProperty) const
 {
-    return AcGiVariant();
+  return AcGiVariant();
 }
 class AcGiNonEntityTraits : public AcGiDrawableTraits
 {
@@ -1246,114 +1211,114 @@ public:
 };
 inline void AcGiNonEntityTraits::setupForEntity(AcDbEntity*)
 {
-    assert(false);
+  assert(false);
 }
 inline void AcGiNonEntityTraits::addLight(const AcDbObjectId&)
 {
-    assert(false);
+  assert(false);
 }
 inline void AcGiNonEntityTraits::setColor(const Adesk::UInt16)
 {
-    assert(false);
+  assert(false);
 }
 inline Adesk::UInt16 AcGiNonEntityTraits::color(void) const
 {
-    assert(false);
-    return 0;
+  assert(false);
+  return 0;
 }
 inline void AcGiNonEntityTraits::setTrueColor(const AcCmEntityColor&)
 {
-    assert(false);
+  assert(false);
 }
 inline AcCmEntityColor AcGiNonEntityTraits::trueColor(void) const
 {
-    assert(false);
-    return AcCmEntityColor();
+  assert(false);
+  return AcCmEntityColor();
 }
 inline void AcGiNonEntityTraits::setLayer(const AcDbObjectId)
 {
-    assert(false);
+  assert(false);
 }
 inline AcDbObjectId AcGiNonEntityTraits::layerId(void) const
 {
-    assert(false);
-    return AcDbObjectId::kNull;
+  assert(false);
+  return AcDbObjectId::kNull;
 }
 inline void AcGiNonEntityTraits::setLineType(const AcDbObjectId)
 {
-    assert(false);
+  assert(false);
 }
 inline AcDbObjectId AcGiNonEntityTraits::lineTypeId(void) const
 {
-    assert(false);
-    return  AcDbObjectId::kNull;
+  assert(false);
+  return AcDbObjectId::kNull;
 }
 inline void AcGiNonEntityTraits::setMaterial(const AcDbObjectId)
 {
-    assert(false);
+  assert(false);
 }
 inline AcDbObjectId AcGiNonEntityTraits::materialId(void) const
 {
-    assert(false);
-    return  AcDbObjectId::kNull;
+  assert(false);
+  return AcDbObjectId::kNull;
 }
 inline void AcGiNonEntityTraits::setSelectionMarker(const Adesk::LongPtr)
 {
-    assert(false);
+  assert(false);
 }
 inline void AcGiNonEntityTraits::setFillType(const AcGiFillType)
 {
-    assert(false);
+  assert(false);
 }
 inline AcGiFillType AcGiNonEntityTraits::fillType(void) const
 {
-    assert(false);
-    return kAcGiFillAlways;
+  assert(false);
+  return kAcGiFillAlways;
 }
 inline void AcGiNonEntityTraits::setLineWeight(const AcDb::LineWeight)
 {
-    assert(false);
+  assert(false);
 }
 inline AcDb::LineWeight AcGiNonEntityTraits::lineWeight(void) const
 {
-    assert(false);
-    return AcDb::kLnWt000;
+  assert(false);
+  return AcDb::kLnWt000;
 }
 inline void AcGiNonEntityTraits::setThickness(double)
 {
-    assert(false);
+  assert(false);
 }
 inline double AcGiNonEntityTraits::thickness(void) const
 {
-    assert(false);
-    return 0.0;
+  assert(false);
+  return 0.0;
 }
 inline void AcGiNonEntityTraits::setLineTypeScale(double)
 {
-    assert(false);
+  assert(false);
 }
 inline double AcGiNonEntityTraits::lineTypeScale(void) const
 {
-    assert(false);
-    return 0.0;
+  assert(false);
+  return 0.0;
 }
 inline void AcGiNonEntityTraits::setSelectionGeom(bool)
 {
-    assert(false);
+  assert(false);
 }
 inline bool AcGiNonEntityTraits::selectionGeom(void) const
 {
-    assert(false);
-    return false;
+  assert(false);
+  return false;
 }
 inline void AcGiNonEntityTraits::setTransparency(const AcCmTransparency&)
 {
-    assert(false);
+  assert(false);
 }
 inline AcCmTransparency AcGiNonEntityTraits::transparency(void) const
 {
-    assert(false);
-    return AcCmTransparency();
+  assert(false);
+  return AcCmTransparency();
 }
 #  ifndef _WINDEF_
 struct HDC__;
@@ -1463,29 +1428,32 @@ public:
   virtual void popClipBoundary() = 0;
   virtual Adesk::Boolean worldLine(const AcGePoint3d pnts[2])
   {
-                                        AcGePoint3d polyPnts[2];
-                                        AcGeMatrix3d mat;
-                                        getWorldToModelTransform(mat);
-                                        polyPnts[0] = mat * pnts[0];
-                                        polyPnts[1] = mat * pnts[1];
-                                        return polyline(2, polyPnts);
+    AcGePoint3d polyPnts[2];
+    AcGeMatrix3d mat;
+    getWorldToModelTransform(mat);
+    polyPnts[0] = mat * pnts[0];
+    polyPnts[1] = mat * pnts[1];
+    return polyline(2, polyPnts);
   }
     // array of points
   virtual Adesk::Boolean polypoint(const Adesk::UInt32 nbPoints, const AcGePoint3d* pVertexList, const AcGeVector3d* pNormal = NULL, const Adesk::LongPtr* pSubEntMarkers = NULL) const
   {
-                                           AcGePoint3d pline[2];
-                                           Adesk::Boolean retval = Adesk::kFalse;
-                                           for (Adesk::UInt32 i = 0; i < nbPoints; i++) {
-                                               pline[1] = pline[0] = pVertexList[i];
-                                               retval = polyline(2, pline, pNormal ? &pNormal[i] : NULL, pSubEntMarkers ? pSubEntMarkers[i] : -1);
-                                               if (retval)
-                                                   return retval;
-                                           }
-                                           return retval;
+    AcGePoint3d pline[2];
+    Adesk::Boolean retval = Adesk::kFalse;
+    for (Adesk::UInt32 i = 0; i < nbPoints; i++)
+    {
+      pline[1] = pline[0] = pVertexList[i];
+      retval = polyline(2, pline, pNormal ? &pNormal[i] : NULL, pSubEntMarkers ? pSubEntMarkers[i] : -1);
+      if (retval)
+      {
+        return retval;
+      }
+    }
+    return retval;
   }
   virtual Adesk::Boolean ownerDraw(AcGiGdiDrawObject*, const AcGePoint3d&, const AcGeVector3d&, const AcGeVector3d&) const
   {
- return Adesk::kTrue;
+    return Adesk::kTrue;
   }
   virtual Adesk::Boolean edge(const AcArray<AcGeCurve2d*>& edges) const = 0;
 };
@@ -1521,7 +1489,7 @@ public:
   virtual Adesk::Boolean ownerDrawDc(Adesk::Int32 vpnumber, Adesk::Int32 left, Adesk::Int32 top, Adesk::Int32 right, Adesk::Int32 bottom, const OwnerDraw* pOwnerDraw) const = 0;
   virtual Adesk::Boolean ownerDraw3d(AcGePoint3d&, AcGePoint3d&, OwnerDraw3d*) const
   {
- return Adesk::kFalse;
+    return Adesk::kFalse;
   }
 };
 #  pragma  warning (pop)   // disabled 4100 - unreferenced formal parameter
@@ -1638,10 +1606,10 @@ public:
 // override the one taking AcString & arg.
 inline Acad::ErrorStatus AcGiTextStyle::font(ACHAR*& pTypeface, bool& bold, bool& italic, Charset& charset, Autodesk::AutoCAD::PAL::FontUtils::FontPitch& pitch, Autodesk::AutoCAD::PAL::FontUtils::FontFamily& family) const
 {
-    AcString sTypeface;
-    const Acad::ErrorStatus es = this->font(sTypeface, bold, italic, charset, pitch, family);
-    ::acutNewString(sTypeface.constPtr(), pTypeface);
-    return es;
+  AcString sTypeface;
+  const Acad::ErrorStatus es = this->font(sTypeface, bold, italic, charset, pitch, family);
+  ::acutNewString(sTypeface.constPtr(), pTypeface);
+  return es;
 }
 class ACDBCORE2D_PORT AcGiFill : public AcRxObject
 {

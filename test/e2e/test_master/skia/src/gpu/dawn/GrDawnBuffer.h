@@ -21,7 +21,7 @@ public:
   GrDawnGpu* getDawnGpu() const;
   dawn::Buffer get() const
   {
- return fBuffer;
+    return fBuffer;
   }
 private:
   dawn::Buffer fBuffer;

@@ -34,11 +34,12 @@ public:
     // default ctor Create() must be called later
   wxMouseEventsManager()
   {
- Init();
+    Init();
   }
   wxMouseEventsManager(wxWindow* win)
   {
- Init(); Create(win);
+    Init();
+    Create(win);
   }
   bool Create(wxWindow* win);
   virtual ~wxMouseEventsManager();
@@ -69,14 +70,12 @@ protected:
     // appearance
   virtual void MouseClickBegin(int)
   {
-
   }
     // called if the mouse capture was lost while the item was pressed, can be
     // used to restore the default item appearance if it was changed in
     // MouseClickBegin()
   virtual void MouseClickCancelled(int)
   {
-
   }
 private:
     /*

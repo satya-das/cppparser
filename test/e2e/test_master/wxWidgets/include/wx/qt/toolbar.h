@@ -13,13 +13,12 @@ class WXDLLIMPEXP_CORE wxToolBar : public wxToolBarBase
 public:
   wxToolBar()
   {
- Init();
+    Init();
   }
   wxToolBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTB_DEFAULT_STYLE | wxNO_BORDER, const wxString& name = wxASCII_STR(wxToolBarNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   virtual ~wxToolBar();
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTB_DEFAULT_STYLE | wxNO_BORDER, const wxString& name = wxASCII_STR(wxToolBarNameStr));
@@ -35,7 +34,7 @@ public:
     // Private, only used by wxFrame.
   QToolBar* GetQToolBar() const
   {
- return m_qtToolBar;
+    return m_qtToolBar;
   }
 protected:
   QActionGroup* GetActionGroup(size_t pos);

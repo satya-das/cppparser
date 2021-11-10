@@ -69,10 +69,10 @@ namespace SkSL
         kTopLevel_Precedence       = kSequence_Precedence
     };
     GLSLCodeGenerator(const Context* context, const Program* program, ErrorReporter* errors, OutputStream* out)
-      :  INHERITED(program, errors, out)
-    , fLineEnding("\n")
-    , fContext(*context)
-    , fProgramKind(program->fKind)
+      : INHERITED(program, errors, out)
+      , fLineEnding("\n")
+      , fContext(*context)
+      , fProgramKind(program->fKind)
     {
     }
     bool generateCode() override;

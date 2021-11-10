@@ -110,17 +110,17 @@ enum AcDbAssocStatus {
 ///
 inline int evaluationRequestSeverityLevel(AcDbAssocStatus status)
 {
-    switch (status)
-    {
+  switch(status)
+  {
     case kChangedDirectlyAssocStatus:
-        return 3;
+      return 3;
     case kChangedTransitivelyAssocStatus:
-        return 2;
+      return 2;
     case kChangedNoDifferenceAssocStatus:
-        return 1;
-    default:
-        return 0; // Not a request to evaluate
-    }
+      return 1;
+default:
+    return 0;
+}
 }
 /// <summary>
 /// Returns true for the AcDbAssocStatus values that are a request for an 
@@ -135,7 +135,7 @@ inline int evaluationRequestSeverityLevel(AcDbAssocStatus status)
 ///
 inline bool isEvaluationRequest(AcDbAssocStatus status)
 {
-    return evaluationRequestSeverityLevel(status) > 0;
+  return evaluationRequestSeverityLevel(status) > 0;
 }
 /// <summary>
 /// Returns true iff the AcDbAssocStatus indicates that the action or dependency 
@@ -149,7 +149,7 @@ inline bool isEvaluationRequest(AcDbAssocStatus status)
 ///
 inline bool isToBeSkipped(AcDbAssocStatus status)
 {
-    return status == kErasedAssocStatus || status == kSuppressedAssocStatus;
+  return status == kErasedAssocStatus || status == kSuppressedAssocStatus;
 }
 /// <summary>
 /// Negative numbers mean that an AcDbAssocAction cannot be evaluated at this 
@@ -274,7 +274,7 @@ public:
     ///
   virtual AcDbAssocEvaluationMode evaluationMode() const
   {
- return kModifyObjectsAssocEvaluationMode;
+    return kModifyObjectsAssocEvaluationMode;
   }
     /// <summary> 
     /// The action informs that it is starting its evaluation. This callback 
@@ -387,7 +387,6 @@ public:
     ///
   virtual void allDependentActionsMarkedToEvaluate(AcDbAssocNetwork*)
   {
-
   }
     /// <summary> 
     /// The action may inquire the client code whether the evaluation is 
@@ -399,7 +398,7 @@ public:
     ///
   virtual AcDbAssocDraggingState draggingState() const
   {
- return kNotDraggingAssocDraggingState;
+    return kNotDraggingAssocDraggingState;
   }
     /// <summary> <para>
     /// The custom evaluation callback code can request that the action evaluation 
@@ -434,7 +433,7 @@ public:
     ///
   virtual bool cancelActionEvaluation()
   {
- return false;
+    return false;
   }
     /// <summary> 
     /// Allows the custom evaluation callback code to pass arbitrary data 
@@ -445,7 +444,7 @@ public:
     ///
   virtual AcDbEvalContext* getAdditionalData() const
   {
- return NULL;
+    return NULL;
   }
     /// <summary> 
     /// Allows the custom evaluation callback code to pass information about what 
@@ -457,7 +456,7 @@ public:
     ///
   virtual AcDbAssocTransformationType getTransformationType() const
   {
- return kNotSpecified;
+    return kNotSpecified;
   }
 };
 /// <summary>
@@ -471,13 +470,12 @@ public:
 ///
 inline bool isDraggingProvidingSubstituteObjects(const AcDbAssocEvaluationCallback* pEvaluationCallback)
 {
-    if (pEvaluationCallback == NULL)
-        return false;
-
-    const AcDbAssocDraggingState draggingState = pEvaluationCallback->draggingState();
-
-    return draggingState == kFirstSampleAssocDraggingState || 
-           draggingState == kIntermediateSampleAssocDraggingState;
+  if (pEvaluationCallback == NULL)
+  {
+    return false;
+  }
+  const AcDbAssocDraggingState draggingState = pEvaluationCallback->draggingState();
+  return draggingState == kFirstSampleAssocDraggingState || draggingState == kIntermediateSampleAssocDraggingState;
 }
 /// <summary>
 /// This callback is used by AcDbAssocAction::getDependentActionsToEvaluate() 
@@ -607,21 +605,25 @@ class ACDBCORE2D_PORT AcDbSubentGeometry
 public:
     /// <summary> Default constructor. </summary>
   AcDbSubentGeometry()
-    :  mSubentType(AcDb::kNullSubentType), mpCurve(NULL)
+    : mSubentType(AcDb::kNullSubentType)
+    , mpCurve(NULL)
   {
   }
     /// <summary> Constructor initializing with a vertex subentity. </summary>
     /// <param name="pnt"> The coordinates of the point subentity. </param>
     ///
   AcDbSubentGeometry(const AcGePoint3d& pnt)
-    :  mSubentType(AcDb::kVertexSubentType), mPoint(pnt), mpCurve(NULL)
+    : mSubentType(AcDb::kVertexSubentType)
+    , mPoint(pnt)
+    , mpCurve(NULL)
   {
   }
     /// <summary> Constructor initializing with an edge subnetity. </summary>
     /// <param  name="pCurve"> The curve is not owned by this AcDbSubentGeometry. </param>
     ///
   AcDbSubentGeometry(AcGeCurve3d* pCurve)
-    :  mSubentType(AcDb::kEdgeSubentType), mpCurve(pCurve)
+    : mSubentType(AcDb::kEdgeSubentType)
+    , mpCurve(pCurve)
   {
   }
     /// <summary> Returns AcDb::SubentType of the subentity. </summary>
@@ -629,14 +631,14 @@ public:
     ///
   AcDb::SubentType type() const
   {
- return mSubentType;
+    return mSubentType;
   }
     /// <summary> Returns coordinates of the vertex subentity. </summary>
     /// <returns> Coordinates of the vertex subentity. </returns>
     ///
   AcGePoint3d point() const
   {
- return mPoint;
+    return mPoint;
   }
     /// <summary> Returns pointer to the curve of the edge subentity. </summary>
     /// <returns> Pointer to the curve of the edge subentity. The curve is not
@@ -644,7 +646,7 @@ public:
     ///
   AcGeCurve3d* curve() const
   {
- return mpCurve;
+    return mpCurve;
   }
 private:
   AcDb::SubentType mSubentType;

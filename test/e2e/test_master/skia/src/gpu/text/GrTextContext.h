@@ -55,7 +55,7 @@ private:
   static SkScalerContextFlags ComputeScalerContextFlags(const GrColorInfo&);
   const GrDistanceFieldAdjustTable* dfAdjustTable() const
   {
- return fDistanceAdjustTable.get();
+    return fDistanceAdjustTable.get();
   }
   sk_sp<const GrDistanceFieldAdjustTable> fDistanceAdjustTable;
   Options fOptions;

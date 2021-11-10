@@ -41,26 +41,26 @@ creating an unbounded FP tree which may overflow various shader limits. */
 struct GrProcessorTestData
 {
   GrProcessorTestData(SkRandom* random, GrContext* context, const GrRenderTargetContext* renderTargetContext, sk_sp<GrTextureProxy> proxies[2])
-    :  fRandom(random)
-            , fRenderTargetContext(renderTargetContext)
-            , fContext(context)
+    : fRandom(random)
+    , fRenderTargetContext(renderTargetContext)
+    , fContext(context)
   {
-        SkASSERT(proxies[0] && proxies[1]);
-        fProxies[0] = proxies[0];
-        fProxies[1] = proxies[1];
+    SkASSERT(proxies[0] && proxies[1]);
+    fProxies[0] = proxies[0];
+    fProxies[1] = proxies[1];
   }
   SkRandom* fRandom;
   const GrRenderTargetContext* fRenderTargetContext;
   GrContext* context()
   {
- return fContext;
+    return fContext;
   }
   GrResourceProvider* resourceProvider();
   GrProxyProvider* proxyProvider();
   const GrCaps* caps();
   sk_sp<GrTextureProxy> textureProxy(int index)
   {
- return fProxies[index];
+    return fProxies[index];
   }
 private:
   GrContext* fContext;
@@ -77,32 +77,33 @@ public:
 ;
   GrProcessorTestFactory(MakeProc makeProc)
   {
-        fMakeProc = makeProc;
-        GetFactories()->push_back(this);
+    fMakeProc = makeProc;
+    GetFactories()->push_back(this);
   }
     /** Pick a random factory function and create a processor.  */
   static ProcessorSmartPtr Make(GrProcessorTestData* data)
   {
-        VerifyFactoryCount();
-        if (GetFactories()->count() == 0) {
-            return nullptr;
-        }
-        uint32_t idx = data->fRandom->nextRangeU(0, GetFactories()->count() - 1);
-        return MakeIdx(idx, data);
+    VerifyFactoryCount();
+    if (GetFactories()->count() == 0)
+    {
+      return nullptr;
+    }
+    uint32_t idx = data->fRandom->nextRangeU(0, GetFactories()->count() - 1);
+    return MakeIdx(idx, data);
   }
     /** Number of registered factory functions */
   static int Count()
   {
- return GetFactories()->count();
+    return GetFactories()->count();
   }
     /** Use factory function at Index idx to create a processor. */
   static ProcessorSmartPtr MakeIdx(int idx, GrProcessorTestData* data)
   {
-        SkASSERT(idx < GetFactories()->count());
-        GrProcessorTestFactory<ProcessorSmartPtr>* factory = (*GetFactories())[idx];
-        ProcessorSmartPtr processor = factory->fMakeProc(data);
-        SkASSERT(processor);
-        return processor;
+    SkASSERT(idx < GetFactories()->count());
+    GrProcessorTestFactory<ProcessorSmartPtr>* factory = (*GetFactories())[idx];
+    ProcessorSmartPtr processor = factory->fMakeProc(data);
+    SkASSERT(processor);
+    return processor;
   }
 private:
     /**
@@ -120,20 +121,21 @@ public:
   using GetFn = const GrXPFactory* (*) (GrProcessorTestData*);
 ;
   GrXPFactoryTestFactory(GetFn* getProc)
-    :  fGetProc(getProc)
+    : fGetProc(getProc)
   {
- GetFactories()->push_back(this);
+    GetFactories()->push_back(this);
   }
   static const GrXPFactory* Get(GrProcessorTestData* data)
   {
-        VerifyFactoryCount();
-        if (GetFactories()->count() == 0) {
-            return nullptr;
-        }
-        uint32_t idx = data->fRandom->nextRangeU(0, GetFactories()->count() - 1);
-        const GrXPFactory* xpf = (*GetFactories())[idx]->fGetProc(data);
-        SkASSERT(xpf);
-        return xpf;
+    VerifyFactoryCount();
+    if (GetFactories()->count() == 0)
+    {
+      return nullptr;
+    }
+    uint32_t idx = data->fRandom->nextRangeU(0, GetFactories()->count() - 1);
+    const GrXPFactory* xpf = (*GetFactories())[idx]->fGetProc(data);
+    SkASSERT(xpf);
+    return xpf;
   }
 private:
   static void VerifyFactoryCount();

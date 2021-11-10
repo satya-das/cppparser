@@ -37,8 +37,8 @@ public:
   {
     uint32_t operator()(const GrVkResource* const& r) const
     {
-            SkASSERT(r);
-            return r->fKey;
+      SkASSERT(r);
+      return r->fKey;
     }
   };
   class Trace
@@ -46,18 +46,16 @@ public:
   public:
     ~Trace()
     {
-            fHashSet.foreach([](const GrVkResource* r) {
-                r->dumpInfo();
-            });
-            SkASSERT(0 == fHashSet.count());
+      fHashSet.foreach();
+      SkASSERT(0 == fHashSet.count());
     }
     void add(const GrVkResource* r)
     {
-            fHashSet.add(r);
+      fHashSet.add(r);
     }
     void remove(const GrVkResource* r)
     {
-            fHashSet.remove(r);
+      fHashSet.remove(r);
     }
   private:
     SkTHashSet<const GrVkResource*, GrVkResource::Hash> fHashSet;
@@ -67,28 +65,28 @@ public:
     /** Default construct, initializing the reference count to 1.
      */
   GrVkResource()
-    :  fRefCnt(1)
+    : fRefCnt(1)
   {
-#ifdef SK_TRACE_VK_RESOURCES
-        fKey = fKeyCounter.fetch_add(+1, std::memory_order_relaxed);
-        GetTrace()->add(this);
-#endif
+#  ifdef SK_TRACE_VK_RESOURCES
+    fKey = fKeyCounter.fetch_add(1, std::memory_order_relaxed);
+    GetTrace()->add(this);
+#  endif
   }
     /** Destruct, asserting that the reference count is 1.
      */
   virtual ~GrVkResource()
   {
-#ifdef SK_DEBUG
-        auto count = this->getRefCnt();
-        SkASSERTF(count == 1, "fRefCnt was %d", count);
-        fRefCnt.store(0);    // illegal value, to catch us if we reuse after delete
-#endif
+#  ifdef SK_DEBUG
+    auto count = this->getRefCnt();
+    SkASSERTF(count == 1, "fRefCnt was %d", count);
+    fRefCnt.store(0);
+#  endif
   }
 #  ifdef SK_DEBUG
     /** Return the reference count. Use only for debugging. */
   int32_t getRefCnt() const
   {
- return fRefCnt.load();
+    return fRefCnt.load();
   }
 #  endif
     /** May return true if the caller is the only owner.
@@ -99,7 +97,7 @@ public:
         // The acquire barrier is only really needed if we return true.  It
         // prevents code conditioned on the result of unique() from running
         // until previous owners are all totally done calling unref().
-        return 1 == fRefCnt.load(std::memory_order_acquire);
+    return 1 == fRefCnt.load(std::memory_order_acquire);
   }
     /** Increment the reference count.
         Must be balanced by a call to unref() or unrefAndFreeResources().
@@ -107,8 +105,8 @@ public:
   void ref() const
   {
         // No barrier required.
-        SkDEBUGCODE(int newRefCount = )fRefCnt.fetch_add(+1, std::memory_order_relaxed);
-        SkASSERT(newRefCount >= 1);
+    fRefCnt.fetch_add(1, std::memory_order_relaxed);
+    SkASSERT(newRefCount >= 1);
   }
     /** Decrement the reference count. If the reference count is 1 before the
         decrement, then delete the object. Note that if this is the case, then
@@ -117,28 +115,30 @@ public:
      */
   void unref(GrVkGpu* gpu) const
   {
-        SkASSERT(gpu);
+    SkASSERT(gpu);
         // A release here acts in place of all releases we "should" have been doing in ref().
-        int newRefCount = fRefCnt.fetch_add(-1, std::memory_order_acq_rel);
-        SkASSERT(newRefCount >= 0);
-        if (newRefCount == 1) {
+    int newRefCount = fRefCnt.fetch_add(-1, std::memory_order_acq_rel);
+    SkASSERT(newRefCount >= 0);
+    if (newRefCount == 1)
+    {
             // Like unique(), the acquire is only needed on success, to make sure
             // code in internal_dispose() doesn't happen before the decrement.
-            this->internal_dispose(gpu);
-        }
+      this->internal_dispose(gpu);
+    }
   }
     /** Unref without freeing GPU data. Used only when we're abandoning the resource */
   void unrefAndAbandon() const
   {
-        SkASSERT(this->getRefCnt() > 0);
+    SkASSERT(this->getRefCnt() > 0);
         // A release here acts in place of all releases we "should" have been doing in ref().
-        int newRefCount = fRefCnt.fetch_add(-1, std::memory_order_acq_rel);
-        SkASSERT(newRefCount >= 0);
-        if (newRefCount == 1) {
+    int newRefCount = fRefCnt.fetch_add(-1, std::memory_order_acq_rel);
+    SkASSERT(newRefCount >= 0);
+    if (newRefCount == 1)
+    {
             // Like unique(), the acquire is only needed on success, to make sure
             // code in internal_dispose() doesn't happen before the decrement.
-            this->internal_dispose();
-        }
+      this->internal_dispose();
+    }
   }
     // Called every time this resource is added to a command buffer.
   virtual void notifyAddedToCommandBuffer() const
@@ -153,7 +153,7 @@ public:
 #  ifdef SK_DEBUG
   void validate() const
   {
-        SkASSERT(this->getRefCnt() > 0);
+    SkASSERT(this->getRefCnt() > 0);
   }
 #  endif
 #  ifdef SK_TRACE_VK_RESOURCES
@@ -165,8 +165,8 @@ public:
 private:
   static Trace* GetTrace()
   {
-        static Trace kTrace;
-        return &kTrace;
+    static Trace kTrace;
+    return &kTrace;
   }
 #  endif
     /** Must be implemented by any subclasses.
@@ -186,32 +186,30 @@ private:
      */
   void internal_dispose(GrVkGpu* gpu) const
   {
-        this->freeGPUData(gpu);
-#ifdef SK_TRACE_VK_RESOURCES
-        GetTrace()->remove(this);
-#endif
-
-#ifdef SK_DEBUG
-        SkASSERT(0 == this->getRefCnt());
-        fRefCnt.store(1);
-#endif
-        delete this;
+    this->freeGPUData(gpu);
+#  ifdef SK_TRACE_VK_RESOURCES
+    GetTrace()->remove(this);
+#  endif
+#  ifdef SK_DEBUG
+    SkASSERT(0 == this->getRefCnt());
+    fRefCnt.store(1);
+#  endif
+    delete this;
   }
     /**
      *  Internal_dispose without freeing Vk resources. Used when we've lost context.
      */
   void internal_dispose() const
   {
-        this->abandonGPUData();
-#ifdef SK_TRACE_VK_RESOURCES
-        GetTrace()->remove(this);
-#endif
-
-#ifdef SK_DEBUG
-        SkASSERT(0 == this->getRefCnt());
-        fRefCnt.store(1);
-#endif
-        delete this;
+    this->abandonGPUData();
+#  ifdef SK_TRACE_VK_RESOURCES
+    GetTrace()->remove(this);
+#  endif
+#  ifdef SK_DEBUG
+    SkASSERT(0 == this->getRefCnt());
+    fRefCnt.store(1);
+#  endif
+    delete this;
   }
   mutable std::atomic<int32_t> fRefCnt;
 #  ifdef SK_TRACE_VK_RESOURCES
@@ -228,11 +226,14 @@ public:
     // decides not to recycle the objects, it is their responsibility to call unref on the object.
   void recycle(GrVkGpu* gpu) const
   {
-        if (this->unique()) {
-            this->onRecycle(gpu);
-        } else {
-            this->unref(gpu);
-        }
+    if (this->unique())
+    {
+      this->onRecycle(gpu);
+    }
+    else 
+    {
+      this->unref(gpu);
+    }
   }
 private:
   virtual void onRecycle(GrVkGpu* gpu) const = 0;

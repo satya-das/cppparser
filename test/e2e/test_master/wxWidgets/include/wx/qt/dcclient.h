@@ -17,6 +17,7 @@ public:
   ~wxWindowDCImpl();
 protected:
   wxWindow* m_window;
+private:
   wxDECLARE_CLASS(wxWindowDCImpl);
   wxDECLARE_NO_COPY_CLASS(wxWindowDCImpl);
 };
@@ -36,6 +37,7 @@ class WXDLLIMPEXP_CORE wxPaintDCImpl : public wxWindowDCImpl
 public:
   wxPaintDCImpl(wxDC* owner);
   wxPaintDCImpl(wxDC* owner, wxWindow* win);
+private:
   wxDECLARE_CLASS(wxPaintDCImpl);
   wxDECLARE_NO_COPY_CLASS(wxPaintDCImpl);
 };

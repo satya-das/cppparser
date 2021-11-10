@@ -42,7 +42,6 @@ public:
     // default ctor creates an invalid bitmap, you must Create() it later
   wxBitmap()
   {
-
   }
     // Initialize with raw data
   wxBitmap(const char bits[], int width, int height, int depth = 1);
@@ -59,11 +58,11 @@ public:
     //     taking a DC argument if you want to force using DDB in this case
   wxBitmap(int width, int height, int depth = -1)
   {
- (void)Create(width, height, depth);
+    (void) Create(width, height, depth);
   }
   wxBitmap(const wxSize& sz, int depth = -1)
   {
- (void)Create(sz, depth);
+    (void) Create(sz, depth);
   }
     // Create a bitmap compatible with the given DC
   wxBitmap(int width, int height, const wxDC& dc);
@@ -71,47 +70,38 @@ public:
     // Convert from wxImage
   wxBitmap(const wxImage& image, int depth = -1, double = 1.0)
   {
- (void)CreateFromImage(image, depth);
+    (void) CreateFromImage(image, depth);
   }
     // Create a DDB compatible with the given DC from wxImage
   wxBitmap(const wxImage& image, const wxDC& dc)
   {
- (void)CreateFromImage(image, dc);
+    (void) CreateFromImage(image, dc);
   }
 #  endif
     // we must have this, otherwise icons are silently copied into bitmaps using
     // the copy ctor but the resulting bitmap is invalid!
   wxBitmap(const wxIcon& icon, wxBitmapTransparency transp = wxBitmapTransparency_Auto)
   {
-        CopyFromIcon(icon, transp);
+    CopyFromIcon(icon, transp);
   }
     // Convert from wxCursor
   explicit wxBitmap(const wxCursor& cursor)
   {
-        (void)CopyFromCursor(cursor, wxBitmapTransparency_Auto);
+    (void) CopyFromCursor(cursor, wxBitmapTransparency_Auto);
   }
 #  if  wxUSE_IMAGE
   wxBitmap& operator=(const wxImage& image)
   {
-        return *this = wxBitmap(image);
+    return *this = wxBitmap(image);
   }
 #  endif
   wxBitmap& operator=(const wxIcon& icon)
   {
-        (void)CopyFromIcon(icon);
-
-        return *this;
+    (void) CopyFromIcon(icon);
+    return *this;
   }
-#  if  WXWIN_COMPATIBILITY_3_0
     // This assignment operator is not portable as it is not implemented in any
     // other ports.
-  wxDEPRECATED_MSG("Don't assign wxCursor to an existing wxBitmap, create a new wxBitmap from wxCursor instead.") wxBitmap& operator=(const wxCursor& cursor)
-  {
-        (void)CopyFromCursor(cursor);
-
-        return *this;
-  }
-#  endif
   virtual ~wxBitmap();
 #  if  wxUSE_IMAGE
   wxImage ConvertToImage() const;
@@ -135,19 +125,19 @@ public:
   virtual bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH);
   virtual bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH)
   {
- return Create(sz.GetWidth(), sz.GetHeight(), depth);
+    return Create(sz.GetWidth(), sz.GetHeight(), depth);
   }
   virtual bool Create(int width, int height, const wxDC& dc);
   virtual bool Create(const void* data, wxBitmapType type, int width, int height, int depth = 1);
   virtual bool CreateScaled(int w, int h, int d, double logicalScale)
   {
- return Create(wxRound(w*logicalScale), wxRound(h*logicalScale), d);
+    return Create(wxRound(w * logicalScale), wxRound(h * logicalScale), d);
   }
   virtual bool LoadFile(const wxString& name, wxBitmapType type = wxBITMAP_DEFAULT_TYPE);
   virtual bool SaveFile(const wxString& name, wxBitmapType type, const wxPalette* cmap = NULL) const;
   wxBitmapRefData* GetBitmapData() const
   {
- return (wxBitmapRefData *)m_refData;
+    return (wxBitmapRefData*) m_refData;
   }
     // raw bitmap access support functions
   void* GetRawData(wxPixelDataBase& data, int bpp);
@@ -164,24 +154,24 @@ public:
   void UseAlpha(bool use = true);
   void ResetAlpha()
   {
- UseAlpha(false);
+    UseAlpha(false);
   }
     // support for scaled bitmaps
   virtual double GetScaleFactor() const
   {
- return 1.0;
+    return 1.0;
   }
   virtual double GetScaledWidth() const
   {
- return GetWidth() / GetScaleFactor();
+    return GetWidth() / GetScaleFactor();
   }
   virtual double GetScaledHeight() const
   {
- return GetHeight() / GetScaleFactor();
+    return GetHeight() / GetScaleFactor();
   }
   virtual wxSize GetScaledSize() const
   {
- return wxSize(wxRound(GetScaledWidth()), wxRound(GetScaledHeight()));
+    return wxSize(wxRound(GetScaledWidth()), wxRound(GetScaledHeight()));
   }
     // implementation only from now on
     // -------------------------------
@@ -191,16 +181,14 @@ public:
   void MSWUpdateAlpha();
     // Blend mask with alpha channel and remove the mask
   void MSWBlendMaskWithAlpha();
-#  if  WXWIN_COMPATIBILITY_3_0
-#  endif
   WXHBITMAP GetHBITMAP() const
   {
- return (WXHBITMAP)GetHandle();
+    return (WXHBITMAP) GetHandle();
   }
   bool InitFromHBITMAP(WXHBITMAP bmp, int width, int height, int depth);
   void ResetHBITMAP()
   {
- InitFromHBITMAP(NULL, 0, 0, 0);
+    InitFromHBITMAP(NULL, 0, 0, 0);
   }
   void SetSelectedInto(wxDC* dc);
   wxDC* GetSelectedInto() const;
@@ -242,7 +230,7 @@ public:
     // construct a mask from the givne bitmap handle
   wxMask(WXHBITMAP hbmp)
   {
- m_maskBitmap = hbmp;
+    m_maskBitmap = hbmp;
   }
   virtual ~wxMask();
   bool Create(const wxBitmap& bitmap, const wxColour& colour);
@@ -252,11 +240,11 @@ public:
     // Implementation
   WXHBITMAP GetMaskBitmap() const
   {
- return m_maskBitmap;
+    return m_maskBitmap;
   }
   void SetMaskBitmap(WXHBITMAP bmp)
   {
- m_maskBitmap = bmp;
+    m_maskBitmap = bmp;
   }
 protected:
   WXHBITMAP m_maskBitmap;
@@ -271,12 +259,10 @@ class WXDLLIMPEXP_CORE wxBitmapHandler : public wxGDIImageHandler
 public:
   wxBitmapHandler()
   {
-
   }
   wxBitmapHandler(const wxString& name, const wxString& ext, wxBitmapType type)
-    :  wxGDIImageHandler(name, ext, type)
+    : wxGDIImageHandler(name, ext, type)
   {
-
   }
     // implement wxGDIImageHandler's pure virtuals:
   bool Create(wxGDIImage* image, const void* data, wxBitmapType type, int width, int height, int depth = 1) override;

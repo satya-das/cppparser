@@ -136,7 +136,7 @@ public:
     // Loads menubar from resource. Returns NULL on failure.
   wxMenuBar* LoadMenuBar(const wxString& name)
   {
- return LoadMenuBar(NULL, name);
+    return LoadMenuBar(NULL, name);
   }
 #    if  wxUSE_TOOLBAR
     // Loads a toolbar.
@@ -164,14 +164,14 @@ public:
     // the classname.  This lets you load nonstandard container windows.
   wxObject* LoadObject(wxWindow* parent, const wxString& name, const wxString& classname)
   {
-        return DoLoadObject(parent, name, classname, false /* !recursive */);
+    return DoLoadObject(parent, name, classname, false);
   }
     // Load an object from the resource specifying both the resource name and
     // the classname.  This form lets you finish the creation of an existing
     // instance.
   bool LoadObject(wxObject* instance, wxWindow* parent, const wxString& name, const wxString& classname)
   {
-        return DoLoadObject(instance, parent, name, classname, false);
+    return DoLoadObject(instance, parent, name, classname, false);
   }
     // These versions of LoadObject() look for the object with the given name
     // recursively (breadth first) and can be used to instantiate an individual
@@ -179,11 +179,11 @@ public:
     // is unique, it's up to the caller to ensure this.
   wxObject* LoadObjectRecursively(wxWindow* parent, const wxString& name, const wxString& classname)
   {
-        return DoLoadObject(parent, name, classname, true /* recursive */);
+    return DoLoadObject(parent, name, classname, true);
   }
   bool LoadObjectRecursively(wxObject* instance, wxWindow* parent, const wxString& name, const wxString& classname)
   {
-        return DoLoadObject(instance, parent, name, classname, true);
+    return DoLoadObject(instance, parent, name, classname, true);
   }
     // Loads a bitmap resource from a file.
   wxBitmap LoadBitmap(const wxString& name);
@@ -200,7 +200,7 @@ public:
     // Macro XRCID(name) is provided for convenient use in event tables.
   static int GetXRCID(const wxString& str_id, int value_if_not_found = wxID_NONE)
   {
- return DoGetXRCID(str_id.utf8_str(), value_if_not_found);
+    return DoGetXRCID(str_id.utf8_str(), value_if_not_found);
   }
     // version for internal use only
   static int DoGetXRCID(const char* str_id, int value_if_not_found = wxID_NONE);
@@ -213,20 +213,28 @@ public:
     // Returns version information (a.b.c.d = d+ 256*c + 256^2*b + 256^3*a).
   long GetVersion() const
   {
- return m_version;
+    return m_version;
   }
     // Compares resources version to argument. Returns -1 if resources version
     // is less than the argument, +1 if greater and 0 if they equal.
   int CompareVersion(int major, int minor, int release, int revision) const
   {
-        long diff = GetVersion() -
-                    (major*256*256*256 + minor*256*256 + release*256 + revision);
-        if ( diff < 0 )
-            return -1;
-        else if ( diff > 0 )
-            return +1;
-        else
-            return 0;
+    long diff = GetVersion() - (major * 256 * 256 * 256 + minor * 256 * 256 + release * 256 + revision);
+    if (diff < 0)
+    {
+      return -1;
+    }
+    else 
+    {
+      if (diff > 0)
+      {
+        return 1;
+      }
+      else 
+      {
+        return 0;
+      }
+    }
   }
     //// Singleton accessors.
 
@@ -237,18 +245,18 @@ public:
     // Returns flags, which is a bitlist of wxXmlResourceFlags.
   int GetFlags() const
   {
- return m_flags;
+    return m_flags;
   }
     // Set flags after construction.
   void SetFlags(int flags)
   {
- m_flags = flags;
+    m_flags = flags;
   }
     // Get/Set the domain to be passed to the translation functions, defaults
     // to empty string (no domain).
   const wxString& GetDomain() const
   {
- return m_domain;
+    return m_domain;
   }
   void SetDomain(const wxString& domain);
     // This function returns the wxXmlNode containing the definition of the
@@ -258,7 +266,7 @@ public:
     // and not used by wxXmlResource itself.
   const wxXmlNode* GetResourceNode(const wxString& name) const
   {
- return GetResourceNodeAndLocation(name, wxString(), true);
+    return GetResourceNodeAndLocation(name, wxString(), true);
   }
 protected:
     // reports input error at position 'context'
@@ -294,8 +302,7 @@ protected:
     // (Uses only 'handlerToUse' if != NULL)
   wxObject* CreateResFromNode(wxXmlNode* node, wxObject* parent, wxObject* instance = NULL, wxXmlResourceHandler* handlerToUse = NULL)
   {
-        return node ? DoCreateResFromNode(*node, parent, instance, handlerToUse)
-                    : NULL;
+    return node ? DoCreateResFromNode(*node, parent, instance, handlerToUse) : NULL;
   }
     // Helper of Load() and Unload(): returns the URL corresponding to the
     // given file if it's indeed a file, otherwise returns the original string
@@ -309,11 +316,11 @@ protected:
 private:
   wxXmlResourceDataRecords& Data()
   {
- return *m_data;
+    return *m_data;
   }
   const wxXmlResourceDataRecords& Data() const
   {
- return *m_data;
+    return *m_data;
   }
     // the real implementation of CreateResFromNode(): this should be only
     // called if node is non-NULL
@@ -329,7 +336,7 @@ private:
   wxFileSystem m_curFileSystem;
   wxFileSystem& GetCurFileSystem()
   {
- return m_curFileSystem;
+    return m_curFileSystem;
   }
 #    endif
     // domain to pass to translation functions, if any.
@@ -476,7 +483,7 @@ public:
     // Returns the window associated with the handler (may be NULL).
   wxWindow* GetParentAsWindow() const
   {
- return m_handler->GetParentAsWindow();
+    return m_handler->GetParentAsWindow();
   }
     // Sets common window options.
   void SetupWindow(wxWindow* wnd) override;

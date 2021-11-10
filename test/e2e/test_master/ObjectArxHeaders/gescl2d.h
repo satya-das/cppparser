@@ -73,21 +73,21 @@ public:
 };
 inline double AcGeScale2d::operator [](unsigned int i) const
 {
-    return *(&sx+i);
+  return *(&sx + i);
 }
 inline double& AcGeScale2d::operator [](unsigned int i)
 {
-    return *(&sx+i);
+  return *(&sx + i);
 }
 inline bool AcGeScale2d::operator ==(const AcGeScale2d& s) const
 {
-    return this->isEqualTo(s);
+  return this->isEqualTo(s);
 }
 // This operator is the logical negation of the `==' operator.
 //
 inline bool AcGeScale2d::operator !=(const AcGeScale2d& s) const
 {
-    return !this->isEqualTo(s);
+  return !this->isEqualTo(s);
 }
 #  pragma  pack (pop)
 #endif

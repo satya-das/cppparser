@@ -14,19 +14,19 @@
 struct SkReadPixelsRec
 {
   SkReadPixelsRec(const SkImageInfo& info, void* pixels, size_t rowBytes, int x, int y)
-    :  fPixels(pixels)
-        , fRowBytes(rowBytes)
-        , fInfo(info)
-        , fX(x)
-        , fY(y)
+    : fPixels(pixels)
+    , fRowBytes(rowBytes)
+    , fInfo(info)
+    , fX(x)
+    , fY(y)
   {
   }
   SkReadPixelsRec(const SkPixmap& pm, int x, int y)
-    :  fPixels(pm.writable_addr())
-        , fRowBytes(pm.rowBytes())
-        , fInfo(pm.info())
-        , fX(x)
-        , fY(y)
+    : fPixels(pm.writable_addr())
+    , fRowBytes(pm.rowBytes())
+    , fInfo(pm.info())
+    , fX(x)
+    , fY(y)
   {
   }
   void* fPixels;

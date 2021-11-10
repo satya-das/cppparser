@@ -20,47 +20,45 @@ class wxScopedArray
 public:
   typedef T element_type;
   explicit wxScopedArray(T* array = NULL)
-    :  m_array(array)
+    : m_array(array)
   {
-
   }
   explicit wxScopedArray(size_t count)
-    :  m_array(new T[count])
+    : m_array(new T[count])
   {
-
   }
   ~wxScopedArray()
   {
- delete [] m_array;
+    delete[] m_array;
   }
     // test for pointer validity: defining conversion to unspecified_bool_type
     // and not more obvious bool to avoid implicit conversions to integer types
   typedef T* (*unspecified_bool_type) () const;
   operator unspecified_bool_type() const
   {
-        return m_array ? &wxScopedArray<T>::get : NULL;
+    return m_array ? &wxScopedArray<T>::get : NULL;
   }
   void reset(T* array = NULL)
   {
-        if ( array != m_array )
-        {
-            delete [] m_array;
-            m_array = array;
-        }
+    if (array != m_array)
+    {
+      delete[] m_array;
+      m_array = array;
+    }
   }
   T& operator[](size_t n) const
   {
- return m_array[n];
+    return m_array[n];
   }
   T* get() const
   {
- return m_array;
+    return m_array;
   }
   void swap(wxScopedArray& other)
   {
-        T * const tmp = other.m_array;
-        other.m_array = m_array;
-        m_array = tmp;
+    T* const tmp = other.m_array;
+    other.m_array = m_array;
+    m_array = tmp;
   }
 private:
   T* m_array;

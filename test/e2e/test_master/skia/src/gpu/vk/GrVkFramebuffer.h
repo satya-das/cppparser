@@ -18,17 +18,18 @@ public:
   static GrVkFramebuffer* Create(GrVkGpu* gpu, int width, int height, const GrVkRenderPass* renderPass, const GrVkImageView* colorAttachment, const GrVkImageView* stencilAttachment);
   VkFramebuffer framebuffer() const
   {
- return fFramebuffer;
+    return fFramebuffer;
   }
 #  ifdef SK_TRACE_VK_RESOURCES
   void dumpInfo() const override
   {
-        SkDebugf("GrVkFramebuffer: %d (%d refs)\n", fFramebuffer, this->getRefCnt());
+    SkDebugf("GrVkFramebuffer: %d (%d refs)\n", fFramebuffer, this->getRefCnt());
   }
 #  endif
 private:
   GrVkFramebuffer(VkFramebuffer framebuffer)
-    :  INHERITED(), fFramebuffer(framebuffer)
+    : INHERITED()
+    , fFramebuffer(framebuffer)
   {
   }
   GrVkFramebuffer(const GrVkFramebuffer&);

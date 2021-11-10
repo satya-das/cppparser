@@ -56,7 +56,7 @@ public:
      */
   unsigned int GetSize() const
   {
- return m_ranges.size();
+    return m_ranges.size();
   }
 private:
   wxVector<RowRange> m_ranges;

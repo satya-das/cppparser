@@ -12,7 +12,8 @@ class WXDLLIMPEXP_CORE wxBrush : public wxBrushBase
 public:
   wxBrush();
   wxBrush(const wxColour& col, wxBrushStyle style = wxBRUSHSTYLE_SOLID);
-  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") wxBrush(const wxColour& col, int style);
+  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants")
+  wxBrush(const wxColour& col, int style);
   wxBrush(const wxBitmap& stipple);
   void SetColour(const wxColour& col) override;
   void SetColour(unsigned char r, unsigned char g, unsigned char b) override;
@@ -21,14 +22,15 @@ public:
   bool operator==(const wxBrush& brush) const;
   bool operator!=(const wxBrush& brush) const
   {
- return !(*this == brush);
+    return !(*this == brush);
   }
   wxColour GetColour() const override;
   wxBrushStyle GetStyle() const override;
   wxBitmap* GetStipple() const override;
-  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") void SetStyle(int style)
+  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants")
+  void SetStyle(int style)
   {
- SetStyle((wxBrushStyle)style);
+    SetStyle((wxBrushStyle) style);
   }
   QBrush GetHandle() const;
 protected:

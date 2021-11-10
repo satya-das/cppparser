@@ -25,7 +25,6 @@ class WXDLLIMPEXP_CORE wxPanelBase : public wxNavigationEnabled<wxWindow>
 public:
   wxPanelBase()
   {
-
   }
     // Derived classes should also provide this constructor:
     /*
@@ -42,6 +41,7 @@ public:
     // implementation from now on
     // --------------------------
   void InitDialog() override;
+private:
   wxDECLARE_NO_COPY_CLASS(wxPanelBase);
 };
 #  if  defined(__WXUNIVERSAL__)

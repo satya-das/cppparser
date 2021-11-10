@@ -27,59 +27,62 @@ class WXDLLIMPEXP_CORE wxOwnerDrawnBase
 public:
   wxOwnerDrawnBase()
   {
-        m_ownerDrawn = false;
-        m_margin = ms_defaultMargin;
+    m_ownerDrawn = false;
+    m_margin = ms_defaultMargin;
   }
   virtual ~wxOwnerDrawnBase()
   {
   }
   void SetFont(const wxFont& font)
   {
- m_font = font; m_ownerDrawn = true;
+    m_font = font;
+    m_ownerDrawn = true;
   }
   wxFont& GetFont()
   {
- return m_font;
+    return m_font;
   }
   const wxFont& GetFont() const
   {
- return m_font;
+    return m_font;
   }
   void SetTextColour(const wxColour& colText)
   {
- m_colText = colText; m_ownerDrawn = true;
+    m_colText = colText;
+    m_ownerDrawn = true;
   }
   wxColour& GetTextColour()
   {
- return m_colText;
+    return m_colText;
   }
   const wxColour& GetTextColour() const
   {
- return m_colText;
+    return m_colText;
   }
   void SetBackgroundColour(const wxColour& colBack)
   {
- m_colBack = colBack; m_ownerDrawn = true;
+    m_colBack = colBack;
+    m_ownerDrawn = true;
   }
   wxColour& GetBackgroundColour()
   {
- return m_colBack;
+    return m_colBack;
   }
   const wxColour& GetBackgroundColour() const
   {
- return m_colBack ;
+    return m_colBack;
   }
   void SetMarginWidth(int width)
   {
- m_margin = width;
+    m_margin = width;
   }
   int GetMarginWidth() const
   {
- return m_margin;
+    return m_margin;
   }
   static int GetDefaultMarginWidth()
   {
- return ms_defaultMargin;
+    return ms_defaultMargin;
   }
     // get item name (with mnemonics if exist)
   virtual wxString GetName() const = 0;
@@ -90,12 +93,12 @@ public:
   // (see wxMenuItem::wxMenuItem for example)
   bool IsOwnerDrawn() const
   {
- return m_ownerDrawn;
+    return m_ownerDrawn;
   }
     // switch on/off owner-drawing the item
   void SetOwnerDrawn(bool ownerDrawn = true)
   {
- m_ownerDrawn = ownerDrawn;
+    m_ownerDrawn = ownerDrawn;
   }
     // constants used in OnDrawItem
     // (they have the same values as corresponding Win32 constants)

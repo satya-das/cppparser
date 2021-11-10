@@ -90,7 +90,6 @@ namespace PoDoFo
     PdfAction(EPdfAction eAction, PdfDocument* pParent);
     virtual ~PdfAction()
     {
-
     }
     /** Create a PdfAction object from an existing 
      *  PdfObject

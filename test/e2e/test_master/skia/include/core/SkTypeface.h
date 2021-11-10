@@ -43,24 +43,24 @@ public:
     /** Returns the typeface's intrinsic style attributes. */
   SkFontStyle fontStyle() const
   {
-        return fStyle;
+    return fStyle;
   }
     /** Returns true if style() has the kBold bit set. */
   bool isBold() const
   {
- return fStyle.weight() >= SkFontStyle::kSemiBold_Weight;
+    return fStyle.weight() >= SkFontStyle::kSemiBold_Weight;
   }
     /** Returns true if style() has the kItalic bit set. */
   bool isItalic() const
   {
- return fStyle.slant() != SkFontStyle::kUpright_Slant;
+    return fStyle.slant() != SkFontStyle::kUpright_Slant;
   }
     /** Returns true if the typeface claims to be fixed-pitch.
      *  This is a style bit, advance widths may vary even if this returns true.
      */
   bool isFixedPitch() const
   {
- return fIsFixedPitch;
+    return fIsFixedPitch;
   }
     /** Copy into 'coordinates' (allocated by the caller) the design variation coordinates.
      *
@@ -91,7 +91,7 @@ public:
      */
   SkFontID uniqueID() const
   {
- return fUniqueID;
+    return fUniqueID;
   }
     /** Return the uniqueID for the specified typeface. If the face is null,
         resolve it to the default font and return its uniqueID. Will never
@@ -262,12 +262,11 @@ public:
     LocalizedStrings();
     virtual ~LocalizedStrings()
     {
-
     }
     virtual bool next(LocalizedString* localizedString) = 0;
     void unref()
     {
- delete this;
+      delete this;
     }
   private:
     LocalizedStrings(const LocalizedStrings&) = delete;
@@ -312,17 +311,17 @@ public:
     // PRIVATE / EXPERIMENTAL -- do not call
   void filterRec(SkScalerContextRec* rec) const
   {
-        this->onFilterRec(rec);
+    this->onFilterRec(rec);
   }
     // PRIVATE / EXPERIMENTAL -- do not call
   void getFontDescriptor(SkFontDescriptor* desc, bool* isLocal) const
   {
-        this->onGetFontDescriptor(desc, isLocal);
+    this->onGetFontDescriptor(desc, isLocal);
   }
     // PRIVATE / EXPERIMENTAL -- do not call
   void* internal_private_getCTFontRef() const
   {
-        return this->onGetCTFontRef();
+    return this->onGetCTFontRef();
   }
 protected:
     /** uniqueID must be unique and non-zero
@@ -333,12 +332,12 @@ protected:
     /** Sets the fixedPitch bit. If used, must be called in the constructor. */
   void setIsFixedPitch(bool isFixedPitch)
   {
- fIsFixedPitch = isFixedPitch;
+    fIsFixedPitch = isFixedPitch;
   }
     /** Sets the font style. If used, must be called in the constructor. */
   void setFontStyle(SkFontStyle style)
   {
- fStyle = style;
+    fStyle = style;
   }
   virtual SkScalerContext* onCreateScalerContext(const SkScalerContextEffects&, const SkDescriptor*) const = 0;
   virtual void onFilterRec(SkScalerContextRec*) const = 0;
@@ -375,7 +374,7 @@ protected:
   virtual bool onComputeBounds(SkRect*) const;
   virtual void* onGetCTFontRef() const
   {
- return nullptr;
+    return nullptr;
   }
 private:
     /** Retrieve detailed typeface metrics.  Used by the PDF backend.  */

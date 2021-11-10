@@ -29,7 +29,7 @@ public:
     // Returns the number of canvas commands in this SkRecord.
   int count() const
   {
- return fCount;
+    return fCount;
   }
     // Visit the i-th canvas command with a functor matching this interface:
     //   template <typename T>
@@ -38,7 +38,7 @@ public:
   template <typename F>
   auto visit(int i, F&& f) const -> decltype(f(SkRecords::NoOp()))
   {
-        return fRecords[i].visit(f);
+    return fRecords[i].visit(f);
   }
     // Mutate the i-th canvas command with a functor matching this interface:
     //   template <typename T>
@@ -47,28 +47,30 @@ public:
   template <typename F>
   auto mutate(int i, F&& f) -> decltype(f((SkRecords::NoOp*)nullptr))
   {
-        return fRecords[i].mutate(f);
+    return fRecords[i].mutate(f);
   }
     // Allocate contiguous space for count Ts, to be freed when the SkRecord is destroyed.
     // Here T can be any class, not just those from SkRecords.  Throws on failure.
   template <typename T>
   T* alloc(size_t count = 1)
   {
-        struct RawBytes {
-            alignas(T) char data[sizeof(T)];
-        };
-        fApproxBytesAllocated += count * sizeof(T) + alignof(T);
-        return (T*)fAlloc.makeArrayDefault<RawBytes>(count);
+    struct RawBytes
+    {
+      alignas(T) char data[sizeof(T)];
+    };
+    fApproxBytesAllocated += count * sizeof(T) + alignof(T);
+    return (T*) fAlloc.makeArrayDefault<RawBytes>(count);
   }
     // Add a new command of type T to the end of this SkRecord.
     // You are expected to placement new an object of type T onto this pointer.
   template <typename T>
   T* append()
   {
-        if (fCount == fReserved) {
-            this->grow();
-        }
-        return fRecords[fCount++].set(this->allocCommand<T>());
+    if (fCount == fReserved)
+    {
+      this->grow();
+    }
+    return fRecords[fCount++].set(this->allocCommand<T>());
   }
     // Replace the i-th command with a new command of type T.
     // You are expected to placement new an object of type T onto this pointer.
@@ -76,12 +78,10 @@ public:
   template <typename T>
   T* replace(int i)
   {
-        SkASSERT(i < this->count());
-
-        Destroyer destroyer;
-        this->mutate(i, destroyer);
-
-        return fRecords[i].set(this->allocCommand<T>());
+    SkASSERT(i < this->count());
+    Destroyer destroyer;
+    this->mutate(i, destroyer);
+    return fRecords[i].set(this->allocCommand<T>());
   }
     // Replace the i-th command with a new command of type T.
     // You are expected to placement new an object of type T onto this pointer.
@@ -89,12 +89,10 @@ public:
   template <typename T, typename Existing>
   T* replace(int i, const SkRecords::Adopted<Existing>& proofOfAdoption)
   {
-        SkASSERT(i < this->count());
-
-        SkASSERT(Existing::kType == fRecords[i].type());
-        SkASSERT(proofOfAdoption == fRecords[i].ptr());
-
-        return fRecords[i].set(this->allocCommand<T>());
+    SkASSERT(i < this->count());
+    SkASSERT(Existing::kType == fRecords[i].type());
+    SkASSERT(proofOfAdoption == fRecords[i].ptr());
+    return fRecords[i].set(this->allocCommand<T>());
   }
     // Does not return the bytes in any pointers embedded in the Records; callers
     // need to iterate with a visitor to measure those they care for.
@@ -124,19 +122,19 @@ private:
     template <typename T>
     void operator()(T* record)
     {
- record->~T();
+      record->~T();
     }
   };
   template <typename T>
   SK_WHEN(std::is_empty<T>::value, T*) allocCommand()
   {
-        static T singleton = {};
-        return &singleton;
+    static T singleton = {};
+    return &singleton;
   }
   template <typename T>
   SK_WHEN(!std::is_empty<T>::value, T*) allocCommand()
   {
- return this->alloc<T>();
+    return this->alloc<T>();
   }
   void grow();
     // A typed pointer to some bytes in fAlloc.  visit() and mutate() allow polymorphic dispatch.
@@ -148,40 +146,40 @@ private:
     template <typename T>
     T* set(T* ptr)
     {
-            fType = T::kType;
-            fPtr  = ptr;
-            SkASSERT(this->ptr() == ptr && this->type() == T::kType);
-            return ptr;
+      fType = T::kType;
+      fPtr = ptr;
+      SkASSERT(this->ptr() == ptr && this->type() == T::kType);
+      return ptr;
     }
     SkRecords::Type type() const
     {
- return fType;
+      return fType;
     }
     void* ptr() const
     {
- return fPtr;
+      return fPtr;
     }
         // Visit this record with functor F (see public API above).
     template <typename F>
     auto visit(F&& f) const -> decltype(f(SkRecords::NoOp()))
     {
-        #define CASE(T) case SkRecords::T##_Type: return f(*(const SkRecords::T*)this->ptr());
+#  define CASE(T)	 case SkRecords::T##_Type: return f(*(const SkRecords::T*)this->ptr());
 //            switch(this->type()) { SK_RECORD_TYPES(CASE) }
-        #undef CASE
-            SkDEBUGFAIL("Unreachable");
-            static const SkRecords::NoOp noop{};
-            return f(noop);
+#  undef CASE
+      SkDEBUGFAIL("Unreachable");
+      static const SkRecords::NoOp noop{};
+      return f(noop);
     }
         // Mutate this record with functor F (see public API above).
     template <typename F>
     auto mutate(F&& f) -> decltype(f((SkRecords::NoOp*)nullptr))
     {
-        #define CASE(T) case SkRecords::T##_Type: return f((SkRecords::T*)this->ptr());
+#  define CASE(T)	 case SkRecords::T##_Type: return f((SkRecords::T*)this->ptr());
 //            switch(this->type()) { SK_RECORD_TYPES(CASE) }
-        #undef CASE
-            SkDEBUGFAIL("Unreachable");
-            static const SkRecords::NoOp noop{};
-            return f(const_cast<SkRecords::NoOp*>(&noop));
+#  undef CASE
+      SkDEBUGFAIL("Unreachable");
+      static const SkRecords::NoOp noop{};
+      return f(const_cast<SkRecords::NoOp*>(&noop));
     }
   };
     // fRecords needs to be a data structure that can append fixed length data, and need to

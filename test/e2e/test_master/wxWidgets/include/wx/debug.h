@@ -95,9 +95,9 @@ WXDLLIMPEXP_BASE extern wxAssertHandler_t wxTheAssertHandler;
  */
 inline wxAssertHandler_t wxSetAssertHandler(wxAssertHandler_t handler)
 {
-    const wxAssertHandler_t old = wxTheAssertHandler;
-    wxTheAssertHandler = handler;
-    return old;
+  const wxAssertHandler_t old = wxTheAssertHandler;
+  wxTheAssertHandler = handler;
+  return old;
 }
 /*
     Reset the default assert handler.
@@ -113,17 +113,16 @@ extern void WXDLLIMPEXP_BASE wxSetDefaultAssertHandler();
 //     defined
 inline wxAssertHandler_t wxSetAssertHandler(wxAssertHandler_t)
 {
-    return NULL;
+  return NULL;
 }
 inline void wxSetDefaultAssertHandler()
 {
-
 }
 #  endif
 // simply a synonym for wxSetAssertHandler(NULL)
 inline void wxDisableAsserts()
 {
- wxSetAssertHandler(NULL);
+  wxSetAssertHandler(NULL);
 }
 /*
     A macro which disables asserts for applications compiled in release build.
@@ -146,7 +145,9 @@ inline void wxDisableAsserts()
     call wxTheAssertHandler so the caller must check that it is non-NULL
     (assert macros do it).
  */
-#    if  wxUSE_UNICODE
+
+#if wxUSE_UNICODE
+
 // these overloads are the ones typically used by debugging macros: we have to
 // provide wxChar* msg version because it's common to use wxT() in the macros
 // and finally, we can't use const wx(char)* msg = NULL, because that would
@@ -157,7 +158,6 @@ inline void wxDisableAsserts()
 WXDLLIMPEXP_BASE extern void wxOnAssert(const char* file, int line, const char* func, const char* cond);
 WXDLLIMPEXP_BASE extern void wxOnAssert(const char* file, int line, const char* func, const char* cond, const char* msg);
 WXDLLIMPEXP_BASE extern void wxOnAssert(const char* file, int line, const char* func, const char* cond, const wxChar* msg);
-#    endif
 // this version is for compatibility with wx 2.8 Unicode build only, we don't
 // use it ourselves any more except in ANSI-only build in which case it is all
 // we need
@@ -398,7 +398,7 @@ extern bool WXDLLIMPEXP_BASE wxIsDebuggerRunning();
 #  else 
 inline bool wxIsDebuggerRunning()
 {
- return false;
+  return false;
 }
 #  endif
 // An assert helper used to avoid warning when testing constant expressions,

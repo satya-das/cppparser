@@ -63,7 +63,7 @@ public:
     // using it
   virtual bool IsOk() const
   {
- return true;
+    return true;
   }
     // returns true if this is the main loop
   bool IsMain() const;
@@ -112,7 +112,7 @@ public:
         // synonym for WakeUp()
   void WakeUpIdle()
   {
- WakeUp();
+    WakeUp();
   }
         // this virtual function is called  when the application
         // becomes idle and by default it forwards to wxApp::ProcessIdle() and
@@ -142,14 +142,14 @@ public:
     // returns true if the main thread is inside a Yield() call
   virtual bool IsYielding() const
   {
- return m_yieldLevel != 0;
+    return m_yieldLevel != 0;
   }
     // returns true if events of the given event category should be immediately
     // processed inside a wxApp::Yield() call or rather should be queued for
     // later processing by the main event loop
   virtual bool IsEventAllowedInsideYield(wxEventCategory cat) const
   {
- return (m_eventsToProcessInsideYield & cat) != 0;
+    return (m_eventsToProcessInsideYield & cat) != 0;
   }
     // no SafeYield hooks since it uses wxWindow which is not available when wxUSE_GUI=0
 
@@ -160,7 +160,7 @@ public:
     // return currently active (running) event loop, may be NULL
   static wxEventLoopBase* GetActive()
   {
- return ms_activeLoop;
+    return ms_activeLoop;
   }
     // set currently active (running) event loop
   static void SetActive(wxEventLoopBase* loop);
@@ -185,7 +185,7 @@ protected:
     // been really called IsActive() but it's too late to change this now).
   bool IsInsideRun() const
   {
- return m_isInsideRun;
+    return m_isInsideRun;
   }
     // the pointer to currently active loop
   static wxEventLoopBase* ms_activeLoop;
@@ -220,7 +220,6 @@ protected:
     // loop iteration
   virtual void OnNextIteration()
   {
-
   }
     // the loop exit code
   int m_exitcode;
@@ -269,7 +268,7 @@ class WXDLLIMPEXP_CORE wxGUIEventLoop : public wxEventLoopBase
 public:
   wxGUIEventLoop()
   {
- m_impl = NULL;
+    m_impl = NULL;
   }
   virtual ~wxGUIEventLoop();
   virtual void ScheduleExit(int rc = 0);
@@ -279,19 +278,21 @@ public:
   {
         // TODO: this is, of course, horribly inefficient and a proper wait with
         //       timeout should be implemented for all ports natively...
-        const wxMilliClock_t timeEnd = wxGetLocalTimeMillis() + timeout;
-        for ( ;; )
-        {
-            if ( Pending() )
-                return Dispatch();
-
-            if ( wxGetLocalTimeMillis() >= timeEnd )
-                return -1;
-        }
+    const wxMilliClock_t timeEnd = wxGetLocalTimeMillis() + timeout;
+    for (;;)
+    {
+      if (Pending())
+      {
+        return Dispatch();
+      }
+      if (wxGetLocalTimeMillis() >= timeEnd)
+      {
+        return -1;
+      }
+    }
   }
   virtual void WakeUp()
   {
-
   }
 protected:
   virtual int DoRun();
@@ -319,7 +320,7 @@ class wxEventLoop : public wxGUIEventLoop
 #  endif
 inline bool wxEventLoopBase::IsRunning() const
 {
- return GetActive() == this;
+  return GetActive() == this;
 }
 #  if  wxUSE_GUI && !defined(__WXOSX__)
 // ----------------------------------------------------------------------------
@@ -335,15 +336,14 @@ class WXDLLIMPEXP_CORE wxModalEventLoop : public wxGUIEventLoop
 public:
   wxModalEventLoop(wxWindow* winModal)
   {
-        m_windowDisabler = new wxWindowDisabler(winModal);
+    m_windowDisabler = new wxWindowDisabler(winModal);
   }
 protected:
   void OnExit() override
   {
-        delete m_windowDisabler;
-        m_windowDisabler = NULL;
-
-        wxGUIEventLoop::OnExit();
+    delete m_windowDisabler;
+    m_windowDisabler = NULL;
+    wxGUIEventLoop::OnExit();
   }
 private:
   wxWindowDisabler* m_windowDisabler;
@@ -361,13 +361,13 @@ class wxEventLoopActivator
 public:
   wxEventLoopActivator(wxEventLoopBase* evtLoop)
   {
-        m_evtLoopOld = wxEventLoopBase::GetActive();
-        wxEventLoopBase::SetActive(evtLoop);
+    m_evtLoopOld = wxEventLoopBase::GetActive();
+    wxEventLoopBase::SetActive(evtLoop);
   }
   ~wxEventLoopActivator()
   {
         // restore the previously active event loop
-        wxEventLoopBase::SetActive(m_evtLoopOld);
+    wxEventLoopBase::SetActive(m_evtLoopOld);
   }
 private:
   wxEventLoopBase* m_evtLoopOld;
@@ -378,20 +378,20 @@ class wxEventLoopGuarantor
 public:
   wxEventLoopGuarantor()
   {
-        m_evtLoopNew = NULL;
-        if (!wxEventLoop::GetActive())
-        {
-            m_evtLoopNew = new wxEventLoop;
-            wxEventLoop::SetActive(m_evtLoopNew);
-        }
+    m_evtLoopNew = NULL;
+    if (!wxEventLoop::GetActive())
+    {
+      m_evtLoopNew = new wxEventLoop;
+      wxEventLoop::SetActive(m_evtLoopNew);
+    }
   }
   ~wxEventLoopGuarantor()
   {
-        if (m_evtLoopNew)
-        {
-            wxEventLoop::SetActive(NULL);
-            delete m_evtLoopNew;
-        }
+    if (m_evtLoopNew)
+    {
+      wxEventLoop::SetActive(NULL);
+      delete m_evtLoopNew;
+    }
   }
 private:
   wxEventLoop* m_evtLoopNew;

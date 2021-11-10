@@ -31,8 +31,8 @@ public:
      */
   static int NewIndex()
   {
-        static std::atomic<int> nextIndex{0};
-        return nextIndex++;
+    static std::atomic<int> nextIndex{0};
+    return nextIndex++;
   }
     /**
      * Creates a new fragment processor from an SkSL source string and a struct of inputs to the

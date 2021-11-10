@@ -11,7 +11,7 @@ struct ArithmeticFPInputs
 {
   ArithmeticFPInputs()
   {
-        memset(this, 0, sizeof(*this));
+    memset(this, 0, sizeof(*this));
   }
   float k[4];
   bool enforcePMColor;

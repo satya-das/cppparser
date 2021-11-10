@@ -404,7 +404,7 @@ namespace PoDoFo
   template <typename T>
   const T PDF_MAX(const T a, const T b)
   {
-  return (b<a)?a:b;
+    return (b < a) ? a : b;
   }
 /**
  * PDF_MIN(x,y)
@@ -415,7 +415,7 @@ namespace PoDoFo
   template <typename T>
   const T PDF_MIN(const T a, const T b)
   {
-  return (a<b)?a:b;
+    return (a < b) ? a : b;
   }
 #    ifndef PODOFO_CONVERSION_CONSTANT
 #      define PODOFO_CONVERSION_CONSTANT	0.002834645669291339

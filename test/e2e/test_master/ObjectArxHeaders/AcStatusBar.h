@@ -55,19 +55,19 @@ public:
     //       adversely affect application functionality
   SB_DEPRECATED virtual void SetContentChanged(BOOL bChanged)
   {
-m_bContentChanged = bChanged;
+    m_bContentChanged = bChanged;
   }
   SB_DEPRECATED virtual BOOL ContentChanged() const
   {
-return m_bContentChanged;
+    return m_bContentChanged;
   }
   SB_DEPRECATED virtual void SetVisibilityChanged(BOOL bChanged)
   {
-m_bVisibilityChanged = bChanged;
+    m_bVisibilityChanged = bChanged;
   }
   SB_DEPRECATED virtual BOOL VisibilityChanged() const
   {
-return m_bVisibilityChanged;
+    return m_bVisibilityChanged;
   }
   SB_DEPRECATED virtual void SetInternalData(void* pData, BOOL bForDocSwitch = FALSE);
   SB_DEPRECATED virtual void* GetInternalData(BOOL bForDocSwitch = TRUE) const;
@@ -144,56 +144,58 @@ public:
   SB_DEPRECATED ~AcTrayItemAnimationControl();
   SB_DEPRECATED void SetBitmap(HBITMAP hBitmap)
   {
- m_hBitmap = hBitmap;
+    m_hBitmap = hBitmap;
   }
   SB_DEPRECATED void SetGIFFile(const CString& strGIFFile)
   {
- m_strGIFFile = strGIFFile;
+    m_strGIFFile = strGIFFile;
   }
   SB_DEPRECATED void SetGIFResourceData(HGLOBAL hGlobal, DWORD dwSize)
   {
- m_hGifGlobal = hGlobal; m_dwGifSize = dwSize;
+    m_hGifGlobal = hGlobal;
+    m_dwGifSize = dwSize;
   }
   SB_DEPRECATED void SetDuration(int nDurationInSeconds)
   {
- m_nDurationInSeconds = nDurationInSeconds;
+    m_nDurationInSeconds = nDurationInSeconds;
   }
   SB_DEPRECATED void SetNewIcon(HICON hNewIcon)
   {
- m_hNewIcon = hNewIcon;
+    m_hNewIcon = hNewIcon;
   }
   SB_DEPRECATED void SetCallback(AcTrayItemAnimationCallbackFunc pCallbackFunc, AcTrayItemAnimationCallbackData pCallbackData)
   {
-        m_pCallbackFunc = pCallbackFunc;
-        m_pCallbackData = pCallbackData;
+    m_pCallbackFunc = pCallbackFunc;
+    m_pCallbackData = pCallbackData;
   }
   SB_DEPRECATED HBITMAP GetBitmap() const
   {
- return m_hBitmap;
+    return m_hBitmap;
   }
   SB_DEPRECATED const CString& GetGIFFile() const
   {
- return m_strGIFFile;
+    return m_strGIFFile;
   }
   SB_DEPRECATED void GetGIFResourceData(HGLOBAL& hGlobal, DWORD& dwSize) const
   {
- hGlobal = m_hGifGlobal; dwSize = m_dwGifSize;
+    hGlobal = m_hGifGlobal;
+    dwSize = m_dwGifSize;
   }
   SB_DEPRECATED int GetDuration() const
   {
- return m_nDurationInSeconds;
+    return m_nDurationInSeconds;
   }
   SB_DEPRECATED HICON GetNewIcon() const
   {
- return m_hNewIcon;
+    return m_hNewIcon;
   }
   SB_DEPRECATED AcTrayItemAnimationCallbackFunc GetCallbackFunc() const
   {
- return m_pCallbackFunc;
+    return m_pCallbackFunc;
   }
   SB_DEPRECATED AcTrayItemAnimationCallbackData GetCallbackData() const
   {
- return m_pCallbackData;
+    return m_pCallbackData;
   }
   enum
   {
@@ -205,10 +207,10 @@ public:
 private:
   void InitDefault()
   {
-        m_pCallbackFunc = 0;
-        m_pCallbackData = 0;
-        m_nDurationInSeconds = 5;
-        m_hNewIcon = 0;
+    m_pCallbackFunc = 0;
+    m_pCallbackData = 0;
+    m_nDurationInSeconds = 5;
+    m_hNewIcon = 0;
   }
   HBITMAP m_hBitmap;
   HGLOBAL m_hGifGlobal;
@@ -231,64 +233,64 @@ public:
   ~AcTrayItemBubbleWindowControl();
   void SetIconType(int nIconType)
   {
- m_nIconType = nIconType;
+    m_nIconType = nIconType;
   }
   void SetTitle(const CString& strTitle)
   {
- m_strTitle = strTitle;
+    m_strTitle = strTitle;
   }
   void SetText(const CString& strText)
   {
- m_strText = strText;
+    m_strText = strText;
   }
   void SetHyperText(const CString& strHyperText)
   {
- m_strHyperText = strHyperText;
+    m_strHyperText = strHyperText;
   }
   void SetHyperLink(const CString& strHyperLink)
   {
- m_strHyperLink = strHyperLink;
+    m_strHyperLink = strHyperLink;
   }
   void SetText2(const CString& strText2)
   {
- m_strText2 = strText2;
+    m_strText2 = strText2;
   }
   void SetCallback(AcTrayItemBubbleWindowCallbackFunc pCallbackFunc, AcTrayItemBubbleWindowCallbackData pCallbackData = 0)
   {
-        m_pCallbackFunc = pCallbackFunc;
-        m_pCallbackData = pCallbackData;
+    m_pCallbackFunc = pCallbackFunc;
+    m_pCallbackData = pCallbackData;
   }
   int GetIconType() const
   {
- return m_nIconType;
+    return m_nIconType;
   }
   const CString& GetTitle() const
   {
- return m_strTitle;
+    return m_strTitle;
   }
   const CString& GetText() const
   {
- return m_strText;
+    return m_strText;
   }
   const CString& GetHyperText() const
   {
- return m_strHyperText;
+    return m_strHyperText;
   }
   const CString& GetHyperLink() const
   {
- return m_strHyperLink;
+    return m_strHyperLink;
   }
   const CString& GetText2() const
   {
- return m_strText2;
+    return m_strText2;
   }
   AcTrayItemBubbleWindowCallbackFunc GetCallbackFunc() const
   {
- return m_pCallbackFunc;
+    return m_pCallbackFunc;
   }
   AcTrayItemBubbleWindowCallbackData GetCallbackData() const
   {
- return m_pCallbackData;
+    return m_pCallbackData;
   }
   enum
   {
@@ -310,9 +312,9 @@ public:
 private:
   void InitDefault()
   {
-        m_pCallbackFunc = 0;
-        m_pCallbackData = 0;
-        m_nIconType = BUBBLE_WINDOW_ICON_INFORMATION;
+    m_pCallbackFunc = 0;
+    m_pCallbackData = 0;
+    m_nIconType = BUBBLE_WINDOW_ICON_INFORMATION;
   }
   int m_nIconType;
   CString m_strTitle;

@@ -44,7 +44,7 @@ public:
      */
   virtual bool isOpaque() const
   {
- return false;
+    return false;
   }
     /**
      *  Iff this shader is backed by a single SkImage, return its ptr (the caller must ref this
@@ -53,7 +53,7 @@ public:
   SkImage* isAImage(SkMatrix* localMatrix, SkTileMode xy[2]) const;
   bool isAImage() const
   {
-        return this->isAImage(nullptr, (SkTileMode*)nullptr) != nullptr;
+    return this->isAImage(nullptr, (SkTileMode*) nullptr) != nullptr;
   }
     /**
      *  If the shader subclass can be represented as a gradient, asAGradient

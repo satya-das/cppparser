@@ -17,15 +17,15 @@ public:
     // creation
     // --------
   wxSearchCtrl()
-    :  wxSearchCtrlBase()
+    : wxSearchCtrlBase()
   {
-        Init();
+    Init();
   }
   wxSearchCtrl(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSearchCtrlNameStr))
-    :  wxSearchCtrlBase()
+    : wxSearchCtrlBase()
   {
-        Init();
-        Create(parent, id, value, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, value, pos, size, style, validator, name);
   }
   virtual ~wxSearchCtrl();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSearchCtrlNameStr));
@@ -58,15 +58,15 @@ private:
   void OnTextEnter(wxCommandEvent& event);
   bool HasMenu() const
   {
-#if wxUSE_MENUS
-        return m_menu != NULL;
-#else // !wxUSE_MENUS
-        return false;
-#endif // wxUSE_MENUS/!wxUSE_MENUS
+#    if  wxUSE_MENUS
+    return m_menu != NULL;
+#    else 
+    return false;
+#    endif
   }
   GtkEntry* GetEntry() const override
   {
- return m_entry;
+    return m_entry;
   }
   GtkEntry* m_entry;
 #    if  wxUSE_MENUS

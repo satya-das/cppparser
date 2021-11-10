@@ -47,7 +47,7 @@ public:
     ///
   const AcGePoint3d& position() const
   {
- return mPosition;
+    return mPosition;
   }
     /// <summary>
     /// Returns modes of the grip.
@@ -57,7 +57,7 @@ public:
     ///
   unsigned int modes() const
   {
- return mnModes;
+    return mnModes;
   }
     /// <summary>
     /// Adds additional grip mode.
@@ -66,7 +66,7 @@ public:
     ///
   void addGripMode(unsigned int mode)
   {
- mnModes |= mode;
+    mnModes |= mode;
   }
     /// <summary>
     /// Returns app data and it's class attached with this grip.
@@ -77,9 +77,11 @@ public:
     ///
   void* getAppData(AcRxClass** ppClass = NULL) const
   {
-        if(NULL != ppClass)
-            *ppClass = mpAppDataClass;
-        return mpAppData;
+    if (NULL != ppClass)
+    {
+      *ppClass = mpAppDataClass;
+    }
+    return mpAppData;
   }
     /// <summary>
     /// Attaches app data and its class to the grip.
@@ -89,7 +91,8 @@ public:
     ///
   void setAppData(void* pData, AcRxClass* pClass)
   {
-        mpAppData = pData; mpAppDataClass = pClass;
+    mpAppData = pData;
+    mpAppDataClass = pClass;
   }
     /// <summary>
     /// Checks if it represents an arrow grip.
@@ -99,7 +102,7 @@ public:
     ///
   bool& arrowGrip()
   {
- return mbArrowGrip;
+    return mbArrowGrip;
   }
     /// <summary>
     /// Returns x direction of the arrow grip.
@@ -109,7 +112,7 @@ public:
     ///
   AcGeVector3d& xDir()
   {
- return mDirections[0];
+    return mDirections[0];
   }
     /// <summary>
     /// Returns y direction of the arrow grip.
@@ -119,7 +122,7 @@ public:
     ///
   AcGeVector3d& yDir()
   {
- return mDirections[1];
+    return mDirections[1];
   }
     /// <summary>
     /// Returns locator index for the grip.
@@ -129,7 +132,7 @@ public:
     ///
   AcDbItemLocator& locator()
   {
- return mLocator;
+    return mLocator;
   }
     /// <summary>
     /// Returns the dynamic dimension data array.
@@ -139,7 +142,7 @@ public:
     ///
   const AcDbDimDataPtrArray& dimData() const
   {
- return mDimData;
+    return mDimData;
   }
     /// <summary>
     /// Adds the dynamic dimension data.
@@ -166,7 +169,7 @@ public:
     ///
   const AcGePoint3d* basePoint() const
   {
-return mpBasePoint;
+    return mpBasePoint;
   }
 private:
   AcGePoint3d mPosition;

@@ -36,17 +36,15 @@ public:
     // Return the read end of the pipe.
   int GetReadFd()
   {
- return m_pipe[wxPipe::Read];
+    return m_pipe[wxPipe::Read];
   }
     // Implement wxEventLoopSourceHandler pure virtual methods
   void OnReadWaiting() override;
   void OnWriteWaiting() override
   {
-
   }
   void OnExceptionWaiting() override
   {
-
   }
 private:
   wxPipe m_pipe;
@@ -68,21 +66,18 @@ class wxWakeUpPipeMT : public wxWakeUpPipe
 public:
   wxWakeUpPipeMT()
   {
-
   }
     // Thread-safe wrapper around WakeUpNoLock(): can be called from another
     // thread to wake up the main one.
   void WakeUp()
   {
-        wxCriticalSectionLocker lock(m_pipeLock);
-
-        WakeUpNoLock();
+    wxCriticalSectionLocker lock(m_pipeLock);
+    WakeUpNoLock();
   }
   void OnReadWaiting() override
   {
-        wxCriticalSectionLocker lock(m_pipeLock);
-
-        wxWakeUpPipe::OnReadWaiting();
+    wxCriticalSectionLocker lock(m_pipeLock);
+    wxWakeUpPipe::OnReadWaiting();
   }
 private:
     // Protects access to m_pipeIsEmpty.

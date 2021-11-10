@@ -23,11 +23,11 @@ class WXDLLIMPEXP_CORE wxBusyInfo : public wxObject
 public:
   wxBusyInfo(const wxBusyInfoFlags& flags)
   {
-        Init(flags);
+    Init(flags);
   }
   wxBusyInfo(const wxString& message, wxWindow* parent = NULL)
   {
-        Init(wxBusyInfoFlags().Parent(parent).Label(message));
+    Init(wxBusyInfoFlags().Parent(parent).Label(message));
   }
   void UpdateText(const wxString& str);
   void UpdateLabel(const wxString& str);

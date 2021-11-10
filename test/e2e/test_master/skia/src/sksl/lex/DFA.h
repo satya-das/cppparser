@@ -14,7 +14,7 @@
 struct DFA
 {
   DFA(std::vector<int> charMappings, std::vector<std::vector<int>> transitions, std::vector<int> accepts)
-    :  fCharMappings(charMappings)
+    : fCharMappings(charMappings)
     , fTransitions(transitions)
     , fAccepts(accepts)
   {

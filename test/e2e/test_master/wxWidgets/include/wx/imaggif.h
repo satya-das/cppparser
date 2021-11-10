@@ -24,11 +24,11 @@ class WXDLLIMPEXP_CORE wxGIFHandler : public wxImageHandler
 public:
   inline wxGIFHandler()
   {
-        m_name = wxT("GIF file");
-        m_extension = wxT("gif");
-        m_type = wxBITMAP_TYPE_GIF;
-        m_mime = wxT("image/gif");
-        m_hashTable = NULL;
+    m_name = wxT("GIF file");
+    m_extension = wxT("gif");
+    m_type = wxBITMAP_TYPE_GIF;
+    m_mime = wxT("image/gif");
+    m_hashTable = NULL;
   }
 #    if  wxUSE_STREAMS
   bool LoadFile(wxImage* image, wxInputStream& stream, bool verbose = true, int index = -1) override;

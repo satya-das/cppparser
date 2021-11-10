@@ -241,11 +241,11 @@ public:
   wxRichTextBorderPreviewCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& sz = wxDefaultSize, long style = 0);
   void SetAttributes(wxRichTextAttr* attr)
   {
- m_attributes = attr;
+    m_attributes = attr;
   }
   wxRichTextAttr* GetAttributes() const
   {
- return m_attributes;
+    return m_attributes;
   }
 private:
   wxRichTextAttr* m_attributes;

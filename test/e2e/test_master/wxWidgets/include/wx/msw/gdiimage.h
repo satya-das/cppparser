@@ -28,28 +28,27 @@ class WXDLLIMPEXP_CORE wxGDIImageRefData : public wxGDIRefData
 public:
   wxGDIImageRefData()
   {
-        m_width = m_height = m_depth = 0;
-
-        m_handle = NULL;
+    m_width = m_height = m_depth = 0;
+    m_handle = NULL;
   }
   wxGDIImageRefData(const wxGDIImageRefData& data)
-    :  wxGDIRefData()
+    : wxGDIRefData()
   {
-        m_width = data.m_width;
-        m_height = data.m_height;
-        m_depth = data.m_depth;
-
+    m_width = data.m_width;
+    m_height = data.m_height;
+    m_depth = data.m_depth;
         // can't copy handles like this, derived class copy ctor must do it!
-        m_handle = NULL;
+    m_handle = NULL;
   }
     // accessors
   bool IsOk() const override
   {
- return m_handle != NULL;
+    return m_handle != NULL;
   }
   void SetSize(int w, int h)
   {
- m_width = w; m_height = h;
+    m_width = w;
+    m_height = h;
   }
     // free the resources we allocated
   virtual void Free() = 0;
@@ -79,7 +78,7 @@ public:
     // handlers list interface
   static wxGDIImageHandlerList& GetHandlers()
   {
- return ms_handlers;
+    return ms_handlers;
   }
   static void AddHandler(wxGDIImageHandler* handler);
   static void InsertHandler(wxGDIImageHandler* handler);
@@ -92,36 +91,34 @@ public:
     // access to the ref data casted to the right type
   wxGDIImageRefData* GetGDIImageData() const
   {
- return (wxGDIImageRefData *)m_refData;
+    return (wxGDIImageRefData*) m_refData;
   }
     // accessors
   WXHANDLE GetHandle() const
   {
- return IsNull() ? NULL : GetGDIImageData()->m_handle;
+    return IsNull() ? NULL : GetGDIImageData()->m_handle;
   }
   void SetHandle(WXHANDLE handle)
   {
- AllocExclusive(); GetGDIImageData()->m_handle = handle;
+    AllocExclusive();
+    GetGDIImageData()->m_handle = handle;
   }
   int GetWidth() const
   {
- return IsNull() ? 0 : GetGDIImageData()->m_width;
+    return IsNull() ? 0 : GetGDIImageData()->m_width;
   }
   int GetHeight() const
   {
- return IsNull() ? 0 : GetGDIImageData()->m_height;
+    return IsNull() ? 0 : GetGDIImageData()->m_height;
   }
   int GetDepth() const
   {
- return IsNull() ? 0 : GetGDIImageData()->m_depth;
+    return IsNull() ? 0 : GetGDIImageData()->m_depth;
   }
   wxSize GetSize() const
   {
-        return IsNull() ? wxSize(0,0) :
-               wxSize(GetGDIImageData()->m_width, GetGDIImageData()->m_height);
+    return IsNull() ? wxSize(0, 0) : wxSize(GetGDIImageData()->m_width, GetGDIImageData()->m_height);
   }
-#  if  WXWIN_COMPATIBILITY_3_0
-#  endif
     // forward some of base class virtuals to wxGDIImageRefData
   bool FreeResource(bool force = false) override;
   WXHANDLE GetResourceHandle() const override;
@@ -131,14 +128,13 @@ protected:
     // implement the wxGDIObject method in terms of our, more specific, one
   wxGDIRefData* CreateGDIRefData() const override
   {
- return CreateData();
+    return CreateData();
   }
     // we can't [efficiently] clone objects of this class
   wxGDIRefData* CloneGDIRefData(const wxGDIRefData*) const override
   {
-        wxFAIL_MSG( wxT("must be implemented if used") );
-
-        return NULL;
+    wxFAIL_MSG( wxT("must be implemented if used") );
+    return NULL;
   }
   static wxGDIImageHandlerList ms_handlers;
 };
@@ -151,37 +147,38 @@ public:
     // ctor
   wxGDIImageHandler()
   {
- m_type = wxBITMAP_TYPE_INVALID;
+    m_type = wxBITMAP_TYPE_INVALID;
   }
   wxGDIImageHandler(const wxString& name, const wxString& ext, wxBitmapType type)
-    :  m_name(name), m_extension(ext), m_type(type)
+    : m_name(name)
+    , m_extension(ext)
+    , m_type(type)
   {
-
   }
     // accessors
   void SetName(const wxString& name)
   {
- m_name = name;
+    m_name = name;
   }
   void SetExtension(const wxString& ext)
   {
- m_extension = ext;
+    m_extension = ext;
   }
   void SetType(wxBitmapType type)
   {
- m_type = type;
+    m_type = type;
   }
   const wxString& GetName() const
   {
- return m_name;
+    return m_name;
   }
   const wxString& GetExtension() const
   {
- return m_extension;
+    return m_extension;
   }
   wxBitmapType GetType() const
   {
- return m_type;
+    return m_type;
   }
     // real handler operations: to implement in derived classes
   virtual bool Create(wxGDIImage* image, const void* data, wxBitmapType flags, int width, int height, int depth = 1) = 0;

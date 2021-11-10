@@ -26,17 +26,17 @@ public:
     // Override some base class virtual methods.
   bool AcceptsFocus() const override
   {
- return false;
+    return false;
   }
   bool HasTransparentBackground() override
   {
- return true;
+    return true;
   }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
 };
 #    ifndef __WXUNIVERSAL__

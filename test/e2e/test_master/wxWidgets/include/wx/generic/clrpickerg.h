@@ -24,7 +24,7 @@ public:
   }
   wxGenericColourButton(wxWindow* parent, wxWindowID id, const wxColour& col = *wxBLACK, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCLRBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxColourPickerWidgetNameStr))
   {
-        Create(parent, id, col, pos, size, style, validator, name);
+    Create(parent, id, col, pos, size, style, validator, name);
   }
   virtual ~wxGenericColourButton()
   {
@@ -34,7 +34,7 @@ public:
     // returns the colour data shown in wxColourDialog
   wxColourData* GetColourData()
   {
- return &ms_data;
+    return &ms_data;
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxColour& col = *wxBLACK, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCLRBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxColourPickerWidgetNameStr));
   void OnButtonClick(wxCommandEvent&);

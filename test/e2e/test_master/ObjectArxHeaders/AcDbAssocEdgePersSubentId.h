@@ -56,9 +56,9 @@ public:
     ///
   int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
   {
-        ADESK_UNREFED_PARAM(pEntity);
-        ADESK_UNREFED_PARAM(pDatabase);
-        return !isNull() ? 1 : 0;
+    ADESK_UNREFED_PARAM(pEntity);
+    ADESK_UNREFED_PARAM(pDatabase);
+    return !isNull() ? 1 : 0;
   }
     /// <summary> Returns AcDb::kEdgeSubentType or AcDb::kVertexSubentType. </summary>
     /// <param  name="pEntity">   Not used. </param>
@@ -73,7 +73,7 @@ public:
     ///
   bool isNull() const override
   {
- return mIndex1 == 0;
+    return mIndex1 == 0;
   }
     /// <summary>
     /// Returns true iff this and the other AcDbAssocEdgePersSubentId reference

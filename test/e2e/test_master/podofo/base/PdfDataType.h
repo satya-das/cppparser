@@ -128,9 +128,9 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline void PdfDataType::AssertMutable() const
   {
-    if(m_bImmutable) 
+    if (m_bImmutable)
     {
-        PODOFO_RAISE_ERROR( ePdfError_ChangeOnImmutable );
+      PODOFO_RAISE_ERROR(ePdfError_ChangeOnImmutable);
     }
   }
 }

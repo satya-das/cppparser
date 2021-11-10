@@ -70,11 +70,9 @@ namespace PoDoFo
     public:
       PdfMutex()
       {
-
       }
       ~PdfMutex()
       {
-
       }
     };
   }

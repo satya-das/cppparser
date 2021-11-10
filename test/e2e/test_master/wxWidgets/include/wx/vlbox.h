@@ -35,14 +35,13 @@ public:
     // default constructor, you must call Create() later
   wxVListBox()
   {
- Init();
+    Init();
   }
     // normal constructor which calls Create() internally
   wxVListBox(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxVListBoxNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, pos, size, style, name);
+    Init();
+    (void) Create(parent, id, pos, size, style, name);
   }
     // really creates the control and sets the initial number of items in it
     // (which may be changed later with SetItemCount())
@@ -59,32 +58,31 @@ public:
     // get the number of items in the control
   size_t GetItemCount() const
   {
- return GetRowCount();
+    return GetRowCount();
   }
     // does this control use multiple selection?
   bool HasMultipleSelection() const
   {
- return m_selStore != NULL;
+    return m_selStore != NULL;
   }
     // get the currently selected item or wxNOT_FOUND if there is no selection
     //
     // this method is only valid for the single selection listboxes
   int GetSelection() const
   {
-        wxASSERT_MSG( !HasMultipleSelection(),
+    wxASSERT_MSG( !HasMultipleSelection(),
                         wxT("GetSelection() can't be used with wxLB_MULTIPLE") );
-
-        return m_current;
+    return m_current;
   }
     // is this item the current one?
   bool IsCurrent(size_t item) const
   {
- return item == (size_t)m_current;
+    return item == (size_t) m_current;
   }
 #  ifdef __WXUNIVERSAL__
   bool IsCurrent() const
   {
- return wxVScrolledWindow::IsCurrent();
+    return wxVScrolledWindow::IsCurrent();
   }
 #  endif
     // is this item selected?
@@ -110,12 +108,12 @@ public:
     // get the margins around each item
   wxPoint GetMargins() const
   {
- return m_ptMargins;
+    return m_ptMargins;
   }
     // get the background colour of selected cells
   const wxColour& GetSelectionBackground() const
   {
- return m_colBgSel;
+    return m_colBgSel;
   }
     // get the item rect, returns empty rect if the item is not visible
   wxRect GetItemRect(size_t n) const;
@@ -129,7 +127,7 @@ public:
     // delete all items from the control
   void Clear()
   {
- SetItemCount(0);
+    SetItemCount(0);
   }
     // set the selection to the specified item, if it is wxNOT_FOUND the
     // selection is unset
@@ -156,7 +154,7 @@ public:
     // this function is only valid for the multiple selection listboxes
   void Toggle(size_t item)
   {
- Select(item, !IsSelected(item));
+    Select(item, !IsSelected(item));
   }
     // select all items in the listbox
     //
@@ -164,14 +162,14 @@ public:
     // (true) or if nothing has changed (false)
   bool SelectAll()
   {
- return DoSelectAll(true);
+    return DoSelectAll(true);
   }
     // unselect all items in the listbox
     //
     // the return code has the same meaning as for SelectAll()
   bool DeselectAll()
   {
- return DoSelectAll(false);
+    return DoSelectAll(false);
   }
     // set the margins: horizontal margin is the distance between the window
     // border and the item contents while vertical margin is half of the
@@ -181,7 +179,7 @@ public:
   void SetMargins(const wxPoint& pt);
   void SetMargins(wxCoord x, wxCoord y)
   {
- SetMargins(wxPoint(x, y));
+    SetMargins(wxPoint(x, y));
   }
     // change the background colour of the selected cells
   void SetSelectionBackground(const wxColour& col);
@@ -189,13 +187,13 @@ public:
   void RefreshSelected();
   wxVisualAttributes GetDefaultAttributes() const override
   {
-        return GetClassDefaultAttributes(GetWindowVariant());
+    return GetClassDefaultAttributes(GetWindowVariant());
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
 protected:
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_THEME;
+    return wxBORDER_THEME;
   }
     // the derived class must implement this function to actually draw the item
     // with the given index on the provided DC

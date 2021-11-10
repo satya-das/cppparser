@@ -22,20 +22,20 @@ private:
   void setMemoryBacking(SkTraceMemoryDump* traceMemoryDump, const SkString& dumpName) const override;
   void onMap() override
   {
- this->GrGpuBuffer::fMapPtr = this->vkMap(this->getVkGpu());
+    this->GrGpuBuffer::fMapPtr = this->vkMap(this->getVkGpu());
   }
   void onUnmap() override
   {
- this->vkUnmap(this->getVkGpu());
+    this->vkUnmap(this->getVkGpu());
   }
   bool onUpdateData(const void* src, size_t srcSizeInBytes) override
   {
-        SK_ABORT("Not implemented for transfer buffers.");
+    SK_ABORT("Not implemented for transfer buffers.");
   }
   GrVkGpu* getVkGpu() const
   {
-        SkASSERT(!this->wasDestroyed());
-        return reinterpret_cast<GrVkGpu*>(this->getGpu());
+    SkASSERT(!this->wasDestroyed());
+    return reinterpret_cast<GrVkGpu*>(this->getGpu());
   }
   typedef GrGpuBuffer INHERITED;
 };

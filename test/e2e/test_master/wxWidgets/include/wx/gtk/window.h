@@ -72,9 +72,7 @@ public:
   void ScrollWindow(int dx, int dy, const wxRect* rect = NULL) override;
   bool ScrollLines(int lines) override;
   bool ScrollPages(int pages) override;
-#  if  wxUSE_DRAG_AND_DROP
   void SetDropTarget(wxDropTarget* dropTarget) override;
-#  endif
   void AddChild(wxWindowBase* child) override;
   void RemoveChild(wxWindowBase* child) override;
   void SetLayoutDirection(wxLayoutDirection dir) override;
@@ -87,17 +85,17 @@ public:
     // SetLabel(), which does nothing in wxWindow
   void SetLabel(const wxString& label) override
   {
- m_gtkLabel = label;
+    m_gtkLabel = label;
   }
   wxString GetLabel() const override
   {
- return m_gtkLabel;
+    return m_gtkLabel;
   }
     // implementation
     // --------------
   WXWidget GetHandle() const override
   {
- return m_widget;
+    return m_widget;
   }
     // many important things are done here, this function must be called
     // regularly
@@ -161,7 +159,7 @@ public:
     // DoApplyWidgetStyle() when it's really needed.
   static void GTKDoApplyWidgetStyle(wxWindowGTK* win, GtkRcStyle* style)
   {
-        win->DoApplyWidgetStyle(style);
+    win->DoApplyWidgetStyle(style);
   }
 protected:
     // for controls composed of multiple GTK widgets, return true to eliminate
@@ -169,7 +167,7 @@ protected:
     // the same wxWindow
   virtual bool GTKNeedsToFilterSameWindowFocus() const
   {
- return false;
+    return false;
   }
     // Override GTKWidgetNeedsMnemonic and return true if your
     // needs to set its mnemonic widget, such as for a
@@ -198,14 +196,14 @@ public:
     // until idle time used in Reparent().
   void GTKShowOnIdle()
   {
- m_showOnIdle = true;
+    m_showOnIdle = true;
   }
     // This is called from the various OnInternalIdle methods
   bool GTKShowFromOnIdle();
     // is this window transparent for the mouse events (as wxStaticBox is)?
   virtual bool GTKIsTransparentForMouse() const
   {
- return false;
+    return false;
   }
     // Common scroll event handling code for wxWindow and wxScrollBar
   wxEventType GTKGetScrollEventType(GtkRange* range);
@@ -227,7 +225,7 @@ public:
     // return true if the window is of a standard (i.e. not wxWidgets') class
   bool IsOfStandardClass() const
   {
- return m_wxwindow == NULL;
+    return m_wxwindow == NULL;
   }
     // this widget will be queried for GTK's focus events
   GtkWidget* m_focusWidget;
@@ -273,12 +271,12 @@ public:
     // (which is wxVERTICAL or wxHORIZONTAL)
   static ScrollDir ScrollDirFromOrient(int orient)
   {
-        return orient == wxVERTICAL ? ScrollDir_Vert : ScrollDir_Horz;
+    return orient == wxVERTICAL ? ScrollDir_Vert : ScrollDir_Horz;
   }
     // return the orientation for the given scrolling direction
   static int OrientFromScrollDir(ScrollDir dir)
   {
-        return dir == ScrollDir_Horz ? wxHORIZONTAL : wxVERTICAL;
+    return dir == ScrollDir_Horz ? wxHORIZONTAL : wxVERTICAL;
   }
     // find the direction of the given scrollbar (must be one of ours)
   ScrollDir ScrollDirFromRange(GtkRange* range) const;
@@ -371,7 +369,7 @@ private:
     // there is also the exception of wxMenuBar)
   virtual bool GTKNeedsParent() const
   {
- return !IsTopLevel();
+    return !IsTopLevel();
   }
   enum ScrollUnit {
  ScrollUnit_Line, ScrollUnit_Page, ScrollUnit_Max
@@ -391,7 +389,7 @@ private:
 public:
   cairo_t* GTKPaintContext() const
   {
-        return m_paintContext;
+    return m_paintContext;
   }
   void GTKSizeRevalidate();
 #  endif

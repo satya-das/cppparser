@@ -34,10 +34,8 @@
 #    undef wxUSE_MDI_ARCHITECTURE
 #    define wxUSE_MDI_ARCHITECTURE	0
 #  endif
-#  if  wxUSE_DRAG_AND_DROP
-#    undef wxUSE_DRAG_AND_DROP
-#    define wxUSE_DRAG_AND_DROP	0
-#  endif
+#  undef wxUSE_DRAG_AND_DROP
+#  define wxUSE_DRAG_AND_DROP	0
 #  if  wxUSE_TASKBARICON
 #    undef wxUSE_TASKBARICON
 #    define wxUSE_TASKBARICON	0
@@ -54,10 +52,8 @@
 #    undef wxUSE_TREELISTCTRL
 #    define wxUSE_TREELISTCTRL	0
 #  endif
-#  if  wxUSE_DRAG_AND_DROP
-#    undef wxUSE_DRAG_AND_DROP
-#    define wxUSE_DRAG_AND_DROP	0
-#  endif
+#  undef wxUSE_DRAG_AND_DROP
+#  define wxUSE_DRAG_AND_DROP	0
 #  if  wxUSE_TASKBARICON
 #    undef wxUSE_TASKBARICON
 #    define wxUSE_TASKBARICON	0

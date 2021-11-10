@@ -23,18 +23,17 @@ public:
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
   {
- return "RadialGradientLayout";
+    return "RadialGradientLayout";
   }
   GrCoordTransform fCoordTransform0;
   SkMatrix44 gradientMatrix;
 private:
   GrRadialGradientLayout(SkMatrix44 gradientMatrix)
-    :  INHERITED(kGrRadialGradientLayout_ClassID,
-                        (OptimizationFlags)kPreservesOpaqueInput_OptimizationFlag)
-            , fCoordTransform0(gradientMatrix)
-            , gradientMatrix(gradientMatrix)
+    : INHERITED(kGrRadialGradientLayout_ClassID, (OptimizationFlags) kPreservesOpaqueInput_OptimizationFlag)
+    , fCoordTransform0(gradientMatrix)
+    , gradientMatrix(gradientMatrix)
   {
-        this->addCoordTransform(&fCoordTransform0);
+    this->addCoordTransform(&fCoordTransform0);
   }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;

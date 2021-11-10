@@ -29,14 +29,14 @@ public:
     // def ctor
   wxFFile()
   {
- m_fp = NULL;
+    m_fp = NULL;
   }
     // open specified file (may fail, use IsOpened())
   wxFFile(const wxString& filename, const wxString& mode = wxT("r"));
     // attach to (already opened) file
   wxFFile(FILE* lfp)
   {
- m_fp = lfp;
+    m_fp = lfp;
   }
   // open/close
     // open a file (existing or not - the mode controls what happens)
@@ -46,15 +46,19 @@ public:
   // assign an existing file descriptor and get it back from wxFFile object
   void Attach(FILE* lfp, const wxString& name = wxEmptyString)
   {
- Close(); m_fp = lfp; m_name = name;
+    Close();
+    m_fp = lfp;
+    m_name = name;
   }
   FILE* Detach()
   {
- FILE* fpOld = m_fp; m_fp = NULL; return fpOld;
+    FILE* fpOld = m_fp;
+    m_fp = NULL;
+    return fpOld;
   }
   FILE* fp() const
   {
- return m_fp;
+    return m_fp;
   }
   // read/write (unbuffered)
     // read all data from the file into a string (useful for text files)
@@ -74,7 +78,7 @@ public:
     // move ptr to ofs bytes before the end
   bool SeekEnd(wxFileOffset ofs = 0)
   {
- return Seek(ofs, wxFromEnd);
+    return Seek(ofs, wxFromEnd);
   }
     // get current position in the file
   wxFileOffset Tell() const;
@@ -85,7 +89,7 @@ public:
     // is file opened?
   bool IsOpened() const
   {
- return m_fp != NULL;
+    return m_fp != NULL;
   }
     // is end of file reached?
   bool Eof() const;
@@ -94,17 +98,17 @@ public:
     // get the file name
   const wxString& GetName() const
   {
- return m_name;
+    return m_name;
   }
     // type such as disk or pipe
   wxFileKind GetKind() const
   {
- return wxGetFileKind(m_fp);
+    return wxGetFileKind(m_fp);
   }
   // dtor closes the file if opened
   ~wxFFile()
   {
- Close();
+    Close();
   }
 private:
   // copy ctor and assignment operator are private because it doesn't make
@@ -129,7 +133,6 @@ public:
     // default
   wxTempFFile()
   {
-
   }
     // associates the temp file with the file to be replaced and opens it
   explicit wxTempFFile(const wxString& strName);
@@ -138,37 +141,37 @@ public:
   // is the file opened?
   bool IsOpened() const
   {
- return m_file.IsOpened();
+    return m_file.IsOpened();
   }
     // get current file length
   wxFileOffset Length() const
   {
- return m_file.Length();
+    return m_file.Length();
   }
     // move ptr ofs bytes related to start/current pos/end of file
   bool Seek(wxFileOffset ofs, wxSeekMode mode = wxFromStart)
   {
- return m_file.Seek(ofs, mode);
+    return m_file.Seek(ofs, mode);
   }
     // get current position in the file
   wxFileOffset Tell() const
   {
- return m_file.Tell();
+    return m_file.Tell();
   }
   // I/O (both functions return true on success, false on failure)
   bool Write(const void* p, size_t n)
   {
- return m_file.Write(p, n) == n;
+    return m_file.Write(p, n) == n;
   }
   bool Write(const wxString& str, const wxMBConv& conv = wxMBConvUTF8())
   {
- return m_file.Write(str, conv);
+    return m_file.Write(str, conv);
   }
   // flush data: can be called before closing file to ensure that data was
   // correctly written out
   bool Flush()
   {
- return m_file.Flush();
+    return m_file.Flush();
   }
   // different ways to close the file
     // validate changes and delete the old file of name m_strName

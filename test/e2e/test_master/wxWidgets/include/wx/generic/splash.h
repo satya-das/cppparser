@@ -31,7 +31,7 @@ public:
     // for RTTI macros only
   wxSplashScreen()
   {
- Init();
+    Init();
   }
   wxSplashScreen(const wxBitmap& bitmap, long splashStyle, int milliseconds, wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSIMPLE_BORDER | wxFRAME_NO_TASKBAR | wxSTAY_ON_TOP);
   virtual ~wxSplashScreen();
@@ -39,15 +39,15 @@ public:
   void OnNotify(wxTimerEvent& event);
   long GetSplashStyle() const
   {
- return m_splashStyle;
+    return m_splashStyle;
   }
   wxSplashScreenWindow* GetSplashWindow() const
   {
- return m_window;
+    return m_window;
   }
   int GetTimeout() const
   {
- return m_milliseconds;
+    return m_milliseconds;
   }
     // Override wxEventFilter method to hide splash screen on any user input.
   int FilterEvent(wxEvent& event) override;
@@ -73,11 +73,11 @@ public:
   void OnEraseBackground(wxEraseEvent& event);
   void SetBitmap(const wxBitmap& bitmap)
   {
- m_bitmap = bitmap;
+    m_bitmap = bitmap;
   }
   wxBitmap& GetBitmap()
   {
- return m_bitmap;
+    return m_bitmap;
   }
 protected:
   wxBitmap m_bitmap;

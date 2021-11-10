@@ -21,14 +21,14 @@ class WXDLLIMPEXP_CORE wxMenu : public wxMenuBase
 public:
     // ctors & dtor
   wxMenu(const wxString& title, long style = 0)
-    :  wxMenuBase(title, style)
+    : wxMenuBase(title, style)
   {
- Init();
+    Init();
   }
   wxMenu(long style = 0)
-    :  wxMenuBase(style)
+    : wxMenuBase(style)
   {
- Init();
+    Init();
   }
   virtual ~wxMenu();
   void SetTitle(const wxString& title) override;
@@ -44,20 +44,20 @@ public:
   void HandleMenuClosed();
   wxMenuImpl* GetPeer()
   {
- return m_peer;
+    return m_peer;
   }
     // make sure we can veto
   void SetAllowRearrange(bool allow);
   bool AllowRearrange() const
   {
- return m_allowRearrange;
+    return m_allowRearrange;
   }
     // if a menu is used purely for internal implementation reasons (eg wxChoice)
     // we don't want native menu events being triggered
   void SetNoEventsMode(bool noEvents);
   bool GetNoEventsMode() const
   {
- return m_noEventsMode;
+    return m_noEventsMode;
   }
     // Returns the start and end position of the radio group to which the item
     // at given position belongs. Return false if there is no radio group
@@ -117,19 +117,19 @@ public:
     // for virtual function hiding
   virtual void Enable(int itemid, bool enable)
   {
-        wxMenuBarBase::Enable( itemid, enable );
+    wxMenuBarBase::Enable(itemid, enable);
   }
     // implementation from now on
 
         // returns TRUE if we're attached to a frame
   bool IsAttached() const
   {
- return m_menuBarFrame != NULL;
+    return m_menuBarFrame != NULL;
   }
         // get the frame we live in
   wxFrame* GetFrame() const
   {
- return m_menuBarFrame;
+    return m_menuBarFrame;
   }
     // if the menubar is modified, the display is not updated automatically,
     // call this function to update it (m_menuBarFrame should be !NULL)
@@ -137,34 +137,34 @@ public:
 #    if  wxABI_VERSION >= 30001
   wxMenu* OSXGetAppleMenu() const
   {
- return m_appleMenu;
+    return m_appleMenu;
   }
 #    endif
   static void SetAutoWindowMenu(bool enable)
   {
- s_macAutoWindowMenu = enable ;
+    s_macAutoWindowMenu = enable;
   }
   static bool GetAutoWindowMenu()
   {
- return s_macAutoWindowMenu ;
+    return s_macAutoWindowMenu;
   }
   void MacUninstallMenuBar();
   void MacInstallMenuBar();
   static wxMenuBar* MacGetInstalledMenuBar()
   {
- return s_macInstalledMenuBar ;
+    return s_macInstalledMenuBar;
   }
   static void MacSetCommonMenuBar(wxMenuBar* menubar)
   {
- s_macCommonMenuBar=menubar;
+    s_macCommonMenuBar = menubar;
   }
   static wxMenuBar* MacGetCommonMenuBar()
   {
- return s_macCommonMenuBar;
+    return s_macCommonMenuBar;
   }
   static WXHMENU MacGetWindowMenuHMenu()
   {
- return s_macWindowMenuHandle ;
+    return s_macWindowMenuHandle;
   }
   void DoGetPosition(int* x, int* y) const override;
   void DoGetSize(int* width, int* height) const override;

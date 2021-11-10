@@ -30,136 +30,123 @@
 #      define wxCVM(v, display, nScreen)	 wxCVM2(v, v.dotclock, display, nScreen)
 wxArrayVideoModes wxXF86VidMode_GetModes(const wxVideoMode& mode, Display* display, int nScreen)
 {
-    XF86VidModeModeInfo** ppXModes; //Enumerated Modes (Don't forget XFree() :))
-    int nNumModes; //Number of modes enumerated....
-
-    wxArrayVideoModes Modes; //modes to return...
-
-    if (XF86VidModeGetAllModeLines(display, nScreen, &nNumModes, &ppXModes))
+  XF86VidModeModeInfo** ppXModes;
+  int nNumModes;
+  wxArrayVideoModes Modes;
+  if (XF86VidModeGetAllModeLines(display, nScreen, &nNumModes, &ppXModes))
+  {
+    for (int i = 0; i < nNumModes; ++i)
     {
-        for (int i = 0; i < nNumModes; ++i)
-        {
-            XF86VidModeModeInfo& info = *ppXModes[i];
-            const wxVideoMode vm = wxCVM(info, display, nScreen);
-            if (vm.Matches(mode))
-            {
-                Modes.Add(vm);
-            }
-            wxClearXVM(info);
+      XF86VidModeModeInfo& info = *ppXModes[i];
+      const wxVideoMode vm = wxCVM(info, display, nScreen);
+      if (vm.Matches(mode))
+      {
+        Modes.Add(vm);
+      }
+      wxClearXVM(info);
         //  XFree(ppXModes[i]); //supposed to free?
-        }
-        XFree(ppXModes);
     }
-    else //OOPS!
-    {
-        wxLogSysError(_("Failed to enumerate video modes"));
-    }
-
-    return Modes;
+    XFree(ppXModes);
+  }
+  else 
+  {
+    wxLogSysError(_("Failed to enumerate video modes"));
+  }
+  return Modes;
 }
 wxVideoMode wxXF86VidMode_GetCurrentMode(Display* display, int nScreen)
 {
   XF86VidModeModeLine VM;
   int nDotClock;
-  if ( !XF86VidModeGetModeLine(display, nScreen, &nDotClock, &VM) )
-      return wxVideoMode();
-
+  if (!XF86VidModeGetModeLine(display, nScreen, &nDotClock, &VM))
+  {
+    return wxVideoMode();
+  }
   wxClearXVM(VM);
   return wxCVM2(VM, nDotClock, display, nScreen);
 }
 bool wxXF86VidMode_ChangeMode(const wxVideoMode& mode, Display* display, int nScreen)
 {
-    XF86VidModeModeInfo** ppXModes; //Enumerated Modes (Don't forget XFree() :))
-    int nNumModes; //Number of modes enumerated....
-
-    if(!XF86VidModeGetAllModeLines(display, nScreen, &nNumModes, &ppXModes))
+  XF86VidModeModeInfo** ppXModes;
+  int nNumModes;
+  if (!XF86VidModeGetAllModeLines(display, nScreen, &nNumModes, &ppXModes))
+  {
+    wxLogSysError(_("Failed to change video mode"));
+    return false;
+  }
+  bool bRet = false;
+  if (mode == wxDefaultVideoMode)
+  {
+    bRet = XF86VidModeSwitchToMode(display, nScreen, ppXModes[0]) != 0;
+    for (int i = 0; i < nNumModes; ++i)
     {
-        wxLogSysError(_("Failed to change video mode"));
-        return false;
-    }
-
-    bool bRet = false;
-    if (mode == wxDefaultVideoMode)
-    {
-        bRet = XF86VidModeSwitchToMode(display, nScreen, ppXModes[0]) != 0;
-
-        for (int i = 0; i < nNumModes; ++i)
-        {
-            wxClearXVM((*ppXModes[i]));
+      wxClearXVM((*ppXModes[i]));
         //  XFree(ppXModes[i]); //supposed to free?
-        }
     }
-    else
+  }
+  else 
+  {
+    for (int i = 0; i < nNumModes; ++i)
     {
-        for (int i = 0; i < nNumModes; ++i)
-        {
-            if (!bRet &&
-                ppXModes[i]->hdisplay == mode.GetWidth() &&
-                ppXModes[i]->vdisplay == mode.GetHeight() &&
-                wxCRR((*ppXModes[i])) == mode.GetRefresh())
-            {
+      if (!bRet && ppXModes[i]->hdisplay == mode.GetWidth() && ppXModes[i]->vdisplay == mode.GetHeight() && wxCRR((*ppXModes[i])) == mode.GetRefresh())
+      {
                 //switch!
-                bRet = XF86VidModeSwitchToMode(display, nScreen, ppXModes[i]) != 0;
-            }
-            wxClearXVM((*ppXModes[i]));
+        bRet = XF86VidModeSwitchToMode(display, nScreen, ppXModes[i]) != 0;
+      }
+      wxClearXVM((*ppXModes[i]));
         //  XFree(ppXModes[i]); //supposed to free?
-        }
     }
-
-    XFree(ppXModes);
-
-    return bRet;
+  }
+  XFree(ppXModes);
+  return bRet;
 }
 #    else 
 wxArrayVideoModes wxX11_GetModes(const wxDisplayImpl* impl, const wxVideoMode& modeMatch, Display* display)
 {
-    int count_return;
-    int* depths = XListDepths(display, 0, &count_return);
-    wxArrayVideoModes modes;
-    if ( depths )
+  int count_return;
+  int* depths = XListDepths(display, 0, &count_return);
+  wxArrayVideoModes modes;
+  if (depths)
+  {
+    const wxRect rect = impl->GetGeometry();
+    for (int x = 0; x < count_return; ++x)
     {
-        const wxRect rect = impl->GetGeometry();
-        for ( int x = 0; x < count_return; ++x )
-        {
-            wxVideoMode mode(rect.width, rect.height, depths[x]);
-            if ( mode.Matches(modeMatch) )
-            {
-                modes.Add(mode);
-            }
-        }
-
-        XFree(depths);
+      wxVideoMode mode(rect.width, rect.height, depths[x]);
+      if (mode.Matches(modeMatch))
+      {
+        modes.Add(mode);
+      }
     }
-    return modes;
+    XFree(depths);
+  }
+  return modes;
 }
 #    endif
 #  endif
 void wxGetWorkAreaX11(Screen* screen, int& x, int& y, int& width, int& height)
 {
-    Display* display = DisplayOfScreen(screen);
-    Atom property = XInternAtom(display, "_NET_WORKAREA", true);
-    if (property)
+  Display* display = DisplayOfScreen(screen);
+  Atom property = XInternAtom(display, "_NET_WORKAREA", true);
+  if (property)
+  {
+    Atom actual_type;
+    int actual_format;
+    unsigned long nitems;
+    unsigned long bytes_after;
+    unsigned char* data = NULL;
+    Status status = XGetWindowProperty(display, RootWindowOfScreen(screen), property, 0, 4, false, XA_CARDINAL, &actual_type, &actual_format, &nitems, &bytes_after, &data);
+    if (status == Success && actual_type == XA_CARDINAL && actual_format == 32 && nitems == 4)
     {
-        Atom actual_type;
-        int actual_format;
-        unsigned long nitems;
-        unsigned long bytes_after;
-        unsigned char* data = NULL;
-        Status status = XGetWindowProperty(
-            display, RootWindowOfScreen(screen), property,
-            0, 4, false, XA_CARDINAL,
-            &actual_type, &actual_format, &nitems, &bytes_after, &data);
-        if (status == Success && actual_type == XA_CARDINAL &&
-            actual_format == 32 && nitems == 4)
-        {
-            const long* p = (long*)data;
-            x = p[0];
-            y = p[1];
-            width = p[2];
-            height = p[3];
-        }
-        if (data)
-            XFree(data);
+      const long* p = (long*) data;
+      x = p[0];
+      y = p[1];
+      width = p[2];
+      height = p[3];
     }
+    if (data)
+    {
+      XFree(data);
+    }
+  }
 }
 #endif

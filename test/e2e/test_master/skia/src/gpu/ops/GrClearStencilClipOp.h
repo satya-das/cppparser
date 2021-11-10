@@ -18,34 +18,35 @@ public:
   static std::unique_ptr<GrOp> Make(GrRecordingContext* context, const GrFixedClip& clip, bool insideStencilMask, GrRenderTargetProxy* proxy);
   const char* name() const override
   {
- return "ClearStencilClip";
+    return "ClearStencilClip";
   }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
-        SkString string("Scissor [");
-        if (fClip.scissorEnabled()) {
-            const SkIRect& r = fClip.scissorRect();
-            string.appendf("L: %d, T: %d, R: %d, B: %d", r.fLeft, r.fTop, r.fRight, r.fBottom);
-        } else {
-            string.append("disabled");
-        }
-        string.appendf("], insideMask: %s\n", fInsideStencilMask ? "true" : "false");
-        string.append(INHERITED::dumpInfo());
-        return string;
+    SkString string("Scissor [");
+    if (fClip.scissorEnabled())
+    {
+      const SkIRect& r = fClip.scissorRect();
+      string.appendf("L: %d, T: %d, R: %d, B: %d", r.fLeft, r.fTop, r.fRight, r.fBottom);
+    }
+    else 
+    {
+      string.append("disabled");
+    }
+    string.appendf("], insideMask: %s\n", fInsideStencilMask ? "true" : "false");
+    string.append(INHERITED::dumpInfo());
+    return string;
   }
 #  endif
 private:
   friend class GrOpMemoryPool;
   GrClearStencilClipOp(const GrFixedClip& clip, bool insideStencilMask, GrRenderTargetProxy* proxy)
-    :  INHERITED(ClassID())
-            , fClip(clip)
-            , fInsideStencilMask(insideStencilMask)
+    : INHERITED(ClassID())
+    , fClip(clip)
+    , fInsideStencilMask(insideStencilMask)
   {
-        const SkRect& bounds = fClip.scissorEnabled()
-                                            ? SkRect::Make(fClip.scissorRect())
-                                            : SkRect::MakeIWH(proxy->width(), proxy->height());
-        this->setBounds(bounds, HasAABloat::kNo, IsHairline::kNo);
+    const SkRect& bounds = fClip.scissorEnabled() ? SkRect::Make(fClip.scissorRect()) : SkRect::MakeIWH(proxy->width(), proxy->height());
+    this->setBounds(bounds, HasAABloat::kNo, IsHairline::kNo);
   }
   void onPrepare(GrOpFlushState*) override
   {

@@ -20,7 +20,7 @@ public:
   void GetFilenames(wxArrayString& files) const override;
   bool SupportsExtraControl() const override
   {
- return true;
+    return true;
   }
   void MSWOnInitDialogHook(WXHWND hwnd);
   int ShowModal() override;

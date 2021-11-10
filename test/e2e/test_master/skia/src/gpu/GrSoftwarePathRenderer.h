@@ -17,10 +17,9 @@ class GrSoftwarePathRenderer : public GrPathRenderer
 {
 public:
   GrSoftwarePathRenderer(GrProxyProvider* proxyProvider, bool allowCaching)
-    :  fProxyProvider(proxyProvider)
-            , fAllowCaching(allowCaching)
+    : fProxyProvider(proxyProvider)
+    , fAllowCaching(allowCaching)
   {
-
   }
   static bool GetShapeAndClipBounds(GrRenderTargetContext*, const GrClip& clip, const GrShape& shape, const SkMatrix& matrix, SkIRect* unclippedDevShapeBounds, SkIRect* clippedDevShapeBounds, SkIRect* devClipBounds);
 private:
@@ -32,7 +31,7 @@ private:
   static void DrawToTargetWithShapeMask(sk_sp<GrTextureProxy> proxy, GrRenderTargetContext* renderTargetContext, GrPaint&& paint, const GrUserStencilSettings& userStencilSettings, const GrClip& clip, const SkMatrix& viewMatrix, const SkIPoint& textureOriginInDeviceSpace, const SkIRect& deviceSpaceRectToDraw);
   StencilSupport onGetStencilSupport(const GrShape&) const override
   {
-        return GrPathRenderer::kNoSupport_StencilSupport;
+    return GrPathRenderer::kNoSupport_StencilSupport;
   }
   CanDrawPath onCanDrawPath(const CanDrawPathArgs&) const override;
   bool onDrawPath(const DrawPathArgs&) override;

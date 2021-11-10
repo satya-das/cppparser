@@ -23,13 +23,11 @@ class WXDLLIMPEXP_ADV wxExtHelpController : public wxHelpControllerBase
 public:
   wxExtHelpController(wxWindow* parentWindow = NULL);
   virtual ~wxExtHelpController();
-#    if  WXWIN_COMPATIBILITY_2_8
-#    endif
     // Set viewer: new name for SetBrowser
   void SetViewer(const wxString& viewer = wxEmptyString, long flags = wxHELP_NETSCAPE) override;
   bool Initialize(const wxString& dir, int) override
   {
- return Initialize(dir);
+    return Initialize(dir);
   }
   bool Initialize(const wxString& dir) override;
   bool LoadFile(const wxString& file = wxEmptyString) override;
@@ -47,7 +45,7 @@ public:
   }
   wxFrame* GetFrameParameters(wxSize* = NULL, wxPoint* = NULL, bool* = NULL) override
   {
-            return NULL; // does nothing by default
+    return NULL;
   }
 protected:
     // Filename of currently active map file.

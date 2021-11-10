@@ -58,13 +58,13 @@ private:
     GrSurfaceOrigin fRenderTargetOrigin;
     RenderTargetState()
     {
- this->invalidate();
+      this->invalidate();
     }
     void invalidate()
     {
-            fRenderTargetSize.fWidth = -1;
-            fRenderTargetSize.fHeight = -1;
-            fRenderTargetOrigin = (GrSurfaceOrigin)-1;
+      fRenderTargetSize.fWidth = -1;
+      fRenderTargetSize.fHeight = -1;
+      fRenderTargetOrigin = (GrSurfaceOrigin) -1;
     }
         /**
         * Gets a float4 that adjusts the position from Skia device coords to Vulkans normalized device
@@ -75,15 +75,18 @@ private:
         */
     void getRTAdjustmentVec(float* destVec)
     {
-            destVec[0] = 2.f / fRenderTargetSize.fWidth;
-            destVec[1] = -1.f;
-            if (kBottomLeft_GrSurfaceOrigin == fRenderTargetOrigin) {
-                destVec[2] = -2.f / fRenderTargetSize.fHeight;
-                destVec[3] = 1.f;
-            } else {
-                destVec[2] = 2.f / fRenderTargetSize.fHeight;
-                destVec[3] = -1.f;
-            }
+      destVec[0] = 2.f / fRenderTargetSize.fWidth;
+      destVec[1] = -1.f;
+      if (kBottomLeft_GrSurfaceOrigin == fRenderTargetOrigin)
+      {
+        destVec[2] = -2.f / fRenderTargetSize.fHeight;
+        destVec[3] = 1.f;
+      }
+      else 
+      {
+        destVec[2] = 2.f / fRenderTargetSize.fHeight;
+        destVec[3] = -1.f;
+      }
     }
   };
     // Helper for setData() that sets the view matrix and loads the render target height uniform

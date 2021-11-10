@@ -85,39 +85,37 @@ public:
   virtual void SelectOldObjects(WXHDC dc);
   void SetWindow(wxWindow* win)
   {
-        m_window = win;
-
-#if wxUSE_PALETTE
+    m_window = win;
+#  if  wxUSE_PALETTE
         // if we have palettes use the correct one for this window
-        InitializePalette();
-#endif // wxUSE_PALETTE
+    InitializePalette();
+#  endif
   }
   WXHDC GetHDC() const
   {
- return m_hDC;
+    return m_hDC;
   }
   void SetHDC(WXHDC dc, bool bOwnsDC = false)
   {
-        m_hDC = dc;
-        m_bOwnsDC = bOwnsDC;
-
+    m_hDC = dc;
+    m_bOwnsDC = bOwnsDC;
         // we might have a pre existing clipping region, make sure that we
         // return it if asked -- but avoid calling ::GetClipBox() right now as
         // it could be unnecessary wasteful
-        m_clipping = true;
-        m_isClipBoxValid = false;
+    m_clipping = true;
+    m_isClipBoxValid = false;
   }
   void* GetHandle() const override
   {
- return (void*)GetHDC();
+    return (void*) GetHDC();
   }
   const wxBitmap& GetSelectedBitmap() const override
   {
- return m_selectedBitmap;
+    return m_selectedBitmap;
   }
   wxBitmap& GetSelectedBitmap() override
   {
- return m_selectedBitmap;
+    return m_selectedBitmap;
   }
     // update the internal clip box variables
   void UpdateClipBox();
@@ -138,25 +136,23 @@ public:
 protected:
   void Init()
   {
-        m_bOwnsDC = false;
-        m_hDC = NULL;
-
-        m_oldBitmap = NULL;
-        m_oldPen = NULL;
-        m_oldBrush = NULL;
-        m_oldFont = NULL;
-
-#if wxUSE_PALETTE
-        m_oldPalette = NULL;
-#endif // wxUSE_PALETTE
-        m_isClipBoxValid = false;
+    m_bOwnsDC = false;
+    m_hDC = NULL;
+    m_oldBitmap = NULL;
+    m_oldPen = NULL;
+    m_oldBrush = NULL;
+    m_oldFont = NULL;
+#  if  wxUSE_PALETTE
+    m_oldPalette = NULL;
+#  endif
+    m_isClipBoxValid = false;
   }
     // create an uninitialized DC: this should be only used by the derived
     // classes
   wxMSWDCImpl(wxDC* owner)
-    :  wxDCImpl( owner )
+    : wxDCImpl(owner)
   {
- Init();
+    Init();
   }
   void RealizeScaleAndOrigin();
 public:
@@ -192,8 +188,7 @@ public:
   void DoDrawPolyPolygon(int n, const int count[], const wxPoint points[], wxCoord xoffset, wxCoord yoffset, wxPolygonFillMode fillStyle = wxODDEVEN_RULE) override;
   wxBitmap DoGetAsBitmap(const wxRect* subrect) const override
   {
-        return subrect == NULL ? GetSelectedBitmap()
-                               : GetSelectedBitmap().GetSubBitmap(*subrect);
+    return subrect == NULL ? GetSelectedBitmap() : GetSelectedBitmap().GetSubBitmap(*subrect);
   }
 #  if  wxUSE_PALETTE
     // MSW specific, select a logical palette into the HDC
@@ -253,25 +248,27 @@ public:
     // construct a temporary DC with the specified HDC and size (it should be
     // specified whenever we know it for this HDC)
   wxDCTempImpl(wxDC* owner, WXHDC hdc, const wxSize& size)
-    :  wxMSWDCImpl( owner, hdc ),
-          m_size(size)
+    : wxMSWDCImpl(owner, hdc)
+    , m_size(size)
   {
-
   }
   virtual ~wxDCTempImpl()
   {
         // prevent base class dtor from freeing it
-        SetHDC((WXHDC)NULL);
+    SetHDC((WXHDC) NULL);
   }
   void DoGetSize(int* w, int* h) const override
   {
-        wxASSERT_MSG( m_size.IsFullySpecified(),
+    wxASSERT_MSG( m_size.IsFullySpecified(),
                       wxT("size of this DC hadn't been set and is unknown") );
-
-        if ( w )
-            *w = m_size.x;
-        if ( h )
-            *h = m_size.y;
+    if (w)
+    {
+      *w = m_size.x;
+    }
+    if (h)
+    {
+      *h = m_size.y;
+    }
   }
 private:
     // size of this DC must be explicitly set by SetSize() as we have no way to
@@ -283,9 +280,8 @@ class WXDLLIMPEXP_CORE wxDCTemp : public wxDC
 {
 public:
   wxDCTemp(WXHDC hdc, const wxSize& size = wxDefaultSize)
-    :  wxDC(new wxDCTempImpl(this, hdc, size))
+    : wxDC(new wxDCTempImpl(this, hdc, size))
   {
-
   }
 };
 #endif

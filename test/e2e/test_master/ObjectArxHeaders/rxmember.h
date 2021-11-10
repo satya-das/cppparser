@@ -514,7 +514,7 @@ public:
     ///
   virtual void goodbye(const AcRxMember* pMember)
   {
- (pMember);
+    (pMember);
   }
 };
 //*************************************************************************
@@ -659,12 +659,12 @@ public:
     AcRxMemberOverrule* m_pOverrule;
     Record()
       : m_pMember(NULL)
-            ,m_pOverrule(NULL)
+      , m_pOverrule(NULL)
     {
     }
     Record(AcRxMember* pMember, AcRxMemberOverrule* pOverrule)
       : m_pMember(pMember)
-            ,m_pOverrule(pOverrule)
+      , m_pOverrule(pOverrule)
     {
     }
   };

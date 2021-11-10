@@ -193,14 +193,14 @@ private:
 //gets the implementation class pointer
 inline RasterImageDefImp* AcDbRasterImageDef::ptrImp() const
 {
-    return mpImp;
+  return mpImp;
 }
 //sets the implementation class pointer
 inline RasterImageDefImp* AcDbRasterImageDef::setPtrImp(RasterImageDefImp* pImp)
 {
-    RasterImageDefImp* oldImp=mpImp;
-    mpImp=pImp;
-    return oldImp;
+  RasterImageDefImp* oldImp = mpImp;
+  mpImp = pImp;
+  return oldImp;
 }
 // Persistent reactor used to connect AcDbRasterImage entities to 
 // AcDbRasterImageDef objects.  It can be used by other applications
@@ -266,11 +266,11 @@ public:
 //
 inline ClassVersion AcDbRasterImageDef::classVersion()
 {
-   return mVersion;
+  return mVersion;
 }
 inline ClassVersion AcDbRasterImageDefReactor::classVersion()
 {
-   return mVersion;
+  return mVersion;
 }
 #  pragma  warning( default : 4275 ) 
 #  pragma  pack (pop)

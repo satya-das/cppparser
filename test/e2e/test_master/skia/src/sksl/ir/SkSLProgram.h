@@ -35,44 +35,39 @@ namespace SkSL
       struct Value
       {
         Value(bool b)
-          :  fKind(kBool_Kind)
-            , fValue(b)
+          : fKind(kBool_Kind)
+          , fValue(b)
         {
         }
         Value(int i)
-          :  fKind(kInt_Kind)
-            , fValue(i)
+          : fKind(kInt_Kind)
+          , fValue(i)
         {
         }
         Value(unsigned int i)
-          :  fKind(kInt_Kind)
-            , fValue(i)
+          : fKind(kInt_Kind)
+          , fValue(i)
         {
         }
         Value(float f)
-          :  fKind(kFloat_Kind)
-            , fValue(f)
+          : fKind(kFloat_Kind)
+          , fValue(f)
         {
         }
         std::unique_ptr<Expression> literal(const Context& context, int offset) const
         {
-                switch (fKind) {
-                    case Program::Settings::Value::kBool_Kind:
-                        return std::unique_ptr<Expression>(new BoolLiteral(context,
-                                                                           offset,
-                                                                           fValue));
-                    case Program::Settings::Value::kInt_Kind:
-                        return std::unique_ptr<Expression>(new IntLiteral(context,
-                                                                          offset,
-                                                                          fValue));
-                    case Program::Settings::Value::kFloat_Kind:
-                        return std::unique_ptr<Expression>(new FloatLiteral(context,
-                                                                          offset,
-                                                                          fValue));
-                    default:
-                        SkASSERT(false);
-                        return nullptr;
-                }
+          switch(fKind)
+          {
+            case Program::Settings::Value::kBool_Kind:
+              return std::unique_ptr<Expression>(new BoolLiteral(context, offset, fValue));
+            case Program::Settings::Value::kInt_Kind:
+              return std::unique_ptr<Expression>(new IntLiteral(context, offset, fValue));
+            case Program::Settings::Value::kFloat_Kind:
+              return std::unique_ptr<Expression>(new FloatLiteral(context, offset, fValue));
+default:
+            SkASSERT(false);
+            return nullptr;
+        }
         }
         enum {
                 kBool_Kind,
@@ -117,13 +112,13 @@ namespace SkSL
       bool fFlipY;
       void reset()
       {
-            fRTWidth = false;
-            fRTHeight = false;
-            fFlipY = false;
+        fRTWidth = false;
+        fRTHeight = false;
+        fFlipY = false;
       }
       bool isEmpty()
       {
-            return !fRTWidth && !fRTHeight && !fFlipY;
+        return !fRTWidth && !fRTHeight && !fFlipY;
       }
     };
     class iterator
@@ -131,32 +126,34 @@ namespace SkSL
     public:
       ProgramElement& operator*()
       {
-            if (fIter1 != fEnd1) {
-                return **fIter1;
-            }
-            return **fIter2;
+        if (fIter1 != fEnd1)
+        {
+          return **fIter1;
+        }
+        return **fIter2;
       }
       iterator& operator++()
       {
-            if (fIter1 != fEnd1) {
-                ++fIter1;
-                return *this;
-            }
-            ++fIter2;
-            return *this;
+        if (fIter1 != fEnd1)
+        {
+          ++fIter1;
+          return *this;
+        }
+        ++fIter2;
+        return *this;
       }
       bool operator==(const iterator& other) const
       {
-            return fIter1 == other.fIter1 && fIter2 == other.fIter2;
+        return fIter1 == other.fIter1 && fIter2 == other.fIter2;
       }
       bool operator!=(const iterator& other) const
       {
-            return !(*this == other);
+        return !(*this == other);
       }
     private:
       using inner = std::vector<std::unique_ptr<ProgramElement>>::iterator;
       iterator(inner begin1, inner end1, inner begin2, inner end2)
-        :  fIter1(begin1)
+        : fIter1(begin1)
         , fEnd1(end1)
         , fIter2(begin2)
         , fEnd2(end2)
@@ -173,32 +170,34 @@ namespace SkSL
     public:
       const ProgramElement& operator*()
       {
-            if (fIter1 != fEnd1) {
-                return **fIter1;
-            }
-            return **fIter2;
+        if (fIter1 != fEnd1)
+        {
+          return **fIter1;
+        }
+        return **fIter2;
       }
       const_iterator& operator++()
       {
-            if (fIter1 != fEnd1) {
-                ++fIter1;
-                return *this;
-            }
-            ++fIter2;
-            return *this;
+        if (fIter1 != fEnd1)
+        {
+          ++fIter1;
+          return *this;
+        }
+        ++fIter2;
+        return *this;
       }
       bool operator==(const const_iterator& other) const
       {
-            return fIter1 == other.fIter1 && fIter2 == other.fIter2;
+        return fIter1 == other.fIter1 && fIter2 == other.fIter2;
       }
       bool operator!=(const const_iterator& other) const
       {
-            return !(*this == other);
+        return !(*this == other);
       }
     private:
       using inner = std::vector<std::unique_ptr<ProgramElement>>::const_iterator;
       const_iterator(inner begin1, inner end1, inner begin2, inner end2)
-        :  fIter1(begin1)
+        : fIter1(begin1)
         , fEnd1(end1)
         , fIter2(begin2)
         , fEnd2(end2)
@@ -219,47 +218,47 @@ namespace SkSL
         kGeneric_Kind,
     };
     Program(Kind kind, std::unique_ptr<String> source, Settings settings, std::shared_ptr<Context> context, std::vector<std::unique_ptr<ProgramElement>>* inheritedElements, std::vector<std::unique_ptr<ProgramElement>> elements, std::shared_ptr<SymbolTable> symbols, Inputs inputs)
-      :  fKind(kind)
-    , fSource(std::move(source))
-    , fSettings(settings)
-    , fContext(context)
-    , fSymbols(symbols)
-    , fInputs(inputs)
-    , fInheritedElements(inheritedElements)
-    , fElements(std::move(elements))
+      : fKind(kind)
+      , fSource(std::move(source))
+      , fSettings(settings)
+      , fContext(context)
+      , fSymbols(symbols)
+      , fInputs(inputs)
+      , fInheritedElements(inheritedElements)
+      , fElements(std::move(elements))
     {
     }
     iterator begin()
     {
-        if (fInheritedElements) {
-            return iterator(fInheritedElements->begin(), fInheritedElements->end(),
-                            fElements.begin(), fElements.end());
-        }
-        return iterator(fElements.begin(), fElements.end(), fElements.end(), fElements.end());
+      if (fInheritedElements)
+      {
+        return iterator(fInheritedElements->begin(), fInheritedElements->end(), fElements.begin(), fElements.end());
+      }
+      return iterator(fElements.begin(), fElements.end(), fElements.end(), fElements.end());
     }
     iterator end()
     {
-        if (fInheritedElements) {
-            return iterator(fInheritedElements->end(), fInheritedElements->end(),
-                            fElements.end(), fElements.end());
-        }
-        return iterator(fElements.end(), fElements.end(), fElements.end(), fElements.end());
+      if (fInheritedElements)
+      {
+        return iterator(fInheritedElements->end(), fInheritedElements->end(), fElements.end(), fElements.end());
+      }
+      return iterator(fElements.end(), fElements.end(), fElements.end(), fElements.end());
     }
     const_iterator begin() const
     {
-        if (fInheritedElements) {
-            return const_iterator(fInheritedElements->begin(), fInheritedElements->end(),
-                                  fElements.begin(), fElements.end());
-        }
-        return const_iterator(fElements.begin(), fElements.end(), fElements.end(), fElements.end());
+      if (fInheritedElements)
+      {
+        return const_iterator(fInheritedElements->begin(), fInheritedElements->end(), fElements.begin(), fElements.end());
+      }
+      return const_iterator(fElements.begin(), fElements.end(), fElements.end(), fElements.end());
     }
     const_iterator end() const
     {
-        if (fInheritedElements) {
-            return const_iterator(fInheritedElements->end(), fInheritedElements->end(),
-                                  fElements.end(), fElements.end());
-        }
-        return const_iterator(fElements.end(), fElements.end(), fElements.end(), fElements.end());
+      if (fInheritedElements)
+      {
+        return const_iterator(fInheritedElements->end(), fInheritedElements->end(), fElements.end(), fElements.end());
+      }
+      return const_iterator(fElements.end(), fElements.end(), fElements.end(), fElements.end());
     }
     Kind fKind;
     std::unique_ptr<String> fSource;

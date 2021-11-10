@@ -49,7 +49,7 @@ public:
   int GetThumbLength() const override;
   int GetTickFreq() const override
   {
- return m_tickFreq;
+    return m_tickFreq;
   }
     // wxUniv-specific methods
     // -----------------------
@@ -57,33 +57,31 @@ public:
     // is this a vertical slider?
   bool IsVert() const
   {
- return (GetWindowStyle() & wxSL_VERTICAL) != 0;
+    return (GetWindowStyle() & wxSL_VERTICAL) != 0;
   }
     // get the slider orientation
   wxOrientation GetOrientation() const
   {
- return IsVert() ? wxVERTICAL : wxHORIZONTAL;
+    return IsVert() ? wxVERTICAL : wxHORIZONTAL;
   }
     // do we have labels?
   bool HasLabels() const
   {
- return ((GetWindowStyle() & wxSL_LABELS) != 0) &&
-                 ((GetWindowStyle() & (wxSL_TOP|wxSL_BOTTOM|wxSL_LEFT|wxSL_RIGHT)) != 0);
+    return ((GetWindowStyle() & wxSL_LABELS) != 0) && ((GetWindowStyle() & (wxSL_TOP | wxSL_BOTTOM | wxSL_LEFT | wxSL_RIGHT)) != 0);
   }
     // do we have ticks?
   bool HasTicks() const
   {
- return ((GetWindowStyle() & wxSL_TICKS) != 0) &&
-                 ((GetWindowStyle() & (wxSL_TOP|wxSL_BOTTOM|wxSL_LEFT|wxSL_RIGHT|wxSL_BOTH)) != 0);
+    return ((GetWindowStyle() & wxSL_TICKS) != 0) && ((GetWindowStyle() & (wxSL_TOP | wxSL_BOTTOM | wxSL_LEFT | wxSL_RIGHT | wxSL_BOTH)) != 0);
   }
     // implement wxControlWithThumb interface
   wxWindow* GetWindow() override
   {
- return this;
+    return this;
   }
   bool IsVertical() const override
   {
- return IsVert();
+    return IsVert();
   }
   wxScrollThumb::Shaft HitTest(const wxPoint& pt) const override;
   wxCoord ThumbPosToPixel() const override;
@@ -97,13 +95,13 @@ public:
     // for wxStdSliderInputHandler
   wxScrollThumb& GetThumb()
   {
- return m_thumb;
+    return m_thumb;
   }
   bool PerformAction(const wxControlAction& action, long numArg = 0, const wxString& strArg = wxEmptyString) override;
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-        return GetStdInputHandler(handlerDef);
+    return GetStdInputHandler(handlerDef);
   }
 protected:
   enum
@@ -117,7 +115,7 @@ protected:
   void DoDraw(wxControlRenderer* renderer) override;
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
     // event handlers
   void OnSize(wxSizeEvent& event);
@@ -132,7 +130,7 @@ protected:
     // is the value inside the range?
   bool IsInRange(int value)
   {
- return (value >= m_min) && (value <= m_max);
+    return (value >= m_min) && (value <= m_max);
   }
     // format the value for printing as label
   virtual wxString FormatValue(int value) const;

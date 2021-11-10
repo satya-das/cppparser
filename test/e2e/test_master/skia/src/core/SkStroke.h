@@ -30,23 +30,23 @@ public:
   SkStroke(const SkPaint&, SkScalar width);
   SkPaint::Cap getCap() const
   {
- return (SkPaint::Cap)fCap;
+    return (SkPaint::Cap) fCap;
   }
   void setCap(SkPaint::Cap);
   SkPaint::Join getJoin() const
   {
- return (SkPaint::Join)fJoin;
+    return (SkPaint::Join) fJoin;
   }
   void setJoin(SkPaint::Join);
   void setMiterLimit(SkScalar);
   void setWidth(SkScalar);
   bool getDoFill() const
   {
- return SkToBool(fDoFill);
+    return SkToBool(fDoFill);
   }
   void setDoFill(bool doFill)
   {
- fDoFill = SkToU8(doFill);
+    fDoFill = SkToU8(doFill);
   }
     /**
      *  ResScale is the "intended" resolution for the output.
@@ -58,12 +58,12 @@ public:
      */
   SkScalar getResScale() const
   {
- return fResScale;
+    return fResScale;
   }
   void setResScale(SkScalar rs)
   {
-        SkASSERT(rs > 0 && SkScalarIsFinite(rs));
-        fResScale = rs;
+    SkASSERT(rs > 0 && SkScalarIsFinite(rs));
+    fResScale = rs;
   }
     /**
      *  Stroke the specified rect, winding it in the specified direction..

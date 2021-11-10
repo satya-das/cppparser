@@ -19,11 +19,10 @@ public:
     // construction
   wxFrame()
   {
-
   }
   wxFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Create(parent, id, title, pos, size, style, name);
+    Create(parent, id, title, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
     // implementation only from now on
@@ -51,7 +50,7 @@ public:
     // internal response to size events
   void MacOnInternalSize() override
   {
- PositionBars();
+    PositionBars();
   }
 #  if  wxUSE_TOOLBAR
 protected:

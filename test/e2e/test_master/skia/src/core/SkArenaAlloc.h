@@ -62,83 +62,83 @@ class SkArenaAlloc
 public:
   SkArenaAlloc(char* block, size_t blockSize, size_t firstHeapAllocation);
   explicit SkArenaAlloc(size_t firstHeapAllocation)
-    :  SkArenaAlloc(nullptr, 0, firstHeapAllocation)
+    : SkArenaAlloc(nullptr, 0, firstHeapAllocation)
   {
   }
   ~SkArenaAlloc();
   template <typename T, typename... Args>
   T* make(Args&&... args)
   {
-        uint32_t size      = ToU32(sizeof(T));
-        uint32_t alignment = ToU32(alignof(T));
-        char* objStart;
-        if (std::is_trivially_destructible<T>::value) {
-            objStart = this->allocObject(size, alignment);
-            fCursor = objStart + size;
-        } else {
-            objStart = this->allocObjectWithFooter(size + sizeof(Footer), alignment);
+    uint32_t size = ToU32(sizeof(T));
+    uint32_t alignment = ToU32(alignof(T));
+    char* objStart;
+    if (std::is_trivially_destructible<T>::value)
+    {
+      objStart = this->allocObject(size, alignment);
+      fCursor = objStart + size;
+    }
+    else 
+    {
+      objStart = this->allocObjectWithFooter(size + sizeof(Footer), alignment);
             // Can never be UB because max value is alignof(T).
-            uint32_t padding = ToU32(objStart - fCursor);
-
+      uint32_t padding = ToU32(objStart - fCursor);
             // Advance to end of object to install footer.
-            fCursor = objStart + size;
-            FooterAction* releaser = [](char* objEnd) {
-                char* objStart = objEnd - (sizeof(T) + sizeof(Footer));
-                ((T*)objStart)->~T();
-                return objStart;
-            };
-            this->installFooter(releaser, padding);
-        }
-
+      fCursor = objStart + size;
+      FooterAction* releaser = ;
+      this->installFooter(releaser, padding);
+    }
         // This must be last to make objects with nested use of this allocator work.
-        return new(objStart) T(std::forward<Args>(args)...);
+    return new (objStart) T(std::forward<Args>(args)...);
   }
   template <typename T>
   T* makeArrayDefault(size_t count)
   {
-        AssertRelease(SkTFitsIn<uint32_t>(count));
-        uint32_t safeCount = ToU32(count);
-        T* array = (T*)this->commonArrayAlloc<T>(safeCount);
-
+    AssertRelease(SkTFitsIn<uint32_t>(count));
+    uint32_t safeCount = ToU32(count);
+    T* array = (T*) this->commonArrayAlloc<T>(safeCount);
         // If T is primitive then no initialization takes place.
-        for (size_t i = 0; i < safeCount; i++) {
-            new (&array[i]) T;
-        }
-        return array;
+    for (size_t i = 0; i < safeCount; i++)
+    {
+      new (&array[i]) T;
+    }
+    return array;
   }
   template <typename T>
   T* makeArray(size_t count)
   {
-        AssertRelease(SkTFitsIn<uint32_t>(count));
-        uint32_t safeCount = ToU32(count);
-        T* array = (T*)this->commonArrayAlloc<T>(safeCount);
-
+    AssertRelease(SkTFitsIn<uint32_t>(count));
+    uint32_t safeCount = ToU32(count);
+    T* array = (T*) this->commonArrayAlloc<T>(safeCount);
         // If T is primitive then the memory is initialized. For example, an array of chars will
         // be zeroed.
-        for (size_t i = 0; i < safeCount; i++) {
-            new (&array[i]) T();
-        }
-        return array;
+    for (size_t i = 0; i < safeCount; i++)
+    {
+      new (&array[i]) T();
+    }
+    return array;
   }
     // Only use makeBytesAlignedTo if none of the typed variants are impractical to use.
   void* makeBytesAlignedTo(size_t size, size_t align)
   {
-        AssertRelease(SkTFitsIn<uint32_t>(size));
-        auto objStart = this->allocObject(ToU32(size), ToU32(align));
-        fCursor = objStart + size;
-        return objStart;
+    AssertRelease(SkTFitsIn<uint32_t>(size));
+    auto objStart = this->allocObject(ToU32(size), ToU32(align));
+    fCursor = objStart + size;
+    return objStart;
   }
     // Destroy all allocated objects, free any heap allocations.
   void reset();
 private:
   static void AssertRelease(bool cond)
   {
- if (!cond) { ::abort(); }
+    if (!cond)
+    {
+      ::abort();
+    }
   }
   static uint32_t ToU32(size_t v)
   {
-        assert(SkTFitsIn<uint32_t>(v));
-        return (uint32_t)v;
+    assert(SkTFitsIn<uint32_t>(v));
+    return (uint32_t) v;
   }
   using Footer = int64_t;
   using FooterAction = char* (*) (char*);
@@ -152,56 +152,43 @@ private:
   void ensureSpace(uint32_t size, uint32_t alignment);
   char* allocObject(uint32_t size, uint32_t alignment)
   {
-        uintptr_t mask = alignment - 1;
-        uintptr_t alignedOffset = (~reinterpret_cast<uintptr_t>(fCursor) + 1) & mask;
-        uintptr_t totalSize = size + alignedOffset;
-        AssertRelease(totalSize >= size);
-        if (totalSize > static_cast<uintptr_t>(fEnd - fCursor)) {
-            this->ensureSpace(size, alignment);
-            alignedOffset = (~reinterpret_cast<uintptr_t>(fCursor) + 1) & mask;
-        }
-        return fCursor + alignedOffset;
+    uintptr_t mask = alignment - 1;
+    uintptr_t alignedOffset = (~reinterpret_cast<uintptr_t>(fCursor) + 1) & mask;
+    uintptr_t totalSize = size + alignedOffset;
+    AssertRelease(totalSize >= size);
+    if (totalSize > static_cast<uintptr_t>(fEnd - fCursor))
+    {
+      this->ensureSpace(size, alignment);
+      alignedOffset = (~reinterpret_cast<uintptr_t>(fCursor) + 1) & mask;
+    }
+    return fCursor + alignedOffset;
   }
   char* allocObjectWithFooter(uint32_t sizeIncludingFooter, uint32_t alignment);
   template <typename T>
   char* commonArrayAlloc(uint32_t count)
   {
-        char* objStart;
-        AssertRelease(count <= std::numeric_limits<uint32_t>::max() / sizeof(T));
-        uint32_t arraySize = ToU32(count * sizeof(T));
-        uint32_t alignment = ToU32(alignof(T));
-
-        if (std::is_trivially_destructible<T>::value) {
-            objStart = this->allocObject(arraySize, alignment);
-            fCursor = objStart + arraySize;
-        } else {
-            constexpr uint32_t overhead = sizeof(Footer) + sizeof(uint32_t);
-            AssertRelease(arraySize <= std::numeric_limits<uint32_t>::max() - overhead);
-            uint32_t totalSize = arraySize + overhead;
-            objStart = this->allocObjectWithFooter(totalSize, alignment);
-
+    char* objStart;
+    AssertRelease(count <= std::numeric_limits<uint32_t>::max() / sizeof(T));
+    uint32_t arraySize = ToU32(count * sizeof(T));
+    uint32_t alignment = ToU32(alignof(T));
+    if (std::is_trivially_destructible<T>::value)
+    {
+      objStart = this->allocObject(arraySize, alignment);
+      fCursor = objStart + arraySize;
+    }
+    else 
+    {
+      constexpr uint32_t overhead = sizeof(Footer) + sizeof(uint32_t);
+      AssertRelease(arraySize <= std::numeric_limits<uint32_t>::max() - overhead);
+      uint32_t totalSize = arraySize + overhead;
+      objStart = this->allocObjectWithFooter(totalSize, alignment);
             // Can never be UB because max value is alignof(T).
-            uint32_t padding = ToU32(objStart - fCursor);
-
+      uint32_t padding = ToU32(objStart - fCursor);
             // Advance to end of array to install footer.?
-            fCursor = objStart + arraySize;
-            this->installUint32Footer(
-                [](char* footerEnd) {
-                    char* objEnd = footerEnd - (sizeof(Footer) + sizeof(uint32_t));
-                    uint32_t count;
-                    memmove(&count, objEnd, sizeof(uint32_t));
-                    char* objStart = objEnd - count * sizeof(T);
-                    T* array = (T*) objStart;
-                    for (uint32_t i = 0; i < count; i++) {
-                        array[i].~T();
-                    }
-                    return objStart;
-                },
-                ToU32(count),
-                padding);
-        }
-
-        return objStart;
+      fCursor = objStart + arraySize;
+      this->installUint32Footer(, ToU32(count), padding);
+    }
+    return objStart;
   }
   char* fDtorCursor;
   char* fCursor;
@@ -221,7 +208,7 @@ class SkSTArenaAlloc : public SkArenaAlloc
 {
 public:
   explicit SkSTArenaAlloc(size_t firstHeapAllocation = InlineStorageSize)
-    :  INHERITED(fInlineStorage, InlineStorageSize, firstHeapAllocation)
+    : INHERITED(fInlineStorage, InlineStorageSize, firstHeapAllocation)
   {
   }
 private:

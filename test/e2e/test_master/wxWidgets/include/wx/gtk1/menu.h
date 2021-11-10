@@ -47,14 +47,14 @@ class WXDLLIMPEXP_CORE wxMenu : public wxMenuBase
 public:
     // ctors & dtor
   wxMenu(const wxString& title, long style = 0)
-    :  wxMenuBase(title, style)
+    : wxMenuBase(title, style)
   {
- Init();
+    Init();
   }
   wxMenu(long style = 0)
-    :  wxMenuBase(style)
+    : wxMenuBase(style)
   {
- Init();
+    Init();
   }
   virtual ~wxMenu();
     // implement base class virtuals

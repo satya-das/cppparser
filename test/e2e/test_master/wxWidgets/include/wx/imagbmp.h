@@ -36,10 +36,10 @@ class WXDLLIMPEXP_CORE wxBMPHandler : public wxImageHandler
 public:
   wxBMPHandler()
   {
-        m_name = wxT("Windows bitmap file");
-        m_extension = wxT("bmp");
-        m_type = wxBITMAP_TYPE_BMP;
-        m_mime = wxT("image/x-bmp");
+    m_name = wxT("Windows bitmap file");
+    m_extension = wxT("bmp");
+    m_type = wxBITMAP_TYPE_BMP;
+    m_mime = wxT("image/x-bmp");
   }
 #  if  wxUSE_STREAMS
   bool SaveFile(wxImage* image, wxOutputStream& stream, bool verbose = true) override;
@@ -62,10 +62,10 @@ class WXDLLIMPEXP_CORE wxICOHandler : public wxBMPHandler
 public:
   wxICOHandler()
   {
-        m_name = wxT("Windows icon file");
-        m_extension = wxT("ico");
-        m_type = wxBITMAP_TYPE_ICO;
-        m_mime = wxT("image/x-ico");
+    m_name = wxT("Windows icon file");
+    m_extension = wxT("ico");
+    m_type = wxBITMAP_TYPE_ICO;
+    m_mime = wxT("image/x-ico");
   }
 #    if  wxUSE_STREAMS
   bool SaveFile(wxImage* image, wxOutputStream& stream, bool verbose = true) override;
@@ -86,10 +86,10 @@ class WXDLLIMPEXP_CORE wxCURHandler : public wxICOHandler
 public:
   wxCURHandler()
   {
-        m_name = wxT("Windows cursor file");
-        m_extension = wxT("cur");
-        m_type = wxBITMAP_TYPE_CUR;
-        m_mime = wxT("image/x-cur");
+    m_name = wxT("Windows cursor file");
+    m_extension = wxT("cur");
+    m_type = wxBITMAP_TYPE_CUR;
+    m_mime = wxT("image/x-cur");
   }
     // VS: This handler's meat is implemented inside wxICOHandler (the two
     //     formats are almost identical), but we hide this fact at
@@ -109,15 +109,15 @@ class WXDLLIMPEXP_CORE wxANIHandler : public wxCURHandler
 public:
   wxANIHandler()
   {
-        m_name = wxT("Windows animated cursor file");
-        m_extension = wxT("ani");
-        m_type = wxBITMAP_TYPE_ANI;
-        m_mime = wxT("image/x-ani");
+    m_name = wxT("Windows animated cursor file");
+    m_extension = wxT("ani");
+    m_type = wxBITMAP_TYPE_ANI;
+    m_mime = wxT("image/x-ani");
   }
 #    if  wxUSE_STREAMS
   bool SaveFile(wxImage*, wxOutputStream&, bool) override
   {
-return false ;
+    return false;
   }
   bool LoadFile(wxImage* image, wxInputStream& stream, bool verbose = true, int index = -1) override;
 protected:

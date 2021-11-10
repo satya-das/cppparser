@@ -22,7 +22,7 @@ public:
   static constexpr int kNumColors = 6;
   static sk_sp<SkOverdrawColorFilter> Make(const SkPMColor colors[kNumColors])
   {
-        return sk_sp<SkOverdrawColorFilter>(new SkOverdrawColorFilter(colors));
+    return sk_sp<SkOverdrawColorFilter>(new SkOverdrawColorFilter(colors));
   }
 #  if  SK_SUPPORT_GPU
   std::unique_ptr<GrFragmentProcessor> asFragmentProcessor(GrRecordingContext*, const GrColorInfo&) const override;
@@ -34,7 +34,7 @@ private:
   SK_FLATTENABLE_HOOKS(SkOverdrawColorFilter)
   SkOverdrawColorFilter(const SkPMColor colors[kNumColors])
   {
-        memcpy(fColors, colors, kNumColors * sizeof(SkPMColor));
+    memcpy(fColors, colors, kNumColors * sizeof(SkPMColor));
   }
   bool onAppendStages(const SkStageRec&, bool) const override;
   SkPMColor fColors[kNumColors];

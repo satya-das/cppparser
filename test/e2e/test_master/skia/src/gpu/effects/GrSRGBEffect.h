@@ -23,19 +23,19 @@ public:
      */
   static std::unique_ptr<GrFragmentProcessor> Make(Mode mode, Alpha alpha)
   {
-        return std::unique_ptr<GrFragmentProcessor>(new GrSRGBEffect(mode, alpha));
+    return std::unique_ptr<GrFragmentProcessor>(new GrSRGBEffect(mode, alpha));
   }
   const char* name() const override
   {
- return "sRGB";
+    return "sRGB";
   }
   Mode mode() const
   {
- return fMode;
+    return fMode;
   }
   Alpha alpha() const
   {
- return fAlpha;
+    return fAlpha;
   }
   std::unique_ptr<GrFragmentProcessor> clone() const override;
 private:

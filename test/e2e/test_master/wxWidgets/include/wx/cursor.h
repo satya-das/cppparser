@@ -13,11 +13,7 @@
 #  include "wx/gdicmn.h"
 // Under most ports, wxCursor derives directly from wxGDIObject, but in wxMSW
 // there is an intermediate wxGDIImage class.
-#  ifdef __WXMSW__
-#    include "wx/msw/gdiimage.h"
-#  else 
 typedef wxGDIObject wxGDIImage;
-#  endif
 class WXDLLIMPEXP_CORE wxCursorBase : public wxGDIImage
 {
 public:
@@ -36,7 +32,7 @@ public:
 */
   virtual wxPoint GetHotSpot() const
   {
- return wxDefaultPosition;
+    return wxDefaultPosition;
   }
 };
 #  if  defined(__WXMSW__)
@@ -91,17 +87,17 @@ class wxBusyCursorSuspender
 public:
   wxBusyCursorSuspender()
   {
-        if( wxIsBusy() )
-        {
-            wxSetCursor( wxBusyCursor::GetStoredCursor() );
-        }
+    if (wxIsBusy())
+    {
+      wxSetCursor(wxBusyCursor::GetStoredCursor());
+    }
   }
   ~wxBusyCursorSuspender()
   {
-        if( wxIsBusy() )
-        {
-            wxSetCursor( wxBusyCursor::GetBusyCursor() );
-        }
+    if (wxIsBusy())
+    {
+      wxSetCursor(wxBusyCursor::GetBusyCursor());
+    }
   }
 };
 #endif

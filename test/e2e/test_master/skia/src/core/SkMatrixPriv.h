@@ -19,21 +19,21 @@ public:
   };
   static size_t WriteToMemory(const SkMatrix& matrix, void* buffer)
   {
-        return matrix.writeToMemory(buffer);
+    return matrix.writeToMemory(buffer);
   }
   static size_t ReadFromMemory(SkMatrix* matrix, const void* buffer, size_t length)
   {
-        return matrix->readFromMemory(buffer, length);
+    return matrix->readFromMemory(buffer, length);
   }
   typedef SkMatrix::MapXYProc MapXYProc;
   typedef SkMatrix::MapPtsProc MapPtsProc;
   static MapPtsProc GetMapPtsProc(const SkMatrix& matrix)
   {
-        return SkMatrix::GetMapPtsProc(matrix.getType());
+    return SkMatrix::GetMapPtsProc(matrix.getType());
   }
   static MapXYProc GetMapXYProc(const SkMatrix& matrix)
   {
-        return SkMatrix::GetMapXYProc(matrix.getType());
+    return SkMatrix::GetMapXYProc(matrix.getType());
   }
     /**
      *  Attempt to map the rect through the inverse of the matrix. If it is not invertible,
@@ -41,22 +41,24 @@ public:
      */
   static bool SK_WARN_UNUSED_RESULT InverseMapRect(const SkMatrix& mx, SkRect* dst, const SkRect& src)
   {
-        if (mx.getType() <= SkMatrix::kTranslate_Mask) {
-            SkScalar tx = mx.getTranslateX();
-            SkScalar ty = mx.getTranslateY();
-            Sk4f trans(tx, ty, tx, ty);
-            (Sk4f::Load(&src.fLeft) - trans).store(&dst->fLeft);
-            return true;
-        }
+    if (mx.getType() <= SkMatrix::kTranslate_Mask)
+    {
+      SkScalar tx = mx.getTranslateX();
+      SkScalar ty = mx.getTranslateY();
+      Sk4f trans(tx, ty, tx, ty);
+      (Sk4f::Load(&src.fLeft) - trans).store(&dst->fLeft);
+      return true;
+    }
         // Insert other special-cases here (e.g. scale+translate)
 
         // general case
-        SkMatrix inverse;
-        if (mx.invert(&inverse)) {
-            inverse.mapRect(dst, src);
-            return true;
-        }
-        return false;
+    SkMatrix inverse;
+    if (mx.invert(&inverse))
+    {
+      inverse.mapRect(dst, src);
+      return true;
+    }
+    return false;
   }
     /** Maps count pts, skipping stride bytes to advance from one SkPoint to the next.
         Points are mapped by multiplying each SkPoint by SkMatrix. Given:
@@ -78,32 +80,34 @@ public:
     */
   static void MapPointsWithStride(const SkMatrix& mx, SkPoint pts[], size_t stride, int count)
   {
-        SkASSERT(stride >= sizeof(SkPoint));
-        SkASSERT(0 == stride % sizeof(SkScalar));
-
-        SkMatrix::TypeMask tm = mx.getType();
-
-        if (SkMatrix::kIdentity_Mask == tm) {
-            return;
-        }
-        if (SkMatrix::kTranslate_Mask == tm) {
-            const SkScalar tx = mx.getTranslateX();
-            const SkScalar ty = mx.getTranslateY();
-            Sk2s trans(tx, ty);
-            for (int i = 0; i < count; ++i) {
-                (Sk2s::Load(&pts->fX) + trans).store(&pts->fX);
-                pts = (SkPoint*)((intptr_t)pts + stride);
-            }
-            return;
-        }
+    SkASSERT(stride >= sizeof(SkPoint));
+    SkASSERT(0 == stride % sizeof(SkScalar));
+    SkMatrix::TypeMask tm = mx.getType();
+    if (SkMatrix::kIdentity_Mask == tm)
+    {
+      return ;
+    }
+    if (SkMatrix::kTranslate_Mask == tm)
+    {
+      const SkScalar tx = mx.getTranslateX();
+      const SkScalar ty = mx.getTranslateY();
+      Sk2s trans(tx, ty);
+      for (int i = 0; i < count; ++i)
+      {
+        (Sk2s::Load(&pts->fX) + trans).store(&pts->fX);
+        pts = (SkPoint*) ((intptr_t) pts + stride);
+      }
+      return ;
+    }
         // Insert other special-cases here (e.g. scale+translate)
 
         // general case
-        SkMatrix::MapXYProc proc = mx.getMapXYProc();
-        for (int i = 0; i < count; ++i) {
-            proc(mx, pts->fX, pts->fY, pts);
-            pts = (SkPoint*)((intptr_t)pts + stride);
-        }
+    SkMatrix::MapXYProc proc = mx.getMapXYProc();
+    for (int i = 0; i < count; ++i)
+    {
+      proc(mx, pts->fX, pts->fY, pts);
+      pts = (SkPoint*) ((intptr_t) pts + stride);
+    }
   }
     /** Maps src SkPoint array of length count to dst SkPoint array, skipping stride bytes
         to advance from one SkPoint to the next.
@@ -127,15 +131,16 @@ public:
     */
   static void MapPointsWithStride(const SkMatrix& mx, SkPoint dst[], size_t dstStride, const SkPoint src[], size_t srcStride, int count)
   {
-        SkASSERT(srcStride >= sizeof(SkPoint));
-        SkASSERT(dstStride >= sizeof(SkPoint));
-        SkASSERT(0 == srcStride % sizeof(SkScalar));
-        SkASSERT(0 == dstStride % sizeof(SkScalar));
-        for (int i = 0; i < count; ++i) {
-            mx.mapPoints(dst, src, 1);
-            src = (SkPoint*)((intptr_t)src + srcStride);
-            dst = (SkPoint*)((intptr_t)dst + dstStride);
-        }
+    SkASSERT(srcStride >= sizeof(SkPoint));
+    SkASSERT(dstStride >= sizeof(SkPoint));
+    SkASSERT(0 == srcStride % sizeof(SkScalar));
+    SkASSERT(0 == dstStride % sizeof(SkScalar));
+    for (int i = 0; i < count; ++i)
+    {
+      mx.mapPoints(dst, src, 1);
+      src = (SkPoint*) ((intptr_t) src + srcStride);
+      dst = (SkPoint*) ((intptr_t) dst + dstStride);
+    }
   }
   static void MapHomogeneousPointsWithStride(const SkMatrix& mx, SkPoint3 dst[], size_t dstStride, const SkPoint3 src[], size_t srcStride, int count);
     // Returns the recommended filterquality, assuming the caller originally wanted kHigh (bicubic)

@@ -26,7 +26,8 @@ class WXDLLIMPEXP_HTML wxHtmlProcessor : public wxObject
   wxDECLARE_ABSTRACT_CLASS(wxHtmlProcessor);
 public:
   wxHtmlProcessor()
-    :  wxObject(), m_enabled(true)
+    : wxObject()
+    , m_enabled(true)
   {
   }
   virtual ~wxHtmlProcessor()
@@ -38,17 +39,17 @@ public:
     // is the processor applied to the text.
   virtual int GetPriority() const
   {
- return wxHTML_PRIORITY_DONTCARE;
+    return wxHTML_PRIORITY_DONTCARE;
   }
     // Enable/disable the processor. wxHtmlWindow won't use a disabled
     // processor even if it is in its processors queue.
   virtual void Enable(bool enable = true)
   {
- m_enabled = enable;
+    m_enabled = enable;
   }
   bool IsEnabled() const
   {
- return m_enabled;
+    return m_enabled;
   }
 protected:
   bool m_enabled;

@@ -16,26 +16,25 @@ class WXDLLIMPEXP_CORE wxMask : public wxMaskBase
 public:
   wxMask()
   {
-
   }
   wxMask(const wxBitmap& bitmap, const wxColour& colour)
   {
-        InitFromColour(bitmap, colour);
+    InitFromColour(bitmap, colour);
   }
 #  if  wxUSE_PALETTE
   wxMask(const wxBitmap& bitmap, int paletteIndex)
   {
-        Create(bitmap, paletteIndex);
+    Create(bitmap, paletteIndex);
   }
 #  endif
   wxMask(const wxBitmap& bitmap)
   {
-        InitFromMonoBitmap(bitmap);
+    InitFromMonoBitmap(bitmap);
   }
     // implementation-only from now on
   wxBitmap GetBitmap() const
   {
- return m_bitmap;
+    return m_bitmap;
   }
 private:
     // implement wxMaskBase pure virtuals

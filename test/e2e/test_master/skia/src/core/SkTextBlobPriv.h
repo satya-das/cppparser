@@ -39,15 +39,15 @@ class SkTextBlobBuilderPriv
 public:
   static const SkTextBlobBuilder::RunBuffer& AllocRunText(SkTextBlobBuilder* builder, const SkFont& font, int count, SkScalar x, SkScalar y, int textByteCount, SkString lang, const SkRect* bounds = nullptr)
   {
-        return builder->allocRunText(font, count, x, y, textByteCount, lang, bounds);
+    return builder->allocRunText(font, count, x, y, textByteCount, lang, bounds);
   }
   static const SkTextBlobBuilder::RunBuffer& AllocRunTextPosH(SkTextBlobBuilder* builder, const SkFont& font, int count, SkScalar y, int textByteCount, SkString lang, const SkRect* bounds = nullptr)
   {
-        return builder->allocRunTextPosH(font, count, y, textByteCount, lang, bounds);
+    return builder->allocRunTextPosH(font, count, y, textByteCount, lang, bounds);
   }
   static const SkTextBlobBuilder::RunBuffer& AllocRunTextPos(SkTextBlobBuilder* builder, const SkFont& font, int count, int textByteCount, SkString lang, const SkRect* bounds = nullptr)
   {
-        return builder->allocRunTextPos(font, count, textByteCount, lang, bounds);
+    return builder->allocRunTextPos(font, count, textByteCount, lang, bounds);
   }
 };
 //
@@ -73,78 +73,74 @@ class SkTextBlob::RunRecord
 {
 public:
   RunRecord(uint32_t count, uint32_t textSize, const SkPoint& offset, const SkFont& font, GlyphPositioning pos)
-    :  fFont(font)
-            , fCount(count)
-            , fOffset(offset)
-            , fFlags(pos)
+    : fFont(font)
+    , fCount(count)
+    , fOffset(offset)
+    , fFlags(pos)
   {
-        SkASSERT(static_cast<unsigned>(pos) <= Flags::kPositioning_Mask);
-
-        SkDEBUGCODE(fMagic = kRunRecordMagic);
-        if (textSize > 0) {
-            fFlags |= kExtended_Flag;
-            *this->textSizePtr() = textSize;
-        }
+    SkASSERT(static_cast<unsigned>(pos) <= Flags::kPositioning_Mask);
+    if (textSize > 0)
+    {
+      fFlags |= kExtended_Flag;
+      *this->textSizePtr() = textSize;
+    }
   }
   uint32_t glyphCount() const
   {
-        return fCount;
+    return fCount;
   }
   const SkPoint& offset() const
   {
-        return fOffset;
+    return fOffset;
   }
   const SkFont& font() const
   {
-        return fFont;
+    return fFont;
   }
   GlyphPositioning positioning() const
   {
-        return static_cast<GlyphPositioning>(fFlags & kPositioning_Mask);
+    return static_cast<GlyphPositioning>(fFlags & kPositioning_Mask);
   }
   uint16_t* glyphBuffer() const
   {
-        static_assert(SkIsAlignPtr(sizeof(RunRecord)), "");
+    static_assert(SkIsAlignPtr(sizeof(RunRecord)), "");
         // Glyphs are stored immediately following the record.
-        return reinterpret_cast<uint16_t*>(const_cast<RunRecord*>(this) + 1);
+    return reinterpret_cast<uint16_t*>(const_cast<RunRecord*>(this) + 1);
   }
     // can be aliased with pointBuffer() or xformBuffer()
   SkScalar* posBuffer() const
   {
         // Position scalars follow the (aligned) glyph buffer.
-        return reinterpret_cast<SkScalar*>(reinterpret_cast<uint8_t*>(this->glyphBuffer()) +
-                                           SkAlign4(fCount * sizeof(uint16_t)));
+    return reinterpret_cast<SkScalar*>(reinterpret_cast<uint8_t*>(this->glyphBuffer()) + SkAlign4(fCount * sizeof(uint16_t)));
   }
     // alias for posBuffer()
   SkPoint* pointBuffer() const
   {
-        SkASSERT(this->positioning() == (GlyphPositioning)2);
-        return reinterpret_cast<SkPoint*>(this->posBuffer());
+    SkASSERT(this->positioning() == (GlyphPositioning) 2);
+    return reinterpret_cast<SkPoint*>(this->posBuffer());
   }
     // alias for posBuffer()
   SkRSXform* xformBuffer() const
   {
-        SkASSERT(this->positioning() == (GlyphPositioning)3);
-        return reinterpret_cast<SkRSXform*>(this->posBuffer());
+    SkASSERT(this->positioning() == (GlyphPositioning) 3);
+    return reinterpret_cast<SkRSXform*>(this->posBuffer());
   }
   uint32_t textSize() const
   {
- return isExtended() ? *this->textSizePtr() : 0;
+    return isExtended() ? *this->textSizePtr() : 0;
   }
   uint32_t* clusterBuffer() const
   {
         // clusters follow the textSize.
-        return isExtended() ? 1 + this->textSizePtr() : nullptr;
+    return isExtended() ? 1 + this->textSizePtr() : nullptr;
   }
   char* textBuffer() const
   {
-        return isExtended()
-               ? reinterpret_cast<char*>(this->clusterBuffer() + fCount)
-               : nullptr;
+    return isExtended() ? reinterpret_cast<char*>(this->clusterBuffer() + fCount) : nullptr;
   }
   bool isLastRun() const
   {
- return SkToBool(fFlags & kLast_Flag);
+    return SkToBool(fFlags & kLast_Flag);
   }
   static size_t StorageSize(uint32_t glyphCount, uint32_t textSize, SkTextBlob::GlyphPositioning positioning, SkSafeMath* safe);
   static const RunRecord* First(const SkTextBlob* blob);
@@ -163,7 +159,7 @@ private:
   void grow(uint32_t count);
   bool isExtended() const
   {
-        return fFlags & kExtended_Flag;
+    return fFlags & kExtended_Flag;
   }
   SkFont fFont;
   uint32_t fCount;
@@ -188,59 +184,59 @@ public:
   };
   bool done() const
   {
-        return !fCurrentRun;
+    return !fCurrentRun;
   }
   void next();
   uint32_t glyphCount() const
   {
-        SkASSERT(!this->done());
-        return fCurrentRun->glyphCount();
+    SkASSERT(!this->done());
+    return fCurrentRun->glyphCount();
   }
   const uint16_t* glyphs() const
   {
-        SkASSERT(!this->done());
-        return fCurrentRun->glyphBuffer();
+    SkASSERT(!this->done());
+    return fCurrentRun->glyphBuffer();
   }
   const SkScalar* pos() const
   {
-        SkASSERT(!this->done());
-        return fCurrentRun->posBuffer();
+    SkASSERT(!this->done());
+    return fCurrentRun->posBuffer();
   }
     // alias for pos()
   const SkPoint* points() const
   {
-        return fCurrentRun->pointBuffer();
+    return fCurrentRun->pointBuffer();
   }
     // alias for pos()
   const SkRSXform* xforms() const
   {
-        return fCurrentRun->xformBuffer();
+    return fCurrentRun->xformBuffer();
   }
   const SkPoint& offset() const
   {
-        SkASSERT(!this->done());
-        return fCurrentRun->offset();
+    SkASSERT(!this->done());
+    return fCurrentRun->offset();
   }
   const SkFont& font() const
   {
-        SkASSERT(!this->done());
-        return fCurrentRun->font();
+    SkASSERT(!this->done());
+    return fCurrentRun->font();
   }
   GlyphPositioning positioning() const;
   uint32_t* clusters() const
   {
-        SkASSERT(!this->done());
-        return fCurrentRun->clusterBuffer();
+    SkASSERT(!this->done());
+    return fCurrentRun->clusterBuffer();
   }
   uint32_t textSize() const
   {
-        SkASSERT(!this->done());
-        return fCurrentRun->textSize();
+    SkASSERT(!this->done());
+    return fCurrentRun->textSize();
   }
   char* text() const
   {
-        SkASSERT(!this->done());
-        return fCurrentRun->textBuffer();
+    SkASSERT(!this->done());
+    return fCurrentRun->textBuffer();
   }
   bool isLCD() const;
 private:

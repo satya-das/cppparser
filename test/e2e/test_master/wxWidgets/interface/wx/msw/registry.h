@@ -239,7 +239,7 @@ public:
     */
   WOW64ViewMode GetView() const
   {
- return m_viewMode;
+    return m_viewMode;
   }
     /**
         Gets the next key. Returns @true if successful.

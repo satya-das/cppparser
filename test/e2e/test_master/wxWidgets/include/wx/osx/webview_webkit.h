@@ -27,7 +27,7 @@ public:
   }
   wxWebViewWebKit(wxWindow* parent, wxWindowID winID = wxID_ANY, const wxString& strURL = wxASCII_STR(wxWebViewDefaultURLStr), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr))
   {
-        Create(parent, winID, strURL, pos, size, style, name);
+    Create(parent, winID, strURL, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID winID = wxID_ANY, const wxString& strURL = wxASCII_STR(wxWebViewDefaultURLStr), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) override;
   virtual ~wxWebViewWebKit();
@@ -52,7 +52,7 @@ public:
   bool CanSetZoomType(wxWebViewZoomType type) const override;
   bool IsBusy() const override
   {
- return m_busy;
+    return m_busy;
   }
     //History functions
   void ClearHistory() override;
@@ -68,22 +68,22 @@ public:
     //Find function
   long Find(const wxString& text, int flags = wxWEBVIEW_FIND_DEFAULT) override
   {
-        wxUnusedVar(text);
-        wxUnusedVar(flags);
-        return wxNOT_FOUND;
+    wxUnusedVar(text);
+    wxUnusedVar(flags);
+    return wxNOT_FOUND;
   }
     //Clipboard functions
   bool CanCut() const override
   {
- return true;
+    return true;
   }
   bool CanCopy() const override
   {
- return true;
+    return true;
   }
   bool CanPaste() const override
   {
- return true;
+    return true;
   }
   void Cut() override;
   void Copy() override;
@@ -103,7 +103,7 @@ public:
   void RegisterHandler(wxSharedPtr<wxWebViewHandler> handler) override;
   void* GetNativeBackend() const override
   {
- return m_webView;
+    return m_webView;
   }
     // ---- methods not from the parent (common) interface
   bool CanGetPageSource() const;
@@ -118,11 +118,11 @@ public:
     // don't hide base class virtuals
   void SetScrollPos(int orient, int pos, bool refresh = true) override
   {
- return wxControl::SetScrollPos(orient, pos, refresh);
+    return wxControl::SetScrollPos(orient, pos, refresh);
   }
   int GetScrollPos(int orient) const override
   {
- return wxControl::GetScrollPos(orient);
+    return wxControl::GetScrollPos(orient);
   }
     //we need to resize the webview when the control size changes
   void OnSize(wxSizeEvent& event);
@@ -151,11 +151,11 @@ class WXDLLIMPEXP_WEBVIEW wxWebViewFactoryWebKit : public wxWebViewFactory
 public:
   virtual wxWebView* Create()
   {
- return new wxWebViewWebKit;
+    return new wxWebViewWebKit;
   }
   virtual wxWebView* Create(wxWindow* parent, wxWindowID id, const wxString& url = wxWebViewDefaultURLStr, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr))
   {
- return new wxWebViewWebKit(parent, id, url, pos, size, style, name);
+    return new wxWebViewWebKit(parent, id, url, pos, size, style, name);
   }
 };
 #  endif

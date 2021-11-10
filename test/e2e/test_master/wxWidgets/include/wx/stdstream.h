@@ -23,7 +23,6 @@ public:
   wxStdInputStreamBuffer(wxInputStream& stream);
   virtual ~wxStdInputStreamBuffer()
   {
-
   }
 protected:
   std::streambuf* setbuf(char* s, std::streamsize n) override;
@@ -41,7 +40,7 @@ protected:
 #    if  defined(__VISUALC8__) || defined(__VISUALC9__)
   virtual std::streamsize _Xsgetn_s(char* s, size_t, std::streamsize n)
   {
-        return xsgetn(s, n);
+    return xsgetn(s, n);
   }
 #    endif
   wxInputStream& m_stream;
@@ -56,7 +55,6 @@ public:
   wxStdInputStream(wxInputStream& stream);
   virtual ~wxStdInputStream()
   {
-
   }
 protected:
   wxStdInputStreamBuffer m_streamBuffer;
@@ -70,7 +68,6 @@ public:
   wxStdOutputStreamBuffer(wxOutputStream& stream);
   virtual ~wxStdOutputStreamBuffer()
   {
-
   }
 protected:
   std::streambuf* setbuf(char* s, std::streamsize n) override;
@@ -89,7 +86,6 @@ public:
   wxStdOutputStream(wxOutputStream& stream);
   virtual ~wxStdOutputStream()
   {
-
   }
 protected:
   wxStdOutputStreamBuffer m_streamBuffer;

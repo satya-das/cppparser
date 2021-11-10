@@ -24,10 +24,9 @@ class WXDLLIMPEXP_CORE wxMSWOwnerDrawnButtonBase
 protected:
     // Ctor takes the back pointer to the real window, must be non-NULL.
   wxMSWOwnerDrawnButtonBase(wxWindow* win)
-    :         m_win(win)
+    : m_win(win)
   {
-        m_isPressed =
-        m_isHot = false;
+    m_isPressed = m_isHot = false;
   }
     // Explicitly define the destructor even if it's trivial to make it
     // protected. This avoids compiler warnings about the fact that this class
@@ -42,7 +41,6 @@ protected:
 #  if  wxCHECK_GCC_VERSION(4, 0) || defined(__clang__)
   ~wxMSWOwnerDrawnButtonBase()
   {
-
   }
 #  endif
     // Make the control owner drawn if necessary to implement support for the
@@ -61,7 +59,6 @@ protected:
     // for wxCheckBox-specific hack.
   virtual void MSWOnButtonResetOwnerDrawn()
   {
-
   }
     // Return the flags (such as wxCONTROL_CHECKED) to use for the control when
     // drawing it. Notice that this class already takes care of the common
@@ -95,27 +92,26 @@ private:
   typedef T Base;
 public:
   wxMSWOwnerDrawnButton()
-    :  wxMSWOwnerDrawnButtonBase(this)
+    : wxMSWOwnerDrawnButtonBase(this)
   {
-
   }
   bool SetForegroundColour(const wxColour& colour) override
   {
-        if ( !Base::SetForegroundColour(colour) )
-            return false;
-
-        MSWMakeOwnerDrawnIfNecessary(colour);
-
-        return true;
+    if (!Base::SetForegroundColour(colour))
+    {
+      return false;
+    }
+    MSWMakeOwnerDrawnIfNecessary(colour);
+    return true;
   }
   bool MSWOnDraw(WXDRAWITEMSTRUCT* item) override
   {
-        return MSWDrawButton(item) || Base::MSWOnDraw(item);
+    return MSWDrawButton(item) || Base::MSWOnDraw(item);
   }
 protected:
   bool IsOwnerDrawn() const
   {
- return MSWIsOwnerDrawn();
+    return MSWIsOwnerDrawn();
   }
 };
 #endif

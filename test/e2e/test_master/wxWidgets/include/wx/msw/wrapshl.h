@@ -32,44 +32,43 @@ public:
     // ctor takes ownership of the item and will free it
   wxItemIdList(LPITEMIDLIST pidl)
   {
-        m_pidl = pidl;
+    m_pidl = pidl;
   }
   static void Free(LPITEMIDLIST pidl)
   {
-        if ( pidl )
-        {
-            LPMALLOC pMalloc;
-            SHGetMalloc(&pMalloc);
-            if ( pMalloc )
-            {
-                pMalloc->Free(pidl);
-                pMalloc->Release();
-            }
-            else
-            {
-                wxLogLastError(wxT("SHGetMalloc"));
-            }
-        }
+    if (pidl)
+    {
+      LPMALLOC pMalloc;
+      SHGetMalloc (&pMalloc);
+      if (pMalloc)
+      {
+        pMalloc->Free(pidl);
+        pMalloc->Release();
+      }
+      else 
+      {
+        wxLogLastError(wxT("SHGetMalloc"));
+      }
+    }
   }
   ~wxItemIdList()
   {
-        Free(m_pidl);
+    Free(m_pidl);
   }
     // implicit conversion to LPITEMIDLIST
   operator LPITEMIDLIST() const
   {
- return m_pidl;
+    return m_pidl;
   }
     // get the corresponding path, returns empty string on error
   wxString GetPath() const
   {
-        wxString path;
-        if ( !SHGetPathFromIDList(m_pidl, wxStringBuffer(path, MAX_PATH)) )
-        {
-            wxLogLastError(wxT("SHGetPathFromIDList"));
-        }
-
-        return path;
+    wxString path;
+    if (!SHGetPathFromIDList(m_pidl, wxStringBuffer(path, MAX_PATH)))
+    {
+      wxLogLastError(wxT("SHGetPathFromIDList"));
+    }
+    return path;
   }
 private:
   LPITEMIDLIST m_pidl;

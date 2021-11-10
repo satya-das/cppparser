@@ -18,13 +18,12 @@ public:
     // constructors and such
   wxTopLevelWindowX11()
   {
- Init();
+    Init();
   }
   wxTopLevelWindowX11(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, title, pos, size, style, name);
+    Init();
+    (void) Create(parent, id, title, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxTopLevelWindowX11();
@@ -39,18 +38,21 @@ public:
   virtual bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL);
   virtual bool IsFullScreen() const
   {
- return m_fsIsShowing;
+    return m_fsIsShowing;
   }
   virtual void SetTitle(const wxString& title);
   virtual wxString GetTitle() const;
     // implementation
   void SetNeedResizeInIdle(bool set = true)
   {
- m_needResizeInIdle = set;
+    m_needResizeInIdle = set;
   }
   void SetConfigureGeometry(int x, int y, int width, int height)
   {
- m_x = x; m_y = y; m_width = width; m_height = height;
+    m_x = x;
+    m_y = y;
+    m_width = width;
+    m_height = height;
   }
   virtual bool SetShape(const wxRegion& region);
     // For implementation purposes - sometimes decorations make the

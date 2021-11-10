@@ -17,10 +17,10 @@ class WXDLLIMPEXP_CORE wxPCXHandler : public wxImageHandler
 public:
   inline wxPCXHandler()
   {
-        m_name = wxT("PCX file");
-        m_extension = wxT("pcx");
-        m_type = wxBITMAP_TYPE_PCX;
-        m_mime = wxT("image/pcx");
+    m_name = wxT("PCX file");
+    m_extension = wxT("pcx");
+    m_type = wxBITMAP_TYPE_PCX;
+    m_mime = wxT("image/pcx");
   }
 #    if  wxUSE_STREAMS
   bool LoadFile(wxImage* image, wxInputStream& stream, bool verbose = true, int index = -1) override;

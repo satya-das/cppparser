@@ -26,7 +26,7 @@ struct SkPDFGraphicStackState
   int fStackDepth = 0;
   SkDynamicMemoryWStream* fContentStream;
   SkPDFGraphicStackState(SkDynamicMemoryWStream* s = nullptr)
-    :  fContentStream(s)
+    : fContentStream(s)
   {
   }
   void updateClip(const SkClipStack* clipStack, const SkIRect& bounds);
@@ -37,7 +37,7 @@ struct SkPDFGraphicStackState
   void drainStack();
   Entry* currentEntry()
   {
- return &fEntries[fStackDepth];
+    return &fEntries[fStackDepth];
   }
 };
 #endif

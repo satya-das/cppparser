@@ -21,23 +21,23 @@ class WXDLLIMPEXP_CORE wxCollapsibleHeaderCtrlBase : public wxControl
 public:
   wxCollapsibleHeaderCtrlBase()
   {
-
   }
   wxCollapsibleHeaderCtrlBase(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxBORDER_NONE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCollapsibleHeaderCtrlNameStr))
   {
-        Create(parent, id, label, pos, size, style, validator, name);
+    Create(parent, id, label, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxBORDER_NONE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCollapsibleHeaderCtrlNameStr))
   {
-        if ( !wxControl::Create(parent, id, pos, size, style, validator, name) )
-            return false;
-
-        SetLabel(label);
-
-        return true;
+    if (!wxControl::Create(parent, id, pos, size, style, validator, name))
+    {
+      return false;
+    }
+    SetLabel(label);
+    return true;
   }
   virtual void SetCollapsed(bool collapsed = true) = 0;
   virtual bool IsCollapsed() const = 0;
+private:
   wxDECLARE_NO_COPY_CLASS(wxCollapsibleHeaderCtrlBase);
 };
 wxDECLARE_EXPORTED_EVENT(WXDLLIMPEXP_CORE, wxEVT_COLLAPSIBLEHEADER_CHANGED, wxCommandEvent);
@@ -52,12 +52,12 @@ class WXDLLIMPEXP_CORE wxCollapsibleHeaderCtrl : public wxGenericCollapsibleHead
 public:
   wxCollapsibleHeaderCtrl()
   {
-
   }
   wxCollapsibleHeaderCtrl(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxBORDER_NONE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxCollapsibleHeaderCtrlNameStr))
   {
-        Create(parent, id, label, pos, size, style, validator, name);
+    Create(parent, id, label, pos, size, style, validator, name);
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxCollapsibleHeaderCtrl);
 };
 #  endif

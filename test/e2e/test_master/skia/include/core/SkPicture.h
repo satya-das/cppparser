@@ -132,7 +132,7 @@ public:
     */
   uint32_t uniqueID() const
   {
- return fUniqueID;
+    return fUniqueID;
   }
     /** Returns storage containing SkData describing SkPicture, using optional custom
         encoders.
@@ -221,7 +221,7 @@ private:
     // Returns NULL if this is not an SkBigPicture.
   virtual const class SkBigPicture* asSkBigPicture() const
   {
- return nullptr;
+    return nullptr;
   }
   friend struct SkPathCounter;
   static bool IsValidPictInfo(const struct SkPictInfo& info);

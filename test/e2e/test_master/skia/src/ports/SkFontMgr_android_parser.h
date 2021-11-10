@@ -25,34 +25,29 @@ class SkLanguage
 public:
   SkLanguage()
   {
-
   }
   SkLanguage(const SkString& tag)
-    :  fTag(tag)
+    : fTag(tag)
   {
-
   }
   SkLanguage(const char* tag)
-    :  fTag(tag)
+    : fTag(tag)
   {
-
   }
   SkLanguage(const char* tag, size_t len)
-    :  fTag(tag, len)
+    : fTag(tag, len)
   {
-
   }
   SkLanguage(const SkLanguage& b)
-    :  fTag(b.fTag)
+    : fTag(b.fTag)
   {
-
   }
     /** Gets a BCP 47 language identifier for this SkLanguage.
         @return a BCP 47 language identifier representing this language
     */
   const SkString& getTag() const
   {
- return fTag;
+    return fTag;
   }
     /** Performs BCP 47 fallback to return an SkLanguage one step more general.
         @return an SkLanguage one step more general
@@ -60,16 +55,16 @@ public:
   SkLanguage getParent() const;
   bool operator==(const SkLanguage& b) const
   {
-        return fTag == b.fTag;
+    return fTag == b.fTag;
   }
   bool operator!=(const SkLanguage& b) const
   {
-        return fTag != b.fTag;
+    return fTag != b.fTag;
   }
   SkLanguage& operator=(const SkLanguage& b)
   {
-        fTag = b.fTag;
-        return *this;
+    fTag = b.fTag;
+    return *this;
   }
 private:
     //! BCP 47 language identifier
@@ -86,9 +81,10 @@ typedef uint32_t FontVariant;
 struct FontFileInfo
 {
   FontFileInfo()
-    :  fIndex(0), fWeight(0), fStyle(Style::kAuto)
+    : fIndex(0)
+    , fWeight(0)
+    , fStyle(Style::kAuto)
   {
-
   }
   SkString fFileName;
   int fIndex;
@@ -108,12 +104,11 @@ struct FontFileInfo
 struct FontFamily
 {
   FontFamily(const SkString& basePath, bool isFallbackFont)
-    :  fVariant(kDefault_FontVariant)
-        , fOrder(-1)
-        , fIsFallbackFont(isFallbackFont)
-        , fBasePath(basePath)
+    : fVariant(kDefault_FontVariant)
+    , fOrder(-1)
+    , fIsFallbackFont(isFallbackFont)
+    , fBasePath(basePath)
   {
-
   }
   SkTArray<SkString, true> fNames;
   SkTArray<FontFileInfo, true> fFonts;
@@ -140,29 +135,31 @@ namespace SkFontMgr_Android_Parser
 template <typename T>
 static bool parse_non_negative_integer(const char* s, T* value)
 {
-    static_assert(std::numeric_limits<T>::is_integer, "T_must_be_integer");
-
-    if (*s == '\0') {
-        return false;
-    }
-
-    const T nMax = std::numeric_limits<T>::max() / 10;
-    const T dMax = std::numeric_limits<T>::max() - (nMax * 10);
-    T n = 0;
-    for (; *s; ++s) {
+  static_assert(std::numeric_limits<T>::is_integer, "T_must_be_integer");
+  if (*s == '\0')
+  {
+    return false;
+  }
+  const T nMax = std::numeric_limits<T>::max() / 10;
+  const T dMax = std::numeric_limits<T>::max() - (nMax * 10);
+  T n = 0;
+  for (; *s; ++s)
+  {
         // Check if digit
-        if (*s < '0' || '9' < *s) {
-            return false;
-        }
-        T d = *s - '0';
-        // Check for overflow
-        if (n > nMax || (n == nMax && d > dMax)) {
-            return false;
-        }
-        n = (n * 10) + d;
+    if (*s < '0' || '9' < *s)
+    {
+      return false;
     }
-    *value = n;
-    return true;
+    T d = *s - '0';
+        // Check for overflow
+    if (n > nMax || (n == nMax && d > dMax))
+    {
+      return false;
+    }
+    n = (n * 10) + d;
+  }
+  *value = n;
+  return true;
 }
 /** Parses a null terminated string into a signed fixed point value with bias N.
  *
@@ -178,55 +175,63 @@ static bool parse_non_negative_integer(const char* s, T* value)
 template <int N, typename T>
 static bool parse_fixed(const char* s, T* value)
 {
-    static_assert(std::numeric_limits<T>::is_integer, "T_must_be_integer");
-    static_assert(std::numeric_limits<T>::is_signed, "T_must_be_signed");
-    static_assert(sizeof(T) * CHAR_BIT - N >= 5, "N_must_leave_four_bits_plus_sign");
-
-    bool negate = false;
-    if (*s == '-') {
-        ++s;
-        negate = true;
-    }
-    if (*s == '\0') {
-        return false;
-    }
-
-    const T nMax = (std::numeric_limits<T>::max() >> N) / 10;
-    const T dMax = (std::numeric_limits<T>::max() >> N) - (nMax * 10);
-    T n = 0;
-    T frac = 0;
-    for (; *s; ++s) {
+  static_assert(std::numeric_limits<T>::is_integer, "T_must_be_integer");
+  static_assert(std::numeric_limits<T>::is_signed, "T_must_be_signed");
+  static_assert(sizeof(T) * CHAR_BIT - N >= 5, "N_must_leave_four_bits_plus_sign");
+  bool negate = false;
+  if (*s == '-')
+  {
+    ++s;
+    negate = true;
+  }
+  if (*s == '\0')
+  {
+    return false;
+  }
+  const T nMax = (std::numeric_limits<T>::max() >> N) / 10;
+  const T dMax = (std::numeric_limits<T>::max() >> N) - (nMax * 10);
+  T n = 0;
+  T frac = 0;
+  for (; *s; ++s)
+  {
         // Check if digit
-        if (*s < '0' || '9' < *s) {
+    if (*s < '0' || '9' < *s)
+    {
             // If it wasn't a digit, check if it is a '.' followed by something.
-            if (*s != '.' || s[1] == '\0') {
-                return false;
-            }
+      if (*s != '.' || s[1] == '\0')
+      {
+        return false;
+      }
             // Find the end, verify digits.
-            for (++s; *s; ++s) {
-                if (*s < '0' || '9' < *s) {
-                    return false;
-                }
-            }
+      for (++s; *s; ++s)
+      {
+        if (*s < '0' || '9' < *s)
+        {
+          return false;
+        }
+      }
             // Read back toward the '.'.
-            for (--s; *s != '.'; --s) {
-                T d = *s - '0';
-                frac = (frac + (d << N)) / 10; // This requires four bits overhead.
-            }
-            break;
-        }
+      for (--s; *s != '.'; --s)
+      {
         T d = *s - '0';
+        frac = (frac + (d << N)) / 10;
+      }
+      break;
+    }
+    T d = *s - '0';
         // Check for overflow
-        if (n > nMax || (n == nMax && d > dMax)) {
-            return false;
-        }
-        n = (n * 10) + d;
+    if (n > nMax || (n == nMax && d > dMax))
+    {
+      return false;
     }
-    if (negate) {
-        n = -n;
-        frac = -frac;
-    }
-    *value = SkLeftShift(n, N) + frac;
-    return true;
+    n = (n * 10) + d;
+  }
+  if (negate)
+  {
+    n = -n;
+    frac = -frac;
+  }
+  *value = SkLeftShift(n, N) + frac;
+  return true;
 }
 #endif

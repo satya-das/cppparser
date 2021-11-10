@@ -17,72 +17,69 @@ public:
   wxGTKDCImpl(wxDC* owner);
   virtual ~wxGTKDCImpl()
   {
-
   }
 #  if  wxUSE_PALETTE
   void SetColourMap(const wxPalette& palette)
   {
- SetPalette(palette);
+    SetPalette(palette);
   }
 #  endif
     // Resolution in pixels per logical inch
   virtual wxSize GetPPI() const;
   virtual bool StartDoc(const wxString&)
   {
- return true;
+    return true;
   }
   virtual void EndDoc()
   {
-
   }
   virtual void StartPage()
   {
-
   }
   virtual void EndPage()
   {
-
   }
   virtual GdkWindow* GetGDKWindow() const
   {
- return NULL;
+    return NULL;
   }
     // implementation
   wxCoord XDEV2LOG(wxCoord x) const
   {
- return DeviceToLogicalX(x);
+    return DeviceToLogicalX(x);
   }
   wxCoord XDEV2LOGREL(wxCoord x) const
   {
- return DeviceToLogicalXRel(x);
+    return DeviceToLogicalXRel(x);
   }
   wxCoord YDEV2LOG(wxCoord y) const
   {
- return DeviceToLogicalY(y);
+    return DeviceToLogicalY(y);
   }
   wxCoord YDEV2LOGREL(wxCoord y) const
   {
- return DeviceToLogicalYRel(y);
+    return DeviceToLogicalYRel(y);
   }
   wxCoord XLOG2DEV(wxCoord x) const
   {
- return LogicalToDeviceX(x);
+    return LogicalToDeviceX(x);
   }
   wxCoord XLOG2DEVREL(wxCoord x) const
   {
- return LogicalToDeviceXRel(x);
+    return LogicalToDeviceXRel(x);
   }
   wxCoord YLOG2DEV(wxCoord y) const
   {
- return LogicalToDeviceY(y);
+    return LogicalToDeviceY(y);
   }
   wxCoord YLOG2DEVREL(wxCoord y) const
   {
- return LogicalToDeviceYRel(y);
+    return LogicalToDeviceYRel(y);
   }
     // base class pure virtuals implemented here
   virtual void DoSetClippingRegion(wxCoord x, wxCoord y, wxCoord width, wxCoord height);
   virtual void DoGetSizeMM(int* width, int* height) const;
+private:
   wxDECLARE_ABSTRACT_CLASS(wxDC);
 };
 // this must be defined when wxDC::Blit() honours the DC origian and needed to

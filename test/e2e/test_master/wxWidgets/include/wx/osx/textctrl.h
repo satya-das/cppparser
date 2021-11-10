@@ -9,16 +9,14 @@
 /////////////////////////////////////////////////////////////////////////////
 #ifndef _WX_TEXTCTRL_H_
 #  define _WX_TEXTCTRL_H_
-#  if  wxUSE_SYSTEM_OPTIONS
     // set this to 'true' if you want to use the 'classic' MLTE-based implementation
     // instead of the HIView-based implementation in 10.3 and upwards, the former
     // has more features (backgrounds etc.), but may show redraw artefacts and other
     // problems depending on your usage; hence, the default is 'false'.
-#    define wxMAC_TEXTCONTROL_USE_MLTE	wxT("mac.textcontrol-use-mlte")
+#  define wxMAC_TEXTCONTROL_USE_MLTE	wxT("mac.textcontrol-use-mlte")
     // set this to 'true' if you want editable text controls to have spell checking turned
     // on by default, you can change this setting individually on a control using MacCheckSpelling
-#    define wxMAC_TEXTCONTROL_USE_SPELL_CHECKER	wxT("mac.textcontrol-use-spell-checker")
-#  endif
+#  define wxMAC_TEXTCONTROL_USE_SPELL_CHECKER	wxT("mac.textcontrol-use-spell-checker")
 #  include "wx/control.h"
 #  include "wx/textctrl.h"
 class WXDLLIMPEXP_CORE wxTextCtrl : public wxTextCtrlBase
@@ -27,12 +25,12 @@ class WXDLLIMPEXP_CORE wxTextCtrl : public wxTextCtrlBase
 public:
   wxTextCtrl()
   {
- Init();
+    Init();
   }
   wxTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr))
   {
-        Init();
-        Create(parent, id, value, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, value, pos, size, style, validator, name);
   }
   virtual ~wxTextCtrl();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));

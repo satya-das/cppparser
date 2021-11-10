@@ -25,7 +25,6 @@ public:
   virtual ~GrVkOpsRenderPass();
   void begin() override
   {
-
   }
   void end() override;
   void insertEventMarker(const char*) override;
@@ -37,7 +36,7 @@ public:
 #  ifdef SK_DEBUG
   bool isActive() const
   {
- return fIsActive;
+    return fIsActive;
   }
 #  endif
 private:
@@ -56,15 +55,12 @@ private:
     // Marked final as a hint to the compiler to not use virtual dispatch.
   void sendMeshToGpu(GrPrimitiveType primType, const GrBuffer* vertexBuffer, int vertexCount, int baseVertex) final
   {
-        this->sendInstancedMeshToGpu(primType, vertexBuffer, vertexCount, baseVertex, nullptr, 1,
-                                     0);
+    this->sendInstancedMeshToGpu(primType, vertexBuffer, vertexCount, baseVertex, nullptr, 1, 0);
   }
   void sendIndexedMeshToGpu(GrPrimitiveType primType, const GrBuffer* indexBuffer, int indexCount, int baseIndex, uint16_t, uint16_t, const GrBuffer* vertexBuffer, int baseVertex, GrPrimitiveRestart restart) final
   {
-        SkASSERT(restart == GrPrimitiveRestart::kNo);
-        this->sendIndexedInstancedMeshToGpu(primType, indexBuffer, indexCount, baseIndex,
-                                            vertexBuffer, baseVertex, nullptr, 1, 0,
-                                            GrPrimitiveRestart::kNo);
+    SkASSERT(restart == GrPrimitiveRestart::kNo);
+    this->sendIndexedInstancedMeshToGpu(primType, indexBuffer, indexCount, baseIndex, vertexBuffer, baseVertex, nullptr, 1, 0, GrPrimitiveRestart::kNo);
   }
   void sendInstancedMeshToGpu(GrPrimitiveType, const GrBuffer* vertexBuffer, int vertexCount, int baseVertex, const GrBuffer* instanceBuffer, int instanceCount, int baseInstance) final;
   void sendIndexedInstancedMeshToGpu(GrPrimitiveType, const GrBuffer* indexBuffer, int indexCount, int baseIndex, const GrBuffer* vertexBuffer, int baseVertex, const GrBuffer* instanceBuffer, int instanceCount, int baseInstance, GrPrimitiveRestart) final;

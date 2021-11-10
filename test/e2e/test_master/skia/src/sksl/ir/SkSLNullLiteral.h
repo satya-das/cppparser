@@ -16,32 +16,32 @@ namespace SkSL
   struct NullLiteral : public Expression
   {
     NullLiteral(const Context& context, int offset)
-      :  INHERITED(offset, kNullLiteral_Kind, *context.fNull_Type)
+      : INHERITED(offset, kNullLiteral_Kind, *context.fNull_Type)
     {
     }
     NullLiteral(int offset, const Type& type)
-      :  INHERITED(offset, kNullLiteral_Kind, type)
+      : INHERITED(offset, kNullLiteral_Kind, type)
     {
     }
     String description() const override
     {
-        return "null";
+      return "null";
     }
     bool hasSideEffects() const override
     {
-        return false;
+      return false;
     }
     bool isConstant() const override
     {
-        return true;
+      return true;
     }
     bool compareConstant(const Context& context, const Expression& other) const override
     {
-        return true;
+      return true;
     }
     std::unique_ptr<Expression> clone() const override
     {
-        return std::unique_ptr<Expression>(new NullLiteral(fOffset, fType));
+      return std::unique_ptr<Expression>(new NullLiteral(fOffset, fType));
     }
     typedef Expression INHERITED;
   };

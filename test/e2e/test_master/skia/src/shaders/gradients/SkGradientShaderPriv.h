@@ -23,8 +23,8 @@ public:
   {
     Descriptor()
     {
-            sk_bzero(this, sizeof(*this));
-            fTileMode = SkTileMode::kClamp;
+      sk_bzero(this, sizeof(*this));
+      fTileMode = SkTileMode::kClamp;
     }
     const SkMatrix* fLocalMatrix;
     const SkColor4f* fColors;
@@ -46,11 +46,11 @@ public:
         //
     SkColor4f* mutableColors()
     {
- return const_cast<SkColor4f*>(fColors);
+      return const_cast<SkColor4f*>(fColors);
     }
     SkScalar* mutablePos()
     {
- return const_cast<SkScalar*>(fPos);
+      return const_cast<SkScalar*>(fPos);
     }
   private:
     SkSTArray<16, SkColor4f, true> fColorStorage;
@@ -62,11 +62,11 @@ public:
   bool isOpaque() const override;
   uint32_t getGradFlags() const
   {
- return fGradFlags;
+    return fGradFlags;
   }
   const SkMatrix& getGradientMatrix() const
   {
- return fPtsToUnit;
+    return fPtsToUnit;
   }
 protected:
   class GradientShaderBase4fContext;
@@ -79,11 +79,12 @@ protected:
   template <typename T, typename... Args>
   static Context* CheckedMakeContext(SkArenaAlloc* alloc, Args&&... args)
   {
-        auto* ctx = alloc->make<T>(std::forward<Args>(args)...);
-        if (!ctx->isValid()) {
-            return nullptr;
-        }
-        return ctx;
+    auto* ctx = alloc->make<T>(std::forward<Args>(args)...);
+    if (!ctx->isValid())
+    {
+      return nullptr;
+    }
+    return ctx;
   }
   const SkMatrix fPtsToUnit;
   SkTileMode fTileMode;
@@ -91,21 +92,22 @@ protected:
 public:
   SkScalar getPos(int i) const
   {
-        SkASSERT(i < fColorCount);
-        return fOrigPos ? fOrigPos[i] : SkIntToScalar(i) / (fColorCount - 1);
+    SkASSERT(i < fColorCount);
+    return fOrigPos ? fOrigPos[i] : SkIntToScalar(i) / (fColorCount - 1);
   }
   SkColor getLegacyColor(int i) const
   {
-        SkASSERT(i < fColorCount);
-        return fOrigColors4f[i].toSkColor();
+    SkASSERT(i < fColorCount);
+    return fOrigColors4f[i].toSkColor();
   }
   bool colorsCanConvertToSkColor() const
   {
-        bool canConvert = true;
-        for (int i = 0; i < fColorCount; ++i) {
-            canConvert &= fOrigColors4f[i].fitsInBytes();
-        }
-        return canConvert;
+    bool canConvert = true;
+    for (int i = 0; i < fColorCount; ++i)
+    {
+      canConvert &= fOrigColors4f[i].fitsInBytes();
+    }
+    return canConvert;
   }
   SkColor4f* fOrigColors4f;
   SkScalar* fOrigPos;
@@ -113,11 +115,11 @@ public:
   sk_sp<SkColorSpace> fColorSpace;
   bool colorsAreOpaque() const
   {
- return fColorsAreOpaque;
+    return fColorsAreOpaque;
   }
   SkTileMode getTileMode() const
   {
- return fTileMode;
+    return fTileMode;
   }
 private:
     // Reserve inline space for up to 4 stops.

@@ -19,6 +19,6 @@ private:
   wxScopedPtr<QApplication> m_qtApplication;
   int m_qtArgc;
   wxScopedArray<char*> m_qtArgv;
-  wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxApp);
+  wxDECLARE_DYNAMIC_CLASS_NO_COPY( wxApp );
 };
 #endif

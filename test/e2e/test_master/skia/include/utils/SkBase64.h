@@ -19,7 +19,7 @@ public:
   Error decode(const char* src, size_t length);
   char* getData()
   {
- return fData;
+    return fData;
   }
     /**
        Base64 encodes src into dst. encode is a pointer to at least 65 chars.

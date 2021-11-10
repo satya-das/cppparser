@@ -34,45 +34,46 @@ public:
     // ctor initializes the range with the default (0..100) values
   wxSpinButtonBase()
   {
- m_min = 0; m_max = 100;
+    m_min = 0;
+    m_max = 100;
   }
     // accessors
   virtual int GetValue() const = 0;
   virtual int GetMin() const
   {
- return m_min;
+    return m_min;
   }
   virtual int GetMax() const
   {
- return m_max;
+    return m_max;
   }
   wxRange GetRange() const
   {
- return wxRange( GetMin(), GetMax() );
+    return wxRange(GetMin(), GetMax());
   }
     // operations
   virtual void SetValue(int val) = 0;
   virtual void SetMin(int minVal)
   {
- SetRange ( minVal , m_max ) ;
+    SetRange(minVal, m_max);
   }
   virtual void SetMax(int maxVal)
   {
- SetRange ( m_min , maxVal ) ;
+    SetRange(m_min, maxVal);
   }
   virtual void SetRange(int minVal, int maxVal)
   {
-        m_min = minVal;
-        m_max = maxVal;
+    m_min = minVal;
+    m_max = maxVal;
   }
   void SetRange(const wxRange& range)
   {
- SetRange( range.GetMin(), range.GetMax());
+    SetRange(range.GetMin(), range.GetMax());
   }
     // is this spin button vertically oriented?
   bool IsVertical() const
   {
- return (m_windowStyle & wxSP_VERTICAL) != 0;
+    return (m_windowStyle & wxSP_VERTICAL) != 0;
   }
 protected:
     // the range value
@@ -105,35 +106,35 @@ class WXDLLIMPEXP_CORE wxSpinEvent : public wxNotifyEvent
 {
 public:
   wxSpinEvent(wxEventType commandType = wxEVT_NULL, int winid = 0)
-    :  wxNotifyEvent(commandType, winid)
+    : wxNotifyEvent(commandType, winid)
   {
-
   }
   wxSpinEvent(const wxSpinEvent& event)
-    :  wxNotifyEvent(event)
+    : wxNotifyEvent(event)
   {
   }
     // get the current value of the control
   int GetValue() const
   {
- return m_commandInt;
+    return m_commandInt;
   }
   void SetValue(int value)
   {
- m_commandInt = value;
+    m_commandInt = value;
   }
   int GetPosition() const
   {
- return m_commandInt;
+    return m_commandInt;
   }
   void SetPosition(int pos)
   {
- m_commandInt = pos;
+    m_commandInt = pos;
   }
   wxEvent* Clone() const override
   {
- return new wxSpinEvent(*this);
+    return new wxSpinEvent(*this);
   }
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxSpinEvent);
 };
 typedef void (*wxSpinEventFunction) (wxSpinEvent&);

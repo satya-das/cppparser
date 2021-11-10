@@ -19,68 +19,69 @@ namespace wxMSWImpl
   {
   public:
     wxTextColoursChanger(HDC hdc, const wxMSWDCImpl& dc)
-      :  m_hdc(hdc)
+      : m_hdc(hdc)
     {
-        Change(dc.GetTextForeground(), dc.GetTextBackground());
+      Change(dc.GetTextForeground(), dc.GetTextBackground());
     }
     wxTextColoursChanger(HDC hdc, const wxColour& colFg, const wxColour& colBg)
-      :  m_hdc(hdc)
+      : m_hdc(hdc)
     {
-        Change(colFg, colBg);
+      Change(colFg, colBg);
     }
     wxTextColoursChanger(HDC hdc, COLORREF colFg, COLORREF colBg)
-      :  m_hdc(hdc)
+      : m_hdc(hdc)
     {
-        Change(colFg, colBg);
+      Change(colFg, colBg);
     }
     ~wxTextColoursChanger()
     {
-        if ( m_oldColFg != CLR_INVALID )
-            ::SetTextColor(m_hdc, m_oldColFg);
-        if ( m_oldColBg != CLR_INVALID )
-            ::SetBkColor(m_hdc, m_oldColBg);
+      if (m_oldColFg != CLR_INVALID)
+      {
+        ::SetTextColor(m_hdc, m_oldColFg);
+      }
+      if (m_oldColBg != CLR_INVALID)
+      {
+        ::SetBkColor(m_hdc, m_oldColBg);
+      }
     }
   protected:
     // this ctor doesn't change mode immediately, call Change() later to do it
     // only if needed
     wxTextColoursChanger(HDC hdc)
-      :  m_hdc(hdc)
+      : m_hdc(hdc)
     {
-        m_oldColFg =
-        m_oldColBg = CLR_INVALID;
+      m_oldColFg = m_oldColBg = CLR_INVALID;
     }
     void Change(const wxColour& colFg, const wxColour& colBg)
     {
-        Change(colFg.IsOk() ? colFg.GetPixel() : CLR_INVALID,
-               colBg.IsOk() ? colBg.GetPixel() : CLR_INVALID);
+      Change(colFg.IsOk() ? colFg.GetPixel() : CLR_INVALID, colBg.IsOk() ? colBg.GetPixel() : CLR_INVALID);
     }
     void Change(COLORREF colFg, COLORREF colBg)
     {
-        if ( colFg != CLR_INVALID )
+      if (colFg != CLR_INVALID)
+      {
+        m_oldColFg = ::SetTextColor(m_hdc, colFg);
+        if (m_oldColFg == CLR_INVALID)
         {
-            m_oldColFg = ::SetTextColor(m_hdc, colFg);
-            if ( m_oldColFg == CLR_INVALID )
-            {
-                wxLogLastError(wxT("SetTextColor"));
-            }
+          wxLogLastError(wxT("SetTextColor"));
         }
-        else
+      }
+      else 
+      {
+        m_oldColFg = CLR_INVALID;
+      }
+      if (colBg != CLR_INVALID)
+      {
+        m_oldColBg = ::SetBkColor(m_hdc, colBg);
+        if (m_oldColBg == CLR_INVALID)
         {
-            m_oldColFg = CLR_INVALID;
+          wxLogLastError(wxT("SetBkColor"));
         }
-
-        if ( colBg != CLR_INVALID )
-        {
-            m_oldColBg = ::SetBkColor(m_hdc, colBg);
-            if ( m_oldColBg == CLR_INVALID )
-            {
-                wxLogLastError(wxT("SetBkColor"));
-            }
-        }
-        else
-        {
-            m_oldColBg = CLR_INVALID;
-        }
+      }
+      else 
+      {
+        m_oldColBg = CLR_INVALID;
+      }
     }
   private:
     const HDC m_hdc;
@@ -93,32 +94,32 @@ namespace wxMSWImpl
   public:
     // set background mode to opaque if mode != wxBRUSHSTYLE_TRANSPARENT
     wxBkModeChanger(HDC hdc, int mode)
-      :  m_hdc(hdc)
+      : m_hdc(hdc)
     {
-        Change(mode);
+      Change(mode);
     }
     ~wxBkModeChanger()
     {
-        if ( m_oldMode )
-            ::SetBkMode(m_hdc, m_oldMode);
+      if (m_oldMode)
+      {
+        ::SetBkMode(m_hdc, m_oldMode);
+      }
     }
   protected:
     // this ctor doesn't change mode immediately, call Change() later to do it
     // only if needed
     wxBkModeChanger(HDC hdc)
-      :  m_hdc(hdc)
+      : m_hdc(hdc)
     {
- m_oldMode = 0;
+      m_oldMode = 0;
     }
     void Change(int mode)
     {
-        m_oldMode = ::SetBkMode(m_hdc, mode == wxBRUSHSTYLE_TRANSPARENT
-                                        ? TRANSPARENT
-                                        : OPAQUE);
-        if ( !m_oldMode )
-        {
-            wxLogLastError(wxT("SetBkMode"));
-        }
+      m_oldMode = ::SetBkMode(m_hdc, mode == wxBRUSHSTYLE_TRANSPARENT ? TRANSPARENT : OPAQUE);
+      if (!m_oldMode)
+      {
+        wxLogLastError(wxT("SetBkMode"));
+      }
     }
   private:
     const HDC m_hdc;

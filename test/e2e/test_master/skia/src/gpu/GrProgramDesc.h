@@ -40,66 +40,69 @@ public:
   static bool Build(GrProgramDesc*, const GrRenderTarget*, const GrPrimitiveProcessor&, bool hasPointSize, const GrPipeline&, GrGpu*);
   static bool BuildFromData(GrProgramDesc* desc, const void* keyData, size_t keyLength)
   {
-        if (!SkTFitsIn<int>(keyLength)) {
-            return false;
-        }
-        desc->fKey.reset(SkToInt(keyLength));
-        memcpy(desc->fKey.begin(), keyData, keyLength);
-        return true;
+    if (!SkTFitsIn<int>(keyLength))
+    {
+      return false;
+    }
+    desc->fKey.reset(SkToInt(keyLength));
+    memcpy(desc->fKey.begin(), keyData, keyLength);
+    return true;
   }
     // Returns this as a uint32_t array to be used as a key in the program cache.
   const uint32_t* asKey() const
   {
-        return reinterpret_cast<const uint32_t*>(fKey.begin());
+    return reinterpret_cast<const uint32_t*>(fKey.begin());
   }
     // Gets the number of bytes in asKey(). It will be a 4-byte aligned value.
   uint32_t keyLength() const
   {
-        SkASSERT(0 == (fKey.count() % 4));
-        return fKey.count();
+    SkASSERT(0 == (fKey.count() % 4));
+    return fKey.count();
   }
   GrProgramDesc& operator=(const GrProgramDesc& other)
   {
-        uint32_t keyLength = other.keyLength();
-        fKey.reset(SkToInt(keyLength));
-        memcpy(fKey.begin(), other.fKey.begin(), keyLength);
-        return *this;
+    uint32_t keyLength = other.keyLength();
+    fKey.reset(SkToInt(keyLength));
+    memcpy(fKey.begin(), other.fKey.begin(), keyLength);
+    return *this;
   }
   bool operator==(const GrProgramDesc& that) const
   {
-        if (this->keyLength() != that.keyLength()) {
-            return false;
-        }
-
-        SkASSERT(SkIsAlign4(this->keyLength()));
-        int l = this->keyLength() >> 2;
-        const uint32_t* aKey = this->asKey();
-        const uint32_t* bKey = that.asKey();
-        for (int i = 0; i < l; ++i) {
-            if (aKey[i] != bKey[i]) {
-                return false;
-            }
-        }
-        return true;
+    if (this->keyLength() != that.keyLength())
+    {
+      return false;
+    }
+    SkASSERT(SkIsAlign4(this->keyLength()));
+    int l = this->keyLength() >> 2;
+    const uint32_t* aKey = this->asKey();
+    const uint32_t* bKey = that.asKey();
+    for (int i = 0; i < l; ++i)
+    {
+      if (aKey[i] != bKey[i])
+      {
+        return false;
+      }
+    }
+    return true;
   }
   bool operator!=(const GrProgramDesc& other) const
   {
-        return !(*this == other);
+    return !(*this == other);
   }
   void setSurfaceOriginKey(int key)
   {
-        KeyHeader* header = this->atOffset<KeyHeader, kHeaderOffset>();
-        header->fSurfaceOriginKey = key;
+    KeyHeader* header = this->atOffset<KeyHeader, kHeaderOffset>();
+    header->fSurfaceOriginKey = key;
   }
   struct KeyHeader
   {
     bool hasSurfaceOriginKey() const
     {
-            return SkToBool(fSurfaceOriginKey);
+      return SkToBool(fSurfaceOriginKey);
     }
     GrProcessor::CustomFeatures processorFeatures() const
     {
-            return (GrProcessor::CustomFeatures)fProcessorFeatures;
+      return (GrProcessor::CustomFeatures) fProcessorFeatures;
     }
         // Set to uniquely idenitify any swizzling of the shader's output color(s).
     uint16_t fOutputSwizzle;
@@ -116,18 +119,18 @@ public:
     // This should really only be used internally, base classes should return their own headers
   const KeyHeader& header() const
   {
- return *this->atOffset<KeyHeader, kHeaderOffset>();
+    return *this->atOffset<KeyHeader, kHeaderOffset>();
   }
 protected:
   template <typename T, size_t OFFSET>
   T* atOffset()
   {
-        return reinterpret_cast<T*>(reinterpret_cast<intptr_t>(fKey.begin()) + OFFSET);
+    return reinterpret_cast<T*>(reinterpret_cast<intptr_t>(fKey.begin()) + OFFSET);
   }
   template <typename T, size_t OFFSET>
   const T* atOffset() const
   {
-        return reinterpret_cast<const T*>(reinterpret_cast<intptr_t>(fKey.begin()) + OFFSET);
+    return reinterpret_cast<const T*>(reinterpret_cast<intptr_t>(fKey.begin()) + OFFSET);
   }
     // The key, stored in fKey, is composed of two parts:
     // 1. Header struct defined above.
@@ -148,11 +151,11 @@ protected:
   };
   SkSTArray<kPreAllocSize, uint8_t, true>& key()
   {
- return fKey;
+    return fKey;
   }
   const SkSTArray<kPreAllocSize, uint8_t, true>& key() const
   {
- return fKey;
+    return fKey;
   }
 private:
   SkSTArray<kPreAllocSize, uint8_t, true> fKey;

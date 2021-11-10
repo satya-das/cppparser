@@ -19,34 +19,39 @@ public:
     // for it
   wxTlsKey(wxTlsDestructorFunction destructor)
   {
-        m_destructor = destructor;
-        if ( pthread_key_create(&m_key, destructor) != 0 )
-            m_key = 0;
+    m_destructor = destructor;
+    if (pthread_key_create(&m_key, destructor) != 0)
+    {
+      m_key = 0;
+    }
   }
     // return true if the key was successfully allocated
   bool IsOk() const
   {
- return m_key != 0;
+    return m_key != 0;
   }
     // get the key value, there is no error return
   void* Get() const
   {
-        return pthread_getspecific(m_key);
+    return pthread_getspecific(m_key);
   }
     // change the key value, return true if ok
   bool Set(void* value)
   {
-        void *old = Get();
-        if ( old )
-            m_destructor(old);
-
-        return pthread_setspecific(m_key, value) == 0;
+    void* old = Get();
+    if (old)
+    {
+      m_destructor(old);
+    }
+    return pthread_setspecific(m_key, value) == 0;
   }
     // free the key
   ~wxTlsKey()
   {
-        if ( IsOk() )
-            pthread_key_delete(m_key);
+    if (IsOk())
+    {
+      pthread_key_delete(m_key);
+    }
   }
 private:
   wxTlsDestructorFunction m_destructor;

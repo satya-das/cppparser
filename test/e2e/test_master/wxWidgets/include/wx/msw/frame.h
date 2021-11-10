@@ -18,13 +18,12 @@ public:
     // construction
   wxFrame()
   {
- Init();
+    Init();
   }
   wxFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        Create(parent, id, title, pos, size, style, name);
+    Init();
+    Create(parent, id, title, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxFrame();
@@ -49,11 +48,11 @@ public:
     // TODO: should this go into a wxFrameworkSettings class perhaps?
   static void UseNativeStatusBar(bool useNative)
   {
- m_useNativeStatusBar = useNative;
+    m_useNativeStatusBar = useNative;
   }
   static bool UsesNativeStatusBar()
   {
- return m_useNativeStatusBar;
+    return m_useNativeStatusBar;
   }
 #  endif
     // event handlers
@@ -63,11 +62,11 @@ public:
 #  if  wxUSE_TOOLTIPS
   WXHWND GetToolTipCtrl() const
   {
- return m_hwndToolTip;
+    return m_hwndToolTip;
   }
   void SetToolTipCtrl(WXHWND hwndTT)
   {
- m_hwndToolTip = hwndTT;
+    m_hwndToolTip = hwndTT;
   }
 #  endif
     // override the base class function to handle iconized/maximized frames
@@ -76,7 +75,7 @@ public:
     // override base class version to add menu bar accel processing
   bool MSWTranslateMessage(WXMSG* msg) override
   {
-        return MSWDoTranslateMessage(this, msg);
+    return MSWDoTranslateMessage(this, msg);
   }
     // window proc for the frames
   WXLRESULT MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam) override;
@@ -85,7 +84,7 @@ public:
     // normal frames but is overridden by wxMDIParentFrame
   virtual WXHMENU MSWGetActiveMenu() const
   {
- return m_hMenu;
+    return m_hMenu;
   }
   bool HandleMenuSelect(WXWORD nItem, WXWORD nFlags, WXHMENU hMenu) override;
   bool DoSendMenuOpenCloseEvent(wxEventType evtType, wxMenu* menu) override;
@@ -120,7 +119,7 @@ protected:
   bool MSWDoTranslateMessage(wxFrame* frame, WXMSG* msg);
   virtual bool IsMDIChild() const
   {
- return false;
+    return false;
   }
     // get default (wxWidgets) icon for the frame
   virtual WXHICON GetDefaultIcon() const;

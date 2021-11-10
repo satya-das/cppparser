@@ -25,7 +25,7 @@ public:
   bool MouseMove(long x, long y);
   bool MouseMove(const wxPoint& point)
   {
- return MouseMove(point.x, point.y);
+    return MouseMove(point.x, point.y);
   }
   bool MouseDown(int button = wxMOUSE_BTN_LEFT);
   bool MouseUp(int button = wxMOUSE_BTN_LEFT);
@@ -35,7 +35,7 @@ public:
   bool MouseDragDrop(long x1, long y1, long x2, long y2, int button = wxMOUSE_BTN_LEFT);
   bool MouseDragDrop(const wxPoint& p1, const wxPoint& p2, int button = wxMOUSE_BTN_LEFT)
   {
- return MouseDragDrop(p1.x, p1.y, p2.x, p2.y, button);
+    return MouseDragDrop(p1.x, p1.y, p2.x, p2.y, button);
   }
     // Keyboard simulation
     // -------------------
@@ -43,11 +43,11 @@ public:
     // Low level methods for generating key presses and releases
   bool KeyDown(int keycode, int modifiers = wxMOD_NONE)
   {
- return Key(keycode, modifiers, true);
+    return Key(keycode, modifiers, true);
   }
   bool KeyUp(int keycode, int modifiers = wxMOD_NONE)
   {
- return Key(keycode, modifiers, false);
+    return Key(keycode, modifiers, false);
   }
     // Higher level methods for generating both the key press and release for a
     // single key or for all characters in the ASCII string "text" which can currently

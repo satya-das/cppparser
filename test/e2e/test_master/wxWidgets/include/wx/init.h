@@ -38,10 +38,8 @@ extern void WXDLLIMPEXP_BASE wxEntryCleanup();
 // returns the program exit code
 extern int WXDLLIMPEXP_BASE wxEntry(int& argc, wxChar** argv);
 // we overload wxEntry[Start]() to take "char **" pointers too
-#  if  wxUSE_UNICODE
 extern bool WXDLLIMPEXP_BASE wxEntryStart(int& argc, char** argv);
 extern int WXDLLIMPEXP_BASE wxEntry(int& argc, char** argv);
-#  endif
 // Under Windows we define additional wxEntry() overloads with signature
 // compatible with WinMain() and not the traditional main().
 #  ifdef __WINDOWS__
@@ -57,9 +55,7 @@ extern int WXDLLIMPEXP_BASE wxEntry(int& argc, char** argv);
 // call to wxInitialize() must be matched by wxUninitialize())
 extern bool WXDLLIMPEXP_BASE wxInitialize();
 extern bool WXDLLIMPEXP_BASE wxInitialize(int& argc, wxChar** argv);
-#  if  wxUSE_UNICODE
 extern bool WXDLLIMPEXP_BASE wxInitialize(int& argc, char** argv);
-#  endif
 // clean up -- the library can't be used any more after the last call to
 // wxUninitialize()
 extern void WXDLLIMPEXP_BASE wxUninitialize();
@@ -71,32 +67,33 @@ public:
     // initialize the library
   wxInitializer()
   {
-        m_ok = wxInitialize();
+    m_ok = wxInitialize();
   }
   wxInitializer(int& argc, wxChar** argv)
   {
-        m_ok = wxInitialize(argc, argv);
+    m_ok = wxInitialize(argc, argv);
   }
-#  if  wxUSE_UNICODE
   wxInitializer(int& argc, char** argv)
   {
-        m_ok = wxInitialize(argc, argv);
+    m_ok = wxInitialize(argc, argv);
   }
-#  endif
     // has the initialization been successful? (explicit test)
   bool IsOk() const
   {
- return m_ok;
+    return m_ok;
   }
     // has the initialization been successful? (implicit test)
   operator bool() const
   {
- return m_ok;
+    return m_ok;
   }
     // dtor only does clean up if we initialized the library properly
   ~wxInitializer()
   {
- if ( m_ok ) wxUninitialize();
+    if (m_ok)
+    {
+      wxUninitialize();
+    }
   }
 private:
   bool m_ok;

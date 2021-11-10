@@ -35,49 +35,46 @@
 #ifndef _WX_PRIVATE_SOCKET_H_
 #  define _WX_PRIVATE_SOCKET_H_
 #  include "wx/defs.h"
-#  if  wxUSE_SOCKETS
-#    include "wx/socket.h"
-#    include "wx/private/sckaddr.h"
-#    include <stddef.h>
+#  include "wx/socket.h"
+#  include "wx/private/sckaddr.h"
+#  include <stddef.h>
 /*
    Including sys/types.h under Cygwin results in the warnings about "fd_set
    having been defined in sys/types.h" when winsock.h is included later and
    doesn't seem to be necessary anyhow. It's not needed under Mac neither.
  */
-#    if  !defined(__WXMAC__) && !defined(__WXMSW__)
-#      include <sys/types.h>
-#    endif
+#  if  !defined(__WXMAC__) && !defined(__WXMSW__)
+#    include <sys/types.h>
+#  endif
 // include the header defining timeval: under Windows this struct is used only
 // with sockets so we need to include winsock.h which we do via windows.h
-#    ifdef __WINDOWS__
-#      include "wx/msw/wrapwin.h"
-#    else 
-#      include <sys/time.h>
-#    endif
+#  ifdef __WINDOWS__
+#    include "wx/msw/wrapwin.h"
+#    include <sys/time.h>
+#  endif
 // 64 bit Cygwin can't use the standard struct timeval because it has long
 // fields, which are supposed to be 32 bits in Win64 API, but long is 64 bits
 // in 64 bit Cygwin, so we need to use its special __ms_timeval instead.
-#    if  defined(__CYGWIN__) && defined(__LP64__) && defined(__WINDOWS__)
+#  if  defined(__CYGWIN__) && defined(__LP64__) && defined(__WINDOWS__)
 typedef __ms_timeval wxTimeVal_t;
-#    else 
 typedef timeval wxTimeVal_t;
-#    endif
+#  endif
 // these definitions are for MSW when we don't use configure, otherwise these
 // symbols are defined by configure
-#    ifndef WX_SOCKLEN_T
-#      define WX_SOCKLEN_T	int
-#    endif
-#    ifndef SOCKOPTLEN_T
-#      define SOCKOPTLEN_T	int
-#    endif
+#  ifndef WX_SOCKLEN_T
+#    define WX_SOCKLEN_T	int
+#  endif
+#  ifndef SOCKOPTLEN_T
+#    define SOCKOPTLEN_T	int
+#  endif
 // define some symbols which winsock.h defines but traditional BSD headers
 // don't
-#    ifndef INVALID_SOCKET
-#      define INVALID_SOCKET(-1)
-#    endif
-#    ifndef SOCKET_ERROR
-#      define SOCKET_ERROR(-1)
-#    endif
+#  ifndef INVALID_SOCKET
+#    define INVALID_SOCKET(-1)
+#  endif
+#  ifndef SOCKET_ERROR
+#    define SOCKET_ERROR(-1)
+#  endif
 typedef int wxSocketEventFlags;
 class wxSocketImpl;
 /*
@@ -106,10 +103,11 @@ public:
     // this initializes the manager at first use
   static wxSocketManager* Get()
   {
-        if ( !ms_manager )
-            Init();
-
-        return ms_manager;
+    if (!ms_manager)
+    {
+      Init();
+    }
+    return ms_manager;
   }
     // called before the first wxSocket is created and should do the
     // initializations needed in order to use the network
@@ -135,7 +133,6 @@ public:
   virtual void Uninstall_Callback(wxSocketImpl* socket, wxSocketNotify event = wxSOCKET_LOST) = 0;
   virtual ~wxSocketManager()
   {
-
   }
 private:
     // get the manager to use if we don't have it yet
@@ -158,20 +155,20 @@ public:
   void SetTimeout(unsigned long millisec);
   void SetReusable()
   {
- m_reusable = true;
+    m_reusable = true;
   }
   void SetBroadcast()
   {
- m_broadcast = true;
+    m_broadcast = true;
   }
   void DontDoBind()
   {
- m_dobind = false;
+    m_dobind = false;
   }
   void SetInitialSocketBuffers(int recv, int send)
   {
-        m_initialRecvBufferSize = recv;
-        m_initialSendBufferSize = send;
+    m_initialRecvBufferSize = recv;
+    m_initialSendBufferSize = send;
   }
   wxSocketError SetLocal(const wxSockAddressImpl& address);
   wxSocketError SetPeer(const wxSockAddressImpl& address);
@@ -179,20 +176,20 @@ public:
     // ---------
   bool IsServer() const
   {
- return m_server;
+    return m_server;
   }
   const wxSockAddressImpl& GetLocal();
   const wxSockAddressImpl& GetPeer() const
   {
- return m_peer;
+    return m_peer;
   }
   wxSocketError GetError() const
   {
- return m_error;
+    return m_error;
   }
   bool IsOk() const
   {
- return m_error == wxSOCKET_NOERROR;
+    return m_error == wxSOCKET_NOERROR;
   }
     // get the error code corresponding to the last operation
   virtual wxSocketError GetLastError() const = 0;
@@ -247,7 +244,7 @@ public:
     // convenient wrapper calling Select() with our default timeout
   wxSocketEventFlags SelectWithTimeout(wxSocketEventFlags flags)
   {
-        return Select(flags, &m_timeout);
+    return Select(flags, &m_timeout);
   }
     // just a wrapper for accept(): it is called to create a new wxSocketImpl
     // corresponding to a new server connection represented by the given
@@ -288,7 +285,7 @@ protected:
     // get the associated socket flags
   wxSocketFlags GetSocketFlags() const
   {
- return m_wxsocket->GetFlags();
+    return m_wxsocket->GetFlags();
   }
     // true if we're a listening stream socket
   bool m_server;
@@ -304,15 +301,13 @@ private:
   {
         // although modern Unix systems use "const void *" for the 4th
         // parameter here, old systems and Winsock still use "const char *"
-        return setsockopt(m_fd, SOL_SOCKET, optname,
-                          reinterpret_cast<const char *>(&optval),
-                          sizeof(optval));
+    return setsockopt(m_fd, SOL_SOCKET, optname, reinterpret_cast<const char*>(&optval), sizeof(optval));
   }
     // set the given socket option to true value: this is an even simpler
     // wrapper for setsockopt(SOL_SOCKET) for boolean options
   int EnableSocketOption(int optname)
   {
-        return SetSocketOption(optname, 1);
+    return SetSocketOption(optname, 1);
   }
     // apply the options to the (just created) socket and register it with the
     // event loop by calling UpdateBlockingState()
@@ -329,10 +324,8 @@ private:
   wxSocketBase* m_wxsocket;
   wxDECLARE_NO_COPY_CLASS(wxSocketImpl);
 };
-#    if  defined(__WINDOWS__)
-#      include "wx/msw/private/sockmsw.h"
-#    else 
-#      include "wx/unix/private/sockunix.h"
-#    endif
+#  if  defined(__WINDOWS__)
+#    include "wx/msw/private/sockmsw.h"
+#    include "wx/unix/private/sockunix.h"
 #  endif
 #endif

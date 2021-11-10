@@ -31,7 +31,9 @@
 #  include "adscodes.h"
 #  pragma  pack (push, 8)
 // The bool type isn't known in .c files.
-#  ifdef __cplusplus
+#ifdef __cplusplus
+
+
 /* Unlocks an application to enable it from being unloaded in mid-session.
    The default is that applications are locked, and hence unloadable in
    mid-session. The appId argument is the Id passed in as a void* during
@@ -46,6 +48,5 @@ bool acrxApplicationIsLocked(const ACHAR* modulename);
    being unloaded in mid-session. Return of non-zero means success.
  */
 bool acrxLockApplication(void* appId);
-#  endif
 #  pragma  pack (pop)
 #endif

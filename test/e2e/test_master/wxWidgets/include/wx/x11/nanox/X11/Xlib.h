@@ -265,9 +265,7 @@ typedef int (*XErrorHandler) (Display*, XErrorEvent*);
 #    define FocusChangeMask	GR_EVENT_MASK_FOCUS_IN|GR_EVENT_MASK_FOCUS_OUT
 #  endif
 /* Fuunctions */
-#  ifdef __cplusplus
 extern "C" {
-#  endif
   Display* XOpenDisplay(char* name);
   Colormap DefaultColormapOfScreen(Screen*);
   int XSetGraphicsExposures(Display*, GC, Bool);
@@ -295,9 +293,7 @@ extern "C" {
   int XConfigureWindow(Display* display, Window w, int mask, XWindowChanges* changes);
   int XTranslateCoordinates(Display* display, Window srcWindow, Window destWindow, int srcX, int srcY, int* destX, int* destY, Window* childReturn);
   void wxNoop();
-#  ifdef __cplusplus
   }
-#  endif
 #  define XMaxRequestSize(display)	 16384
 #endif
   /* _DUMMY_XLIBH_ */

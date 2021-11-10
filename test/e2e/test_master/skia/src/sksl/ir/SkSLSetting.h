@@ -17,28 +17,28 @@ namespace SkSL
   struct Setting : public Expression
   {
     Setting(int offset, String name, std::unique_ptr<Expression> value)
-      :  INHERITED(offset, kSetting_Kind, value->fType)
-    , fName(std::move(name))
-    , fValue(std::move(value))
+      : INHERITED(offset, kSetting_Kind, value->fType)
+      , fName(std::move(name))
+      , fValue(std::move(value))
     {
-        SkASSERT(fValue->isConstant());
+      SkASSERT(fValue->isConstant());
     }
     std::unique_ptr<Expression> constantPropagate(const IRGenerator& irGenerator, const DefinitionMap& definitions) override;
     std::unique_ptr<Expression> clone() const override
     {
-        return std::unique_ptr<Expression>(new Setting(fOffset, fName, fValue->clone()));
+      return std::unique_ptr<Expression>(new Setting(fOffset, fName, fValue->clone()));
     }
     String description() const override
     {
-        return fName;
+      return fName;
     }
     bool hasSideEffects() const override
     {
-        return false;
+      return false;
     }
     bool isConstant() const override
     {
-        return true;
+      return true;
     }
     const String fName;
     std::unique_ptr<Expression> fValue;

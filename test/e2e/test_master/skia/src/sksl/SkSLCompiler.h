@@ -74,12 +74,12 @@ namespace SkSL
             kFunctionName
       };
       FormatArg(Kind kind)
-        :  fKind(kind)
+        : fKind(kind)
       {
       }
       FormatArg(Kind kind, int index)
-        :  fKind(kind)
-                , fIndex(index)
+        : fKind(kind)
+        , fIndex(index)
       {
       }
       Kind fKind;
@@ -129,11 +129,11 @@ namespace SkSL
     void writeErrorCount();
     int errorCount() override
     {
-        return fErrorCount;
+      return fErrorCount;
     }
     Context& context()
     {
-        return *fContext;
+      return *fContext;
     }
     static const char* OperatorName(Token::Kind token);
     static bool IsAssignment(Token::Kind token);

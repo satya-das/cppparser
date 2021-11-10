@@ -19,8 +19,6 @@
  */
 #ifndef _WX_MEMCONF_H_
 #  define _WX_MEMCONF_H_
-#  if  wxUSE_CONFIG
-#    include "wx/fileconf.h"
 // ----------------------------------------------------------------------------
 // wxMemoryConfig: a config class which stores settings in non-persistent way
 // ----------------------------------------------------------------------------
@@ -33,16 +31,4 @@ class wxMemoryConfig : public wxFileConfig
 {
 public:
     // default (and only) ctor
-  wxMemoryConfig()
-    :  wxFileConfig(wxEmptyString,  // default app name
-                                    wxEmptyString,  // default vendor name
-                                    wxEmptyString,  // no local config file
-                                    wxEmptyString,  // no system config file
-                                    0)              // don't use any files
-  {
-
-  }
-  wxDECLARE_NO_COPY_CLASS(wxMemoryConfig);
-};
-#  endif
 #endif

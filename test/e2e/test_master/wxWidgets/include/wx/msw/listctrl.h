@@ -74,13 +74,12 @@ public:
      */
   wxListCtrl()
   {
- Init();
+    Init();
   }
   wxListCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, pos, size, style, validator, name);
   }
   virtual ~wxListCtrl();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxLC_ICON, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListCtrlNameStr));
@@ -141,7 +140,7 @@ public:
   bool SetItemPtrData(long item, wxUIntPtr data);
   bool SetItemData(long item, long data)
   {
- return SetItemPtrData(item, data);
+    return SetItemPtrData(item, data);
   }
     // Gets the item rectangle
   bool GetItemRect(long item, wxRect& rect, int code = wxLIST_RECT_BOUNDS) const;
@@ -156,7 +155,7 @@ public:
     // Gets the number of columns in the list control
   int GetColumnCount() const override
   {
- return m_colCount;
+    return m_colCount;
   }
     // get the horizontal and vertical components of the item spacing
   wxSize GetItemSpacing() const;
@@ -267,10 +266,11 @@ public:
   bool MSWCommand(WXUINT param, WXWORD id) override;
   bool MSWOnNotify(int idCtrl, WXLPARAM lParam, WXLPARAM* result) override;
   bool MSWShouldPreProcessMessage(WXMSG* msg) override;
-#  if  WXWIN_COMPATIBILITY_3_0
     // bring the control in sync with current m_windowStyle value
-  wxDEPRECATED_MSG("useless and will be removed in the future, use SetWindowStyleFlag() instead") void UpdateStyle();
-#  endif
+    wxDEPRECATED_MSG("useless and will be removed in the future, use SetWindowStyleFlag() instead")
+    void UpdateStyle();
+#endif // WXWIN_COMPATIBILITY_3_0
+
     // Event handlers
     ////////////////////////////////////////////////////////////////////////////
     // Necessary for drawing hrules and vrules, if specified
@@ -282,11 +282,11 @@ public:
   void SetDoubleBuffered(bool on) override;
   bool ShouldInheritColours() const override
   {
- return false;
+    return false;
   }
   wxVisualAttributes GetDefaultAttributes() const override
   {
-        return GetClassDefaultAttributes(GetWindowVariant());
+    return GetClassDefaultAttributes(GetWindowVariant());
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // convert our styles to Windows
@@ -298,16 +298,16 @@ protected:
   void Init();
   bool MSWShouldSetDefaultFont() const override
   {
- return false;
+    return false;
   }
     // Implement constrained best size calculation.
   int DoGetBestClientHeight(int width) const override
   {
- return MSWGetBestViewRect(width, -1).y;
+    return MSWGetBestViewRect(width, -1).y;
   }
   int DoGetBestClientWidth(int height) const override
   {
- return MSWGetBestViewRect(-1, height).x;
+    return MSWGetBestViewRect(-1, height).x;
   }
 #  if  wxUSE_TOOLTIPS
   void DoSetToolTip(wxToolTip* tip) override;

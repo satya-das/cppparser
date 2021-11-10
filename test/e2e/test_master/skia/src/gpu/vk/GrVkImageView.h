@@ -21,17 +21,19 @@ public:
   static const GrVkImageView* Create(GrVkGpu* gpu, VkImage image, VkFormat format, Type viewType, uint32_t miplevels, const GrVkYcbcrConversionInfo& ycbcrInfo);
   VkImageView imageView() const
   {
- return fImageView;
+    return fImageView;
   }
 #  ifdef SK_TRACE_VK_RESOURCES
   void dumpInfo() const override
   {
-        SkDebugf("GrVkImageView: %d (%d refs)\n", fImageView, this->getRefCnt());
+    SkDebugf("GrVkImageView: %d (%d refs)\n", fImageView, this->getRefCnt());
   }
 #  endif
 private:
   GrVkImageView(VkImageView imageView, GrVkSamplerYcbcrConversion* ycbcrConversion)
-    :  INHERITED(), fImageView(imageView), fYcbcrConversion(ycbcrConversion)
+    : INHERITED()
+    , fImageView(imageView)
+    , fYcbcrConversion(ycbcrConversion)
   {
   }
   GrVkImageView(const GrVkImageView&);

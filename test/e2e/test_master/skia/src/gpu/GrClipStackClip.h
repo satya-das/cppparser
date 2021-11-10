@@ -20,11 +20,11 @@ class GrClipStackClip final : public GrClip
 public:
   GrClipStackClip(const SkClipStack* stack = nullptr)
   {
- this->reset(stack);
+    this->reset(stack);
   }
   void reset(const SkClipStack* stack)
   {
- fStack = stack;
+    fStack = stack;
   }
   bool quickContains(const SkRect&) const final;
   bool quickContains(const SkRRect&) const final;

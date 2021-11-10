@@ -7,13 +7,12 @@
 ///////////////////////////////////////////////////////////////////////////////
 #ifndef __GTKDNDH__
 #  define __GTKDNDH__
-#  if  wxUSE_DRAG_AND_DROP
-#    include "wx/object.h"
-#    include "wx/string.h"
-#    include "wx/dataobj.h"
-#    include "wx/cursor.h"
-#    include "wx/icon.h"
-#    include "wx/gdicmn.h"
+#  include "wx/object.h"
+#  include "wx/string.h"
+#  include "wx/dataobj.h"
+#  include "wx/cursor.h"
+#  include "wx/icon.h"
+#  include "wx/gdicmn.h"
 //-------------------------------------------------------------------------
 // classes
 //-------------------------------------------------------------------------
@@ -30,7 +29,7 @@ class WXDLLIMPEXP_FWD_CORE wxDropSource;
 // the icon 'name' from an XPM file under GTK, but will expand to something
 // else under MSW. If you don't use it, you will have to use #ifdef in the
 // application code.
-#    define wxDROP_ICON(name)	   wxICON(name)
+#  define wxDROP_ICON(name)	   wxICON(name)
 //-------------------------------------------------------------------------
 // wxDropTarget
 //-------------------------------------------------------------------------
@@ -53,19 +52,19 @@ public:
   bool m_firstMotion;
   void SetDragContext(GdkDragContext* dc)
   {
- m_dragContext = dc;
+    m_dragContext = dc;
   }
   void SetDragWidget(GtkWidget* w)
   {
- m_dragWidget = w;
+    m_dragWidget = w;
   }
   void SetDragData(GtkSelectionData* sd)
   {
- m_dragData = sd;
+    m_dragData = sd;
   }
   void SetDragTime(unsigned time)
   {
- m_dragTime = time;
+    m_dragTime = time;
   }
 };
 //-------------------------------------------------------------------------
@@ -96,5 +95,4 @@ private:
     // common part of both ctors
   void SetIcons(const wxIcon& copy, const wxIcon& move, const wxIcon& none);
 };
-#  endif
 #endif

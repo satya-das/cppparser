@@ -18,7 +18,9 @@ class WXDLLIMPEXP_FWD_CORE wxWindow;
 // GUI part (andnot just the base one) of the library, they're implemented in
 // src/generic/logg.cpp *and not src/common/log.cpp unlike all the rest)
 // ----------------------------------------------------------------------------
-#    if  wxUSE_TEXTCTRL
+
+#if wxUSE_TEXTCTRL
+
 // log everything to a text window (GUI only of course)
 class WXDLLIMPEXP_CORE wxLogTextCtrl : public wxLog
 {
@@ -32,7 +34,6 @@ private:
   wxTextCtrl* m_pTextCtrl;
   wxDECLARE_NO_COPY_CLASS(wxLogTextCtrl);
 };
-#    endif
 // ----------------------------------------------------------------------------
 // GUI log target, the default one for wxWidgets programs
 // ----------------------------------------------------------------------------

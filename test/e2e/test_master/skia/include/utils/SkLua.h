@@ -29,15 +29,15 @@ public:
   ~SkLua();
   lua_State* get() const
   {
- return fL;
+    return fL;
   }
   lua_State* operator*() const
   {
- return fL;
+    return fL;
   }
   lua_State* operator->() const
   {
- return fL;
+    return fL;
   }
   bool runCode(const char code[]);
   bool runCode(const void* code, size_t size);

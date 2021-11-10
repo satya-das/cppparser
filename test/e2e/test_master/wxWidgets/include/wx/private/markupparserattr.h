@@ -36,20 +36,22 @@ public:
   struct Attr
   {
     Attr(const Attr* attrInEffect, const wxFont& font_, const wxColour& foreground_ = wxColour(), const wxColour& background_ = wxColour())
-      :  font(font_), foreground(foreground_), background(background_)
+      : font(font_)
+      , foreground(foreground_)
+      , background(background_)
     {
-            if (attrInEffect)
-            {
-                effectiveFont = font.IsOk() ? font : attrInEffect->effectiveFont;
-                effectiveForeground = foreground_.IsOk() ? foreground_ : attrInEffect->effectiveForeground;
-                effectiveBackground = background.IsOk() ? background : attrInEffect->effectiveBackground;
-            }
-            else
-            {
-                effectiveFont = font;
-                effectiveForeground = foreground;
-                effectiveBackground = background;
-            }
+      if (attrInEffect)
+      {
+        effectiveFont = font.IsOk() ? font : attrInEffect->effectiveFont;
+        effectiveForeground = foreground_.IsOk() ? foreground_ : attrInEffect->effectiveForeground;
+        effectiveBackground = background.IsOk() ? background : attrInEffect->effectiveBackground;
+      }
+      else 
+      {
+        effectiveFont = font;
+        effectiveForeground = foreground;
+        effectiveBackground = background;
+      }
     }
     wxFont font;
     wxColour foreground, background;
@@ -60,7 +62,7 @@ public:
     // initially, i.e. the ones used before any tags in the string.
   wxMarkupParserAttrOutput(const wxFont& font, const wxColour& foreground, const wxColour& background)
   {
-        m_attrs.push(Attr(NULL, font, foreground, background));
+    m_attrs.push(Attr(NULL, font, foreground, background));
   }
     // Indicates the change of the font and/or colours used. Any of the
     // fields of the argument may be invalid indicating that the corresponding
@@ -74,119 +76,101 @@ public:
     // terms of our own ones.
   void OnBoldStart() override
   {
- DoChangeFont(&wxFont::Bold);
+    DoChangeFont(&wxFont::Bold);
   }
   void OnBoldEnd() override
   {
- DoEndAttr();
+    DoEndAttr();
   }
   void OnItalicStart() override
   {
- DoChangeFont(&wxFont::Italic);
+    DoChangeFont(&wxFont::Italic);
   }
   void OnItalicEnd() override
   {
- DoEndAttr();
+    DoEndAttr();
   }
   void OnUnderlinedStart() override
   {
- DoChangeFont(&wxFont::Underlined);
+    DoChangeFont(&wxFont::Underlined);
   }
   void OnUnderlinedEnd() override
   {
- DoEndAttr();
+    DoEndAttr();
   }
   void OnStrikethroughStart() override
   {
- DoChangeFont(&wxFont::Strikethrough);
+    DoChangeFont(&wxFont::Strikethrough);
   }
   void OnStrikethroughEnd() override
   {
- DoEndAttr();
+    DoEndAttr();
   }
   void OnBigStart() override
   {
- DoChangeFont(&wxFont::Larger);
+    DoChangeFont(&wxFont::Larger);
   }
   void OnBigEnd() override
   {
- DoEndAttr();
+    DoEndAttr();
   }
   void OnSmallStart() override
   {
- DoChangeFont(&wxFont::Smaller);
+    DoChangeFont(&wxFont::Smaller);
   }
   void OnSmallEnd() override
   {
- DoEndAttr();
+    DoEndAttr();
   }
   void OnTeletypeStart() override
   {
-        wxFont font(GetFont());
-        font.SetFamily(wxFONTFAMILY_TELETYPE);
-        DoSetFont(font);
+    wxFont font(GetFont());
+    font.SetFamily(wxFONTFAMILY_TELETYPE);
+    DoSetFont(font);
   }
   void OnTeletypeEnd() override
   {
- DoEndAttr();
+    DoEndAttr();
   }
   void OnSpanStart(const wxMarkupSpanAttributes& spanAttr) override
   {
-        wxFont font(GetFont());
-        if ( !spanAttr.m_fontFace.empty() )
-            font.SetFaceName(spanAttr.m_fontFace);
-
-        FontModifier<wxFontWeight>()(spanAttr.m_isBold,
-                                     font, &wxFont::SetWeight,
-                                     wxFONTWEIGHT_NORMAL, wxFONTWEIGHT_BOLD);
-
-        FontModifier<wxFontStyle>()(spanAttr.m_isItalic,
-                                    font, &wxFont::SetStyle,
-                                    wxFONTSTYLE_NORMAL, wxFONTSTYLE_ITALIC);
-
-        FontModifier<bool>()(spanAttr.m_isUnderlined,
-                             font, &wxFont::SetUnderlined,
-                             false, true);
-
-        FontModifier<bool>()(spanAttr.m_isStrikethrough,
-                             font, &wxFont::SetStrikethrough,
-                             false, true);
-
-        switch ( spanAttr.m_sizeKind )
+    wxFont font(GetFont());
+    if (!spanAttr.m_fontFace.empty())
+    {
+      font.SetFaceName(spanAttr.m_fontFace);
+    }
+    FontModifier<wxFontWeight>()(spanAttr.m_isBold, font, &wxFont::SetWeight, wxFONTWEIGHT_NORMAL, wxFONTWEIGHT_BOLD);
+    FontModifier<wxFontStyle>()(spanAttr.m_isItalic, font, &wxFont::SetStyle, wxFONTSTYLE_NORMAL, wxFONTSTYLE_ITALIC);
+    FontModifier<bool>()(spanAttr.m_isUnderlined, font, &wxFont::SetUnderlined, false, true);
+    FontModifier<bool>()(spanAttr.m_isStrikethrough, font, &wxFont::SetStrikethrough, false, true);
+    switch(spanAttr.m_sizeKind)
+    {
+      case wxMarkupSpanAttributes::Size_Unspecified:
+        break;
+      case wxMarkupSpanAttributes::Size_Relative:
+        if (spanAttr.m_fontSize > 0)
         {
-            case wxMarkupSpanAttributes::Size_Unspecified:
-                break;
-
-            case wxMarkupSpanAttributes::Size_Relative:
-                if ( spanAttr.m_fontSize > 0 )
-                    font.MakeLarger();
-                else
-                    font.MakeSmaller();
-                break;
-
-            case wxMarkupSpanAttributes::Size_Symbolic:
-                // The values of font size intentionally coincide with the
-                // values of wxFontSymbolicSize enum elements so simply cast
-                // one to the other.
-                font.SetSymbolicSize(
-                    static_cast<wxFontSymbolicSize>(spanAttr.m_fontSize)
-                );
-                break;
-
-            case wxMarkupSpanAttributes::Size_PointParts:
-                font.SetFractionalPointSize(spanAttr.m_fontSize/1024.);
-                break;
+          font.MakeLarger();
         }
-
-
-        const Attr attr(&m_attrs.top(), font, spanAttr.m_fgCol, spanAttr.m_bgCol);
-        OnAttrStart(attr);
-
-        m_attrs.push(attr);
+        else 
+        {
+          font.MakeSmaller();
+        }
+        break;
+      case wxMarkupSpanAttributes::Size_Symbolic:
+        font.SetSymbolicSize(static_cast<wxFontSymbolicSize>(spanAttr.m_fontSize));
+        break;
+      case wxMarkupSpanAttributes::Size_PointParts:
+        font.SetFractionalPointSize(spanAttr.m_fontSize / 1024.);
+        break;
+    }
+    const Attr attr(&m_attrs.top(), font, spanAttr.m_fgCol, spanAttr.m_bgCol);
+    OnAttrStart(attr);
+    m_attrs.push(attr);
   }
   void OnSpanEnd(const wxMarkupSpanAttributes&) override
   {
-        DoEndAttr();
+    DoEndAttr();
   }
 protected:
     // Get the current attributes, i.e. the ones that should be used for
@@ -199,36 +183,33 @@ protected:
     // implementations.
   const Attr& GetAttr() const
   {
- return m_attrs.top();
+    return m_attrs.top();
   }
     // A shortcut for accessing the font of the current attribute.
   const wxFont& GetFont() const
   {
- return GetAttr().font;
+    return GetAttr().font;
   }
 private:
     // Change only the font to the given one. Call OnAttrStart() to notify
     // about the change and update the attributes stack.
   void DoSetFont(const wxFont& font)
   {
-        const Attr attr(&m_attrs.top(), font);
-
-        OnAttrStart(attr);
-
-        m_attrs.push(attr);
+    const Attr attr(&m_attrs.top(), font);
+    OnAttrStart(attr);
+    m_attrs.push(attr);
   }
     // Apply the given function to the font currently on top of the font stack,
     // push the new font on the stack and call OnAttrStart() with it.
   void DoChangeFont(wxFont (*func) () const)
   {
-        DoSetFont((GetFont().*func)());
+    DoSetFont((GetFont().*func)());
   }
   void DoEndAttr()
   {
-        const Attr attr(m_attrs.top());
-        m_attrs.pop();
-
-        OnAttrEnd(attr);
+    const Attr attr(m_attrs.top());
+    m_attrs.pop();
+    OnAttrEnd(attr);
   }
     // A helper class used to apply the given function to a wxFont object
     // depending on the value of an OptionalBool.
@@ -237,23 +218,20 @@ private:
   {
     FontModifier()
     {
-
     }
     void operator()(wxMarkupSpanAttributes::OptionalBool isIt, wxFont& font, void (*func) (T), T noValue, T yesValue)
     {
-            switch ( isIt )
-            {
-                case wxMarkupSpanAttributes::Unspecified:
-                    break;
-
-                case wxMarkupSpanAttributes::No:
-                    (font.*func)(noValue);
-                    break;
-
-                case wxMarkupSpanAttributes::Yes:
-                    (font.*func)(yesValue);
-                    break;
-            }
+      switch(isIt)
+      {
+        case wxMarkupSpanAttributes::Unspecified:
+          break;
+        case wxMarkupSpanAttributes::No:
+          (font.*func)(noValue);
+          break;
+        case wxMarkupSpanAttributes::Yes:
+          (font.*func)(yesValue);
+          break;
+      }
     }
   };
   wxStack<Attr> m_attrs;

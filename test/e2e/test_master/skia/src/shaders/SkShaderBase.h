@@ -52,11 +52,11 @@ public:
      */
   virtual bool isConstant() const
   {
- return false;
+    return false;
   }
   const SkMatrix& getLocalMatrix() const
   {
- return fLocalMatrix;
+    return fLocalMatrix;
   }
   enum Flags {
         //!< set if all of the colors will be opaque
@@ -79,11 +79,11 @@ public:
   struct ContextRec
   {
     ContextRec(const SkPaint& paint, const SkMatrix& matrix, const SkMatrix* localM, SkColorType dstColorType, SkColorSpace* dstColorSpace)
-      :  fPaint(&paint)
-            , fMatrix(&matrix)
-            , fLocalMatrix(localM)
-            , fDstColorType(dstColorType)
-            , fDstColorSpace(dstColorSpace)
+      : fPaint(&paint)
+      , fMatrix(&matrix)
+      , fLocalMatrix(localM)
+      , fDstColorType(dstColorType)
+      , fDstColorSpace(dstColorSpace)
     {
     }
     const SkPaint* fPaint;
@@ -107,7 +107,7 @@ public:
          */
     virtual uint32_t getFlags() const
     {
- return 0;
+      return 0;
     }
         /**
          *  Called for each span of the object being drawn. Your subclass should
@@ -120,15 +120,15 @@ public:
     const SkShaderBase& fShader;
     uint8_t getPaintAlpha() const
     {
- return fPaintAlpha;
+      return fPaintAlpha;
     }
     const SkMatrix& getTotalInverse() const
     {
- return fTotalInverse;
+      return fTotalInverse;
     }
     const SkMatrix& getCTM() const
     {
- return fCTM;
+      return fCTM;
     }
   private:
     SkMatrix fCTM;
@@ -177,24 +177,23 @@ public:
   SkTCopyOnFirstWrite<SkMatrix> totalLocalMatrix(const SkMatrix* preLocalMatrix, const SkMatrix* postLocalMatrix = nullptr) const;
   virtual SkImage* onIsAImage(SkMatrix*, SkTileMode[2]) const
   {
-        return nullptr;
+    return nullptr;
   }
   virtual SkPicture* isAPicture(SkMatrix*, SkTileMode[2], SkRect* tile) const
   {
- return nullptr;
+    return nullptr;
   }
   static Type GetFlattenableType()
   {
- return kSkShaderBase_Type;
+    return kSkShaderBase_Type;
   }
   Type getFlattenableType() const override
   {
- return GetFlattenableType();
+    return GetFlattenableType();
   }
   static sk_sp<SkShaderBase> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
-        return sk_sp<SkShaderBase>(static_cast<SkShaderBase*>(
-                SkFlattenable::Deserialize(GetFlattenableType(), data, size, procs).release()));
+    return sk_sp<SkShaderBase>(static_cast<SkShaderBase*>(SkFlattenable::Deserialize(GetFlattenableType(), data, size, procs).release()));
   }
   static void RegisterFlattenables();
     /** DEPRECATED. skbug.com/8941
@@ -204,7 +203,7 @@ public:
   virtual sk_sp<SkShader> makeAsALocalMatrixShader(SkMatrix* localMatrix) const;
   SkStageUpdater* appendUpdatableStages(const SkStageRec& rec) const
   {
-        return this->onAppendUpdatableStages(rec);
+    return this->onAppendUpdatableStages(rec);
   }
 protected:
   SkShaderBase(const SkMatrix* localMatrix = nullptr);
@@ -216,18 +215,18 @@ protected:
      */
   virtual Context* onMakeContext(const ContextRec&, SkArenaAlloc*) const
   {
-        return nullptr;
+    return nullptr;
   }
 #  endif
   virtual bool onAsLuminanceColor(SkColor*) const
   {
-        return false;
+    return false;
   }
     // Default impl creates shadercontext and calls that (not very efficient)
   virtual bool onAppendStages(const SkStageRec&) const;
   virtual SkStageUpdater* onAppendUpdatableStages(const SkStageRec&) const
   {
- return nullptr;
+    return nullptr;
   }
 private:
     // This is essentially const, but not officially so it can be modified in constructors.
@@ -236,14 +235,14 @@ private:
 };
 inline SkShaderBase* as_SB(SkShader* shader)
 {
-    return static_cast<SkShaderBase*>(shader);
+  return static_cast<SkShaderBase*>(shader);
 }
 inline const SkShaderBase* as_SB(const SkShader* shader)
 {
-    return static_cast<const SkShaderBase*>(shader);
+  return static_cast<const SkShaderBase*>(shader);
 }
 inline const SkShaderBase* as_SB(const sk_sp<SkShader>& shader)
 {
-    return static_cast<SkShaderBase*>(shader.get());
+  return static_cast<SkShaderBase*>(shader.get());
 }
 #endif

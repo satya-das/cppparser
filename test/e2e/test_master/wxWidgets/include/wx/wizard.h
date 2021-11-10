@@ -47,7 +47,7 @@ class WXDLLIMPEXP_CORE wxWizardPage : public wxPanel
 public:
   wxWizardPage()
   {
- Init();
+    Init();
   }
     // ctor accepts an optional bitmap which will be used for this page instead
     // of the default one for this wizard (should be of the same size). Notice
@@ -65,30 +65,28 @@ public:
     // wxNullBitmap from here - the default one will be used then.
   virtual wxBitmap GetBitmap() const
   {
- return m_bitmap;
+    return m_bitmap;
   }
 #    if  wxUSE_VALIDATORS
     // Override the base functions to allow a validator to be assigned to this page.
   bool TransferDataToWindow() override
   {
-        return GetValidator() ? GetValidator()->TransferToWindow()
-                              : wxPanel::TransferDataToWindow();
+    return GetValidator() ? GetValidator()->TransferToWindow() : wxPanel::TransferDataToWindow();
   }
   bool TransferDataFromWindow() override
   {
-        return GetValidator() ? GetValidator()->TransferFromWindow()
-                              : wxPanel::TransferDataFromWindow();
+    return GetValidator() ? GetValidator()->TransferFromWindow() : wxPanel::TransferDataFromWindow();
   }
   bool Validate() override
   {
-        return GetValidator() ? GetValidator()->Validate(this)
-                              : wxPanel::Validate();
+    return GetValidator() ? GetValidator()->Validate(this) : wxPanel::Validate();
   }
 #    endif
 protected:
     // common part of ctors:
   void Init();
   wxBitmap m_bitmap;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxWizardPage);
 };
 // ----------------------------------------------------------------------------
@@ -104,43 +102,41 @@ class WXDLLIMPEXP_CORE wxWizardPageSimple : public wxWizardPage
 public:
   wxWizardPageSimple()
   {
- Init();
+    Init();
   }
     // ctor takes the previous and next pages
   wxWizardPageSimple(wxWizard* parent, wxWizardPage* prev = NULL, wxWizardPage* next = NULL, const wxBitmap& bitmap = wxNullBitmap)
   {
-        Create(parent, prev, next, bitmap);
+    Create(parent, prev, next, bitmap);
   }
   bool Create(wxWizard* parent = NULL, wxWizardPage* prev = NULL, wxWizardPage* next = NULL, const wxBitmap& bitmap = wxNullBitmap)
   {
-        m_prev = prev;
-        m_next = next;
-        return wxWizardPage::Create(parent, bitmap);
+    m_prev = prev;
+    m_next = next;
+    return wxWizardPage::Create(parent, bitmap);
   }
     // the pointers may be also set later - but before starting the wizard
   void SetPrev(wxWizardPage* prev)
   {
- m_prev = prev;
+    m_prev = prev;
   }
   void SetNext(wxWizardPage* next)
   {
- m_next = next;
+    m_next = next;
   }
     // Convenience functions to make the pages follow each other without having
     // to call their SetPrev() or SetNext() explicitly.
   wxWizardPageSimple& Chain(wxWizardPageSimple* next)
   {
-        SetNext(next);
-        next->SetPrev(this);
-        return *next;
+    SetNext(next);
+    next->SetPrev(this);
+    return *next;
   }
   static void Chain(wxWizardPageSimple* first, wxWizardPageSimple* second)
   {
-        wxCHECK_RET( first && second,
-                     wxT("NULL passed to wxWizardPageSimple::Chain") );
-
-        first->SetNext(second);
-        second->SetPrev(first);
+    wxCHECK_RET(first && second, wxT("NULL passed to wxWizardPageSimple::Chain"));
+    first->SetNext(second);
+    second->SetPrev(first);
   }
     // base class pure virtuals
   wxWizardPage* GetPrev() const override;
@@ -149,7 +145,7 @@ private:
     // common part of ctors:
   void Init()
   {
-        m_prev = m_next = NULL;
+    m_prev = m_next = NULL;
   }
     // pointers are private, the derived classes shouldn't mess with them -
     // just derive from wxWizardPage directly to implement different behaviour
@@ -175,7 +171,6 @@ public:
     */
   wxWizardBase()
   {
-
   }
     // executes the wizard starting from the given page, returns true if it was
     // successfully finished, false if user cancelled it
@@ -205,27 +200,28 @@ public:
     // custom logic for determining the pages order
   virtual bool HasNextPage(wxWizardPage* page)
   {
- return page->GetNext() != NULL;
+    return page->GetNext() != NULL;
   }
   virtual bool HasPrevPage(wxWizardPage* page)
   {
- return page->GetPrev() != NULL;
+    return page->GetPrev() != NULL;
   }
     /// Override these functions to stop InitDialog from calling TransferDataToWindow
     /// for _all_ pages when the wizard starts. Instead 'ShowPage' will call
     /// TransferDataToWindow for the first page only.
   bool TransferDataToWindow() override
   {
- return true;
+    return true;
   }
   bool TransferDataFromWindow() override
   {
- return true;
+    return true;
   }
   bool Validate() override
   {
- return true;
+    return true;
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxWizardBase);
 };
 // include the real class declaration
@@ -245,15 +241,15 @@ public:
     // (this function doesn't make sense for CANCEL events)
   bool GetDirection() const
   {
- return m_direction;
+    return m_direction;
   }
   wxWizardPage* GetPage() const
   {
- return m_page;
+    return m_page;
   }
   wxEvent* Clone() const override
   {
- return new wxWizardEvent(*this);
+    return new wxWizardEvent(*this);
   }
 private:
   bool m_direction;

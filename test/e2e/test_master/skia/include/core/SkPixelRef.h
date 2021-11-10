@@ -31,19 +31,19 @@ public:
   virtual ~SkPixelRef();
   int width() const
   {
- return fWidth;
+    return fWidth;
   }
   int height() const
   {
- return fHeight;
+    return fHeight;
   }
   void* pixels() const
   {
- return fPixels;
+    return fPixels;
   }
   size_t rowBytes() const
   {
- return fRowBytes;
+    return fRowBytes;
   }
     /** Returns a non-zero, unique value corresponding to the pixels in this
         pixelref. Each time the pixels are changed (and notifyPixelsChanged is
@@ -61,7 +61,7 @@ public:
     */
   bool isImmutable() const
   {
- return fMutability != kMutable;
+    return fMutability != kMutable;
   }
     /** Marks this pixelref is immutable, meaning that the contents of its
         pixels will not change for the lifetime of the pixelref. This state can
@@ -89,11 +89,11 @@ public:
     // to know automatically those entries can be purged when this pixelref is changed or deleted.
   void notifyAddedToCache()
   {
-        fAddedToCache.store(true);
+    fAddedToCache.store(true);
   }
   virtual SkDiscardableMemory* diagnostic_only_getDiscardable() const
   {
- return nullptr;
+    return nullptr;
   }
 protected:
   void android_only_reset(int width, int height, size_t rowBytes);
@@ -105,7 +105,7 @@ private:
     // Bottom bit indicates the Gen ID is unique.
   bool genIDIsUnique() const
   {
- return SkToBool(fTaggedGenID.load() & 1);
+    return SkToBool(fTaggedGenID.load() & 1);
   }
   mutable std::atomic<uint32_t> fTaggedGenID;
   SkMutex fGenIDChangeListenersMutex;

@@ -32,7 +32,6 @@ class WXDLLIMPEXP_NET wxURLNativeImp : public wxObject
 public:
   virtual ~wxURLNativeImp()
   {
-
   }
   virtual wxInputStream* GetInputStream(wxURL* owner) = 0;
 };
@@ -49,23 +48,24 @@ public:
   wxURL& operator =(const wxURL& url);
   wxProtocol& GetProtocol()
   {
- return *m_protocol;
+    return *m_protocol;
   }
   wxURLError GetError() const
   {
- return m_error;
+    return m_error;
   }
   wxString GetURL() const
   {
- return m_url;
+    return m_url;
   }
   wxURLError SetURL(const wxString& url)
   {
- *this = url; return m_error;
+    *this = url;
+    return m_error;
   }
   bool IsOk() const
   {
- return m_error == wxURL_NOERR;
+    return m_error == wxURL_NOERR;
   }
   wxInputStream* GetInputStream();
 #    if  wxUSE_PROTOCOL_HTTP

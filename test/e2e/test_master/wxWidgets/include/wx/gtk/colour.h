@@ -18,7 +18,8 @@ class WXDLLIMPEXP_CORE wxColour : public wxColourBase
 public:
     // constructors
     // ------------
-  DEFINE_STD_WXCOLOUR_CONSTRUCTORS wxColour(const GdkColor& gdkColor);
+  DEFINE_STD_WXCOLOUR_CONSTRUCTORS
+  wxColour(const GdkColor& gdkColor);
 #  ifdef __WXGTK3__
   wxColour(const GdkRGBA& gdkRGBA);
 #  endif
@@ -26,7 +27,7 @@ public:
   bool operator==(const wxColour& col) const;
   bool operator!=(const wxColour& col) const
   {
- return !(*this == col);
+    return !(*this == col);
   }
   unsigned char Red() const override;
   unsigned char Green() const override;

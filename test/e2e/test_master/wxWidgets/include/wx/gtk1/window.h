@@ -33,11 +33,10 @@ public:
     // -------------------------------------------
   virtual void SetLabel(const wxString&)
   {
-
   }
   virtual wxString GetLabel() const
   {
- return wxEmptyString;
+    return wxEmptyString;
   }
   virtual bool Destroy();
   virtual void Raise();
@@ -66,19 +65,17 @@ public:
   virtual int GetScrollThumb(int orient) const;
   virtual int GetScrollRange(int orient) const;
   virtual void ScrollWindow(int dx, int dy, const wxRect* rect = NULL);
-#  if  wxUSE_DRAG_AND_DROP
   virtual void SetDropTarget(wxDropTarget* dropTarget);
-#  endif
   virtual bool IsDoubleBuffered() const
   {
- return false;
+    return false;
   }
   GdkWindow* GTKGetDrawingWindow() const;
     // implementation
     // --------------
   virtual WXWidget GetHandle() const
   {
- return m_widget;
+    return m_widget;
   }
     // I don't want users to override what's done in idle so everything that
     // has to be done in idle time in order for wxGTK to work is done in
@@ -123,22 +120,21 @@ public:
     // (i.e. in idle time, implemented in OnInternalIdle() ).
   void GtkUpdateSize()
   {
- m_sizeSet = false;
+    m_sizeSet = false;
   }
     // fix up the mouse event coords, used by wxListBox only so far
   virtual void FixUpMouseEvent(GtkWidget*, wxCoord&, wxCoord&)
   {
-
   }
     // is this window transparent for the mouse events (as wxStaticBox is)?
   virtual bool IsTransparentForMouse() const
   {
- return false;
+    return false;
   }
     // is this a radiobutton (used by radiobutton code itself only)?
   virtual bool IsRadioButton() const
   {
- return false;
+    return false;
   }
     // position and size of the window
   int m_x, m_y;

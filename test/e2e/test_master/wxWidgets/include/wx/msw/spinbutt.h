@@ -18,11 +18,10 @@ public:
     // construction
   wxSpinButton()
   {
-
   }
   wxSpinButton(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_VERTICAL | wxSP_ARROW_KEYS, const wxString& name = wxSPIN_BUTTON_NAME)
   {
-        Create(parent, id, pos, size, style, name);
+    Create(parent, id, pos, size, style, name);
   }
   virtual ~wxSpinButton();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_VERTICAL | wxSP_ARROW_KEYS, const wxString& name = wxSPIN_BUTTON_NAME);
@@ -37,17 +36,18 @@ public:
     // a wxSpinButton can't do anything useful with focus, only wxSpinCtrl can
   bool AcceptsFocus() const override
   {
- return false;
+    return false;
   }
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
   {
- return false;
+    return false;
   }
 protected:
   wxSize DoGetBestSize() const override;
    // ensure that the control displays a value in the current range
   virtual void NormalizeValue();
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxSpinButton);
 };
 #  endif

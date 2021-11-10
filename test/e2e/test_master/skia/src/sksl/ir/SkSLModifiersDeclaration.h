@@ -18,17 +18,17 @@ namespace SkSL
   struct ModifiersDeclaration : public ProgramElement
   {
     ModifiersDeclaration(Modifiers modifiers)
-      :  INHERITED(-1, kModifiers_Kind)
-    , fModifiers(modifiers)
+      : INHERITED(-1, kModifiers_Kind)
+      , fModifiers(modifiers)
     {
     }
     std::unique_ptr<ProgramElement> clone() const override
     {
-        return std::unique_ptr<ProgramElement>(new ModifiersDeclaration(fModifiers));
+      return std::unique_ptr<ProgramElement>(new ModifiersDeclaration(fModifiers));
     }
     String description() const override
     {
-        return fModifiers.description() + ";";
+      return fModifiers.description() + ";";
     }
     Modifiers fModifiers;
     typedef ProgramElement INHERITED;

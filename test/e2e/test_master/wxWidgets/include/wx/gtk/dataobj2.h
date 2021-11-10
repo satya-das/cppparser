@@ -25,31 +25,32 @@ public:
     // ----------------------------------
   size_t GetDataSize() const override
   {
- return m_pngSize;
+    return m_pngSize;
   }
   bool GetDataHere(void* buf) const override;
   bool SetData(size_t len, const void* buf) override;
     // Must provide overloads to avoid hiding them (and warnings about it)
   size_t GetDataSize(const wxDataFormat&) const override
   {
-        return GetDataSize();
+    return GetDataSize();
   }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
-        return GetDataHere(buf);
+    return GetDataHere(buf);
   }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
-        return SetData(len, buf);
+    return SetData(len, buf);
   }
 protected:
   void Clear()
   {
- free(m_pngData);
+    free(m_pngData);
   }
   void ClearAll()
   {
- Clear(); Init();
+    Clear();
+    Init();
   }
   size_t m_pngSize;
   void* m_pngData;
@@ -57,7 +58,8 @@ protected:
 private:
   void Init()
   {
- m_pngData = NULL; m_pngSize = 0;
+    m_pngData = NULL;
+    m_pngSize = 0;
   }
 };
 // ----------------------------------------------------------------------------
@@ -75,15 +77,15 @@ public:
     // Must provide overloads to avoid hiding them (and warnings about it)
   size_t GetDataSize(const wxDataFormat&) const override
   {
-        return GetDataSize();
+    return GetDataSize();
   }
   bool GetDataHere(const wxDataFormat&, void* buf) const override
   {
-        return GetDataHere(buf);
+    return GetDataHere(buf);
   }
   bool SetData(const wxDataFormat&, size_t len, const void* buf) override
   {
-        return SetData(len, buf);
+    return SetData(len, buf);
   }
 };
 // ----------------------------------------------------------------------------

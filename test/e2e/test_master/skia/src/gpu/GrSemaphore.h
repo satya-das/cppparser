@@ -24,17 +24,17 @@ public:
   virtual GrBackendSemaphore backendSemaphore() const = 0;
   const char* getResourceType() const override
   {
- return "semaphore";
+    return "semaphore";
   }
 protected:
   explicit GrSemaphore(GrGpu* gpu)
-    :  INHERITED(gpu)
+    : INHERITED(gpu)
   {
   }
 private:
   size_t onGpuMemorySize() const override
   {
- return 0;
+    return 0;
   }
   typedef GrGpuResource INHERITED;
 };

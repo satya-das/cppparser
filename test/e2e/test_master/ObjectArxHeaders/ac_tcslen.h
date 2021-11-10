@@ -42,23 +42,25 @@
 // use inline to prevent multiple definition errors.
 __declspec(noinline) inline unsigned ac_wcslen(const wchar_t* s)
 {
-    unsigned n = 0;
-    while (*s != L'\0') {
-        s++;
-        n++;
-        AcTcsLen_Assert(n < 0x7FFFFFFE);  // 2G-1 sanity check
-    }
-    return n;
+  unsigned n = 0;
+  while (*s != L'\0')
+  {
+    s++;
+    n++;
+    AcTcsLen_Assert(n < 0x7FFFFFFE);
+  }
+  return n;
 }
 __declspec(noinline) inline unsigned ac_strlen(const char* s)
 {
-    unsigned n = 0;
-    while (*s != '\0') {
-        s++;
-        n++;
-        AcTcsLen_Assert(n < 0x7FFFFFFE);  //  2G-1 sanity check
-    }
-    return n;
+  unsigned n = 0;
+  while (*s != '\0')
+  {
+    s++;
+    n++;
+    AcTcsLen_Assert(n < 0x7FFFFFFE);
+  }
+  return n;
 }
 #  else 
 #    ifndef _tcslen

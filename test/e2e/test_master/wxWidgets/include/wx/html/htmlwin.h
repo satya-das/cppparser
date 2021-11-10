@@ -129,12 +129,11 @@ protected:
      */
   virtual ~wxHtmlWindowMouseHelper()
   {
-
   }
     /// Returns true if the mouse moved since the last call to HandleIdle
   bool DidMouseMove() const
   {
- return m_tmpMouseMoved;
+    return m_tmpMouseMoved;
   }
     /// Call this from EVT_MOTION event handler
   void HandleMouseMoved();
@@ -207,15 +206,15 @@ class WXDLLIMPEXP_HTML wxHtmlWindow : public wxScrolledWindow, public wxHtmlWind
   friend class wxHtmlWinModule;
 public:
   wxHtmlWindow()
-    :  wxHtmlWindowMouseHelper(this)
+    : wxHtmlWindowMouseHelper(this)
   {
- Init();
+    Init();
   }
   wxHtmlWindow(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHW_DEFAULT_STYLE, const wxString& name = wxT("htmlWindow"))
-    :  wxHtmlWindowMouseHelper(this)
+    : wxHtmlWindowMouseHelper(this)
   {
-        Init();
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   virtual ~wxHtmlWindow();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHW_SCROLLBAR_AUTO, const wxString& name = wxT("htmlWindow"));
@@ -241,24 +240,24 @@ public:
     // Returns full location of opened page
   wxString GetOpenedPage() const
   {
-return m_OpenedPage;
+    return m_OpenedPage;
   }
     // Returns anchor within opened page
   wxString GetOpenedAnchor() const
   {
-return m_OpenedAnchor;
+    return m_OpenedAnchor;
   }
     // Returns <TITLE> of opened page or empty string otherwise
   wxString GetOpenedPageTitle() const
   {
-return m_OpenedPageTitle;
+    return m_OpenedPageTitle;
   }
     // Sets frame in which page title will  be displayed. Format is format of
     // frame title, e.g. "HtmlHelp : %s". It must contain exactly one %s
   void SetRelatedFrame(wxFrame* frame, const wxString& format);
   wxFrame* GetRelatedFrame() const
   {
-return m_RelatedFrame;
+    return m_RelatedFrame;
   }
 #    if  wxUSE_STATUSBAR
     // After(!) calling SetRelatedFrame, this sets statusbar slot where messages
@@ -274,22 +273,22 @@ return m_RelatedFrame;
     // Sets space between text and window borders.
   void SetBorders(int b)
   {
-m_Borders = b;
+    m_Borders = b;
   }
     // Sets the bitmap to use for background (currnetly it will be tiled,
     // when/if we have CSS support we could add other possibilities...)
   void SetBackgroundImage(const wxBitmap& bmpBg)
   {
- m_bmpBg = bmpBg;
+    m_bmpBg = bmpBg;
   }
-#    if  wxUSE_CONFIG
     // Saves custom settings into cfg config. it will use the path 'path'
     // if given, otherwise it will save info into currently selected path.
     // saved values : things set by SetFonts, SetBorders.
-  virtual void ReadCustomization(wxConfigBase* cfg, wxString path = wxEmptyString);
+    virtual void ReadCustomization(wxConfigBase *cfg, wxString path = wxEmptyString);
     // ...
-  virtual void WriteCustomization(wxConfigBase* cfg, wxString path = wxEmptyString);
-#    endif
+    virtual void WriteCustomization(wxConfigBase *cfg, wxString path = wxEmptyString);
+#endif // wxUSE_CONFIG
+
     // Goes to previous/next page (in browsing history)
     // Returns true if successful, false otherwise
   bool HistoryBack();
@@ -302,14 +301,14 @@ m_Borders = b;
     // It should be used ONLY when printing
   wxHtmlContainerCell* GetInternalRepresentation() const
   {
-return m_Cell;
+    return m_Cell;
   }
     // Adds input filter
   static void AddFilter(wxHtmlFilter* filter);
     // Returns a pointer to the parser.
   wxHtmlWinParser* GetParser() const
   {
- return m_Parser;
+    return m_Parser;
   }
     // Adds HTML processor to this instance of wxHtmlWindow:
   void AddProcessor(wxHtmlProcessor* processor);
@@ -329,7 +328,7 @@ return m_Cell;
     // it must set *redirect to the new URL
   virtual wxHtmlOpeningStatus OnOpeningURL(wxHtmlURLType, const wxString&, wxString*) const
   {
- return wxHTML_OPEN;
+    return wxHTML_OPEN;
   }
 #    if  wxUSE_CLIPBOARD
     // Helper functions to select parts of page:
@@ -339,7 +338,7 @@ return m_Cell;
     // Convert selection to text:
   wxString SelectionToText()
   {
- return DoSelectionToText(m_selection);
+    return DoSelectionToText(m_selection);
   }
     // Converts current page to text:
   wxString ToText();
@@ -378,7 +377,7 @@ protected:
     // Returns new filter (will be stored into m_DefaultFilter variable)
   virtual wxHtmlFilter* GetDefaultFilter()
   {
-return new wxHtmlFilterPlainText;
+    return new wxHtmlFilterPlainText;
   }
     // cleans static variables
   static void CleanUpStatics();
@@ -502,37 +501,37 @@ public:
   {
   }
   wxHtmlCellEvent(wxEventType commandType, int id, wxHtmlCell* cell, const wxPoint& pt, const wxMouseEvent& ev)
-    :  wxCommandEvent(commandType, id)
-        , m_mouseEvent(ev)
-        , m_pt(pt)
+    : wxCommandEvent(commandType, id)
+    , m_mouseEvent(ev)
+    , m_pt(pt)
   {
-        m_cell = cell;
-        m_bLinkWasClicked = false;
+    m_cell = cell;
+    m_bLinkWasClicked = false;
   }
   wxHtmlCell* GetCell() const
   {
- return m_cell;
+    return m_cell;
   }
   wxPoint GetPoint() const
   {
- return m_pt;
+    return m_pt;
   }
   wxMouseEvent GetMouseEvent() const
   {
- return m_mouseEvent;
+    return m_mouseEvent;
   }
   void SetLinkClicked(bool linkclicked)
   {
- m_bLinkWasClicked=linkclicked;
+    m_bLinkWasClicked = linkclicked;
   }
   bool GetLinkClicked() const
   {
- return m_bLinkWasClicked;
+    return m_bLinkWasClicked;
   }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
   {
- return new wxHtmlCellEvent(*this);
+    return new wxHtmlCellEvent(*this);
   }
 private:
   wxHtmlCell* m_cell;
@@ -551,19 +550,18 @@ public:
   {
   }
   wxHtmlLinkEvent(int id, const wxHtmlLinkInfo& linkinfo)
-    :  wxCommandEvent(wxEVT_HTML_LINK_CLICKED, id)
-        , m_linkInfo(linkinfo)
+    : wxCommandEvent(wxEVT_HTML_LINK_CLICKED, id)
+    , m_linkInfo(linkinfo)
   {
-
   }
   const wxHtmlLinkInfo& GetLinkInfo() const
   {
- return m_linkInfo;
+    return m_linkInfo;
   }
     // default copy ctor, assignment operator and dtor are ok
   wxEvent* Clone() const override
   {
- return new wxHtmlLinkEvent(*this);
+    return new wxHtmlLinkEvent(*this);
   }
 private:
   wxHtmlLinkInfo m_linkInfo;

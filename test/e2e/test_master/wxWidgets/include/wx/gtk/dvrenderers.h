@@ -23,7 +23,7 @@ class WXDLLIMPEXP_ADV wxDataViewTextRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("string");
+    return wxS("string");
   }
   wxDataViewTextRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
 #  if  wxUSE_MARKUP
@@ -31,17 +31,17 @@ public:
 #  endif
   bool SetValue(const wxVariant& value) override
   {
-        return SetTextValue(value);
+    return SetTextValue(value);
   }
   bool GetValue(wxVariant& value) const override
   {
-        wxString str;
-        if ( !GetTextValue(str) )
-            return false;
-
-        value = str;
-
-        return true;
+    wxString str;
+    if (!GetTextValue(str))
+    {
+      return false;
+    }
+    value = str;
+    return true;
   }
   void GtkUpdateAlignment() override;
   GtkCellRendererText* GtkGetTextRenderer() const override;
@@ -67,11 +67,12 @@ class WXDLLIMPEXP_ADV wxDataViewBitmapRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("wxBitmap");
+    return wxS("wxBitmap");
   }
   wxDataViewBitmapRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool SetValue(const wxVariant& value) override;
   bool GetValue(wxVariant& value) const override;
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewBitmapRenderer);
 };
 // ---------------------------------------------------------
@@ -82,12 +83,13 @@ class WXDLLIMPEXP_ADV wxDataViewToggleRenderer : public wxDataViewRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("bool");
+    return wxS("bool");
   }
   wxDataViewToggleRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   void ShowAsRadio();
   bool SetValue(const wxVariant& value) override;
   bool GetValue(wxVariant& value) const override;
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewToggleRenderer);
 };
 // ---------------------------------------------------------
@@ -98,7 +100,7 @@ class WXDLLIMPEXP_ADV wxDataViewCustomRenderer : public wxDataViewCustomRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("string");
+    return wxS("string");
   }
   wxDataViewCustomRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT, bool no_init = false);
   virtual ~wxDataViewCustomRenderer();
@@ -110,7 +112,7 @@ public:
     // store GTK render call parameters for possible later use
   void GTKSetRenderParams(GTKRenderParams* renderParams)
   {
-        m_renderParams = renderParams;
+    m_renderParams = renderParams;
   }
   GtkCellRendererText* GtkGetTextRenderer() const override;
   GtkWidget* GtkGetEditorWidget() const override;
@@ -135,7 +137,7 @@ class WXDLLIMPEXP_ADV wxDataViewProgressRenderer : public wxDataViewCustomRender
 public:
   static wxString GetDefaultType()
   {
- return wxS("long");
+    return wxS("long");
   }
   wxDataViewProgressRenderer(const wxString& label = wxEmptyString, const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   virtual ~wxDataViewProgressRenderer();
@@ -147,11 +149,9 @@ private:
   void GTKSetLabel();
   wxString m_label;
   int m_value;
-#  if  !wxUSE_UNICODE
     // Flag used to indicate that we need to set the label because we were
     // unable to do it in the ctor (see comments there).
-  bool m_needsToSetLabel;
-#  endif
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewProgressRenderer);
 };
 // ---------------------------------------------------------
@@ -162,7 +162,7 @@ class WXDLLIMPEXP_ADV wxDataViewIconTextRenderer : public wxDataViewTextRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("wxDataViewIconText");
+    return wxS("wxDataViewIconText");
   }
   wxDataViewIconTextRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT);
   virtual ~wxDataViewIconTextRenderer();
@@ -191,11 +191,11 @@ public:
   void GtkUpdateAlignment() override;
   wxString GetChoice(size_t index) const
   {
- return m_choices[index];
+    return m_choices[index];
   }
   const wxArrayString& GetChoices() const
   {
- return m_choices;
+    return m_choices;
   }
 private:
   wxArrayString m_choices;

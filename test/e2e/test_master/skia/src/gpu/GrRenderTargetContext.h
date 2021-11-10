@@ -75,7 +75,7 @@ public:
   void clear(const SkIRect* rect, const SkPMColor4f& color, CanClearFullscreen);
   void clear(const SkPMColor4f& color)
   {
-        return this->clear(nullptr, color, CanClearFullscreen::kYes);
+    return this->clear(nullptr, color, CanClearFullscreen::kYes);
   }
     /**
      *  Draw everywhere (respecting the clip) with the paint.
@@ -102,19 +102,14 @@ public:
      */
   void fillRectToRect(const GrClip& clip, GrPaint&& paint, GrAA aa, const SkMatrix& viewMatrix, const SkRect& rectToDraw, const SkRect& localRect)
   {
-        this->drawFilledQuad(clip, std::move(paint), aa,
-                             aa == GrAA::kYes ? GrQuadAAFlags::kAll : GrQuadAAFlags::kNone,
-                             GrQuad::MakeFromRect(rectToDraw, viewMatrix), GrQuad(localRect));
+    this->drawFilledQuad(clip, std::move(paint), aa, aa == GrAA::kYes ? GrQuadAAFlags::kAll : GrQuadAAFlags::kNone, GrQuad::MakeFromRect(rectToDraw, viewMatrix), GrQuad(localRect));
   }
     /**
      * Fills a rect with a paint and a localMatrix.
      */
   void fillRectWithLocalMatrix(const GrClip& clip, GrPaint&& paint, GrAA aa, const SkMatrix& viewMatrix, const SkRect& rect, const SkMatrix& localMatrix)
   {
-        this->drawFilledQuad(clip, std::move(paint), aa,
-                             aa == GrAA::kYes ? GrQuadAAFlags::kAll : GrQuadAAFlags::kNone,
-                             GrQuad::MakeFromRect(rect, viewMatrix),
-                             GrQuad::MakeFromRect(rect, localMatrix));
+    this->drawFilledQuad(clip, std::move(paint), aa, aa == GrAA::kYes ? GrQuadAAFlags::kAll : GrQuadAAFlags::kNone, GrQuad::MakeFromRect(rect, viewMatrix), GrQuad::MakeFromRect(rect, localMatrix));
   }
     /**
      * Creates an op that draws a fill rect with per-edge control over anti-aliasing.
@@ -124,9 +119,8 @@ public:
      */
   void fillRectWithEdgeAA(const GrClip& clip, GrPaint&& paint, GrAA aa, GrQuadAAFlags edgeAA, const SkMatrix& viewMatrix, const SkRect& rect, const SkRect* optionalLocalRect = nullptr)
   {
-        const SkRect& localRect = optionalLocalRect ? *optionalLocalRect : rect;
-        this->drawFilledQuad(clip, std::move(paint), aa, edgeAA,
-                             GrQuad::MakeFromRect(rect, viewMatrix), GrQuad(localRect));
+    const SkRect& localRect = optionalLocalRect ? *optionalLocalRect : rect;
+    this->drawFilledQuad(clip, std::move(paint), aa, edgeAA, GrQuad::MakeFromRect(rect, viewMatrix), GrQuad(localRect));
   }
     /**
      * Similar to fillRectWithEdgeAA but draws an arbitrary 2D convex quadrilateral transformed
@@ -142,10 +136,8 @@ public:
      */
   void fillQuadWithEdgeAA(const GrClip& clip, GrPaint&& paint, GrAA aa, GrQuadAAFlags edgeAA, const SkMatrix& viewMatrix, const SkPoint quad[4], const SkPoint optionalLocalQuad[4])
   {
-        const SkPoint* localQuad = optionalLocalQuad ? optionalLocalQuad : quad;
-        this->drawFilledQuad(clip, std::move(paint), aa, edgeAA,
-                             GrQuad::MakeFromSkQuad(quad, viewMatrix),
-                             GrQuad::MakeFromSkQuad(localQuad, SkMatrix::I()));
+    const SkPoint* localQuad = optionalLocalQuad ? optionalLocalQuad : quad;
+    this->drawFilledQuad(clip, std::move(paint), aa, edgeAA, GrQuad::MakeFromSkQuad(quad, viewMatrix), GrQuad::MakeFromSkQuad(localQuad, SkMatrix::I()));
   }
     /** Used with drawQuadSet */
   struct QuadSetEntry
@@ -165,11 +157,8 @@ public:
      */
   void drawTexture(const GrClip& clip, sk_sp<GrTextureProxy> proxy, GrSamplerState::Filter filter, SkBlendMode mode, const SkPMColor4f& color, const SkRect& srcRect, const SkRect& dstRect, GrAA aa, GrQuadAAFlags edgeAA, SkCanvas::SrcRectConstraint constraint, const SkMatrix& viewMatrix, sk_sp<GrColorSpaceXform> texXform)
   {
-        const SkRect* domain = constraint == SkCanvas::kStrict_SrcRectConstraint ?
-                &srcRect : nullptr;
-        this->drawTexturedQuad(clip, std::move(proxy), std::move(texXform), filter,
-                               color, mode, aa, edgeAA, GrQuad::MakeFromRect(dstRect, viewMatrix),
-                               GrQuad(srcRect), domain);
+    const SkRect* domain = constraint == SkCanvas::kStrict_SrcRectConstraint ? &srcRect : nullptr;
+    this->drawTexturedQuad(clip, std::move(proxy), std::move(texXform), filter, color, mode, aa, edgeAA, GrQuad::MakeFromRect(dstRect, viewMatrix), GrQuad(srcRect), domain);
   }
     /**
      * Variant of drawTexture that instead draws the texture applied to 'dstQuad' transformed by
@@ -179,9 +168,7 @@ public:
      */
   void drawTextureQuad(const GrClip& clip, sk_sp<GrTextureProxy> proxy, GrSamplerState::Filter filter, SkBlendMode mode, const SkPMColor4f& color, const SkPoint srcQuad[4], const SkPoint dstQuad[4], GrAA aa, GrQuadAAFlags edgeAA, const SkRect* domain, const SkMatrix& viewMatrix, sk_sp<GrColorSpaceXform> texXform)
   {
-        this->drawTexturedQuad(clip, std::move(proxy), std::move(texXform), filter, color, mode,
-                               aa, edgeAA, GrQuad::MakeFromSkQuad(dstQuad, viewMatrix),
-                               GrQuad::MakeFromSkQuad(srcQuad, SkMatrix::I()), domain);
+    this->drawTexturedQuad(clip, std::move(proxy), std::move(texXform), filter, color, mode, aa, edgeAA, GrQuad::MakeFromSkQuad(dstQuad, viewMatrix), GrQuad::MakeFromSkQuad(srcQuad, SkMatrix::I()), domain);
   }
     /** Used with drawTextureSet */
   struct TextureSetEntry
@@ -346,85 +333,85 @@ public:
   void insertEventMarker(const SkString&);
   const GrRenderTargetProxy* proxy() const
   {
- return fRenderTargetProxy.get();
+    return fRenderTargetProxy.get();
   }
   int width() const
   {
- return fRenderTargetProxy->width();
+    return fRenderTargetProxy->width();
   }
   int height() const
   {
- return fRenderTargetProxy->height();
+    return fRenderTargetProxy->height();
   }
   int numSamples() const
   {
- return fRenderTargetProxy->numSamples();
+    return fRenderTargetProxy->numSamples();
   }
   const SkSurfaceProps& surfaceProps() const
   {
- return fSurfaceProps;
+    return fSurfaceProps;
   }
   GrSurfaceOrigin origin() const
   {
- return fRenderTargetProxy->origin();
+    return fRenderTargetProxy->origin();
   }
   bool wrapsVkSecondaryCB() const
   {
- return fRenderTargetProxy->wrapsVkSecondaryCB();
+    return fRenderTargetProxy->wrapsVkSecondaryCB();
   }
   GrMipMapped mipMapped() const;
     // This entry point should only be called if the backing GPU object is known to be
     // instantiated.
   GrRenderTarget* accessRenderTarget()
   {
- return fRenderTargetProxy->peekRenderTarget();
+    return fRenderTargetProxy->peekRenderTarget();
   }
   GrSurfaceProxy* asSurfaceProxy() override
   {
- return fRenderTargetProxy.get();
+    return fRenderTargetProxy.get();
   }
   const GrSurfaceProxy* asSurfaceProxy() const override
   {
- return fRenderTargetProxy.get();
+    return fRenderTargetProxy.get();
   }
   sk_sp<GrSurfaceProxy> asSurfaceProxyRef() override
   {
- return fRenderTargetProxy;
+    return fRenderTargetProxy;
   }
   GrTextureProxy* asTextureProxy() override;
   const GrTextureProxy* asTextureProxy() const override;
   sk_sp<GrTextureProxy> asTextureProxyRef() override;
   GrRenderTargetProxy* asRenderTargetProxy() override
   {
- return fRenderTargetProxy.get();
+    return fRenderTargetProxy.get();
   }
   sk_sp<GrRenderTargetProxy> asRenderTargetProxyRef() override
   {
- return fRenderTargetProxy;
+    return fRenderTargetProxy;
   }
   GrRenderTargetContext* asRenderTargetContext() override
   {
- return this;
+    return this;
   }
     // Provides access to functions that aren't part of the public API.
   GrRenderTargetContextPriv priv();
   const GrRenderTargetContextPriv priv() const;
   GrTextTarget* textTarget()
   {
- return fTextTarget.get();
+    return fTextTarget.get();
   }
 #  if  GR_TEST_UTILS
   bool testingOnly_IsInstantiated() const
   {
- return fRenderTargetProxy->isInstantiated();
+    return fRenderTargetProxy->isInstantiated();
   }
   void testingOnly_SetPreserveOpsOnFullClear()
   {
- fPreserveOpsOnFullClear_TestingOnly = true;
+    fPreserveOpsOnFullClear_TestingOnly = true;
   }
   GrOpsTask* testingOnly_PeekLastOpsTask()
   {
- return fOpsTask.get();
+    return fOpsTask.get();
   }
 #  endif
 protected:

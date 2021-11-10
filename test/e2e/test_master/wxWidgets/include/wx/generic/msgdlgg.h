@@ -26,11 +26,9 @@ protected:
     // can be overridden to provide more contents to the dialog
   virtual void AddMessageDialogCheckBox(wxSizer*)
   {
-
   }
   virtual void AddMessageDialogDetails(wxSizer*)
   {
-
   }
 private:
     // Creates and returns a standard button sizer using the style of this

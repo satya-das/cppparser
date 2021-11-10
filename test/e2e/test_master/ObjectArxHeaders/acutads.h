@@ -42,21 +42,19 @@ int acutIsCntrl(int c);
 int acutToUpper(int c);
 int acutToLower(int c);
 #  pragma  pack (pop)
-#  ifdef __cplusplus
 int acutVSPrintf(wchar_t* buf, size_t nBufLen, const wchar_t* fmt, va_list va);
 template <size_t nBufLen>
 inline int acutSPrintf(wchar_t (& buf)[nBufLen], const ACHAR* format, ...)
 {
-    va_list va;
-    va_start(va, format);
-    const int nRet = ::acutVSPrintf(buf, nBufLen, format, va);
-    va_end(va);
-    return nRet;
+  va_list va;
+  va_start(va, format);
+  const int nRet = ::acutVSPrintf(buf, nBufLen, format, va);
+  va_end(va);
+  return nRet;
 }
 template <size_t nBufLen>
 inline int acutVSPrintf(wchar_t (& buf)[nBufLen], const ACHAR* format, va_list va)
 {
-    return ::acutVSPrintf(buf, nBufLen, format, va);
+  return ::acutVSPrintf(buf, nBufLen, format, va);
 }
-#  endif
 #endif

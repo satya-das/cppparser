@@ -15,19 +15,17 @@ public:
   static std::unique_ptr<GrFillRRectOp> Make(GrRecordingContext*, GrAAType, const SkMatrix& viewMatrix, const SkRRect&, const GrCaps&, GrPaint&&);
   const char* name() const override
   {
- return "GrFillRRectOp";
+    return "GrFillRRectOp";
   }
   FixedFunctionFlags fixedFunctionFlags() const override
   {
-        return (GrAAType::kMSAA == fAAType)
-                ? FixedFunctionFlags::kUsesHWAA
-                : FixedFunctionFlags::kNone;
+    return (GrAAType::kMSAA == fAAType) ? FixedFunctionFlags::kUsesHWAA : FixedFunctionFlags::kNone;
   }
   GrProcessorSet::Analysis finalize(const GrCaps&, const GrAppliedClip*, bool hasMixedSampledCoverage, GrClampType) override;
   CombineResult onCombineIfPossible(GrOp*, const GrCaps&) override;
   void visitProxies(const VisitProxyFunc& fn) const override
   {
-        fProcessors.visitProxies(fn);
+    fProcessors.visitProxies(fn);
   }
   void onPrepare(GrOpFlushState*) override;
   void onExecute(GrOpFlushState*, const SkRect& chainBounds) override;
@@ -47,15 +45,15 @@ private:
   template <typename T>
   inline T* appendInstanceData(int count)
   {
-        static_assert(std::is_pod<T>::value, "");
-        static_assert(4 == alignof(T), "");
-        return reinterpret_cast<T*>(fInstanceData.push_back_n(sizeof(T) * count));
+    static_assert(std::is_pod<T>::value, "");
+    static_assert(4 == alignof(T), "");
+    return reinterpret_cast<T*>(fInstanceData.push_back_n(sizeof(T) * count));
   }
   template <typename T, typename... Args>
   inline void writeInstanceData(const T& val, const Args&... remainder)
   {
-        memcpy(this->appendInstanceData<T>(1), &val, sizeof(T));
-        this->writeInstanceData(remainder...);
+    memcpy(this->appendInstanceData<T>(1), &val, sizeof(T));
+    this->writeInstanceData(remainder...);
   }
   void writeInstanceData()
   {

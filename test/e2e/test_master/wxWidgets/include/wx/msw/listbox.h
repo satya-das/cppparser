@@ -30,19 +30,17 @@ public:
     // ctors and such
   wxListBox()
   {
- Init();
+    Init();
   }
   wxListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, n, choices, style, validator, name);
+    Init();
+    Create(parent, id, pos, size, n, choices, style, validator, name);
   }
   wxListBox(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, choices, style, validator, name);
+    Init();
+    Create(parent, id, pos, size, choices, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxListBoxNameStr));
@@ -57,11 +55,11 @@ public:
     // return the index of the item at this position or wxNOT_FOUND
   int HitTest(const wxPoint& pt) const
   {
- return DoHitTestList(pt);
+    return DoHitTestList(pt);
   }
   int HitTest(wxCoord x, wxCoord y) const
   {
- return DoHitTestList(wxPoint(x, y));
+    return DoHitTestList(wxPoint(x, y));
   }
   void EnsureVisible(int n) override;
   int GetTopItem() const override;
@@ -77,12 +75,12 @@ public:
     // allows to get the item and use SetXXX functions to set it's appearance
   wxOwnerDrawn* GetItem(size_t n) const
   {
- return m_aItems[n];
+    return m_aItems[n];
   }
     // get the index of the given item
   int GetItemIndex(wxOwnerDrawn* item) const
   {
- return m_aItems.Index(item);
+    return m_aItems.Index(item);
   }
     // get rect of the given item index
   bool GetItemRect(size_t n, wxRect& rect) const;
@@ -104,20 +102,20 @@ public:
     // return true for WM_PRINTCLIENT here then it causes noticeable slowdown
   bool MSWShouldPropagatePrintChild() override
   {
-        return false;
+    return false;
   }
   wxVisualAttributes GetDefaultAttributes() const override
   {
-        return GetClassDefaultAttributes(GetWindowVariant());
+    return GetClassDefaultAttributes(GetWindowVariant());
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL)
   {
-        return GetCompositeControlsDefaultAttributes(variant);
+    return GetCompositeControlsDefaultAttributes(variant);
   }
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
   {
- return false;
+    return false;
   }
   void OnInternalIdle() override;
 protected:
@@ -135,7 +133,7 @@ protected:
     // width to the item width and to make it at least as tall as the checkbox.
   virtual wxSize MSWGetFullItemSize(int w, int h) const
   {
-        return wxSize(w, h);
+    return wxSize(w, h);
   }
   void MSWUpdateFontOnDPIChange(const wxSize& newDPI) override;
     // free memory (common part of Clear() and dtor)

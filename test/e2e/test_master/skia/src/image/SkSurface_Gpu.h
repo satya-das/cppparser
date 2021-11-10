@@ -37,7 +37,7 @@ public:
   bool onDraw(const SkDeferredDisplayList*) override;
   SkGpuDevice* getDevice()
   {
- return fDevice.get();
+    return fDevice.get();
   }
 private:
   sk_sp<SkGpuDevice> fDevice;

@@ -32,11 +32,11 @@ public:
   };
   wxEventFilter()
   {
-        m_next = NULL;
+    m_next = NULL;
   }
   virtual ~wxEventFilter()
   {
-        wxASSERT_MSG( !m_next, "Forgot to call wxEvtHandler::RemoveFilter()?" );
+    wxASSERT_MSG( !m_next, "Forgot to call wxEvtHandler::RemoveFilter()?" );
   }
     // This method allows to filter all the events processed by the program, so
     // you should try to return quickly from it to avoid slowing down the

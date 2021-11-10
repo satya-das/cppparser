@@ -75,30 +75,40 @@ class WXDLLIMPEXP_BASE wxFormatString
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
 public:
   wxFormatString(const char* str)
-    :  m_char(wxScopedCharBuffer::CreateNonOwned(str)), m_str(NULL), m_cstr(NULL)
+    : m_char(wxScopedCharBuffer::CreateNonOwned(str))
+    , m_str(NULL)
+    , m_cstr(NULL)
   {
   }
 #  endif
   wxFormatString(const wchar_t* str)
-    :  m_wchar(wxScopedWCharBuffer::CreateNonOwned(str)), m_str(NULL), m_cstr(NULL)
+    : m_wchar(wxScopedWCharBuffer::CreateNonOwned(str))
+    , m_str(NULL)
+    , m_cstr(NULL)
   {
   }
   wxFormatString(const wxString& str)
-    :  m_str(&str), m_cstr(NULL)
+    : m_str(&str)
+    , m_cstr(NULL)
   {
   }
   wxFormatString(const wxCStrData& str)
-    :  m_str(NULL), m_cstr(&str)
+    : m_str(NULL)
+    , m_cstr(&str)
   {
   }
 #  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxFormatString(const wxScopedCharBuffer& str)
-    :  m_char(str), m_str(NULL), m_cstr(NULL)
+    : m_char(str)
+    , m_str(NULL)
+    , m_cstr(NULL)
   {
   }
 #  endif
   wxFormatString(const wxScopedWCharBuffer& str)
-    :  m_wchar(str), m_str(NULL), m_cstr(NULL)
+    : m_wchar(str)
+    , m_str(NULL)
+    , m_cstr(NULL)
   {
   }
     // Possible argument types. These are or-combinable for wxASSERT_ARG_TYPE
@@ -155,7 +165,7 @@ public:
 #  if  !wxUSE_UNICODE_WCHAR && !defined wxNO_IMPLICIT_WXSTRING_ENCODING
   operator const char*() const
   {
- return const_cast<wxFormatString*>(this)->AsChar();
+    return const_cast<wxFormatString*>(this)->AsChar();
   }
 private:
     // InputAsChar() returns the value passed to ctor, only converted
@@ -170,7 +180,7 @@ private:
 public:
   operator const wchar_t*() const
   {
- return const_cast<wxFormatString*>(this)->AsWChar();
+    return const_cast<wxFormatString*>(this)->AsWChar();
   }
 private:
   const wchar_t* InputAsWChar();
@@ -191,20 +201,20 @@ private:
 struct wxFormatStringArgument
 {
   wxFormatStringArgument(const wxFormatString* s = NULL)
-    :  m_str(s)
+    : m_str(s)
   {
   }
   const wxFormatString* m_str;
     // overriding this operator allows us to reuse _WX_VARARG_JOIN macro
   wxFormatStringArgument operator,(const wxFormatStringArgument& a) const
   {
-        wxASSERT_MSG( m_str == NULL || a.m_str == NULL,
+    wxASSERT_MSG( m_str == NULL || a.m_str == NULL,
                       "can't have two format strings in vararg function" );
-        return wxFormatStringArgument(m_str ? m_str : a.m_str);
+    return wxFormatStringArgument(m_str ? m_str : a.m_str);
   }
   operator const wxFormatString*() const
   {
- return m_str;
+    return m_str;
   }
 };
 template <typename T>
@@ -213,7 +223,7 @@ struct wxFormatStringArgumentFinder
   static wxFormatStringArgument find(T)
   {
         // by default, arguments are not format strings, so return "not found"
-        return wxFormatStringArgument();
+    return wxFormatStringArgument();
   }
 };
 template <>
@@ -221,7 +231,7 @@ struct wxFormatStringArgumentFinder<const wxFormatString&>
 {
   static wxFormatStringArgument find(const wxFormatString& arg)
   {
- return wxFormatStringArgument(&arg);
+    return wxFormatStringArgument(&arg);
   }
 };
 template <>
@@ -407,16 +417,16 @@ struct wxArgNormalizer
     // use format string and 'index' is index of 'value' in variadic arguments
     // list (starting at 1)
   wxArgNormalizer(T value, const wxFormatString* fmt, unsigned index)
-    :  m_value(value)
+    : m_value(value)
   {
-        wxASSERT_ARG_TYPE( fmt, index, wxFormatStringSpecifier<T>::value );
+    wxASSERT_ARG_TYPE(fmt, index, wxFormatStringSpecifier<T>::value);
   }
     // Returns the value in a form that can be safely passed to real vararg
     // functions. In case of strings, this is char* in ANSI build and wchar_t*
     // in Unicode build.
   T get() const
   {
- return m_value;
+    return m_value;
   }
   T m_value;
 };
@@ -428,7 +438,7 @@ template <typename T>
 struct wxArgNormalizerWchar : public wxArgNormalizer<T>
 {
   wxArgNormalizerWchar(T value, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizer<T>(value, fmt, index)
+    : wxArgNormalizer<T>(value, fmt, index)
   {
   }
 };
@@ -440,7 +450,7 @@ template <typename T>
 struct wxArgNormalizerUtf8 : public wxArgNormalizer<T>
 {
   wxArgNormalizerUtf8(T value, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizer<T>(value, fmt, index)
+    : wxArgNormalizer<T>(value, fmt, index)
   {
   }
 };
@@ -462,13 +472,13 @@ struct wxArgNormalizerWithBuffer
   {
   }
   wxArgNormalizerWithBuffer(const CharBuffer& buf, const wxFormatString* fmt, unsigned index)
-    :  m_value(buf)
+    : m_value(buf)
   {
-        wxASSERT_ARG_TYPE( fmt, index, wxFormatString::Arg_String );
+    wxASSERT_ARG_TYPE(fmt, index, wxFormatString::Arg_String);
   }
   const CharType* get() const
   {
- return m_value;
+    return m_value;
   }
   CharBuffer m_value;
 };
@@ -477,9 +487,9 @@ template <>
 struct WXDLLIMPEXP_BASE wxArgNormalizerNative<const wxString&>
 {
   wxArgNormalizerNative(const wxString& s, const wxFormatString* fmt, unsigned index)
-    :  m_value(s)
+    : m_value(s)
   {
-        wxASSERT_ARG_TYPE( fmt, index, wxFormatString::Arg_String );
+    wxASSERT_ARG_TYPE(fmt, index, wxFormatString::Arg_String);
   }
   const wxStringCharType* get() const;
   const wxString& m_value;
@@ -489,9 +499,9 @@ template <>
 struct WXDLLIMPEXP_BASE wxArgNormalizerNative<const wxCStrData&>
 {
   wxArgNormalizerNative(const wxCStrData& value, const wxFormatString* fmt, unsigned index)
-    :  m_value(value)
+    : m_value(value)
   {
-        wxASSERT_ARG_TYPE( fmt, index, wxFormatString::Arg_String );
+    wxASSERT_ARG_TYPE(fmt, index, wxFormatString::Arg_String);
   }
   const wxStringCharType* get() const;
   const wxCStrData& m_value;
@@ -511,32 +521,39 @@ struct WXDLLIMPEXP_BASE wxArgNormalizerWchar<const wxCStrData&> : public wxArgNo
 #  endif
 // C string pointers of the wrong type (wchar_t* for ANSI or UTF8 build,
 // char* for wchar_t Unicode build or UTF8):
-#  if  wxUSE_UNICODE_WCHAR
-#    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
-template <>
-struct wxArgNormalizerWchar<const char*> : public wxArgNormalizerWithBuffer<wchar_t>
+#if wxUSE_UNICODE_WCHAR
+
+#ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
+template<>
+struct wxArgNormalizerWchar<const char*>
+    : public wxArgNormalizerWithBuffer<wchar_t>
 {
-  wxArgNormalizerWchar(const char* s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerWithBuffer<wchar_t>(wxConvLibc.cMB2WC(s), fmt, index)
-  {
-  }
+    wxArgNormalizerWchar(const char* s,
+                         const wxFormatString *fmt, unsigned index)
+        : wxArgNormalizerWithBuffer<wchar_t>(wxConvLibc.cMB2WC(s), fmt, index) {}
 };
-#    endif
-#  elif  wxUSE_UNICODE_UTF8
-template <>
-struct wxArgNormalizerUtf8<const wchar_t*> : public wxArgNormalizerWithBuffer<char>
+#endif // wxNO_IMPLICIT_WXSTRING_ENCODING
+
+#elif wxUSE_UNICODE_UTF8
+
+template<>
+struct wxArgNormalizerUtf8<const wchar_t*>
+    : public wxArgNormalizerWithBuffer<char>
 {
-  wxArgNormalizerUtf8(const wchar_t* s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerWithBuffer<char>(wxConvUTF8.cWC2MB(s), fmt, index)
-  {
-  }
+    wxArgNormalizerUtf8(const wchar_t* s,
+                        const wxFormatString *fmt, unsigned index)
+        : wxArgNormalizerWithBuffer<char>(wxConvUTF8.cWC2MB(s), fmt, index) {}
 };
-#    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
-template <>
-struct wxArgNormalizerUtf8<const char*> : public wxArgNormalizerWithBuffer<char>
+
+#ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
+template<>
+struct wxArgNormalizerUtf8<const char*>
+    : public wxArgNormalizerWithBuffer<char>
 {
-  wxArgNormalizerUtf8(const char* s, const wxFormatString* fmt, unsigned index)
-  {
+    wxArgNormalizerUtf8(const char* s,
+                        const wxFormatString *fmt,
+                        unsigned index)
+    {
         wxASSERT_ARG_TYPE( fmt, index, wxFormatString::Arg_String );
 
         if ( wxLocaleIsUtf8 )
@@ -552,31 +569,20 @@ struct wxArgNormalizerUtf8<const char*> : public wxArgNormalizerWithBuffer<char>
             if ( buf )
                 m_value = wxConvUTF8.cWC2MB(buf);
         }
-  }
+    }
 };
-#    endif
+#endif
+
 // UTF-8 build needs conversion to wchar_t* too:
-#    if  !wxUSE_UTF8_LOCALE_ONLY && !defined wxNO_IMPLICIT_WXSTRING_ENCODING
-template <>
-struct wxArgNormalizerWchar<const char*> : public wxArgNormalizerWithBuffer<wchar_t>
-{
-  wxArgNormalizerWchar(const char* s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerWithBuffer<wchar_t>(wxConvLibc.cMB2WC(s), fmt, index)
-  {
-  }
-};
-#    endif
-#  else 
-#    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
+#  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
 template <>
 struct wxArgNormalizerWchar<const wchar_t*> : public wxArgNormalizerWithBuffer<char>
 {
   wxArgNormalizerWchar(const wchar_t* s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerWithBuffer<char>(wxConvLibc.cWC2MB(s), fmt, index)
+    : wxArgNormalizerWithBuffer<char>(wxConvLibc.cWC2MB(s), fmt, index)
   {
   }
 };
-#    endif
 #  endif
 #  ifdef wxNO_IMPLICIT_WXSTRING_ENCODING
 // wxArgNormalizer specializations that cannot be instanced
@@ -678,7 +684,7 @@ template <>
 struct wxArgNormalizerWchar<const std::string&> : public wxArgNormalizerWchar<const char*>
 {
   wxArgNormalizerWchar(const std::string& s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerWchar<const char*>(s.c_str(), fmt, index)
+    : wxArgNormalizerWchar<const char*>(s.c_str(), fmt, index)
   {
   }
 };
@@ -687,7 +693,7 @@ template <>
 struct wxArgNormalizerWchar<const wxStdWideString&> : public wxArgNormalizerWchar<const wchar_t*>
 {
   wxArgNormalizerWchar(const wxStdWideString& s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerWchar<const wchar_t*>(s.c_str(), fmt, index)
+    : wxArgNormalizerWchar<const wchar_t*>(s.c_str(), fmt, index)
   {
   }
 };
@@ -698,7 +704,7 @@ template <>
 struct wxArgNormalizerUtf8<const std::string&> : public wxArgNormalizerUtf8<const char*>
 {
   wxArgNormalizerUtf8(const std::string& s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerUtf8<const char*>(s.c_str(), fmt, index)
+    : wxArgNormalizerUtf8<const char*>(s.c_str(), fmt, index)
   {
   }
 };
@@ -707,7 +713,7 @@ template <>
 struct wxArgNormalizerUtf8<const wxStdWideString&> : public wxArgNormalizerUtf8<const wchar_t*>
 {
   wxArgNormalizerUtf8(const wxStdWideString& s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerUtf8<const wchar_t*>(s.c_str(), fmt, index)
+    : wxArgNormalizerUtf8<const wchar_t*>(s.c_str(), fmt, index)
   {
   }
 };
@@ -723,7 +729,7 @@ template <>
 struct wxArgNormalizer<const wxUniChar&> : public wxArgNormalizer<wchar_t>
 {
   wxArgNormalizer(const wxUniChar& s, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizer<wchar_t>(wx_truncate_cast(wchar_t, s.GetValue()), fmt, index)
+    : wxArgNormalizer<wchar_t>(wx_truncate_cast(wchar_t, s.GetValue()), fmt, index)
   {
   }
 };
@@ -734,25 +740,26 @@ struct wxArgNormalizer<const wxUniChar&> : public wxArgNormalizer<wchar_t>
 // wxUniChar) or as an integer value (which should be left as-is). We take
 // advantage of the fact that both char and wchar_t are converted into int
 // in variadic arguments here.
-#  if  wxUSE_UNICODE
 template <typename T>
 struct wxArgNormalizerNarrowChar
 {
   wxArgNormalizerNarrowChar(T value, const wxFormatString* fmt, unsigned index)
   {
-        wxASSERT_ARG_TYPE( fmt, index,
-                           wxFormatString::Arg_Char | wxFormatString::Arg_Int );
-
+    wxASSERT_ARG_TYPE(fmt, index, wxFormatString::Arg_Char | wxFormatString::Arg_Int);
         // FIXME-UTF8: which one is better default in absence of fmt string
         //             (i.e. when used like e.g. Foo("foo", "bar", 'c', NULL)?
-        if ( !fmt || fmt->GetArgumentType(index) == wxFormatString::Arg_Char )
-            m_value = wx_truncate_cast(T, wxUniChar(value).GetValue());
-        else
-            m_value = value;
+    if (!fmt || fmt->GetArgumentType(index) == wxFormatString::Arg_Char)
+    {
+      m_value = wx_truncate_cast(T, wxUniChar(value).GetValue());
+    }
+    else 
+    {
+      m_value = value;
+    }
   }
   int get() const
   {
- return m_value;
+    return m_value;
   }
   T m_value;
 };
@@ -760,7 +767,7 @@ template <>
 struct wxArgNormalizer<char> : public wxArgNormalizerNarrowChar<char>
 {
   wxArgNormalizer(char value, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerNarrowChar<char>(value, fmt, index)
+    : wxArgNormalizerNarrowChar<char>(value, fmt, index)
   {
   }
 };
@@ -768,7 +775,7 @@ template <>
 struct wxArgNormalizer<unsigned char> : public wxArgNormalizerNarrowChar<unsigned char>
 {
   wxArgNormalizer(unsigned char value, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerNarrowChar<unsigned char>(value, fmt, index)
+    : wxArgNormalizerNarrowChar<unsigned char>(value, fmt, index)
   {
   }
 };
@@ -776,11 +783,10 @@ template <>
 struct wxArgNormalizer<signed char> : public wxArgNormalizerNarrowChar<signed char>
 {
   wxArgNormalizer(signed char value, const wxFormatString* fmt, unsigned index)
-    :  wxArgNormalizerNarrowChar<signed char>(value, fmt, index)
+    : wxArgNormalizerNarrowChar<signed char>(value, fmt, index)
   {
   }
 };
-#  endif
 // convert references:
 WX_ARG_NORMALIZER_FORWARD(wxUniChar, const wxUniChar&);
 WX_ARG_NORMALIZER_FORWARD(const wxUniCharRef&, const wxUniChar&);
@@ -802,17 +808,17 @@ WX_ARG_NORMALIZER_FORWARD(const signed char&, signed char);
 struct WXDLLIMPEXP_BASE wxArgNormalizedString
 {
   wxArgNormalizedString(const void* ptr)
-    :  m_ptr(ptr)
+    : m_ptr(ptr)
   {
   }
     // returns true if non-NULL string was passed in
   bool IsValid() const
   {
- return m_ptr != NULL;
+    return m_ptr != NULL;
   }
   operator bool() const
   {
- return IsValid();
+    return IsValid();
   }
     // extracts the string, returns empty string if NULL was passed in
   wxString GetString() const;

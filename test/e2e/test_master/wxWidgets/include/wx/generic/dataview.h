@@ -29,89 +29,89 @@ class WXDLLIMPEXP_CORE wxDataViewColumn : public wxDataViewColumnBase
 {
 public:
   wxDataViewColumn(const wxString& title, wxDataViewRenderer* renderer, unsigned int model_column, int width = wxDVC_DEFAULT_WIDTH, wxAlignment align = wxALIGN_CENTER, int flags = wxDATAVIEW_COL_RESIZABLE)
-    :  wxDataViewColumnBase(renderer, model_column),
-          m_title(title)
+    : wxDataViewColumnBase(renderer, model_column)
+    , m_title(title)
   {
-        Init(width, align, flags);
+    Init(width, align, flags);
   }
   wxDataViewColumn(const wxBitmap& bitmap, wxDataViewRenderer* renderer, unsigned int model_column, int width = wxDVC_DEFAULT_WIDTH, wxAlignment align = wxALIGN_CENTER, int flags = wxDATAVIEW_COL_RESIZABLE)
-    :  wxDataViewColumnBase(bitmap, renderer, model_column)
+    : wxDataViewColumnBase(bitmap, renderer, model_column)
   {
-        Init(width, align, flags);
+    Init(width, align, flags);
   }
     // implement wxHeaderColumnBase methods
   void SetTitle(const wxString& title) override
   {
-        m_title = title;
-        UpdateWidth();
+    m_title = title;
+    UpdateWidth();
   }
   wxString GetTitle() const override
   {
-        return m_title;
+    return m_title;
   }
   void SetWidth(int width) override
   {
         // Call the actual update method, used for both automatic and "manual"
         // width changes.
-        WXUpdateWidth(width);
-
+    WXUpdateWidth(width);
         // Do remember the last explicitly set width: this is used to prevent
         // UpdateColumnSizes() from resizing the last column to be smaller than
         // this size.
-        m_manuallySetWidth = width;
+    m_manuallySetWidth = width;
   }
   int GetWidth() const override;
   void SetMinWidth(int minWidth) override
   {
-        m_minWidth = minWidth;
-        UpdateWidth();
+    m_minWidth = minWidth;
+    UpdateWidth();
   }
   int GetMinWidth() const override
   {
-        return m_minWidth;
+    return m_minWidth;
   }
   void SetAlignment(wxAlignment align) override
   {
-        m_align = align;
-        UpdateDisplay();
+    m_align = align;
+    UpdateDisplay();
   }
   wxAlignment GetAlignment() const override
   {
-        return m_align;
+    return m_align;
   }
   void SetFlags(int flags) override
   {
-        m_flags = flags;
-        UpdateDisplay();
+    m_flags = flags;
+    UpdateDisplay();
   }
   int GetFlags() const override
   {
-        return m_flags;
+    return m_flags;
   }
   bool IsSortKey() const override
   {
-        return m_sort;
+    return m_sort;
   }
   void UnsetAsSortKey() override;
   void SetSortOrder(bool ascending) override;
   bool IsSortOrderAscending() const override
   {
-        return m_sortAscending;
+    return m_sortAscending;
   }
   void SetBitmap(const wxBitmap& bitmap) override
   {
-        wxDataViewColumnBase::SetBitmap(bitmap);
-        UpdateWidth();
+    wxDataViewColumnBase::SetBitmap(bitmap);
+    UpdateWidth();
   }
     // This method is specific to the generic implementation and is used only
     // by wxWidgets itself.
   void WXUpdateWidth(int width)
   {
-        if ( width == m_width )
-            return;
-
-        m_width = width;
-        UpdateWidth();
+    if (width == m_width)
+    {
+      return ;
+    }
+    m_width = width;
+    UpdateWidth();
   }
     // This method is also internal and called when the column is resized by
     // user interactively.
@@ -152,14 +152,14 @@ class WXDLLIMPEXP_CORE wxDataViewCtrl : public wxDataViewCtrlBase, public wxScro
 #  endif
 public:
   wxDataViewCtrl()
-    :  wxScrollHelper(this)
+    : wxScrollHelper(this)
   {
-        Init();
+    Init();
   }
   wxDataViewCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxDataViewCtrlNameStr))
-    :  wxScrollHelper(this)
+    : wxScrollHelper(this)
   {
-        Create(parent, id, pos, size, style, validator, name);
+    Create(parent, id, pos, size, style, validator, name);
   }
   virtual ~wxDataViewCtrl();
   void Init();
@@ -204,13 +204,11 @@ public:
   bool AllowMultiColumnSort(bool allow) override;
   bool IsMultiColumnSortAllowed() const override
   {
- return m_allowMultiColumnSort;
+    return m_allowMultiColumnSort;
   }
   void ToggleSortByColumn(int column) override;
-#  if  wxUSE_DRAG_AND_DROP
   bool EnableDragSource(const wxDataFormat& format) override;
   bool EnableDropTarget(const wxDataFormat& format) override;
-#  endif
   wxBorder GetDefaultBorder() const override;
   void EditItem(const wxDataViewItem& item, const wxDataViewColumn* column) override;
   bool SetHeaderAttr(const wxItemAttr& attr) override;
@@ -219,7 +217,7 @@ public:
     // should not be used in portable code.
   wxColour GetAlternateRowColour() const
   {
- return m_alternateRowColour;
+    return m_alternateRowColour;
   }
     // The returned pointer is null if the control has wxDV_NO_HEADER style.
     //
@@ -256,7 +254,7 @@ public:
   void OnColumnsCountChanged();
   wxWindow* GetMainWindow()
   {
- return (wxWindow*) m_clientArea;
+    return (wxWindow*) m_clientArea;
   }
     // return the index of the given column in m_cols
   int GetColumnIndex(const wxDataViewColumn* column) const;
@@ -283,7 +281,8 @@ private:
   struct CachedColWidthInfo
   {
     CachedColWidthInfo()
-      :  width(0), dirty(true)
+      : width(0)
+      , dirty(true)
     {
     }
     int width;
@@ -307,9 +306,6 @@ private:
   wxSize GetSizeAvailableForScrollTarget(const wxSize& size) override;
     // we need to return a special WM_GETDLGCODE value to process just the
     // arrows but let the other navigation characters through
-#  ifdef __WXMSW__
-  WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
-#  endif
   WX_FORWARD_TO_SCROLL_HELPER()
   wxDECLARE_DYNAMIC_CLASS(wxDataViewCtrl);
   wxDECLARE_NO_COPY_CLASS(wxDataViewCtrl);

@@ -16,7 +16,6 @@ class WXDLLIMPEXP_CORE wxControlWithItems : public wxControlWithItemsBase
 public:
   wxControlWithItems()
   {
-
   }
 protected:
     // preallocate memory for inserting the given new items into the control
@@ -30,8 +29,9 @@ protected:
     // overridden to return the real list/combobox control
   virtual WXHWND MSWGetItemsHWND() const
   {
- return GetHWND();
+    return GetHWND();
   }
+private:
   wxDECLARE_ABSTRACT_CLASS(wxControlWithItems);
   wxDECLARE_NO_COPY_CLASS(wxControlWithItems);
 };

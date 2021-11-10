@@ -25,11 +25,11 @@ class AcGePoint3d;
 class AcGeVector3d;
 inline AcGePoint2d& asPnt2d(const double* pnt)
 {
-    return *((AcGePoint2d*)pnt);
+  return *((AcGePoint2d*) pnt);
 }
 inline AcGeVector2d& asVec2d(const double* vec)
 {
-    return *((AcGeVector2d*)vec);
+  return *((AcGeVector2d*) vec);
 }
 //clang 4.0 has a false positive where AcGePoint2d is treated as alignment of 4. silencing the compiler here
 //error: cast from 'const AcGeVector3d *' to 'double *' increases required alignment from 4 to 8 [-Werror,-Wcast-align]
@@ -39,22 +39,22 @@ inline AcGeVector2d& asVec2d(const double* vec)
 #  endif
 inline double* asDblArray(const AcGePoint2d& pnt)
 {
-    return (double*)&pnt;
+  return (double*) &pnt;
 }
 inline double* asDblArray(const AcGeVector2d& vec)
 {
-    return (double*)&vec;
+  return (double*) &vec;
 }
 #  ifdef __clang__
 #    pragma  clang diagnostic pop
 #  endif
 inline AcGePoint3d& asPnt3d(const double* pnt)
 {
-    return *((AcGePoint3d*)pnt);
+  return *((AcGePoint3d*) pnt);
 }
 inline AcGeVector3d& asVec3d(const double* vec)
 {
-    return *((AcGeVector3d*)vec);
+  return *((AcGeVector3d*) vec);
 }
 #  ifdef __clang__
 #    pragma  clang diagnostic push
@@ -62,11 +62,11 @@ inline AcGeVector3d& asVec3d(const double* vec)
 #  endif
 inline double* asDblArray(const AcGePoint3d& pnt)
 {
-    return (double*)&pnt;
+  return (double*) &pnt;
 }
 inline double* asDblArray(const AcGeVector3d& vec)
 {
-    return (double*)&vec;
+  return (double*) &vec;
 }
 #  ifdef __clang__
 #    pragma  clang diagnostic pop

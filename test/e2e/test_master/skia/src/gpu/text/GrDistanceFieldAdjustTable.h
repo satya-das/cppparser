@@ -15,16 +15,16 @@ struct GrDistanceFieldAdjustTable : public SkNVRefCnt<GrDistanceFieldAdjustTable
 {
   GrDistanceFieldAdjustTable()
   {
- this->buildDistanceAdjustTables();
+    this->buildDistanceAdjustTables();
   }
   ~GrDistanceFieldAdjustTable()
   {
-        delete[] fTable;
-        delete[] fGammaCorrectTable;
+    delete[] fTable;
+    delete[] fGammaCorrectTable;
   }
   const SkScalar& getAdjustment(int i, bool useGammaCorrectTable) const
   {
-        return useGammaCorrectTable ? fGammaCorrectTable[i] : fTable[i];
+    return useGammaCorrectTable ? fGammaCorrectTable[i] : fTable[i];
   }
 private:
   void buildDistanceAdjustTables();

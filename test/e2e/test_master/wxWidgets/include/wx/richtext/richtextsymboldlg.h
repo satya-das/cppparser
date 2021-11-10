@@ -28,9 +28,7 @@ class wxStdDialogButtonSizer;
 
 // __UNICODE__ is a symbol used by DialogBlocks-generated code.
 #  ifndef __UNICODE__
-#    if  wxUSE_UNICODE
-#      define __UNICODE__
-#    endif
+#    define __UNICODE__
 #  endif
 /*!
  * Symbols
@@ -71,22 +69,22 @@ public:
     /// Is there a selection?
   bool HasSelection() const
   {
- return !m_symbol.IsEmpty();
+    return !m_symbol.IsEmpty();
   }
     /// Specifying normal text?
   bool UseNormalFont() const
   {
- return m_fontName.IsEmpty();
+    return m_fontName.IsEmpty();
   }
     /// Should we show tooltips?
   static bool ShowToolTips()
   {
- return sm_showToolTips;
+    return sm_showToolTips;
   }
     /// Determines whether tooltips will be shown
   static void SetShowToolTips(bool show)
   {
- sm_showToolTips = show;
+    sm_showToolTips = show;
   }
     /// Data transfer
   bool TransferDataToWindow() override;
@@ -115,35 +113,35 @@ public:
 ////@begin wxSymbolPickerDialog member function declarations
   wxString GetFontName() const
   {
- return m_fontName ;
+    return m_fontName;
   }
   void SetFontName(const wxString& value)
   {
- m_fontName = value;
+    m_fontName = value;
   }
   bool GetFromUnicode() const
   {
- return m_fromUnicode ;
+    return m_fromUnicode;
   }
   void SetFromUnicode(bool value)
   {
- m_fromUnicode = value ;
+    m_fromUnicode = value;
   }
   wxString GetNormalTextFontName() const
   {
- return m_normalTextFontName ;
+    return m_normalTextFontName;
   }
   void SetNormalTextFontName(const wxString& value)
   {
- m_normalTextFontName = value;
+    m_normalTextFontName = value;
   }
   wxString GetSymbol() const
   {
- return m_symbol ;
+    return m_symbol;
   }
   void SetSymbol(const wxString& value)
   {
- m_symbol = value;
+    m_symbol = value;
   }
     /// Retrieves bitmap resources
   wxBitmap GetBitmapResource(const wxString& name);
@@ -192,14 +190,13 @@ public:
     // default constructor, you must call Create() later
   wxSymbolListCtrl()
   {
- Init();
+    Init();
   }
     // normal constructor which calls Create() internally
   wxSymbolListCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, pos, size, style, name);
+    Init();
+    (void) Create(parent, id, pos, size, style, name);
   }
     // really creates the control and sets the initial number of items in it
     // (which may be changed later with SetItemCount())
@@ -222,17 +219,17 @@ public:
     // is this item the current one?
   bool IsCurrentItem(int item) const
   {
- return item == m_current;
+    return item == m_current;
   }
     // get the margins around each cell
   wxPoint GetMargins() const
   {
- return m_ptMargins;
+    return m_ptMargins;
   }
     // get the background colour of selected cells
   const wxColour& GetSelectionBackground() const
   {
- return m_colBgSel;
+    return m_colBgSel;
   }
     // operations
     // ----------
@@ -250,32 +247,32 @@ public:
   void SetMargins(const wxPoint& pt);
   void SetMargins(wxCoord x, wxCoord y)
   {
- SetMargins(wxPoint(x, y));
+    SetMargins(wxPoint(x, y));
   }
     // set the cell size
   void SetCellSize(const wxSize& sz)
   {
- m_cellSize = sz;
+    m_cellSize = sz;
   }
   const wxSize& GetCellSize() const
   {
- return m_cellSize;
+    return m_cellSize;
   }
     // change the background colour of the selected cells
   void SetSelectionBackground(const wxColour& col);
   wxVisualAttributes GetDefaultAttributes() const override
   {
-        return GetClassDefaultAttributes(GetWindowVariant());
+    return GetClassDefaultAttributes(GetWindowVariant());
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
     // Get min/max symbol values
   int GetMinSymbolValue() const
   {
- return m_minSymbolValue;
+    return m_minSymbolValue;
   }
   int GetMaxSymbolValue() const
   {
- return m_maxSymbolValue;
+    return m_maxSymbolValue;
   }
     // Respond to size change
   void OnSize(wxSizeEvent& event);

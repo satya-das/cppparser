@@ -81,66 +81,75 @@ private:
 Acad::ErrorStatus acutNewString(const ACHAR* pInput, ACHAR*& pOutput);
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getACharString(GetPropAcString pMeth, ACHAR*& rpBuf) const
 {
-    rpBuf = nullptr;
-    AcString sTemp;
-    const Acad::ErrorStatus es = (this->*pMeth)(sTemp);
-    if (es == Acad::eOk)
-        ::acutNewString(sTemp.constPtr(), rpBuf);
-    return es;
+  rpBuf = nullptr;
+  AcString sTemp;
+  const Acad::ErrorStatus es = (this->*pMeth)(sTemp);
+  if (es == Acad::eOk)
+  {
+    ::acutNewString(sTemp.constPtr(), rpBuf);
+  }
+  return es;
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getTitle(ACHAR*& title) const
 {
-    return this->getACharString(&AcDbDatabaseSummaryInfo::getTitle, title);
+  return this->getACharString(&AcDbDatabaseSummaryInfo::getTitle, title);
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getSubject(ACHAR*& title) const
 {
-    return this->getACharString(&AcDbDatabaseSummaryInfo::getSubject, title);
+  return this->getACharString(&AcDbDatabaseSummaryInfo::getSubject, title);
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getAuthor(ACHAR*& title) const
 {
-    return this->getACharString(&AcDbDatabaseSummaryInfo::getAuthor, title);
+  return this->getACharString(&AcDbDatabaseSummaryInfo::getAuthor, title);
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getKeywords(ACHAR*& title) const
 {
-    return this->getACharString(&AcDbDatabaseSummaryInfo::getKeywords, title);
+  return this->getACharString(&AcDbDatabaseSummaryInfo::getKeywords, title);
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getComments(ACHAR*& title) const
 {
-    return this->getACharString(&AcDbDatabaseSummaryInfo::getComments, title);
+  return this->getACharString(&AcDbDatabaseSummaryInfo::getComments, title);
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getLastSavedBy(ACHAR*& title) const
 {
-    return this->getACharString(&AcDbDatabaseSummaryInfo::getLastSavedBy, title);
+  return this->getACharString(&AcDbDatabaseSummaryInfo::getLastSavedBy, title);
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getRevisionNumber(ACHAR*& title) const
 {
-    return this->getACharString(&AcDbDatabaseSummaryInfo::getRevisionNumber, title);
+  return this->getACharString(&AcDbDatabaseSummaryInfo::getRevisionNumber, title);
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getHyperlinkBase(ACHAR*& title) const
 {
-    return this->getACharString(&AcDbDatabaseSummaryInfo::getHyperlinkBase, title);
+  return this->getACharString(&AcDbDatabaseSummaryInfo::getHyperlinkBase, title);
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getCustomSummaryInfo(int index, ACHAR*& key, ACHAR*& value) const
 {
-    AcString sKey, sValue;
-    const Acad::ErrorStatus es = this->getCustomSummaryInfo(index, sKey, sValue);
-    if (es == Acad::eOk) {
-        ::acutNewString(sKey.constPtr(), key);
-        ::acutNewString(sValue.constPtr(), value);
-    }
-    else
-        key = value = nullptr;
-    return es;
+  AcString sKey, sValue;
+  const Acad::ErrorStatus es = this->getCustomSummaryInfo(index, sKey, sValue);
+  if (es == Acad::eOk)
+  {
+    ::acutNewString(sKey.constPtr(), key);
+    ::acutNewString(sValue.constPtr(), value);
+  }
+  else 
+  {
+    key = value = nullptr;
+  }
+  return es;
 }
 inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getCustomSummaryInfo(const ACHAR* customInfoKey, ACHAR*& value) const
 {
-    AcString sValue;
-    const Acad::ErrorStatus es = this->getCustomSummaryInfo(customInfoKey, sValue);
-    if (es == Acad::eOk)
-        ::acutNewString(sValue.constPtr(), value);
-    else
-        value = nullptr;
-    return es;
+  AcString sValue;
+  const Acad::ErrorStatus es = this->getCustomSummaryInfo(customInfoKey, sValue);
+  if (es == Acad::eOk)
+  {
+    ::acutNewString(sValue.constPtr(), value);
+  }
+  else 
+  {
+    value = nullptr;
+  }
+  return es;
 }
 //
 /// -- End Deprecated Functions --
@@ -152,7 +161,7 @@ ACDBCORE2D_PORT Acad::ErrorStatus acdbValidateCustomSummaryInfoKey(const wchar_t
 //
 inline Acad::ErrorStatus acdbPutSummaryInfo(const AcDbDatabaseSummaryInfo* pInfo)
 {
-    return ::acdbPutSummaryInfo(pInfo, pInfo->database());
+  return ::acdbPutSummaryInfo(pInfo, pInfo->database());
 }
 //
 class ADESK_NO_VTABLE AcDbSummaryInfoReactor
@@ -160,7 +169,6 @@ class ADESK_NO_VTABLE AcDbSummaryInfoReactor
 public:
   virtual void summaryInfoHasChanged(const AcDbDatabase*, const AcDbDatabaseSummaryInfo*)
   {
-
   }
   virtual ~AcDbSummaryInfoReactor()
   {

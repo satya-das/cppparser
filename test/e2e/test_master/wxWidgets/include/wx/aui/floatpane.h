@@ -33,7 +33,7 @@ public:
   bool IsTopNavigationDomain(NavigationKind kind) const override;
   wxAuiManager& GetAuiManager()
   {
- return m_mgr;
+    return m_mgr;
   }
 protected:
   virtual void OnMoveStart();
@@ -56,10 +56,8 @@ private:
   wxDirection m_lastDirection;
   wxWeakRef<wxAuiManager> m_ownerMgr;
   wxAuiManager m_mgr;
-#    ifndef SWIG
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_CLASS(wxAuiFloatingFrame);
-#    endif
 };
 #  endif
 #endif

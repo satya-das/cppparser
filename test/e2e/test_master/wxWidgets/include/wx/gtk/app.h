@@ -39,7 +39,7 @@ public:
     // must return XVisualInfo pointer (it is not freed by caller)
   virtual void* GetXVisualInfo()
   {
- return NULL;
+    return NULL;
   }
     // Check if we're using a global menu. Currently this is only true when
     // running under Ubuntu Unity and global menu is not disabled.

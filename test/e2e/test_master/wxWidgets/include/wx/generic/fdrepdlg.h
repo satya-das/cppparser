@@ -20,13 +20,12 @@ class WXDLLIMPEXP_CORE wxGenericFindReplaceDialog : public wxFindReplaceDialogBa
 public:
   wxGenericFindReplaceDialog()
   {
- Init();
+    Init();
   }
   wxGenericFindReplaceDialog(wxWindow* parent, wxFindReplaceData* data, const wxString& title, int style = 0)
   {
-        Init();
-
-        (void)Create(parent, data, title, style);
+    Init();
+    (void) Create(parent, data, title, style);
   }
   bool Create(wxWindow* parent, wxFindReplaceData* data, const wxString& title, int style = 0);
 protected:

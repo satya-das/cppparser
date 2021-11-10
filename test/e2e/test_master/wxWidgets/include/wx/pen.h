@@ -18,19 +18,20 @@ class wxPenInfo : public wxPenInfoBase<wxPenInfo>
 {
 public:
   explicit wxPenInfo(const wxColour& colour = wxColour(), int width = 1, wxPenStyle style = wxPENSTYLE_SOLID)
-    :  wxPenInfoBase<wxPenInfo>(colour, style)
+    : wxPenInfoBase<wxPenInfo>(colour, style)
   {
-        m_width = width;
+    m_width = width;
   }
     // Setters
   wxPenInfo& Width(int width)
   {
- m_width = width; return *this;
+    m_width = width;
+    return *this;
   }
     // Accessors
   int GetWidth() const
   {
- return m_width;
+    return m_width;
   }
 private:
   int m_width;
@@ -40,7 +41,6 @@ class WXDLLIMPEXP_CORE wxPenBase : public wxGDIObject
 public:
   virtual ~wxPenBase()
   {
-
   }
   virtual void SetColour(const wxColour& col) = 0;
   virtual void SetColour(unsigned char r, unsigned char g, unsigned char b) = 0;
@@ -62,11 +62,11 @@ public:
     // the pen is invalid (they both return false in this case).
   bool IsTransparent() const
   {
-        return IsOk() && GetStyle() == wxPENSTYLE_TRANSPARENT;
+    return IsOk() && GetStyle() == wxPENSTYLE_TRANSPARENT;
   }
   bool IsNonTransparent() const
   {
-        return IsOk() && GetStyle() != wxPENSTYLE_TRANSPARENT;
+    return IsOk() && GetStyle() != wxPENSTYLE_TRANSPARENT;
   }
 };
 #  if  defined(__WXMSW__)
@@ -88,9 +88,10 @@ class WXDLLIMPEXP_CORE wxPenList : public wxGDIObjListBase
 {
 public:
   wxPen* FindOrCreatePen(const wxColour& colour, int width = 1, wxPenStyle style = wxPENSTYLE_SOLID);
-  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") wxPen* FindOrCreatePen(const wxColour& colour, int width, int style)
+  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
+  wxPen* FindOrCreatePen(const wxColour& colour, int width, int style)
   {
- return FindOrCreatePen(colour, width, (wxPenStyle)style);
+    return FindOrCreatePen(colour, width, (wxPenStyle) style);
   }
 };
 WXDLLIMPEXP_CORE extern wxPenList* wxThePenList;
@@ -100,12 +101,14 @@ WXDLLIMPEXP_CORE extern wxPenList* wxThePenList;
 //
 // to compile without warnings which it would otherwise provoke from some
 // compilers as it compares elements of different enums
-wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") inline bool operator==(wxPenStyle s, wxDeprecatedGUIConstants t)
+wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
+inline bool operator==(wxPenStyle s, wxDeprecatedGUIConstants t)
 {
-    return static_cast<int>(s) == static_cast<int>(t);
+  return static_cast<int>(s) == static_cast<int>(t);
 }
-wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") inline bool operator!=(wxPenStyle s, wxDeprecatedGUIConstants t)
+wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
+inline bool operator!=(wxPenStyle s, wxDeprecatedGUIConstants t)
 {
-    return static_cast<int>(s) != static_cast<int>(t);
+  return static_cast<int>(s) != static_cast<int>(t);
 }
 #endif

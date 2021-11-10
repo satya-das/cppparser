@@ -37,7 +37,6 @@ class WXDLLIMPEXP_BASE wxTarNotifier
 public:
   virtual ~wxTarNotifier()
   {
-
   }
   virtual void OnEntryUpdated(class wxTarEntry& entry) = 0;
 };
@@ -54,121 +53,121 @@ public:
   wxString GetName(wxPathFormat format = wxPATH_NATIVE) const override;
   wxString GetInternalName() const override
   {
- return m_Name;
+    return m_Name;
   }
   wxPathFormat GetInternalFormat() const override
   {
- return wxPATH_UNIX;
+    return wxPATH_UNIX;
   }
   int GetMode() const;
   int GetUserId() const
   {
- return m_UserId;
+    return m_UserId;
   }
   int GetGroupId() const
   {
- return m_GroupId;
+    return m_GroupId;
   }
   wxFileOffset GetSize() const override
   {
- return m_Size;
+    return m_Size;
   }
   wxFileOffset GetOffset() const override
   {
- return m_Offset;
+    return m_Offset;
   }
   wxDateTime GetDateTime() const override
   {
- return m_ModifyTime;
+    return m_ModifyTime;
   }
   wxDateTime GetAccessTime() const
   {
- return m_AccessTime;
+    return m_AccessTime;
   }
   wxDateTime GetCreateTime() const
   {
- return m_CreateTime;
+    return m_CreateTime;
   }
   int GetTypeFlag() const
   {
- return m_TypeFlag;
+    return m_TypeFlag;
   }
   wxString GetLinkName() const
   {
- return m_LinkName;
+    return m_LinkName;
   }
   wxString GetUserName() const
   {
- return m_UserName;
+    return m_UserName;
   }
   wxString GetGroupName() const
   {
- return m_GroupName;
+    return m_GroupName;
   }
   int GetDevMajor() const
   {
- return m_DevMajor;
+    return m_DevMajor;
   }
   int GetDevMinor() const
   {
- return m_DevMinor;
+    return m_DevMinor;
   }
     // is accessors
   bool IsDir() const override;
   bool IsReadOnly() const override
   {
- return !(m_Mode & 0222);
+    return !(m_Mode & 0222);
   }
     // set accessors
   void SetName(const wxString& name, wxPathFormat format = wxPATH_NATIVE) override;
   void SetUserId(int id)
   {
- m_UserId = id;
+    m_UserId = id;
   }
   void SetGroupId(int id)
   {
- m_GroupId = id;
+    m_GroupId = id;
   }
   void SetMode(int mode);
   void SetSize(wxFileOffset size) override
   {
- m_Size = size;
+    m_Size = size;
   }
   void SetDateTime(const wxDateTime& dt) override
   {
- m_ModifyTime = dt;
+    m_ModifyTime = dt;
   }
   void SetAccessTime(const wxDateTime& dt)
   {
- m_AccessTime = dt;
+    m_AccessTime = dt;
   }
   void SetCreateTime(const wxDateTime& dt)
   {
- m_CreateTime = dt;
+    m_CreateTime = dt;
   }
   void SetTypeFlag(int type)
   {
- m_TypeFlag = type;
+    m_TypeFlag = type;
   }
   void SetLinkName(const wxString& link)
   {
- m_LinkName = link;
+    m_LinkName = link;
   }
   void SetUserName(const wxString& user)
   {
- m_UserName = user;
+    m_UserName = user;
   }
   void SetGroupName(const wxString& group)
   {
- m_GroupName = group;
+    m_GroupName = group;
   }
   void SetDevMajor(int dev)
   {
- m_DevMajor = dev;
+    m_DevMajor = dev;
   }
   void SetDevMinor(int dev)
   {
- m_DevMinor = dev;
+    m_DevMinor = dev;
   }
     // set is accessors
   void SetIsDir(bool isDir = true) override;
@@ -176,20 +175,19 @@ public:
   static wxString GetInternalName(const wxString& name, wxPathFormat format = wxPATH_NATIVE, bool* pIsDir = NULL);
   wxTarEntry* Clone() const
   {
- return new wxTarEntry(*this);
+    return new wxTarEntry(*this);
   }
   void SetNotifier(wxTarNotifier&)
   {
-
   }
 private:
   void SetOffset(wxFileOffset offset) override
   {
- m_Offset = offset;
+    m_Offset = offset;
   }
   wxArchiveEntry* DoClone() const override
   {
- return Clone();
+    return Clone();
   }
   wxString m_Name;
   int m_Mode;
@@ -225,29 +223,29 @@ public:
   wxTarEntry* GetNextEntry();
   wxFileOffset GetLength() const override
   {
- return m_size;
+    return m_size;
   }
   bool IsSeekable() const override
   {
- return m_parent_i_stream->IsSeekable();
+    return m_parent_i_stream->IsSeekable();
   }
 protected:
   size_t OnSysRead(void* buffer, size_t size) override;
   wxFileOffset OnSysTell() const override
   {
- return m_pos;
+    return m_pos;
   }
   wxFileOffset OnSysSeek(wxFileOffset seek, wxSeekMode mode) override;
 private:
   void Init();
   wxArchiveEntry* DoGetNextEntry() override
   {
- return GetNextEntry();
+    return GetNextEntry();
   }
   bool OpenEntry(wxArchiveEntry& entry) override;
   bool IsOpened() const
   {
- return m_pos != wxInvalidOffset;
+    return m_pos != wxInvalidOffset;
   }
   wxStreamError ReadHeaders();
   bool ReadExtendedHeader(wxTarHeaderRecords*& recs);
@@ -280,28 +278,28 @@ public:
   bool CopyEntry(wxTarEntry* entry, wxTarInputStream& inputStream);
   bool CopyArchiveMetaData(wxTarInputStream&)
   {
- return true;
+    return true;
   }
   void Sync() override;
   bool CloseEntry() override;
   bool Close() override;
   bool IsSeekable() const override
   {
- return m_parent_o_stream->IsSeekable();
+    return m_parent_o_stream->IsSeekable();
   }
   void SetBlockingFactor(int factor)
   {
- m_BlockingFactor = factor;
+    m_BlockingFactor = factor;
   }
   int GetBlockingFactor() const
   {
- return m_BlockingFactor;
+    return m_BlockingFactor;
   }
 protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysTell() const override
   {
- return m_pos;
+    return m_pos;
   }
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;
 private:
@@ -310,11 +308,11 @@ private:
   bool CopyEntry(wxArchiveEntry* entry, wxArchiveInputStream& stream) override;
   bool CopyArchiveMetaData(wxArchiveInputStream&) override
   {
- return true;
+    return true;
   }
   bool IsOpened() const
   {
- return m_pos != wxInvalidOffset;
+    return m_pos != wxInvalidOffset;
   }
   bool WriteHeaders(wxTarEntry& entry);
   bool ModifyHeader();
@@ -365,49 +363,49 @@ public:
   wxTarClassFactory();
   wxTarEntry* NewEntry() const
   {
- return new wxTarEntry;
+    return new wxTarEntry;
   }
   wxTarInputStream* NewStream(wxInputStream& stream) const
   {
- return new wxTarInputStream(stream, GetConv());
+    return new wxTarInputStream(stream, GetConv());
   }
   wxTarOutputStream* NewStream(wxOutputStream& stream) const
   {
- return new wxTarOutputStream(stream, wxTAR_PAX, GetConv());
+    return new wxTarOutputStream(stream, wxTAR_PAX, GetConv());
   }
   wxTarInputStream* NewStream(wxInputStream* stream) const
   {
- return new wxTarInputStream(stream, GetConv());
+    return new wxTarInputStream(stream, GetConv());
   }
   wxTarOutputStream* NewStream(wxOutputStream* stream) const
   {
- return new wxTarOutputStream(stream, wxTAR_PAX, GetConv());
+    return new wxTarOutputStream(stream, wxTAR_PAX, GetConv());
   }
   wxString GetInternalName(const wxString& name, wxPathFormat format = wxPATH_NATIVE) const override
   {
- return wxTarEntry::GetInternalName(name, format);
+    return wxTarEntry::GetInternalName(name, format);
   }
   const wxChar* const * GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const override;
 protected:
   wxArchiveEntry* DoNewEntry() const override
   {
- return NewEntry();
+    return NewEntry();
   }
   wxArchiveInputStream* DoNewStream(wxInputStream& stream) const override
   {
- return NewStream(stream);
+    return NewStream(stream);
   }
   wxArchiveOutputStream* DoNewStream(wxOutputStream& stream) const override
   {
- return NewStream(stream);
+    return NewStream(stream);
   }
   wxArchiveInputStream* DoNewStream(wxInputStream* stream) const override
   {
- return NewStream(stream);
+    return NewStream(stream);
   }
   wxArchiveOutputStream* DoNewStream(wxOutputStream* stream) const override
   {
- return NewStream(stream);
+    return NewStream(stream);
   }
 private:
   wxDECLARE_DYNAMIC_CLASS(wxTarClassFactory);

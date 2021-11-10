@@ -18,63 +18,63 @@ namespace wxJSON
     const wchar_t* ch = buf.data();
     // String has to chart with a quote
     if (*(ch++) != '"')
-        return false;
+    {
+      return false;
+    }
     out->reserve(buf.length());
     const wchar_t* end = buf.data() + buf.length() - 1;
     for (; ch < end; ++ch)
     {
-        if (*ch == '\\')
+      if (*ch == '\\')
+      {
+        switch(*(++ch))
         {
-            switch (*(++ch))
-            {
-            case 'b':
-                out->append('\b');
-                break;
-            case 'n':
-                out->append('\n');
-                break;
-            case 'r':
-                out->append('\r');
-                break;
-            case 't':
-                out->append('\t');
-                break;
-            case 'f':
-                out->append('\f');
-                break;
-            case '/':
-                out->append('/');
-                break;
-            case '"':
-                out->append('"');
-                break;
-            case '\\':
-                out->append('\\');
-                break;
-            case 'u':
-#if SIZEOF_WCHAR_T == 2
+          case 'b':
+            out->append('\b');
+            break;
+          case 'n':
+            out->append('\n');
+            break;
+          case 'r':
+            out->append('\r');
+            break;
+          case 't':
+            out->append('\t');
+            break;
+          case 'f':
+            out->append('\f');
+            break;
+          case '/':
+            out->append('/');
+            break;
+          case '"':
+            out->append('"');
+            break;
+          case '\\':
+            out->append('\\');
+            break;
+          case 'u':
+#  if  SIZEOF_WCHAR_T == 2
                             // In this case, we handle surrogates without doing anything special was wchar_t strings use UTF-17 encoding.
-                if (wxIsxdigit(ch[1]) && wxIsxdigit(ch[2]) &&
-                    wxIsxdigit(ch[3]) && wxIsxdigit(ch[4]))
-                {
-                    wchar_t uchar = wxHexToDec(wxString(&ch[3], 2)) |
-                        wxHexToDec(wxString(&ch[1], 2)) >> 8;
-                    out->append(uchar);
-                    ch += 4;
-                }
-#else
-    #error Implement correct surrogate handling.
-#endif
-                break;
-            default:
-                return false;
-                break;
+            if (wxIsxdigit(ch[1]) && wxIsxdigit(ch[2]) && wxIsxdigit(ch[3]) && wxIsxdigit(ch[4]))
+            {
+              wchar_t uchar = wxHexToDec(wxString(&ch[3], 2)) | wxHexToDec(wxString(&ch[1], 2)) >> 8;
+              out->append(uchar);
+              ch += 4;
             }
-        }
-        else
-            out->append(*ch);
+#  else 
+#  endif
+            break;
+default:
+          return false;
+          break;
+      }
+      }
+      else 
+      {
+        out->append(*ch);
+      }
     }
-
     // String has to end with a quote
     return (*ch) == '"';
   }

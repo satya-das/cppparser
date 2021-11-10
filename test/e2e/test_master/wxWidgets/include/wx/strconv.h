@@ -67,19 +67,19 @@ public:
     // conversion failed.
   wxWCharBuffer cMB2WC(const char* in) const
   {
- return DoConvertMB2WC(in, wxNO_LEN);
+    return DoConvertMB2WC(in, wxNO_LEN);
   }
   wxCharBuffer cWC2MB(const wchar_t* in) const
   {
- return DoConvertWC2MB(in, wxNO_LEN);
+    return DoConvertWC2MB(in, wxNO_LEN);
   }
   wxWCharBuffer cMB2WC(const wxScopedCharBuffer& in) const
   {
- return DoConvertMB2WC(in, in.length());
+    return DoConvertMB2WC(in, in.length());
   }
   wxCharBuffer cWC2MB(const wxScopedWCharBuffer& in) const
   {
- return DoConvertWC2MB(in, in.length());
+    return DoConvertWC2MB(in, in.length());
   }
     // Convenience functions for converting strings which may contain embedded
     // NULs and don't have to be NUL-terminated.
@@ -99,46 +99,27 @@ public:
   wxWCharBuffer cMB2WC(const char* in, size_t inLen, size_t* outLen) const;
   wxCharBuffer cWC2MB(const wchar_t* in, size_t inLen, size_t* outLen) const;
     // convenience functions for converting MB or WC to/from wxWin default
-#  if  wxUSE_UNICODE
   wxWCharBuffer cMB2WX(const char* psz) const
   {
- return cMB2WC(psz);
+    return cMB2WC(psz);
   }
   wxCharBuffer cWX2MB(const wchar_t* psz) const
   {
- return cWC2MB(psz);
+    return cWC2MB(psz);
   }
   const wchar_t* cWC2WX(const wchar_t* psz) const
   {
- return psz;
+    return psz;
   }
   const wchar_t* cWX2WC(const wchar_t* psz) const
   {
- return psz;
+    return psz;
   }
-#  else 
-  const char* cMB2WX(const char* psz) const
-  {
- return psz;
-  }
-  const char* cWX2MB(const char* psz) const
-  {
- return psz;
-  }
-  wxCharBuffer cWC2WX(const wchar_t* psz) const
-  {
- return cWC2MB(psz);
-  }
-  wxWCharBuffer cWX2WC(const char* psz) const
-  {
- return cMB2WC(psz);
-  }
-#  endif
     // return the maximum number of bytes that can be required to encode a
     // single character in this encoding, e.g. 4 for UTF-8
   virtual size_t GetMaxCharLen() const
   {
- return 1;
+    return 1;
   }
     // this function is used in the implementation of cMB2WC() to distinguish
     // between the following cases:
@@ -153,20 +134,20 @@ public:
     // anything else is not supported currently and -1 should be returned
   virtual size_t GetMBNulLen() const
   {
- return 1;
+    return 1;
   }
     // return the maximal value currently returned by GetMBNulLen() for any
     // encoding
   static size_t GetMaxMBNulLen()
   {
- return 4 /* for UTF-32 */;
+    return 4;
   }
     // return true if the converter's charset is UTF-8, i.e. char* strings
     // decoded using this object can be directly copied to wxString's internal
     // storage without converting to WC and than back to UTF-8 MB string
   virtual bool IsUTF8() const
   {
- return false;
+    return false;
   }
     // The old conversion functions. The existing classes currently mostly
     // implement these ones but we're in transition to using To/FromWChar()
@@ -191,7 +172,6 @@ public:
     // virtual dtor for any base class
   virtual ~wxMBConv()
   {
-
   }
 private:
     // Common part of single argument cWC2MB() and cMB2WC() overloads above.
@@ -209,11 +189,11 @@ public:
   size_t WC2MB(char* outputBuf, const wchar_t* psz, size_t outputSize) const override;
   wxMBConv* Clone() const override
   {
- return new wxMBConvLibc;
+    return new wxMBConvLibc;
   }
   bool IsUTF8() const override
   {
- return wxLocaleIsUtf8;
+    return wxLocaleIsUtf8;
   }
 };
 #  ifdef __UNIX__
@@ -228,35 +208,34 @@ class WXDLLIMPEXP_BASE wxConvBrokenFileNames : public wxMBConv
 public:
   wxConvBrokenFileNames(const wxString& charset);
   wxConvBrokenFileNames(const wxConvBrokenFileNames& conv)
-    :  wxMBConv(),
-          m_conv(conv.m_conv ? conv.m_conv->Clone() : NULL)
+    : wxMBConv()
+    , m_conv(conv.m_conv ? conv.m_conv->Clone() : NULL)
   {
-
   }
   virtual ~wxConvBrokenFileNames()
   {
- delete m_conv;
+    delete m_conv;
   }
   size_t MB2WC(wchar_t* out, const char* in, size_t outLen) const override
   {
-        return m_conv->MB2WC(out, in, outLen);
+    return m_conv->MB2WC(out, in, outLen);
   }
   size_t WC2MB(char* out, const wchar_t* in, size_t outLen) const override
   {
-        return m_conv->WC2MB(out, in, outLen);
+    return m_conv->WC2MB(out, in, outLen);
   }
   size_t GetMBNulLen() const override
   {
         // cast needed to call a private function
-        return m_conv->GetMBNulLen();
+    return m_conv->GetMBNulLen();
   }
   bool IsUTF8() const override
   {
- return m_conv->IsUTF8();
+    return m_conv->IsUTF8();
   }
   wxMBConv* Clone() const override
   {
- return new wxConvBrokenFileNames(*this);
+    return new wxConvBrokenFileNames(*this);
   }
 private:
     // the conversion object we forward to
@@ -272,7 +251,6 @@ class WXDLLIMPEXP_BASE wxMBConvUTF7 : public wxMBConv
 public:
   wxMBConvUTF7()
   {
-
   }
     // compiler-generated copy ctor, assignment operator and dtor are ok
     // (assuming it's ok to copy the shift state -- not really sure about it)
@@ -280,11 +258,11 @@ public:
   size_t FromWChar(char* dst, size_t dstLen, const wchar_t* src, size_t srcLen = wxNO_LEN) const override;
   size_t GetMaxCharLen() const override
   {
- return 4;
+    return 4;
   }
   wxMBConv* Clone() const override
   {
- return new wxMBConvUTF7;
+    return new wxMBConvUTF7;
   }
 private:
     // UTF-7 decoder/encoder may be in direct mode or in shifted mode after a
@@ -309,24 +287,28 @@ private:
         // the initial state is direct
     DecoderState()
     {
- mode = Direct; accum = bit = msb = 0; isLSB = false;
+      mode = Direct;
+      accum = bit = msb = 0;
+      isLSB = false;
     }
         // switch to/from shifted mode
     void ToDirect()
     {
- mode = Direct;
+      mode = Direct;
     }
     void ToShifted()
     {
- mode = Shifted; accum = bit = 0; isLSB = false;
+      mode = Shifted;
+      accum = bit = 0;
+      isLSB = false;
     }
     bool IsDirect() const
     {
- return mode == Direct;
+      return mode == Direct;
     }
     bool IsShifted() const
     {
- return mode == Shifted;
+      return mode == Shifted;
     }
         // these variables are only used in shifted mode
     unsigned int accum;
@@ -344,23 +326,25 @@ private:
   public:
     EncoderState()
     {
- mode = Direct; accum = bit = 0;
+      mode = Direct;
+      accum = bit = 0;
     }
     void ToDirect()
     {
- mode = Direct;
+      mode = Direct;
     }
     void ToShifted()
     {
- mode = Shifted; accum = bit = 0;
+      mode = Shifted;
+      accum = bit = 0;
     }
     bool IsDirect() const
     {
- return mode == Direct;
+      return mode == Direct;
     }
     bool IsShifted() const
     {
- return mode == Shifted;
+      return mode == Shifted;
     }
     unsigned int accum;
     unsigned int bit;
@@ -382,17 +366,17 @@ public:
   size_t FromWChar(char* dst, size_t dstLen, const wchar_t* src, size_t srcLen = wxNO_LEN) const override;
   size_t GetMaxCharLen() const override
   {
- return 4;
+    return 4;
   }
   wxMBConv* Clone() const override
   {
- return new wxMBConvStrictUTF8();
+    return new wxMBConvStrictUTF8();
   }
     // NB: other mapping modes are not, strictly speaking, UTF-8, so we can't
     //     take the shortcut in that case
   bool IsUTF8() const override
   {
- return true;
+    return true;
   }
 };
 class WXDLLIMPEXP_BASE wxMBConvUTF8 : public wxMBConvStrictUTF8
@@ -405,25 +389,24 @@ public:
     MAP_INVALID_UTF8_TO_OCTAL = 2
   };
   wxMBConvUTF8(int options = MAP_INVALID_UTF8_NOT)
-    :  m_options(options)
+    : m_options(options)
   {
-
   }
   size_t ToWChar(wchar_t* dst, size_t dstLen, const char* src, size_t srcLen = wxNO_LEN) const override;
   size_t FromWChar(char* dst, size_t dstLen, const wchar_t* src, size_t srcLen = wxNO_LEN) const override;
   size_t GetMaxCharLen() const override
   {
- return 4;
+    return 4;
   }
   wxMBConv* Clone() const override
   {
- return new wxMBConvUTF8(m_options);
+    return new wxMBConvUTF8(m_options);
   }
     // NB: other mapping modes are not, strictly speaking, UTF-8, so we can't
     //     take the shortcut in that case
   bool IsUTF8() const override
   {
- return m_options == MAP_INVALID_UTF8_NOT;
+    return m_options == MAP_INVALID_UTF8_NOT;
   }
 private:
   int m_options;
@@ -439,7 +422,7 @@ public:
   };
   size_t GetMBNulLen() const override
   {
- return BYTES_PER_CHAR;
+    return BYTES_PER_CHAR;
   }
 protected:
     // return the length of the buffer using srcLen if it's not wxNO_LEN and
@@ -458,11 +441,11 @@ public:
   size_t FromWChar(char* dst, size_t dstLen, const wchar_t* src, size_t srcLen = wxNO_LEN) const override;
   size_t GetMaxCharLen() const override
   {
- return 4;
+    return 4;
   }
   wxMBConv* Clone() const override
   {
- return new wxMBConvUTF16LE;
+    return new wxMBConvUTF16LE;
   }
 };
 // ----------------------------------------------------------------------------
@@ -475,11 +458,11 @@ public:
   size_t FromWChar(char* dst, size_t dstLen, const wchar_t* src, size_t srcLen = wxNO_LEN) const override;
   size_t GetMaxCharLen() const override
   {
- return 4;
+    return 4;
   }
   wxMBConv* Clone() const override
   {
- return new wxMBConvUTF16BE;
+    return new wxMBConvUTF16BE;
   }
 };
 // ----------------------------------------------------------------------------
@@ -493,7 +476,7 @@ public:
   };
   size_t GetMBNulLen() const override
   {
- return BYTES_PER_CHAR;
+    return BYTES_PER_CHAR;
   }
 protected:
     // this is similar to wxMBConvUTF16Base method with the same name except
@@ -511,11 +494,11 @@ public:
   size_t FromWChar(char* dst, size_t dstLen, const wchar_t* src, size_t srcLen = wxNO_LEN) const override;
   size_t GetMaxCharLen() const override
   {
- return 4;
+    return 4;
   }
   wxMBConv* Clone() const override
   {
- return new wxMBConvUTF32LE;
+    return new wxMBConvUTF32LE;
   }
 };
 // ----------------------------------------------------------------------------
@@ -528,11 +511,11 @@ public:
   size_t FromWChar(char* dst, size_t dstLen, const wchar_t* src, size_t srcLen = wxNO_LEN) const override;
   size_t GetMaxCharLen() const override
   {
- return 4;
+    return 4;
   }
   wxMBConv* Clone() const override
   {
- return new wxMBConvUTF32BE;
+    return new wxMBConvUTF32BE;
   }
 };
 // ----------------------------------------------------------------------------
@@ -555,7 +538,7 @@ public:
   bool IsUTF8() const override;
   wxMBConv* Clone() const override
   {
- return new wxCSConv(*this);
+    return new wxCSConv(*this);
   }
   void Clear();
     // return true if the conversion could be initialized successfully
@@ -597,7 +580,6 @@ class WXDLLIMPEXP_BASE wxWhateverWorksConv : public wxMBConv
 public:
   wxWhateverWorksConv()
   {
-
   }
     // Try to interpret the string as UTF-8, if it fails fall back to the
     // current locale encoding (wxConvLibc) and if this fails as well,
@@ -614,11 +596,11 @@ public:
     // as UTF-8 before giving up.
   size_t GetMaxCharLen() const override
   {
- return 4;
+    return 4;
   }
   wxMBConv* Clone() const override
   {
-        return new wxWhateverWorksConv();
+    return new wxWhateverWorksConv();
   }
 };
 // ----------------------------------------------------------------------------
@@ -705,28 +687,27 @@ typedef wxMBConvUTF32LE wxMBConvUTF32;
 // ----------------------------------------------------------------------------
 // macros for the most common conversions
 // ----------------------------------------------------------------------------
-#  if  wxUSE_UNICODE
-#    define wxConvertWX2MB(s)	   wxConvCurrent->cWX2MB(s)
-#    define wxConvertMB2WX(s)	   wxConvCurrent->cMB2WX(s)
+#  define wxConvertWX2MB(s)	   wxConvCurrent->cWX2MB(s)
+#  define wxConvertMB2WX(s)	   wxConvCurrent->cMB2WX(s)
     // these functions should be used when the conversions really, really have
     // to succeed (usually because we pass their results to a standard C
     // function which would crash if we passed NULL to it), so these functions
     // always return a valid pointer if their argument is non-NULL
 inline wxWCharBuffer wxSafeConvertMB2WX(const char* s)
 {
-        return wxConvWhateverWorks.cMB2WC(s);
+  return wxConvWhateverWorks.cMB2WC(s);
 }
 inline wxCharBuffer wxSafeConvertWX2MB(const wchar_t* ws)
 {
-        return wxConvWhateverWorks.cWC2MB(ws);
+  return wxConvWhateverWorks.cWC2MB(ws);
 }
-#  else 
     // no conversions to do
-#    define wxConvertWX2MB(s)   (s)
-#    define wxConvertMB2WX(s)   (s)
-#    define wxSafeConvertMB2WX(s) (s)
-#    define wxSafeConvertWX2MB(s) (s)
-#  endif
+    #define wxConvertWX2MB(s)   (s)
+    #define wxConvertMB2WX(s)   (s)
+    #define wxSafeConvertMB2WX(s) (s)
+    #define wxSafeConvertWX2MB(s) (s)
+#endif // Unicode/ANSI
+
 // Macro that indicates the default encoding for converting C strings
 // to wxString. It provides a default value for a const wxMBConv&
 // parameter (i.e. wxConvLibc) unless wxNO_IMPLICIT_WXSTRING_ENCODING

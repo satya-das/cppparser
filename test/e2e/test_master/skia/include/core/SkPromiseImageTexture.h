@@ -29,19 +29,20 @@ public:
   SkPromiseImageTexture& operator=(SkPromiseImageTexture&&);
   static sk_sp<SkPromiseImageTexture> Make(const GrBackendTexture& backendTexture)
   {
-        if (!backendTexture.isValid()) {
-            return nullptr;
-        }
-        return sk_sp<SkPromiseImageTexture>(new SkPromiseImageTexture(backendTexture));
+    if (!backendTexture.isValid())
+    {
+      return nullptr;
+    }
+    return sk_sp<SkPromiseImageTexture>(new SkPromiseImageTexture(backendTexture));
   }
   const GrBackendTexture& backendTexture() const
   {
- return fBackendTexture;
+    return fBackendTexture;
   }
   void addKeyToInvalidate(uint32_t contextID, const GrUniqueKey& key);
   uint32_t uniqueID() const
   {
- return fUniqueID;
+    return fUniqueID;
   }
 #    if  GR_TEST_UTILS
   SkTArray<GrUniqueKey> testingOnly_uniqueKeysToInvalidate() const;

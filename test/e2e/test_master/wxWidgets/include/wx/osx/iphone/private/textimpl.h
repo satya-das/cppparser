@@ -29,7 +29,7 @@ public:
   virtual void WriteText(const wxString& str);
   virtual bool HasOwnContextMenu() const
   {
- return true;
+    return true;
   }
   virtual wxSize GetBestSize() const;
   virtual bool SetHint(const wxString& hint);
@@ -61,7 +61,7 @@ public:
   virtual bool CanFocus() const;
   virtual bool HasOwnContextMenu() const
   {
- return true;
+    return true;
   }
   virtual void CheckSpelling(bool check);
   virtual wxSize GetBestSize() const;

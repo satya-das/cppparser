@@ -37,31 +37,33 @@ public:
         /** Returns the size of this key. */
     size_t size() const
     {
-            return fCount32 << 2;
+      return fCount32 << 2;
     }
     void* getNamespace() const
     {
- return fNamespace;
+      return fNamespace;
     }
     uint64_t getSharedID() const
     {
- return ((uint64_t)fSharedID_hi << 32) | fSharedID_lo;
+      return ((uint64_t) fSharedID_hi << 32) | fSharedID_lo;
     }
         // This is only valid after having called init().
     uint32_t hash() const
     {
- return fHash;
+      return fHash;
     }
     bool operator==(const Key& other) const
     {
-            const uint32_t* a = this->as32();
-            const uint32_t* b = other.as32();
-            for (int i = 0; i < fCount32; ++i) {  // (This checks fCount == other.fCount first.)
-                if (a[i] != b[i]) {
-                    return false;
-                }
-            }
-            return true;
+      const uint32_t* a = this->as32();
+      const uint32_t* b = other.as32();
+      for (int i = 0; i < fCount32; ++i)
+      {
+        if (a[i] != b[i])
+        {
+          return false;
+        }
+      }
+      return true;
     }
   private:
     int32_t fCount32;
@@ -73,7 +75,7 @@ public:
         /* uint32_t fContents32[] */
     const uint32_t* as32() const
     {
- return (const uint32_t*)this;
+      return (const uint32_t*) this;
     }
   };
   struct Rec
@@ -87,7 +89,7 @@ public:
     }
     uint32_t getHash() const
     {
- return this->getKey().hash();
+      return this->getKey().hash();
     }
     virtual const Key& getKey() const = 0;
     virtual size_t bytesUsed() const = 0;
@@ -96,7 +98,7 @@ public:
         // Will only be deleted/removed-from-the-cache when this returns true.
     virtual bool canBePurged()
     {
- return true;
+      return true;
     }
         // A rec is first created/initialized, and then added to the cache. As part of the add(),
         // the cache will callback into the rec with postAddInstall, passing in whatever payload
@@ -114,7 +116,7 @@ public:
     virtual const char* getCategory() const = 0;
     virtual SkDiscardableMemory* diagnostic_only_getDiscardable() const
     {
- return nullptr;
+      return nullptr;
     }
   private:
     Rec* fNext;
@@ -125,7 +127,7 @@ public:
   struct PurgeSharedIDMessage
   {
     PurgeSharedIDMessage(uint64_t sharedID)
-      :  fSharedID(sharedID)
+      : fSharedID(sharedID)
     {
     }
     uint64_t fSharedID;
@@ -220,11 +222,11 @@ public:
   void visitAll(Visitor, void* context);
   size_t getTotalBytesUsed() const
   {
- return fTotalBytesUsed;
+    return fTotalBytesUsed;
   }
   size_t getTotalByteLimit() const
   {
- return fTotalByteLimit;
+    return fTotalByteLimit;
   }
     /**
      *  This is respected by SkBitmapProcState::possiblyScaleImage.
@@ -245,11 +247,11 @@ public:
   void purgeSharedID(uint64_t sharedID);
   void purgeAll()
   {
-        this->purgeAsNeeded(true);
+    this->purgeAsNeeded(true);
   }
   DiscardableFactory discardableFactory() const
   {
- return fDiscardableFactory;
+    return fDiscardableFactory;
   }
   SkCachedData* newCachedData(size_t bytes);
     /**

@@ -46,7 +46,6 @@ class WXDLLIMPEXP_BASE wxConsoleEventLoop : public wxMSWEventLoopBase
 public:
   wxConsoleEventLoop()
   {
-
   }
     // override/implement base class virtuals
   bool Dispatch() override;

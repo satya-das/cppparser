@@ -24,7 +24,7 @@ public:
   bool operator==(const wxPen& pen) const;
   bool operator!=(const wxPen& pen) const
   {
- return !(*this == pen);
+    return !(*this == pen);
   }
     // Override in order to recreate the pen
   void SetColour(const wxColour& col) override;
@@ -43,10 +43,12 @@ public:
   int GetDashes(wxDash** ptr) const override;
   int GetDashCount() const;
   wxBitmap* GetStipple() const override;
-  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") wxPen(const wxColour& col, int width, int style);
-  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") void SetStyle(int style)
+  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
+  wxPen(const wxColour& col, int width, int style);
+  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
+  void SetStyle(int style)
   {
- SetStyle((wxPenStyle)style);
+    SetStyle((wxPenStyle) style);
   }
     // Implementation
 

@@ -32,15 +32,15 @@ public:
   void disconnect(DisconnectType) override;
   const GrMtlCaps& mtlCaps() const
   {
- return *fMtlCaps.get();
+    return *fMtlCaps.get();
   }
   id<MTLDevice> device() const
   {
- return fDevice;
+    return fDevice;
   }
   GrMtlResourceProvider& resourceProvider()
   {
- return fResourceProvider;
+    return fResourceProvider;
   }
   GrMtlCommandBuffer* commandBuffer();
   enum SyncQueue {
@@ -64,7 +64,7 @@ public:
   GrOpsRenderPass* getOpsRenderPass(GrRenderTarget*, GrSurfaceOrigin, const SkIRect& bounds, const GrOpsRenderPass::LoadAndStoreInfo&, const GrOpsRenderPass::StencilLoadAndStoreInfo&, const SkTArray<GrTextureProxy*, true>& sampledProxies) override;
   SkSL::Compiler* shaderCompiler() const
   {
- return fCompiler.get();
+    return fCompiler.get();
   }
   void submit(GrOpsRenderPass* renderPass) override;
   GrFence SK_WARN_UNUSED_RESULT insertFence() override;
@@ -77,7 +77,7 @@ public:
   void checkFinishProcs() override;
   sk_sp<GrSemaphore> prepareTextureForCrossContextUsage(GrTexture*) override
   {
- return nullptr;
+    return nullptr;
   }
     // When the Metal backend actually uses indirect command buffers, this function will actually do
     // what it says. For now, every command is encoded directly into the primary command buffer, so
@@ -85,7 +85,7 @@ public:
     // to.
   void submitIndirectCommandBuffer(GrSurface* surface, GrSurfaceOrigin origin, const SkIRect* bounds)
   {
-        this->didWriteToSurface(surface, origin, bounds);
+    this->didWriteToSurface(surface, origin, bounds);
   }
 private:
   GrMtlGpu(GrContext* context, const GrContextOptions& options, id<MTLDevice> device, id<MTLCommandQueue> queue, MTLFeatureSet featureSet);
@@ -95,8 +95,8 @@ private:
   }
   void querySampleLocations(GrRenderTarget*, SkTArray<SkPoint>*) override
   {
-        SkASSERT(!this->caps()->sampleLocationsSupport());
-        SK_ABORT("Sample locations not yet implemented for Metal.");
+    SkASSERT(!this->caps()->sampleLocationsSupport());
+    SK_ABORT("Sample locations not yet implemented for Metal.");
   }
   void xferBarrier(GrRenderTarget*, GrXferBarrierType) override
   {

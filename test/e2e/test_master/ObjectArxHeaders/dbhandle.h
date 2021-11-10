@@ -38,7 +38,7 @@ kStrSiz = 17
   template <size_t nBufLen>
   inline bool getIntoAsciiBuffer(wchar_t (& buf)[nBufLen]) const
   {
-        return this->getIntoAsciiBuffer(buf, nBufLen);
+    return this->getIntoAsciiBuffer(buf, nBufLen);
   }
   bool operator ==(const AcDbHandle&) const;
   bool operator !=(const AcDbHandle&) const;
@@ -81,11 +81,11 @@ kStrSiz = 17
 private:
   Adesk::UInt64 get64BitVal() const
   {
- return mHandle.mWord64;
+    return mHandle.mWord64;
   }
   void set64BitVal(Adesk::UInt64 val)
   {
- mHandle.mWord64 = val;
+    mHandle.mWord64 = val;
   }
     // Union enforces alignment
   union 
@@ -102,72 +102,79 @@ private:
 };
 inline AcDbHandle::AcDbHandle()
 {
-
 }
 inline AcDbHandle::AcDbHandle(int lo, int hi)
 {
-    mHandle.mLow = lo;
-    mHandle.mHigh = hi;
+  mHandle.mLow = lo;
+  mHandle.mHigh = hi;
 }
 inline AcDbHandle::AcDbHandle(Adesk::UInt64 val)
 {
-    this->set64BitVal(val);
+  this->set64BitVal(val);
 }
 inline AcDbHandle& AcDbHandle::operator=(const AcDbHandle& handle)
 {
-    this->set64BitVal(handle.get64BitVal());
-
-    return *this;
+  this->set64BitVal(handle.get64BitVal());
+  return *this;
 }
 inline AcDbHandle& AcDbHandle::operator=(Adesk::UInt64 val)
 {
-    this->set64BitVal(val);
-    return *this;
+  this->set64BitVal(val);
+  return *this;
 }
 inline AcDbHandle AcDbHandle::operator+(const AcDbHandle& handle) const
 {
-    AcDbHandle tHandle(*this);
-    tHandle.set64BitVal(tHandle.get64BitVal() + handle.get64BitVal());
-    return tHandle;
+  AcDbHandle tHandle(*this);
+  tHandle.set64BitVal(tHandle.get64BitVal() + handle.get64BitVal());
+  return tHandle;
 }
 inline AcDbHandle AcDbHandle::operator+(Adesk::ULongPtr val) const
 {
-    AcDbHandle tHandle(*this);
-    tHandle.set64BitVal(tHandle.get64BitVal() + val);
-    return tHandle;
+  AcDbHandle tHandle(*this);
+  tHandle.set64BitVal(tHandle.get64BitVal() + val);
+  return tHandle;
 }
 inline bool AcDbHandle::operator >(const AcDbHandle& handle) const
 {
-    return this->get64BitVal() > handle.get64BitVal();
+  return this->get64BitVal() > handle.get64BitVal();
 }
 inline int AcDbHandle::compare(const AcDbHandle& handle) const
 {
-    if (this->get64BitVal() > handle.get64BitVal())
-        return -1;
-    else if (this->get64BitVal() == handle.get64BitVal())
-        return 0;
-    else
-        return 1;
+  if (this->get64BitVal() > handle.get64BitVal())
+  {
+    return -1;
+  }
+  else 
+  {
+    if (this->get64BitVal() == handle.get64BitVal())
+    {
+      return 0;
+    }
+    else 
+    {
+      return 1;
+    }
+  }
 }
 inline bool AcDbHandle::operator==(const AcDbHandle& handle) const
 {
-    return this->get64BitVal() == handle.get64BitVal();
+  return this->get64BitVal() == handle.get64BitVal();
 }
 inline bool AcDbHandle::operator!=(const AcDbHandle& handle) const
 {
-    return this->get64BitVal() != handle.get64BitVal();
+  return this->get64BitVal() != handle.get64BitVal();
 }
 inline bool AcDbHandle::isNull(void) const
 {
-    return this->get64BitVal() == 0;
+  return this->get64BitVal() == 0;
 }
 inline void AcDbHandle::setNull(void)
 {
-    mHandle.mHigh = mHandle.mLow = 0;
+  mHandle.mHigh = mHandle.mLow = 0;
 }
 inline bool AcDbHandle::isOne(void) const
 {
-    return this->get64BitVal() == 1;
+  return this->get64BitVal() == 1;
 }
 inline AcDbHandle& AcDbHandle::operator++(void)
 {
@@ -190,47 +197,54 @@ inline AcDbHandle AcDbHandle::operator++(int)
 }
 operator Adesk::UInt64() const
 {
-    return get64BitVal();
+  return get64BitVal();
 }
 inline bool AcDbHandle::operator <(const AcDbHandle& handle) const
 {
-    return this->get64BitVal() < handle.get64BitVal();
+  return this->get64BitVal() < handle.get64BitVal();
 }
 inline int AcDbHandle::byte(Adesk::UInt32 i) const
 {
-    if (i >= kMaxValueBytes)
-        return 0;
-    return *((unsigned char *)&(mHandle.mLow) + i);
+  if (i >= kMaxValueBytes)
+  {
+    return 0;
+  }
+  return *((unsigned char*) &(mHandle.mLow) + i);
 }
 inline bool AcDbHandle::restZeros(int i) const
 {
-    if (i < 0 || i >= kMaxValueBytes)
-        return false;
-    if (i < 4) {
-        const Adesk::UInt32 mask = ~0 << (i << 3);
-        return !(mHandle.mHigh | (mHandle.mLow & mask));
-    } else {
-        const Adesk::UInt32 mask = ~0 << ((i - 4) << 3);
-        return !(mHandle.mHigh & mask);
-    }
+  if (i < 0 || i >= kMaxValueBytes)
+  {
+    return false;
+  }
+  if (i < 4)
+  {
+    const Adesk::UInt32 mask = ~0 << (i << 3);
+    return !(mHandle.mHigh | (mHandle.mLow & mask));
+  }
+  else 
+  {
+    const Adesk::UInt32 mask = ~0 << ((i - 4) << 3);
+    return !(mHandle.mHigh & mask);
+  }
 }
 inline Adesk::UInt32 AcDbHandle::low() const
 {
-    return mHandle.mLow;
+  return mHandle.mLow;
 }
 inline Adesk::UInt32 AcDbHandle::high() const
 {
-    return mHandle.mHigh;
+  return mHandle.mHigh;
 }
 inline void AcDbHandle::setLow(Adesk::UInt32 low)
 {
-    mHandle.mLow = low;
-    return;
+  mHandle.mLow = low;
+  return ;
 }
 inline void AcDbHandle::setHigh(Adesk::UInt32 high)
 {
-    mHandle.mHigh = high;
-    return;
+  mHandle.mHigh = high;
+  return ;
 }
 #  pragma  pack (pop)
 #endif

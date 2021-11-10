@@ -261,14 +261,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline const PdfObject* PdfArray::FindAt(size_type idx) const
   {
-    return findAt( idx );
+    return findAt(idx);
   }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   inline PdfObject* PdfArray::FindAt(size_type idx)
   {
-    return findAt( idx );
+    return findAt(idx);
   }
 // -----------------------------------------------------
 // 
@@ -282,7 +282,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   void PdfArray::push_back(const PdfObject& var)
   {
-    insert( end(), var );
+    insert(end(), var);
   }
 // -----------------------------------------------------
 // 
@@ -311,7 +311,6 @@ namespace PoDoFo
   PdfObject& PdfArray::operator[](size_type __n)
   {
     AssertMutable();
-
     return m_objects[__n];
   }
 // -----------------------------------------------------
@@ -384,17 +383,17 @@ namespace PoDoFo
   void PdfArray::insert(const PdfArray::iterator& __position, const _InputIterator& __first, const _InputIterator& __last)
   {
     AssertMutable();
-
-    PdfVecObjects *pOwner = GetObjectOwner();
+    PdfVecObjects* pOwner = GetObjectOwner();
     iterator it1 = __first;
     iterator it2 = __position;
-    for ( ; it1 != __last; it1++, it2++ )
+    for (; it1 != __last; it1++, it2++)
     {
-        it2 = m_objects.insert( it2, *it1 );
-        if ( pOwner != NULL )
-            it2->SetOwner( pOwner );
+      it2 = m_objects.insert(it2, *it1);
+      if (pOwner != NULL)
+      {
+        it2->SetOwner(pOwner);
+      }
     }
-
     m_bDirty = true;
   }
 // -----------------------------------------------------
@@ -403,8 +402,7 @@ namespace PoDoFo
   void PdfArray::reserve(size_type __n)
   {
     AssertMutable();
-
-    m_objects.reserve( __n );
+    m_objects.reserve(__n);
   }
 // -----------------------------------------------------
 // 

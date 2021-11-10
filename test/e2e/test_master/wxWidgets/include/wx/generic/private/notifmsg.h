@@ -25,7 +25,7 @@ public:
     // get/set the default timeout (used if Timeout_Auto is specified)
   static int GetDefaultTimeout()
   {
- return ms_timeout;
+    return ms_timeout;
   }
   static void SetDefaultTimeout(int timeout);
 private:

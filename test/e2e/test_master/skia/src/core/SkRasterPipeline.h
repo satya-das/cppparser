@@ -210,7 +210,7 @@ public:
   void append(StockStage, void* = nullptr);
   void append(StockStage stage, const void* ctx)
   {
- this->append(stage, const_cast<void*>(ctx));
+    this->append(stage, const_cast<void*>(ctx));
   }
   void append(StockStage, uintptr_t ctx);
     // Append all stages to this pipeline.
@@ -228,13 +228,13 @@ public:
   void append_constant_color(SkArenaAlloc*, const float rgba[4]);
   void append_constant_color(SkArenaAlloc* alloc, const SkColor4f& color)
   {
-        this->append_constant_color(alloc, color.vec());
+    this->append_constant_color(alloc, color.vec());
   }
     // Like append_constant_color() but only affecting r,g,b, ignoring the alpha channel.
   void append_set_rgb(SkArenaAlloc*, const float rgb[3]);
   void append_set_rgb(SkArenaAlloc* alloc, const SkColor4f& color)
   {
-        this->append_set_rgb(alloc, color.vec());
+    this->append_set_rgb(alloc, color.vec());
   }
   void append_load(SkColorType, const SkRasterPipeline_MemoryCtx*);
   void append_load_dst(SkColorType, const SkRasterPipeline_MemoryCtx*);
@@ -242,7 +242,7 @@ public:
   void append_gamut_clamp_if_normalized(const SkImageInfo&);
   bool empty() const
   {
- return fStages == nullptr;
+    return fStages == nullptr;
   }
 private:
   struct StageList
@@ -266,7 +266,7 @@ class SkRasterPipeline_ : public SkRasterPipeline
 {
 public:
   SkRasterPipeline_()
-    :  SkRasterPipeline(&fBuiltinAlloc)
+    : SkRasterPipeline(&fBuiltinAlloc)
   {
   }
 private:

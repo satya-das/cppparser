@@ -36,48 +36,48 @@ protected:
 };
 inline Adesk::Boolean AcDbXline::isClosed() const
 {
-    return Adesk::kFalse;
+  return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbXline::isPeriodic() const
 {
-    return Adesk::kFalse;
+  return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbXline::isPlanar() const
 {
-    return Adesk::kTrue;
+  return Adesk::kTrue;
 }
 inline Acad::ErrorStatus AcDbXline::getStartParam(double&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::getEndParam(double&) const
 {
     // endParam for an Xline is positive infinity
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::getStartPoint(AcGePoint3d&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::getEndPoint(AcGePoint3d&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::getSpline(AcDbSpline*&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::extend(double)
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::extend(Adesk::Boolean, const AcGePoint3d&)
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbXline::getArea(double&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 #  pragma  pack(pop)
 #endif

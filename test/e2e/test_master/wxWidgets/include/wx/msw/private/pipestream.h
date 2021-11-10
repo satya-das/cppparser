@@ -16,7 +16,7 @@ public:
     // returns true if the pipe is still opened
   bool IsOpened() const
   {
- return m_hInput != INVALID_HANDLE_VALUE;
+    return m_hInput != INVALID_HANDLE_VALUE;
   }
     // returns true if there is any data to be read from the pipe
   bool CanRead() const override;
@@ -31,7 +31,7 @@ public:
   explicit wxPipeOutputStream(HANDLE hOutput);
   virtual ~wxPipeOutputStream()
   {
- Close();
+    Close();
   }
   bool Close() override;
 protected:

@@ -32,16 +32,16 @@ struct SkPDFIndirectReference
   int fValue = -1;
   operator bool()
   {
- return fValue != -1;
+    return fValue != -1;
   }
 };
 static bool operator==(SkPDFIndirectReference u, SkPDFIndirectReference v)
 {
-    return u.fValue == v.fValue;
+  return u.fValue == v.fValue;
 }
 static bool operator!=(SkPDFIndirectReference u, SkPDFIndirectReference v)
 {
-    return u.fValue != v.fValue;
+  return u.fValue != v.fValue;
 }
 /** \class SkPDFObject
 
@@ -108,17 +108,17 @@ private:
 };
 static void SkPDFArray_Append(SkPDFArray* a, int v)
 {
- a->appendInt(v);
+  a->appendInt(v);
 }
 static void SkPDFArray_Append(SkPDFArray* a, SkScalar v)
 {
- a->appendScalar(v);
+  a->appendScalar(v);
 }
 template <typename T, typename... Args>
 static void SkPDFArray_Append(SkPDFArray* a, T v, Args... args)
 {
-    SkPDFArray_Append(a, v);
-    SkPDFArray_Append(a, args...);
+  SkPDFArray_Append(a, v);
+  SkPDFArray_Append(a, args...);
 }
 static void SkPDFArray_Append(SkPDFArray* a)
 {
@@ -126,10 +126,10 @@ static void SkPDFArray_Append(SkPDFArray* a)
 template <typename... Args>
 static std::unique_ptr<SkPDFArray> SkPDFMakeArray(Args... args)
 {
-    std::unique_ptr<SkPDFArray> ret(new SkPDFArray());
-    ret->reserve(sizeof...(Args));
-    SkPDFArray_Append(ret.get(), args...);
-    return ret;
+  std::unique_ptr<SkPDFArray> ret(new SkPDFArray());
+  ret->reserve(sizeof(Args)...);
+  SkPDFArray_Append(ret.get(), args...);
+  return ret;
 }
 /** \class SkPDFDict
 
@@ -176,7 +176,7 @@ private:
 };
 static std::unique_ptr<SkPDFDict> SkPDFMakeDict(const char* type = nullptr)
 {
-    return std::unique_ptr<SkPDFDict>(new SkPDFDict(type));
+  return std::unique_ptr<SkPDFDict>(new SkPDFDict(type));
 }
 #  ifdef SK_PDF_LESS_COMPRESSION
 static constexpr bool kSkPDFDefaultDoDeflate = false;

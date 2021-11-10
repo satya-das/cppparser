@@ -15,17 +15,19 @@
 template <typename T>
 static T SkCFSafeRetain(T obj)
 {
-    if (obj) {
-        CFRetain(obj);
-    }
-    return obj;
+  if (obj)
+  {
+    CFRetain(obj);
+  }
+  return obj;
 }
 template <typename T>
 static void SkCFSafeRelease(T obj)
 {
-    if (obj) {
-        CFRelease(obj);
-    }
+  if (obj)
+  {
+    CFRelease(obj);
+  }
 }
 template <typename T>
 class sk_cf_obj
@@ -33,7 +35,7 @@ class sk_cf_obj
 public:
   using element_type = T;
   sk_cf_obj()
-    :  fObject(nullptr)
+    : fObject(nullptr)
   {
   }
     /**
@@ -41,7 +43,7 @@ public:
      *  created sk_cf_obj both have a reference to it.
      */
   sk_cf_obj(const sk_cf_obj<T>& that)
-    :  fObject(SkCFSafeRetain(that.get()))
+    : fObject(SkCFSafeRetain(that.get()))
   {
   }
     /**
@@ -50,7 +52,7 @@ public:
      *  No call to CFRetain() or CFRelease() will be made.
      */
   sk_cf_obj(sk_cf_obj<T>&& that)
-    :  fObject(that.release())
+    : fObject(that.release())
   {
   }
     /**
@@ -59,15 +61,14 @@ public:
      */
   explicit sk_cf_obj(T obj)
   {
-        fObject = obj;
+    fObject = obj;
   }
     /**
      *  Calls CFRelease() on the underlying object pointer.
      */
   ~sk_cf_obj()
   {
-        SkCFSafeRelease(fObject);
-        SkDEBUGCODE(fObject = nullptr);
+    SkCFSafeRelease(fObject);
   }
     /**
      *  Shares the underlying object referenced by the argument by calling CFRetain() on it. If this
@@ -76,10 +77,11 @@ public:
      */
   sk_cf_obj<T>& operator=(const sk_cf_obj<T>& that)
   {
-        if (this != &that) {
-            this->reset(SkCFSafeRetain(that.get()));
-        }
-        return *this;
+    if (this != &that)
+    {
+      this->reset(SkCFSafeRetain(that.get()));
+    }
+    return *this;
   }
     /**
      *  Move the underlying object from the argument to the sk_cf_obj. If the sk_cf_obj
@@ -88,12 +90,12 @@ public:
      */
   sk_cf_obj<T>& operator=(sk_cf_obj<T>&& that)
   {
-        this->reset(that.release());
-        return *this;
+    this->reset(that.release());
+    return *this;
   }
   T get() const
   {
- return fObject;
+    return fObject;
   }
     /**
      *  Adopt the new object, and call CFRelease() on any previously held object (if not null).
@@ -101,9 +103,9 @@ public:
      */
   void reset(T object = nullptr)
   {
-        T oldObject = fObject;
-        fObject = object;
-        SkCFSafeRelease(oldObject);
+    T oldObject = fObject;
+    fObject = object;
+    SkCFSafeRelease(oldObject);
   }
     /**
      *  Shares the new object by calling CFRetain() on it. If this sk_cf_obj previously had a
@@ -111,9 +113,10 @@ public:
      */
   void retain(T object)
   {
-        if (this->fObject != object) {
-            this->reset(SkCFSafeRetain(object));
-        }
+    if (this->fObject != object)
+    {
+      this->reset(SkCFSafeRetain(object));
+    }
   }
     /**
      *  Return the original object, and set the internal object to nullptr.
@@ -122,9 +125,9 @@ public:
      */
   T SK_WARN_UNUSED_RESULT release()
   {
-        T obj = fObject;
-        fObject = nullptr;
-        return obj;
+    T obj = fObject;
+    fObject = nullptr;
+    return obj;
   }
 private:
   T fObject;
@@ -132,12 +135,12 @@ private:
 template <typename T>
 inline bool operator==(const sk_cf_obj<T>& a, const sk_cf_obj<T>& b)
 {
-    return a.get() == b.get();
+  return a.get() == b.get();
 }
 template <typename T>
 inline bool operator!=(const sk_cf_obj<T>& a, const sk_cf_obj<T>& b)
 {
-    return a.get() != b.get();
+  return a.get() != b.get();
 }
 #  endif
 #endif

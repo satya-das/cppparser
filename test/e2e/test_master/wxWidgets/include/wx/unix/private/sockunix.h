@@ -23,18 +23,18 @@ class wxSocketImplUnix : public wxSocketImpl, public wxFDIOHandler
 {
 public:
   wxSocketImplUnix(wxSocketBase& wxsocket)
-    :  wxSocketImpl(wxsocket)
+    : wxSocketImpl(wxsocket)
   {
-        m_fds[0] =
-        m_fds[1] = -1;
+    m_fds[0] = m_fds[1] = -1;
   }
   wxSocketError GetLastError() const override;
   void ReenableEvents(wxSocketEventFlags flags) override
   {
         // Events are only ever used for non-blocking sockets.
-        if ( GetSocketFlags() & wxSOCKET_BLOCK )
-            return;
-
+    if (GetSocketFlags() & wxSOCKET_BLOCK)
+    {
+      return ;
+    }
         // enable the notifications about input/output being available again in
         // case they were disabled by OnRead/WriteWaiting()
         //
@@ -47,15 +47,14 @@ public:
         // expects to keep getting notifications about the data available from
         // the socket even if it didn't read all the data the last time, so we
         // absolutely have to continue generating them
-        EnableEvents(flags);
+    EnableEvents(flags);
   }
   void UpdateBlockingState() override
   {
         // Make this int and not bool to allow passing it to ioctl().
-        int isNonBlocking = (GetSocketFlags() & wxSOCKET_BLOCK) == 0;
-        ioctl(m_fd, FIONBIO, &isNonBlocking);
-
-        DoEnableEvents(wxSOCKET_INPUT_FLAG | wxSOCKET_OUTPUT_FLAG, isNonBlocking);
+    int isNonBlocking = (GetSocketFlags() & wxSOCKET_BLOCK) == 0;
+    ioctl(m_fd, FIONBIO, &isNonBlocking);
+    DoEnableEvents(wxSOCKET_INPUT_FLAG | wxSOCKET_OUTPUT_FLAG, isNonBlocking);
   }
     // wxFDIOHandler methods
   void OnReadWaiting() override;
@@ -63,23 +62,22 @@ public:
   void OnExceptionWaiting() override;
   bool IsOk() const override
   {
- return m_fd != INVALID_SOCKET;
+    return m_fd != INVALID_SOCKET;
   }
 private:
   void DoClose() override
   {
-        DisableEvents();
-
-        wxCloseSocket(m_fd);
+    DisableEvents();
+    wxCloseSocket(m_fd);
   }
     // enable or disable notifications for socket input/output events
   void EnableEvents(int flags = wxSOCKET_INPUT_FLAG | wxSOCKET_OUTPUT_FLAG)
   {
- DoEnableEvents(flags, true);
+    DoEnableEvents(flags, true);
   }
   void DisableEvents(int flags = wxSOCKET_INPUT_FLAG | wxSOCKET_OUTPUT_FLAG)
   {
- DoEnableEvents(flags, false);
+    DoEnableEvents(flags, false);
   }
     // really enable or disable socket input/output events
   void DoEnableEvents(int flags, bool enable);
@@ -105,16 +103,15 @@ class wxSocketFDBasedManager : public wxSocketManager
 public:
   wxSocketFDBasedManager()
   {
-        m_fdioManager = NULL;
+    m_fdioManager = NULL;
   }
   bool OnInit() override;
   void OnExit() override
   {
-
   }
   wxSocketImpl* CreateSocket(wxSocketBase& wxsocket) override
   {
-        return new wxSocketImplUnix(wxsocket);
+    return new wxSocketImplUnix(wxsocket);
   }
   void Install_Callback(wxSocketImpl* socket_, wxSocketNotify event) override;
   void Uninstall_Callback(wxSocketImpl* socket_, wxSocketNotify event) override;
@@ -124,7 +121,7 @@ protected:
     // access the FDs we store
   int& FD(wxSocketImplUnix* socket, wxFDIOManager::Direction d)
   {
-        return socket->m_fds[d];
+    return socket->m_fds[d];
   }
   wxFDIOManager* m_fdioManager;
   wxDECLARE_NO_COPY_CLASS(wxSocketFDBasedManager);

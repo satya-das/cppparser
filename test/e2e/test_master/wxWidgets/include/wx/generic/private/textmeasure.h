@@ -15,11 +15,11 @@ class wxTextMeasure : public wxTextMeasureBase
 {
 public:
   explicit wxTextMeasure(const wxDC* dc, const wxFont* font = NULL)
-    :  wxTextMeasureBase(dc, font)
+    : wxTextMeasureBase(dc, font)
   {
   }
   explicit wxTextMeasure(const wxWindow* win, const wxFont* font = NULL)
-    :  wxTextMeasureBase(win, font)
+    : wxTextMeasureBase(win, font)
   {
   }
 protected:

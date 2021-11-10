@@ -83,29 +83,29 @@ public:
     /// Set/get style sheet
   void SetStyleSheet(wxRichTextStyleSheet* sheet)
   {
- m_richTextStyleSheet = sheet;
+    m_richTextStyleSheet = sheet;
   }
   wxRichTextStyleSheet* GetStyleSheet() const
   {
- return m_richTextStyleSheet;
+    return m_richTextStyleSheet;
   }
     /// Set/get control
   void SetRichTextCtrl(wxRichTextCtrl* ctrl)
   {
- m_richTextCtrl = ctrl;
+    m_richTextCtrl = ctrl;
   }
   wxRichTextCtrl* GetRichTextCtrl() const
   {
- return m_richTextCtrl;
+    return m_richTextCtrl;
   }
     /// Set/get flags
   void SetFlags(int flags)
   {
- m_flags = flags;
+    m_flags = flags;
   }
   int GetFlags() const
   {
- return m_flags;
+    return m_flags;
   }
     /// Show preview for given or selected preview
   void ShowPreview(int sel = -1);
@@ -116,11 +116,11 @@ public:
     /// Get/set restart numbering boolean
   bool GetRestartNumbering() const
   {
- return m_restartNumbering;
+    return m_restartNumbering;
   }
   void SetRestartNumbering(bool restartNumbering)
   {
- m_restartNumbering = restartNumbering;
+    m_restartNumbering = restartNumbering;
   }
     /// Get selected style name or definition
   wxString GetSelectedStyle() const;
@@ -130,12 +130,12 @@ public:
     /// Should we show tooltips?
   static bool ShowToolTips()
   {
- return sm_showToolTips;
+    return sm_showToolTips;
   }
     /// Determines whether tooltips will be shown
   static void SetShowToolTips(bool show)
   {
- sm_showToolTips = show;
+    sm_showToolTips = show;
   }
 ////@begin wxRichTextStyleOrganiserDialog event handler declarations
 

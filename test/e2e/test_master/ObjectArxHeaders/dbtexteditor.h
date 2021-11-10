@@ -66,7 +66,6 @@ class AcDbTextEditorSelectable
 public:
   virtual ~AcDbTextEditorSelectable()
   {
-
   }
     ///<summary> 
     /// Gets the start location of a selectable object.

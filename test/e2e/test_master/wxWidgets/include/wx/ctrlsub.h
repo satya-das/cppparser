@@ -31,7 +31,6 @@ class WXDLLIMPEXP_CORE wxItemContainerImmutable
 public:
   wxItemContainerImmutable()
   {
-
   }
   virtual ~wxItemContainerImmutable();
     // accessing strings
@@ -39,7 +38,7 @@ public:
   virtual unsigned int GetCount() const = 0;
   bool IsEmpty() const
   {
- return GetCount() == 0;
+    return GetCount() == 0;
   }
   virtual wxString GetString(unsigned int n) const = 0;
   wxArrayString GetStrings() const;
@@ -49,15 +48,15 @@ public:
     // supported search type
   virtual int FindString(const wxString& s, bool bCase = false) const
   {
-        unsigned int count = GetCount();
-
-        for ( unsigned int i = 0; i < count ; ++i )
-        {
-            if (GetString(i).IsSameAs( s , bCase ))
-                return (int)i;
-        }
-
-        return wxNOT_FOUND;
+    unsigned int count = GetCount();
+    for (unsigned int i = 0; i < count; ++i)
+    {
+      if (GetString(i).IsSameAs(s, bCase))
+      {
+        return (int) i;
+      }
+    }
+    return wxNOT_FOUND;
   }
     // selection
     // ---------
@@ -71,17 +70,17 @@ public:
     // reads better for multi-selection ones
   void Select(int n)
   {
- SetSelection(n);
+    SetSelection(n);
   }
 protected:
     // check that the index is valid
   bool IsValid(unsigned int n) const
   {
- return n < GetCount();
+    return n < GetCount();
   }
   bool IsValidInsert(unsigned int n) const
   {
- return n <= GetCount();
+    return n <= GetCount();
   }
 };
 // ----------------------------------------------------------------------------
@@ -103,70 +102,61 @@ private:
     // NB: they're defined here so that they're inlined when used in public part
   int AppendItems(const wxArrayStringsAdapter& items, void** clientData, wxClientDataType type)
   {
-        if ( items.IsEmpty() )
-            return wxNOT_FOUND;
-
-        return DoAppendItems(items, clientData, type);
+    if (items.IsEmpty())
+    {
+      return wxNOT_FOUND;
+    }
+    return DoAppendItems(items, clientData, type);
   }
   int AppendItems(const wxArrayStringsAdapter& items)
   {
-        return AppendItems(items, NULL, wxClientData_None);
+    return AppendItems(items, NULL, wxClientData_None);
   }
   int AppendItems(const wxArrayStringsAdapter& items, void** clientData)
   {
-        wxASSERT_MSG( GetClientDataType() != wxClientData_Object,
+    wxASSERT_MSG( GetClientDataType() != wxClientData_Object,
                       wxT("can't mix different types of client data") );
-
-        return AppendItems(items, clientData, wxClientData_Void);
+    return AppendItems(items, clientData, wxClientData_Void);
   }
   int AppendItems(const wxArrayStringsAdapter& items, wxClientData** clientData)
   {
-        wxASSERT_MSG( GetClientDataType() != wxClientData_Void,
+    wxASSERT_MSG( GetClientDataType() != wxClientData_Void,
                       wxT("can't mix different types of client data") );
-
-        return AppendItems(items, reinterpret_cast<void **>(clientData),
-                           wxClientData_Object);
+    return AppendItems(items, reinterpret_cast<void**>(clientData), wxClientData_Object);
   }
   int InsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData, wxClientDataType type)
   {
-        wxASSERT_MSG( !IsSorted(), wxT("can't insert items in sorted control") );
-
-        wxCHECK_MSG( pos <= GetCount(), wxNOT_FOUND,
+    wxASSERT_MSG( !IsSorted(), wxT("can't insert items in sorted control") );
+    wxCHECK_MSG( pos <= GetCount(), wxNOT_FOUND,
                      wxT("position out of range") );
-
         // not all derived classes handle empty arrays correctly in
         // DoInsertItems() and besides it really doesn't make much sense to do
         // this (for append it could correspond to creating an initially empty
         // control but why would anybody need to insert 0 items?)
-        wxCHECK_MSG( !items.IsEmpty(), wxNOT_FOUND,
+    wxCHECK_MSG( !items.IsEmpty(), wxNOT_FOUND,
                      wxT("need something to insert") );
-
-        return DoInsertItems(items, pos, clientData, type);
+    return DoInsertItems(items, pos, clientData, type);
   }
   int InsertItems(const wxArrayStringsAdapter& items, unsigned int pos)
   {
-        return InsertItems(items, pos, NULL, wxClientData_None);
+    return InsertItems(items, pos, NULL, wxClientData_None);
   }
   int InsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData)
   {
-        wxASSERT_MSG( GetClientDataType() != wxClientData_Object,
+    wxASSERT_MSG( GetClientDataType() != wxClientData_Object,
                       wxT("can't mix different types of client data") );
-
-        return InsertItems(items, pos, clientData, wxClientData_Void);
+    return InsertItems(items, pos, clientData, wxClientData_Void);
   }
   int InsertItems(const wxArrayStringsAdapter& items, unsigned int pos, wxClientData** clientData)
   {
-        wxASSERT_MSG( GetClientDataType() != wxClientData_Void,
+    wxASSERT_MSG( GetClientDataType() != wxClientData_Void,
                       wxT("can't mix different types of client data") );
-
-        return InsertItems(items, pos,
-                           reinterpret_cast<void **>(clientData),
-                           wxClientData_Object);
+    return InsertItems(items, pos, reinterpret_cast<void**>(clientData), wxClientData_Object);
   }
 public:
   wxItemContainer()
   {
- m_clientDataItemsType = wxClientData_None;
+    m_clientDataItemsType = wxClientData_None;
   }
   virtual ~wxItemContainer();
     // adding items
@@ -176,52 +166,52 @@ public:
     // different from the last one if the control is sorted)
   int Append(const wxString& item)
   {
- return AppendItems(item);
+    return AppendItems(item);
   }
   int Append(const wxString& item, void* clientData)
   {
- return AppendItems(item, &clientData);
+    return AppendItems(item, &clientData);
   }
   int Append(const wxString& item, wxClientData* clientData)
   {
- return AppendItems(item, &clientData);
+    return AppendItems(item, &clientData);
   }
     // append several items at once to the control, return the position of the
     // last item appended
   int Append(const wxArrayString& items)
   {
- return AppendItems(items);
+    return AppendItems(items);
   }
   int Append(const wxArrayString& items, void** clientData)
   {
- return AppendItems(items, clientData);
+    return AppendItems(items, clientData);
   }
   int Append(const wxArrayString& items, wxClientData** clientData)
   {
- return AppendItems(items, clientData);
+    return AppendItems(items, clientData);
   }
   int Append(unsigned int n, const wxString* items)
   {
- return AppendItems(wxArrayStringsAdapter(n, items));
+    return AppendItems(wxArrayStringsAdapter(n, items));
   }
   int Append(unsigned int n, const wxString* items, void** clientData)
   {
- return AppendItems(wxArrayStringsAdapter(n, items), clientData);
+    return AppendItems(wxArrayStringsAdapter(n, items), clientData);
   }
   int Append(unsigned int n, const wxString* items, wxClientData** clientData)
   {
- return AppendItems(wxArrayStringsAdapter(n, items), clientData);
+    return AppendItems(wxArrayStringsAdapter(n, items), clientData);
   }
 #    if  wxUSE_STD_CONTAINERS_COMPATIBLY
   int Append(const std::vector<wxString>& items)
   {
- return AppendItems(items);
+    return AppendItems(items);
   }
 #    endif
     // only for RTTI needs (separate name)
   void AppendString(const wxString& item)
   {
- Append(item);
+    Append(item);
   }
     // inserting items: not for sorted controls!
     // -----------------------------------------
@@ -229,78 +219,85 @@ public:
     // insert single item at the given position, return its effective position
   int Insert(const wxString& item, unsigned int pos)
   {
- return InsertItems(item, pos);
+    return InsertItems(item, pos);
   }
   int Insert(const wxString& item, unsigned int pos, void* clientData)
   {
- return InsertItems(item, pos, &clientData);
+    return InsertItems(item, pos, &clientData);
   }
   int Insert(const wxString& item, unsigned int pos, wxClientData* clientData)
   {
- return InsertItems(item, pos, &clientData);
+    return InsertItems(item, pos, &clientData);
   }
     // insert several items at once into the control, return the index of the
     // last item inserted
   int Insert(const wxArrayString& items, unsigned int pos)
   {
- return InsertItems(items, pos);
+    return InsertItems(items, pos);
   }
   int Insert(const wxArrayString& items, unsigned int pos, void** clientData)
   {
- return InsertItems(items, pos, clientData);
+    return InsertItems(items, pos, clientData);
   }
   int Insert(const wxArrayString& items, unsigned int pos, wxClientData** clientData)
   {
- return InsertItems(items, pos, clientData);
+    return InsertItems(items, pos, clientData);
   }
   int Insert(unsigned int n, const wxString* items, unsigned int pos)
   {
- return InsertItems(wxArrayStringsAdapter(n, items), pos);
+    return InsertItems(wxArrayStringsAdapter(n, items), pos);
   }
   int Insert(unsigned int n, const wxString* items, unsigned int pos, void** clientData)
   {
- return InsertItems(wxArrayStringsAdapter(n, items), pos, clientData);
+    return InsertItems(wxArrayStringsAdapter(n, items), pos, clientData);
   }
   int Insert(unsigned int n, const wxString* items, unsigned int pos, wxClientData** clientData)
   {
- return InsertItems(wxArrayStringsAdapter(n, items), pos, clientData);
+    return InsertItems(wxArrayStringsAdapter(n, items), pos, clientData);
   }
 #    if  wxUSE_STD_CONTAINERS_COMPATIBLY
   int Insert(const std::vector<wxString>& items, unsigned int pos)
   {
- return InsertItems(items, pos);
+    return InsertItems(items, pos);
   }
 #    endif
     // replacing items
     // ---------------
   void Set(const wxArrayString& items)
   {
- Clear(); Append(items);
+    Clear();
+    Append(items);
   }
   void Set(const wxArrayString& items, void** clientData)
   {
- Clear(); Append(items, clientData);
+    Clear();
+    Append(items, clientData);
   }
   void Set(const wxArrayString& items, wxClientData** clientData)
   {
- Clear(); Append(items, clientData);
+    Clear();
+    Append(items, clientData);
   }
   void Set(unsigned int n, const wxString* items)
   {
- Clear(); Append(n, items);
+    Clear();
+    Append(n, items);
   }
   void Set(unsigned int n, const wxString* items, void** clientData)
   {
- Clear(); Append(n, items, clientData);
+    Clear();
+    Append(n, items, clientData);
   }
   void Set(unsigned int n, const wxString* items, wxClientData** clientData)
   {
- Clear(); Append(n, items, clientData);
+    Clear();
+    Append(n, items, clientData);
   }
 #    if  wxUSE_STD_CONTAINERS_COMPATIBLY
   void Set(const std::vector<wxString>& items)
   {
- Clear(); Append(items);
+    Clear();
+    Append(items);
   }
 #    endif
     // deleting items
@@ -316,7 +313,7 @@ public:
     // they implement sorting, typically by returning HasFlag(wxXX_SORT)
   virtual bool IsSorted() const
   {
- return false;
+    return false;
   }
     // client data stuff
     // -----------------
@@ -339,19 +336,19 @@ public:
     //     directly but only via this function!
   virtual wxClientDataType GetClientDataType() const
   {
- return m_clientDataItemsType;
+    return m_clientDataItemsType;
   }
   bool HasClientData() const
   {
- return GetClientDataType() != wxClientData_None;
+    return GetClientDataType() != wxClientData_None;
   }
   bool HasClientObjectData() const
   {
- return GetClientDataType() == wxClientData_Object;
+    return GetClientDataType() == wxClientData_Object;
   }
   bool HasClientUntypedData() const
   {
- return GetClientDataType() == wxClientData_Void;
+    return GetClientDataType() == wxClientData_Void;
   }
 protected:
     // there is usually no need to override this method but you can do it if it
@@ -361,7 +358,7 @@ protected:
     // case if public Insert() is called with such position)
   virtual int DoAppendItems(const wxArrayStringsAdapter& items, void** clientData, wxClientDataType type)
   {
-        return DoInsertItems(items, GetCount(), clientData, type);
+    return DoInsertItems(items, GetCount(), clientData, type);
   }
     // this method must be implemented to insert the items into the control at
     // position pos which can be GetCount() meaning that the items should be
@@ -379,7 +376,6 @@ protected:
     // when client data is really used
   virtual void DoInitItemClientData()
   {
-
   }
   virtual void DoSetItemClientData(unsigned int n, void* clientData) = 0;
   virtual void* DoGetItemClientData(unsigned int n) const = 0;
@@ -401,7 +397,7 @@ protected:
     // you override GetClientDataType()
   virtual void SetClientDataType(wxClientDataType clientDataItemsType)
   {
-        m_clientDataItemsType = clientDataItemsType;
+    m_clientDataItemsType = clientDataItemsType;
   }
 private:
     // the type of the client data for the items
@@ -423,39 +419,38 @@ public:
   typedef C BaseContainerInterface;
   wxWindowWithItems()
   {
-
   }
   void SetClientData(void* data)
   {
- BaseWindowClass::SetClientData(data);
+    BaseWindowClass::SetClientData(data);
   }
   void* GetClientData() const
   {
- return BaseWindowClass::GetClientData();
+    return BaseWindowClass::GetClientData();
   }
   void SetClientObject(wxClientData* data)
   {
- BaseWindowClass::SetClientObject(data);
+    BaseWindowClass::SetClientObject(data);
   }
   wxClientData* GetClientObject() const
   {
- return BaseWindowClass::GetClientObject();
+    return BaseWindowClass::GetClientObject();
   }
   void SetClientData(unsigned int n, void* clientData)
   {
- wxItemContainer::SetClientData(n, clientData);
+    wxItemContainer::SetClientData(n, clientData);
   }
   void* GetClientData(unsigned int n) const
   {
- return wxItemContainer::GetClientData(n);
+    return wxItemContainer::GetClientData(n);
   }
   void SetClientObject(unsigned int n, wxClientData* clientData)
   {
- wxItemContainer::SetClientObject(n, clientData);
+    wxItemContainer::SetClientObject(n, clientData);
   }
   wxClientData* GetClientObject(unsigned int n) const
   {
- return wxItemContainer::GetClientObject(n);
+    return wxItemContainer::GetClientObject(n);
   }
 };
 class WXDLLIMPEXP_CORE wxControlWithItemsBase : public wxWindowWithItems<wxControl, wxItemContainer>
@@ -463,13 +458,12 @@ class WXDLLIMPEXP_CORE wxControlWithItemsBase : public wxWindowWithItems<wxContr
 public:
   wxControlWithItemsBase()
   {
-
   }
     // usually the controls like list/combo boxes have their own background
     // colour
   bool ShouldInheritColours() const override
   {
- return false;
+    return false;
   }
     // Implementation only from now on.
 
@@ -481,6 +475,7 @@ protected:
     // calls InitCommandEvent() and, if n != wxNOT_FOUND, also sets the per
     // item client data
   void InitCommandEventWithItems(wxCommandEvent& event, int n);
+private:
   wxDECLARE_NO_COPY_CLASS(wxControlWithItemsBase);
 };
 // define the platform-specific wxControlWithItems class
@@ -496,8 +491,8 @@ class WXDLLIMPEXP_CORE wxControlWithItems : public wxControlWithItemsBase
 public:
   wxControlWithItems()
   {
-
   }
+private:
   wxDECLARE_ABSTRACT_CLASS(wxControlWithItems);
   wxDECLARE_NO_COPY_CLASS(wxControlWithItems);
 };

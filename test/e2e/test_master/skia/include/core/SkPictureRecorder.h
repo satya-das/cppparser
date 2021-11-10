@@ -45,7 +45,7 @@ public:
   SkCanvas* beginRecording(const SkRect& bounds, SkBBHFactory* bbhFactory = nullptr, uint32_t recordFlags = 0);
   SkCanvas* beginRecording(SkScalar width, SkScalar height, SkBBHFactory* bbhFactory = nullptr, uint32_t recordFlags = 0)
   {
-        return this->beginRecording(SkRect::MakeWH(width, height), bbhFactory, recordFlags);
+    return this->beginRecording(SkRect::MakeWH(width, height), bbhFactory, recordFlags);
   }
     /** Returns the recording canvas if one is active, or NULL if recording is
         not active. This does not alter the refcnt on the canvas (if present).

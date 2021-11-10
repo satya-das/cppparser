@@ -21,13 +21,12 @@ class WXDLLIMPEXP_CORE wxMDIParentFrame : public wxMDIParentFrameBase
 public:
   wxMDIParentFrame()
   {
- Init();
+    Init();
   }
   wxMDIParentFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE | wxVSCROLL | wxHSCROLL, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, title, pos, size, style, name);
+    Init();
+    (void) Create(parent, id, title, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE | wxVSCROLL | wxHSCROLL, const wxString& name = wxASCII_STR(wxFrameNameStr));
     // we don't store the active child in m_currentChild unlike the base class
@@ -39,7 +38,7 @@ public:
   virtual void ActivatePrevious();
   static bool IsTDI()
   {
- return true;
+    return true;
   }
     // implementation
   bool m_justInserted;
@@ -57,13 +56,12 @@ class WXDLLIMPEXP_CORE wxMDIChildFrame : public wxTDIChildFrame
 public:
   wxMDIChildFrame()
   {
- Init();
+    Init();
   }
   wxMDIChildFrame(wxMDIParentFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        Create(parent, id, title, pos, size, style, name);
+    Init();
+    Create(parent, id, title, pos, size, style, name);
   }
   bool Create(wxMDIParentFrame* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxMDIChildFrame();
@@ -91,7 +89,6 @@ class WXDLLIMPEXP_CORE wxMDIClientWindow : public wxMDIClientWindowBase
 public:
   wxMDIClientWindow()
   {
-
   }
   virtual bool CreateClient(wxMDIParentFrame* parent, long style = wxVSCROLL | wxHSCROLL);
 private:

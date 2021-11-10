@@ -31,9 +31,8 @@ public:
     // timer is running
   void MarkStopped()
   {
-        wxASSERT_MSG( m_isRunning, wxT("stopping non-running timer?") );
-
-        m_isRunning = false;
+    wxASSERT_MSG( m_isRunning, wxT("stopping non-running timer?") );
+    m_isRunning = false;
   }
 private:
   bool m_isRunning;
@@ -44,10 +43,9 @@ private:
 struct wxTimerSchedule
 {
   wxTimerSchedule(wxUnixTimerImpl* timer, wxUsecClock_t expiration)
-    :  m_timer(timer),
-          m_expiration(expiration)
+    : m_timer(timer)
+    , m_expiration(expiration)
   {
-
   }
     // the timer itself (we don't own this pointer)
   wxUnixTimerImpl* m_timer;
@@ -65,19 +63,20 @@ public:
     // get the unique timer scheduler instance
   static wxTimerScheduler& Get()
   {
-        if ( !ms_instance )
-            ms_instance = new wxTimerScheduler;
-
-        return *ms_instance;
+    if (!ms_instance)
+    {
+      ms_instance = new wxTimerScheduler;
+    }
+    return *ms_instance;
   }
     // must be called on shutdown to delete the global timer scheduler
   static void Shutdown()
   {
-        if ( ms_instance )
-        {
-            delete ms_instance;
-            ms_instance = NULL;
-        }
+    if (ms_instance)
+    {
+      delete ms_instance;
+      ms_instance = NULL;
+    }
   }
     // adds timer which should expire at the given absolute time to the list
   void AddTimer(wxUnixTimerImpl* timer, wxUsecClock_t expiration);
@@ -99,7 +98,6 @@ private:
     // Get() and destroyed by Shutdown()
   wxTimerScheduler()
   {
-
   }
   ~wxTimerScheduler();
     // add the given timer schedule to the list in the right place

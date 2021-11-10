@@ -97,7 +97,7 @@ public:
   Acad::ErrorStatus setNormal(const AcGeVector3d& normal);
   Adesk::Boolean isPlanar() const override
   {
- return true;
+    return true;
   }
   Acad::ErrorStatus getPlane(AcGePlane&, AcDb::Planarity&) const override;
     // Hatch Background Color

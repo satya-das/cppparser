@@ -33,8 +33,7 @@ public:
         // wxListBox, wxCheckListBox
   wxGenericValidator(wxArrayInt* val);
         // wxDatePickerCtrl
-    wxGenericValidator(wxDateTime* val);
-#endif // wxUSE_DATETIME
+  wxGenericValidator(wxDateTime* val);
         // wxTextCtrl
   wxGenericValidator(wxFileName* val);
         // wxTextCtrl
@@ -51,14 +50,14 @@ public:
     // (so the calling code can use a copy constructor of the relevant class).
   wxObject* Clone() const override
   {
- return new wxGenericValidator(*this);
+    return new wxGenericValidator(*this);
   }
   bool Copy(const wxGenericValidator& val);
     // Called when the value in the window must be validated: this is not used
     // by this class
   bool Validate(wxWindow*) override
   {
- return true;
+    return true;
   }
     // Called to transfer data to the window
   bool TransferToWindow() override;
@@ -70,9 +69,11 @@ protected:
   int* m_pInt;
   wxString* m_pString;
   wxArrayInt* m_pArrayInt;
+  wxDateTime* m_pDateTime;
   wxFileName* m_pFileName;
   float* m_pFloat;
   double* m_pDouble;
+private:
   wxDECLARE_CLASS(wxGenericValidator);
   wxDECLARE_NO_ASSIGN_CLASS(wxGenericValidator);
 };

@@ -27,7 +27,6 @@ class WXDLLIMPEXP_CORE wxChoiceBase : public wxControlWithItems
 public:
   wxChoiceBase()
   {
-
   }
   virtual ~wxChoiceBase();
     // all generic methods are in wxControlWithItems
@@ -39,24 +38,23 @@ public:
     // GetSelection()
   virtual int GetCurrentSelection() const
   {
- return GetSelection();
+    return GetSelection();
   }
     // set/get the number of columns in the control (as they're not supported on
     // most platforms, they do nothing by default)
   virtual void SetColumns(int = 1)
   {
-
   }
   virtual int GetColumns() const
   {
- return 1 ;
+    return 1;
   }
     // emulate selecting the item event.GetInt()
   void Command(wxCommandEvent& event) override;
     // override wxItemContainer::IsSorted
   bool IsSorted() const override
   {
- return HasFlag(wxCB_SORT);
+    return HasFlag(wxCB_SORT);
   }
 protected:
     // The generic implementation doesn't determine the height correctly and
@@ -64,6 +62,7 @@ protected:
     // the string widths, so the derived classes should override it and set the
     // height and add the arrow width to the size returned by this version.
   wxSize DoGetBestSize() const override;
+private:
   wxDECLARE_NO_COPY_CLASS(wxChoiceBase);
 };
 // ----------------------------------------------------------------------------

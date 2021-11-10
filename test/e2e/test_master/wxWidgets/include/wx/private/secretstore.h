@@ -24,7 +24,6 @@ class wxSecretValueImpl : public wxRefCounter
 public:
   wxSecretValueImpl()
   {
-
   }
   virtual size_t GetSize() const = 0;
   virtual const void* GetData() const = 0;
@@ -35,26 +34,26 @@ class wxSecretValueGenericImpl : public wxSecretValueImpl
 {
 public:
   wxSecretValueGenericImpl(size_t size, const void* data)
-    :  m_size(size),
-          m_data(new char[size])
+    : m_size(size)
+    , m_data(new char[size])
   {
-        memcpy(m_data, data, size);
+    memcpy(m_data, data, size);
   }
   virtual ~wxSecretValueGenericImpl()
   {
-        if ( m_data )
-        {
-            wxSecretValue::Wipe(m_size, m_data);
-            delete [] m_data;
-        }
+    if (m_data)
+    {
+      wxSecretValue::Wipe(m_size, m_data);
+      delete[] m_data;
+    }
   }
   size_t GetSize() const override
   {
- return m_size;
+    return m_size;
   }
   const void* GetData() const override
   {
- return m_data;
+    return m_data;
   }
 private:
   const size_t m_size;
@@ -76,7 +75,7 @@ class wxSecretStoreImpl : public wxRefCounter
 public:
   virtual bool IsOk(wxString*) const
   {
- return true;
+    return true;
   }
   virtual bool Save(const wxString& service, const wxString& username, const wxSecretValueImpl& password, wxString& errmsg) = 0;
   virtual bool Load(const wxString& service, wxString* username, wxSecretValueImpl** password, wxString& errmsg) const = 0;

@@ -15,11 +15,10 @@ class WXDLLIMPEXP_CORE wxStaticText : public wxStaticTextBase
 public:
   wxStaticText()
   {
-
   }
   wxStaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr))
   {
-        Create(parent, id, label, pos, size, style, name);
+    Create(parent, id, label, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr));
     // implementation
@@ -28,14 +27,14 @@ public:
     // operations
   virtual bool ProcessCommand(wxCommandEvent&)
   {
-        return false;
+    return false;
   }
   virtual void SetLabel(const wxString& label);
     // Get the widget that corresponds to the label
     // (for font setting, label setting etc.)
   virtual WXWidget GetLabelWidget() const
   {
- return m_labelWidget;
+    return m_labelWidget;
   }
   virtual void WXSetVisibleLabel(const wxString& str);
   virtual wxString WXGetVisibleLabel() const;

@@ -54,7 +54,7 @@ public:
   SkPDFDevice(SkISize pageSize, SkPDFDocument* document, const SkMatrix& initialTransform = SkMatrix::I());
   sk_sp<SkPDFDevice> makeCongruentDevice()
   {
-        return sk_make_sp<SkPDFDevice>(this->size(), fDocument);
+    return sk_make_sp<SkPDFDevice>(this->size(), fDocument);
   }
   virtual ~SkPDFDevice();
     /**
@@ -83,16 +83,16 @@ public:
   std::unique_ptr<SkStreamAsset> content();
   SkISize size() const
   {
- return this->imageInfo().dimensions();
+    return this->imageInfo().dimensions();
   }
   SkIRect bounds() const
   {
- return this->imageInfo().bounds();
+    return this->imageInfo().bounds();
   }
   void DrawGlyphRunAsPath(SkPDFDevice* dev, const SkGlyphRun& glyphRun, SkPoint offset);
   const SkMatrix& initialTransform() const
   {
- return fInitialTransform;
+    return fInitialTransform;
   }
 protected:
   sk_sp<SkSurface> makeSurface(const SkImageInfo&, const SkSurfaceProps&) override;
@@ -140,7 +140,7 @@ private:
   void drawFormXObject(SkPDFIndirectReference xObject, SkDynamicMemoryWStream*);
   bool hasEmptyClip() const
   {
- return this->cs().isEmpty(this->bounds());
+    return this->cs().isEmpty(this->bounds());
   }
   void reset();
   typedef SkClipStackDevice INHERITED;

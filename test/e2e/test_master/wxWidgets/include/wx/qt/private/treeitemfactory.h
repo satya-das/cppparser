@@ -26,36 +26,30 @@ class wxQtListTextCtrl : public wxTextCtrl
 {
 public:
   wxQtListTextCtrl(wxWindow* parent, QWidget* actualParent)
-    :  wxTextCtrl(parent, wxID_ANY, wxEmptyString,
-            wxDefaultPosition, wxDefaultSize,
-            wxNO_BORDER),
-        m_actualParent(actualParent),
-        m_moving(0)
+    : wxTextCtrl(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxNO_BORDER)
+    , m_actualParent(actualParent)
+    , m_moving(0)
   {
-        Bind(wxEVT_MOVE, &wxQtListTextCtrl::OnMove, this);
+    Bind(wxEVT_MOVE, &wxQtListTextCtrl::OnMove, this);
   }
   void OnMove(wxMoveEvent& event)
   {
         // QWidget::move generates a QMoveEvent so we need to guard against
         // reentrant calls.
-        wxRecursionGuard guard(m_moving);
-
-        if ( guard.IsInside() )
-        {
-            event.Skip();
-            return;
-        }
-
-        const QPoint eventPos = wxQtConvertPoint(event.GetPosition());
-        const QPoint globalPos = m_actualParent->mapToGlobal(eventPos);
-
+    wxRecursionGuard guard(m_moving);
+    if (guard.IsInside())
+    {
+      event.Skip();
+      return ;
+    }
+    const QPoint eventPos = wxQtConvertPoint(event.GetPosition());
+    const QPoint globalPos = m_actualParent->mapToGlobal(eventPos);
         // For some reason this always gives us the offset from the header info
         // the internal control. So we need to treat this as an offset rather
         // than a position.
-        QWidget* widget = GetHandle();
-        const QPoint offset = widget->mapFromGlobal(globalPos);
-
-        widget->move(eventPos + offset);
+    QWidget* widget = GetHandle();
+    const QPoint offset = widget->mapFromGlobal(globalPos);
+    widget->move(eventPos + offset);
   }
 private:
   QWidget* m_actualParent;
@@ -69,34 +63,34 @@ class wxQtTreeItemEditorFactory : public QItemEditorFactory
 {
 public:
   explicit wxQtTreeItemEditorFactory(wxWindow* parent)
-    :  m_parent(parent),
-          m_textCtrl(NULL)
+    : m_parent(parent)
+    , m_textCtrl(NULL)
   {
-
   }
   void AttachTo(QTreeWidget* tree)
   {
-        QAbstractItemDelegate* delegate = tree->itemDelegate();
-        QItemDelegate *qItemDelegate = static_cast<QItemDelegate*>(delegate);
-        qItemDelegate->setItemEditorFactory(this);
+    QAbstractItemDelegate* delegate = tree->itemDelegate();
+    QItemDelegate* qItemDelegate = static_cast<QItemDelegate*>(delegate);
+    qItemDelegate->setItemEditorFactory(this);
   }
   QWidget* createEditor(int, QWidget* parent) const override
   {
-        if (m_textCtrl != NULL)
-            ClearEditor();
-
-        m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
-        m_textCtrl->SetFocus();
-        return m_textCtrl->GetHandle();
+    if (m_textCtrl != NULL)
+    {
+      ClearEditor();
+    }
+    m_textCtrl = new wxQtListTextCtrl(m_parent, parent);
+    m_textCtrl->SetFocus();
+    return m_textCtrl->GetHandle();
   }
   wxTextCtrl* GetEditControl() const
   {
-        return m_textCtrl;
+    return m_textCtrl;
   }
   void ClearEditor() const
   {
-        delete m_textCtrl;
-        m_textCtrl = NULL;
+    delete m_textCtrl;
+    m_textCtrl = NULL;
   }
 private:
   wxWindow* m_parent;

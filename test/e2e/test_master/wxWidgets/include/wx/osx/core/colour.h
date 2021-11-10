@@ -19,7 +19,8 @@ class WXDLLIMPEXP_CORE wxColour : public wxColourBase
 public:
     // constructors
     // ------------
-  DEFINE_STD_WXCOLOUR_CONSTRUCTORS ChannelType Red() const override;
+  DEFINE_STD_WXCOLOUR_CONSTRUCTORS
+  ChannelType Red() const override;
   ChannelType Green() const override;
   ChannelType Blue() const override;
   ChannelType Alpha() const override;
@@ -28,7 +29,7 @@ public:
   bool operator ==(const wxColour& colour) const;
   bool operator !=(const wxColour& colour) const
   {
- return !(*this == colour);
+    return !(*this == colour);
   }
     // CoreGraphics CGColor
     // --------------------
@@ -40,7 +41,7 @@ public:
     // do take ownership of the returned value
   CGColorRef CreateCGColor() const
   {
- return wxCFRetain(GetCGColor());
+    return wxCFRetain(GetCGColor());
   }
 #  if  wxOSX_USE_COCOA_OR_CARBON
     // Quickdraw RGBColor
@@ -79,7 +80,7 @@ public:
   virtual CGFloat Alpha() const = 0;
   virtual bool IsSolid() const
   {
- return true;
+    return true;
   }
   virtual CGColorRef GetCGColor() const = 0;
   virtual wxColourRefData* Clone() const = 0;

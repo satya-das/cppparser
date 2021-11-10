@@ -16,14 +16,12 @@ class WXDLLIMPEXP_CORE wxSlider : public wxSliderBase
 public:
   wxSlider()
   {
- Init();
+    Init();
   }
   wxSlider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, value, minValue, maxValue,
-                     pos, size, style, validator, name);
+    Init();
+    (void) Create(parent, id, value, minValue, maxValue, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr));
   virtual ~wxSlider();
@@ -33,16 +31,16 @@ public:
   void SetRange(int minValue, int maxValue) override;
   int GetMin() const override
   {
- return m_rangeMin;
+    return m_rangeMin;
   }
   int GetMax() const override
   {
- return m_rangeMax;
+    return m_rangeMax;
   }
     // Win32-specific slider methods
   int GetTickFreq() const override
   {
- return m_tickFreq;
+    return m_tickFreq;
   }
   void SetPageSize(int pageSize) override;
   int GetPageSize() const override;
@@ -64,12 +62,12 @@ public:
     // we should let background show through the slider (and its labels)
   bool HasTransparentBackground() override
   {
- return true;
+    return true;
   }
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
   {
- return false;
+    return false;
   }
   void Command(wxCommandEvent& event) override;
   bool MSWOnScroll(int orientation, WXWORD wParam, WXWORD pos, WXHWND control) override;
@@ -85,7 +83,7 @@ protected:
     // format an integer value as string
   static wxString Format(int n)
   {
- return wxString::Format(wxT("%d"), n);
+    return wxString::Format(wxT("%d"), n);
   }
     // get the boundig box for the slider and possible labels
   wxRect GetBoundingBox() const;

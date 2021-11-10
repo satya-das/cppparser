@@ -98,31 +98,34 @@ protected:
 //
 inline double AcGeKnotVector::tolerance() const
 {
- return mTolerance;
+  return mTolerance;
 }
 inline AcGeKnotVector& AcGeKnotVector::setTolerance(double eps)
 {
- mTolerance = eps;	return *this;
+  mTolerance = eps;
+  return *this;
 }
 inline Adesk::Boolean AcGeKnotVector::isValid(int i) const
 {
- return i >= 0 && i < mData.logicalLength();
+  return i >= 0 && i < mData.logicalLength();
 }
 inline double& AcGeKnotVector::operator [](int i)
 {
- assert(isValid(i)); return mData[i];
+  assert(isValid(i));
+  return mData[i];
 }
 inline const double AcGeKnotVector::operator [](int i) const
 {
- assert(isValid(i)); return mData[i];
+  assert(isValid(i));
+  return mData[i];
 }
 inline const double* AcGeKnotVector::asArrayPtr() const
 {
- return mData.asArrayPtr();
+  return mData.asArrayPtr();
 }
 inline double* AcGeKnotVector::asArrayPtr()
 {
- return mData.asArrayPtr();
+  return mData.asArrayPtr();
 }
 #  pragma  pack (pop)
 #endif

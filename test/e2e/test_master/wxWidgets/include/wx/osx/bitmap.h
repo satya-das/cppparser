@@ -88,18 +88,18 @@ public:
     // If depth is omitted, will create a bitmap compatible with the display
   wxBitmap(int width, int height, int depth = -1)
   {
- (void)Create(width, height, depth);
+    (void) Create(width, height, depth);
   }
   wxBitmap(const wxSize& sz, int depth = -1)
   {
- (void)Create(sz, depth);
+    (void) Create(sz, depth);
   }
     // Convert from wxImage:
   wxBitmap(const wxImage& image, int depth = -1, double scale = 1.0);
     // Convert from wxIcon
   wxBitmap(const wxIcon& icon)
   {
- CopyFromIcon(icon);
+    CopyFromIcon(icon);
   }
   virtual ~wxBitmap()
   {
@@ -110,7 +110,7 @@ public:
   bool Create(int width, int height, int depth = wxBITMAP_SCREEN_DEPTH) override;
   bool Create(const wxSize& sz, int depth = wxBITMAP_SCREEN_DEPTH) override
   {
- return Create(sz.GetWidth(), sz.GetHeight(), depth);
+    return Create(sz.GetWidth(), sz.GetHeight(), depth);
   }
   virtual bool Create(const void* data, wxBitmapType type, int width, int height, int depth = 1);
   bool Create(CGImageRef image, double scale = 1.0);
@@ -125,22 +125,17 @@ public:
   bool SaveFile(const wxString& name, wxBitmapType type, const wxPalette* cmap = NULL) const override;
   const wxBitmapRefData* GetBitmapData() const
   {
- return (const wxBitmapRefData *)m_refData;
+    return (const wxBitmapRefData*) m_refData;
   }
   wxBitmapRefData* GetBitmapData()
   {
- return (wxBitmapRefData *)m_refData;
+    return (wxBitmapRefData*) m_refData;
   }
     // copies the contents and mask of the given (colour) icon to the bitmap
   bool CopyFromIcon(const wxIcon& icon) override;
   int GetWidth() const override;
   int GetHeight() const override;
   int GetDepth() const override;
-#  if  WXWIN_COMPATIBILITY_3_0
-  wxDEPRECATED_MSG("this value is determined during creation, this method could lead to inconsistencies") void SetWidth(int width) override;
-  wxDEPRECATED_MSG("this value is determined during creation, this method could lead to inconsistencies") void SetHeight(int height) override;
-  wxDEPRECATED_MSG("this value is determined during creation, this method could lead to inconsistencies") void SetDepth(int depth) override;
-#  endif
 #  if  wxUSE_PALETTE
   wxPalette* GetPalette() const override;
   void SetPalette(const wxPalette& palette) override;
@@ -164,30 +159,29 @@ public:
     // returns an autoreleased version of the image
   WX_NSImage GetNSImage() const
   {
- return GetImage();
+    return GetImage();
   }
 #  endif
 #  if  wxOSX_USE_IPHONE
     // returns an autoreleased version of the image
   WX_UIImage GetUIImage() const
   {
- return GetImage();
+    return GetImage();
   }
 #  endif
-#  if  WXWIN_COMPATIBILITY_3_0
-#    if  wxOSX_USE_ICONREF
     // returns a IconRef which must be retained before and released after usage
-  wxDEPRECATED_MSG("IconRefs are deprecated, this will be removed in the future") IconRef GetIconRef() const;
+    wxDEPRECATED_MSG("IconRefs are deprecated, this will be removed in the future")
+    IconRef GetIconRef() const;
     // returns a IconRef which must be released after usage
-  wxDEPRECATED_MSG("IconRefs are deprecated, this will be removed in the future") IconRef CreateIconRef() const;
-#    endif
+    wxDEPRECATED_MSG("IconRefs are deprecated, this will be removed in the future")
+    IconRef CreateIconRef() const;
+#endif
+
     // get read only access to the underlying buffer
-  wxDEPRECATED_MSG("use GetRawData for accessing the buffer") const void* GetRawAccess() const;
+    wxDEPRECATED_MSG("use GetRawData for accessing the buffer")
+    const void *GetRawAccess() const;
     // brackets to the underlying OS structure for read/write access
     // makes sure that no cached images will be constructed until terminated
-  wxDEPRECATED_MSG("use GetRawData for accessing the buffer") void* BeginRawAccess();
-  wxDEPRECATED_MSG("use GetRawData for accessing the buffer") void EndRawAccess();
-#  endif
   double GetScaleFactor() const override;
   void SetSelectedInto(wxDC* dc);
   wxDC* GetSelectedInto() const;

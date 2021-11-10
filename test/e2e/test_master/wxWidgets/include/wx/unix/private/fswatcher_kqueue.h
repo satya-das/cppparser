@@ -24,65 +24,65 @@ public:
   {
     wxDirState(const wxFSWatchInfo& winfo)
     {
-            if (!wxDir::Exists(winfo.GetPath()))
-                return;
-
-            wxDir dir(winfo.GetPath());
-            wxCHECK_RET( dir.IsOpened(),
-                  wxString::Format(wxASCII_STR("Unable to open dir '%s'"), winfo.GetPath()));
-
-            wxString filename;
-            bool ret = dir.GetFirst(&filename);
-            while (ret)
-            {
-                files.push_back(filename);
-                ret = dir.GetNext(&filename);
-            }
+      if (!wxDir::Exists(winfo.GetPath()))
+      {
+        return ;
+      }
+      wxDir dir(winfo.GetPath());
+      wxCHECK_RET(dir.IsOpened(), wxString::Format(wxASCII_STR("Unable to open dir '%s'"), winfo.GetPath()));
+      wxString filename;
+      bool ret = dir.GetFirst(&filename);
+      while (ret)
+      {
+        files.push_back(filename);
+        ret = dir.GetNext(&filename);
+      }
     }
     wxSortedArrayString files;
   };
   wxFSWatchEntryKq(const wxFSWatchInfo& winfo)
-    :         wxFSWatchInfo(winfo), m_lastState(winfo)
+    : wxFSWatchInfo(winfo)
+    , m_lastState(winfo)
   {
-        m_fd = wxOpen(m_path, O_RDONLY, 0);
-        if (m_fd == -1)
-        {
-            wxLogSysError(_("Unable to open path '%s'"), m_path);
-        }
+    m_fd = wxOpen(m_path, O_RDONLY, 0);
+    if (m_fd == -1)
+    {
+      wxLogSysError(_("Unable to open path '%s'"), m_path);
+    }
   }
   virtual ~wxFSWatchEntryKq()
   {
-        (void) Close();
+    (void) Close();
   }
   bool Close()
   {
-        if (!IsOk())
-            return false;
-
-        int ret = close(m_fd);
-        if (ret == -1)
-        {
-            wxLogSysError(_("Unable to close path '%s'"), m_path);
-        }
-        m_fd = -1;
-
-        return ret != -1;
+    if (!IsOk())
+    {
+      return false;
+    }
+    int ret = close(m_fd);
+    if (ret == -1)
+    {
+      wxLogSysError(_("Unable to close path '%s'"), m_path);
+    }
+    m_fd = -1;
+    return ret != -1;
   }
   bool IsOk() const
   {
-        return m_fd != -1;
+    return m_fd != -1;
   }
   int GetFileDescriptor() const
   {
-        return m_fd;
+    return m_fd;
   }
   void RefreshState()
   {
-        m_lastState = wxDirState(*this);
+    m_lastState = wxDirState(*this);
   }
   const wxDirState& GetLastState() const
   {
-        return m_lastState;
+    return m_lastState;
   }
 private:
   int m_fd;

@@ -16,10 +16,9 @@ class SkPicturePlayback final :  SkNoncopyable
 {
 public:
   SkPicturePlayback(const SkPictureData* data)
-    :  fPictureData(data)
-        , fCurOffset(0)
+    : fPictureData(data)
+    , fCurOffset(0)
   {
-
   }
   void draw(SkCanvas* canvas, SkPicture::AbortCallback*, SkReadBuffer* buffer);
     // TODO: remove the curOp calls after cleaning up GrGatherDevice
@@ -27,11 +26,11 @@ public:
     // back. 0 indicates no call is active.
   size_t curOpID() const
   {
- return fCurOffset;
+    return fCurOffset;
   }
   void resetOpID()
   {
- fCurOffset = 0;
+    fCurOffset = 0;
   }
 protected:
   const SkPictureData* fPictureData;
@@ -43,15 +42,15 @@ protected:
   {
   public:
     AutoResetOpID(SkPicturePlayback* playback)
-      :  fPlayback(playback)
+      : fPlayback(playback)
     {
-
     }
     ~AutoResetOpID()
     {
-            if (fPlayback) {
-                fPlayback->resetOpID();
-            }
+      if (fPlayback)
+      {
+        fPlayback->resetOpID();
+      }
     }
   private:
     SkPicturePlayback* fPlayback;

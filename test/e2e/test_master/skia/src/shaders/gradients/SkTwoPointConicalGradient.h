@@ -29,19 +29,19 @@ public:
         // implies that the quadratic equation degenerates to a linear equation.
     bool isFocalOnCircle() const
     {
- return SkScalarNearlyZero(1 - fR1);
+      return SkScalarNearlyZero(1 - fR1);
     }
     bool isSwapped() const
     {
- return fIsSwapped;
+      return fIsSwapped;
     }
     bool isWellBehaved() const
     {
- return !this->isFocalOnCircle() && fR1 > 1;
+      return !this->isFocalOnCircle() && fR1 > 1;
     }
     bool isNativelyFocal() const
     {
- return SkScalarNearlyZero(fFocalX);
+      return SkScalarNearlyZero(fFocalX);
     }
   };
   enum class Type {
@@ -57,35 +57,35 @@ public:
   bool isOpaque() const override;
   SkScalar getCenterX1() const
   {
- return SkPoint::Distance(fCenter1, fCenter2);
+    return SkPoint::Distance(fCenter1, fCenter2);
   }
   SkScalar getStartRadius() const
   {
- return fRadius1;
+    return fRadius1;
   }
   SkScalar getDiffRadius() const
   {
- return fRadius2 - fRadius1;
+    return fRadius2 - fRadius1;
   }
   const SkPoint& getStartCenter() const
   {
- return fCenter1;
+    return fCenter1;
   }
   const SkPoint& getEndCenter() const
   {
- return fCenter2;
+    return fCenter2;
   }
   SkScalar getEndRadius() const
   {
- return fRadius2;
+    return fRadius2;
   }
   Type getType() const
   {
- return fType;
+    return fType;
   }
   const FocalData& getFocalData() const
   {
- return fFocalData;
+    return fFocalData;
   }
 protected:
   void flatten(SkWriteBuffer& buffer) const override;

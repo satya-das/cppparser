@@ -60,102 +60,115 @@ protected:
   bool m_bMDIAware;
 public:
   AcRxDbxApp()
-    :  m_hdllInstance(NULL), m_bUnlocked(true), m_bMDIAware(true)
+    : m_hdllInstance(NULL)
+    , m_bUnlocked(true)
+    , m_bMDIAware(true)
   {
   }
   virtual AcRx::AppRetCode On_kInitAppMsg(void* pkt)
   {
 		//- Save the module instance
-		m_hdllInstance =_hdllInstance ;
+    m_hdllInstance = _hdllInstance;
         //----- Unlock application, so user can unload it
-        if ( m_bUnlocked == true )
-            acrxDynamicLinker->unlockApplication (pkt) ;
+    if (m_bUnlocked == true)
+    {
+      acrxDynamicLinker->unlockApplication(pkt);
+    }
         //----- Register the application as MDI capable in ACAD environment
-        if ( m_bMDIAware == true )
-            acrxDynamicLinker->registerAppMDIAware (pkt) ;
+    if (m_bMDIAware == true)
+    {
+      acrxDynamicLinker->registerAppMDIAware(pkt);
+    }
         //----- Self-register application components such as
         //----- COM server / Custom entity registry information, ...
-        RegisterServerComponents () ;
+    RegisterServerComponents();
         //----- Register ObjectDBX custom classes
-        int nDbxCustObjCount =0 ;
-        _DBX_REGISTER_OBJECT_ENTRY **ppDbxCustObjMapEntryFirst =&__pDbxCustObjMapEntryFirst + 1 ;
-        _DBX_REGISTER_OBJECT_ENTRY **ppDbxCustObjMapEntryLast =&__pDbxCustObjMapEntryLast ;
-        for ( _DBX_REGISTER_OBJECT_ENTRY **ppEntry =ppDbxCustObjMapEntryFirst ; ppEntry < ppDbxCustObjMapEntryLast ; ppEntry++ ) {
-            if ( *ppEntry != NULL ) {
-                nDbxCustObjCount++ ;
-                (*ppEntry)->rxInit () ;
-                (*ppEntry)->bRegistered =true ;
-            }
-        }
-        if ( nDbxCustObjCount > 0 )
-            acrxBuildClassHierarchy () ;
-        return (AcRx::kRetOK) ;
+    int nDbxCustObjCount = 0;
+    _DBX_REGISTER_OBJECT_ENTRY** ppDbxCustObjMapEntryFirst = &__pDbxCustObjMapEntryFirst + 1;
+    _DBX_REGISTER_OBJECT_ENTRY** ppDbxCustObjMapEntryLast = &__pDbxCustObjMapEntryLast;
+    for (_DBX_REGISTER_OBJECT_ENTRY** ppEntry = ppDbxCustObjMapEntryFirst; ppEntry < ppDbxCustObjMapEntryLast; ppEntry++)
+    {
+      if (*ppEntry != NULL)
+      {
+        nDbxCustObjCount++;
+        (*ppEntry)->rxInit();
+        (*ppEntry)->bRegistered = true;
+      }
+    }
+    if (nDbxCustObjCount > 0)
+    {
+      acrxBuildClassHierarchy();
+    }
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kUnloadAppMsg(void* pkt)
   {
-        _DBX_REGISTER_OBJECT_ENTRY **ppDbxCustObjMapEntryFirst =&__pDbxCustObjMapEntryFirst + 1 ;
-        _DBX_REGISTER_OBJECT_ENTRY **ppDbxCustObjMapEntryLast =&__pDbxCustObjMapEntryLast ;
-        for ( _DBX_REGISTER_OBJECT_ENTRY **ppEntry =ppDbxCustObjMapEntryFirst ; ppEntry < ppDbxCustObjMapEntryLast ; ppEntry++ ) {
-            if ( *ppEntry != NULL && (*ppEntry)->bRegistered == true )
-                DeleteClassAndDescendant (ppEntry) ;
-        }
-        return (AcRx::kRetOK) ;
+    _DBX_REGISTER_OBJECT_ENTRY** ppDbxCustObjMapEntryFirst = &__pDbxCustObjMapEntryFirst + 1;
+    _DBX_REGISTER_OBJECT_ENTRY** ppDbxCustObjMapEntryLast = &__pDbxCustObjMapEntryLast;
+    for (_DBX_REGISTER_OBJECT_ENTRY** ppEntry = ppDbxCustObjMapEntryFirst; ppEntry < ppDbxCustObjMapEntryLast; ppEntry++)
+    {
+      if (*ppEntry != NULL && (*ppEntry)->bRegistered == true)
+      {
+        DeleteClassAndDescendant(ppEntry);
+      }
+    }
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kLoadDwgMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kUnloadDwgMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kInvkSubrMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kCfgMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kEndMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kQuitMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kSaveMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kDependencyMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kNoDependencyMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kOleUnloadAppMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kPreQuitMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kInitDialogMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kEndDialogMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual AcRx::AppRetCode On_kNullMsg(void* pkt)
   {
- return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   AcRx::AppRetCode acrxEntryPoint(AcRx::AppMsgCode msg, void* pkt)
   {
@@ -179,26 +192,30 @@ public:
             DISPATCH_PKTMSG (kNullMsg) ;
         }
     */
-        return (AcRx::kRetOK) ;
+    return (AcRx::kRetOK);
   }
   virtual void RegisterServerComponents() = 0;
   HINSTANCE& GetModuleInstance()
   {
- return (m_hdllInstance) ;
+    return (m_hdllInstance);
   }
 private:
   void DeleteClassAndDescendant(_DBX_REGISTER_OBJECT_ENTRY** ppEntry)
   {
-        _DBX_REGISTER_OBJECT_ENTRY **ppDbxCustObjMapEntryFirst =&__pDbxCustObjMapEntryFirst + 1 ;
-        _DBX_REGISTER_OBJECT_ENTRY **ppDbxCustObjMapEntryLast =&__pDbxCustObjMapEntryLast ;
-        for ( _DBX_REGISTER_OBJECT_ENTRY **ppEntry2 =ppDbxCustObjMapEntryFirst ; ppEntry2 < ppDbxCustObjMapEntryLast ; ppEntry2++ ) {
-            if ( *ppEntry2 != NULL && *ppEntry2 != *ppEntry && (*ppEntry2)->bRegistered == true ) {
-                if ( (*ppEntry2)->desc ()->myParent () == (*ppEntry)->desc () )
-                    DeleteClassAndDescendant (ppEntry2) ;
-            }
+    _DBX_REGISTER_OBJECT_ENTRY** ppDbxCustObjMapEntryFirst = &__pDbxCustObjMapEntryFirst + 1;
+    _DBX_REGISTER_OBJECT_ENTRY** ppDbxCustObjMapEntryLast = &__pDbxCustObjMapEntryLast;
+    for (_DBX_REGISTER_OBJECT_ENTRY** ppEntry2 = ppDbxCustObjMapEntryFirst; ppEntry2 < ppDbxCustObjMapEntryLast; ppEntry2++)
+    {
+      if (*ppEntry2 != NULL && *ppEntry2 != *ppEntry && (*ppEntry2)->bRegistered == true)
+      {
+        if ((*ppEntry2)->desc()->myParent() == (*ppEntry)->desc())
+        {
+          DeleteClassAndDescendant(ppEntry2);
         }
-        deleteAcRxClass ((*ppEntry)->desc ()) ;
-        (*ppEntry)->bRegistered =false ;
+      }
+    }
+    deleteAcRxClass((*ppEntry)->desc());
+    (*ppEntry)->bRegistered = false;
   }
 };
 //-----------------------------------------------------------------------------

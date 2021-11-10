@@ -17,17 +17,17 @@ public:
     // Constructors.
   wxDatePickerCtrl()
   {
-
   }
   wxDatePickerCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& dt = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDP_DEFAULT | wxDP_SHOWCENTURY, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxDatePickerCtrlNameStr)
   {
-        Create(parent, id, dt, pos, size, style, validator, name);
+    Create(parent, id, dt, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& dt = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDP_DEFAULT | wxDP_SHOWCENTURY, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxDatePickerCtrlNameStr);
     // Implement the base class pure virtuals.
   void SetRange(const wxDateTime& dt1, const wxDateTime& dt2) override;
   bool GetRange(wxDateTime* dt1, wxDateTime* dt2) const override;
   void OSXGenerateEvent(const wxDateTime& dt) override;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDatePickerCtrl);
 };
 #endif

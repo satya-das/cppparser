@@ -15,23 +15,23 @@ class SkDeferredDisplayListPriv
 public:
   int numRenderTasks() const
   {
-#if SK_SUPPORT_GPU
-        return fDDL->fRenderTasks.count();
-#else
-        return 0;
-#endif
+#  if  SK_SUPPORT_GPU
+    return fDDL->fRenderTasks.count();
+#  else 
+    return 0;
+#  endif
   }
   const SkDeferredDisplayList::LazyProxyData* lazyProxyData() const
   {
-#if SK_SUPPORT_GPU
-        return fDDL->fLazyProxyData.get();
-#else
-        return nullptr;
-#endif
+#  if  SK_SUPPORT_GPU
+    return fDDL->fLazyProxyData.get();
+#  else 
+    return nullptr;
+#  endif
   }
 private:
   explicit SkDeferredDisplayListPriv(SkDeferredDisplayList* ddl)
-    :  fDDL(ddl)
+    : fDDL(ddl)
   {
   }
   SkDeferredDisplayListPriv(const SkDeferredDisplayListPriv&);
@@ -44,10 +44,10 @@ private:
 };
 inline SkDeferredDisplayListPriv SkDeferredDisplayList::priv()
 {
-    return SkDeferredDisplayListPriv(this);
+  return SkDeferredDisplayListPriv(this);
 }
 inline const SkDeferredDisplayListPriv SkDeferredDisplayList::priv() const
 {
-    return SkDeferredDisplayListPriv(const_cast<SkDeferredDisplayList*>(this));
+  return SkDeferredDisplayListPriv(const_cast<SkDeferredDisplayList*>(this));
 }
 #endif

@@ -42,7 +42,7 @@ public:
   template <typename T = GrGpuResource>
   typename std::enable_if<std::is_base_of<GrGpuResource, T>::value, sk_sp<T>>::type findByUniqueKey(const GrUniqueKey& key)
   {
-        return sk_sp<T>(static_cast<T*>(this->findResourceByUniqueKey(key).release()));
+    return sk_sp<T>(static_cast<T*>(this->findResourceByUniqueKey(key).release()));
   }
     ///////////////////////////////////////////////////////////////////////////
     // Textures
@@ -132,10 +132,11 @@ public:
      */
   sk_sp<const GrGpuBuffer> findOrCreatePatternedIndexBuffer(const uint16_t* pattern, int patternSize, int reps, int vertCount, const GrUniqueKey& key)
   {
-        if (auto buffer = this->findByUniqueKey<const GrGpuBuffer>(key)) {
-            return buffer;
-        }
-        return this->createPatternedIndexBuffer(pattern, patternSize, reps, vertCount, &key);
+    if (auto buffer = this->findByUniqueKey<const GrGpuBuffer>(key))
+    {
+      return buffer;
+    }
+    return this->createPatternedIndexBuffer(pattern, patternSize, reps, vertCount, &key);
   }
     /**
      * Returns an index buffer that can be used to render quads.
@@ -146,10 +147,11 @@ public:
      */
   sk_sp<const GrGpuBuffer> refQuadIndexBuffer()
   {
-        if (!fQuadIndexBuffer) {
-            fQuadIndexBuffer = this->createQuadIndexBuffer();
-        }
-        return fQuadIndexBuffer;
+    if (!fQuadIndexBuffer)
+    {
+      fQuadIndexBuffer = this->createQuadIndexBuffer();
+    }
+    return fQuadIndexBuffer;
   }
   static int QuadCountOfQuadBuffer();
     /**
@@ -197,20 +199,20 @@ public:
   sk_sp<GrSemaphore> wrapBackendSemaphore(const GrBackendSemaphore&, SemaphoreWrapType wrapType, GrWrapOwnership = kBorrow_GrWrapOwnership);
   void abandon()
   {
-        fCache = nullptr;
-        fGpu = nullptr;
+    fCache = nullptr;
+    fGpu = nullptr;
   }
   uint32_t contextUniqueID() const
   {
- return fCache->contextUniqueID();
+    return fCache->contextUniqueID();
   }
   const GrCaps* caps() const
   {
- return fCaps.get();
+    return fCaps.get();
   }
   bool overBudget() const
   {
- return fCache->overBudget();
+    return fCache->overBudget();
   }
   static uint32_t MakeApprox(uint32_t value);
   inline GrResourceProviderPriv priv();
@@ -238,26 +240,26 @@ private:
   sk_sp<GrTexture> writePixels(sk_sp<GrTexture> texture, GrColorType colorType, const SkISize& baseSize, const GrMipLevel texels[], int mipLevelCount) const;
   GrResourceCache* cache()
   {
- return fCache;
+    return fCache;
   }
   const GrResourceCache* cache() const
   {
- return fCache;
+    return fCache;
   }
   friend class GrResourceProviderPriv;
     // Method made available via GrResourceProviderPriv
   GrGpu* gpu()
   {
- return fGpu;
+    return fGpu;
   }
   const GrGpu* gpu() const
   {
- return fGpu;
+    return fGpu;
   }
   bool isAbandoned() const
   {
-        SkASSERT(SkToBool(fGpu) == SkToBool(fCache));
-        return !SkToBool(fCache);
+    SkASSERT(SkToBool(fGpu) == SkToBool(fCache));
+    return !SkToBool(fCache);
   }
   sk_sp<const GrGpuBuffer> createPatternedIndexBuffer(const uint16_t* pattern, int patternSize, int reps, int vertCount, const GrUniqueKey* key);
   sk_sp<const GrGpuBuffer> createQuadIndexBuffer();

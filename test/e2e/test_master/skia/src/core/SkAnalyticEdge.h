@@ -40,35 +40,41 @@ struct SkAnalyticEdge
   static const int kDefaultAccuracy = 2;
   static SkFixed SnapY(SkFixed y)
   {
-        const int accuracy = kDefaultAccuracy;
+    const int accuracy = kDefaultAccuracy;
         // This approach is safer than left shift, round, then right shift
-        return ((unsigned)y + (SK_Fixed1 >> (accuracy + 1))) >> (16 - accuracy) << (16 - accuracy);
+    return ((unsigned) y + (SK_Fixed1 >> (accuracy + 1))) >> (16 - accuracy) << (16 - accuracy);
   }
     // Update fX, fY of this edge so fY = y
   inline void goY(SkFixed y)
   {
-        if (y == fY + SK_Fixed1) {
-            fX = fX + fDX;
-            fY = y;
-        } else if (y != fY) {
+    if (y == fY + SK_Fixed1)
+    {
+      fX = fX + fDX;
+      fY = y;
+    }
+    else 
+    {
+      if (y != fY)
+      {
             // Drop lower digits as our alpha only has 8 bits
             // (fDX and y - fUpperY may be greater than SK_Fixed1)
-            fX = fUpperX + SkFixedMul(fDX, y - fUpperY);
-            fY = y;
-        }
+        fX = fUpperX + SkFixedMul(fDX, y - fUpperY);
+        fY = y;
+      }
+    }
   }
   inline void goY(SkFixed y, int yShift)
   {
-        SkASSERT(yShift >= 0 && yShift <= kDefaultAccuracy);
-        SkASSERT(fDX == 0 || y - fY == SK_Fixed1 >> yShift);
-        fY = y;
-        fX += fDX >> yShift;
+    SkASSERT(yShift >= 0 && yShift <= kDefaultAccuracy);
+    SkASSERT(fDX == 0 || y - fY == SK_Fixed1 >> yShift);
+    fY = y;
+    fX += fDX >> yShift;
   }
   inline void saveXY(SkFixed x, SkFixed y, SkFixed dY)
   {
-        fSavedX = x;
-        fSavedY = y;
-        fSavedDY = dY;
+    fSavedX = x;
+    fSavedY = y;
+    fSavedDY = dY;
   }
   bool setLine(const SkPoint& p0, const SkPoint& p1);
   bool updateLine(SkFixed ax, SkFixed ay, SkFixed bx, SkFixed by, SkFixed slope);
@@ -77,18 +83,15 @@ struct SkAnalyticEdge
 #  ifdef SK_DEBUG
   void dump() const
   {
-        SkDebugf("edge: upperY:%d lowerY:%d y:%g x:%g dx:%g w:%d\n",
-                 fUpperY, fLowerY, SkFixedToFloat(fY), SkFixedToFloat(fX),
-                 SkFixedToFloat(fDX), fWinding);
+    SkDebugf("edge: upperY:%d lowerY:%d y:%g x:%g dx:%g w:%d\n", fUpperY, fLowerY, SkFixedToFloat(fY), SkFixedToFloat(fX), SkFixedToFloat(fDX), fWinding);
   }
   void validate() const
   {
-         SkASSERT(fPrev && fNext);
-         SkASSERT(fPrev->fNext == this);
-         SkASSERT(fNext->fPrev == this);
-
-         SkASSERT(fUpperY < fLowerY);
-         SkASSERT(SkAbs32(fWinding) == 1);
+    SkASSERT(fPrev && fNext);
+    SkASSERT(fPrev->fNext == this);
+    SkASSERT(fNext->fPrev == this);
+    SkASSERT(fUpperY < fLowerY);
+    SkASSERT(SkAbs32(fWinding) == 1);
   }
 #  endif
 };
@@ -103,10 +106,10 @@ struct SkAnalyticQuadraticEdge : public SkAnalyticEdge
   {
         // We use fX as the starting x to ensure the continuouty.
         // Without it, we may break the sorted edge list.
-        SkASSERT(SkAbs32(fX - SkFixedMul(fY - fSnappedY, fDX) - fSnappedX) < SK_Fixed1);
-        SkASSERT(SkAbs32(fY - fSnappedY) < SK_Fixed1); // This may differ due to smooth jump
-        fSnappedX = fX;
-        fSnappedY = fY;
+    SkASSERT(SkAbs32(fX - SkFixedMul(fY - fSnappedY, fDX) - fSnappedX) < SK_Fixed1);
+    SkASSERT(SkAbs32(fY - fSnappedY) < SK_Fixed1);
+    fSnappedX = fX;
+    fSnappedY = fY;
   }
 };
 struct SkAnalyticCubicEdge : public SkAnalyticEdge
@@ -117,9 +120,9 @@ struct SkAnalyticCubicEdge : public SkAnalyticEdge
   bool updateCubic(bool sortY = true);
   inline void keepContinuous()
   {
-        SkASSERT(SkAbs32(fX - SkFixedMul(fDX, fY - SnapY(fCEdge.fCy)) - fCEdge.fCx) < SK_Fixed1);
-        fCEdge.fCx = fX;
-        fSnappedY = fY;
+    SkASSERT(SkAbs32(fX - SkFixedMul(fDX, fY - SnapY(fCEdge.fCy)) - fCEdge.fCx) < SK_Fixed1);
+    fCEdge.fCx = fX;
+    fSnappedY = fY;
   }
 };
 struct SkBezier
@@ -131,25 +134,26 @@ struct SkBezier
     // If so, the edge will be empty.
   static bool IsEmpty(SkScalar y0, SkScalar y1, int shift = 2)
   {
-#ifdef SK_RASTERIZE_EVEN_ROUNDING
-        return SkScalarRoundToFDot6(y0, shift) == SkScalarRoundToFDot6(y1, shift);
-#else
-        SkScalar scale = (1 << (shift + 6));
-        return SkFDot6Round(int(y0 * scale)) == SkFDot6Round(int(y1 * scale));
-#endif
+#  ifdef SK_RASTERIZE_EVEN_ROUNDING
+    return SkScalarRoundToFDot6(y0, shift) == SkScalarRoundToFDot6(y1, shift);
+#  else 
+    SkScalar scale = (1 << (shift + 6));
+    return SkFDot6Round(int(y0 * scale)) == SkFDot6Round(int(y1 * scale));
+#  endif
   }
 };
 struct SkLine : public SkBezier
 {
   bool set(const SkPoint pts[2])
   {
-        if (IsEmpty(pts[0].fY, pts[1].fY)) {
-            return false;
-        }
-        fCount = 2;
-        fP0 = pts[0];
-        fP1 = pts[1];
-        return true;
+    if (IsEmpty(pts[0].fY, pts[1].fY))
+    {
+      return false;
+    }
+    fCount = 2;
+    fP0 = pts[0];
+    fP1 = pts[1];
+    return true;
   }
 };
 struct SkQuad : public SkBezier
@@ -157,14 +161,15 @@ struct SkQuad : public SkBezier
   SkPoint fP2;
   bool set(const SkPoint pts[3])
   {
-        if (IsEmpty(pts[0].fY, pts[2].fY)) {
-            return false;
-        }
-        fCount = 3;
-        fP0 = pts[0];
-        fP1 = pts[1];
-        fP2 = pts[2];
-        return true;
+    if (IsEmpty(pts[0].fY, pts[2].fY))
+    {
+      return false;
+    }
+    fCount = 3;
+    fP0 = pts[0];
+    fP1 = pts[1];
+    fP2 = pts[2];
+    return true;
   }
 };
 struct SkCubic : public SkBezier
@@ -176,16 +181,16 @@ struct SkCubic : public SkBezier
         // We do not chop at y extrema for cubics so pts[0], pts[1], pts[2], pts[3] may not be
         // monotonic. Therefore, we have to check the emptiness for all three pairs, instead of just
         // checking IsEmpty(pts[0].fY, pts[3].fY).
-        if (IsEmpty(pts[0].fY, pts[1].fY) && IsEmpty(pts[1].fY, pts[2].fY) &&
-                IsEmpty(pts[2].fY, pts[3].fY)) {
-            return false;
-        }
-        fCount = 4;
-        fP0 = pts[0];
-        fP1 = pts[1];
-        fP2 = pts[2];
-        fP3 = pts[3];
-        return true;
+    if (IsEmpty(pts[0].fY, pts[1].fY) && IsEmpty(pts[1].fY, pts[2].fY) && IsEmpty(pts[2].fY, pts[3].fY))
+    {
+      return false;
+    }
+    fCount = 4;
+    fP0 = pts[0];
+    fP1 = pts[1];
+    fP2 = pts[2];
+    fP3 = pts[3];
+    return true;
   }
 };
 #endif

@@ -17,13 +17,12 @@ public:
     // construction/destruction
   wxToolBar()
   {
- Init();
+    Init();
   }
   wxToolBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxToolBarNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxToolBarNameStr));
   virtual ~wxToolBar();
@@ -45,7 +44,7 @@ protected:
     // choose the default border for this window
   virtual wxBorder GetDefaultBorder() const
   {
- return wxBORDER_DEFAULT;
+    return wxBORDER_DEFAULT;
   }
     // set the GTK toolbar style and orientation
   void GtkSetStyle();

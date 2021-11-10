@@ -17,36 +17,37 @@ namespace SkSL
   struct ForStatement : public Statement
   {
     ForStatement(int offset, std::unique_ptr<Statement> initializer, std::unique_ptr<Expression> test, std::unique_ptr<Expression> next, std::unique_ptr<Statement> statement, std::shared_ptr<SymbolTable> symbols)
-      :  INHERITED(offset, kFor_Kind)
-    , fSymbols(symbols)
-    , fInitializer(std::move(initializer))
-    , fTest(std::move(test))
-    , fNext(std::move(next))
-    , fStatement(std::move(statement))
+      : INHERITED(offset, kFor_Kind)
+      , fSymbols(symbols)
+      , fInitializer(std::move(initializer))
+      , fTest(std::move(test))
+      , fNext(std::move(next))
+      , fStatement(std::move(statement))
     {
     }
     std::unique_ptr<Statement> clone() const override
     {
-        return std::unique_ptr<Statement>(new ForStatement(fOffset, fInitializer->clone(),
-                                                           fTest->clone(), fNext->clone(),
-                                                           fStatement->clone(), fSymbols));
+      return std::unique_ptr<Statement>(new ForStatement(fOffset, fInitializer->clone(), fTest->clone(), fNext->clone(), fStatement->clone(), fSymbols));
     }
     String description() const override
     {
-        String result("for (");
-        if (fInitializer) {
-            result += fInitializer->description();
-        }
-        result += " ";
-        if (fTest) {
-            result += fTest->description();
-        }
-        result += "; ";
-        if (fNext) {
-            result += fNext->description();
-        }
-        result += ") " + fStatement->description();
-        return result;
+      String result("for (");
+      if (fInitializer)
+      {
+        result += fInitializer->description();
+      }
+      result += " ";
+      if (fTest)
+      {
+        result += fTest->description();
+      }
+      result += "; ";
+      if (fNext)
+      {
+        result += fNext->description();
+      }
+      result += ") " + fStatement->description();
+      return result;
     }
     // it's important to keep fSymbols defined first (and thus destroyed last) because destroying
     // the other fields can update symbol reference counts

@@ -49,25 +49,23 @@ public:
   };
   static CoverageMode GetCoverageMode(GrCCAtlas::CoverageType coverageType)
   {
-        return (GrCCAtlas::CoverageType::kFP16_CoverageCount == coverageType)
-                ? CoverageMode::kCoverageCount
-                : CoverageMode::kLiteral;
+    return (GrCCAtlas::CoverageType::kFP16_CoverageCount == coverageType) ? CoverageMode::kCoverageCount : CoverageMode::kLiteral;
   }
   GrCCPathProcessor(CoverageMode, const GrTexture* atlasTexture, const GrSwizzle&, GrSurfaceOrigin atlasOrigin, const SkMatrix& viewMatrixIfUsingLocalCoords = SkMatrix::I());
   const char* name() const override
   {
- return "GrCCPathProcessor";
+    return "GrCCPathProcessor";
   }
   void getGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder* b) const override
   {
-        b->add32((uint32_t)fCoverageMode);
+    b->add32((uint32_t) fCoverageMode);
   }
   GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const override;
   void drawPaths(GrOpFlushState*, const GrPipeline&, const GrPipeline::FixedDynamicState*, const GrCCPerFlushResources&, int baseInstance, int endInstance, const SkRect& bounds) const;
 private:
   const TextureSampler& onTextureSampler(int) const override
   {
- return fAtlasAccess;
+    return fAtlasAccess;
   }
   const CoverageMode fCoverageMode;
   const TextureSampler fAtlasAccess;
@@ -82,21 +80,21 @@ private:
 };
 inline void GrCCPathProcessor::Instance::set(const GrOctoBounds& octoBounds, const SkIVector& devToAtlasOffset, uint64_t color, GrFillRule fillRule)
 {
-    if (GrFillRule::kNonzero == fillRule) {
+  if (GrFillRule::kNonzero == fillRule)
+  {
         // We cover "nonzero" paths with clockwise triangles, which is the default result from
         // normal octo bounds.
-        fDevBounds = octoBounds.bounds();
-        fDevBounds45 = octoBounds.bounds45();
-    } else {
+    fDevBounds = octoBounds.bounds();
+    fDevBounds45 = octoBounds.bounds45();
+  }
+  else 
+  {
         // We cover "even/odd" paths with counterclockwise triangles. Here we reorder the bounding
         // box vertices so the output is flipped horizontally.
-        fDevBounds.setLTRB(
-                octoBounds.right(), octoBounds.top(), octoBounds.left(), octoBounds.bottom());
-        fDevBounds45.setLTRB(
-                octoBounds.bottom45(), octoBounds.right45(), octoBounds.top45(),
-                octoBounds.left45());
-    }
-    fDevToAtlasOffset = devToAtlasOffset;
-    fColor = color;
+    fDevBounds.setLTRB(octoBounds.right(), octoBounds.top(), octoBounds.left(), octoBounds.bottom());
+    fDevBounds45.setLTRB(octoBounds.bottom45(), octoBounds.right45(), octoBounds.top45(), octoBounds.left45());
+  }
+  fDevToAtlasOffset = devToAtlasOffset;
+  fColor = color;
 }
 #endif

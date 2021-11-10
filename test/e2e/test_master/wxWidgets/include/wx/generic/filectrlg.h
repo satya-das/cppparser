@@ -34,12 +34,12 @@ public:
   };
   wxFileData()
   {
- Init();
+    Init();
   }
     // Full copy constructor
   wxFileData(const wxFileData& fileData)
   {
- Copy(fileData);
+    Copy(fileData);
   }
     // Create a filedata from this information
   wxFileData(const wxString& filePath, const wxString& fileName, fileType type, int image_id);
@@ -50,63 +50,63 @@ public:
     // get the name of the file, dir, drive
   wxString GetFileName() const
   {
- return m_fileName;
+    return m_fileName;
   }
     // get the full path + name of the file, dir, path
   wxString GetFilePath() const
   {
- return m_filePath;
+    return m_filePath;
   }
     // Set the path + name and name of the item
   void SetNewName(const wxString& filePath, const wxString& fileName);
     // Get the size of the file in bytes
   wxFileOffset GetSize() const
   {
- return m_size;
+    return m_size;
   }
     // Get the type of file, either file extension or <DIR>, <LINK>, <DRIVE>
   wxString GetFileType() const;
     // get the last modification time
   wxDateTime GetDateTime() const
   {
- return m_dateTime;
+    return m_dateTime;
   }
     // Get the time as a formatted string
   wxString GetModificationTime() const;
     // in UNIX get rwx for file, in MSW get attributes ARHS
   wxString GetPermissions() const
   {
- return m_permissions;
+    return m_permissions;
   }
     // Get the id of the image used in a wxImageList
   int GetImageId() const
   {
- return m_image;
+    return m_image;
   }
   bool IsFile() const
   {
- return !IsDir() && !IsLink() && !IsDrive();
+    return !IsDir() && !IsLink() && !IsDrive();
   }
   bool IsDir() const
   {
- return (m_type & is_dir  ) != 0;
+    return (m_type & is_dir) != 0;
   }
   bool IsLink() const
   {
- return (m_type & is_link ) != 0;
+    return (m_type & is_link) != 0;
   }
   bool IsExe() const
   {
- return (m_type & is_exe  ) != 0;
+    return (m_type & is_exe) != 0;
   }
   bool IsDrive() const
   {
- return (m_type & is_drive) != 0;
+    return (m_type & is_drive) != 0;
   }
     // Get/Set the type of file, file/dir/drive/link
   int GetType() const
   {
- return m_type;
+    return m_type;
   }
     // the wxFileListCtrl fields in report view
   enum fileListFieldType {
@@ -128,7 +128,8 @@ public:
     // operators
   wxFileData& operator =(const wxFileData& fd)
   {
- Copy(fd); return *this;
+    Copy(fd);
+    return *this;
   }
 protected:
   wxString m_fileName;
@@ -156,7 +157,7 @@ public:
   virtual void ShowHidden(bool show = true);
   bool GetShowHidden() const
   {
- return m_showHidden;
+    return m_showHidden;
   }
   virtual long Add(wxFileData* fd, wxListItem& item);
   virtual void UpdateItem(const wxListItem& item);
@@ -168,11 +169,11 @@ public:
   virtual void SetWild(const wxString& wild);
   wxString GetWild() const
   {
- return m_wild;
+    return m_wild;
   }
   wxString GetDir() const
   {
- return m_dirName;
+    return m_dirName;
   }
   void OnListDeleteItem(wxListEvent& event);
   void OnListDeleteAllItems(wxListEvent& event);
@@ -182,11 +183,11 @@ public:
   virtual void SortItems(wxFileData::fileListFieldType field, bool forward);
   bool GetSortDirection() const
   {
- return m_sort_forward;
+    return m_sort_forward;
   }
   wxFileData::fileListFieldType GetSortField() const
   {
- return m_sort_field;
+    return m_sort_field;
   }
 protected:
   void FreeItemData(wxListItem& item);
@@ -205,13 +206,12 @@ class WXDLLIMPEXP_CORE wxGenericFileCtrl : public wxNavigationEnabled<wxControl>
 public:
   wxGenericFileCtrl()
   {
-        m_ignoreChanges = false;
+    m_ignoreChanges = false;
   }
   wxGenericFileCtrl(wxWindow* parent, wxWindowID id, const wxString& defaultDirectory = wxEmptyString, const wxString& defaultFilename = wxEmptyString, const wxString& wildCard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), long style = wxFC_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, const wxString& name = wxASCII_STR(wxFileCtrlNameStr))
   {
-        m_ignoreChanges = false;
-        Create(parent, id, defaultDirectory, defaultFilename, wildCard,
-               style, pos, size, name );
+    m_ignoreChanges = false;
+    Create(parent, id, defaultDirectory, defaultFilename, wildCard, style, pos, size, name);
   }
   virtual ~wxGenericFileCtrl()
   {
@@ -233,22 +233,22 @@ public:
   wxString GetDirectory() const override;
   wxString GetWildcard() const override
   {
- return this->m_wildCard;
+    return this->m_wildCard;
   }
   wxString GetPath() const override;
   void GetPaths(wxArrayString& paths) const override;
   void GetFilenames(wxArrayString& files) const override;
   int GetFilterIndex() const override
   {
- return m_filterIndex;
+    return m_filterIndex;
   }
   bool HasMultipleFileSelection() const override
   {
- return HasFlag(wxFC_MULTIPLE);
+    return HasFlag(wxFC_MULTIPLE);
   }
   void ShowHidden(bool show) override
   {
- m_list->ShowHidden( show );
+    m_list->ShowHidden(show);
   }
   void GoToParentDir();
   void GoToHomeDir();
@@ -258,19 +258,19 @@ public:
     // manually
   wxString GetShownDirectory() const
   {
- return m_list->GetDir();
+    return m_list->GetDir();
   }
   wxFileListCtrl* GetFileList()
   {
- return m_list;
+    return m_list;
   }
   void ChangeToReportMode()
   {
- m_list->ChangeToReportMode();
+    m_list->ChangeToReportMode();
   }
   void ChangeToListMode()
   {
- m_list->ChangeToListMode();
+    m_list->ChangeToListMode();
   }
 private:
   void OnChoiceFilter(wxCommandEvent& event);

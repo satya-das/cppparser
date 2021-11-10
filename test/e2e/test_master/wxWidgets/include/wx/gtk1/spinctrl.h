@@ -22,7 +22,7 @@ public:
   }
   wxSpinCtrl(wxWindow* parent, wxWindowID id = -1, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, int min = 0, int max = 100, int initial = 0, const wxString& name = wxT("wxSpinCtrl"))
   {
-        Create(parent, id, value, pos, size, style, min, max, initial, name);
+    Create(parent, id, value, pos, size, style, min, max, initial, name);
   }
   bool Create(wxWindow* parent, wxWindowID id = -1, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, int min = 0, int max = 100, int initial = 0, const wxString& name = wxT("wxSpinCtrl"));
   void SetValue(const wxString& text);
@@ -42,7 +42,7 @@ public:
   float m_oldPos;
   virtual int GetBase() const
   {
- return m_base;
+    return m_base;
   }
   virtual bool SetBase(int base);
 protected:
@@ -51,13 +51,13 @@ protected:
     // override this and return true.
   virtual bool UseGTKStyleBase() const
   {
- return true;
+    return true;
   }
 private:
     // Common part of all ctors.
   void Init()
   {
-        m_base = 10;
+    m_base = 10;
   }
   int m_base;
   wxDECLARE_DYNAMIC_CLASS(wxSpinCtrl);

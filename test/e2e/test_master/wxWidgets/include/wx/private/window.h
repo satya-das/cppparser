@@ -22,9 +22,7 @@ namespace wxPrivate
   template <typename T>
   inline wxSize GetAverageASCIILetterSize(const T& of_what)
   {
-    const wxStringCharType *TEXT_TO_MEASURE =
-        wxS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
-
+    const wxStringCharType* TEXT_TO_MEASURE = wxS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
     wxSize s = of_what.GetTextExtent(TEXT_TO_MEASURE);
     s.x = (s.x / 26 + 1) / 2;
     return s;
@@ -33,17 +31,12 @@ namespace wxPrivate
   {
     inline bool SupportsPerMonitorDPI()
     {
-#if defined(__WXMSW__) && wxUSE_DYNLIB_CLASS
-    static bool s_checkDPI =
-        // Only check the DPI when GetDpiForWindow is available because the old
-        // method (GetDeviceCaps) is a lot slower (about 1500 times).
-        // And when GetDpiForWindow is not available (for example older Windows
-        // versions), per-monitor DPI (V2) is also not available.
-        wxLoadedDLL("user32.dll").HasSymbol("GetDpiForWindow");
-#else
-    static bool s_checkDPI = false;
-#endif
-    return s_checkDPI;
+#  if  defined(__WXMSW__) && wxUSE_DYNLIB_CLASS
+      static bool s_checkDPI = wxLoadedDLL("user32.dll").HasSymbol("GetDpiForWindow");
+#  else 
+      static bool s_checkDPI = false;
+#  endif
+      return s_checkDPI;
     }
   }
   template <typename T>
@@ -52,33 +45,32 @@ namespace wxPrivate
   public:
     // Explicit initialization is needed if T is a primitive type.
     DpiDependentValue()
-      :  m_value(), m_dpi()
+      : m_value()
+      , m_dpi()
     {
-
     }
     bool HasChanged(const wxWindowBase* win)
     {
-        if ( win && SupportsPerMonitorDPI() )
+      if (win && SupportsPerMonitorDPI())
+      {
+        const wxSize dpi = win->GetDPI();
+        if (dpi != m_dpi)
         {
-            const wxSize dpi = win->GetDPI();
-            if ( dpi != m_dpi )
-            {
-                m_dpi = dpi;
-                return true;
-            }
+          m_dpi = dpi;
+          return true;
         }
-
+      }
         // Ensure that we return true the first time we're called,
         // assuming that the value will always be set to a non-default value.
-        return m_value == T();
+      return m_value == T();
     }
     void SetAtNewDPI(const T& value)
     {
-        m_value = value;
+      m_value = value;
     }
     T& Get()
     {
-        return m_value;
+      return m_value;
     }
   private:
     T m_value;

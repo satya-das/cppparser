@@ -31,11 +31,11 @@ public:
   void SetTip(const wxString& tip);
   wxString GetTip() const
   {
- return m_text;
+    return m_text;
   }
   wxWindow* GetWindow() const
   {
- return m_window;
+    return m_window;
   }
     // Implementation
   void GTKSetWindow(wxWindow* win);

@@ -31,15 +31,15 @@ class SkSpecialSurface : public SkRefCnt
 public:
   const SkSurfaceProps& props() const
   {
- return fProps;
+    return fProps;
   }
   int width() const
   {
- return fSubset.width();
+    return fSubset.width();
   }
   int height() const
   {
- return fSubset.height();
+    return fSubset.height();
   }
     /**
     *  Return a canvas that will draw into this surface. This will always
@@ -82,7 +82,7 @@ protected:
   friend class TestingSpecialSurfaceAccess;
   const SkIRect& subset() const
   {
- return fSubset;
+    return fSubset;
   }
 private:
   const SkSurfaceProps fProps;

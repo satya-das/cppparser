@@ -41,7 +41,6 @@ public:
     // default ctor, call Create() later
   wxRearrangeList()
   {
-
   }
     // ctor creating the control, the arguments are the same as for
     // wxCheckListBox except for the extra order array which defines the
@@ -49,7 +48,7 @@ public:
     // description above
   wxRearrangeList(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayInt& order, const wxArrayString& items, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRearrangeListNameStr))
   {
-        Create(parent, id, pos, size, order, items, style, validator, name);
+    Create(parent, id, pos, size, order, items, style, validator, name);
   }
     // Create() function takes the same parameters as the base class one and
     // the order array determining the initial display order
@@ -61,7 +60,7 @@ public:
     // as the one passed to the ctor
   const wxArrayInt& GetCurrentOrder() const
   {
- return m_order;
+    return m_order;
   }
     // return true if the current item can be moved up or down (i.e. just that
     // it's not the first or the last one)
@@ -95,19 +94,18 @@ public:
     // ctors/Create function are the same as for wxRearrangeList
   wxRearrangeCtrl()
   {
-        Init();
+    Init();
   }
   wxRearrangeCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayInt& order, const wxArrayString& items, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRearrangeListNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, order, items, style, validator, name);
+    Init();
+    Create(parent, id, pos, size, order, items, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, const wxArrayInt& order, const wxArrayString& items, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRearrangeListNameStr));
     // get the underlying listbox
   wxRearrangeList* GetList() const
   {
- return m_list;
+    return m_list;
   }
 private:
     // common part of all ctors
@@ -128,15 +126,14 @@ public:
     // default ctor, use Create() later
   wxRearrangeDialog()
   {
- Init();
+    Init();
   }
     // ctor for the dialog: message is shown inside the dialog itself, order
     // and items are passed to wxRearrangeList used internally
   wxRearrangeDialog(wxWindow* parent, const wxString& message, const wxString& title, const wxArrayInt& order, const wxArrayString& items, const wxPoint& pos = wxDefaultPosition, const wxString& name = wxASCII_STR(wxRearrangeDialogNameStr))
   {
-        Init();
-
-        Create(parent, message, title, order, items, pos, name);
+    Init();
+    Create(parent, message, title, order, items, pos, name);
   }
   bool Create(wxWindow* parent, const wxString& message, const wxString& title, const wxArrayInt& order, const wxArrayString& items, const wxPoint& pos = wxDefaultPosition, const wxString& name = wxASCII_STR(wxRearrangeDialogNameStr));
     // methods for the dialog customization
@@ -154,7 +151,7 @@ private:
     // common part of all ctors
   void Init()
   {
- m_ctrl = NULL;
+    m_ctrl = NULL;
   }
   wxRearrangeCtrl* m_ctrl;
   wxDECLARE_NO_COPY_CLASS(wxRearrangeDialog);

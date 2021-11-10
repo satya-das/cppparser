@@ -12,9 +12,9 @@ class GrWaitRenderTask final : public GrRenderTask
 {
 public:
   GrWaitRenderTask(sk_sp<GrSurfaceProxy> proxy, std::unique_ptr<sk_sp<GrSemaphore>[]> semaphores, int numSemaphores)
-    :  GrRenderTask(std::move(proxy))
-            , fSemaphores(std::move(semaphores))
-            , fNumSemaphores(numSemaphores)
+    : GrRenderTask(std::move(proxy))
+    , fSemaphores(std::move(semaphores))
+    , fNumSemaphores(numSemaphores)
   {
   }
 private:
@@ -23,8 +23,8 @@ private:
   }
   bool onIsUsed(GrSurfaceProxy* proxy) const override
   {
-        SkASSERT(proxy != fTarget.get());  // This case should be handled by GrRenderTask.
-        return false;
+    SkASSERT(proxy != fTarget.get());
+    return false;
   }
   void handleInternalAllocationFailure() override
   {
@@ -32,7 +32,7 @@ private:
   void gatherProxyIntervals(GrResourceAllocator*) const override;
   ExpectedOutcome onMakeClosed(const GrCaps&, SkIRect*) override
   {
-        return ExpectedOutcome::kTargetUnchanged;
+    return ExpectedOutcome::kTargetUnchanged;
   }
   bool onExecute(GrOpFlushState*) override;
 #  ifdef SK_DEBUG

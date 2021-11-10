@@ -70,7 +70,7 @@ public:
     */
   bool operator!=(const SkFont& font) const
   {
- return !(*this == font);
+    return !(*this == font);
   }
     /** If true, instructs the font manager to always hint glyphs.
         Returned value is only meaningful if platform uses FreeType as the font manager.
@@ -79,7 +79,7 @@ public:
     */
   bool isForceAutoHinting() const
   {
- return SkToBool(fFlags & kForceAutoHinting_PrivFlag);
+    return SkToBool(fFlags & kForceAutoHinting_PrivFlag);
   }
     /** Returns true if font engine may return glyphs from font bitmaps instead of from outlines.
 
@@ -87,7 +87,7 @@ public:
     */
   bool isEmbeddedBitmaps() const
   {
- return SkToBool(fFlags & kEmbeddedBitmaps_PrivFlag);
+    return SkToBool(fFlags & kEmbeddedBitmaps_PrivFlag);
   }
     /** Returns true if glyphs may be drawn at sub-pixel offsets.
 
@@ -95,7 +95,7 @@ public:
     */
   bool isSubpixel() const
   {
- return SkToBool(fFlags & kSubpixel_PrivFlag);
+    return SkToBool(fFlags & kSubpixel_PrivFlag);
   }
     /** Returns true if font and glyph metrics are requested to be linearly scalable.
 
@@ -103,7 +103,7 @@ public:
     */
   bool isLinearMetrics() const
   {
- return SkToBool(fFlags & kLinearMetrics_PrivFlag);
+    return SkToBool(fFlags & kLinearMetrics_PrivFlag);
   }
     /** Returns true if bold is approximated by increasing the stroke width when creating glyph
         bitmaps from outlines.
@@ -112,7 +112,7 @@ public:
     */
   bool isEmbolden() const
   {
- return SkToBool(fFlags & kEmbolden_PrivFlag);
+    return SkToBool(fFlags & kEmbolden_PrivFlag);
   }
     /** Returns true if baselines will be snapped to pixel positions when the current transformation
         matrix is axis aligned.
@@ -121,7 +121,7 @@ public:
      */
   bool isBaselineSnap() const
   {
- return SkToBool(fFlags & kBaselineSnap_PrivFlag);
+    return SkToBool(fFlags & kBaselineSnap_PrivFlag);
   }
     /** Sets whether to always hint glyphs.
         If forceAutoHinting is set, instructs the font manager to always hint glyphs.
@@ -166,7 +166,7 @@ public:
     */
   Edging getEdging() const
   {
- return (Edging)fEdging;
+    return (Edging) fEdging;
   }
     /** Requests, but does not require, that edge pixels draw opaque or with
         partial transparency.
@@ -188,7 +188,7 @@ public:
      */
   SkFontHinting getHinting() const
   {
- return (SkFontHinting)fHinting;
+    return (SkFontHinting) fHinting;
   }
     /** Returns a font with the same attributes of this font, but with the specified size.
         Returns nullptr if size is less than zero, infinite, or NaN.
@@ -204,7 +204,7 @@ public:
     */
   SkTypeface* getTypeface() const
   {
-return fTypeface.get();
+    return fTypeface.get();
   }
     /** Returns SkTypeface if set, or the default typeface.
         Does not alter SkTypeface SkRefCnt.
@@ -219,7 +219,7 @@ return fTypeface.get();
     */
   SkScalar getSize() const
   {
- return fSize;
+    return fSize;
   }
     /** Returns text scale on x-axis.
         Default value is 1.
@@ -228,7 +228,7 @@ return fTypeface.get();
     */
   SkScalar getScaleX() const
   {
- return fScaleX;
+    return fScaleX;
   }
     /** Returns text skew on x-axis.
         Default value is zero.
@@ -237,7 +237,7 @@ return fTypeface.get();
     */
   SkScalar getSkewX() const
   {
- return fSkewX;
+    return fSkewX;
   }
     /** Increases SkTypeface SkRefCnt by one.
 
@@ -245,7 +245,7 @@ return fTypeface.get();
     */
   sk_sp<SkTypeface> refTypeface() const
   {
- return fTypeface;
+    return fTypeface;
   }
     /** Increases SkTypeface SkRefCnt by one.
 
@@ -261,7 +261,7 @@ return fTypeface.get();
     */
   void setTypeface(sk_sp<SkTypeface> tf)
   {
- fTypeface = tf;
+    fTypeface = tf;
   }
     /** Sets text size in points.
         Has no effect if textSize is not greater than or equal to zero.
@@ -335,7 +335,7 @@ return fTypeface.get();
     */
   int countText(const void* text, size_t byteLength, SkTextEncoding encoding) const
   {
-        return this->textToGlyphs(text, byteLength, encoding, nullptr, 0);
+    return this->textToGlyphs(text, byteLength, encoding, nullptr, 0);
   }
     /** Returns the advance width of text.
         The advance is the normal distance to move before drawing additional text.
@@ -350,7 +350,7 @@ return fTypeface.get();
     */
   SkScalar measureText(const void* text, size_t byteLength, SkTextEncoding encoding, SkRect* bounds = nullptr) const
   {
-        return this->measureText(text, byteLength, encoding, bounds, nullptr);
+    return this->measureText(text, byteLength, encoding, bounds, nullptr);
   }
     /** Returns the advance width of text.
         The advance is the normal distance to move before drawing additional text.
@@ -379,12 +379,12 @@ return fTypeface.get();
     */
   void getWidths(const SkGlyphID glyphs[], int count, SkScalar widths[], SkRect bounds[]) const
   {
-        this->getWidthsBounds(glyphs, count, widths, bounds, nullptr);
+    this->getWidthsBounds(glyphs, count, widths, bounds, nullptr);
   }
     // DEPRECATED
   void getWidths(const SkGlyphID glyphs[], int count, SkScalar widths[], std::nullptr_t) const
   {
-        this->getWidths(glyphs, count, widths);
+    this->getWidths(glyphs, count, widths);
   }
     /** Retrieves the advance and bounds for each glyph in glyphs.
         Both widths and bounds may be nullptr.
@@ -397,7 +397,7 @@ return fTypeface.get();
      */
   void getWidths(const SkGlyphID glyphs[], int count, SkScalar widths[]) const
   {
-        this->getWidthsBounds(glyphs, count, widths, nullptr, nullptr);
+    this->getWidthsBounds(glyphs, count, widths, nullptr, nullptr);
   }
     /** Retrieves the advance and bounds for each glyph in glyphs.
         Both widths and bounds may be nullptr.
@@ -422,7 +422,7 @@ return fTypeface.get();
      */
   void getBounds(const SkGlyphID glyphs[], int count, SkRect bounds[], const SkPaint* paint) const
   {
-        this->getWidthsBounds(glyphs, count, nullptr, bounds, paint);
+    this->getWidthsBounds(glyphs, count, nullptr, bounds, paint);
   }
     /** Retrieves the positions for each glyph, beginning at the specified origin. The caller
         must allocated at least count number of elements in the pos[] array.
@@ -482,7 +482,7 @@ return fTypeface.get();
     */
   SkScalar getSpacing() const
   {
- return this->getMetrics(nullptr);
+    return this->getMetrics(nullptr);
   }
     /** Dumps fields of the font to SkDebugf. May change its output over time, so clients should
      *  not rely on this for anything specific. Used to aid in debugging.

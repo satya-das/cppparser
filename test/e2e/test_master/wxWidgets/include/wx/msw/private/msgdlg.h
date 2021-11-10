@@ -28,13 +28,12 @@ namespace wxMSWMessageDialog
  MAX_BUTTONS = 4
     };
     wxMSWTaskDialogConfig()
-      :  buttons(new TASKDIALOG_BUTTON[MAX_BUTTONS]),
-              parent(NULL),
-              iconId(0),
-              style(0),
-              useCustomLabels(false)
+      : buttons(new TASKDIALOG_BUTTON[MAX_BUTTONS])
+      , parent(NULL)
+      , iconId(0)
+      , style(0)
+      , useCustomLabels(false)
     {
-
     }
         // initializes the object from a message dialog.
     wxMSWTaskDialogConfig(const wxMessageDialogBase& dlg);

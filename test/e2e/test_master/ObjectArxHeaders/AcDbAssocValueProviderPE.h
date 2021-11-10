@@ -53,9 +53,9 @@ public:
     ///
   virtual bool canGetValue(const AcDbObject* pObject, const AcString& valueName)
   {
-        ADESK_UNREFED_PARAM(pObject);
-        ADESK_UNREFED_PARAM(valueName);
-        return true;
+    ADESK_UNREFED_PARAM(pObject);
+    ADESK_UNREFED_PARAM(valueName);
+    return true;
   }
     /// <summary>
     /// Checks whether it is possible to set the value identified by valueName.
@@ -70,9 +70,9 @@ public:
     ///
   virtual bool canSetValue(const AcDbObject* pObject, const AcString& valueName)
   {
-        ADESK_UNREFED_PARAM(pObject);
-        ADESK_UNREFED_PARAM(valueName);
-        return false;
+    ADESK_UNREFED_PARAM(pObject);
+    ADESK_UNREFED_PARAM(valueName);
+    return false;
   }
     /// <summary>
     /// Gets the value identified by valueName. This method must always be 
@@ -95,10 +95,10 @@ public:
     ///
   virtual Acad::ErrorStatus setValue(AcDbObject* pObject, const AcString& valueName, const AcDbEvalVariant& newValue)
   {
-        ADESK_UNREFED_PARAM(pObject);
-        ADESK_UNREFED_PARAM(valueName);
-        ADESK_UNREFED_PARAM(newValue);
-        return Acad::eNotHandled;
+    ADESK_UNREFED_PARAM(pObject);
+    ADESK_UNREFED_PARAM(valueName);
+    ADESK_UNREFED_PARAM(newValue);
+    return Acad::eNotHandled;
   }
     /// <summary>
     /// Simple utility methods that open the object, query for its AcDbAssocValueProviderPE

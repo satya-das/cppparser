@@ -25,13 +25,13 @@ public:
   void finishContour();
   bool hasMove() const
   {
- return !fFirstPtT;
+    return !fFirstPtT;
   }
   void init();
   bool isClosed() const;
   const SkPath* nativePath() const
   {
- return fPathPtr;
+    return fPathPtr;
   }
   void quadTo(const SkPoint& pt1, const SkOpPtT* pt2);
 private:
@@ -39,14 +39,14 @@ private:
   void close();
   const SkTDArray<const SkOpPtT*>& endPtTs() const
   {
- return fEndPtTs;
+    return fEndPtTs;
   }
   void lineTo();
   bool matchedLast(const SkOpPtT*) const;
   void moveTo();
   const SkTArray<SkPath>& partials() const
   {
- return fPartials;
+    return fPartials;
   }
   bool someAssemblyRequired();
   SkPoint update(const SkOpPtT* pt);

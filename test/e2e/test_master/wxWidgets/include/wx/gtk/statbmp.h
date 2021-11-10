@@ -19,19 +19,19 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBitmapNameStr));
   void SetIcon(const wxIcon& icon) override
   {
- SetBitmap( icon );
+    SetBitmap(icon);
   }
   void SetBitmap(const wxBitmap& bitmap) override;
   wxBitmap GetBitmap() const override
   {
- return m_bitmap;
+    return m_bitmap;
   }
     // for compatibility with wxMSW
   wxIcon GetIcon() const override
   {
         // don't use wxDynamicCast, icons and bitmaps are really the same thing
         // in wxGTK
-        return (const wxIcon &)m_bitmap;
+    return (const wxIcon&) m_bitmap;
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
 private:

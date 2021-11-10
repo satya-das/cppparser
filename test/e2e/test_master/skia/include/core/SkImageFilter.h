@@ -41,16 +41,17 @@ public:
     {
     }
     explicit CropRect(const SkRect& rect, uint32_t flags = kHasAll_CropEdge)
-      :  fRect(rect), fFlags(flags)
+      : fRect(rect)
+      , fFlags(flags)
     {
     }
     uint32_t flags() const
     {
- return fFlags;
+      return fFlags;
     }
     const SkRect& rect() const
     {
- return fRect;
+      return fRect;
     }
         /**
          *  Apply this cropRect to the imageBounds. If a given edge of the cropRect is not set, then
@@ -96,7 +97,7 @@ public:
     // DEPRECATED : use isColorFilterNode() instead
   bool asColorFilter(SkColorFilter** filterPtr) const
   {
-        return this->isColorFilterNode(filterPtr);
+    return this->isColorFilterNode(filterPtr);
   }
     /**
      *  Returns true (and optionally returns a ref'd filter) if this imagefilter can be completely
@@ -129,21 +130,20 @@ public:
   static sk_sp<SkImageFilter> MakeMatrixFilter(const SkMatrix& matrix, SkFilterQuality quality, sk_sp<SkImageFilter> input);
   static SkFlattenable::Type GetFlattenableType()
   {
-        return kSkImageFilter_Type;
+    return kSkImageFilter_Type;
   }
   SkFlattenable::Type getFlattenableType() const override
   {
-        return kSkImageFilter_Type;
+    return kSkImageFilter_Type;
   }
   static sk_sp<SkImageFilter> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
-        return sk_sp<SkImageFilter>(static_cast<SkImageFilter*>(
-                SkFlattenable::Deserialize(kSkImageFilter_Type, data, size, procs).release()));
+    return sk_sp<SkImageFilter>(static_cast<SkImageFilter*>(SkFlattenable::Deserialize(kSkImageFilter_Type, data, size, procs).release()));
   }
 protected:
   sk_sp<SkImageFilter> refMe() const
   {
-        return sk_ref_sp(const_cast<SkImageFilter*>(this));
+    return sk_ref_sp(const_cast<SkImageFilter*>(this));
   }
 private:
   friend class SkImageFilter_Base;

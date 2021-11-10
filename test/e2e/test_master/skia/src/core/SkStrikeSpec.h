@@ -43,11 +43,11 @@ public:
   SkExclusiveStrikePtr findOrCreateExclusiveStrike(SkStrikeCache* cache = SkStrikeCache::GlobalStrikeCache()) const;
   SkScalar strikeToSourceRatio() const
   {
- return fStrikeToSourceRatio;
+    return fStrikeToSourceRatio;
   }
   const SkDescriptor& descriptor() const
   {
- return *fAutoDescriptor.getDesc();
+    return *fAutoDescriptor.getDesc();
   }
   static bool ShouldDrawAsPath(const SkPaint& paint, const SkFont& font, const SkMatrix& matrix);
 private:

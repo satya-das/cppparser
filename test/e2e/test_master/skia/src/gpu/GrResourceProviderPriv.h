@@ -15,11 +15,11 @@ class GrResourceProviderPriv
 public:
   GrGpu* gpu()
   {
- return fResourceProvider->gpu();
+    return fResourceProvider->gpu();
   }
 private:
   explicit GrResourceProviderPriv(GrResourceProvider* provider)
-    :  fResourceProvider(provider)
+    : fResourceProvider(provider)
   {
   }
   GrResourceProviderPriv(const GrResourceProviderPriv&);
@@ -32,10 +32,10 @@ private:
 };
 inline GrResourceProviderPriv GrResourceProvider::priv()
 {
- return GrResourceProviderPriv(this);
+  return GrResourceProviderPriv(this);
 }
 inline const GrResourceProviderPriv GrResourceProvider::priv() const
 {
-    return GrResourceProviderPriv(const_cast<GrResourceProvider*>(this));
+  return GrResourceProviderPriv(const_cast<GrResourceProvider*>(this));
 }
 #endif

@@ -70,7 +70,8 @@ class WXDLLIMPEXP_WEBVIEW wxWebViewHandler
 {
 public:
   wxWebViewHandler(const wxString& scheme)
-    :  m_scheme(scheme), m_securityURL()
+    : m_scheme(scheme)
+    , m_securityURL()
   {
   }
   virtual ~wxWebViewHandler()
@@ -78,16 +79,16 @@ public:
   }
   virtual wxString GetName() const
   {
- return m_scheme;
+    return m_scheme;
   }
   virtual wxFSFile* GetFile(const wxString& uri) = 0;
   virtual void SetSecurityURL(const wxString& url)
   {
- m_securityURL = url;
+    m_securityURL = url;
   }
   virtual wxString GetSecurityURL() const
   {
- return m_securityURL;
+    return m_securityURL;
   }
 private:
   wxString m_scheme;
@@ -106,7 +107,7 @@ public:
   virtual wxWebView* Create(wxWindow* parent, wxWindowID id, const wxString& url = wxASCII_STR(wxWebViewDefaultURLStr), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxWebViewNameStr)) = 0;
   virtual bool IsAvailable()
   {
- return true;
+    return true;
   }
 };
 WX_DECLARE_STRING_HASH_MAP(wxSharedPtr<wxWebViewFactory>, wxStringWebViewFactoryMap);
@@ -115,8 +116,8 @@ class WXDLLIMPEXP_WEBVIEW wxWebView : public wxControl
 public:
   wxWebView()
   {
-        m_showMenu = true;
-        m_runScriptCount = 0;
+    m_showMenu = true;
+    m_runScriptCount = 0;
   }
   virtual ~wxWebView()
   {
@@ -131,11 +132,10 @@ public:
     // General methods
   virtual void EnableContextMenu(bool enable = true)
   {
-        m_showMenu = enable;
+    m_showMenu = enable;
   }
   virtual void EnableAccessToDevTools(bool = true)
   {
-
   }
   virtual wxString GetCurrentTitle() const = 0;
   virtual wxString GetCurrentURL() const = 0;
@@ -145,11 +145,11 @@ public:
   virtual bool IsBusy() const = 0;
   virtual bool IsContextMenuEnabled() const
   {
- return m_showMenu;
+    return m_showMenu;
   }
   virtual bool IsAccessToDevToolsEnabled() const
   {
- return false;
+    return false;
   }
   virtual bool IsEditable() const = 0;
   virtual void LoadURL(const wxString& url) = 0;
@@ -160,13 +160,13 @@ public:
   virtual void SetEditable(bool enable = true) = 0;
   void SetPage(const wxString& html, const wxString& baseUrl)
   {
-        DoSetPage(html, baseUrl);
+    DoSetPage(html, baseUrl);
   }
   void SetPage(wxInputStream& html, wxString baseUrl)
   {
-        wxStringOutputStream stream;
-        stream.Write(html);
-        DoSetPage(stream.GetString(), baseUrl);
+    wxStringOutputStream stream;
+    stream.Write(html);
+    DoSetPage(stream.GetString(), baseUrl);
   }
   virtual void Stop() = 0;
     //History
@@ -229,25 +229,27 @@ public:
   {
   }
   wxWebViewEvent(wxEventType type, int id, const wxString& url, const wxString target, wxWebViewNavigationActionFlags flags = wxWEBVIEW_NAV_ACTION_NONE)
-    :  wxNotifyEvent(type, id), m_url(url), m_target(target),
-          m_actionFlags(flags)
+    : wxNotifyEvent(type, id)
+    , m_url(url)
+    , m_target(target)
+    , m_actionFlags(flags)
   {
   }
   const wxString& GetURL() const
   {
- return m_url;
+    return m_url;
   }
   const wxString& GetTarget() const
   {
- return m_target;
+    return m_target;
   }
   wxWebViewNavigationActionFlags GetNavigationAction() const
   {
- return m_actionFlags;
+    return m_actionFlags;
   }
   wxEvent* Clone() const override
   {
- return new wxWebViewEvent(*this);
+    return new wxWebViewEvent(*this);
   }
 private:
   wxString m_url;

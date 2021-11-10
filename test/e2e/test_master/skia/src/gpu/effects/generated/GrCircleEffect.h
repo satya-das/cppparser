@@ -20,27 +20,27 @@ public:
   {
         // A radius below half causes the implicit insetting done by this processor to become
         // inverted. We could handle this case by making the processor code more complicated.
-        if (radius < .5f && GrProcessorEdgeTypeIsInverseFill(edgeType)) {
-            return nullptr;
-        }
-        return std::unique_ptr<GrFragmentProcessor>(new GrCircleEffect(edgeType, center, radius));
+    if (radius < .5f && GrProcessorEdgeTypeIsInverseFill(edgeType))
+    {
+      return nullptr;
+    }
+    return std::unique_ptr<GrFragmentProcessor>(new GrCircleEffect(edgeType, center, radius));
   }
   GrCircleEffect(const GrCircleEffect& src);
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
   {
- return "CircleEffect";
+    return "CircleEffect";
   }
   GrClipEdgeType edgeType;
   SkPoint center;
   float radius;
 private:
   GrCircleEffect(GrClipEdgeType edgeType, SkPoint center, float radius)
-    :  INHERITED(kGrCircleEffect_ClassID,
-                        (OptimizationFlags)kCompatibleWithCoverageAsAlpha_OptimizationFlag)
-            , edgeType(edgeType)
-            , center(center)
-            , radius(radius)
+    : INHERITED(kGrCircleEffect_ClassID, (OptimizationFlags) kCompatibleWithCoverageAsAlpha_OptimizationFlag)
+    , edgeType(edgeType)
+    , center(center)
+    , radius(radius)
   {
   }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;

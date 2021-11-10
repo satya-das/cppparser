@@ -23,65 +23,52 @@ public:
     BUFFER_SIZE = 4096
   };
   wxFSWatchEntryMSW(const wxFSWatchInfo& winfo)
-    :         wxFSWatchInfo(winfo)
+    : wxFSWatchInfo(winfo)
   {
         // get handle for this path
-        m_handle = OpenDir(m_path);
-        m_overlapped = (OVERLAPPED*)calloc(1, sizeof(OVERLAPPED));
-        wxZeroMemory(m_buffer);
+    m_handle = OpenDir(m_path);
+    m_overlapped = (OVERLAPPED*) calloc(1, sizeof(OVERLAPPED));
+    wxZeroMemory(m_buffer);
   }
   virtual ~wxFSWatchEntryMSW()
   {
-        wxLogTrace(wxTRACE_FSWATCHER, "Deleting entry '%s'", m_path);
-
-        if (m_handle != INVALID_HANDLE_VALUE)
-        {
-            if (!CloseHandle(m_handle))
-            {
-                wxLogSysError(_("Unable to close the handle for '%s'"),
-                                m_path);
-            }
-        }
-        free(m_overlapped);
+    wxLogTrace(wxTRACE_FSWATCHER, "Deleting entry '%s'", m_path);
+    if (m_handle != INVALID_HANDLE_VALUE)
+    {
+      if (!CloseHandle(m_handle))
+      {
+        wxLogSysError(_("Unable to close the handle for '%s'"), m_path);
+      }
+    }
+    free(m_overlapped);
   }
   bool IsOk() const
   {
-        return m_handle != INVALID_HANDLE_VALUE;
+    return m_handle != INVALID_HANDLE_VALUE;
   }
   HANDLE GetHandle() const
   {
-        return m_handle;
+    return m_handle;
   }
   void* GetBuffer()
   {
-        return m_buffer;
+    return m_buffer;
   }
   OVERLAPPED* GetOverlapped() const
   {
-        return m_overlapped;
+    return m_overlapped;
   }
 private:
     // opens dir with all flags, attributes etc. necessary to be later
     // asynchronous watched with ReadDirectoryChangesW
   static HANDLE OpenDir(const wxString& path)
   {
-        HANDLE handle = CreateFile(path.t_str(),
-                                   FILE_LIST_DIRECTORY,
-                                   FILE_SHARE_READ |
-                                   FILE_SHARE_WRITE |
-                                   FILE_SHARE_DELETE,
-                                   NULL,
-                                   OPEN_EXISTING,
-                                   FILE_FLAG_BACKUP_SEMANTICS |
-                                   FILE_FLAG_OVERLAPPED,
-                                   NULL);
-        if (handle == INVALID_HANDLE_VALUE)
-        {
-            wxLogSysError(_("Failed to open directory \"%s\" for monitoring."),
-                            path);
-        }
-
-        return handle;
+    HANDLE handle = CreateFile(path.t_str(), FILE_LIST_DIRECTORY, FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, OPEN_EXISTING, FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OVERLAPPED, NULL);
+    if (handle == INVALID_HANDLE_VALUE)
+    {
+      wxLogSysError(_("Failed to open directory \"%s\" for monitoring."), path);
+    }
+    return handle;
   }
   HANDLE m_handle;
   char m_buffer[BUFFER_SIZE];
@@ -95,45 +82,45 @@ class wxIOCPService
 {
 public:
   wxIOCPService()
-    :         m_iocp(INVALID_HANDLE_VALUE)
+    : m_iocp(INVALID_HANDLE_VALUE)
   {
-        Init();
+    Init();
   }
   ~wxIOCPService()
   {
-        if (m_iocp != INVALID_HANDLE_VALUE)
-        {
-            if (!CloseHandle(m_iocp))
-            {
-                wxLogSysError(_("Unable to close I/O completion port handle"));
-            }
-        }
-        m_watches.clear();
+    if (m_iocp != INVALID_HANDLE_VALUE)
+    {
+      if (!CloseHandle(m_iocp))
+      {
+        wxLogSysError(_("Unable to close I/O completion port handle"));
+      }
+    }
+    m_watches.clear();
   }
     // associates a wxFSWatchEntryMSW with completion port
   bool Add(wxSharedPtr<wxFSWatchEntryMSW> watch)
   {
-        wxCHECK_MSG( m_iocp != INVALID_HANDLE_VALUE, false, "IOCP not init" );
-        wxCHECK_MSG( watch->IsOk(), false, "Invalid watch" );
-
+    wxCHECK_MSG( m_iocp != INVALID_HANDLE_VALUE, false, "IOCP not init" );
+    wxCHECK_MSG( watch->IsOk(), false, "Invalid watch" );
         // associate with IOCP
-        HANDLE ret = CreateIoCompletionPort(watch->GetHandle(), m_iocp,
-                                            (ULONG_PTR)watch.get(), 0);
-        if (ret == NULL)
-        {
-            wxLogSysError(_("Unable to associate handle with "
+    HANDLE ret = CreateIoCompletionPort(watch->GetHandle(), m_iocp, (ULONG_PTR) watch.get(), 0);
+    if (ret == NULL)
+    {
+      wxLogSysError(_("Unable to associate handle with "
                             "I/O completion port"));
-            return false;
-        }
-        else if (ret != m_iocp)
-        {
-            wxFAIL_MSG(_("Unexpectedly new I/O completion port was created"));
-            return false;
-        }
-
+      return false;
+    }
+    else 
+    {
+      if (ret != m_iocp)
+      {
+        wxFAIL_MSG(_("Unexpectedly new I/O completion port was created"));
+        return false;
+      }
+    }
         // add to watch map
-        wxFSWatchEntries::value_type val(watch->GetPath(), watch);
-        return m_watches.insert(val).second;
+    wxFSWatchEntries::value_type val(watch->GetPath(), watch);
+    return m_watches.insert(val).second;
   }
     // Removes a watch we're currently using. Notice that this doesn't happen
     // immediately, CompleteRemoval() must be called later when it's really
@@ -141,23 +128,20 @@ public:
     // using it.
   bool ScheduleForRemoval(const wxSharedPtr<wxFSWatchEntryMSW>& watch)
   {
-        wxCHECK_MSG( m_iocp != INVALID_HANDLE_VALUE, false, "IOCP not init" );
-        wxCHECK_MSG( watch->IsOk(), false, "Invalid watch" );
-
-        const wxString path = watch->GetPath();
-        wxFSWatchEntries::iterator it = m_watches.find(path);
-        wxCHECK_MSG( it != m_watches.end(), false,
+    wxCHECK_MSG( m_iocp != INVALID_HANDLE_VALUE, false, "IOCP not init" );
+    wxCHECK_MSG( watch->IsOk(), false, "Invalid watch" );
+    const wxString path = watch->GetPath();
+    wxFSWatchEntries::iterator it = m_watches.find(path);
+    wxCHECK_MSG( it != m_watches.end(), false,
                      "Can't remove a watch we don't use" );
-
         // We can't just delete the watch here as we can have pending events
         // for it and if we destroyed it now, we could get a dangling (or,
         // worse, reused to point to another object) pointer in ReadEvents() so
         // just remember that this one should be removed when CompleteRemoval()
         // is called later.
-        m_removedWatches.push_back(watch);
-        m_watches.erase(it);
-
-        return true;
+    m_removedWatches.push_back(watch);
+    m_watches.erase(it);
+    return true;
   }
     // Really remove the watch previously passed to ScheduleForRemoval().
     //
@@ -165,34 +149,29 @@ public:
     // this case we'll just return false and do nothing.
   bool CompleteRemoval(wxFSWatchEntryMSW* watch)
   {
-        for ( Watches::iterator it = m_removedWatches.begin();
-              it != m_removedWatches.end();
-              ++it )
-        {
-            if ( (*it).get() == watch )
-            {
+    for (Watches::iterator it = m_removedWatches.begin(); it != m_removedWatches.end(); ++it)
+    {
+      if ((*it).get() == watch)
+      {
                 // Removing the object from here will result in deleting the
                 // watch itself as it's not referenced from anywhere else now.
-                m_removedWatches.erase(it);
-                return true;
-            }
-        }
-
-        return false;
+        m_removedWatches.erase(it);
+        return true;
+      }
+    }
+    return false;
   }
     // post completion packet
   bool PostEmptyStatus()
   {
-        wxCHECK_MSG( m_iocp != INVALID_HANDLE_VALUE, false, "IOCP not init" );
-
+    wxCHECK_MSG( m_iocp != INVALID_HANDLE_VALUE, false, "IOCP not init" );
         // The special values of 0 will make GetStatus() return Status_Exit.
-        const int ret = PostQueuedCompletionStatus(m_iocp, 0, 0, NULL);
-        if (!ret)
-        {
-            wxLogSysError(_("Unable to post completion status"));
-        }
-
-        return ret != 0;
+    const int ret = PostQueuedCompletionStatus(m_iocp, 0, 0, NULL);
+    if (!ret)
+    {
+      wxLogSysError(_("Unable to post completion status"));
+    }
+    return ret != 0;
   }
     // Possible return values of GetStatus()
   enum Status {
@@ -213,39 +192,35 @@ public:
     // Use PostEmptyStatus() to wake it up (and end the worker thread)
   Status GetStatus(DWORD* count, wxFSWatchEntryMSW** watch, OVERLAPPED** overlapped)
   {
-        wxCHECK_MSG( m_iocp != INVALID_HANDLE_VALUE, Status_Error,
+    wxCHECK_MSG( m_iocp != INVALID_HANDLE_VALUE, Status_Error,
                      "Invalid IOCP object" );
-        wxCHECK_MSG( count && watch && overlapped, Status_Error,
+    wxCHECK_MSG( count && watch && overlapped, Status_Error,
                      "Output parameters can't be NULL" );
-
-        const int ret = GetQueuedCompletionStatus(m_iocp, count, (ULONG_PTR *)watch,
-                                            overlapped, INFINITE);
-        if ( ret != 0 )
-        {
-            return *count || *watch || *overlapped ? Status_OK : Status_Exit;
-        }
-
+    const int ret = GetQueuedCompletionStatus(m_iocp, count, (ULONG_PTR*) watch, overlapped, INFINITE);
+    if (ret != 0)
+    {
+      return *count || *watch || *overlapped ? Status_OK : Status_Exit;
+    }
         // An error is returned if the underlying directory has been deleted,
         // but this is not really an unexpected failure, so handle it
         // specially.
-        if ( wxSysErrorCode() == ERROR_ACCESS_DENIED &&
-                *watch && !wxFileName::DirExists((*watch)->GetPath()) )
-            return Status_Deleted;
-
+    if (wxSysErrorCode() == ERROR_ACCESS_DENIED && *watch && !wxFileName::DirExists((*watch)->GetPath()))
+    {
+      return Status_Deleted;
+    }
         // Some other error, at least log it.
-        wxLogSysError(_("Unable to dequeue completion packet"));
-
-        return Status_Error;
+    wxLogSysError(_("Unable to dequeue completion packet"));
+    return Status_Error;
   }
 protected:
   bool Init()
   {
-        m_iocp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
-        if (m_iocp == NULL)
-        {
-            wxLogSysError(_("Unable to create I/O completion port"));
-        }
-        return m_iocp != NULL;
+    m_iocp = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
+    if (m_iocp == NULL)
+    {
+      wxLogSysError(_("Unable to create I/O completion port"));
+    }
+    return m_iocp != NULL;
   }
   HANDLE m_iocp;
     // The hash containing all the wxFSWatchEntryMSW objects currently being
@@ -267,7 +242,8 @@ protected:
   struct wxEventProcessingData
   {
     wxEventProcessingData(const FILE_NOTIFY_INFORMATION* ne, const wxFSWatchEntryMSW* watch_)
-      :             nativeEvent(ne), watch(watch_)
+      : nativeEvent(ne)
+      , watch(watch_)
     {
     }
     const FILE_NOTIFY_INFORMATION* nativeEvent;

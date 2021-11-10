@@ -57,13 +57,11 @@ public:
 #    if  defined(__WXGTK20__)
   bool ShowAssertDialog(const wxString& msg) override;
 #    endif
-#    if  wxUSE_SOCKETS
-#      ifdef wxHAS_GUI_SOCKET_MANAGER
+#    ifdef wxHAS_GUI_SOCKET_MANAGER
   wxSocketManager* GetSocketManager() override;
-#      endif
-#      ifdef wxHAS_GUI_FDIOMANAGER
+#    endif
+#    ifdef wxHAS_GUI_FDIOMANAGER
   wxFDIOManager* GetFDIOManager() override;
-#      endif
 #    endif
 #    if  wxUSE_EVENTLOOP_SOURCE
   wxEventLoopSourcesManagerBase* GetEventLoopSourcesManager() override;

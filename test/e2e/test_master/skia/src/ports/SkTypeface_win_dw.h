@@ -21,43 +21,56 @@ class SkFontDescriptor;
 struct SkScalerContextRec;
 static SkFontStyle get_style(IDWriteFont* font)
 {
-    int weight = font->GetWeight();
-    int width = font->GetStretch();
-    SkFontStyle::Slant slant = SkFontStyle::kUpright_Slant;
-    switch (font->GetStyle()) {
-        case DWRITE_FONT_STYLE_NORMAL: slant = SkFontStyle::kUpright_Slant; break;
-        case DWRITE_FONT_STYLE_OBLIQUE: slant = SkFontStyle::kOblique_Slant; break;
-        case DWRITE_FONT_STYLE_ITALIC: slant = SkFontStyle::kItalic_Slant; break;
-        default: SkASSERT(false); break;
-    }
-    return SkFontStyle(weight, width, slant);
+  int weight = font->GetWeight();
+  int width = font->GetStretch();
+  SkFontStyle::Slant slant = SkFontStyle::kUpright_Slant;
+  switch(font->GetStyle())
+  {
+    case DWRITE_FONT_STYLE_NORMAL:
+      slant = SkFontStyle::kUpright_Slant;
+      break;
+    case DWRITE_FONT_STYLE_OBLIQUE:
+      slant = SkFontStyle::kOblique_Slant;
+      break;
+    case DWRITE_FONT_STYLE_ITALIC:
+      slant = SkFontStyle::kItalic_Slant;
+      break;
+default:
+    SkASSERT(false);
+    break;
+}
+  return SkFontStyle(weight, width, slant);
 }
 class DWriteFontTypeface : public SkTypeface
 {
 private:
   DWriteFontTypeface(const SkFontStyle& style, IDWriteFactory* factory, IDWriteFontFace* fontFace, IDWriteFont* font, IDWriteFontFamily* fontFamily, IDWriteFontFileLoader* fontFileLoader = nullptr, IDWriteFontCollectionLoader* fontCollectionLoader = nullptr)
-    :  SkTypeface(style, false)
-        , fFactory(SkRefComPtr(factory))
-        , fDWriteFontCollectionLoader(SkSafeRefComPtr(fontCollectionLoader))
-        , fDWriteFontFileLoader(SkSafeRefComPtr(fontFileLoader))
-        , fDWriteFontFamily(SkRefComPtr(fontFamily))
-        , fDWriteFont(SkRefComPtr(font))
-        , fDWriteFontFace(SkRefComPtr(fontFace))
+    : SkTypeface(style, false)
+    , fFactory(SkRefComPtr(factory))
+    , fDWriteFontCollectionLoader(SkSafeRefComPtr(fontCollectionLoader))
+    , fDWriteFontFileLoader(SkSafeRefComPtr(fontFileLoader))
+    , fDWriteFontFamily(SkRefComPtr(fontFamily))
+    , fDWriteFont(SkRefComPtr(font))
+    , fDWriteFontFace(SkRefComPtr(fontFace))
   {
-        if (!SUCCEEDED(fDWriteFontFace->QueryInterface(&fDWriteFontFace1))) {
+    if (!SUCCEEDED(fDWriteFontFace->QueryInterface(&fDWriteFontFace1)))
+    {
             // IUnknown::QueryInterface states that if it fails, punk will be set to nullptr.
             // http://blogs.msdn.com/b/oldnewthing/archive/2004/03/26/96777.aspx
-            SkASSERT_RELEASE(nullptr == fDWriteFontFace1.get());
-        }
-        if (!SUCCEEDED(fDWriteFontFace->QueryInterface(&fDWriteFontFace2))) {
-            SkASSERT_RELEASE(nullptr == fDWriteFontFace2.get());
-        }
-        if (!SUCCEEDED(fDWriteFontFace->QueryInterface(&fDWriteFontFace4))) {
-            SkASSERT_RELEASE(nullptr == fDWriteFontFace4.get());
-        }
-        if (!SUCCEEDED(fFactory->QueryInterface(&fFactory2))) {
-            SkASSERT_RELEASE(nullptr == fFactory2.get());
-        }
+      SkASSERT_RELEASE(nullptr == fDWriteFontFace1.get());
+    }
+    if (!SUCCEEDED(fDWriteFontFace->QueryInterface(&fDWriteFontFace2)))
+    {
+      SkASSERT_RELEASE(nullptr == fDWriteFontFace2.get());
+    }
+    if (!SUCCEEDED(fDWriteFontFace->QueryInterface(&fDWriteFontFace4)))
+    {
+      SkASSERT_RELEASE(nullptr == fDWriteFontFace4.get());
+    }
+    if (!SUCCEEDED(fFactory->QueryInterface(&fFactory2)))
+    {
+      SkASSERT_RELEASE(nullptr == fFactory2.get());
+    }
   }
 public:
   SkTScopedComPtr<IDWriteFactory> fFactory;
@@ -72,22 +85,21 @@ public:
   SkTScopedComPtr<IDWriteFontFace4> fDWriteFontFace4;
   static sk_sp<DWriteFontTypeface> Make(IDWriteFactory* factory, IDWriteFontFace* fontFace, IDWriteFont* font, IDWriteFontFamily* fontFamily, IDWriteFontFileLoader* fontFileLoader = nullptr, IDWriteFontCollectionLoader* fontCollectionLoader = nullptr)
   {
-        return sk_sp<DWriteFontTypeface>(
-            new DWriteFontTypeface(get_style(font), factory, fontFace, font, fontFamily,
-                                   fontFileLoader, fontCollectionLoader));
+    return sk_sp<DWriteFontTypeface>(new DWriteFontTypeface(get_style(font), factory, fontFace, font, fontFamily, fontFileLoader, fontCollectionLoader));
   }
 protected:
   void weak_dispose() const override
   {
-        if (fDWriteFontCollectionLoader.get()) {
-            HRV(fFactory->UnregisterFontCollectionLoader(fDWriteFontCollectionLoader.get()));
-        }
-        if (fDWriteFontFileLoader.get()) {
-            HRV(fFactory->UnregisterFontFileLoader(fDWriteFontFileLoader.get()));
-        }
-
+    if (fDWriteFontCollectionLoader.get())
+    {
+      HRV(fFactory->UnregisterFontCollectionLoader(fDWriteFontCollectionLoader.get()));
+    }
+    if (fDWriteFontFileLoader.get())
+    {
+      HRV(fFactory->UnregisterFontFileLoader(fDWriteFontFileLoader.get()));
+    }
         //SkTypefaceCache::Remove(this);
-        INHERITED::weak_dispose();
+    INHERITED::weak_dispose();
   }
   sk_sp<SkTypeface> onMakeClone(const SkFontArguments&) const override;
   std::unique_ptr<SkStreamAsset> onOpenStream(int* ttcIndex) const override;

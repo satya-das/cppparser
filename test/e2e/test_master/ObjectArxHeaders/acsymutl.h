@@ -54,7 +54,7 @@ namespace AcEdSymbolUtilities
 // --------- Inline definitions ---------
   inline const Services* servicesPtr()
   {
-    const Services * pSymUtil = ACEDSYMUTIL_SERVICES_NAME();
+    const Services* pSymUtil = ACEDSYMUTIL_SERVICES_NAME();
     assert(pSymUtil != 0);
     assert(pSymUtil->version() == Services::kCurrentVersion);
     return pSymUtil;
@@ -63,7 +63,7 @@ namespace AcEdSymbolUtilities
 typedef AcEdSymbolUtilities::Services AcEdSymUtilServices;
 inline const AcEdSymUtilServices* acedSymUtil()
 {
-    return AcEdSymbolUtilities::servicesPtr();
+  return AcEdSymbolUtilities::servicesPtr();
 }
 #  pragma  pack (pop)
 #endif

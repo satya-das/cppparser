@@ -72,47 +72,47 @@ public:
   SkPDFIndirectReference emit(const SkPDFObject&, SkPDFIndirectReference);
   SkPDFIndirectReference emit(const SkPDFObject& o)
   {
- return this->emit(o, this->reserveRef());
+    return this->emit(o, this->reserveRef());
   }
   template <typename T>
   void emitStream(const SkPDFDict& dict, T writeStream, SkPDFIndirectReference ref)
   {
-        SkAutoMutexExclusive lock(fMutex);
-        SkWStream* stream = this->beginObject(ref);
-        dict.emitObject(stream);
-        stream->writeText(" stream\n");
-        writeStream(stream);
-        stream->writeText("\nendstream");
-        this->endObject();
+    SkAutoMutexExclusive lock(fMutex);
+    SkWStream* stream = this->beginObject(ref);
+    dict.emitObject(stream);
+    stream->writeText(" stream\n");
+    writeStream(stream);
+    stream->writeText("\nendstream");
+    this->endObject();
   }
   const SkPDF::Metadata& metadata() const
   {
- return fMetadata;
+    return fMetadata;
   }
   SkPDFIndirectReference getPage(size_t pageIndex) const;
   SkPDFIndirectReference currentPage() const
   {
-        return SkASSERT(!fPageRefs.empty()), fPageRefs.back();
+    return SkASSERT(!fPageRefs.empty()), fPageRefs.back();
   }
     // Returns -1 if no mark ID.
   int getMarkIdForNodeId(int nodeId);
   SkPDFIndirectReference reserveRef()
   {
- return SkPDFIndirectReference{fNextObjectNumber++};
+    return SkPDFIndirectReference(fNextObjectNumber++);
   }
   SkExecutor* executor() const
   {
- return fExecutor;
+    return fExecutor;
   }
   void incrementJobCount();
   void signalJobComplete();
   size_t currentPageIndex()
   {
- return fPages.size();
+    return fPages.size();
   }
   size_t pageCount()
   {
- return fPageRefs.size();
+    return fPageRefs.size();
   }
   const SkMatrix& currentPageTransform() const;
     // Canonicalized objects

@@ -20,16 +20,16 @@ public:
   void DoGetSize(int* width, int* height) const override;
   wxBitmap DoGetAsBitmap(const wxRect* subrect) const override
   {
- return subrect == NULL ? GetSelectedBitmap() : GetSelectedBitmap().GetSubBitmap(*subrect);
+    return subrect == NULL ? GetSelectedBitmap() : GetSelectedBitmap().GetSubBitmap(*subrect);
   }
   void DoSelect(const wxBitmap& bitmap) override;
   const wxBitmap& GetSelectedBitmap() const override
   {
- return m_selected;
+    return m_selected;
   }
   wxBitmap& GetSelectedBitmap() override
   {
- return m_selected;
+    return m_selected;
   }
 private:
   void Init();

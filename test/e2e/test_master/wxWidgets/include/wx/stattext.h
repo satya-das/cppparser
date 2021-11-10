@@ -27,7 +27,6 @@ class WXDLLIMPEXP_CORE wxStaticTextBase : public wxControl
 public:
   wxStaticTextBase()
   {
-
   }
     // wrap the text of the control so that no line is longer than the given
     // width (if possible: this function won't break words)
@@ -36,21 +35,21 @@ public:
     // overridden base virtuals
   bool AcceptsFocus() const override
   {
- return false;
+    return false;
   }
   bool HasTransparentBackground() override
   {
- return true;
+    return true;
   }
   bool IsEllipsized() const
   {
-        return (GetWindowStyle() & wxST_ELLIPSIZE_MASK) != 0;
+    return (GetWindowStyle() & wxST_ELLIPSIZE_MASK) != 0;
   }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
     // Calls Ellipsize() on the real label if necessary. Unlike GetLabelText(),
     // keeps the mnemonics instead of removing them.
@@ -79,6 +78,7 @@ protected:
     // Update the current size to match the best size unless wxST_NO_AUTORESIZE
     // style is explicitly used.
   void AutoResizeIfNecessary();
+private:
   wxDECLARE_NO_COPY_CLASS(wxStaticTextBase);
 };
 // see wx/generic/stattextg.h for the explanation

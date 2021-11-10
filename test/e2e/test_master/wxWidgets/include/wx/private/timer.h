@@ -26,7 +26,6 @@ public:
     // it's too late)
   virtual ~wxTimerImpl()
   {
-
   }
     // start the timer. When overriding call base version first.
   virtual bool Start(int milliseconds = -1, bool oneShot = false);
@@ -38,26 +37,26 @@ public:
     // this should be called by the port-specific code when the timer expires
   virtual void Notify()
   {
- m_timer->Notify();
+    m_timer->Notify();
   }
     // the default implementation of wxTimer::Notify(): generate a wxEVT_TIMER
   void SendEvent();
     // accessors for wxTimer:
   wxEvtHandler* GetOwner() const
   {
- return m_owner;
+    return m_owner;
   }
   int GetId() const
   {
- return m_idTimer;
+    return m_idTimer;
   }
   int GetInterval() const
   {
- return m_milli;
+    return m_milli;
   }
   bool IsOneShot() const
   {
- return m_oneShot;
+    return m_oneShot;
   }
 protected:
   wxTimer* m_timer;

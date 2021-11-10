@@ -25,55 +25,57 @@ class WXDLLIMPEXP_FWD_BASE wxFileSystem;
 class WXDLLIMPEXP_BASE wxFSFile : public wxObject
 {
 public:
-  wxFSFile(wxInputStream* stream, const wxString& loc, const wxString& mimetype, const wxString& anchor)
-    :  m_Location(loc)
-        , m_MimeType(mimetype.Lower())
-        , m_Anchor(anchor)
-#if wxUSE_DATETIME
-        , m_Modif(modif)
-#endif
-    {
-        m_Stream = stream;
-    }
-
-    virtual ~wxFSFile()
+  wxFSFile(wxInputStream* stream, const wxString& loc, const wxString& mimetype, const wxString& anchor, wxDateTime modif)
+    : m_Location(loc)
+    , m_MimeType(mimetype.Lower())
+    , m_Anchor(anchor)
+    , m_Modif(modif)
   {
- delete m_Stream;
+    m_Stream = stream;
+  }
+  virtual ~wxFSFile()
+  {
+    delete m_Stream;
   }
     // returns stream. This doesn't give away ownership of the stream object.
   wxInputStream* GetStream() const
   {
- return m_Stream;
+    return m_Stream;
   }
     // gives away the ownership of the current stream.
   wxInputStream* DetachStream()
   {
-        wxInputStream *stream = m_Stream;
-        m_Stream = NULL;
-        return stream;
+    wxInputStream* stream = m_Stream;
+    m_Stream = NULL;
+    return stream;
   }
     // deletes the current stream and takes ownership of another.
   void SetStream(wxInputStream* stream)
   {
-        delete m_Stream;
-        m_Stream = stream;
+    delete m_Stream;
+    m_Stream = stream;
   }
     // returns file's mime type
   const wxString& GetMimeType() const;
     // returns the original location (aka filename) of the file
   const wxString& GetLocation() const
   {
- return m_Location;
+    return m_Location;
   }
   const wxString& GetAnchor() const
   {
- return m_Anchor;
+    return m_Anchor;
+  }
+  wxDateTime GetModificationTime() const
+  {
+    return m_Modif;
   }
 private:
   wxInputStream* m_Stream;
   wxString m_Location;
   wxString m_MimeType;
   wxString m_Anchor;
+  wxDateTime m_Modif;
   wxDECLARE_ABSTRACT_CLASS(wxFSFile);
   wxDECLARE_NO_COPY_CLASS(wxFSFile);
 };
@@ -87,7 +89,7 @@ class WXDLLIMPEXP_BASE wxFileSystemHandler : public wxObject
 {
 public:
   wxFileSystemHandler()
-    :  wxObject()
+    : wxObject()
   {
   }
     // returns true if this handler is able to open given location
@@ -132,13 +134,14 @@ enum wxFileSystemOpenFlags {
     wxFS_READ = 1,      // Open for reading
     wxFS_SEEKABLE = 4   // Returned stream will be seekable
 };
+WX_DECLARE_VOIDPTR_HASH_MAP_WITH_DECL(wxFileSystemHandler*, wxFSHandlerHash, class WXDLLIMPEXP_BASE);
 class WXDLLIMPEXP_BASE wxFileSystem : public wxObject
 {
 public:
   wxFileSystem()
-    :  wxObject()
+    : wxObject()
   {
- m_FindFileHandler = NULL;
+    m_FindFileHandler = NULL;
   }
   virtual ~wxFileSystem();
     // sets the current location. Every call to OpenFile is
@@ -150,7 +153,7 @@ public:
   void ChangePathTo(const wxString& location, bool is_dir = false);
   wxString GetPath() const
   {
-return m_Path;
+    return m_Path;
   }
     // opens given file and returns pointer to input stream.
     // Returns NULL if opening failed.
@@ -231,7 +234,7 @@ public:
     // (This is similar to Unix command 'chroot'.)
   static void Chroot(const wxString& root)
   {
- ms_root = root;
+    ms_root = root;
   }
 protected:
   static wxString ms_root;

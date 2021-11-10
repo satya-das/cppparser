@@ -23,19 +23,18 @@ public:
     // ctors and such
   wxFont()
   {
-
   }
   wxFont(const wxFontInfo& info);
   wxFont(const wxString& nativeFontInfoString);
   wxFont(const wxNativeFontInfo& info);
   wxFont(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        Create(size, family, style, weight, underlined, face, encoding);
+    Create(size, family, style, weight, underlined, face, encoding);
   }
   wxFont(const wxSize& pixelSize, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        Create(10, family, style, weight, underlined, face, encoding);
-        SetPixelSize(pixelSize);
+    Create(10, family, style, weight, underlined, face, encoding);
+    SetPixelSize(pixelSize);
   }
   bool Create(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
     // wxMOTIF-specific
@@ -58,9 +57,10 @@ public:
   virtual void SetUnderlined(bool underlined);
   virtual void SetEncoding(wxFontEncoding encoding);
   wxDECLARE_COMMON_FONT_METHODS();
-  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants") wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
+  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants")
+  wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        (void)Create(size, (wxFontFamily)family, (wxFontStyle)style, (wxFontWeight)weight, underlined, face, encoding);
+    (void) Create(size, (wxFontFamily) family, (wxFontStyle) style, (wxFontWeight) weight, underlined, face, encoding);
   }
     // Implementation
 

@@ -23,12 +23,12 @@ class WXDLLIMPEXP_CORE wxPrintDialogBase : public wxDialog
 public:
   wxPrintDialogBase()
   {
-
   }
   wxPrintDialogBase(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE);
   virtual wxPrintDialogData& GetPrintDialogData() = 0;
   virtual wxPrintData& GetPrintData() = 0;
   virtual wxDC* GetPrintDC() = 0;
+private:
   wxDECLARE_ABSTRACT_CLASS(wxPrintDialogBase);
   wxDECLARE_NO_COPY_CLASS(wxPrintDialogBase);
 };
@@ -58,10 +58,10 @@ class WXDLLIMPEXP_CORE wxPageSetupDialogBase : public wxDialog
 public:
   wxPageSetupDialogBase()
   {
-
   }
   wxPageSetupDialogBase(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE);
   virtual wxPageSetupDialogData& GetPageSetupDialogData() = 0;
+private:
   wxDECLARE_ABSTRACT_CLASS(wxPageSetupDialogBase);
   wxDECLARE_NO_COPY_CLASS(wxPageSetupDialogBase);
 };

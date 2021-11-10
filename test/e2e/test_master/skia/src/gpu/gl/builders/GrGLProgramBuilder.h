@@ -22,8 +22,8 @@ class GrShaderCaps;
 struct GrGLPrecompiledProgram
 {
   GrGLPrecompiledProgram(GrGLuint programID = 0, SkSL::Program::Inputs inputs = SkSL::Program::Inputs())
-    :  fProgramID(programID)
-        , fInputs(inputs)
+    : fProgramID(programID)
+    , fInputs(inputs)
   {
   }
   GrGLuint fProgramID;
@@ -49,7 +49,7 @@ public:
   const GrCaps* caps() const override;
   GrGLGpu* gpu() const
   {
- return fGpu;
+    return fGpu;
   }
 private:
   GrGLProgramBuilder(GrGLGpu*, GrRenderTarget*, int numSamples, GrSurfaceOrigin, const GrPipeline&, const GrPrimitiveProcessor&, const GrTextureProxy* const primProcProxies[], GrProgramDesc*);
@@ -65,15 +65,15 @@ private:
   GrGLProgram* createProgram(GrGLuint programID);
   GrGLSLUniformHandler* uniformHandler() override
   {
- return &fUniformHandler;
+    return &fUniformHandler;
   }
   const GrGLSLUniformHandler* uniformHandler() const override
   {
- return &fUniformHandler;
+    return &fUniformHandler;
   }
   GrGLSLVaryingHandler* varyingHandler() override
   {
- return &fVaryingHandler;
+    return &fVaryingHandler;
   }
   GrGLGpu* fGpu;
   GrGLVaryingHandler fVaryingHandler;

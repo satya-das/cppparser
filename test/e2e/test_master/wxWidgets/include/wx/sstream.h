@@ -23,7 +23,7 @@ public:
   wxFileOffset GetLength() const override;
   bool IsSeekable() const override
   {
- return true;
+    return true;
   }
 protected:
   wxFileOffset OnSysSeek(wxFileOffset ofs, wxSeekMode mode) override;
@@ -55,11 +55,11 @@ public:
     // get the string containing current output
   const wxString& GetString() const
   {
- return *m_str;
+    return *m_str;
   }
   bool IsSeekable() const override
   {
- return true;
+    return true;
   }
 protected:
   wxFileOffset OnSysTell() const override;
@@ -75,10 +75,8 @@ private:
     // stream must contain valid UTF-8 data, use wxConvISO8859_1 to work with
     // arbitrary 8 bit data
   wxMBConv& m_conv;
-#    if  wxUSE_UNICODE
     // unconverted data from the last call to OnSysWrite()
   wxMemoryBuffer m_unconv;
-#    endif
   wxDECLARE_NO_COPY_CLASS(wxStringOutputStream);
 };
 #  endif

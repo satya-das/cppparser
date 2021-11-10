@@ -54,21 +54,21 @@ public:
         //        get it right first.
   void RefObj()
   {
- ++m_objcount;
+    ++m_objcount;
   }
   void UnrefObj()
   {
-        wxASSERT_MSG( m_objcount > 0, wxT("Too many objects deleted??") );
-        --m_objcount;
+    wxASSERT_MSG( m_objcount > 0, wxT("Too many objects deleted??") );
+    --m_objcount;
   }
         // Override/hide some base class methods
   bool IsLoaded() const
   {
- return m_linkcount > 0;
+    return m_linkcount > 0;
   }
   void Unload()
   {
- UnrefLib();
+    UnrefLib();
   }
 private:
     // These pointers may be NULL but if they are not, then m_ourLast follows
@@ -93,43 +93,46 @@ public:
   static bool UnloadLibrary(const wxString& libname);
         // Instance methods.
   wxPluginManager()
-    :  m_entry(NULL)
+    : m_entry(NULL)
   {
   }
   wxPluginManager(const wxString& libname, int flags = wxDL_DEFAULT)
   {
-        Load(libname, flags);
+    Load(libname, flags);
   }
   ~wxPluginManager()
   {
- if ( IsLoaded() ) Unload();
+    if (IsLoaded())
+    {
+      Unload();
+    }
   }
   bool Load(const wxString& libname, int flags = wxDL_DEFAULT);
   void Unload();
   bool IsLoaded() const
   {
- return m_entry && m_entry->IsLoaded();
+    return m_entry && m_entry->IsLoaded();
   }
   void* GetSymbol(const wxString& symbol, bool* success = NULL)
   {
-        return m_entry->GetSymbol( symbol, success );
+    return m_entry->GetSymbol(symbol, success);
   }
   static void CreateManifest()
   {
- ms_manifest = new wxDLManifest(wxKEY_STRING);
+    ms_manifest = new wxDLManifest(wxKEY_STRING);
   }
   static void ClearManifest()
   {
- delete ms_manifest; ms_manifest = NULL;
+    delete ms_manifest;
+    ms_manifest = NULL;
   }
 private:
     // return the pointer to the entry for the library with given name in
     // ms_manifest or NULL if none
   static wxPluginLibrary* FindByName(const wxString& name)
   {
-        const wxDLManifest::iterator i = ms_manifest->find(name);
-
-        return i == ms_manifest->end() ? NULL : i->second;
+    const wxDLManifest::iterator i = ms_manifest->find(name);
+    return i == ms_manifest->end() ? NULL : i->second;
   }
   static wxDLManifest* ms_manifest;
   wxPluginLibrary* m_entry;

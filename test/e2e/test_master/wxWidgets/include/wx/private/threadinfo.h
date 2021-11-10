@@ -12,7 +12,8 @@
 class WXDLLIMPEXP_FWD_BASE wxLog;
 #  if  wxUSE_INTL
 #    include "wx/hashset.h"
-WX_DECLARE_HASH_SET(wxString, wxStringHash, wxStringEqual, wxLocaleUntranslatedStrings);
+WX_DECLARE_HASH_SET(wxString, wxStringHash, wxStringEqual,
+                    wxLocaleUntranslatedStrings);
 #  endif
 // ----------------------------------------------------------------------------
 // wxThreadSpecificInfo: contains all thread-specific information used by wx
@@ -49,7 +50,8 @@ public:
 #  endif
 private:
   wxThreadSpecificInfo()
-    :  logger(NULL), loggingDisabled(false)
+    : logger(NULL)
+    , loggingDisabled(false)
   {
   }
 };

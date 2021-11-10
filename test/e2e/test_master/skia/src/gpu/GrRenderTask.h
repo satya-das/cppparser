@@ -28,7 +28,7 @@ public:
   void prepare(GrOpFlushState* flushState);
   bool execute(GrOpFlushState* flushState)
   {
- return this->onExecute(flushState);
+    return this->onExecute(flushState);
   }
     // Called when this class will survive a flush and needs to truncate its ops and start over.
     // TODO: ultimately it should be invalid for an op list to survive a flush.
@@ -38,7 +38,7 @@ public:
   }
   bool isClosed() const
   {
- return this->isSetFlag(kClosed_Flag);
+    return this->isSetFlag(kClosed_Flag);
   }
     /*
      * Notify this GrRenderTask that it relies on the contents of 'dependedOn'
@@ -55,14 +55,14 @@ public:
   bool dependsOn(const GrRenderTask* dependedOn) const;
   uint32_t uniqueID() const
   {
- return fUniqueID;
+    return fUniqueID;
   }
     /*
      * Safely cast this GrRenderTask to a GrOpsTask (if possible).
      */
   virtual GrOpsTask* asOpsTask()
   {
- return nullptr;
+    return nullptr;
   }
 #  ifdef SK_DEBUG
     /*
@@ -71,16 +71,17 @@ public:
   virtual void dump(bool printDependencies) const;
   virtual int numClips() const
   {
- return 0;
+    return 0;
   }
   using VisitSurfaceProxyFunc = std::function<void(GrSurfaceProxy*, GrMipMapped)>;
   virtual void visitProxies_debugOnly(const VisitSurfaceProxyFunc&) const = 0;
   void visitTargetAndSrcProxies_debugOnly(const VisitSurfaceProxyFunc& fn) const
   {
-        this->visitProxies_debugOnly(fn);
-        if (fTarget) {
-            fn(fTarget.get(), GrMipMapped::kNo);
-        }
+    this->visitProxies_debugOnly(fn);
+    if (fTarget)
+    {
+      fn(fTarget.get(), GrMipMapped::kNo);
+    }
   }
 #  endif
 protected:
@@ -112,11 +113,11 @@ private:
   virtual bool onIsUsed(GrSurfaceProxy*) const = 0;
   bool isUsed(GrSurfaceProxy* proxy) const
   {
-        if (proxy == fTarget.get()) {
-            return true;
-        }
-
-        return this->onIsUsed(proxy);
+    if (proxy == fTarget.get())
+    {
+      return true;
+    }
+    return this->onIsUsed(proxy);
   }
   void addDependency(GrRenderTask* dependedOn);
   void addDependent(GrRenderTask* dependent);
@@ -132,45 +133,45 @@ private:
   };
   void setFlag(uint32_t flag)
   {
-        fFlags |= flag;
+    fFlags |= flag;
   }
   void resetFlag(uint32_t flag)
   {
-        fFlags &= ~flag;
+    fFlags &= ~flag;
   }
   bool isSetFlag(uint32_t flag) const
   {
-        return SkToBool(fFlags & flag);
+    return SkToBool(fFlags & flag);
   }
   struct TopoSortTraits
   {
     static void Output(GrRenderTask* renderTask, int)
     {
-            renderTask->setFlag(kWasOutput_Flag);
+      renderTask->setFlag(kWasOutput_Flag);
     }
     static bool WasOutput(const GrRenderTask* renderTask)
     {
-            return renderTask->isSetFlag(kWasOutput_Flag);
+      return renderTask->isSetFlag(kWasOutput_Flag);
     }
     static void SetTempMark(GrRenderTask* renderTask)
     {
-            renderTask->setFlag(kTempMark_Flag);
+      renderTask->setFlag(kTempMark_Flag);
     }
     static void ResetTempMark(GrRenderTask* renderTask)
     {
-            renderTask->resetFlag(kTempMark_Flag);
+      renderTask->resetFlag(kTempMark_Flag);
     }
     static bool IsTempMarked(const GrRenderTask* renderTask)
     {
-            return renderTask->isSetFlag(kTempMark_Flag);
+      return renderTask->isSetFlag(kTempMark_Flag);
     }
     static int NumDependencies(const GrRenderTask* renderTask)
     {
-            return renderTask->fDependencies.count();
+      return renderTask->fDependencies.count();
     }
     static GrRenderTask* Dependency(GrRenderTask* renderTask, int index)
     {
-            return renderTask->fDependencies[index];
+      return renderTask->fDependencies[index];
     }
   };
   virtual void onPrepare(GrOpFlushState* flushState) = 0;

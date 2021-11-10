@@ -147,9 +147,8 @@ protected:
   {
   public:
     NinePatch()
-      :  fCache(nullptr)
+      : fCache(nullptr)
     {
-
     }
     ~NinePatch();
     SkMask fMask;
@@ -194,14 +193,14 @@ private:
 };
 inline SkMaskFilterBase* as_MFB(SkMaskFilter* mf)
 {
-    return static_cast<SkMaskFilterBase*>(mf);
+  return static_cast<SkMaskFilterBase*>(mf);
 }
 inline const SkMaskFilterBase* as_MFB(const SkMaskFilter* mf)
 {
-    return static_cast<const SkMaskFilterBase*>(mf);
+  return static_cast<const SkMaskFilterBase*>(mf);
 }
 inline const SkMaskFilterBase* as_MFB(const sk_sp<SkMaskFilter>& mf)
 {
-    return static_cast<SkMaskFilterBase*>(mf.get());
+  return static_cast<SkMaskFilterBase*>(mf.get());
 }
 #endif

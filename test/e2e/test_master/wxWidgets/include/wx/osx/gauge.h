@@ -16,7 +16,6 @@ class WXDLLIMPEXP_CORE wxGauge : public wxGaugeBase
 public:
   wxGauge()
   {
-
   }
   wxGauge(wxWindow* parent, wxWindowID id, int range, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxGA_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxGaugeNameStr))
   {
@@ -28,6 +27,7 @@ public:
   void SetValue(int pos) override;
   int GetValue() const override;
   void Pulse() override;
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxGauge);
 };
 #endif

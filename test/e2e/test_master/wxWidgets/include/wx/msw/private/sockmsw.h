@@ -46,8 +46,8 @@ public:
   }
   void UpdateBlockingState() override
   {
-        if ( GetSocketFlags() & wxSOCKET_BLOCK )
-        {
+    if (GetSocketFlags() & wxSOCKET_BLOCK)
+    {
             // Counter-intuitively, we make the socket non-blocking even in
             // this case as it is necessary e.g. for Read() to return
             // immediately if there is no data available. However we must not
@@ -56,18 +56,17 @@ public:
             // just useless) as they would be dispatched by the main thread
             // while this blocking socket can be used from a worker one, so it
             // would result in data races and other unpleasantness.
-            wxIoctlSocketArg_t trueArg = 1;
-            ioctlsocket(m_fd, FIONBIO, &trueArg);
-
+      wxIoctlSocketArg_t trueArg = 1;
+      ioctlsocket(m_fd, FIONBIO, &trueArg);
             // Uninstall it in case it was installed before.
-            wxSocketManager::Get()->Uninstall_Callback(this);
-        }
-        else
-        {
+      wxSocketManager::Get()->Uninstall_Callback(this);
+    }
+    else 
+    {
             // No need to make the socket non-blocking, Install_Callback() will
             // do it as a side effect of calling WSAAsyncSelect().
-            wxSocketManager::Get()->Install_Callback(this);
-        }
+      wxSocketManager::Get()->Install_Callback(this);
+    }
   }
 private:
   void DoClose() override;

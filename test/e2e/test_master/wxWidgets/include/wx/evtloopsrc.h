@@ -33,7 +33,6 @@ public:
     // virtual dtor for the base class
   virtual ~wxEventLoopSourceHandler()
   {
-
   }
 };
 // flags describing which kind of IO events we're interested in
@@ -54,27 +53,26 @@ public:
   virtual ~wxEventLoopSource();
   void SetHandler(wxEventLoopSourceHandler* handler)
   {
- m_handler = handler;
+    m_handler = handler;
   }
   wxEventLoopSourceHandler* GetHandler() const
   {
- return m_handler;
+    return m_handler;
   }
   void SetFlags(int flags)
   {
- m_flags = flags;
+    m_flags = flags;
   }
   int GetFlags() const
   {
- return m_flags;
+    return m_flags;
   }
 protected:
     // ctor is only used by the derived classes
   wxEventLoopSource(wxEventLoopSourceHandler* handler, int flags)
-    :  m_handler(handler),
-          m_flags(flags)
+    : m_handler(handler)
+    , m_flags(flags)
   {
-
   }
   wxEventLoopSourceHandler* m_handler;
   int m_flags;
@@ -82,7 +80,6 @@ protected:
 };
 inline wxEventLoopSource::~wxEventLoopSource()
 {
-
 }
 #    if  defined(__UNIX__)
 #      include "wx/unix/evtloopsrc.h"

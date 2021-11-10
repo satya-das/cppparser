@@ -19,11 +19,10 @@ class wxDisplayFactory
 public:
   wxDisplayFactory()
   {
-
   }
   virtual ~wxDisplayFactory()
   {
- ClearImpls();
+    ClearImpls();
   }
     // Create the display if necessary using CreateDisplay(), otherwise just
     // get it from cache.
@@ -42,22 +41,24 @@ public:
         // only real solution is to ensure that InvalidateCache() is called,
         // but for now this at least avoids crashes when a new display is
         // connected.
-        if ( n >= m_impls.size() )
-        {
+    if (n >= m_impls.size())
+    {
             // This strange two-step resize is done to clear all the existing
             // elements: they may not be valid any longer if the number of
             // displays has changed.
-            m_impls.resize(0);
-            m_impls.resize(GetCount());
-        }
-        else if ( m_impls[n] )
-        {
+      m_impls.resize(0);
+      m_impls.resize(GetCount());
+    }
+    else 
+    {
+      if (m_impls[n])
+      {
             // Just return the existing display if we have it.
-            return m_impls[n];
-        }
-
-        m_impls[n] = CreateDisplay(n);
         return m_impls[n];
+      }
+    }
+    m_impls[n] = CreateDisplay(n);
+    return m_impls[n];
   }
     // Return the primary display object, creating it if necessary.
   wxDisplayImpl* GetPrimaryDisplay();
@@ -72,7 +73,7 @@ public:
     // Trigger recreation of wxDisplayImpl when they're needed the next time.
   virtual void InvalidateCache()
   {
- ClearImpls();
+    ClearImpls();
   }
 protected:
     // create a new display object
@@ -95,42 +96,41 @@ public:
     // virtual dtor for this base class
   virtual ~wxDisplayImpl()
   {
-
   }
     // return the full area of this display
   virtual wxRect GetGeometry() const = 0;
     // return the area of the display available for normal windows
   virtual wxRect GetClientArea() const
   {
- return GetGeometry();
+    return GetGeometry();
   }
     // return the depth or 0 if unknown
   virtual int GetDepth() const = 0;
     // return the scale factor used to convert logical pixels to physical ones
   virtual double GetScaleFactor() const
   {
- return 1.0;
+    return 1.0;
   }
     // return the resolution of the display, by default uses GetScaleFactor(),
     // but can be also overridden directly, as is done in wxMSW
   virtual wxSize GetPPI() const
   {
- return wxDisplay::GetStdPPI()*GetScaleFactor();
+    return wxDisplay::GetStdPPI() * GetScaleFactor();
   }
     // return the name (may be empty)
   virtual wxString GetName() const
   {
- return wxString();
+    return wxString();
   }
     // return the index of this display
   unsigned GetIndex() const
   {
- return m_index;
+    return m_index;
   }
     // return true if this is the primary monitor (usually one with index 0)
   virtual bool IsPrimary() const
   {
- return GetIndex() == 0;
+    return GetIndex() == 0;
   }
 #  if  wxUSE_DISPLAY
     // implements wxDisplay::GetModes()
@@ -143,9 +143,8 @@ public:
 protected:
     // create the object providing access to the display with the given index
   wxDisplayImpl(unsigned n)
-    :  m_index(n)
+    : m_index(n)
   {
-
   }
     // the index of this display (0 is always the primary one)
   const unsigned m_index;
@@ -162,23 +161,22 @@ class WXDLLEXPORT wxDisplayImplSingle : public wxDisplayImpl
 {
 public:
   wxDisplayImplSingle()
-    :  wxDisplayImpl(0)
+    : wxDisplayImpl(0)
   {
-
   }
 #  if  wxUSE_DISPLAY
     // no video modes support for us, provide just the stubs
   wxArrayVideoModes GetModes(const wxVideoMode&) const override
   {
-        return wxArrayVideoModes();
+    return wxArrayVideoModes();
   }
   wxVideoMode GetCurrentMode() const override
   {
-        return wxVideoMode();
+    return wxVideoMode();
   }
   bool ChangeMode(const wxVideoMode&) override
   {
-        return false;
+    return false;
   }
 #  endif
   wxDECLARE_NO_COPY_CLASS(wxDisplayImplSingle);
@@ -198,7 +196,7 @@ class wxDisplayFactorySingle : public wxDisplayFactory
 public:
   unsigned GetCount() override
   {
- return 1;
+    return 1;
   }
   int GetFromPoint(const wxPoint& pt) override;
 protected:

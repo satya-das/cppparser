@@ -46,31 +46,31 @@ public:
     // error testing
   wxStreamError GetLastError() const
   {
- return m_lasterror;
+    return m_lasterror;
   }
   virtual bool IsOk() const
   {
- return GetLastError() == wxSTREAM_NO_ERROR;
+    return GetLastError() == wxSTREAM_NO_ERROR;
   }
   bool operator!() const
   {
- return !IsOk();
+    return !IsOk();
   }
     // reset the stream state
   void Reset(wxStreamError error = wxSTREAM_NO_ERROR)
   {
- m_lasterror = error;
+    m_lasterror = error;
   }
     // this doesn't make sense for all streams, always test its return value
   virtual size_t GetSize() const;
   virtual wxFileOffset GetLength() const
   {
- return wxInvalidOffset;
+    return wxInvalidOffset;
   }
     // returns true if the streams supports seeking to arbitrary offsets
   virtual bool IsSeekable() const
   {
- return false;
+    return false;
   }
 protected:
   virtual wxFileOffset OnSysSeek(wxFileOffset seek, wxSeekMode mode);
@@ -134,7 +134,7 @@ public:
     // all the requested data or not
   virtual size_t LastRead() const
   {
- return wxStreamBase::m_lastcount;
+    return wxStreamBase::m_lastcount;
   }
     // returns true if some data is available in the stream right now, so that
     // calling Read() wouldn't block
@@ -170,11 +170,11 @@ public:
     // ---------------------
   wxInputStream& operator>>(wxOutputStream& out)
   {
- return Read(out);
+    return Read(out);
   }
   wxInputStream& operator>>(__wxInputManip func)
   {
- return func(*this);
+    return func(*this);
   }
 protected:
     // do read up to size bytes of data into the provided buffer
@@ -220,20 +220,20 @@ public:
   virtual wxFileOffset TellO() const;
   virtual size_t LastWrite() const
   {
- return wxStreamBase::m_lastcount;
+    return wxStreamBase::m_lastcount;
   }
   virtual void Sync();
   virtual bool Close()
   {
- return true;
+    return true;
   }
   wxOutputStream& operator<<(wxInputStream& out)
   {
- return Write(out);
+    return Write(out);
   }
   wxOutputStream& operator<<(__wxOutputManip func)
   {
- return func(*this);
+    return func(*this);
   }
 protected:
     // to be implemented in the derived classes (it should have been pure
@@ -257,11 +257,11 @@ public:
   wxFileOffset GetLength() const override;
   bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const override
   {
- return true;
+    return true;
   }
 protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
@@ -283,15 +283,15 @@ public:
   virtual ~wxFilterInputStream();
   char Peek() override
   {
- return m_parent_i_stream->Peek();
+    return m_parent_i_stream->Peek();
   }
   wxFileOffset GetLength() const override
   {
- return m_parent_i_stream->GetLength();
+    return m_parent_i_stream->GetLength();
   }
   wxInputStream* GetFilterInputStream() const
   {
- return m_parent_i_stream;
+    return m_parent_i_stream;
   }
 protected:
   wxInputStream* m_parent_i_stream;
@@ -308,11 +308,11 @@ public:
   virtual ~wxFilterOutputStream();
   wxFileOffset GetLength() const override
   {
- return m_parent_o_stream->GetLength();
+    return m_parent_o_stream->GetLength();
   }
   wxOutputStream* GetFilterOutputStream() const
   {
- return m_parent_o_stream;
+    return m_parent_o_stream;
   }
   bool Close() override;
 protected:
@@ -333,11 +333,10 @@ class WXDLLIMPEXP_BASE wxFilterClassFactoryBase : public wxObject
 public:
   virtual ~wxFilterClassFactoryBase()
   {
-
   }
   wxString GetProtocol() const
   {
- return wxString(*GetProtocols());
+    return wxString(*GetProtocols());
   }
   wxString PopExtension(const wxString& location) const;
   virtual const wxChar* const * GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const = 0;
@@ -351,7 +350,6 @@ class WXDLLIMPEXP_BASE wxFilterClassFactory : public wxFilterClassFactoryBase
 public:
   virtual ~wxFilterClassFactory()
   {
-
   }
   virtual wxFilterInputStream* NewStream(wxInputStream& stream) const = 0;
   virtual wxFilterOutputStream* NewStream(wxOutputStream& stream) const = 0;
@@ -361,22 +359,23 @@ public:
   static const wxFilterClassFactory* GetFirst();
   const wxFilterClassFactory* GetNext() const
   {
- return m_next;
+    return m_next;
   }
   void PushFront()
   {
- Remove(); m_next = sm_first; sm_first = this;
+    Remove();
+    m_next = sm_first;
+    sm_first = this;
   }
   void Remove();
 protected:
   wxFilterClassFactory()
-    :  m_next(this)
+    : m_next(this)
   {
-
   }
   wxFilterClassFactory& operator=(const wxFilterClassFactory&)
   {
- return *this;
+    return *this;
   }
 private:
   static wxFilterClassFactory* sm_first;
@@ -402,17 +401,17 @@ public:
   };
   wxStreamBuffer(wxStreamBase& stream, BufMode mode)
   {
-        InitWithStream(stream, mode);
+    InitWithStream(stream, mode);
   }
   wxStreamBuffer(size_t bufsize, wxInputStream& stream)
   {
-        InitWithStream(stream, read);
-        SetBufferIO(bufsize);
+    InitWithStream(stream, read);
+    SetBufferIO(bufsize);
   }
   wxStreamBuffer(size_t bufsize, wxOutputStream& stream)
   {
-        InitWithStream(stream, write);
-        SetBufferIO(bufsize);
+    InitWithStream(stream, write);
+    SetBufferIO(bufsize);
   }
   wxStreamBuffer(const wxStreamBuffer& buf);
   virtual ~wxStreamBuffer();
@@ -436,43 +435,43 @@ public:
   void SetBufferIO(size_t bufsize);
   void* GetBufferStart() const
   {
- return m_buffer_start;
+    return m_buffer_start;
   }
   void* GetBufferEnd() const
   {
- return m_buffer_end;
+    return m_buffer_end;
   }
   void* GetBufferPos() const
   {
- return m_buffer_pos;
+    return m_buffer_pos;
   }
   size_t GetBufferSize() const
   {
- return m_buffer_end - m_buffer_start;
+    return m_buffer_end - m_buffer_start;
   }
   size_t GetIntPosition() const
   {
- return m_buffer_pos - m_buffer_start;
+    return m_buffer_pos - m_buffer_start;
   }
   void SetIntPosition(size_t pos)
   {
- m_buffer_pos = m_buffer_start + pos;
+    m_buffer_pos = m_buffer_start + pos;
   }
   size_t GetLastAccess() const
   {
- return m_buffer_end - m_buffer_start;
+    return m_buffer_end - m_buffer_start;
   }
   size_t GetBytesLeft() const
   {
- return m_buffer_end - m_buffer_pos;
+    return m_buffer_end - m_buffer_pos;
   }
   void Fixed(bool fixed)
   {
- m_fixed = fixed;
+    m_fixed = fixed;
   }
   void Flushable(bool f)
   {
- m_flushable = f;
+    m_flushable = f;
   }
   bool FlushBuffer();
   bool FillBuffer();
@@ -480,19 +479,19 @@ public:
     // misc accessors
   wxStreamBase* GetStream() const
   {
- return m_stream;
+    return m_stream;
   }
   bool HasBuffer() const
   {
- return m_buffer_start != m_buffer_end;
+    return m_buffer_start != m_buffer_end;
   }
   bool IsFixed() const
   {
- return m_fixed;
+    return m_fixed;
   }
   bool IsFlushable() const
   {
- return m_flushable;
+    return m_flushable;
   }
     // only for input/output buffers respectively, returns NULL otherwise
   wxInputStream* GetInputStream() const;
@@ -547,13 +546,13 @@ public:
   wxFileOffset TellI() const override;
   bool IsSeekable() const override
   {
- return m_parent_i_stream->IsSeekable();
+    return m_parent_i_stream->IsSeekable();
   }
     // the buffer given to the stream will be deleted by it
   void SetInputStreamBuffer(wxStreamBuffer* buffer);
   wxStreamBuffer* GetInputStreamBuffer() const
   {
- return m_i_streambuf;
+    return m_i_streambuf;
   }
 protected:
   size_t OnSysRead(void* buffer, size_t bufsize) override;
@@ -584,7 +583,7 @@ public:
   wxFileOffset TellO() const override;
   bool IsSeekable() const override
   {
- return m_parent_o_stream->IsSeekable();
+    return m_parent_o_stream->IsSeekable();
   }
   void Sync() override;
   bool Close() override;
@@ -593,7 +592,7 @@ public:
   void SetOutputStreamBuffer(wxStreamBuffer* buffer);
   wxStreamBuffer* GetOutputStreamBuffer() const
   {
- return m_o_streambuf;
+    return m_o_streambuf;
   }
 protected:
   size_t OnSysWrite(const void* buffer, size_t bufsize) override;
@@ -630,8 +629,7 @@ protected:
     // place).
   void SynchronizeLastError() const
   {
-        const_cast<wxWrapperInputStream*>(this)->
-            Reset(m_parent_i_stream->GetLastError());
+    const_cast<wxWrapperInputStream*>(this)->Reset(m_parent_i_stream->GetLastError());
   }
     // Default constructor, use InitParentStream() later.
   wxWrapperInputStream();

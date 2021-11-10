@@ -17,20 +17,20 @@ bool SkDrawTreatAAStrokeAsHairline(SkScalar strokeWidth, const SkMatrix&, SkScal
  */
 inline bool SkDrawTreatAsHairline(const SkPaint& paint, const SkMatrix& matrix, SkScalar* coverage)
 {
-    if (SkPaint::kStroke_Style != paint.getStyle()) {
-        return false;
-    }
-
-    SkScalar strokeWidth = paint.getStrokeWidth();
-    if (0 == strokeWidth) {
-        *coverage = SK_Scalar1;
-        return true;
-    }
-
-    if (!paint.isAntiAlias()) {
-        return false;
-    }
-
-    return SkDrawTreatAAStrokeAsHairline(strokeWidth, matrix, coverage);
+  if (SkPaint::kStroke_Style != paint.getStyle())
+  {
+    return false;
+  }
+  SkScalar strokeWidth = paint.getStrokeWidth();
+  if (0 == strokeWidth)
+  {
+    *coverage = SK_Scalar1;
+    return true;
+  }
+  if (!paint.isAntiAlias())
+  {
+    return false;
+  }
+  return SkDrawTreatAAStrokeAsHairline(strokeWidth, matrix, coverage);
 }
 #endif

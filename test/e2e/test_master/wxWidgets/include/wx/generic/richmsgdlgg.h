@@ -15,11 +15,10 @@ class WXDLLIMPEXP_CORE wxGenericRichMessageDialog : public wxRichMessageDialogBa
 {
 public:
   wxGenericRichMessageDialog(wxWindow* parent, const wxString& message, const wxString& caption = wxASCII_STR(wxMessageBoxCaptionStr), long style = wxOK | wxCENTRE)
-    :  wxRichMessageDialogBase( parent, message, caption, style ),
-          m_checkBox(NULL),
-          m_detailsPane(NULL)
+    : wxRichMessageDialogBase(parent, message, caption, style)
+    , m_checkBox(NULL)
+    , m_detailsPane(NULL)
   {
-
   }
   bool IsCheckBoxChecked() const override;
 protected:

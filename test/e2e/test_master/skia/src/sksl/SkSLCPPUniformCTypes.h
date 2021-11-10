@@ -32,17 +32,14 @@ namespace SkSL
   public:
     // Create a templated mapper that does not support state tracking
     UniformCTypeMapper(Layout::CType ctype, const std::vector<String>& skslTypes, const char* setUniformFormat)
-      :  UniformCTypeMapper(ctype, skslTypes, setUniformFormat, false, "", "", "")
+      : UniformCTypeMapper(ctype, skslTypes, setUniformFormat, false, "", "", "")
     {
-
     }
     // Create a templated mapper that provides extra patterns for the state
     // tracking expressions.
     UniformCTypeMapper(Layout::CType ctype, const std::vector<String>& skslTypes, const String& setUniformFormat, const String& defaultValue, const String& dirtyExpressionFormat, const String& saveStateFormat)
-      :  UniformCTypeMapper(ctype, skslTypes, setUniformFormat,
-                true, defaultValue, dirtyExpressionFormat, saveStateFormat)
+      : UniformCTypeMapper(ctype, skslTypes, setUniformFormat, true, defaultValue, dirtyExpressionFormat, saveStateFormat)
     {
-
     }
     // Returns nullptr if the type and layout are not supported; the returned pointer's ownership
     // is not transfered to the caller.
@@ -52,23 +49,23 @@ namespace SkSL
     static const UniformCTypeMapper* Get(const Context& context, const Type& type, const Layout& layout);
     static const UniformCTypeMapper* Get(const Context& context, const Variable& variable)
     {
-        return Get(context, variable.fType, variable.fModifiers.fLayout);
+      return Get(context, variable.fType, variable.fModifiers.fLayout);
     }
     // The C++ type name that this mapper applies to
     Layout::CType ctype() const
     {
-        return fCType;
+      return fCType;
     }
     // The sksl type names that the mapper's ctype can be mapped to
     const std::vector<String>& supportedTypeNames() const
     {
-        return fSKSLTypes;
+      return fSKSLTypes;
     }
     // Whether or not this handler knows how to write state tracking code
     // for the uniform variables
     bool supportsTracking() const
     {
-        return fSupportsTracking;
+      return fSupportsTracking;
     }
     // What the C++ class fields are initialized to in the GLSLFragmentProcessor The empty string
     // implies the no-arg constructor is suitable. This is not used if supportsTracking() returns
@@ -77,7 +74,7 @@ namespace SkSL
     // The returned snippet will be a valid as the lhs of an assignment.
     const String& defaultValue() const
     {
-        return fDefaultValue;
+      return fDefaultValue;
     }
     // Return a boolean expression that returns true if the variables specified by newValueVarName
     // and oldValueVarName have different values. This is ignored if supportsTracking() returns
@@ -103,7 +100,7 @@ namespace SkSL
     // needed if state tracking is employed for a particular uniform.
     bool canInlineUniformValue() const
     {
-        return fInlineValue;
+      return fInlineValue;
     }
   private:
     UniformCTypeMapper(Layout::CType ctype, const std::vector<String>& skslTypes, const String& setUniformFormat, bool enableTracking, const String& defaultValue, const String& dirtyExpressionFormat, const String& saveStateFormat);

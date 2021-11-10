@@ -23,12 +23,12 @@ public:
 #  else 
   bool OSXIsStatusItem()
   {
- return false;
+    return false;
   }
 #  endif
   bool IsOk() const
   {
- return true;
+    return true;
   }
   bool IsIconInstalled() const;
   bool SetIcon(const wxIcon& icon, const wxString& tooltip = wxEmptyString);

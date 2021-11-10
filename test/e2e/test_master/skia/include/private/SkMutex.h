@@ -17,18 +17,16 @@ public:
   SkMutex();
   void acquire()
   {
-        fSemaphore.wait();
-        SkDEBUGCODE(fOwner = SkGetThreadID();)
+    fSemaphore.wait();
   }
   void release()
   {
-        this->assertHeld();
-        SkDEBUGCODE(fOwner = kIllegalThreadID;)
-        fSemaphore.signal();
+    this->assertHeld();
+    fSemaphore.signal();
   }
   void assertHeld()
   {
-        SkASSERT(fOwner == SkGetThreadID());
+    SkASSERT(fOwner == SkGetThreadID());
   }
 private:
   SkSemaphore fSemaphore{1};
@@ -37,13 +35,13 @@ class SK_SCOPED_CAPABILITY SkAutoMutexExclusive
 {
 public:
   SkAutoMutexExclusive(SkMutex& mutex)
-    :  fMutex(mutex)
+    : fMutex(mutex)
   {
- fMutex.acquire();
+    fMutex.acquire();
   }
   ~SkAutoMutexExclusive()
   {
- fMutex.release();
+    fMutex.release();
   }
 private:
   SkMutex& fMutex;

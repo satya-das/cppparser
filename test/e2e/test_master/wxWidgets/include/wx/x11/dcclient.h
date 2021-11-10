@@ -28,11 +28,11 @@ public:
   virtual ~wxWindowDCImpl();
   virtual bool CanDrawBitmap() const
   {
- return true;
+    return true;
   }
   virtual bool CanGetTextExtent() const
   {
- return true;
+    return true;
   }
 protected:
   virtual void DoGetSize(int* width, int* height) const;
@@ -73,7 +73,7 @@ public:
   virtual void DestroyClippingRegion();
   WXWindow GetX11Window() const
   {
- return m_x11window;
+    return m_x11window;
   }
   virtual void ComputeScaleAndOrigin();
 #  if  wxUSE_CAIRO
@@ -95,12 +95,11 @@ protected:
   bool m_isScreenDC;
   wxRegion m_currentClippingRegion;
   wxRegion m_paintClippingRegion;
-#  if  wxUSE_UNICODE
   PangoContext* m_context;
   PangoFontDescription* m_fontdesc;
-#  endif
   void SetUpDC();
   void Destroy();
+private:
   wxDECLARE_CLASS(wxWindowDCImpl);
 };
 //-----------------------------------------------------------------------------
@@ -110,13 +109,13 @@ class WXDLLIMPEXP_CORE wxClientDCImpl : public wxWindowDCImpl
 {
 public:
   wxClientDCImpl(wxDC* owner)
-    :  wxWindowDCImpl( owner )
+    : wxWindowDCImpl(owner)
   {
-
   }
   wxClientDCImpl(wxDC* owner, wxWindow* win);
 protected:
   virtual void DoGetSize(int* width, int* height) const;
+private:
   wxDECLARE_CLASS(wxClientDCImpl);
 };
 //-----------------------------------------------------------------------------
@@ -126,11 +125,11 @@ class WXDLLIMPEXP_CORE wxPaintDCImpl : public wxClientDCImpl
 {
 public:
   wxPaintDCImpl(wxDC* owner)
-    :  wxClientDCImpl( owner )
+    : wxClientDCImpl(owner)
   {
-
   }
   wxPaintDCImpl(wxDC* owner, wxWindow* win);
+private:
   wxDECLARE_CLASS(wxPaintDCImpl);
 };
 #endif

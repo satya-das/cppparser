@@ -51,67 +51,61 @@ public:
 #  define wxPERSIST_TLW_MAXIMIZED	"Maximized"
 #  define wxPERSIST_TLW_ICONIZED	"Iconized"
 // MSW has its own native implementation and doesn't use this class.
-#  ifndef __WXMSW__
 class wxTLWGeometryGeneric : public wxTLWGeometryBase
 {
 public:
   wxTLWGeometryGeneric()
   {
-        m_hasPos =
-        m_hasSize =
-        m_iconized =
-        m_maximized = false;
+    m_hasPos = m_hasSize = m_iconized = m_maximized = false;
   }
   bool Save(const Serializer& ser) const override
   {
-        if ( !ser.SaveField(wxPERSIST_TLW_X, m_rectScreen.x) ||
-             !ser.SaveField(wxPERSIST_TLW_Y, m_rectScreen.y) )
-            return false;
-
-        if ( !ser.SaveField(wxPERSIST_TLW_W, m_rectScreen.width) ||
-             !ser.SaveField(wxPERSIST_TLW_H, m_rectScreen.height) )
-            return false;
-
-        if ( !ser.SaveField(wxPERSIST_TLW_MAXIMIZED, m_maximized) )
-            return false;
-
-        if ( !ser.SaveField(wxPERSIST_TLW_ICONIZED, m_iconized) )
-            return false;
-
-        return true;
+    if (!ser.SaveField(wxPERSIST_TLW_X, m_rectScreen.x) || !ser.SaveField(wxPERSIST_TLW_Y, m_rectScreen.y))
+    {
+      return false;
+    }
+    if (!ser.SaveField(wxPERSIST_TLW_W, m_rectScreen.width) || !ser.SaveField(wxPERSIST_TLW_H, m_rectScreen.height))
+    {
+      return false;
+    }
+    if (!ser.SaveField(wxPERSIST_TLW_MAXIMIZED, m_maximized))
+    {
+      return false;
+    }
+    if (!ser.SaveField(wxPERSIST_TLW_ICONIZED, m_iconized))
+    {
+      return false;
+    }
+    return true;
   }
   bool Restore(Serializer& ser) override
   {
-        m_hasPos = ser.RestoreField(wxPERSIST_TLW_X, &m_rectScreen.x) &&
-                   ser.RestoreField(wxPERSIST_TLW_Y, &m_rectScreen.y);
-
-        m_hasSize = ser.RestoreField(wxPERSIST_TLW_W, &m_rectScreen.width) &&
-                    ser.RestoreField(wxPERSIST_TLW_H, &m_rectScreen.height);
-
-        int tmp;
-        if ( ser.RestoreField(wxPERSIST_TLW_MAXIMIZED, &tmp) )
-            m_maximized = tmp != 0;
-
-        if ( ser.RestoreField(wxPERSIST_TLW_ICONIZED, &tmp) )
-            m_iconized = tmp != 0;
-
+    m_hasPos = ser.RestoreField(wxPERSIST_TLW_X, &m_rectScreen.x) && ser.RestoreField(wxPERSIST_TLW_Y, &m_rectScreen.y);
+    m_hasSize = ser.RestoreField(wxPERSIST_TLW_W, &m_rectScreen.width) && ser.RestoreField(wxPERSIST_TLW_H, &m_rectScreen.height);
+    int tmp;
+    if (ser.RestoreField(wxPERSIST_TLW_MAXIMIZED, &tmp))
+    {
+      m_maximized = tmp != 0;
+    }
+    if (ser.RestoreField(wxPERSIST_TLW_ICONIZED, &tmp))
+    {
+      m_iconized = tmp != 0;
+    }
         // If we restored at least something, return true.
-        return m_hasPos || m_hasSize || m_maximized || m_iconized;
+    return m_hasPos || m_hasSize || m_maximized || m_iconized;
   }
   bool GetFrom(const wxTopLevelWindow* tlw) override
   {
-        m_rectScreen = tlw->GetScreenRect();
-        m_hasPos =
-        m_hasSize = true;
-        m_iconized = tlw->IsIconized();
-        m_maximized = tlw->IsMaximized();
-
-        return true;
+    m_rectScreen = tlw->GetScreenRect();
+    m_hasPos = m_hasSize = true;
+    m_iconized = tlw->IsIconized();
+    m_maximized = tlw->IsMaximized();
+    return true;
   }
   bool ApplyTo(wxTopLevelWindow* tlw) override
   {
-        if ( m_hasPos )
-        {
+    if (m_hasPos)
+    {
             // to avoid making the window completely invisible if it had been
             // shown on a monitor which was disconnected since the last run
             // (this is pretty common for notebook with external displays)
@@ -119,34 +113,32 @@ public:
             // NB: we should allow window position to be (slightly) off screen,
             //     it's not uncommon to position the window so that its upper
             //     left corner has slightly negative coordinate
-            if ( wxDisplay::GetFromPoint(m_rectScreen.GetTopLeft()) != wxNOT_FOUND ||
-                 (m_hasSize &&
-                  wxDisplay::GetFromPoint(m_rectScreen.GetBottomRight()) != wxNOT_FOUND) )
-            {
-                tlw->Move(m_rectScreen.GetTopLeft(), wxSIZE_ALLOW_MINUS_ONE);
-            }
+      if (wxDisplay::GetFromPoint(m_rectScreen.GetTopLeft()) != wxNOT_FOUND || (m_hasSize && wxDisplay::GetFromPoint(m_rectScreen.GetBottomRight()) != wxNOT_FOUND))
+      {
+        tlw->Move(m_rectScreen.GetTopLeft(), wxSIZE_ALLOW_MINUS_ONE);
+      }
             //else: should we try to adjust position/size somehow?
-        }
-
-        if ( m_hasSize )
-        {
+    }
+    if (m_hasSize)
+    {
             // a previous version of the program could have saved the window
             // size which used to be big enough, but which is not big enough
             // any more for the new version, so check that the size we restore
             // doesn't cut off parts of the window
-            wxSize size = m_rectScreen.GetSize();
-            size.IncTo(tlw->GetBestSize());
-            tlw->SetSize(size);
-        }
-
+      wxSize size = m_rectScreen.GetSize();
+      size.IncTo(tlw->GetBestSize());
+      tlw->SetSize(size);
+    }
         // note that the window can be both maximized and iconized
-        if ( m_maximized )
-            tlw->Maximize();
-
-        if ( m_iconized )
-            tlw->Iconize();
-
-        return true;
+    if (m_maximized)
+    {
+      tlw->Maximize();
+    }
+    if (m_iconized)
+    {
+      tlw->Iconize();
+    }
+    return true;
   }
 private:
   wxRect m_rectScreen;
@@ -155,7 +147,6 @@ private:
   bool m_iconized;
   bool m_maximized;
 };
-#  endif
 #  ifdef __WXGTK20__
 #    include "wx/gtk/private/tlwgeom.h"
 #  elif  defined(__WXMSW__)

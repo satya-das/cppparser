@@ -22,18 +22,13 @@ class wxExecuteData
 public:
   wxExecuteData()
   {
-        m_flags =
-        m_pid = 0;
-        m_exitcode = -1;
-
-        m_process = NULL;
-
-        m_syncEventLoop = NULL;
-
-#if wxUSE_STREAMS
-        m_fdOut =
-        m_fdErr = wxPipe::INVALID_FD;
-#endif // wxUSE_STREAMS
+    m_flags = m_pid = 0;
+    m_exitcode = -1;
+    m_process = NULL;
+    m_syncEventLoop = NULL;
+#  if  wxUSE_STREAMS
+    m_fdOut = m_fdErr = wxPipe::INVALID_FD;
+#  endif
   }
     // This must be called in the parent process as soon as fork() returns to
     // update us with the effective child PID. It also ensures that we handle
@@ -45,7 +40,7 @@ public:
     // Return true if we should (or already did) redirect the child IO.
   bool IsRedirected() const
   {
- return m_process && m_process->IsRedirected();
+    return m_process && m_process->IsRedirected();
   }
     // wxExecute() flags
   int m_flags;

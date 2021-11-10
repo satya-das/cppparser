@@ -52,7 +52,7 @@ public:
   }
   GrContext* context() const override
   {
- return fContext.get();
+    return fContext.get();
   }
     // set all pixels to 0
   void clearAll();
@@ -110,11 +110,11 @@ private:
   SkImageFilterCache* getImageFilterCache() override;
   bool forceConservativeRasterClip() const override
   {
- return true;
+    return true;
   }
   GrClipStackClip clip() const
   {
- return GrClipStackClip(&this->cs());
+    return GrClipStackClip(&this->cs());
   }
   const GrCaps* caps() const;
     /**

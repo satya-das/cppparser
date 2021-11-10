@@ -33,7 +33,7 @@ public:
   void SetReorderable(bool reorderable) override;
   void SetFlags(int flags) override
   {
- SetIndividualFlags(flags);
+    SetIndividualFlags(flags);
   }
     // getters:
   wxString GetTitle() const override;
@@ -48,12 +48,12 @@ public:
   bool IsReorderable() const override;
   int GetFlags() const override
   {
- return GetFromIndividualFlags();
+    return GetFromIndividualFlags();
   }
     // implementation
   GtkWidget* GetGtkHandle() const
   {
- return m_column;
+    return m_column;
   }
 private:
     // holds the GTK handle
@@ -77,13 +77,12 @@ class WXDLLIMPEXP_CORE wxDataViewCtrl : public wxDataViewCtrlBase
 public:
   wxDataViewCtrl()
   {
-        Init();
+    Init();
   }
   wxDataViewCtrl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxDataViewCtrlNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxDataViewCtrlNameStr));
   virtual ~wxDataViewCtrl();
@@ -120,15 +119,15 @@ public:
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
   wxWindow* GetMainWindow()
   {
- return (wxWindow*) this;
+    return (wxWindow*) this;
   }
   GtkWidget* GtkGetTreeView()
   {
- return m_treeview;
+    return m_treeview;
   }
   wxDataViewCtrlInternal* GtkGetInternal()
   {
- return m_internal;
+    return m_internal;
   }
     // Convert GTK path to our item. Returned item may be invalid if get_iter()
     // failed.
@@ -141,20 +140,20 @@ public:
   void OnInternalIdle() override;
   int GTKGetUniformRowHeight() const
   {
- return m_uniformRowHeight;
+    return m_uniformRowHeight;
   }
     // Simple RAII helper for disabling selection events during its lifetime.
   class SelectionEventsSuppressor
   {
   public:
     explicit SelectionEventsSuppressor(wxDataViewCtrl* ctrl)
-      :  m_ctrl(ctrl)
+      : m_ctrl(ctrl)
     {
-            m_ctrl->GtkDisableSelectionEvents();
+      m_ctrl->GtkDisableSelectionEvents();
     }
     ~SelectionEventsSuppressor()
     {
-            m_ctrl->GtkEnableSelectionEvents();
+      m_ctrl->GtkEnableSelectionEvents();
     }
   private:
     wxDataViewCtrl* const m_ctrl;

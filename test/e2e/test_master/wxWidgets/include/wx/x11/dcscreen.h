@@ -21,6 +21,7 @@ public:
   virtual ~wxScreenDCImpl();
 protected:
   virtual void DoGetSize(int* width, int* height) const;
+private:
   wxDECLARE_CLASS(wxScreenDCImpl);
 };
 #endif

@@ -94,15 +94,15 @@ public:
   virtual Acad::ErrorStatus setClipBoundaryToWholeImage(AcGeVector2d& size);
   Acad::ErrorStatus setClipBoundaryToWholeImage()
   {
-        AcGeVector2d size(0, 0);
-        return setClipBoundaryToWholeImage(size);
+    AcGeVector2d size(0, 0);
+    return setClipBoundaryToWholeImage(size);
   }
 #  else 
   virtual Acad::ErrorStatus setClipBoundaryToWholeImage(AcGeVector2d& size);
   virtual Acad::ErrorStatus setClipBoundaryToWholeImage()
   {
-        AcGeVector2d size(0, 0);
-        return setClipBoundaryToWholeImage(size);
+    AcGeVector2d size(0, 0);
+    return setClipBoundaryToWholeImage(size);
   }
 #  endif
   virtual Acad::ErrorStatus setClipBoundary(ClipBoundaryType type, const AcGePoint2dArray&);
@@ -184,14 +184,14 @@ private:
     //
   void* operator new[](size_t)
   {
- return (void*)0;
+    return (void*) 0;
   }
   void operator delete[](void*)
   {
   }
   void* operator new[](size_t, const char*, int)
   {
- return (void*)0;
+    return (void*) 0;
   }
   RasterImageImp* mpImp;
   static ClassVersion mVersion;
@@ -201,42 +201,42 @@ private:
 //returns the implementation class pointer
 inline RasterImageImp* AcDbRasterImage::ptrImp() const
 {
-    return mpImp;
+  return mpImp;
 }
 //sets the implementation class pointer
 inline RasterImageImp* AcDbRasterImage::setPtrImp(RasterImageImp* pImp)
 {
-    RasterImageImp* oldImp=mpImp;
-    mpImp=pImp;
-    return oldImp;
+  RasterImageImp* oldImp = mpImp;
+  mpImp = pImp;
+  return oldImp;
 }
 inline ClassVersion AcDbRasterImage::classVersion()
 {
-   return mVersion;
+  return mVersion;
 }
 inline void pixelToModel(const AcGeMatrix3d& pixToMod, const AcGePoint2d& pixPt, AcGePoint3d& modPt)
 {
     // Transform pixel coordinates to model space.
     //
-    modPt.set(pixPt.x, pixPt.y, 0);
-    modPt.transformBy(pixToMod);
+  modPt.set(pixPt.x, pixPt.y, 0);
+  modPt.transformBy(pixToMod);
 }
 inline void modelToPixel(const AcGeMatrix3d& modToPix, const AcGePoint3d& modPt, AcGePoint2d& pixPt)
 {
     // Transform model coordinates to pixel space.
     //
-    AcGePoint3d modelPt = modPt;
-    modelPt.transformBy(modToPix);
-    pixPt.set(modelPt.x, modelPt.y);
+  AcGePoint3d modelPt = modPt;
+  modelPt.transformBy(modToPix);
+  pixPt.set(modelPt.x, modelPt.y);
 }
 inline void modelToPixel(const AcGeVector3d& viewDir, const AcGeMatrix3d& modToPix, const AcGePlane& plane, const AcGePoint3d& modPt, AcGePoint2d& pixPt)
 {
     // Project the point in the viewpoint direction
     // onto the plane of the image.
     //
-    AcGePoint3d ptOnPlane = modPt.project(plane, viewDir);
-    ptOnPlane.transformBy(modToPix);
-    pixPt.set(ptOnPlane.x, ptOnPlane.y);
+  AcGePoint3d ptOnPlane = modPt.project(plane, viewDir);
+  ptOnPlane.transformBy(modToPix);
+  pixPt.set(ptOnPlane.x, ptOnPlane.y);
 }
 #  pragma  warning( default : 4275 ) 
 #  pragma  pack (pop)

@@ -16,21 +16,21 @@ namespace SkSL
   struct ExternalValueReference : public Expression
   {
     ExternalValueReference(int offset, ExternalValue* ev)
-      :  INHERITED(offset, kExternalValue_Kind, ev->type())
-    , fValue(ev)
+      : INHERITED(offset, kExternalValue_Kind, ev->type())
+      , fValue(ev)
     {
     }
     bool hasSideEffects() const override
     {
-        return true;
+      return true;
     }
     String description() const override
     {
-        return String(fValue->fName);
+      return String(fValue->fName);
     }
     std::unique_ptr<Expression> clone() const override
     {
-        return std::unique_ptr<Expression>(new ExternalValueReference(fOffset, fValue));
+      return std::unique_ptr<Expression>(new ExternalValueReference(fOffset, fValue));
     }
     ExternalValue* fValue;
     typedef Expression INHERITED;

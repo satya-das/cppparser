@@ -21,7 +21,7 @@ public:
   virtual ~SkImage_GpuBase();
   GrContext* context() const final
   {
- return fContext.get();
+    return fContext.get();
   }
   bool getROPixels(SkBitmap*, CachingHint) const final;
   sk_sp<SkImage> onMakeSubset(GrRecordingContext*, const SkIRect& subset) const final;
@@ -29,14 +29,14 @@ public:
   sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext* context) const override
   {
         // we shouldn't end up calling this
-        SkASSERT(false);
-        return this->INHERITED::asTextureProxyRef(context);
+    SkASSERT(false);
+    return this->INHERITED::asTextureProxyRef(context);
   }
   sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*, const GrSamplerState&, SkScalar scaleAdjust[2]) const final;
   sk_sp<GrTextureProxy> refPinnedTextureProxy(GrRecordingContext* context, uint32_t* uniqueID) const final
   {
-        *uniqueID = this->uniqueID();
-        return this->asTextureProxyRef(context);
+    *uniqueID = this->uniqueID();
+    return this->asTextureProxyRef(context);
   }
   GrBackendTexture onGetBackendTexture(bool flushPendingGrContextIO, GrSurfaceOrigin* origin) const final;
   GrTexture* onGetTexture() const final;
@@ -48,8 +48,7 @@ public:
   static bool MakeTempTextureProxies(GrContext* ctx, const GrBackendTexture yuvaTextures[], int numTextures, const SkYUVAIndex[4], GrSurfaceOrigin imageOrigin, sk_sp<GrTextureProxy> tempTextureProxies[4]);
   static SkAlphaType GetAlphaTypeFromYUVAIndices(const SkYUVAIndex yuvaIndices[4])
   {
-        return -1 != yuvaIndices[SkYUVAIndex::kA_Index].fIndex ? kPremul_SkAlphaType
-                                                               : kOpaque_SkAlphaType;
+    return -1 != yuvaIndices[SkYUVAIndex::kA_Index].fIndex ? kPremul_SkAlphaType : kOpaque_SkAlphaType;
   }
   using PromiseImageTextureContext = SkDeferredDisplayListRecorder::PromiseImageTextureContext;
   using PromiseImageTextureFulfillProc = SkDeferredDisplayListRecorder::PromiseImageTextureFulfillProc;

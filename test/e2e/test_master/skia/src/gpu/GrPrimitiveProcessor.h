@@ -48,35 +48,37 @@ public:
   public:
     Attribute();
     Attribute(const char* name, GrVertexAttribType cpuType, GrSLType gpuType)
-      :  fName(name), fCPUType(cpuType), fGPUType(gpuType)
+      : fName(name)
+      , fCPUType(cpuType)
+      , fGPUType(gpuType)
     {
     }
     Attribute(const Attribute&);
     Attribute& operator=(const Attribute&);
     constexpr bool isInitialized() const
     {
- return SkToBool(fName);
+      return SkToBool(fName);
     }
     constexpr const char* name() const
     {
- return fName;
+      return fName;
     }
     constexpr GrVertexAttribType cpuType() const
     {
- return fCPUType;
+      return fCPUType;
     }
     constexpr GrSLType gpuType() const
     {
- return fGPUType;
+      return fGPUType;
     }
     inline constexpr size_t size() const;
     constexpr size_t sizeAlign4() const
     {
- return SkAlign4(this->size());
+      return SkAlign4(this->size());
     }
     GrShaderVar asShaderVar() const
     {
-            return {fName, fGPUType, GrShaderVar::kIn_TypeModifier};
+      return {fName, fGPUType, GrShaderVar::kIn_TypeModifier};
     }
   private:
     const char* fName = nullptr;
@@ -87,50 +89,58 @@ public:
   {
   public:
     Iter()
-      :  fCurr(nullptr), fRemaining(0)
+      : fCurr(nullptr)
+      , fRemaining(0)
     {
     }
     Iter(const Iter& iter)
-      :  fCurr(iter.fCurr), fRemaining(iter.fRemaining)
+      : fCurr(iter.fCurr)
+      , fRemaining(iter.fRemaining)
     {
     }
     Iter& operator=(const Iter& iter)
     {
-            fCurr = iter.fCurr;
-            fRemaining = iter.fRemaining;
-            return *this;
+      fCurr = iter.fCurr;
+      fRemaining = iter.fRemaining;
+      return *this;
     }
     Iter(const Attribute* attrs, int count)
-      :  fCurr(attrs), fRemaining(count)
+      : fCurr(attrs)
+      , fRemaining(count)
     {
-            this->skipUninitialized();
+      this->skipUninitialized();
     }
     bool operator!=(const Iter& that) const
     {
- return fCurr != that.fCurr;
+      return fCurr != that.fCurr;
     }
     const Attribute& operator*() const
     {
- return *fCurr;
+      return *fCurr;
     }
     void operator++()
     {
-            if (fRemaining) {
-                fRemaining--;
-                fCurr++;
-                this->skipUninitialized();
-            }
+      if (fRemaining)
+      {
+        fRemaining--;
+        fCurr++;
+        this->skipUninitialized();
+      }
     }
   private:
     void skipUninitialized()
     {
-            if (!fRemaining) {
-                fCurr = nullptr;
-            } else {
-                while (!fCurr->isInitialized()) {
-                    ++fCurr;
-                }
-            }
+      if (!fRemaining)
+      {
+        fCurr = nullptr;
+      }
+      else 
+      {
+        while (!fCurr->isInitialized())
+        {
+          ++fCurr;
+        }
+      }
     }
     const Attribute* fCurr;
     int fRemaining;
@@ -140,26 +150,28 @@ public:
   public:
     Iter begin() const
     {
- return Iter(fAttributes, fCount);
+      return Iter(fAttributes, fCount);
     }
     Iter end() const
     {
- return Iter();
+      return Iter();
     }
   private:
     friend class GrPrimitiveProcessor;
     void init(const Attribute* attrs, int count)
     {
-            fAttributes = attrs;
-            fRawCount = count;
-            fCount = 0;
-            fStride = 0;
-            for (int i = 0; i < count; ++i) {
-                if (attrs[i].isInitialized()) {
-                    fCount++;
-                    fStride += attrs[i].sizeAlign4();
-                }
-            }
+      fAttributes = attrs;
+      fRawCount = count;
+      fCount = 0;
+      fStride = 0;
+      for (int i = 0; i < count; ++i)
+      {
+        if (attrs[i].isInitialized())
+        {
+          fCount++;
+          fStride += attrs[i].sizeAlign4();
+        }
+      }
     }
     const Attribute* fAttributes = nullptr;
     int fRawCount = 0;
@@ -169,32 +181,32 @@ public:
   GrPrimitiveProcessor(ClassID);
   int numTextureSamplers() const
   {
- return fTextureSamplerCnt;
+    return fTextureSamplerCnt;
   }
   const TextureSampler& textureSampler(int index) const;
   int numVertexAttributes() const
   {
- return fVertexAttributes.fCount;
+    return fVertexAttributes.fCount;
   }
   const AttributeSet& vertexAttributes() const
   {
- return fVertexAttributes;
+    return fVertexAttributes;
   }
   int numInstanceAttributes() const
   {
- return fInstanceAttributes.fCount;
+    return fInstanceAttributes.fCount;
   }
   const AttributeSet& instanceAttributes() const
   {
- return fInstanceAttributes;
+    return fInstanceAttributes;
   }
   bool hasVertexAttributes() const
   {
- return SkToBool(fVertexAttributes.fCount);
+    return SkToBool(fVertexAttributes.fCount);
   }
   bool hasInstanceAttributes() const
   {
- return SkToBool(fInstanceAttributes.fCount);
+    return SkToBool(fInstanceAttributes.fCount);
   }
     /**
      * A common practice is to populate the the vertex/instance's memory using an implicit array of
@@ -203,11 +215,11 @@ public:
      */
   size_t vertexStride() const
   {
- return fVertexAttributes.fStride;
+    return fVertexAttributes.fStride;
   }
   size_t instanceStride() const
   {
- return fInstanceAttributes.fStride;
+    return fInstanceAttributes.fStride;
   }
     // Only the GrGeometryProcessor subclass actually has a geo shader or vertex attributes, but
     // we put these calls on the base class to prevent having to cast
@@ -230,17 +242,11 @@ public:
   {
         // Ensure that our CPU and GPU type fields fit together in a 32-bit value, and we never
         // collide with the "uninitialized" value.
-        static_assert(kGrVertexAttribTypeCount < (1 << 8), "");
-        static_assert(kGrSLTypeCount           < (1 << 8), "");
-
-        auto add_attributes = [=](const Attribute* attrs, int attrCount) {
-            for (int i = 0; i < attrCount; ++i) {
-                b->add32(attrs[i].isInitialized() ? (attrs[i].cpuType() << 16) | attrs[i].gpuType()
-                                                  : ~0);
-            }
-        };
-        add_attributes(fVertexAttributes.fAttributes, fVertexAttributes.fRawCount);
-        add_attributes(fInstanceAttributes.fAttributes, fInstanceAttributes.fRawCount);
+    static_assert(kGrVertexAttribTypeCount < (1 << 8), "");
+    static_assert(kGrSLTypeCount < (1 << 8), "");
+    auto add_attributes = ;
+    add_attributes(fVertexAttributes.fAttributes, fVertexAttributes.fRawCount);
+    add_attributes(fInstanceAttributes.fAttributes, fInstanceAttributes.fRawCount);
   }
     /** Returns a new instance of the appropriate *GL* implementation class
         for the given GrProcessor; caller is responsible for deleting
@@ -248,22 +254,22 @@ public:
   virtual GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const = 0;
   virtual bool isPathRendering() const
   {
- return false;
+    return false;
   }
 protected:
   void setVertexAttributes(const Attribute* attrs, int attrCount)
   {
-        fVertexAttributes.init(attrs, attrCount);
+    fVertexAttributes.init(attrs, attrCount);
   }
   void setInstanceAttributes(const Attribute* attrs, int attrCount)
   {
-        SkASSERT(attrCount >= 0);
-        fInstanceAttributes.init(attrs, attrCount);
+    SkASSERT(attrCount >= 0);
+    fInstanceAttributes.init(attrs, attrCount);
   }
   void setTextureSamplerCnt(int cnt)
   {
-        SkASSERT(cnt >= 0);
-        fTextureSamplerCnt = cnt;
+    SkASSERT(cnt >= 0);
+    fTextureSamplerCnt = cnt;
   }
     /**
      * Helper for implementing onTextureSampler(). E.g.:
@@ -272,13 +278,13 @@ protected:
   template <typename... Args>
   static const TextureSampler& IthTextureSampler(int i, const TextureSampler& samp0, const Args&... samps)
   {
-        return (0 == i) ? samp0 : IthTextureSampler(i - 1, samps...);
+    return (0 == i) ? samp0 : IthTextureSampler(i - 1, samps...);
   }
   static const TextureSampler& IthTextureSampler(int i);
 private:
   virtual const TextureSampler& onTextureSampler(int) const
   {
- return IthTextureSampler(0);
+    return IthTextureSampler(0);
   }
   AttributeSet fVertexAttributes;
   AttributeSet fInstanceAttributes;
@@ -304,23 +310,23 @@ public:
   void reset(GrTextureType, GrSamplerState::Filter, GrSamplerState::WrapMode wrapXAndY, const GrSwizzle& swizzle);
   GrTextureType textureType() const
   {
- return fTextureType;
+    return fTextureType;
   }
   const GrSamplerState& samplerState() const
   {
- return fSamplerState;
+    return fSamplerState;
   }
   const GrSwizzle& swizzle() const
   {
- return fSwizzle;
+    return fSwizzle;
   }
   uint32_t extraSamplerKey() const
   {
- return fExtraSamplerKey;
+    return fExtraSamplerKey;
   }
   bool isInitialized() const
   {
- return fIsInitialized;
+    return fIsInitialized;
   }
 private:
   GrSamplerState fSamplerState;
@@ -331,9 +337,9 @@ private:
 };
 const GrPrimitiveProcessor::TextureSampler& GrPrimitiveProcessor::IthTextureSampler(int i)
 {
-    SK_ABORT("Illegal texture sampler index");
-    static const TextureSampler kBogus;
-    return kBogus;
+  SK_ABORT("Illegal texture sampler index");
+  static const TextureSampler kBogus;
+  return kBogus;
 }
 //////////////////////////////////////////////////////////////////////////////
 
@@ -344,74 +350,75 @@ const GrPrimitiveProcessor::TextureSampler& GrPrimitiveProcessor::IthTextureSamp
  */
 static constexpr size_t GrVertexAttribTypeSize(GrVertexAttribType type)
 {
-    switch (type) {
-        case kFloat_GrVertexAttribType:
-            return sizeof(float);
-        case kFloat2_GrVertexAttribType:
-            return 2 * sizeof(float);
-        case kFloat3_GrVertexAttribType:
-            return 3 * sizeof(float);
-        case kFloat4_GrVertexAttribType:
-            return 4 * sizeof(float);
-        case kHalf_GrVertexAttribType:
-            return sizeof(uint16_t);
-        case kHalf2_GrVertexAttribType:
-            return 2 * sizeof(uint16_t);
-        case kHalf3_GrVertexAttribType:
-            return 3 * sizeof(uint16_t);
-        case kHalf4_GrVertexAttribType:
-            return 4 * sizeof(uint16_t);
-        case kInt2_GrVertexAttribType:
-            return 2 * sizeof(int32_t);
-        case kInt3_GrVertexAttribType:
-            return 3 * sizeof(int32_t);
-        case kInt4_GrVertexAttribType:
-            return 4 * sizeof(int32_t);
-        case kByte_GrVertexAttribType:
-            return 1 * sizeof(char);
-        case kByte2_GrVertexAttribType:
-            return 2 * sizeof(char);
-        case kByte3_GrVertexAttribType:
-            return 3 * sizeof(char);
-        case kByte4_GrVertexAttribType:
-            return 4 * sizeof(char);
-        case kUByte_GrVertexAttribType:
-            return 1 * sizeof(char);
-        case kUByte2_GrVertexAttribType:
-            return 2 * sizeof(char);
-        case kUByte3_GrVertexAttribType:
-            return 3 * sizeof(char);
-        case kUByte4_GrVertexAttribType:
-            return 4 * sizeof(char);
-        case kUByte_norm_GrVertexAttribType:
-            return 1 * sizeof(char);
-        case kUByte4_norm_GrVertexAttribType:
-            return 4 * sizeof(char);
-        case kShort2_GrVertexAttribType:
-            return 2 * sizeof(int16_t);
-        case kShort4_GrVertexAttribType:
-            return 4 * sizeof(int16_t);
-        case kUShort2_GrVertexAttribType: // fall through
-        case kUShort2_norm_GrVertexAttribType:
-            return 2 * sizeof(uint16_t);
-        case kInt_GrVertexAttribType:
-            return sizeof(int32_t);
-        case kUint_GrVertexAttribType:
-            return sizeof(uint32_t);
-        case kUShort_norm_GrVertexAttribType:
-            return sizeof(uint16_t);
-        case kUShort4_norm_GrVertexAttribType:
-            return 4 * sizeof(uint16_t);
-    }
+  switch(type)
+  {
+    case kFloat_GrVertexAttribType:
+      return sizeof(float);
+    case kFloat2_GrVertexAttribType:
+      return 2 * sizeof(float);
+    case kFloat3_GrVertexAttribType:
+      return 3 * sizeof(float);
+    case kFloat4_GrVertexAttribType:
+      return 4 * sizeof(float);
+    case kHalf_GrVertexAttribType:
+      return sizeof(uint16_t);
+    case kHalf2_GrVertexAttribType:
+      return 2 * sizeof(uint16_t);
+    case kHalf3_GrVertexAttribType:
+      return 3 * sizeof(uint16_t);
+    case kHalf4_GrVertexAttribType:
+      return 4 * sizeof(uint16_t);
+    case kInt2_GrVertexAttribType:
+      return 2 * sizeof(int32_t);
+    case kInt3_GrVertexAttribType:
+      return 3 * sizeof(int32_t);
+    case kInt4_GrVertexAttribType:
+      return 4 * sizeof(int32_t);
+    case kByte_GrVertexAttribType:
+      return 1 * sizeof(char);
+    case kByte2_GrVertexAttribType:
+      return 2 * sizeof(char);
+    case kByte3_GrVertexAttribType:
+      return 3 * sizeof(char);
+    case kByte4_GrVertexAttribType:
+      return 4 * sizeof(char);
+    case kUByte_GrVertexAttribType:
+      return 1 * sizeof(char);
+    case kUByte2_GrVertexAttribType:
+      return 2 * sizeof(char);
+    case kUByte3_GrVertexAttribType:
+      return 3 * sizeof(char);
+    case kUByte4_GrVertexAttribType:
+      return 4 * sizeof(char);
+    case kUByte_norm_GrVertexAttribType:
+      return 1 * sizeof(char);
+    case kUByte4_norm_GrVertexAttribType:
+      return 4 * sizeof(char);
+    case kShort2_GrVertexAttribType:
+      return 2 * sizeof(int16_t);
+    case kShort4_GrVertexAttribType:
+      return 4 * sizeof(int16_t);
+    case kUShort2_GrVertexAttribType:
+    case kUShort2_norm_GrVertexAttribType:
+      return 2 * sizeof(uint16_t);
+    case kInt_GrVertexAttribType:
+      return sizeof(int32_t);
+    case kUint_GrVertexAttribType:
+      return sizeof(uint32_t);
+    case kUShort_norm_GrVertexAttribType:
+      return sizeof(uint16_t);
+    case kUShort4_norm_GrVertexAttribType:
+      return 4 * sizeof(uint16_t);
+  }
     // GCC fails because SK_ABORT evaluates to non constexpr. clang and cl.exe think this is
     // unreachable and don't complain.
-#if defined(__clang__) || !defined(__GNUC__)
-    SK_ABORT("Unsupported type conversion");
-#endif
-    return 0;
+#  if  defined(__clang__) || !defined(__GNUC__)
+  SK_ABORT("Unsupported type conversion");
+#  endif
+  return 0;
 }
 constexpr size_t GrPrimitiveProcessor::Attribute::size() const
 {
-    return GrVertexAttribTypeSize(fCPUType);
+  return GrVertexAttribTypeSize(fCPUType);
 }
 #endif

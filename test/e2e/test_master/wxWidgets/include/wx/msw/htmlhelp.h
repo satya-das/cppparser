@@ -134,9 +134,7 @@
 #  define HHN_NAVCOMPLETE	HHN_FIRST
 #  define HHN_TRACK(HHN_FIRST-1)
 #  define HHN_WINDOW_CREATE(HHN_FIRST-2)
-#  ifdef __cplusplus
 extern "C" {
-#  endif
   typedef struct tagHH_NOTIFY
 {
   NMHDR hdr;
@@ -431,7 +429,5 @@ extern "C" {
   VARIANT var;
 } HH_GLOBAL_PROPERTY;
 #  endif
-#  ifdef __cplusplus
   }
-#  endif
 #endif

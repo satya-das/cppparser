@@ -14,14 +14,13 @@
 struct wxLaunchBrowserParams
 {
   explicit wxLaunchBrowserParams(int f)
-    :  flags(f)
+    : flags(f)
   {
-
   }
     // Return either the URL or the file depending on our scheme.
   const wxString& GetPathOrURL() const
   {
-        return scheme == wxS("file") ? path : url;
+    return scheme == wxS("file") ? path : url;
   }
     // The URL is always specified and is the real URL, always with the scheme
     // part, which can be "file://".

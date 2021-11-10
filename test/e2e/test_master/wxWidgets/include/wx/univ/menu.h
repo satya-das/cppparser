@@ -27,14 +27,14 @@ class WXDLLIMPEXP_CORE wxMenu : public wxMenuBase
 public:
     // ctors and dtor
   wxMenu(const wxString& title, long style = 0)
-    :  wxMenuBase(title, style)
+    : wxMenuBase(title, style)
   {
- Init();
+    Init();
   }
   wxMenu(long style = 0)
-    :  wxMenuBase(style)
+    : wxMenuBase(style)
   {
- Init();
+    Init();
   }
   virtual ~wxMenu();
     // called by wxMenuItem when an item of this menu changes
@@ -42,7 +42,7 @@ public:
     // does the menu have any items?
   bool IsEmpty() const
   {
- return !GetMenuItems().GetFirst();
+    return !GetMenuItems().GetFirst();
   }
     // show this menu at the given position (in screen coords) and optionally
     // select its first item
@@ -117,7 +117,7 @@ public:
     // ctors and dtor
   wxMenuBar(long = 0)
   {
- Init();
+    Init();
   }
   wxMenuBar(size_t n, wxMenu* menus[], const wxString titles[], long style = 0);
   virtual ~wxMenuBar();
@@ -170,12 +170,12 @@ protected:
     // has the menubar been created already?
   bool IsCreated() const
   {
- return m_frameLast != NULL;
+    return m_frameLast != NULL;
   }
     // "fast" version of GetMenuCount()
   size_t GetCount() const
   {
- return m_menuInfos.GetCount();
+    return m_menuInfos.GetCount();
   }
     // get the (total) width of the specified menu
   wxCoord GetItemWidth(size_t pos) const;
@@ -196,7 +196,7 @@ protected:
     // do we show a menu currently?
   bool IsShowingMenu() const
   {
- return m_menuShown != 0;
+    return m_menuShown != 0;
   }
     // we don't want to have focus except while selecting from menu
   void GiveAwayFocus();

@@ -15,8 +15,10 @@ struct wxMatrix2D
 {
   wxMatrix2D(wxDouble v11 = 1, wxDouble v12 = 0, wxDouble v21 = 0, wxDouble v22 = 1)
   {
-        m_11 = v11; m_12 = v12;
-        m_21 = v21; m_22 = v22;
+    m_11 = v11;
+    m_12 = v12;
+    m_21 = v21;
+    m_22 = v22;
   }
   wxDouble m_11, m_12, m_21, m_22;
 };
@@ -48,11 +50,11 @@ public:
   virtual bool IsEqual(const wxAffineMatrix2DBase& t) const = 0;
   bool operator==(const wxAffineMatrix2DBase& t) const
   {
- return IsEqual(t);
+    return IsEqual(t);
   }
   bool operator!=(const wxAffineMatrix2DBase& t) const
   {
- return !IsEqual(t);
+    return !IsEqual(t);
   }
     //
     // transformations
@@ -67,36 +69,33 @@ public:
     // add mirroring to this matrix
   void Mirror(int direction = wxHORIZONTAL)
   {
-        wxDouble x = (direction & wxHORIZONTAL) ? -1 : 1;
-        wxDouble y = (direction & wxVERTICAL) ? -1 : 1;
-        Scale(x, y);
+    wxDouble x = (direction & wxHORIZONTAL) ? -1 : 1;
+    wxDouble y = (direction & wxVERTICAL) ? -1 : 1;
+    Scale(x, y);
   }
     // applies that matrix to the point
   wxPoint2DDouble TransformPoint(const wxPoint2DDouble& src) const
   {
-        return DoTransformPoint(src);
+    return DoTransformPoint(src);
   }
   void TransformPoint(wxDouble* x, wxDouble* y) const
   {
-        wxCHECK_RET( x && y, "Can't be NULL" );
-
-        const wxPoint2DDouble dst = DoTransformPoint(wxPoint2DDouble(*x, *y));
-        *x = dst.m_x;
-        *y = dst.m_y;
+    wxCHECK_RET(x && y, "Can't be NULL");
+    const wxPoint2DDouble dst = DoTransformPoint(wxPoint2DDouble(*x, *y));
+    *x = dst.m_x;
+    *y = dst.m_y;
   }
     // applies the matrix except for translations
   wxPoint2DDouble TransformDistance(const wxPoint2DDouble& src) const
   {
-        return DoTransformDistance(src);
+    return DoTransformDistance(src);
   }
   void TransformDistance(wxDouble* dx, wxDouble* dy) const
   {
-        wxCHECK_RET( dx && dy, "Can't be NULL" );
-
-        const wxPoint2DDouble
-            dst = DoTransformDistance(wxPoint2DDouble(*dx, *dy));
-        *dx = dst.m_x;
-        *dy = dst.m_y;
+    wxCHECK_RET(dx && dy, "Can't be NULL");
+    const wxPoint2DDouble dst = DoTransformDistance(wxPoint2DDouble(*dx, *dy));
+    *dx = dst.m_x;
+    *dy = dst.m_y;
   }
 protected:
   virtual wxPoint2DDouble DoTransformPoint(const wxPoint2DDouble& p) const = 0;

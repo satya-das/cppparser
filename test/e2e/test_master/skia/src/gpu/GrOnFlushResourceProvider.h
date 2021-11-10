@@ -49,7 +49,7 @@ public:
      */
   virtual bool retainOnFreeGpuResources()
   {
- return false;
+    return false;
   }
 };
 /*
@@ -62,7 +62,7 @@ class GrOnFlushResourceProvider
 public:
   using UseAllocator = GrSurfaceProxy::UseAllocator;
   explicit GrOnFlushResourceProvider(GrDrawingManager* drawingMgr)
-    :  fDrawingMgr(drawingMgr)
+    : fDrawingMgr(drawingMgr)
   {
   }
   std::unique_ptr<GrRenderTargetContext> makeRenderTargetContext(sk_sp<GrSurfaceProxy>, GrColorType, sk_sp<SkColorSpace>, const SkSurfaceProps*);

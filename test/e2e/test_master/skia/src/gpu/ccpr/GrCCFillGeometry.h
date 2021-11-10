@@ -46,28 +46,31 @@ public:
     bool operator==(const PrimitiveTallies&);
   };
   GrCCFillGeometry(int numSkPoints = 0, int numSkVerbs = 0, int numConicWeights = 0)
-    :  fPoints(numSkPoints * 3) // Reserve for a 3x expansion in points and verbs.
-            , fVerbs(numSkVerbs * 3)
-            , fConicWeights(numConicWeights * 3/2)
+    : fPoints(numSkPoints * 3)
+    , fVerbs(numSkVerbs * 3)
+    , fConicWeights(numConicWeights * 3 / 2)
   {
   }
   const SkTArray<SkPoint, true>& points() const
   {
- SkASSERT(!fBuildingContour); return fPoints;
+    SkASSERT(!fBuildingContour);
+    return fPoints;
   }
   const SkTArray<Verb, true>& verbs() const
   {
- SkASSERT(!fBuildingContour); return fVerbs;
+    SkASSERT(!fBuildingContour);
+    return fVerbs;
   }
   float getConicWeight(int idx) const
   {
- SkASSERT(!fBuildingContour); return fConicWeights[idx];
+    SkASSERT(!fBuildingContour);
+    return fConicWeights[idx];
   }
   void reset()
   {
-        SkASSERT(!fBuildingContour);
-        fPoints.reset();
-        fVerbs.reset();
+    SkASSERT(!fBuildingContour);
+    fPoints.reset();
+    fVerbs.reset();
   }
   void beginPath();
   void beginContour(const SkPoint&);
@@ -109,23 +112,18 @@ private:
 };
 inline void GrCCFillGeometry::PrimitiveTallies::operator+=(const PrimitiveTallies& b)
 {
-    fTriangles += b.fTriangles;
-    fWeightedTriangles += b.fWeightedTriangles;
-    fQuadratics += b.fQuadratics;
-    fCubics += b.fCubics;
-    fConics += b.fConics;
+  fTriangles += b.fTriangles;
+  fWeightedTriangles += b.fWeightedTriangles;
+  fQuadratics += b.fQuadratics;
+  fCubics += b.fCubics;
+  fConics += b.fConics;
 }
 inline GrCCFillGeometry::PrimitiveTallies GrCCFillGeometry::PrimitiveTallies::operator-(const PrimitiveTallies& b) const
 {
-    return {fTriangles - b.fTriangles,
-            fWeightedTriangles - b.fWeightedTriangles,
-            fQuadratics - b.fQuadratics,
-            fCubics - b.fCubics,
-            fConics - b.fConics};
+  return {fTriangles - b.fTriangles, fWeightedTriangles - b.fWeightedTriangles, fQuadratics - b.fQuadratics, fCubics - b.fCubics, fConics - b.fConics};
 }
 inline bool GrCCFillGeometry::PrimitiveTallies::operator==(const PrimitiveTallies& b)
 {
-    return fTriangles == b.fTriangles && fWeightedTriangles == b.fWeightedTriangles &&
-           fQuadratics == b.fQuadratics && fCubics == b.fCubics && fConics == b.fConics;
+  return fTriangles == b.fTriangles && fWeightedTriangles == b.fWeightedTriangles && fQuadratics == b.fQuadratics && fCubics == b.fCubics && fConics == b.fConics;
 }
 #endif

@@ -14,17 +14,17 @@ class SkRecordedDrawable : public SkDrawable
 {
 public:
   SkRecordedDrawable(sk_sp<SkRecord> record, sk_sp<SkBBoxHierarchy> bbh, std::unique_ptr<SkDrawableList> drawableList, const SkRect& bounds)
-    :  fRecord(std::move(record))
-        , fBBH(std::move(bbh))
-        , fDrawableList(std::move(drawableList))
-        , fBounds(bounds)
+    : fRecord(std::move(record))
+    , fBBH(std::move(bbh))
+    , fDrawableList(std::move(drawableList))
+    , fBounds(bounds)
   {
   }
   void flatten(SkWriteBuffer& buffer) const override;
 protected:
   SkRect onGetBounds() override
   {
- return fBounds;
+    return fBounds;
   }
   void onDraw(SkCanvas* canvas) override;
   SkPicture* onNewPictureSnapshot() override;

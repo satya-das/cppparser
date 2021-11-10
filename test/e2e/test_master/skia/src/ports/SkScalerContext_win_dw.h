@@ -40,7 +40,7 @@ private:
   bool isPngGlyph(const SkGlyph& glyph);
   DWriteFontTypeface* getDWriteTypeface()
   {
-        return static_cast<DWriteFontTypeface*>(this->getTypeface());
+    return static_cast<DWriteFontTypeface*>(this->getTypeface());
   }
   bool getColorGlyphRun(const SkGlyph& glyph, IDWriteColorGlyphRunEnumerator** colorGlyph);
   void generateColorMetrics(SkGlyph* glyph);

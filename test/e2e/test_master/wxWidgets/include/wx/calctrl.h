@@ -67,101 +67,103 @@ class WXDLLIMPEXP_CORE wxCalendarDateAttr
 public:
     // ctors
   wxCalendarDateAttr(const wxColour& colText = wxNullColour, const wxColour& colBack = wxNullColour, const wxColour& colBorder = wxNullColour, const wxFont& font = wxNullFont, wxCalendarDateBorder border = wxCAL_BORDER_NONE)
-    :  m_colText(colText), m_colBack(colBack),
-          m_colBorder(colBorder), m_font(font)
+    : m_colText(colText)
+    , m_colBack(colBack)
+    , m_colBorder(colBorder)
+    , m_font(font)
   {
-        Init(border);
+    Init(border);
   }
   wxCalendarDateAttr(wxCalendarDateBorder border, const wxColour& colBorder = wxNullColour)
-    :  m_colBorder(colBorder)
+    : m_colBorder(colBorder)
   {
-        Init(border);
+    Init(border);
   }
     // setters
   void SetTextColour(const wxColour& colText)
   {
- m_colText = colText;
+    m_colText = colText;
   }
   void SetBackgroundColour(const wxColour& colBack)
   {
- m_colBack = colBack;
+    m_colBack = colBack;
   }
   void SetBorderColour(const wxColour& col)
   {
- m_colBorder = col;
+    m_colBorder = col;
   }
   void SetFont(const wxFont& font)
   {
- m_font = font;
+    m_font = font;
   }
   void SetBorder(wxCalendarDateBorder border)
   {
- m_border = border;
+    m_border = border;
   }
   void SetHoliday(bool holiday)
   {
- m_holiday = holiday;
+    m_holiday = holiday;
   }
     // accessors
   bool HasTextColour() const
   {
- return m_colText.IsOk();
+    return m_colText.IsOk();
   }
   bool HasBackgroundColour() const
   {
- return m_colBack.IsOk();
+    return m_colBack.IsOk();
   }
   bool HasBorderColour() const
   {
- return m_colBorder.IsOk();
+    return m_colBorder.IsOk();
   }
   bool HasFont() const
   {
- return m_font.IsOk();
+    return m_font.IsOk();
   }
   bool HasBorder() const
   {
- return m_border != wxCAL_BORDER_NONE;
+    return m_border != wxCAL_BORDER_NONE;
   }
   bool IsHoliday() const
   {
- return m_holiday;
+    return m_holiday;
   }
   const wxColour& GetTextColour() const
   {
- return m_colText;
+    return m_colText;
   }
   const wxColour& GetBackgroundColour() const
   {
- return m_colBack;
+    return m_colBack;
   }
   const wxColour& GetBorderColour() const
   {
- return m_colBorder;
+    return m_colBorder;
   }
   const wxFont& GetFont() const
   {
- return m_font;
+    return m_font;
   }
   wxCalendarDateBorder GetBorder() const
   {
- return m_border;
+    return m_border;
   }
     // get or change the "mark" attribute, i.e. the one used for the items
     // marked with wxCalendarCtrl::Mark()
   static const wxCalendarDateAttr& GetMark()
   {
- return m_mark;
+    return m_mark;
   }
   static void SetMark(const wxCalendarDateAttr& m)
   {
- m_mark = m;
+    m_mark = m;
   }
 protected:
   void Init(wxCalendarDateBorder border = wxCAL_BORDER_NONE)
   {
-        m_border = border;
-        m_holiday = false;
+    m_border = border;
+    m_holiday = false;
   }
 private:
   static wxCalendarDateAttr m_mark;
@@ -178,32 +180,30 @@ class WXDLLIMPEXP_CORE wxCalendarEvent : public wxDateEvent
 {
 public:
   wxCalendarEvent()
-    :  m_wday(wxDateTime::Inv_WeekDay)
+    : m_wday(wxDateTime::Inv_WeekDay)
   {
-
   }
   wxCalendarEvent(wxWindow* win, const wxDateTime& dt, wxEventType type)
-    :  wxDateEvent(win, dt, type),
-          m_wday(wxDateTime::Inv_WeekDay)
+    : wxDateEvent(win, dt, type)
+    , m_wday(wxDateTime::Inv_WeekDay)
   {
-
   }
   wxCalendarEvent(const wxCalendarEvent& event)
-    :  wxDateEvent(event), m_wday(event.m_wday)
+    : wxDateEvent(event)
+    , m_wday(event.m_wday)
   {
-
   }
   void SetWeekDay(wxDateTime::WeekDay wd)
   {
- m_wday = wd;
+    m_wday = wd;
   }
   wxDateTime::WeekDay GetWeekDay() const
   {
- return m_wday;
+    return m_wday;
   }
   wxEvent* Clone() const override
   {
- return new wxCalendarEvent(*this);
+    return new wxCalendarEvent(*this);
   }
 private:
   wxDateTime::WeekDay m_wday;
@@ -218,7 +218,7 @@ public:
     // do we allow changing the month/year?
   bool AllowMonthChange() const
   {
- return !HasFlag(wxCAL_NO_MONTH_CHANGE);
+    return !HasFlag(wxCAL_NO_MONTH_CHANGE);
   }
     // get/set the current date
   virtual wxDateTime GetDate() const = 0;
@@ -231,18 +231,22 @@ public:
     // false is returned
   virtual bool SetDateRange(const wxDateTime& = wxDefaultDateTime, const wxDateTime& = wxDefaultDateTime)
   {
-        return false;
+    return false;
   }
     // retrieves the limits currently in use (wxDefaultDateTime if none) in the
     // provided pointers (which may be NULL) and returns true if there are any
     // limits or false if none
   virtual bool GetDateRange(wxDateTime* lowerdate, wxDateTime* upperdate) const
   {
-        if ( lowerdate )
-            *lowerdate = wxDefaultDateTime;
-        if ( upperdate )
-            *upperdate = wxDefaultDateTime;
-        return false;
+    if (lowerdate)
+    {
+      *lowerdate = wxDefaultDateTime;
+    }
+    if (upperdate)
+    {
+      *upperdate = wxDefaultDateTime;
+    }
+    return false;
   }
     // returns one of wxCAL_HITTEST_XXX constants and fills either date or wd
     // with the corresponding value (none for NOWHERE, the date for DAY and wd
@@ -251,7 +255,7 @@ public:
     // notice that this is not implemented in all versions
   virtual wxCalendarHitTestResult HitTest(const wxPoint&, wxDateTime* = NULL, wxDateTime::WeekDay* = NULL)
   {
-        return wxCAL_HITTEST_NOWHERE;
+    return wxCAL_HITTEST_NOWHERE;
   }
     // allow or disable changing the current month (and year), return true if
     // the value of this option really changed or false if it was already set
@@ -274,15 +278,14 @@ public:
   virtual void Mark(size_t day, bool mark) = 0;
   virtual wxCalendarDateAttr* GetAttr(size_t) const
   {
- return NULL;
+    return NULL;
   }
   virtual void SetAttr(size_t, wxCalendarDateAttr* attr)
   {
- delete attr;
+    delete attr;
   }
   virtual void ResetAttr(size_t)
   {
-
   }
     // holidays support
     //
@@ -296,20 +299,18 @@ public:
     // set/get the colours to use for holidays (if they're enabled)
   virtual void SetHolidayColours(const wxColour&, const wxColour&)
   {
-
   }
   virtual const wxColour& GetHolidayColourFg() const
   {
- return wxNullColour;
+    return wxNullColour;
   }
   virtual const wxColour& GetHolidayColourBg() const
   {
- return wxNullColour;
+    return wxNullColour;
   }
     // mark the given day of the current month as being a holiday
   virtual void SetHoliday(size_t)
   {
-
   }
     // customizing the colours of the controls
     //
@@ -320,28 +321,26 @@ public:
     // top of the controls
   virtual void SetHeaderColours(const wxColour&, const wxColour&)
   {
-
   }
   virtual const wxColour& GetHeaderColourFg() const
   {
- return wxNullColour;
+    return wxNullColour;
   }
   virtual const wxColour& GetHeaderColourBg() const
   {
- return wxNullColour;
+    return wxNullColour;
   }
     // set/get the colours used for the currently selected date
   virtual void SetHighlightColours(const wxColour&, const wxColour&)
   {
-
   }
   virtual const wxColour& GetHighlightColourFg() const
   {
- return wxNullColour;
+    return wxNullColour;
   }
   virtual const wxColour& GetHighlightColourBg() const
   {
- return wxNullColour;
+    return wxNullColour;
   }
     // implementation only from now on
 
@@ -350,8 +349,8 @@ public:
     // NB: this is public because it's used from GTK+ callbacks
   bool GenerateEvent(wxEventType type)
   {
-        wxCalendarEvent event(this, GetDate(), type);
-        return HandleWindowEvent(event);
+    wxCalendarEvent event(this, GetDate(), type);
+    return HandleWindowEvent(event);
   }
 protected:
     // generate all the events for the selection change from dateOld to current
@@ -369,12 +368,10 @@ protected:
     // called by SetHolidayAttrs() to forget the previously set holidays
   virtual void ResetHolidayAttrs()
   {
-
   }
     // called by EnableHolidayDisplay()
   virtual void RefreshHolidays()
   {
-
   }
     // does the week start on monday based on flags and OS settings?
   bool WeekStartsOnMonday() const;

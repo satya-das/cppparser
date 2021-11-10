@@ -17,10 +17,9 @@ public:
     // sourceId is the id of the watch in GTK context, not the FD of the file
     // this source corresponds to
   wxGTKEventLoopSource(unsigned sourceId, wxEventLoopSourceHandler* handler, int flags)
-    :  wxEventLoopSource(handler, flags),
-          m_sourceId(sourceId)
+    : wxEventLoopSource(handler, flags)
+    , m_sourceId(sourceId)
   {
-
   }
   virtual ~wxGTKEventLoopSource();
 private:

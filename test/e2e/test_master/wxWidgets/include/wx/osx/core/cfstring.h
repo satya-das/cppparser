@@ -29,29 +29,18 @@ class WXDLLIMPEXP_BASE wxCFStringRef : public wxCFRef< CFStringRef >
 public:
   wxCFStringRef()
   {
-
   }
   wxCFStringRef(const wxString& str, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
-#  ifdef __OBJC__
-  wxCFStringRef(WX_NSString ref)
-    :  wxCFRef< CFStringRef >((WX_OSX_BRIDGE_RETAINED CFStringRef) ref)
-  {
-
-  }
-#  endif
   wxCFStringRef(CFStringRef ref)
-    :  wxCFRef< CFStringRef >(ref)
+    : wxCFRef< CFStringRef >(ref)
   {
-
   }
   wxCFStringRef(const wxCFStringRef& otherRef)
-    :  wxCFRef< CFStringRef >(otherRef)
+    : wxCFRef< CFStringRef >(otherRef)
   {
-
   }
   ~wxCFStringRef()
   {
-
   }
   wxString AsString(wxFontEncoding encoding = wxFONTENCODING_DEFAULT) const;
   static wxString AsString(CFStringRef ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
@@ -59,12 +48,6 @@ public:
 #  ifdef __WXMAC__
   static wxString AsString(WX_NSString ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
   static wxString AsStringWithNormalizationFormC(WX_NSString ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
-#  endif
-#  ifdef __OBJC__
-  WX_NSString AsNSString() const
-  {
- return (WX_OSX_BRIDGE WX_NSString)(CFStringRef) *this;
-  }
 #  endif
 };
 /*! @function   wxCFStringRefFromGet
@@ -75,7 +58,7 @@ public:
 */
 inline wxCFStringRef wxCFStringRefFromGet(CFStringRef p)
 {
-    return wxCFStringRef(wxCFRetain(p));
+  return wxCFStringRef(wxCFRetain(p));
 }
 #  ifdef __WXMAC__
 /*! @function   wxCFStringRefFromGet
@@ -86,7 +69,7 @@ inline wxCFStringRef wxCFStringRefFromGet(CFStringRef p)
 */
 inline wxCFStringRef wxCFStringRefFromGet(NSString* p)
 {
-    return wxCFStringRefFromGet((WX_OSX_BRIDGE CFStringRef)p);
+  return wxCFStringRefFromGet((CFStringRef) p);
 }
 #  endif
 #endif

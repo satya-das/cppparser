@@ -95,12 +95,14 @@ public:
   struct Range
   {
     Range()
-      : lowerBound(0), upperBound(0)
+      : lowerBound(0)
+      , upperBound(0)
     {
     }
         ///<summary>Initializes a range to the specified lower and upper bounds.</summary>
     Range(int lb, int ub)
-      : lowerBound(lb), upperBound(ub)
+      : lowerBound(lb)
+      , upperBound(ub)
     {
     }
         ///<summary>Lower bound of the range</summary>
@@ -360,7 +362,8 @@ public:
     ///database changes.</remarks>
   virtual void changing(const AcRxVariable* sender, AcRxVariableChangingEventArgs& args)
   {
-        (sender); (args);   //Unreferenced parameter
+    (sender);
+    (args);
   }
     ///<summary>Called when a variable has changed.</summary>
     ///<param name='sender'>Pointer to the variable that has changed.</param>
@@ -371,6 +374,7 @@ public:
     ///database changes.</remarks>
   virtual void changed(const AcRxVariable* sender, const AcRxVariableChangedEventArgs& args)
   {
-        (sender); (args);   //Unreferenced parameter
+    (sender);
+    (args);
   }
 };

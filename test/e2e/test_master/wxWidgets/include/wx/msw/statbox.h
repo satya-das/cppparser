@@ -15,19 +15,18 @@ class WXDLLIMPEXP_CORE wxStaticBox : public wxCompositeWindowSettersOnly<wxStati
 {
 public:
   wxStaticBox()
-    :  wxCompositeWindowSettersOnly<wxStaticBoxBase>()
+    : wxCompositeWindowSettersOnly<wxStaticBoxBase>()
   {
-
   }
   wxStaticBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
-    :  wxCompositeWindowSettersOnly<wxStaticBoxBase>()
+    : wxCompositeWindowSettersOnly<wxStaticBoxBase>()
   {
-        Create(parent, id, label, pos, size, style, name);
+    Create(parent, id, label, pos, size, style, name);
   }
   wxStaticBox(wxWindow* parent, wxWindowID id, wxWindow* label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
-    :  wxCompositeWindowSettersOnly<wxStaticBoxBase>()
+    : wxCompositeWindowSettersOnly<wxStaticBoxBase>()
   {
-        Create(parent, id, label, pos, size, style, name);
+    Create(parent, id, label, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, wxWindow* label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr));
@@ -39,7 +38,7 @@ public:
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
   {
- return false;
+    return false;
   }
 protected:
   wxSize DoGetBestSize() const override;

@@ -14,15 +14,14 @@ class WXDLLIMPEXP_CORE wxStaticBox : public wxStaticBoxBase
 public:
   wxStaticBox()
   {
-
   }
   wxStaticBox(wxWindow* parent, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize)
   {
-        Create(parent, wxID_ANY, label, pos, size);
+    Create(parent, wxID_ANY, label, pos, size);
   }
   wxStaticBox(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr))
   {
-        Create(parent, id, label, pos, size, style, name);
+    Create(parent, id, label, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticBoxNameStr));
     // the origin of the static box is inside the border and under the label:
@@ -32,7 +31,7 @@ public:
     // our children
   bool IsStaticBox() const override
   {
- return true;
+    return true;
   }
 protected:
     // draw the control

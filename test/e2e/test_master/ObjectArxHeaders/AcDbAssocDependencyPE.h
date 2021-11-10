@@ -76,10 +76,10 @@ public:
     ///
   virtual Acad::ErrorStatus redirectDependencyAttachment(AcDbObject* pObject, const AcDbCompoundObjectId& compoundObjectId, AcDbAssocDependency* pDependency, AcDbCompoundObjectId& redirectedCompoundObjectId)
   {
-        ADESK_UNREFED_PARAM(pDependency);
-        ADESK_UNREFED_PARAM(pObject);
-        redirectedCompoundObjectId = compoundObjectId;
-        return Acad::eOk;
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(pObject);
+    redirectedCompoundObjectId = compoundObjectId;
+    return Acad::eOk;
   }
 };
 #pragma  pack (pop)

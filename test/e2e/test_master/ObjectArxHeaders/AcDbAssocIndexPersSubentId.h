@@ -35,19 +35,19 @@ public:
   explicit AcDbAssocIndexPersSubentId(AcDb::SubentType subentType = AcDb::kNullSubentType, unsigned int index = 0);
   bool operator ==(const AcDbAssocIndexPersSubentId& other) const
   {
-        return mSubentType == other.mSubentType && mIndex == other.mIndex;
+    return mSubentType == other.mSubentType && mIndex == other.mIndex;
   }
   bool operator <(const AcDbAssocIndexPersSubentId& other) const
   {
-        return mSubentType != other.mSubentType ? mSubentType < other.mSubentType : mIndex < other.mIndex;
+    return mSubentType != other.mSubentType ? mSubentType < other.mSubentType : mIndex < other.mIndex;
   }
   AcDb::SubentType subentType(const AcDbEntity*, AcDbDatabase*) const override
   {
- return mSubentType;
+    return mSubentType;
   }
   bool isNull() const override
   {
- return mSubentType == AcDb::kNullSubentType;
+    return mSubentType == AcDb::kNullSubentType;
   }
     /// <summary><para>
     /// Writes the raw data of this class. It does not call the parent class
@@ -96,15 +96,15 @@ public:
     // New methods
   unsigned int index() const
   {
- return mIndex;
+    return mIndex;
   }
   void setSubentType(AcDb::SubentType subentType)
   {
- mSubentType = subentType;
+    mSubentType = subentType;
   }
   void setIndex(unsigned int newIndex)
   {
- mIndex      = newIndex;
+    mIndex = newIndex;
   }
 private:
     // For round-tripping via AcDbAssocSimplePersSubentId, encoding the
@@ -116,7 +116,7 @@ private:
   static const int kRoundTripOffset = 1000000;
   virtual int roundTripOffset() const
   {
- return kRoundTripOffset;
+    return kRoundTripOffset;
   }
   friend void roundTripReadViaAcDbAssocSimplePersSubentId(AcDbAssocPersSubentId*&);
 protected:
@@ -139,7 +139,7 @@ class ACDBCORE2D_PORT AcDbAssocExternalIndexPersSubentId : public AcDbAssocIndex
 public:
   ACRX_DECLARE_MEMBERS(AcDbAssocExternalIndexPersSubentId);
   explicit AcDbAssocExternalIndexPersSubentId(AcDb::SubentType subentType = AcDb::kNullSubentType, unsigned int index = 0)
-    :  AcDbAssocIndexPersSubentId(subentType, index)
+    : AcDbAssocIndexPersSubentId(subentType, index)
   {
   }
 private:
@@ -148,7 +148,7 @@ private:
   static const int kRoundTripOffset = 2000000;
   int roundTripOffset() const override
   {
- return kRoundTripOffset;
+    return kRoundTripOffset;
   }
   friend void roundTripReadViaAcDbAssocSimplePersSubentId(AcDbAssocPersSubentId*&);
 };
@@ -177,11 +177,11 @@ public:
   bool operator  <(const AcDbAssocObjectAndIndexPersSubentId& other) const;
   AcDbObjectId objectId() const
   {
- return mObjectId;
+    return mObjectId;
   }
   void setObjectId(const AcDbObjectId& objId)
   {
- mObjectId = objId;
+    mObjectId = objId;
   }
   Acad::ErrorStatus dwgOutFieldsData(AcDbDwgFiler*) const override;
   Acad::ErrorStatus dxfOutFieldsData(AcDbDxfFiler*) const override;

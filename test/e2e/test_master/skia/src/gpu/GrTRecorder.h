@@ -39,42 +39,42 @@ public:
                                   and after calls to reset().
      */
   explicit GrTRecorder(size_t initialSizeInBytes)
-    :  fArena(initialSizeInBytes)
+    : fArena(initialSizeInBytes)
   {
   }
   GrTRecorder(const GrTRecorder&) = delete;
   GrTRecorder& operator=(const GrTRecorder&);
   ~GrTRecorder()
   {
- this->reset();
+    this->reset();
   }
   bool empty()
   {
- return !SkToBool(fTail);
+    return !SkToBool(fTail);
   }
     /** The last item. Must not be empty. */
   TBase& back()
   {
-        SkASSERT(!this->empty());
-        return *fTail->get();
+    SkASSERT(!this->empty());
+    return *fTail->get();
   }
     /** Forward mutable iteration */
   iterator begin()
   {
- return iterator(fHead);
+    return iterator(fHead);
   }
   iterator end()
   {
- return iterator(nullptr);
+    return iterator(nullptr);
   }
     /** Forward const iteration */
   const_iterator begin() const
   {
- return const_iterator(fHead);
+    return const_iterator(fHead);
   }
   const_iterator end() const
   {
- return const_iterator(nullptr);
+    return const_iterator(nullptr);
   }
     /** Destruct all items in the list and reset to empty. Frees memory allocated from arena. */
   void reset();
@@ -86,7 +86,7 @@ public:
   template <typename TItem, typename... Args>
   TItem& emplace(Args&&... args)
   {
-        return this->emplaceWithData<TItem, Args...>(0, std::forward<Args>(args)...);
+    return this->emplaceWithData<TItem, Args...>(0, std::forward<Args>(args)...);
   }
     /**
      * Emplace a new TItem (which derives from TBase) in the recorder with extra data space. The
@@ -106,7 +106,7 @@ private:
         // emplaceWithData() implementation.
     TBase* get() const
     {
- return reinterpret_cast<TBase*>(const_cast<Header*>(this) + 1);
+      return reinterpret_cast<TBase*>(const_cast<Header*>(this) + 1);
     }
   };
   SkArenaAlloc fArena;
@@ -117,39 +117,37 @@ private:
 template <typename TBase>
 inline SK_WHEN((std::is_base_of<TBase, TItem>::value), TItem&) GrTRecorder<TBase>::emplaceWithData(size_t extraDataSize, Args... args)
 {
-    static constexpr size_t kTAlign = alignof(TItem);
-    static constexpr size_t kHeaderAlign = alignof(Header);
-    static constexpr size_t kAllocAlign = kTAlign > kHeaderAlign ? kTAlign : kHeaderAlign;
-    static constexpr size_t kTItemOffset = GrSizeAlignUp(sizeof(Header), kAllocAlign);
+  static constexpr size_t kTAlign = alignof(TItem);
+  static constexpr size_t kHeaderAlign = alignof(Header);
+  static constexpr size_t kAllocAlign = kTAlign > kHeaderAlign ? kTAlign : kHeaderAlign;
+  static constexpr size_t kTItemOffset = GrSizeAlignUp(sizeof(Header), kAllocAlign);
     // We're assuming if we back up from kItemOffset by sizeof(Header) we will still be aligned.
-    GR_STATIC_ASSERT(sizeof(Header) % alignof(Header) == 0);
-    const size_t totalSize = kTItemOffset + sizeof(TItem) + extraDataSize;
-    auto alloc = reinterpret_cast<char*>(fArena.makeBytesAlignedTo(totalSize, kAllocAlign));
-    Header* header = new (alloc + kTItemOffset - sizeof(Header)) Header();
-    if (fTail) {
-        fTail->fNext = header;
-    }
-    fTail = header;
-    if (!fHead) {
-        fHead = header;
-    }
-    auto* item = new (alloc + kTItemOffset) TItem(std::forward<Args>(args)...);
+  GR_STATIC_ASSERT(sizeof(Header) % alignof(Header) == 0);
+  const size_t totalSize = kTItemOffset + sizeof(TItem) + extraDataSize;
+  auto alloc = reinterpret_cast<char*>(fArena.makeBytesAlignedTo(totalSize, kAllocAlign));
+  Header* header = new (alloc + kTItemOffset - sizeof(Header)) Header();
+  if (fTail)
+  {
+    fTail->fNext = header;
+  }
+  fTail = header;
+  if (!fHead)
+  {
+    fHead = header;
+  }
+  auto* item = new (alloc + kTItemOffset) TItem(std::forward<Args>(args)...);
     // We require that we can reinterpret_cast between TBase* and TItem*. Could not figure out how
     // to statically assert this. See proposal for std::is_initial_base_of here:
     // http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0466r0.pdf
-    SkASSERT(reinterpret_cast<uintptr_t>(item) ==
-             reinterpret_cast<uintptr_t>(static_cast<TBase*>(item)));
-    return *item;
+  SkASSERT(reinterpret_cast<uintptr_t>(item) == reinterpret_cast<uintptr_t>(static_cast<TBase*>(item)));
+  return *item;
 }
 template <typename TBase>
 inline void GrTRecorder<TBase>::reset()
 {
-    for (auto& i : *this) {
-        i.~TBase();
-    }
-    GR_STATIC_ASSERT(std::is_trivially_destructible<Header>::value);
-    fHead = fTail = nullptr;
-    fArena.reset();
+  GR_STATIC_ASSERT(std::is_trivially_destructible<Header>::value);
+  fHead = fTail = nullptr;
+  fArena.reset();
 }
 /**
  * Iterates through a recorder front-to-back, const or not.
@@ -163,34 +161,34 @@ public:
   IterImpl();
   IterImpl operator++()
   {
-        fCurr = fCurr->fNext;
-        return *this;
+    fCurr = fCurr->fNext;
+    return *this;
   }
   IterImpl operator++(int)
   {
-        auto old = fCurr;
-        fCurr = fCurr->fNext;
-        return {old};
+    auto old = fCurr;
+    fCurr = fCurr->fNext;
+    return {old};
   }
   T& operator*() const
   {
- return *fCurr->get();
+    return *fCurr->get();
   }
   T* operator->() const
   {
- return fCurr->get();
+    return fCurr->get();
   }
   bool operator==(const IterImpl& that) const
   {
- return fCurr == that.fCurr;
+    return fCurr == that.fCurr;
   }
   bool operator!=(const IterImpl& that) const
   {
- return !(*this == that);
+    return !(*this == that);
   }
 private:
   IterImpl(Header* curr)
-    :  fCurr(curr)
+    : fCurr(curr)
   {
   }
   Header* fCurr = nullptr;

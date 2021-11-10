@@ -65,7 +65,7 @@ public:
   virtual void SetMenuBar(wxMenuBar* menubar);
   virtual wxMenuBar* GetMenuBar() const
   {
- return m_frameMenuBar;
+    return m_frameMenuBar;
   }
     // find the item by id in the frame menu bar: this is an internal function
     // and exists mainly in order to be overridden in the MDI parent frame
@@ -83,7 +83,7 @@ public:
 #  else 
   bool ProcessCommand(int)
   {
- return false;
+    return false;
   }
 #  endif
     // status bar functions
@@ -96,7 +96,7 @@ public:
     // get the main status bar
   virtual wxStatusBar* GetStatusBar() const
   {
- return m_frameStatusBar;
+    return m_frameStatusBar;
   }
     // sets the main status bar
   virtual void SetStatusBar(wxStatusBar* statBar);
@@ -108,11 +108,11 @@ public:
     // set the status bar pane the help will be shown in
   void SetStatusBarPane(int n)
   {
- m_statusBarPane = n;
+    m_statusBarPane = n;
   }
   int GetStatusBarPane() const
   {
- return m_statusBarPane;
+    return m_statusBarPane;
   }
 #  endif
     // toolbar functions
@@ -125,7 +125,7 @@ public:
     // get/set the main toolbar
   virtual wxToolBar* GetToolBar() const
   {
- return m_frameToolBar;
+    return m_frameToolBar;
   }
   virtual void SetToolBar(wxToolBar* toolbar);
 #  endif
@@ -155,7 +155,7 @@ public:
 #  endif
   bool IsClientAreaChild(const wxWindow* child) const override
   {
-        return !IsOneOfBars(child) && wxTopLevelWindow::IsClientAreaChild(child);
+    return !IsOneOfBars(child) && wxTopLevelWindow::IsClientAreaChild(child);
   }
 protected:
     // the frame main menu/status/tool bars
@@ -170,7 +170,6 @@ protected:
     // override to update menu bar position when the frame size changes
   virtual void PositionMenuBar()
   {
-
   }
     // override to do something special when the menu bar is being removed
     // from the frame
@@ -196,7 +195,6 @@ protected:
     // something changes
   virtual void PositionStatusBar()
   {
-
   }
     // show the help string for the given menu item using DoGiveHelp() if the
     // given item does have a help string (as determined by FindInMenuBar()),
@@ -210,7 +208,6 @@ protected:
     // something changes
   virtual void PositionToolBar()
   {
-
   }
   wxToolBar* m_frameToolBar;
 #  endif

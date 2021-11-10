@@ -20,22 +20,22 @@ public:
   void SetSelection(long from, long to) override;
   int GetSelection() const override
   {
- return wxChoice::GetSelection();
+    return wxChoice::GetSelection();
   }
   void GetSelection(long* from, long* to) const override;
   wxString GetStringSelection() const override
   {
-        return wxItemContainer::GetStringSelection();
+    return wxItemContainer::GetStringSelection();
   }
   void Clear() override;
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
   {
- return wxItemContainer::IsEmpty();
+    return wxItemContainer::IsEmpty();
   }
   bool IsTextEmpty() const
   {
- return wxTextEntry::IsEmpty();
+    return wxTextEntry::IsEmpty();
   }
   void SetValue(const wxString& value) override;
   void ChangeValue(const wxString& value) override;
@@ -48,7 +48,7 @@ public:
   virtual void Dismiss();
   const wxTextEntry* WXGetTextEntry() const override
   {
- return this;
+    return this;
   }
   bool QtHandleFocusEvent(QWidget* handler, QFocusEvent* event) override;
 protected:
@@ -60,7 +60,7 @@ private:
     // From wxTextEntry:
   wxWindow* GetEditableWindow() override
   {
- return this;
+    return this;
   }
   wxDECLARE_DYNAMIC_CLASS(wxComboBox);
 };

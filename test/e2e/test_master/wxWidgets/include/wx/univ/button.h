@@ -26,41 +26,38 @@ class WXDLLIMPEXP_CORE wxButton : public wxButtonBase
 public:
   wxButton()
   {
- Init();
+    Init();
   }
   wxButton(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxString& label = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
   {
-        Init();
-
-        Create(parent, id, bitmap, label, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, bitmap, label, pos, size, style, validator, name);
   }
   wxButton(wxWindow* parent, wxWindowID id, const wxString& label = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
   {
-        Init();
-
-        Create(parent, id, label, pos, size, style, validator, name);
+    Init();
+    Create(parent, id, label, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr))
   {
-        return Create(parent, id, wxNullBitmap, label,
-                      pos, size, style, validator, name);
+    return Create(parent, id, wxNullBitmap, label, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxBitmap& bitmap, const wxString& label = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
   virtual ~wxButton();
   wxWindow* SetDefault() override;
   bool IsPressed() const override
   {
- return m_isPressed;
+    return m_isPressed;
   }
   bool IsDefault() const override
   {
- return m_isDefault;
+    return m_isDefault;
   }
     // wxButton actions
   void Click() override;
   bool CanBeHighlighted() const override
   {
- return true;
+    return true;
   }
 protected:
   void DoSetBitmap(const wxBitmap& bitmap, State which) override;

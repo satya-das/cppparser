@@ -20,12 +20,12 @@ class WXDLLIMPEXP_CORE wxWindowX11 : public wxWindowBase
 public:
   wxWindowX11()
   {
- Init();
+    Init();
   }
   wxWindowX11(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr))
   {
-        Init();
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   virtual ~wxWindowX11();
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxPanelNameStr));
@@ -34,11 +34,11 @@ public:
     // SetLabel(), which does nothing in wxWindow
   void SetLabel(const wxString& label) override
   {
- m_Label = label;
+    m_Label = label;
   }
   wxString GetLabel() const override
   {
- return m_Label;
+    return m_Label;
   }
   virtual bool Show(bool show = true);
   virtual bool Enable(bool enable = true);
@@ -53,15 +53,13 @@ public:
   virtual int GetCharHeight() const;
   virtual int GetCharWidth() const;
   virtual void ScrollWindow(int dx, int dy, const wxRect* rect = NULL);
-#  if  wxUSE_DRAG_AND_DROP
   virtual void SetDropTarget(wxDropTarget* dropTarget);
-#  endif
     // Accept files for dragging
   virtual void DragAcceptFiles(bool accept);
     // Get the unique identifier of a window
   virtual WXWindow GetHandle() const
   {
- return X11GetMainWindow();
+    return X11GetMainWindow();
   }
     // implementation from now on
     // --------------------------
@@ -75,15 +73,16 @@ public:
   virtual WXWindow GetClientAreaWindow() const;
   void SetLastClick(int button, long timestamp)
   {
- m_lastButton = button; m_lastTS = timestamp;
+    m_lastButton = button;
+    m_lastTS = timestamp;
   }
   int GetLastClickedButton() const
   {
- return m_lastButton;
+    return m_lastButton;
   }
   long GetLastClickTime() const
   {
- return m_lastTS;
+    return m_lastTS;
   }
     // Gives window a chance to do something in response to a size message, e.g.
     // arrange status bar, toolbar etc.
@@ -97,27 +96,27 @@ public:
     // Clip to paint region?
   bool GetClipPaintRegion()
   {
- return m_clipPaintRegion;
+    return m_clipPaintRegion;
   }
     // Return clear region
   wxRegion& GetClearRegion()
   {
- return m_clearRegion;
+    return m_clearRegion;
   }
   void NeedUpdateNcAreaInIdle(bool update = true)
   {
- m_updateNcArea = update;
+    m_updateNcArea = update;
   }
     // Inserting into main window instead of client
     // window. This is mostly for a wxWindow's own
     // scrollbars.
   void SetInsertIntoMain(bool insert = true)
   {
- m_insertIntoMain = insert;
+    m_insertIntoMain = insert;
   }
   bool GetInsertIntoMain()
   {
- return m_insertIntoMain;
+    return m_insertIntoMain;
   }
     // sets the fore/background colour for the given widget
   static void DoChangeForegroundColour(WXWindow widget, wxColour& foregroundColour);
@@ -180,15 +179,15 @@ class WXDLLIMPEXP_CORE wxNoOptimize
 public:
   wxNoOptimize()
   {
- ms_count++;
+    ms_count++;
   }
   ~wxNoOptimize()
   {
- ms_count--;
+    ms_count--;
   }
   static bool CanOptimize()
   {
- return ms_count == 0;
+    return ms_count == 0;
   }
 protected:
   static int ms_count;

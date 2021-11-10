@@ -13,21 +13,18 @@
   */
 static bool SkIsValidMode(SkBlendMode mode)
 {
-    return (unsigned)mode <= (unsigned)SkBlendMode::kLastMode;
+  return (unsigned) mode <= (unsigned) SkBlendMode::kLastMode;
 }
 /** Returns true if the rect's dimensions are between 0 and SK_MaxS32
   */
 static bool SkIsValidIRect(const SkIRect& rect)
 {
-    return rect.width() >= 0 && rect.height() >= 0;
+  return rect.width() >= 0 && rect.height() >= 0;
 }
 /** Returns true if the rect's dimensions are between 0 and SK_ScalarMax
   */
 static bool SkIsValidRect(const SkRect& rect)
 {
-    return (rect.fLeft <= rect.fRight) &&
-           (rect.fTop <= rect.fBottom) &&
-           SkScalarIsFinite(rect.width()) &&
-           SkScalarIsFinite(rect.height());
+  return (rect.fLeft <= rect.fRight) && (rect.fTop <= rect.fBottom) && SkScalarIsFinite(rect.width()) && SkScalarIsFinite(rect.height());
 }
 #endif

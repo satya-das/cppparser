@@ -32,7 +32,6 @@ public:
     // ctors and such
   wxFont()
   {
-
   }
   wxFont(const wxFontInfo& info);
   wxFont(wxOSXSystemFont systemFont);
@@ -42,17 +41,17 @@ public:
 #  endif
   wxFont(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        Create(size, family, style, weight, underlined, face, encoding);
+    Create(size, family, style, weight, underlined, face, encoding);
   }
   wxFont(const wxSize& pixelSize, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        Create(10, family, style, weight, underlined, face, encoding);
-        SetPixelSize(pixelSize);
+    Create(10, family, style, weight, underlined, face, encoding);
+    SetPixelSize(pixelSize);
   }
   bool Create(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
   wxFont(const wxNativeFontInfo& info)
   {
-        (void)Create(info);
+    (void) Create(info);
   }
   wxFont(const wxString& fontDesc);
   bool Create(const wxNativeFontInfo& info);
@@ -77,7 +76,8 @@ public:
   void SetStrikethrough(bool strikethrough) override;
   void SetEncoding(wxFontEncoding encoding) override;
   wxDECLARE_COMMON_FONT_METHODS();
-  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants") wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
+  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants")
+  wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
     // implementation only from now on
     // -------------------------------
   virtual bool RealizeResource();

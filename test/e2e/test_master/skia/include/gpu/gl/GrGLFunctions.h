@@ -477,36 +477,36 @@ public:
     // Construct from a simple function pointer.
   GrGLFunction(Fn* fn_ptr)
   {
-        static_assert(sizeof(fn_ptr) <= sizeof(fBuf), "fBuf is too small");
-        if (fn_ptr) {
-            memcpy(fBuf, &fn_ptr, sizeof(fn_ptr));
-        }
+    static_assert(sizeof(fn_ptr) <= sizeof(fBuf), "fBuf is too small");
+    if (fn_ptr)
+    {
+      memcpy(fBuf, &fn_ptr, sizeof(fn_ptr));
+    }
   }
     // Construct from a small closure.
   template <typename Closure>
   GrGLFunction(Closure closure)
-    :  GrGLFunction()
+    : GrGLFunction()
   {
-        static_assert(sizeof(Closure) <= sizeof(fBuf), "fBuf is too small");
-#if defined(__APPLE__)  // I am having serious trouble getting these to work with all STLs...
-        static_assert(std::is_trivially_copyable<Closure>::value, "");
-        static_assert(std::is_trivially_destructible<Closure>::value, "");
-#endif
-
-        memcpy(fBuf, &closure, sizeof(closure));
+    static_assert(sizeof(Closure) <= sizeof(fBuf), "fBuf is too small");
+#  if  defined(__APPLE__)  // I am having serious trouble getting these to work with all STLs...
+    static_assert(std::is_trivially_copyable<Closure>::value, "");
+    static_assert(std::is_trivially_destructible<Closure>::value, "");
+#  endif
+    memcpy(fBuf, &closure, sizeof(closure));
   }
   R operator()(Args... args) const
   {
-        SkASSERT(fCall);
-        return fCall(fBuf, std::forward<Args>(args)...);
+    SkASSERT(fCall);
+    return fCall(fBuf, std::forward<Args>(args)...);
   }
   operator bool() const
   {
- return fCall != nullptr;
+    return fCall != nullptr;
   }
   void reset()
   {
- fCall = nullptr;
+    fCall = nullptr;
   }
 private:
   using Call = R (*) (const void* buf, Args...);

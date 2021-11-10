@@ -18,13 +18,12 @@ public:
   typedef W BaseWindowClass;
   wxCustomBackgroundWindow()
   {
-
   }
 protected:
   void DoSetBackgroundBitmap(const wxBitmap& bmp) override
   {
         // We have support for background bitmap even at the base class level.
-        BaseWindowClass::SetBackground(bmp, wxALIGN_NOT, wxTILE);
+    BaseWindowClass::SetBackground(bmp, wxALIGN_NOT, wxTILE);
   }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCustomBackgroundWindow, W);
 };

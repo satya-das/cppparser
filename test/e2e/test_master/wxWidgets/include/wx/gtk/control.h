@@ -20,7 +20,7 @@ public:
   wxControl();
   wxControl(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr))
   {
-        Create(parent, id, pos, size, style, validator, name);
+    Create(parent, id, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxControlNameStr));
   wxVisualAttributes GetDefaultAttributes() const override;
@@ -52,7 +52,7 @@ protected:
     // override this and return true.
   virtual bool UseGTKStyleBase() const
   {
- return false;
+    return false;
   }
     // Fix sensitivity due to bug in GTK+ < 2.14
   void GTKFixSensitivity(bool onlyIfUnderMouse = true);

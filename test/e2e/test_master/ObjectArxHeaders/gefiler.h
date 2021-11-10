@@ -85,7 +85,7 @@ public:
 };
 inline AcDbDwgFiler* AcGeFiler::dwgFiler()
 {
-    return NULL;
+  return NULL;
 }
 #  pragma  pack (pop)
 #endif

@@ -273,7 +273,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   void PdfFont::SetFontSize(float fSize)
   {
-    m_pMetrics->SetFontSize( fSize );
+    m_pMetrics->SetFontSize(fSize);
   }
 // -----------------------------------------------------
 //
@@ -287,21 +287,21 @@ namespace PoDoFo
 // -----------------------------------------------------
   void PdfFont::SetFontScale(float fScale)
   {
-    m_pMetrics->SetFontScale( fScale );
+    m_pMetrics->SetFontScale(fScale);
   }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   float PdfFont::GetFontScale() const
   {
-    return  m_pMetrics->GetFontScale();
+    return m_pMetrics->GetFontScale();
   }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   void PdfFont::SetFontCharSpace(float fCharSpace)
   {
-    m_pMetrics->SetFontCharSpace( fCharSpace );
+    m_pMetrics->SetFontCharSpace(fCharSpace);
   }
 // -----------------------------------------------------
 //
@@ -315,7 +315,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline void PdfFont::SetWordSpace(float fWordSpace)
   {
-    m_pMetrics->SetWordSpace( fWordSpace );
+    m_pMetrics->SetWordSpace(fWordSpace);
   }
 // -----------------------------------------------------
 //

@@ -22,7 +22,7 @@ public:
   virtual ~wxAcceleratorTable();
   bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const;
     // Implementation only

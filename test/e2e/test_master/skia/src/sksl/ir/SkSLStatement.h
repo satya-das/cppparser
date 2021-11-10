@@ -33,13 +33,13 @@ namespace SkSL
         kWhile_Kind
     };
     Statement(int offset, Kind kind)
-      :  INHERITED(offset)
-    , fKind(kind)
+      : INHERITED(offset)
+      , fKind(kind)
     {
     }
     virtual bool isEmpty() const
     {
-        return false;
+      return false;
     }
     virtual std::unique_ptr<Statement> clone() const = 0;
     const Kind fKind;

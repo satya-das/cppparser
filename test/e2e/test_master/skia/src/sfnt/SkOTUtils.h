@@ -41,11 +41,12 @@ struct SkOTUtils
   public:
         /** Takes ownership of the nameTableData and will free it with SK_DELETE. */
     LocalizedStrings_NameTable(std::unique_ptr<uint8_t[]> nameTableData, size_t size, SK_OT_USHORT types[], int typesCount)
-      :  fTypes(types), fTypesCount(typesCount), fTypesIndex(0)
-            , fNameTableData(std::move(nameTableData))
-            , fFamilyNameIter(fNameTableData.get(), size, fTypes[fTypesIndex])
+      : fTypes(types)
+      , fTypesCount(typesCount)
+      , fTypesIndex(0)
+      , fNameTableData(std::move(nameTableData))
+      , fFamilyNameIter(fNameTableData.get(), size, fTypes[fTypesIndex])
     {
-
     }
         /** Creates an iterator over all data in the 'name' table of a typeface.
          *  If no valid 'name' table can be found, returns nullptr.
@@ -69,18 +70,18 @@ struct SkOTUtils
   {
   public:
     LocalizedStrings_SingleName(SkString name, SkString language)
-      :  fName(name), fLanguage(language), fHasNext(true)
+      : fName(name)
+      , fLanguage(language)
+      , fHasNext(true)
     {
-
     }
     bool next(SkTypeface::LocalizedString* localizedString) override
     {
-            localizedString->fString = fName;
-            localizedString->fLanguage = fLanguage;
-
-            bool hadNext = fHasNext;
-            fHasNext = false;
-            return hadNext;
+      localizedString->fString = fName;
+      localizedString->fLanguage = fLanguage;
+      bool hadNext = fHasNext;
+      fHasNext = false;
+      return hadNext;
     }
   private:
     SkString fName;

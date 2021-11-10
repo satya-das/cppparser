@@ -16,13 +16,12 @@ public:
     // construction
   wxTopLevelWindowGTK()
   {
- Init();
+    Init();
   }
   wxTopLevelWindowGTK(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        Create(parent, id, title, pos, size, style, name);
+    Init();
+    Create(parent, id, title, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxTopLevelWindowGTK();
@@ -36,7 +35,7 @@ public:
   virtual bool ShowFullScreen(bool show, long style = wxFULLSCREEN_ALL);
   virtual bool IsFullScreen() const
   {
- return m_fsIsShowing;
+    return m_fsIsShowing;
   }
   virtual bool SetShape(const wxRegion& region);
   virtual void RequestUserAttention(int flags = wxUSER_ATTENTION_INFO);
@@ -47,7 +46,7 @@ public:
   virtual void SetTitle(const wxString& title);
   virtual wxString GetTitle() const
   {
- return m_title;
+    return m_title;
   }
     // Experimental, to allow help windows to be
     // viewable from within modal dialogs
@@ -55,7 +54,7 @@ public:
   virtual void RemoveGrab();
   virtual bool IsGrabbed() const
   {
- return m_grabbed;
+    return m_grabbed;
   }
     // implementation from now on
     // --------------------------

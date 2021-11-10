@@ -34,9 +34,7 @@
 /* Ensure that C++ modules use the right linking conventions when calling
    functions contained in C.
  */
-#  ifdef __cplusplus
 extern "C" {
-#  endif
   typedef void* ads_hdlg;
   typedef void* ads_htile;
   typedef struct 
@@ -121,8 +119,6 @@ extern "C" {
   int ads_fill_image(short x1, short y1, short x2, short y2, short color);
   int ads_slide_image(short x1, short y1, short x2, short y2, const ACHAR* slnam);
   int ads_end_image(void);
-#  ifdef __cplusplus
   }
-#  endif
 #  pragma  pack (pop)
 #endif

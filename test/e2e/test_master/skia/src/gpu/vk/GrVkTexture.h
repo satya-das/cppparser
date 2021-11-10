@@ -21,7 +21,7 @@ public:
   GrBackendTexture getBackendTexture() const override;
   GrBackendFormat backendFormat() const override
   {
- return this->getBackendFormat();
+    return this->getBackendFormat();
   }
   void textureParamsModified() override
   {
@@ -36,7 +36,7 @@ protected:
   void onRelease() override;
   bool onStealBackendTexture(GrBackendTexture*, SkImage::BackendTextureReleaseProc*) override
   {
-        return false;
+    return false;
   }
   void willRemoveLastRef() override;
 private:
@@ -47,7 +47,7 @@ private:
   void onSetRelease(sk_sp<GrRefCntedCallback> releaseHelper) override
   {
         // Forward the release proc on to GrVkImage
-        this->setResourceRelease(std::move(releaseHelper));
+    this->setResourceRelease(std::move(releaseHelper));
   }
   void removeFinishIdleProcs();
   const GrVkImageView* fTextureView;

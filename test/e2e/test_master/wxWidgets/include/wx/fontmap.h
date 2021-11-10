@@ -100,7 +100,7 @@ public:
     // (implementation-only)
   virtual bool IsDummy()
   {
- return true;
+    return true;
   }
 #    if  wxUSE_CONFIG && wxUSE_FILECONFIG
 protected:
@@ -180,12 +180,12 @@ public:
     // the parent window for modal dialogs
   void SetDialogParent(wxWindow* parent)
   {
- m_windowParent = parent;
+    m_windowParent = parent;
   }
     // the title for the dialogs (note that default is quite reasonable)
   void SetDialogTitle(const wxString& title)
   {
- m_titleDialog = title;
+    m_titleDialog = title;
   }
     // GUI code needs to know it's a wxFontMapper because there
     // are additional methods in the subclass.
@@ -193,7 +193,7 @@ public:
     // pseudo-RTTI since we aren't a wxObject.
   bool IsDummy() override
   {
- return false;
+    return false;
   }
 protected:
     // GetAltForEncoding() helper: tests for the existence of the given
@@ -208,6 +208,7 @@ protected:
   wxString m_titleDialog;
     // the parent window for our dialogs
   wxWindow* m_windowParent;
+private:
   wxDECLARE_NO_COPY_CLASS(wxFontMapper);
 };
 #    endif

@@ -35,7 +35,7 @@ public:
   void SetPath(const wxString& strPath) override;
   const wxString& GetPath() const override
   {
- return m_strPath;
+    return m_strPath;
   }
   // entry/subgroup info
     // enumerate all of them
@@ -53,7 +53,7 @@ public:
   size_t GetNumberOfGroups(bool bRecursive = false) const override;
   bool Flush(bool = false) override
   {
- return true;
+    return true;
   }
   // rename
   bool RenameEntry(const wxString& oldName, const wxString& newName) override;
@@ -70,7 +70,7 @@ protected:
     if (!m_keyLocal.IsOpened())
     {
           // create on demand
-          self->m_keyLocal.Create();
+      self->m_keyLocal.Create();
     }
     return self->m_keyLocal;
   }

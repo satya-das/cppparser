@@ -14,7 +14,7 @@ class SkEdgeClipper
 {
 public:
   SkEdgeClipper(bool canCullToTheRight)
-    :  fCanCullToTheRight(canCullToTheRight)
+    : fCanCullToTheRight(canCullToTheRight)
   {
   }
   bool clipLine(SkPoint p0, SkPoint p1, const SkRect& clip);
@@ -23,7 +23,7 @@ public:
   SkPath::Verb next(SkPoint pts[]);
   bool canCullToTheRight() const
   {
- return fCanCullToTheRight;
+    return fCanCullToTheRight;
   }
 private:
   SkPoint* fCurrPoint;

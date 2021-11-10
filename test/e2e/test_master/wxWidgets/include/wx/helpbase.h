@@ -28,7 +28,7 @@ class WXDLLIMPEXP_CORE wxHelpControllerBase : public wxObject
 public:
   inline wxHelpControllerBase(wxWindow* parentWindow = NULL)
   {
- m_parentWindow = parentWindow;
+    m_parentWindow = parentWindow;
   }
   inline ~wxHelpControllerBase()
   {
@@ -38,11 +38,11 @@ public:
     // help controllers.
   virtual bool Initialize(const wxString&, int)
   {
- return false;
+    return false;
   }
   virtual bool Initialize(const wxString&)
   {
- return false;
+    return false;
   }
     // Set viewer: only relevant to some kinds of controller
   virtual void SetViewer(const wxString&, long = 0)
@@ -57,18 +57,18 @@ public:
     // Display the section using a context id
   virtual bool DisplayContextPopup(int)
   {
- return false;
+    return false;
   }
     // Display the text in a popup, if possible
   virtual bool DisplayTextPopup(const wxString&, const wxPoint&)
   {
- return false;
+    return false;
   }
     // By default, uses KeywordSection to display a topic. Implementations
     // may override this for more specific behaviour.
   virtual bool DisplaySection(const wxString& section)
   {
- return KeywordSearch(section);
+    return KeywordSearch(section);
   }
   virtual bool DisplayBlock(long blockNo) = 0;
   virtual bool KeywordSearch(const wxString& k, wxHelpSearchMode mode = wxHELP_SEARCH_ALL) = 0;
@@ -81,7 +81,7 @@ public:
     /// frame.
   virtual wxFrame* GetFrameParameters(wxSize* = NULL, wxPoint* = NULL, bool* = NULL)
   {
-        return NULL; // does nothing by default
+    return NULL;
   }
   virtual bool Quit() = 0;
   virtual void OnQuit()
@@ -90,15 +90,16 @@ public:
     /// Set the window that can optionally be used for the help window's parent.
   virtual void SetParentWindow(wxWindow* win)
   {
- m_parentWindow = win;
+    m_parentWindow = win;
   }
     /// Get the window that can optionally be used for the help window's parent.
   virtual wxWindow* GetParentWindow() const
   {
- return m_parentWindow;
+    return m_parentWindow;
   }
 protected:
   wxWindow* m_parentWindow;
+private:
   wxDECLARE_CLASS(wxHelpControllerBase);
 };
 #  endif

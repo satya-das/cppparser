@@ -64,29 +64,17 @@ struct sk_strip_enum<T, typename std::enable_if<std::is_enum<T>::value>::type>
 template <typename D, typename S>
 static constexpr typename std::enable_if<(std::is_integral<S>::value || std::is_enum<S>::value) && (std::is_integral<D>::value || std::is_enum<D>::value), bool>::type SkTFitsIn(S src)
 {
-#if !defined(SK_DEBUG) && !defined(__MSVC_RUNTIME_CHECKS )
+#  if  !defined(SK_DEBUG) && !defined(__MSVC_RUNTIME_CHECKS )
     // Correct (simple) version. This trips up MSVC's /RTCc run-time checking.
-#define TEMP_MACRO    (S)(D)src == src;
-#else
+#    define TEMP_MACRO(S)(D)src == src;
+#  else 
     // More complex version that's safe with /RTCc. Used in all debug builds, for coverage.
-    #define TEMP_MACRO \
-    (std::is_signed<S>::value) ? \
+#    define TEMP_MACRO(std::is_signed<S>::value) ? \
         (intmax_t)src >= (intmax_t)std::numeric_limits<typename sk_strip_enum<D>::type>::min() && \
         (intmax_t)src <= (intmax_t)std::numeric_limits<typename sk_strip_enum<D>::type>::max() :  \
         (uintmax_t)src <= (uintmax_t)std::numeric_limits<typename sk_strip_enum<D>::type>::max();
-#endif
-
+#  endif
     // SkTFitsIn() is used in public headers, so needs to be written targeting at most C++11.
-    return
-
-    // E.g. (int8_t)(uint8_t) int8_t(-1) == -1, but the uint8_t == 255, not -1.
-    (std::is_signed<S>::value && std::is_unsigned<D>::value && sizeof(S) <= sizeof(D)) ?
-        (S)0 <= src :
-
-    // E.g. (uint8_t)(int8_t) uint8_t(255) == 255, but the int8_t == -1.
-    (std::is_signed<D>::value && std::is_unsigned<S>::value && sizeof(D) <= sizeof(S)) ?
-        src <= (S)std::numeric_limits<typename sk_strip_enum<D>::type>::max() :
-
-    TEMP_MACRO;
+  return (std::is_signed<S>::value && std::is_unsigned<D>::value && sizeof(S) <= sizeof(D)) ? (S) 0 <= src : (std::is_signed<D>::value && std::is_unsigned<S>::value && sizeof(D) <= sizeof(S)) ? src <= (S) std::numeric_limits<typename sk_strip_enum<D>::type>::max() : TEMP_MACRO;
 }
 #endif

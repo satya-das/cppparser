@@ -1,8 +1,8 @@
 struct Options
 {
   Options()
-    :  m(x)
-        , n(N)
+    : m(x)
+    , n(N)
   {
   }
 /**

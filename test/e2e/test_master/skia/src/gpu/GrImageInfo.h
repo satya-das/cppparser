@@ -14,15 +14,18 @@ class GrImageInfo
 public:
   GrImageInfo();
   GrImageInfo(const SkImageInfo& info)
-    :  fColorInfo(info.colorInfo()), fDimensions(info.dimensions())
+    : fColorInfo(info.colorInfo())
+    , fDimensions(info.dimensions())
   {
   }
   GrImageInfo(GrColorType ct, SkAlphaType at, sk_sp<SkColorSpace> cs, int w, int h)
-    :  fColorInfo(ct, at, std::move(cs)), fDimensions{w,h}
+    : fColorInfo(ct, at, std::move(cs))
+    , fDimensions(w, h)
   {
   }
   GrImageInfo(GrColorType ct, SkAlphaType at, sk_sp<SkColorSpace> cs, const SkISize& dimensions)
-    :  fColorInfo(ct, at, std::move(cs)), fDimensions(dimensions)
+    : fColorInfo(ct, at, std::move(cs))
+    , fDimensions(dimensions)
   {
   }
   GrImageInfo(const GrImageInfo&);
@@ -31,51 +34,51 @@ public:
   GrImageInfo& operator=(GrImageInfo&&);
   GrImageInfo makeColorType(GrColorType ct)
   {
-        return {ct, this->alphaType(), this->refColorSpace(), this->width(), this->height()};
+    return {ct, this->alphaType(), this->refColorSpace(), this->width(), this->height()};
   }
   GrImageInfo makeAlphaType(SkAlphaType at)
   {
-        return {this->colorType(), at, this->refColorSpace(), this->width(), this->height()};
+    return {this->colorType(), at, this->refColorSpace(), this->width(), this->height()};
   }
   GrImageInfo makeWH(int width, int height)
   {
-        return {this->colorType(), this->alphaType(), this->refColorSpace(), width, height};
+    return {this->colorType(), this->alphaType(), this->refColorSpace(), width, height};
   }
   GrColorType colorType() const
   {
- return fColorInfo.colorType();
+    return fColorInfo.colorType();
   }
   SkAlphaType alphaType() const
   {
- return fColorInfo.alphaType();
+    return fColorInfo.alphaType();
   }
   SkColorSpace* colorSpace() const
   {
- return fColorInfo.colorSpace();
+    return fColorInfo.colorSpace();
   }
   sk_sp<SkColorSpace> refColorSpace() const
   {
- return fColorInfo.refColorSpace();
+    return fColorInfo.refColorSpace();
   }
   SkISize dimensions() const
   {
- return fDimensions;
+    return fDimensions;
   }
   int width() const
   {
- return fDimensions.width();
+    return fDimensions.width();
   }
   int height() const
   {
- return fDimensions.height();
+    return fDimensions.height();
   }
   size_t bpp() const
   {
- return GrColorTypeBytesPerPixel(this->colorType());
+    return GrColorTypeBytesPerPixel(this->colorType());
   }
   size_t minRowBytes() const
   {
- return this->bpp() * this->width();
+    return this->bpp() * this->width();
   }
     /**
      * Place this image rect in a surface of dimensions surfaceWidth x surfaceHeight size offset at
@@ -87,21 +90,21 @@ public:
   template <typename T>
   bool clip(int surfaceWidth, int surfaceHeight, SkIPoint* surfacePt, T** data, size_t rowBytes)
   {
-        auto bounds = SkIRect::MakeWH(surfaceWidth, surfaceHeight);
-        auto rect = SkIRect::MakeXYWH(surfacePt->fX, surfacePt->fY, this->width(), this->height());
-        if (!rect.intersect(bounds)) {
-            return false;
-        }
-        *data = SkTAddOffset<T>(*data, (rect.fTop  - surfacePt->fY) * rowBytes +
-                                       (rect.fLeft - surfacePt->fX) * this->bpp());
-        surfacePt->fX = rect.fLeft;
-        surfacePt->fY = rect.fTop;
-        fDimensions = rect.size();
-        return true;
+    auto bounds = SkIRect::MakeWH(surfaceWidth, surfaceHeight);
+    auto rect = SkIRect::MakeXYWH(surfacePt->fX, surfacePt->fY, this->width(), this->height());
+    if (!rect.intersect(bounds))
+    {
+      return false;
+    }
+    *data = SkTAddOffset<T>(*data, (rect.fTop - surfacePt->fY) * rowBytes + (rect.fLeft - surfacePt->fX) * this->bpp());
+    surfacePt->fX = rect.fLeft;
+    surfacePt->fY = rect.fTop;
+    fDimensions = rect.size();
+    return true;
   }
   bool isValid() const
   {
- return fColorInfo.isValid() && this->width() > 0 && this->height() > 0;
+    return fColorInfo.isValid() && this->width() > 0 && this->height() > 0;
   }
 private:
   GrColorInfo fColorInfo = {};

@@ -26,41 +26,41 @@ public:
   virtual ~SkXMLParserError();
   ErrorCode getErrorCode() const
   {
- return fCode;
+    return fCode;
   }
   virtual void getErrorString(SkString* str) const;
   int getLineNumber() const
   {
- return fLineNumber;
+    return fLineNumber;
   }
   int getNativeCode() const
   {
- return fNativeCode;
+    return fNativeCode;
   }
   bool hasError() const
   {
- return fCode != kNoError || fNativeCode != -1;
+    return fCode != kNoError || fNativeCode != -1;
   }
   bool hasNoun() const
   {
- return fNoun.size() > 0;
+    return fNoun.size() > 0;
   }
   void reset();
   void setCode(ErrorCode code)
   {
- fCode = code;
+    fCode = code;
   }
   void setNoun(const SkString& str)
   {
- fNoun.set(str);
+    fNoun.set(str);
   }
   void setNoun(const char* ch)
   {
- fNoun.set(ch);
+    fNoun.set(ch);
   }
   void setNoun(const char* ch, size_t len)
   {
- fNoun.set(ch, len);
+    fNoun.set(ch, len);
   }
 protected:
   ErrorCode fCode;

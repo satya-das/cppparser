@@ -53,7 +53,7 @@ public:
      */
   GrGLuint programID() const
   {
- return fProgramID;
+    return fProgramID;
   }
     /**
      * We use the RT's size and origin to adjust from Skia device space to OpenGL normalized device
@@ -66,13 +66,13 @@ public:
     GrSurfaceOrigin fRenderTargetOrigin;
     RenderTargetState()
     {
- this->invalidate();
+      this->invalidate();
     }
     void invalidate()
     {
-            fRenderTargetSize.fWidth = -1;
-            fRenderTargetSize.fHeight = -1;
-            fRenderTargetOrigin = (GrSurfaceOrigin) -1;
+      fRenderTargetSize.fWidth = -1;
+      fRenderTargetSize.fHeight = -1;
+      fRenderTargetOrigin = (GrSurfaceOrigin) -1;
     }
         /**
          * Gets a float4 that adjusts the position from Skia device coords to GL's normalized device
@@ -83,15 +83,18 @@ public:
          */
     void getRTAdjustmentVec(float* destVec)
     {
-            destVec[0] = 2.f / fRenderTargetSize.fWidth;
-            destVec[1] = -1.f;
-            if (kBottomLeft_GrSurfaceOrigin == fRenderTargetOrigin) {
-                destVec[2] = -2.f / fRenderTargetSize.fHeight;
-                destVec[3] = 1.f;
-            } else {
-                destVec[2] = 2.f / fRenderTargetSize.fHeight;
-                destVec[3] = -1.f;
-            }
+      destVec[0] = 2.f / fRenderTargetSize.fWidth;
+      destVec[1] = -1.f;
+      if (kBottomLeft_GrSurfaceOrigin == fRenderTargetOrigin)
+      {
+        destVec[2] = -2.f / fRenderTargetSize.fHeight;
+        destVec[3] = 1.f;
+      }
+      else 
+      {
+        destVec[2] = 2.f / fRenderTargetSize.fHeight;
+        destVec[3] = -1.f;
+      }
     }
   };
     /**
@@ -105,29 +108,29 @@ public:
   void updatePrimitiveProcessorTextureBindings(const GrPrimitiveProcessor&, const GrTextureProxy* const[]);
   int vertexStride() const
   {
- return fVertexStride;
+    return fVertexStride;
   }
   int instanceStride() const
   {
- return fInstanceStride;
+    return fInstanceStride;
   }
   int numVertexAttributes() const
   {
- return fVertexAttributeCnt;
+    return fVertexAttributeCnt;
   }
   const Attribute& vertexAttribute(int i) const
   {
-        SkASSERT(i >= 0 && i < fVertexAttributeCnt);
-        return fAttributes[i];
+    SkASSERT(i >= 0 && i < fVertexAttributeCnt);
+    return fAttributes[i];
   }
   int numInstanceAttributes() const
   {
- return fInstanceAttributeCnt;
+    return fInstanceAttributeCnt;
   }
   const Attribute& instanceAttribute(int i) const
   {
-        SkASSERT(i >= 0 && i < fInstanceAttributeCnt);
-        return fAttributes[i + fVertexAttributeCnt];
+    SkASSERT(i >= 0 && i < fInstanceAttributeCnt);
+    return fAttributes[i + fVertexAttributeCnt];
   }
 private:
     // A helper to loop over effects, set the transforms (via subclass) and bind textures

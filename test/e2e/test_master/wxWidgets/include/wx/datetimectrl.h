@@ -32,7 +32,6 @@ public:
     // elsewhere.
   virtual void SetNullText(const wxString&)
   {
-
   }
 };
 #    if  defined(__WXMSW__) && !defined(__WXUNIVERSAL__)

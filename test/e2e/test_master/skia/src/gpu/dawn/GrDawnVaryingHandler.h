@@ -11,7 +11,7 @@ class GrDawnVaryingHandler : public GrGLSLVaryingHandler
 {
 public:
   GrDawnVaryingHandler(GrGLSLProgramBuilder* program)
-    :  INHERITED(program)
+    : INHERITED(program)
   {
   }
   typedef GrGLSLVaryingHandler::VarArray VarArray;

@@ -20,13 +20,12 @@ class WXDLLIMPEXP_CORE wxGenericStaticText : public wxStaticTextBase
 public:
   wxGenericStaticText()
   {
- Init();
+    Init();
   }
   wxGenericStaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr))
   {
-        Init();
-
-        Create(parent, id, label, pos, size, style, name);
+    Init();
+    Create(parent, id, label, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr));
   virtual ~wxGenericStaticText();
@@ -37,7 +36,7 @@ protected:
   wxSize DoGetBestClientSize() const override;
   wxString WXGetVisibleLabel() const override
   {
- return m_label;
+    return m_label;
   }
   void WXSetVisibleLabel(const wxString& label) override;
   void DoSetSize(int x, int y, int width, int height, int sizeFlags) override;
@@ -47,9 +46,9 @@ protected:
 private:
   void Init()
   {
-#if wxUSE_MARKUP
-        m_markupText = NULL;
-#endif // wxUSE_MARKUP
+#  if  wxUSE_MARKUP
+    m_markupText = NULL;
+#  endif
   }
   void OnPaint(wxPaintEvent& event);
   void DoDrawLabel(wxDC& dc, const wxRect& rect);

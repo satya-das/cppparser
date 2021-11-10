@@ -62,7 +62,7 @@ protected:
     // Allows subclasses to write to the stream as pages are written.
   SkWStream* getStream()
   {
- return fStream;
+    return fStream;
   }
   enum State {
         kBetweenPages_State,
@@ -71,7 +71,7 @@ protected:
   };
   State getState() const
   {
- return fState;
+    return fState;
   }
 private:
   SkWStream* fStream;

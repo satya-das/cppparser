@@ -31,72 +31,72 @@ public:
   void dumpJSON(SkJSONWriter*) const;
   const GrShaderCaps* shaderCaps() const
   {
- return fShaderCaps.get();
+    return fShaderCaps.get();
   }
   bool npotTextureTileSupport() const
   {
- return fNPOTTextureTileSupport;
+    return fNPOTTextureTileSupport;
   }
     /** To avoid as-yet-unnecessary complexity we don't allow any partial support of MIP Maps (e.g.
         only for POT textures) */
   bool mipMapSupport() const
   {
- return fMipMapSupport;
+    return fMipMapSupport;
   }
   bool gpuTracingSupport() const
   {
- return fGpuTracingSupport;
+    return fGpuTracingSupport;
   }
   bool oversizedStencilSupport() const
   {
- return fOversizedStencilSupport;
+    return fOversizedStencilSupport;
   }
   bool textureBarrierSupport() const
   {
- return fTextureBarrierSupport;
+    return fTextureBarrierSupport;
   }
   bool sampleLocationsSupport() const
   {
- return fSampleLocationsSupport;
+    return fSampleLocationsSupport;
   }
   bool multisampleDisableSupport() const
   {
- return fMultisampleDisableSupport;
+    return fMultisampleDisableSupport;
   }
   bool instanceAttribSupport() const
   {
- return fInstanceAttribSupport;
+    return fInstanceAttribSupport;
   }
   bool mixedSamplesSupport() const
   {
- return fMixedSamplesSupport;
+    return fMixedSamplesSupport;
   }
     // This flag indicates that we never have to resolve MSAA. In practice, it means that we have
     // an MSAA-render-to-texture extension: Any render target we create internally will use the
     // extension, and any wrapped render target is the client's responsibility.
   bool msaaResolvesAutomatically() const
   {
- return fMSAAResolvesAutomatically;
+    return fMSAAResolvesAutomatically;
   }
   bool halfFloatVertexAttributeSupport() const
   {
- return fHalfFloatVertexAttributeSupport;
+    return fHalfFloatVertexAttributeSupport;
   }
     // Primitive restart functionality is core in ES 3.0, but using it will cause slowdowns on some
     // systems. This cap is only set if primitive restart will improve performance.
   bool usePrimitiveRestart() const
   {
- return fUsePrimitiveRestart;
+    return fUsePrimitiveRestart;
   }
   bool preferClientSideDynamicBuffers() const
   {
- return fPreferClientSideDynamicBuffers;
+    return fPreferClientSideDynamicBuffers;
   }
     // On tilers, an initial fullscreen clear is an OPTIMIZATION. It allows the hardware to
     // initialize each tile with a constant value rather than loading each pixel from memory.
   bool preferFullscreenClears() const
   {
- return fPreferFullscreenClears;
+    return fPreferFullscreenClears;
   }
     // Should we discard stencil values after a render pass? (Tilers get better performance if we
     // always load stencil buffers with a "clear" op, and then discard the content when finished.)
@@ -104,23 +104,23 @@ public:
   {
         // This method is actually just a duplicate of preferFullscreenClears(), with a descriptive
         // name for the sake of readability.
-        return this->preferFullscreenClears();
+    return this->preferFullscreenClears();
   }
   bool preferVRAMUseOverFlushes() const
   {
- return fPreferVRAMUseOverFlushes;
+    return fPreferVRAMUseOverFlushes;
   }
   bool preferTrianglesOverSampleMask() const
   {
- return fPreferTrianglesOverSampleMask;
+    return fPreferTrianglesOverSampleMask;
   }
   bool avoidStencilBuffers() const
   {
- return fAvoidStencilBuffers;
+    return fAvoidStencilBuffers;
   }
   bool avoidWritePixelsFastPath() const
   {
- return fAvoidWritePixelsFastPath;
+    return fAvoidWritePixelsFastPath;
   }
     /**
      * Indicates the capabilities of the fixed function blend unit.
@@ -137,21 +137,21 @@ public:
   };
   BlendEquationSupport blendEquationSupport() const
   {
- return fBlendEquationSupport;
+    return fBlendEquationSupport;
   }
   bool advancedBlendEquationSupport() const
   {
-        return fBlendEquationSupport >= kAdvanced_BlendEquationSupport;
+    return fBlendEquationSupport >= kAdvanced_BlendEquationSupport;
   }
   bool advancedCoherentBlendEquationSupport() const
   {
-        return kAdvancedCoherent_BlendEquationSupport == fBlendEquationSupport;
+    return kAdvancedCoherent_BlendEquationSupport == fBlendEquationSupport;
   }
   bool isAdvancedBlendEquationBlacklisted(GrBlendEquation equation) const
   {
-        SkASSERT(GrBlendEquationIsAdvanced(equation));
-        SkASSERT(this->advancedBlendEquationSupport());
-        return SkToBool(fAdvBlendEqBlacklist & (1 << equation));
+    SkASSERT(GrBlendEquationIsAdvanced(equation));
+    SkASSERT(this->advancedBlendEquationSupport());
+    return SkToBool(fAdvBlendEqBlacklist & (1 << equation));
   }
     /**
      * Indicates whether GPU->CPU memory mapping for GPU resources such as vertex buffers and
@@ -168,7 +168,7 @@ public:
   };
   uint32_t mapBufferFlags() const
   {
- return fMapBufferFlags;
+    return fMapBufferFlags;
   }
     // Scratch textures not being reused means that those scratch textures
     // that we upload to (i.e., don't have a render target) will not be
@@ -176,46 +176,46 @@ public:
     // (in particular for deferred architectures).
   bool reuseScratchTextures() const
   {
- return fReuseScratchTextures;
+    return fReuseScratchTextures;
   }
   bool reuseScratchBuffers() const
   {
- return fReuseScratchBuffers;
+    return fReuseScratchBuffers;
   }
     /// maximum number of attribute values per vertex
   int maxVertexAttributes() const
   {
- return fMaxVertexAttributes;
+    return fMaxVertexAttributes;
   }
   int maxRenderTargetSize() const
   {
- return fMaxRenderTargetSize;
+    return fMaxRenderTargetSize;
   }
     /** This is the largest render target size that can be used without incurring extra perfomance
         cost. It is usually the max RT size, unless larger render targets are known to be slower. */
   int maxPreferredRenderTargetSize() const
   {
- return fMaxPreferredRenderTargetSize;
+    return fMaxPreferredRenderTargetSize;
   }
   int maxTextureSize() const
   {
- return fMaxTextureSize;
+    return fMaxTextureSize;
   }
     /** This is the maximum tile size to use by GPU devices for rendering sw-backed images/bitmaps.
         It is usually the max texture size, unless we're overriding it for testing. */
   int maxTileSize() const
   {
-        SkASSERT(fMaxTileSize <= fMaxTextureSize);
-        return fMaxTileSize;
+    SkASSERT(fMaxTileSize <= fMaxTextureSize);
+    return fMaxTileSize;
   }
   int maxWindowRectangles() const
   {
- return fMaxWindowRectangles;
+    return fMaxWindowRectangles;
   }
     // Returns whether mixed samples is supported for the given backend render target.
   bool isWindowRectanglesSupportedForRT(const GrBackendRenderTarget& rt) const
   {
-        return this->maxWindowRectangles() > 0 && this->onIsWindowRectanglesSupportedForRT(rt);
+    return this->maxWindowRectangles() > 0 && this->onIsWindowRectanglesSupportedForRT(rt);
   }
   virtual bool isFormatSRGB(const GrBackendFormat&) const = 0;
   virtual bool isFormatCompressed(const GrBackendFormat&) const = 0;
@@ -235,7 +235,7 @@ public:
     // MSAA or mixed samples. If 0, Ganesh should not attempt to use internal multisampling.
   int internalMultisampleCount(const GrBackendFormat& format) const
   {
-        return SkTMin(fInternalMultisampleCount, this->maxRenderTargetSampleCount(format));
+    return SkTMin(fInternalMultisampleCount, this->maxRenderTargetSampleCount(format));
   }
   virtual bool isFormatAsColorTypeRenderable(GrColorType ct, const GrBackendFormat& format, int sampleCount = 1) const = 0;
   virtual bool isFormatRenderable(const GrBackendFormat& format, int sampleCount) const = 0;
@@ -307,34 +307,34 @@ public:
      */
   bool writePixelsRowBytesSupport() const
   {
- return fWritePixelsRowBytesSupport;
+    return fWritePixelsRowBytesSupport;
   }
     /**
      * Does GrGpu::readPixels() support a dst buffer where the row bytes is not equal to bpp * w?
      */
   bool readPixelsRowBytesSupport() const
   {
- return fReadPixelsRowBytesSupport;
+    return fReadPixelsRowBytesSupport;
   }
     /** Are transfer buffers (to textures and from surfaces) supported? */
   bool transferBufferSupport() const
   {
- return fTransferBufferSupport;
+    return fTransferBufferSupport;
   }
   bool suppressPrints() const
   {
- return fSuppressPrints;
+    return fSuppressPrints;
   }
   size_t bufferMapThreshold() const
   {
-        SkASSERT(fBufferMapThreshold >= 0);
-        return fBufferMapThreshold;
+    SkASSERT(fBufferMapThreshold >= 0);
+    return fBufferMapThreshold;
   }
     /** True in environments that will issue errors if memory uploaded to buffers
         is not initialized (even if not read by draw calls). */
   bool mustClearUploadedBufferData() const
   {
- return fMustClearUploadedBufferData;
+    return fMustClearUploadedBufferData;
   }
     /** For some environments, there is a performance or safety concern to not
         initializing textures. For example, with WebGL and Firefox, there is a large
@@ -342,7 +342,7 @@ public:
      */
   bool shouldInitializeTextures() const
   {
- return fShouldInitializeTextures;
+    return fShouldInitializeTextures;
   }
     /** Returns true if the given backend supports importing AHardwareBuffers via the
      * GrAHardwarebufferImageGenerator. This will only ever be supported on Android devices with API
@@ -350,25 +350,25 @@ public:
      * */
   bool supportsAHardwareBufferImages() const
   {
- return fSupportsAHardwareBufferImages;
+    return fSupportsAHardwareBufferImages;
   }
   bool wireframeMode() const
   {
- return fWireframeMode;
+    return fWireframeMode;
   }
     /** Supports using GrFence. */
   bool fenceSyncSupport() const
   {
- return fFenceSyncSupport;
+    return fFenceSyncSupport;
   }
     /** Supports using GrSemaphore. */
   bool semaphoreSupport() const
   {
- return fSemaphoreSupport;
+    return fSemaphoreSupport;
   }
   bool crossContextTextureSupport() const
   {
- return fCrossContextTextureSupport;
+    return fCrossContextTextureSupport;
   }
     /**
      * Returns whether or not we will be able to do a copy given the passed in params
@@ -376,40 +376,40 @@ public:
   bool canCopySurface(const GrSurfaceProxy* dst, const GrSurfaceProxy* src, const SkIRect& srcRect, const SkIPoint& dstPoint) const;
   bool dynamicStateArrayGeometryProcessorTextureSupport() const
   {
-        return fDynamicStateArrayGeometryProcessorTextureSupport;
+    return fDynamicStateArrayGeometryProcessorTextureSupport;
   }
     // Not all backends support clearing with a scissor test (e.g. Metal), this will always
     // return true if performColorClearsAsDraws() returns true.
   bool performPartialClearsAsDraws() const
   {
-        return fPerformColorClearsAsDraws || fPerformPartialClearsAsDraws;
+    return fPerformColorClearsAsDraws || fPerformPartialClearsAsDraws;
   }
     // Many drivers have issues with color clears.
   bool performColorClearsAsDraws() const
   {
- return fPerformColorClearsAsDraws;
+    return fPerformColorClearsAsDraws;
   }
     /// Adreno 4xx devices experience an issue when there are a large number of stencil clip bit
     /// clears. The minimal repro steps are not precisely known but drawing a rect with a stencil
     /// op instead of using glClear seems to resolve the issue.
   bool performStencilClearsAsDraws() const
   {
- return fPerformStencilClearsAsDraws;
+    return fPerformStencilClearsAsDraws;
   }
     // Can we use coverage counting shortcuts to render paths? Coverage counting can cause artifacts
     // along shared edges if care isn't taken to ensure both contours wind in the same direction.
   bool allowCoverageCounting() const
   {
- return fAllowCoverageCounting;
+    return fAllowCoverageCounting;
   }
     // Should we disable the CCPR code due to a faulty driver?
   bool driverBlacklistCCPR() const
   {
- return fDriverBlacklistCCPR;
+    return fDriverBlacklistCCPR;
   }
   bool driverBlacklistMSAACCPR() const
   {
- return fDriverBlacklistMSAACCPR;
+    return fDriverBlacklistMSAACCPR;
   }
     /**
      * This is used to try to ensure a successful copy a dst in order to perform shader-based
@@ -429,26 +429,26 @@ public:
   };
   virtual DstCopyRestrictions getDstCopyRestrictions(const GrRenderTargetProxy* src, GrColorType ct) const
   {
-        return {};
+    return {};
   }
   bool validateSurfaceParams(const SkISize&, const GrBackendFormat&, GrPixelConfig, GrRenderable renderable, int renderTargetSampleCnt, GrMipMapped) const;
   bool areColorTypeAndFormatCompatible(GrColorType grCT, const GrBackendFormat& format) const
   {
-        if (GrColorType::kUnknown == grCT) {
-            return false;
-        }
-
-        return this->onAreColorTypeAndFormatCompatible(grCT, format);
+    if (GrColorType::kUnknown == grCT)
+    {
+      return false;
+    }
+    return this->onAreColorTypeAndFormatCompatible(grCT, format);
   }
     // TODO: it seems like we could pass the full SkImageInfo and validate its colorSpace too
     // Returns kUnknown if a valid config could not be determined.
   GrPixelConfig getConfigFromBackendFormat(const GrBackendFormat& format, GrColorType grCT) const
   {
-        if (GrColorType::kUnknown == grCT) {
-            return kUnknown_GrPixelConfig;
-        }
-
-        return this->onGetConfigFromBackendFormat(format, grCT);
+    if (GrColorType::kUnknown == grCT)
+    {
+      return kUnknown_GrPixelConfig;
+    }
+    return this->onGetConfigFromBackendFormat(format, grCT);
   }
     /**
      * Special method only for YUVA images. Returns a colortype that matches the backend format or
@@ -464,7 +464,7 @@ public:
      */
   bool clampToBorderSupport() const
   {
- return fClampToBorderSupport;
+    return fClampToBorderSupport;
   }
     /**
      * Returns the GrSwizzle to use when sampling from a texture with the passed in GrBackendFormat
@@ -478,7 +478,7 @@ public:
   virtual GrSwizzle getOutputSwizzle(const GrBackendFormat&, GrColorType) const = 0;
   const GrDriverBugWorkarounds& workarounds() const
   {
- return fDriverBugWorkarounds;
+    return fDriverBugWorkarounds;
   }
     /**
      * Given a possibly generic GrPixelConfig and a backend format return a specific
@@ -486,10 +486,10 @@ public:
      */
   GrPixelConfig makeConfigSpecific(GrPixelConfig config, const GrBackendFormat& format) const
   {
-        auto ct = GrPixelConfigToColorType(config);
-        auto result = this->getConfigFromBackendFormat(format, ct);
-        SkASSERT(config == result || AreConfigsCompatible(config, result));
-        return result;
+    auto ct = GrPixelConfigToColorType(config);
+    auto result = this->getConfigFromBackendFormat(format, ct);
+    SkASSERT(config == result || AreConfigsCompatible(config, result));
+    return result;
   }
 #  ifdef SK_DEBUG
     // This is just a debugging entry point until we're weaned off of GrPixelConfig. It
@@ -580,7 +580,7 @@ private:
     // rectangles for a specific GrBackendRenderTarget outside of basic support.
   virtual bool onIsWindowRectanglesSupportedForRT(const GrBackendRenderTarget&) const
   {
-        return true;
+    return true;
   }
   virtual GrPixelConfig onGetConfigFromBackendFormat(const GrBackendFormat& format, GrColorType ct) const = 0;
   virtual bool onAreColorTypeAndFormatCompatible(GrColorType, const GrBackendFormat&) const = 0;

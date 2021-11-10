@@ -79,6 +79,6 @@ protected:
 };
 static SkPngEncoder::FilterFlag operator|(SkPngEncoder::FilterFlag x, SkPngEncoder::FilterFlag y)
 {
-    return (SkPngEncoder::FilterFlag)((int)x | (int)y);
+  return (SkPngEncoder::FilterFlag) ((int) x | (int) y);
 }
 #endif

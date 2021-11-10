@@ -50,7 +50,7 @@ char* strtok_r(char*, const char*, char**);
 #  ifdef wxNEED_ISASCII
 inline int isascii(int c)
 {
- return (unsigned)c < 0x80;
+  return (unsigned) c < 0x80;
 }
     // Avoid further (re)definitions of it.
 #    define isascii	isascii
@@ -62,17 +62,16 @@ WXDLLIMPEXP_BASE char* strdup(const char* s);
 /* -------------------------------------------------------------------------
                             UTF-8 locale handling
    ------------------------------------------------------------------------- */
-#  ifdef __cplusplus
+
+#ifdef __cplusplus
         /* flag indicating whether the current locale uses UTF-8 or not; must be
            updated every time the locale is changed! */
-#    if  wxUSE_UTF8_LOCALE_ONLY
-#      define wxLocaleIsUtf8	true
-#    else 
+#  if  wxUSE_UTF8_LOCALE_ONLY
+#    define wxLocaleIsUtf8	true
 WXDLLIMPEXP_BASE extern bool wxLocaleIsUtf8;
-#    endif
+#  endif
         /* function used to update the flag: */
 WXDLLIMPEXP_BASE extern void wxUpdateLocaleIsUtf8();
-#  endif
 /* -------------------------------------------------------------------------
                                  string.h
    ------------------------------------------------------------------------- */
@@ -232,30 +231,19 @@ wxDECL_FOR_MINGW32_ALWAYS(int, _strnicmp, (const char*, const char*, size_t))
 /* FIXME-UTF8: detect and use wcstok() if available for wxCRT_StrtokW */
 
 /* these are extern "C" because they are used by regex lib: */
-#  ifdef __cplusplus
 extern "C" {
-#  endif
 #  ifndef wxCRT_StrlenW
   WXDLLIMPEXP_BASE size_t wxCRT_StrlenW(const wchar_t* s);
 #  endif
 #  ifndef wxCRT_StrncmpW
   WXDLLIMPEXP_BASE int wxCRT_StrncmpW(const wchar_t* s1, const wchar_t* s2, size_t n);
 #  endif
-#  ifdef __cplusplus
   }
-#  endif
 /* FIXME-UTF8: remove this once we are Unicode only */
-#  if  wxUSE_UNICODE
-#    define wxCRT_StrlenNative	wxCRT_StrlenW
-#    define wxCRT_StrncmpNative	wxCRT_StrncmpW
-#    define wxCRT_ToupperNative	wxCRT_ToupperW
-#    define wxCRT_TolowerNative	wxCRT_TolowerW
-#  else 
-#    define wxCRT_StrlenNative	wxCRT_StrlenA
-#    define wxCRT_StrncmpNative	wxCRT_StrncmpA
-#    define wxCRT_ToupperNative	toupper
-#    define wxCRT_TolowerNative	tolower
-#  endif
+#  define wxCRT_StrlenNative	wxCRT_StrlenW
+#  define wxCRT_StrncmpNative	wxCRT_StrncmpW
+#  define wxCRT_ToupperNative	wxCRT_ToupperW
+#  define wxCRT_TolowerNative	wxCRT_TolowerW
 #  ifndef wxCRT_StrcatW
 WXDLLIMPEXP_BASE wchar_t* wxCRT_StrcatW(wchar_t* dest, const wchar_t* src);
 #  endif
@@ -520,7 +508,9 @@ WXDLLIMPEXP_BASE size_t android_wcstombs(char*, const wchar_t*, size_t);
 /* -------------------------------------------------------------------------
        wx wrappers for CRT functions in both char* and wchar_t* versions
    ------------------------------------------------------------------------- */
-#  ifdef __cplusplus
+
+#ifdef __cplusplus
+
 /* NB: this belongs to wxcrt.h and not this header, but it makes life easier
  *     for buffer.h and stringimpl.h (both of which must be included before
  *     string.h, which is required by wxcrt.h) to have them here: */
@@ -528,34 +518,33 @@ WXDLLIMPEXP_BASE size_t android_wcstombs(char*, const wchar_t*, size_t);
 /* safe version of strlen() (returns 0 if passed NULL pointer) */
 inline size_t wxStrlen(const char* s)
 {
- return s ? wxCRT_StrlenA(s) : 0;
+  return s ? wxCRT_StrlenA(s) : 0;
 }
 inline size_t wxStrlen(const wchar_t* s)
 {
- return s ? wxCRT_StrlenW(s) : 0;
+  return s ? wxCRT_StrlenW(s) : 0;
 }
-#    ifndef wxWCHAR_T_IS_WXCHAR16
+#  ifndef wxWCHAR_T_IS_WXCHAR16
 WXDLLIMPEXP_BASE size_t wxStrlen(const wxChar16* s);
-#    endif
-#    ifndef wxWCHAR_T_IS_WXCHAR32
+#  endif
+#  ifndef wxWCHAR_T_IS_WXCHAR32
 WXDLLIMPEXP_BASE size_t wxStrlen(const wxChar32* s);
-#    endif
-#    define wxWcslen	wxCRT_StrlenW
-#    define wxStrdupA	wxCRT_StrdupA
-#    define wxStrdupW	wxCRT_StrdupW
+#  endif
+#  define wxWcslen	wxCRT_StrlenW
+#  define wxStrdupA	wxCRT_StrdupA
+#  define wxStrdupW	wxCRT_StrdupW
 inline char* wxStrdup(const char* s)
 {
- return wxCRT_StrdupA(s);
+  return wxCRT_StrdupA(s);
 }
 inline wchar_t* wxStrdup(const wchar_t* s)
 {
- return wxCRT_StrdupW(s);
+  return wxCRT_StrdupW(s);
 }
-#    ifndef wxWCHAR_T_IS_WXCHAR16
+#  ifndef wxWCHAR_T_IS_WXCHAR16
 WXDLLIMPEXP_BASE wxChar16* wxStrdup(const wxChar16* s);
-#    endif
-#    ifndef wxWCHAR_T_IS_WXCHAR32
+#  endif
+#  ifndef wxWCHAR_T_IS_WXCHAR32
 WXDLLIMPEXP_BASE wxChar32* wxStrdup(const wxChar32* s);
-#    endif
 #  endif
 #endif

@@ -30,16 +30,16 @@ public:
   wxFileOffset GetLength() const override;
   bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const override;
   bool IsSeekable() const override
   {
- return m_file->GetKind() == wxFILE_KIND_DISK;
+    return m_file->GetKind() == wxFILE_KIND_DISK;
   }
   wxFile* GetFile() const
   {
- return m_file;
+    return m_file;
   }
 protected:
   wxFileInputStream();
@@ -60,21 +60,21 @@ public:
   void Sync() override;
   bool Close() override
   {
- return m_file_destroy ? m_file->Close() : true;
+    return m_file_destroy ? m_file->Close() : true;
   }
   wxFileOffset GetLength() const override;
   bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const override;
   bool IsSeekable() const override
   {
- return m_file->GetKind() == wxFILE_KIND_DISK;
+    return m_file->GetKind() == wxFILE_KIND_DISK;
   }
   wxFile* GetFile() const
   {
- return m_file;
+    return m_file;
   }
 protected:
   wxFileOutputStream();
@@ -92,33 +92,33 @@ public:
   virtual ~wxTempFileOutputStream();
   bool Close() override
   {
- return Commit();
+    return Commit();
   }
   WXDLLIMPEXP_INLINE_BASE virtual bool Commit()
   {
- return m_file->Commit();
+    return m_file->Commit();
   }
   WXDLLIMPEXP_INLINE_BASE virtual void Discard()
   {
- m_file->Discard();
+    m_file->Discard();
   }
   wxFileOffset GetLength() const override
   {
- return m_file->Length();
+    return m_file->Length();
   }
   bool IsSeekable() const override
   {
- return true;
+    return true;
   }
 protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override
   {
- return m_file->Seek(pos, mode);
+    return m_file->Seek(pos, mode);
   }
   wxFileOffset OnSysTell() const override
   {
- return m_file->Tell();
+    return m_file->Tell();
   }
 private:
   wxTempFile* m_file;
@@ -131,33 +131,33 @@ public:
   virtual ~wxTempFFileOutputStream();
   bool Close() override
   {
- return Commit();
+    return Commit();
   }
   WXDLLIMPEXP_INLINE_BASE virtual bool Commit()
   {
- return m_file->Commit();
+    return m_file->Commit();
   }
   WXDLLIMPEXP_INLINE_BASE virtual void Discard()
   {
- m_file->Discard();
+    m_file->Discard();
   }
   wxFileOffset GetLength() const override
   {
- return m_file->Length();
+    return m_file->Length();
   }
   bool IsSeekable() const override
   {
- return true;
+    return true;
   }
 protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override
   {
- return m_file->Seek(pos, mode);
+    return m_file->Seek(pos, mode);
   }
   wxFileOffset OnSysTell() const override
   {
- return m_file->Tell();
+    return m_file->Tell();
   }
 private:
   wxTempFFile* m_file;
@@ -173,21 +173,22 @@ public:
     // base class but it isn't)
   bool IsSeekable() const override
   {
-        return wxFileInputStream::IsSeekable();
+    return wxFileInputStream::IsSeekable();
   }
   wxFileOffset GetLength() const override
   {
-        return wxFileInputStream::GetLength();
+    return wxFileInputStream::GetLength();
   }
 protected:
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override
   {
-        return wxFileInputStream::OnSysSeek(pos, mode);
+    return wxFileInputStream::OnSysSeek(pos, mode);
   }
   wxFileOffset OnSysTell() const override
   {
-        return wxFileInputStream::OnSysTell();
+    return wxFileInputStream::OnSysTell();
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxFileStream);
 };
 #    endif
@@ -205,16 +206,16 @@ public:
   wxFileOffset GetLength() const override;
   bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const override;
   bool IsSeekable() const override
   {
- return m_file->GetKind() == wxFILE_KIND_DISK;
+    return m_file->GetKind() == wxFILE_KIND_DISK;
   }
   wxFFile* GetFile() const
   {
- return m_file;
+    return m_file;
   }
 protected:
   wxFFileInputStream();
@@ -235,21 +236,21 @@ public:
   void Sync() override;
   bool Close() override
   {
- return m_file_destroy ? m_file->Close() : true;
+    return m_file_destroy ? m_file->Close() : true;
   }
   wxFileOffset GetLength() const override;
   bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const override;
   bool IsSeekable() const override
   {
- return m_file->GetKind() == wxFILE_KIND_DISK;
+    return m_file->GetKind() == wxFILE_KIND_DISK;
   }
   wxFFile* GetFile() const
   {
- return m_file;
+    return m_file;
   }
 protected:
   wxFFileOutputStream();
@@ -269,21 +270,22 @@ public:
   bool IsOk() const override;
   bool IsSeekable() const override
   {
-        return wxFFileInputStream::IsSeekable();
+    return wxFFileInputStream::IsSeekable();
   }
   wxFileOffset GetLength() const override
   {
-        return wxFFileInputStream::GetLength();
+    return wxFFileInputStream::GetLength();
   }
 protected:
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override
   {
-        return wxFFileInputStream::OnSysSeek(pos, mode);
+    return wxFFileInputStream::OnSysSeek(pos, mode);
   }
   wxFileOffset OnSysTell() const override
   {
-        return wxFFileInputStream::OnSysTell();
+    return wxFFileInputStream::OnSysTell();
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxFFileStream);
 };
 #    endif

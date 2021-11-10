@@ -34,19 +34,19 @@ public:
   virtual void flush() = 0;
   int width() const
   {
- return fWidth;
+    return fWidth;
   }
   int height() const
   {
- return fHeight;
+    return fHeight;
   }
   void* handle() const
   {
- return fHandle;
+    return fHandle;
   }
   SkAtlasTextContext* context() const
   {
- return fContext.get();
+    return fContext.get();
   }
     /** Saves the current matrix in a stack. Returns the prior depth of the saved matrix stack. */
   int save();
@@ -73,7 +73,7 @@ protected:
   SkAtlasTextTarget(sk_sp<SkAtlasTextContext>, int width, int height, void* handle);
   const SkMatrix& ctm() const
   {
- return *static_cast<const SkMatrix*>(fMatrixStack.back());
+    return *static_cast<const SkMatrix*>(fMatrixStack.back());
   }
   void* const fHandle;
   const sk_sp<SkAtlasTextContext> fContext;
@@ -84,7 +84,7 @@ private:
   int fSaveCnt;
   SkMatrix* accessCTM() const
   {
-        return static_cast<SkMatrix*>(const_cast<void*>(fMatrixStack.back()));
+    return static_cast<SkMatrix*>(const_cast<void*>(fMatrixStack.back()));
   }
   SkAtlasTextTarget() = delete;
   SkAtlasTextTarget(const SkAtlasTextContext&) = delete;

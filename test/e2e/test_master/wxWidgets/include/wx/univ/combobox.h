@@ -32,14 +32,12 @@ public:
     // ctors and such
   wxComboBox()
   {
- Init();
+    Init();
   }
   wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = (const wxString*) NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, value, pos, size, n, choices,
-                     style, validator, name);
+    Init();
+    (void) Create(parent, id, value, pos, size, n, choices, style, validator, name);
   }
   wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = (const wxString*) NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
@@ -53,7 +51,7 @@ public:
     // wxTextCtrl methods
   wxString GetValue() const override
   {
- return DoGetValue();
+    return DoGetValue();
   }
   void SetValue(const wxString& value) override;
   void WriteText(const wxString& value) override;
@@ -81,16 +79,16 @@ public:
     // override these methods to disambiguate between two base classes versions
   void Clear() override
   {
-        wxItemContainer::Clear();
+    wxItemContainer::Clear();
   }
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
   {
- return wxItemContainer::IsEmpty();
+    return wxItemContainer::IsEmpty();
   }
   bool IsTextEmpty() const
   {
- return wxTextEntry::IsEmpty();
+    return wxTextEntry::IsEmpty();
   }
     // wxControlWithItems methods
   void DoClear() override;
@@ -112,7 +110,7 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-        return GetStdInputHandler(handlerDef);
+    return GetStdInputHandler(handlerDef);
   }
     // we delegate our client data handling to wxListBox which we use for the
     // items, so override this and other methods dealing with the client data
@@ -120,7 +118,7 @@ public:
   void SetClientDataType(wxClientDataType clientDataItemsType) override;
   const wxTextEntry* WXGetTextEntry() const override
   {
- return this;
+    return this;
   }
 protected:
   int DoInsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData, wxClientDataType type) override;
@@ -131,13 +129,13 @@ protected:
     // get the associated listbox
   wxListBox* GetLBox() const
   {
- return m_lbox;
+    return m_lbox;
   }
 private:
     // implement wxTextEntry pure virtual method
   wxWindow* GetEditableWindow() override
   {
- return this;
+    return this;
   }
     // the popup listbox
   wxListBox* m_lbox;

@@ -65,52 +65,52 @@ public:
     /// Show/hide position controls
   static void ShowPositionControls(bool show)
   {
- sm_showPositionControls = show;
+    sm_showPositionControls = show;
   }
     /// Show/hide minimum and maximum size controls
   static void ShowMinMaxSizeControls(bool show)
   {
- sm_showMinMaxSizeControls = show;
+    sm_showMinMaxSizeControls = show;
   }
     /// Show/hide position mode controls
   static void ShowPositionModeControls(bool show)
   {
- sm_showPositionModeControls = show;
+    sm_showPositionModeControls = show;
   }
     /// Show/hide right/bottom position controls
   static void ShowRightBottomPositionControls(bool show)
   {
- sm_showRightBottomPositionControls = show;
+    sm_showRightBottomPositionControls = show;
   }
     /// Show/hide floating and alignment controls
   static void ShowFloatingAndAlignmentControls(bool show)
   {
- sm_showFloatingAndAlignmentControls = show;
+    sm_showFloatingAndAlignmentControls = show;
   }
     /// Show/hide floating controls
   static void ShowFloatingControls(bool show)
   {
- sm_showFloatingControls = show;
+    sm_showFloatingControls = show;
   }
     /// Show/hide alignment controls
   static void ShowAlignmentControls(bool show)
   {
- sm_showAlignmentControls = show;
+    sm_showAlignmentControls = show;
   }
     /// Enable the position and size units
   static void EnablePositionAndSizeUnits(bool enable)
   {
- sm_enablePositionAndSizeUnits = enable;
+    sm_enablePositionAndSizeUnits = enable;
   }
     /// Enable the checkboxes for position and size
   static void EnablePositionAndSizeCheckboxes(bool enable)
   {
- sm_enablePositionAndSizeCheckboxes = enable;
+    sm_enablePositionAndSizeCheckboxes = enable;
   }
     /// Enable the move object controls
   static void ShowMoveObjectControls(bool enable)
   {
- sm_showMoveObjectControls = enable;
+    sm_showMoveObjectControls = enable;
   }
 ////@begin wxRichTextSizePage event handler declarations
 
@@ -157,11 +157,11 @@ public:
 ////@begin wxRichTextSizePage member function declarations
   int GetPositionMode() const
   {
- return m_positionMode ;
+    return m_positionMode;
   }
   void SetPositionMode(int value)
   {
- m_positionMode = value ;
+    m_positionMode = value;
   }
     /// Retrieves bitmap resources
   wxBitmap GetBitmapResource(const wxString& name);

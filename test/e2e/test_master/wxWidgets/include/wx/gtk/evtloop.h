@@ -23,7 +23,7 @@ public:
   void WakeUp() override;
   void StoreGdkEventForLaterProcessing(GdkEvent* ev)
   {
- m_arrGdkEvents.Add(ev);
+    m_arrGdkEvents.Add(ev);
   }
 protected:
   int DoRun() override;

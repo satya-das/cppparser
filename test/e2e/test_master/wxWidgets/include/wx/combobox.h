@@ -26,8 +26,8 @@ public:
     // override these methods to disambiguate between two base classes versions
   void Clear() override
   {
-        wxItemContainer::Clear();
-        wxTextEntry::Clear();
+    wxItemContainer::Clear();
+    wxTextEntry::Clear();
   }
     // IsEmpty() is ambiguous because we inherit it from both wxItemContainer
     // and wxTextEntry, and even if defined it here to help the compiler with
@@ -36,11 +36,11 @@ public:
     // IsEmpty() ambiguous to trigger a compilation error if it's used.
   bool IsListEmpty() const
   {
- return wxItemContainer::IsEmpty();
+    return wxItemContainer::IsEmpty();
   }
   bool IsTextEmpty() const
   {
- return wxTextEntry::IsEmpty();
+    return wxTextEntry::IsEmpty();
   }
     // also bring in GetSelection() versions of both base classes in scope
     //
@@ -52,18 +52,18 @@ public:
   void GetSelection(long* from, long* to) const = 0;
   virtual void Popup()
   {
- wxFAIL_MSG( wxT("Not implemented") );
+    wxFAIL_MSG( wxT("Not implemented") );
   }
   virtual void Dismiss()
   {
- wxFAIL_MSG( wxT("Not implemented") );
+    wxFAIL_MSG( wxT("Not implemented") );
   }
     // may return value different from GetSelection() when the combobox
     // dropdown is shown and the user selected, but not yet accepted, a value
     // different from the old one in it
   virtual int GetCurrentSelection() const
   {
- return GetSelection();
+    return GetSelection();
   }
 };
 // ----------------------------------------------------------------------------

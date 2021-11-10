@@ -40,7 +40,7 @@ public:
   // Returns the overall size
   wxSize GetSize() const
   {
- return m_size;
+    return m_size;
   }
   // Operations
   ////////////////////////////////////////////////////////////////////////////
@@ -171,7 +171,7 @@ public:
   // Returns the native image list handle
   WXHIMAGELIST GetHIMAGELIST() const
   {
- return m_hImageList;
+    return m_hImageList;
   }
 protected:
   WXHIMAGELIST m_hImageList;

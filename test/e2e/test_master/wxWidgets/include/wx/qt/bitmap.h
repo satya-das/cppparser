@@ -26,7 +26,7 @@ public:
     // Convert from wxIcon / wxCursor
   wxBitmap(const wxIcon& icon)
   {
- CopyFromIcon(icon);
+    CopyFromIcon(icon);
   }
   explicit wxBitmap(const wxCursor& cursor);
   static void InitStandardHandlers();
@@ -51,8 +51,6 @@ public:
     // copies the contents and mask of the given (colour) icon to the bitmap
   bool CopyFromIcon(const wxIcon& icon) override;
     // implementation:
-#  if  WXWIN_COMPATIBILITY_3_0
-#  endif
   void* GetRawData(wxPixelDataBase& data, int bpp);
   void UngetRawData(wxPixelDataBase& data);
     // these functions are internal and shouldn't be used, they risk to

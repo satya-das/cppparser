@@ -22,19 +22,19 @@ public:
   GrAppliedHardClip(const GrAppliedHardClip&) = delete;
   const GrScissorState& scissorState() const
   {
- return fScissorState;
+    return fScissorState;
   }
   const GrWindowRectsState& windowRectsState() const
   {
- return fWindowRectsState;
+    return fWindowRectsState;
   }
   uint32_t stencilStackID() const
   {
- return fStencilStackID;
+    return fStencilStackID;
   }
   bool hasStencilClip() const
   {
- return SkClipStack::kInvalidGenID != fStencilStackID;
+    return SkClipStack::kInvalidGenID != fStencilStackID;
   }
     /**
      * Intersects the applied clip with the provided rect. Returns false if the draw became empty.
@@ -43,36 +43,34 @@ public:
      */
   bool addScissor(const SkIRect& irect, SkRect* clippedDrawBounds)
   {
-        return fScissorState.intersect(irect) && clippedDrawBounds->intersect(SkRect::Make(irect));
+    return fScissorState.intersect(irect) && clippedDrawBounds->intersect(SkRect::Make(irect));
   }
   void addWindowRectangles(const GrWindowRectsState& windowState)
   {
-        SkASSERT(!fWindowRectsState.enabled());
-        fWindowRectsState = windowState;
+    SkASSERT(!fWindowRectsState.enabled());
+    fWindowRectsState = windowState;
   }
   void addWindowRectangles(const GrWindowRectangles& windows, GrWindowRectsState::Mode mode)
   {
-        SkASSERT(!fWindowRectsState.enabled());
-        fWindowRectsState.set(windows, mode);
+    SkASSERT(!fWindowRectsState.enabled());
+    fWindowRectsState.set(windows, mode);
   }
   void addStencilClip(uint32_t stencilStackID)
   {
-        SkASSERT(SkClipStack::kInvalidGenID == fStencilStackID);
-        fStencilStackID = stencilStackID;
+    SkASSERT(SkClipStack::kInvalidGenID == fStencilStackID);
+    fStencilStackID = stencilStackID;
   }
   bool doesClip() const
   {
-        return fScissorState.enabled() || this->hasStencilClip() || fWindowRectsState.enabled();
+    return fScissorState.enabled() || this->hasStencilClip() || fWindowRectsState.enabled();
   }
   bool operator==(const GrAppliedHardClip& that) const
   {
-        return fScissorState == that.fScissorState &&
-               fWindowRectsState == that.fWindowRectsState &&
-               fStencilStackID == that.fStencilStackID;
+    return fScissorState == that.fScissorState && fWindowRectsState == that.fWindowRectsState && fStencilStackID == that.fStencilStackID;
   }
   bool operator!=(const GrAppliedHardClip& that) const
   {
- return !(*this == that);
+    return !(*this == that);
   }
 private:
   GrScissorState fScissorState;
@@ -90,77 +88,76 @@ public:
   GrAppliedClip(const GrAppliedClip&) = delete;
   const GrScissorState& scissorState() const
   {
- return fHardClip.scissorState();
+    return fHardClip.scissorState();
   }
   const GrWindowRectsState& windowRectsState() const
   {
- return fHardClip.windowRectsState();
+    return fHardClip.windowRectsState();
   }
   uint32_t stencilStackID() const
   {
- return fHardClip.stencilStackID();
+    return fHardClip.stencilStackID();
   }
   bool hasStencilClip() const
   {
- return fHardClip.hasStencilClip();
+    return fHardClip.hasStencilClip();
   }
   int numClipCoverageFragmentProcessors() const
   {
- return fClipCoverageFPs.count();
+    return fClipCoverageFPs.count();
   }
   const GrFragmentProcessor* clipCoverageFragmentProcessor(int i) const
   {
-        SkASSERT(fClipCoverageFPs[i]);
-        return fClipCoverageFPs[i].get();
+    SkASSERT(fClipCoverageFPs[i]);
+    return fClipCoverageFPs[i].get();
   }
   std::unique_ptr<const GrFragmentProcessor> detachClipCoverageFragmentProcessor(int i)
   {
-        SkASSERT(fClipCoverageFPs[i]);
-        return std::move(fClipCoverageFPs[i]);
+    SkASSERT(fClipCoverageFPs[i]);
+    return std::move(fClipCoverageFPs[i]);
   }
   GrAppliedHardClip& hardClip()
   {
- return fHardClip;
+    return fHardClip;
   }
   void addCoverageFP(std::unique_ptr<GrFragmentProcessor> fp)
   {
-        SkASSERT(fp);
-        fClipCoverageFPs.push_back(std::move(fp));
+    SkASSERT(fp);
+    fClipCoverageFPs.push_back(std::move(fp));
   }
   bool doesClip() const
   {
-        return fHardClip.doesClip() || !fClipCoverageFPs.empty();
+    return fHardClip.doesClip() || !fClipCoverageFPs.empty();
   }
   bool operator==(const GrAppliedClip& that) const
   {
-        if (fHardClip != that.fHardClip ||
-            fClipCoverageFPs.count() != that.fClipCoverageFPs.count()) {
-            return false;
+    if (fHardClip != that.fHardClip || fClipCoverageFPs.count() != that.fClipCoverageFPs.count())
+    {
+      return false;
+    }
+    for (int i = 0; i < fClipCoverageFPs.count(); ++i)
+    {
+      if (!fClipCoverageFPs[i] || !that.fClipCoverageFPs[i])
+      {
+        if (fClipCoverageFPs[i] == that.fClipCoverageFPs[i])
+        {
+          continue;
         }
-        for (int i = 0; i < fClipCoverageFPs.count(); ++i) {
-            if (!fClipCoverageFPs[i] || !that.fClipCoverageFPs[i]) {
-                if (fClipCoverageFPs[i] == that.fClipCoverageFPs[i]) {
-                    continue; // Both are null.
-                }
-                return false;
-            }
-            if (!fClipCoverageFPs[i]->isEqual(*that.fClipCoverageFPs[i])) {
-                return false;
-            }
-        }
-        return true;
+        return false;
+      }
+      if (!fClipCoverageFPs[i]->isEqual(*that.fClipCoverageFPs[i]))
+      {
+        return false;
+      }
+    }
+    return true;
   }
   bool operator!=(const GrAppliedClip& that) const
   {
- return !(*this == that);
+    return !(*this == that);
   }
   void visitProxies(const GrOp::VisitProxyFunc& func) const
   {
-        for (const std::unique_ptr<GrFragmentProcessor>& fp : fClipCoverageFPs) {
-            if (fp) { // This might be called after detach.
-                fp->visitProxies(func);
-            }
-        }
   }
 private:
   GrAppliedHardClip fHardClip;

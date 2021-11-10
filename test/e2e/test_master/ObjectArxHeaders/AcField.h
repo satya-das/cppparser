@@ -58,8 +58,8 @@ private:
 // Please use the other overload which takes an AcString & arg
 inline Acad::ErrorStatus AcFdFieldEvaluator::format(AcDbField* pField, ACHAR*& pszValue)
 {
-    AcString sValue;
-    return ::acutAcStringToAChar(sValue, pszValue, this->format(pField, sValue));
+  AcString sValue;
+  return ::acutAcStringToAChar(sValue, pszValue, this->format(pField, sValue));
 }
 //*************************************************************************
 // AcFdFieldEvaluatorLoader

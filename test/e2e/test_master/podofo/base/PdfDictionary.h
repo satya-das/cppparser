@@ -62,9 +62,8 @@ namespace PoDoFo
   public:
     size_t operator()(const PdfName& v) const
     {
-        std::tr1::hash<std::string> hasher;
-        
-        return hasher( v.GetName() );
+      std::tr1::hash<std::string> hasher;
+      return hasher(v.GetName());
     }
   };
   typedef std::tr1::unordered_map<PdfName,PdfObject*, PdfNameHash> TKeyMap;
@@ -353,9 +352,11 @@ namespace PoDoFo
 // -----------------------------------------------------
   const PdfObject& PdfDictionary::MustGetKey(const PdfName& key) const
   {
-    const PdfObject* obj = GetKey( key );
+    const PdfObject* obj = GetKey(key);
     if (!obj)
-        PODOFO_RAISE_ERROR( ePdfError_NoObject );
+    {
+      PODOFO_RAISE_ERROR(ePdfError_NoObject);
+    }
     return *obj;
   }
 // -----------------------------------------------------
@@ -363,7 +364,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   void PdfDictionary::Write(PdfOutputDevice* pDevice, EPdfWriteMode eWriteMode, const PdfEncrypt* pEncrypt) const
   {
-    this->Write( pDevice, eWriteMode, pEncrypt, PdfName::KeyNull );
+    this->Write(pDevice, eWriteMode, pEncrypt, PdfName::KeyNull);
   }
 // -----------------------------------------------------
 // 

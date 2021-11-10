@@ -90,9 +90,7 @@
 // although we keep it here for the library users, don't include it to avoid
 // bloating the PCH and (worse) rebuilding the entire library when it changes
 // when building the library itself
-#    ifndef WXBUILDING
-#      include "wx/mdi.h"
-#    endif
+#    include "wx/mdi.h"
 // always include, even if !wxUSE_VALIDATORS because we need wxDefaultValidator
 #    include "wx/validate.h"
 #    if  wxUSE_VALIDATORS

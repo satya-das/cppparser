@@ -20,11 +20,11 @@ public:
   static sk_sp<SkAtlasTextContext> Make(sk_sp<SkAtlasTextRenderer>);
   SkAtlasTextRenderer* renderer() const
   {
-        return SkGetAtlasTextRendererFromInternalContext(*fInternalContext);
+    return SkGetAtlasTextRendererFromInternalContext(*fInternalContext);
   }
   SkInternalAtlasTextContext& internal()
   {
- return *fInternalContext;
+    return *fInternalContext;
   }
 private:
   SkAtlasTextContext() = delete;

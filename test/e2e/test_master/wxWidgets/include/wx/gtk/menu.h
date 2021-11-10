@@ -41,7 +41,7 @@ private:
     // window
   bool GTKNeedsParent() const override
   {
- return false;
+    return false;
   }
   GtkWidget* m_menubar;
   wxDECLARE_DYNAMIC_CLASS(wxMenuBar);
@@ -54,14 +54,14 @@ class WXDLLIMPEXP_CORE wxMenu : public wxMenuBase
 public:
     // ctors & dtor
   wxMenu(const wxString& title, long style = 0)
-    :  wxMenuBase(title, style)
+    : wxMenuBase(title, style)
   {
- Init();
+    Init();
   }
   wxMenu(long style = 0)
-    :  wxMenuBase(style)
+    : wxMenuBase(style)
   {
- Init();
+    Init();
   }
   virtual ~wxMenu();
   void Attach(wxMenuBarBase* menubar) override;

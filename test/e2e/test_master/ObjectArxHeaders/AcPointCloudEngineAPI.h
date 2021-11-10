@@ -77,13 +77,13 @@ public:
     /// is going to make before the next such call</param>
   virtual void prepareForCell(double& minX, double& minY, double& minZ, double& maxX, double& maxY, double& maxZ, long numTests)
   {
-        UNREFERENCED_PARAMETER(minX);
-        UNREFERENCED_PARAMETER(minY);
-        UNREFERENCED_PARAMETER(minZ);
-        UNREFERENCED_PARAMETER(maxX);
-        UNREFERENCED_PARAMETER(maxY);
-        UNREFERENCED_PARAMETER(maxZ);
-        UNREFERENCED_PARAMETER(numTests);
+    UNREFERENCED_PARAMETER(minX);
+    UNREFERENCED_PARAMETER(minY);
+    UNREFERENCED_PARAMETER(minZ);
+    UNREFERENCED_PARAMETER(maxX);
+    UNREFERENCED_PARAMETER(maxY);
+    UNREFERENCED_PARAMETER(maxZ);
+    UNREFERENCED_PARAMETER(numTests);
   }
     /// <summmary>
     /// This function creates a clone of the filter and returns a pointer to the clone
@@ -109,7 +109,7 @@ public:
     /// <returns>ture if the filter is inverted</returns>
   virtual bool isInverted() const
   {
-        return false;
+    return false;
   }
     /// <summmary>
     /// Set the filter as inverted or not, then we can get opposite result of original filter
@@ -117,7 +117,7 @@ public:
     /// <param name="bInverted">a bool value indicating whether the filter is inverted</param>
   virtual void setIsInverted(bool bInverted)
   {
-        UNREFERENCED_PARAMETER(bInverted);
+    UNREFERENCED_PARAMETER(bInverted);
   }
 };
 /// <summary>

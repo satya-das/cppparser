@@ -18,8 +18,9 @@ public:
     // implementation only
   int QtGetEventType() const override
   {
- return wxEVT_BUTTON;
+    return wxEVT_BUTTON;
   }
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxButton);
 };
 #endif

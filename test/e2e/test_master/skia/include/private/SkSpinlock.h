@@ -16,25 +16,27 @@ public:
   void acquire()
   {
         // To act as a mutex, we need an acquire barrier when we acquire the lock.
-        if (fLocked.exchange(true, std::memory_order_acquire)) {
+    if (fLocked.exchange(true, std::memory_order_acquire))
+    {
             // Lock was contended.  Fall back to an out-of-line spin loop.
-            this->contendedAcquire();
-        }
+      this->contendedAcquire();
+    }
   }
     // Acquire the lock or fail (quickly). Lets the caller decide to do something other than wait.
   bool tryAcquire()
   {
         // To act as a mutex, we need an acquire barrier when we acquire the lock.
-        if (fLocked.exchange(true, std::memory_order_acquire)) {
+    if (fLocked.exchange(true, std::memory_order_acquire))
+    {
             // Lock was contended. Let the caller decide what to do.
-            return false;
-        }
-        return true;
+      return false;
+    }
+    return true;
   }
   void release()
   {
         // To act as a mutex, we need a release barrier when we release the lock.
-        fLocked.store(false, std::memory_order_release);
+    fLocked.store(false, std::memory_order_release);
   }
 private:
   SK_API void contendedAcquire();
@@ -44,13 +46,13 @@ class SK_SCOPED_CAPABILITY SkAutoSpinlock
 {
 public:
   SkAutoSpinlock(SkSpinlock& mutex)
-    :  fSpinlock(mutex)
+    : fSpinlock(mutex)
   {
- fSpinlock.acquire();
+    fSpinlock.acquire();
   }
   ~SkAutoSpinlock()
   {
- fSpinlock.release();
+    fSpinlock.release();
   }
 private:
   SkSpinlock& fSpinlock;

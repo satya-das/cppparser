@@ -31,11 +31,11 @@ public:
   const void* getMemoryBase() override;
   std::unique_ptr<SkDWriteFontFileStream> duplicate() const
   {
-        return std::unique_ptr<SkDWriteFontFileStream>(this->onDuplicate());
+    return std::unique_ptr<SkDWriteFontFileStream>(this->onDuplicate());
   }
   std::unique_ptr<SkDWriteFontFileStream> fork() const
   {
-        return std::unique_ptr<SkDWriteFontFileStream>(this->onFork());
+    return std::unique_ptr<SkDWriteFontFileStream>(this->onFork());
   }
 private:
   SkDWriteFontFileStream* onDuplicate() const override;
@@ -66,7 +66,6 @@ private:
   explicit SkDWriteFontFileStreamWrapper(SkStreamAsset* stream);
   virtual ~SkDWriteFontFileStreamWrapper()
   {
-
   }
   ULONG fRefCount;
   std::unique_ptr<SkStreamAsset> fStream;

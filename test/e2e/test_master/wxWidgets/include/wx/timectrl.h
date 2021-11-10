@@ -56,29 +56,25 @@ public:
         // Notice that we should use a date on which DST doesn't change to
         // avoid any problems with time discontinuity so use a fixed date (on
         // which nobody changes DST) instead of e.g. today.
-        wxDateTime dt(1, wxDateTime::Jan, 2012, hour, min, sec);
-        if ( !dt.IsValid() )
-        {
+    wxDateTime dt(1, wxDateTime::Jan, 2012, hour, min, sec);
+    if (!dt.IsValid())
+    {
             // No need to assert here, wxDateTime already does it for us.
-            return false;
-        }
-
-        this->SetValue(dt);
-
-        return true;
+      return false;
+    }
+    this->SetValue(dt);
+    return true;
   }
     // Get the current time components. All pointers must be non-NULL.
   bool GetTime(int* hour, int* min, int* sec) const
   {
-        wxCHECK_MSG( hour && min && sec, false,
+    wxCHECK_MSG( hour && min && sec, false,
                      wxS("Time component pointers must be non-NULL") );
-
-        const wxDateTime::Tm tm = this->GetValue().GetTm();
-        *hour = tm.hour;
-        *min = tm.min;
-        *sec = tm.sec;
-
-        return true;
+    const wxDateTime::Tm tm = this->GetValue().GetTm();
+    *hour = tm.hour;
+    *min = tm.min;
+    *sec = tm.sec;
+    return true;
   }
 };
 // This class is defined mostly for compatibility and is used as the base class
@@ -97,13 +93,12 @@ class WXDLLIMPEXP_ADV wxTimePickerCtrl : public wxTimePickerCtrlGeneric
 public:
   wxTimePickerCtrl()
   {
-
   }
   wxTimePickerCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTP_DEFAULT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxTimePickerCtrlNameStr)
-    :  wxTimePickerCtrlGeneric(parent, id, date, pos, size, style, validator, name)
+    : wxTimePickerCtrlGeneric(parent, id, date, pos, size, style, validator, name)
   {
-
   }
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxTimePickerCtrl);
 };
 #    endif

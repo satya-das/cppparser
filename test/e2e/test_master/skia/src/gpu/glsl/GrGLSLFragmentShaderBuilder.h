@@ -20,7 +20,7 @@ class GrGLSLFragmentBuilder : public GrGLSLShaderBuilder
 {
 public:
   GrGLSLFragmentBuilder(GrGLSLProgramBuilder* program)
-    :  INHERITED(program)
+    : INHERITED(program)
   {
   }
   virtual ~GrGLSLFragmentBuilder()
@@ -46,7 +46,7 @@ class GrGLSLFPFragmentBuilder : public GrGLSLFragmentBuilder
 public:
     /** Appease the compiler; the derived class initializes GrGLSLFragmentBuilder. */
   GrGLSLFPFragmentBuilder()
-    :  GrGLSLFragmentBuilder(nullptr)
+    : GrGLSLFragmentBuilder(nullptr)
   {
   }
     /**
@@ -107,7 +107,7 @@ class GrGLSLXPFragmentBuilder : public GrGLSLFragmentBuilder
 public:
     /** Appease the compiler; the derived class initializes GrGLSLFragmentBuilder. */
   GrGLSLXPFragmentBuilder()
-    :  GrGLSLFragmentBuilder(nullptr)
+    : GrGLSLFragmentBuilder(nullptr)
   {
   }
   virtual bool hasCustomColorOutput() const = 0;
@@ -138,22 +138,22 @@ public:
   void applyFnToMultisampleMask(const char* fn, const char* grad, ScopeFlags) override;
   const SkString& getMangleString() const override
   {
- return fMangleString;
+    return fMangleString;
   }
   void onBeforeChildProcEmitCode() override;
   void onAfterChildProcEmitCode() override;
   void forceHighPrecision() override
   {
- fForceHighPrecision = true;
+    fForceHighPrecision = true;
   }
     // GrGLSLXPFragmentBuilder interface.
   bool hasCustomColorOutput() const override
   {
- return fHasCustomColorOutput;
+    return fHasCustomColorOutput;
   }
   bool hasSecondaryOutput() const override
   {
- return fHasSecondaryOutput;
+    return fHasSecondaryOutput;
   }
   const char* dstColor() override;
   void enableAdvancedBlendEquationIfNeeded(GrBlendEquation) override;
@@ -173,17 +173,17 @@ private:
   CustomFeatures fUsedProcessorFeaturesAllStages_DebugOnly = CustomFeatures::kNone;
   void debugOnly_resetPerStageVerification()
   {
-        fHasReadDstColorThisStage_DebugOnly = false;
-        fUsedProcessorFeaturesThisStage_DebugOnly = CustomFeatures::kNone;
+    fHasReadDstColorThisStage_DebugOnly = false;
+    fUsedProcessorFeaturesThisStage_DebugOnly = CustomFeatures::kNone;
   }
 #  endif
   static const char* DeclaredColorOutputName()
   {
- return "sk_FragColor";
+    return "sk_FragColor";
   }
   static const char* DeclaredSecondaryColorOutputName()
   {
- return "fsSecondaryColorOut";
+    return "fsSecondaryColorOut";
   }
   GrSurfaceOrigin getSurfaceOrigin() const;
   void onFinalize() override;

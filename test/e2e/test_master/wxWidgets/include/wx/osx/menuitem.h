@@ -31,7 +31,7 @@ public:
   virtual void SetBitmap(const wxBitmap& bitmap);
   virtual const wxBitmap& GetBitmap() const
   {
- return m_bitmap;
+    return m_bitmap;
   }
     // Implementation only from now on.
 
@@ -41,7 +41,7 @@ public:
   void UpdateItemStatus();
   wxMenuItemImpl* GetPeer()
   {
- return m_peer;
+    return m_peer;
   }
 private:
   void UncheckRadio();

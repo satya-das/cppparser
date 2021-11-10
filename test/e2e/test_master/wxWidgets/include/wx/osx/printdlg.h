@@ -31,11 +31,11 @@ public:
   int ShowModal() override;
   wxPrintDialogData& GetPrintDialogData() override
   {
- return m_printDialogData;
+    return m_printDialogData;
   }
   wxPrintData& GetPrintData() override
   {
- return m_printDialogData.GetPrintData();
+    return m_printDialogData.GetPrintData();
   }
   wxDC* GetPrintDC() override;
 private:
@@ -76,7 +76,7 @@ public:
   bool TransferDataFromWindow() override;
   virtual wxPageSetupDialogData& GetPageSetupDialogData()
   {
- return *m_pageSetupDialogData;
+    return *m_pageSetupDialogData;
   }
 private:
   wxPageSetupDialogData* m_pageSetupDialogData;

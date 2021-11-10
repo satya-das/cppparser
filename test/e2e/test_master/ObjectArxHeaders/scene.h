@@ -168,31 +168,24 @@ class AcReCallout
 public:
   virtual void e2fHeaderData(struct e2f_hdr* hdr)
   {
-
   }
   virtual void e2fLayerData(struct e2f_layer* lyr)
   {
-
   }
   virtual void e2fBlockData(struct e2f_ent* ent, struct e2f_xform* xform)
   {
-
   }
   virtual void e2fEntityData(struct e2f_ent* ent)
   {
-
   }
   virtual void e2fVertexData(dwg3dp* vertex_array)
   {
-
   }
   virtual void e2fNormalData(dwg3dp* normals_array)
   {
-
   }
   virtual void e2fMeshData(struct scn_pmsh* polymesh, long** polyindex)
   {
-
   }
   int flag;
 };

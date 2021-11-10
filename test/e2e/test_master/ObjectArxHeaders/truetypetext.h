@@ -67,72 +67,84 @@ class TrueTypeUnicodeBuffer
 {
 public:
   TrueTypeUnicodeBuffer(const wchar_t* text, int length, bool raw, Charset charset)
-    :         m_bDynamicBuffer(false),
-        m_bValid(true)
+    : m_bDynamicBuffer(false)
+    , m_bValid(true)
   {
-        ADESK_UNREFED_PARAM(charset);
-        if (length < -1) {
-            m_iLen = -length - 1;
-            m_pBuffer = (wchar_t*)text;
-            return;
-        }
-
-        if (length != -1)
-            m_iLen = length;
-        else {
-            const size_t nLen = ::wcslen(text);
-#ifdef ASSERT
-#define TrueTypeText_Assert ASSERT
-#elif defined(assert)
-#define TrueTypeText_Assert assert
-#elif defined(_ASSERTE)
-#define TrueTypeText_Assert _ASSERTE
-#else
-#define TrueTypeText_Assert(x)
-#endif
-            TrueTypeText_Assert(nLen < 0x7FFFFFFE);   // 2G-1 sanity check
-            TrueTypeText_Assert(nLen == (int)nLen);  // 64-bit portability
-            m_iLen = (int)nLen;
-        }
-        if (!raw) {
+    ADESK_UNREFED_PARAM(charset);
+    if (length < -1)
+    {
+      m_iLen = -length - 1;
+      m_pBuffer = (wchar_t*) text;
+      return ;
+    }
+    if (length != -1)
+    {
+      m_iLen = length;
+    }
+    else 
+    {
+      const size_t nLen = ::wcslen(text);
+#  ifdef ASSERT
+#    define TrueTypeText_Assert	ASSERT
+#  elif  defined(assert)
+#    define TrueTypeText_Assert	assert
+#  elif  defined(_ASSERTE)
+#    define TrueTypeText_Assert	_ASSERTE
+#  else 
+#    define TrueTypeText_Assert(x)
+#  endif
+      TrueTypeText_Assert(nLen < 0x7FFFFFFE);
+      TrueTypeText_Assert(nLen == (int) nLen);
+      m_iLen = (int) nLen;
+    }
+    if (!raw)
+    {
             // only need temporary string if converting %% sequences
-            size_t nSize;
-            if (m_iLen + 1 > m_kBufferLen) {
-                m_bDynamicBuffer = true;
-                m_pBuffer = new wchar_t [m_iLen + 1];
-                nSize = m_iLen + 1;
-                if (!m_pBuffer) {
-                    m_bValid = false;
-                    return;
-                }
-            } else {
-                m_pBuffer = m_sBuffer;
-                nSize = m_kBufferLen;
-            }
-            wcsncpy_s(m_pBuffer, nSize, text, m_iLen);
-            m_pBuffer[m_iLen] = 0;
-        } else {
+      size_t nSize;
+      if (m_iLen + 1 > m_kBufferLen)
+      {
+        m_bDynamicBuffer = true;
+        m_pBuffer = new wchar_t[m_iLen + 1];
+        nSize = m_iLen + 1;
+        if (!m_pBuffer)
+        {
+          m_bValid = false;
+          return ;
+        }
+      }
+      else 
+      {
+        m_pBuffer = m_sBuffer;
+        nSize = m_kBufferLen;
+      }
+      wcsncpy_s(m_pBuffer, nSize, text, m_iLen);
+      m_pBuffer[m_iLen] = 0;
+    }
+    else 
+    {
             // It is okay to cast away constness here -- we only call process_underoverline
             // which takes a const pointer
-            m_pBuffer = const_cast<wchar_t *>(text);
-        }
+      m_pBuffer = const_cast<wchar_t*>(text);
+    }
   }
   ~TrueTypeUnicodeBuffer()
   {
-        if (m_bDynamicBuffer)
-            delete [] m_pBuffer;
+    if (m_bDynamicBuffer)
+    {
+      delete[] m_pBuffer;
+    }
   }
   wchar_t* buf() const
   {
- return m_pBuffer;
+    return m_pBuffer;
   }
   int len() const
   {
- return m_iLen;
+    return m_iLen;
   }
   bool valid() const
   {
- return m_bValid;
+    return m_bValid;
   }
 private:
   static const int m_kBufferLen = 256;

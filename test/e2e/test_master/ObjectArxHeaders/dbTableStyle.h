@@ -175,6 +175,6 @@ protected:
 // This overload is deprecated. Please use the one taking AcString & arg instead
 inline Acad::ErrorStatus AcDbTableStyle::getName(ACHAR*& pName) const
 {
-    return ::acutGetAcStringConvertToAChar(this, &AcDbTableStyle::getName, pName);
+  return ::acutGetAcStringConvertToAChar(this, &AcDbTableStyle::getName, pName);
 }
 #endif

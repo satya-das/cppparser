@@ -24,7 +24,7 @@ public:
   int ShowModal() override;
   wxColourData& GetColourData()
   {
- return m_colourData;
+    return m_colourData;
   }
 protected:
   wxColourData m_colourData;

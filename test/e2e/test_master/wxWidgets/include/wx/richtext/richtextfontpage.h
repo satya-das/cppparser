@@ -74,12 +74,12 @@ public:
     /// have no effect in the editor.
   static int GetAllowedTextEffects()
   {
- return sm_allowedTextEffects;
+    return sm_allowedTextEffects;
   }
     /// Sets the allowed text effects in the page.
   static void SetAllowedTextEffects(int allowed)
   {
- sm_allowedTextEffects = allowed;
+    sm_allowedTextEffects = allowed;
   }
 ////@begin wxRichTextFontPage event handler declarations
 

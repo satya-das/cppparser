@@ -94,14 +94,12 @@ public:
   bool SetTransparent(wxByte alpha) override;
   bool CanSetTransparent() override
   {
- return true;
+    return true;
   }
   bool SetBackgroundColour(const wxColour& colour) override;
   bool SetForegroundColour(const wxColour& colour) override;
   QWidget* GetHandle() const override;
-#  if  wxUSE_DRAG_AND_DROP
   void SetDropTarget(wxDropTarget* dropTarget) override;
-#  endif
 #  if  wxUSE_ACCEL
     // accelerators
     // ------------
@@ -162,7 +160,7 @@ protected:
     // itself.
   virtual QWidget* QtGetParentWidget() const
   {
- return GetHandle();
+    return GetHandle();
   }
   QWidget* m_qtWindow;
 private:
@@ -185,6 +183,6 @@ private:
   wxScopedPtr<wxQtShortcutHandler> m_qtShortcutHandler;
   bool m_processingShortcut;
 #  endif
-  wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxWindowQt);
+  wxDECLARE_DYNAMIC_CLASS_NO_COPY( wxWindowQt );
 };
 #endif

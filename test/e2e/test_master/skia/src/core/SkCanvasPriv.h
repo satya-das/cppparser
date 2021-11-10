@@ -34,11 +34,11 @@ public:
   static SkCanvas::SaveLayerFlags LegacySaveFlagsToSaveLayerFlags(uint32_t legacySaveFlags);
   static int SaveBehind(SkCanvas* canvas, const SkRect* subset)
   {
-        return canvas->only_axis_aligned_saveBehind(subset);
+    return canvas->only_axis_aligned_saveBehind(subset);
   }
   static void DrawBehind(SkCanvas* canvas, const SkPaint& paint)
   {
-        canvas->drawClippedToSaveBehind(paint);
+    canvas->drawClippedToSaveBehind(paint);
   }
     // The experimental_DrawEdgeAAImageSet API accepts separate dstClips and preViewMatrices arrays,
     // where entries refer into them, but no explicit size is provided. Given a set of entries,

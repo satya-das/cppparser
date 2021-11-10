@@ -36,12 +36,10 @@ public:
   void DrawRadioButton(wxDC& dc, const wxString& label, const wxBitmap& bitmap, const wxRect& rect, int flags = 0, wxAlignment align = wxALIGN_LEFT, int indexAccel = -1) override;
   void DrawScrollbarArrow(wxDC& dc, wxDirection dir, const wxRect& rect, int flags = 0) override;
   void DrawScrollCorner(wxDC& dc, const wxRect& rect) override;
-#  if  wxUSE_TEXTCTRL
   void DrawTextLine(wxDC& dc, const wxString& text, const wxRect& rect, int selStart = -1, int selEnd = -1, int flags = 0) override;
   void DrawLineWrapMark(wxDC& dc, const wxRect& rect) override;
   wxRect GetTextTotalArea(const wxTextCtrl* text, const wxRect& rect) const override;
   wxRect GetTextClientArea(const wxTextCtrl* text, const wxRect& rect, wxCoord* extraSpaceBeyond) const override;
-#  endif
   wxRect GetBorderDimensions(wxBorder border) const override;
   bool AreScrollbarsInsideBorder() const override;
   void AdjustSize(wxSize* size, const wxWindow* window) override;
@@ -54,7 +52,7 @@ public:
 #  endif
   wxCoord GetCheckItemMargin() const override
   {
- return 0;
+    return 0;
   }
   void DrawFrameTitleBar(wxDC& dc, const wxRect& rect, const wxString& title, const wxIcon& icon, int flags, int specialButton = 0, int specialButtonFlag = 0) override;
   void DrawFrameBorder(wxDC& dc, const wxRect& rect, int flags) override;
@@ -158,10 +156,8 @@ protected:
     // code which uses the borders of the same width on all sides, this is why
     // they are only present here and not in wxRenderer itself
   virtual int GetFrameBorderWidth(int flags) const;
-#  if  wxUSE_TEXTCTRL
     // return the width of the border around the text area in the text control
   virtual int GetTextBorderWidth(const wxTextCtrl* text) const;
-#  endif
     // GDI objects we often use
   wxPen m_penBlack, m_penDarkGrey, m_penLightGrey, m_penHighlight;
   wxFont m_titlebarFont;

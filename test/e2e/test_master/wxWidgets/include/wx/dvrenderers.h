@@ -32,38 +32,37 @@ class WXDLLIMPEXP_CORE wxDataViewIconText : public wxObject
 {
 public:
   wxDataViewIconText(const wxString& text = wxEmptyString, const wxIcon& icon = wxNullIcon)
-    :  m_text(text),
-          m_icon(icon)
+    : m_text(text)
+    , m_icon(icon)
   {
-
   }
   void SetText(const wxString& text)
   {
- m_text = text;
+    m_text = text;
   }
   wxString GetText() const
   {
- return m_text;
+    return m_text;
   }
   void SetIcon(const wxIcon& icon)
   {
- m_icon = icon;
+    m_icon = icon;
   }
   const wxIcon& GetIcon() const
   {
- return m_icon;
+    return m_icon;
   }
   bool IsSameAs(const wxDataViewIconText& other) const
   {
-        return m_text == other.m_text && m_icon.IsSameAs(other.m_icon);
+    return m_text == other.m_text && m_icon.IsSameAs(other.m_icon);
   }
   bool operator==(const wxDataViewIconText& other) const
   {
-        return IsSameAs(other);
+    return IsSameAs(other);
   }
   bool operator!=(const wxDataViewIconText& other) const
   {
-        return !IsSameAs(other);
+    return !IsSameAs(other);
   }
 private:
   wxString m_text;
@@ -75,18 +74,17 @@ class WXDLLIMPEXP_CORE wxDataViewCheckIconText : public wxDataViewIconText
 {
 public:
   wxDataViewCheckIconText(const wxString& text = wxString(), const wxIcon& icon = wxNullIcon, wxCheckBoxState checkedState = wxCHK_UNDETERMINED)
-    :  wxDataViewIconText(text, icon),
-          m_checkedState(checkedState)
+    : wxDataViewIconText(text, icon)
+    , m_checkedState(checkedState)
   {
-
   }
   wxCheckBoxState GetCheckedState() const
   {
- return m_checkedState;
+    return m_checkedState;
   }
   void SetCheckedState(wxCheckBoxState state)
   {
- m_checkedState = state;
+    m_checkedState = state;
   }
 private:
   wxCheckBoxState m_checkedState;
@@ -114,7 +112,7 @@ public:
     // changes the value to have appearance suitable for highlighted rows
   virtual wxVariant MakeHighlighted(const wxVariant& value) const
   {
- return value;
+    return value;
   }
 };
 class WXDLLIMPEXP_CORE wxDataViewRendererBase : public wxObject
@@ -124,15 +122,15 @@ public:
   virtual ~wxDataViewRendererBase();
   virtual bool Validate(wxVariant&)
   {
- return true;
+    return true;
   }
   void SetOwner(wxDataViewColumn* owner)
   {
- m_owner = owner;
+    m_owner = owner;
   }
   wxDataViewColumn* GetOwner() const
   {
- return m_owner;
+    return m_owner;
   }
     // renderer value and attributes: SetValue() and SetAttr() are called
     // before a cell is rendered using this renderer
@@ -143,7 +141,7 @@ public:
 #  endif
   wxString GetVariantType() const
   {
- return m_variantType;
+    return m_variantType;
   }
     // Prepare for rendering the value of the corresponding item in the given
     // column taken from the provided non-null model.
@@ -170,32 +168,32 @@ public:
   virtual void EnableEllipsize(wxEllipsizeMode mode = wxELLIPSIZE_MIDDLE) = 0;
   void DisableEllipsize()
   {
- EnableEllipsize(wxELLIPSIZE_NONE);
+    EnableEllipsize(wxELLIPSIZE_NONE);
   }
   virtual wxEllipsizeMode GetEllipsizeMode() const = 0;
     // in-place editing
   virtual bool HasEditorCtrl() const
   {
- return false;
+    return false;
   }
   virtual wxWindow* CreateEditorCtrl(wxWindow*, wxRect, const wxVariant&)
   {
- return NULL;
+    return NULL;
   }
   virtual bool GetValueFromEditorCtrl(wxWindow*, wxVariant&)
   {
- return false;
+    return false;
   }
   virtual bool StartEditing(const wxDataViewItem& item, wxRect labelRect);
   virtual void CancelEditing();
   virtual bool FinishEditing();
   wxWindow* GetEditorCtrl() const
   {
- return m_editorCtrl;
+    return m_editorCtrl;
   }
   virtual bool IsCustomRenderer() const
   {
- return false;
+    return false;
   }
     // Implementation only from now on.
 
@@ -215,7 +213,8 @@ public:
     // Sets the transformer for fine-tuning rendering of values depending on row's state
   void SetValueAdjuster(wxDataViewValueAdjuster* transformer)
   {
- delete m_valueAdjuster; m_valueAdjuster = transformer;
+    delete m_valueAdjuster;
+    m_valueAdjuster = transformer;
   }
 protected:
     // These methods are called from PrepareForItem() and should do whatever is
@@ -278,9 +277,8 @@ public:
     // Constructor must specify the usual renderer parameters which we simply
     // pass to the base class
   wxDataViewCustomRendererBase(const wxString& varianttype = wxASCII_STR("string"), wxDataViewCellMode mode = wxDATAVIEW_CELL_INERT, int align = wxDVR_DEFAULT_ALIGNMENT)
-    :  wxDataViewCustomRendererRealBase(varianttype, mode, align)
+    : wxDataViewCustomRendererRealBase(varianttype, mode, align)
   {
-
   }
     // Render the item using the current value (returned by GetValue()).
   virtual bool Render(wxRect cell, wxDC* dc, int state) = 0;
@@ -293,7 +291,7 @@ public:
     // Deprecated, use (and override) ActivateCell() instead
   virtual bool StartDrag(const wxPoint&, const wxRect&, wxDataViewModel*, const wxDataViewItem&, unsigned int)
   {
- return false;
+    return false;
   }
     // Helper which can be used by Render() implementation in the derived
     // classes: it will draw the text in the same manner as the standard
@@ -303,18 +301,18 @@ public:
     // that it can be accessed using GetAttr() from Render() if needed.
   void SetAttr(const wxDataViewItemAttr& attr) override
   {
- m_attr = attr;
+    m_attr = attr;
   }
   const wxDataViewItemAttr& GetAttr() const
   {
- return m_attr;
+    return m_attr;
   }
     // Store the enabled state of the item so that it can be accessed from
     // Render() via GetEnabled() if needed.
   void SetEnabled(bool enabled) override;
   bool GetEnabled() const
   {
- return m_enabled;
+    return m_enabled;
   }
     // Implementation only from now on
 
@@ -327,7 +325,7 @@ public:
   void WXCallRender(wxRect rect, wxDC* dc, int state);
   bool IsCustomRenderer() const override
   {
- return true;
+    return true;
   }
 protected:
     // helper for GetSize() implementations, respects attributes
@@ -364,7 +362,7 @@ public:
   wxDataViewSpinRenderer(int min, int max, wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE, int alignment = wxDVR_DEFAULT_ALIGNMENT);
   bool HasEditorCtrl() const override
   {
- return true;
+    return true;
   }
   wxWindow* CreateEditorCtrl(wxWindow* parent, wxRect labelRect, const wxVariant& value) override;
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
@@ -390,7 +388,7 @@ public:
   wxDataViewChoiceRenderer(const wxArrayString& choices, wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE, int alignment = wxDVR_DEFAULT_ALIGNMENT);
   bool HasEditorCtrl() const override
   {
- return true;
+    return true;
   }
   wxWindow* CreateEditorCtrl(wxWindow* parent, wxRect labelRect, const wxVariant& value) override;
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
@@ -403,11 +401,11 @@ public:
 #    endif
   wxString GetChoice(size_t index) const
   {
- return m_choices[index];
+    return m_choices[index];
   }
   const wxArrayString& GetChoices() const
   {
- return m_choices;
+    return m_choices;
   }
 private:
   wxArrayString m_choices;
@@ -439,12 +437,12 @@ class WXDLLIMPEXP_CORE wxDataViewDateRenderer : public wxDataViewCustomRenderer
 public:
   static wxString GetDefaultType()
   {
- return wxS("datetime");
+    return wxS("datetime");
   }
   wxDataViewDateRenderer(const wxString& varianttype = GetDefaultType(), wxDataViewCellMode mode = wxDATAVIEW_CELL_EDITABLE, int align = wxDVR_DEFAULT_ALIGNMENT);
   bool HasEditorCtrl() const override
   {
- return true;
+    return true;
   }
   wxWindow* CreateEditorCtrl(wxWindow* parent, wxRect labelRect, const wxVariant& value) override;
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
@@ -471,7 +469,7 @@ class WXDLLIMPEXP_CORE wxDataViewCheckIconTextRenderer : public wxDataViewCustom
 public:
   static wxString GetDefaultType()
   {
- return wxS("wxDataViewCheckIconText");
+    return wxS("wxDataViewCheckIconText");
   }
   explicit wxDataViewCheckIconTextRenderer(wxDataViewCellMode mode = wxDATAVIEW_CELL_ACTIVATABLE, int align = wxDVR_DEFAULT_ALIGNMENT);
     // This renderer can always display the 3rd ("indeterminate") checkbox

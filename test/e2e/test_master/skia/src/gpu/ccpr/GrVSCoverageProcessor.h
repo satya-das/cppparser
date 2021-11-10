@@ -14,7 +14,7 @@ class GrVSCoverageProcessor : public GrCCCoverageProcessor
 {
 public:
   GrVSCoverageProcessor()
-    :  GrCCCoverageProcessor(kGrVSCoverageProcessor_ClassID)
+    : GrCCCoverageProcessor(kGrVSCoverageProcessor_ClassID)
   {
   }
 private:

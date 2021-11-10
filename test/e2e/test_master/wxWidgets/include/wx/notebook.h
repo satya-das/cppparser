@@ -51,35 +51,36 @@ class WXDLLEXPORT wxNotebookPageInfo : public wxObject
 public:
   wxNotebookPageInfo()
   {
- m_page = NULL; m_imageId = -1; m_selected = false;
+    m_page = NULL;
+    m_imageId = -1;
+    m_selected = false;
   }
   virtual ~wxNotebookPageInfo()
   {
-
   }
   bool Create(wxNotebookPage* page, const wxString& text, bool selected, int imageId)
   {
-        m_page = page;
-        m_text = text;
-        m_selected = selected;
-        m_imageId = imageId;
-        return true;
+    m_page = page;
+    m_text = text;
+    m_selected = selected;
+    m_imageId = imageId;
+    return true;
   }
   wxNotebookPage* GetPage() const
   {
- return m_page;
+    return m_page;
   }
   wxString GetText() const
   {
- return m_text;
+    return m_text;
   }
   bool GetSelected() const
   {
- return m_selected;
+    return m_selected;
   }
   int GetImageId() const
   {
- return m_imageId;
+    return m_imageId;
   }
 private:
   wxNotebookPage* m_page;
@@ -88,7 +89,7 @@ private:
   int m_imageId;
   wxDECLARE_DYNAMIC_CLASS(wxNotebookPageInfo);
 };
-WX_DECLARE_EXPORTED_LIST(wxNotebookPageInfo, wxNotebookPageInfoList);
+WX_DECLARE_EXPORTED_LIST(wxNotebookPageInfo, wxNotebookPageInfoList );
 #    endif
 // ----------------------------------------------------------------------------
 // wxNotebookBase: define wxNotebook interface
@@ -100,7 +101,6 @@ public:
     // -----
   wxNotebookBase()
   {
-
   }
     // wxNotebook-specific additions to wxBookCtrlBase interface
     // ---------------------------------------------------------
@@ -109,7 +109,7 @@ public:
     // versions support it - they will always return 1 then)
   virtual int GetRowCount() const
   {
- return 1;
+    return 1;
   }
     // set the padding between tabs (in pixels)
   virtual void SetPadding(const wxSize& padding) = 0;
@@ -120,7 +120,7 @@ public:
     // On platforms that support it, get the theme page background colour, else invalid colour
   virtual wxColour GetThemeBackgroundColour() const
   {
- return wxNullColour;
+    return wxNullColour;
   }
     // send wxEVT_NOTEBOOK_PAGE_CHANGING/ED events
 

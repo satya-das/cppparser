@@ -21,52 +21,50 @@ public:
   static constexpr int kMaxTextures = 4;
   static sk_sp<GrGeometryProcessor> Make(const GrShaderCaps& caps, const SkPMColor4f& color, bool wideColor, const sk_sp<GrTextureProxy>* proxies, int numActiveProxies, const GrSamplerState& p, GrMaskFormat format, const SkMatrix& localMatrix, bool usesW)
   {
-        return sk_sp<GrGeometryProcessor>(
-            new GrBitmapTextGeoProc(caps, color, wideColor, proxies, numActiveProxies, p, format,
-                                    localMatrix, usesW));
+    return sk_sp<GrGeometryProcessor>(new GrBitmapTextGeoProc(caps, color, wideColor, proxies, numActiveProxies, p, format, localMatrix, usesW));
   }
   virtual ~GrBitmapTextGeoProc()
   {
   }
   const char* name() const override
   {
- return "Texture";
+    return "Texture";
   }
   const Attribute& inPosition() const
   {
- return fInPosition;
+    return fInPosition;
   }
   const Attribute& inColor() const
   {
- return fInColor;
+    return fInColor;
   }
   const Attribute& inTextureCoords() const
   {
- return fInTextureCoords;
+    return fInTextureCoords;
   }
   GrMaskFormat maskFormat() const
   {
- return fMaskFormat;
+    return fMaskFormat;
   }
   const SkPMColor4f& color() const
   {
- return fColor;
+    return fColor;
   }
   bool hasVertexColor() const
   {
- return fInColor.isInitialized();
+    return fInColor.isInitialized();
   }
   const SkMatrix& localMatrix() const
   {
- return fLocalMatrix;
+    return fLocalMatrix;
   }
   bool usesW() const
   {
- return fUsesW;
+    return fUsesW;
   }
   const SkISize& atlasSize() const
   {
- return fAtlasSize;
+    return fAtlasSize;
   }
   void addNewProxies(const sk_sp<GrTextureProxy>*, int numActiveProxies, const GrSamplerState&);
   void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
@@ -75,7 +73,7 @@ private:
   GrBitmapTextGeoProc(const GrShaderCaps&, const SkPMColor4f&, bool wideColor, const sk_sp<GrTextureProxy>* proxies, int numProxies, const GrSamplerState& params, GrMaskFormat format, const SkMatrix& localMatrix, bool usesW);
   const TextureSampler& onTextureSampler(int i) const override
   {
- return fTextureSamplers[i];
+    return fTextureSamplers[i];
   }
   SkPMColor4f fColor;
   SkMatrix fLocalMatrix;

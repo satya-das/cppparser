@@ -32,29 +32,29 @@ public:
     // Get the current style.
   LONG_PTR Get() const
   {
-        return m_styleCurrent;
+    return m_styleCurrent;
   }
     // Check if the given style bit(s) is (are all) currently turned on.
   bool IsOn(LONG_PTR style) const
   {
-        return (m_styleCurrent & style) == style;
+    return (m_styleCurrent & style) == style;
   }
     // Turn on some bit(s) in the style.
   wxMSWWinLongUpdater& TurnOn(LONG_PTR on)
   {
-        m_style |= on;
-        return *this;
+    m_style |= on;
+    return *this;
   }
     // Turn off some bit(s) in the style.
   wxMSWWinLongUpdater& TurnOff(LONG_PTR off)
   {
-        m_style &= ~off;
-        return *this;
+    m_style &= ~off;
+    return *this;
   }
     // Turn some bit(s) on or off depending on the condition.
   wxMSWWinLongUpdater& TurnOnOrOff(bool cond, LONG_PTR style)
   {
-        return cond ? TurnOn(style) : TurnOff(style);
+    return cond ? TurnOn(style) : TurnOff(style);
   }
     // Perform the style update (only if necessary, i.e. if the style really
     // changed).
@@ -65,18 +65,17 @@ public:
     // otherwise is equivalent to do this.
   bool Apply()
   {
-        if ( m_style == m_styleCurrent )
-            return false;
-
-        ::SetWindowLongPtr(m_hwnd, m_gwlSlot, m_style);
-
-        m_styleCurrent = m_style;
-
-        return true;
+    if (m_style == m_styleCurrent)
+    {
+      return false;
+    }
+    ::SetWindowLongPtr(m_hwnd, m_gwlSlot, m_style);
+    m_styleCurrent = m_style;
+    return true;
   }
   ~wxMSWWinLongUpdater()
   {
-        Apply();
+    Apply();
   }
 protected:
     // Create the object for updating the style or extended style of the given
@@ -85,12 +84,11 @@ protected:
     // Ctor is protected, this class can only be used as wxMSWWinStyleUpdater
     // or wxMSWWinExStyleUpdater.
   wxMSWWinLongUpdater(HWND hwnd, int gwlSlot)
-    :  m_hwnd(hwnd),
-          m_gwlSlot(gwlSlot),
-          m_styleCurrent(::GetWindowLongPtr(hwnd, gwlSlot)),
-          m_style(m_styleCurrent)
+    : m_hwnd(hwnd)
+    , m_gwlSlot(gwlSlot)
+    , m_styleCurrent(::GetWindowLongPtr(hwnd, gwlSlot))
+    , m_style(m_styleCurrent)
   {
-
   }
 private:
   const HWND m_hwnd;
@@ -104,9 +102,8 @@ class wxMSWWinStyleUpdater : public wxMSWWinLongUpdater
 {
 public:
   explicit wxMSWWinStyleUpdater(HWND hwnd)
-    :  wxMSWWinLongUpdater(hwnd, GWL_STYLE)
+    : wxMSWWinLongUpdater(hwnd, GWL_STYLE)
   {
-
   }
 };
 // A variant of wxMSWWinLongUpdater which updates the extended style.
@@ -114,9 +111,8 @@ class wxMSWWinExStyleUpdater : public wxMSWWinLongUpdater
 {
 public:
   explicit wxMSWWinExStyleUpdater(HWND hwnd)
-    :  wxMSWWinLongUpdater(hwnd, GWL_EXSTYLE)
+    : wxMSWWinLongUpdater(hwnd, GWL_EXSTYLE)
   {
-
   }
 };
 #endif

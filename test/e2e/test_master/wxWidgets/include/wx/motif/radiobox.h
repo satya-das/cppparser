@@ -20,21 +20,17 @@ class WXDLLIMPEXP_CORE wxRadioBox : public wxControl, public wxRadioBoxBase
 public:
   wxRadioBox()
   {
- Init();
+    Init();
   }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-        Init();
-
-        Create(parent, id, title, pos, size, n, choices,
-               majorDim, style, val, name);
+    Init();
+    Create(parent, id, title, pos, size, n, choices, majorDim, style, val, name);
   }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-        Init();
-
-        Create(parent, id, title, pos, size, choices,
-               majorDim, style, val, name);
+    Init();
+    Create(parent, id, title, pos, size, choices, majorDim, style, val, name);
   }
   virtual ~wxRadioBox();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
@@ -45,7 +41,7 @@ public:
   virtual bool IsItemEnabled(unsigned int) const
   {
         /* TODO */
-        return true;
+    return true;
   }
     // Showing
   virtual bool Show(bool show = true);
@@ -53,7 +49,7 @@ public:
   virtual bool IsItemShown(unsigned int) const
   {
         /* TODO */
-        return true;
+    return true;
   }
   virtual void SetSelection(int n);
   int GetSelection() const;
@@ -63,16 +59,16 @@ public:
   virtual bool SetStringSelection(const wxString& s);
   virtual unsigned int GetCount() const
   {
- return m_noItems;
+    return m_noItems;
   }
   void Command(wxCommandEvent& event);
   int GetNumberOfRowsOrCols() const
   {
- return m_noRowsOrCols;
+    return m_noRowsOrCols;
   }
   void SetNumberOfRowsOrCols(int n)
   {
- m_noRowsOrCols = n;
+    m_noRowsOrCols = n;
   }
     // Implementation
   virtual void ChangeFont(bool keepOriginalSize = true);
@@ -80,20 +76,20 @@ public:
   virtual void ChangeForegroundColour();
   const wxWidgetArray& GetRadioButtons() const
   {
- return m_radioButtons;
+    return m_radioButtons;
   }
   void SetSel(int i)
   {
- m_selectedButton = i;
+    m_selectedButton = i;
   }
   virtual WXWidget GetLabelWidget() const
   {
- return m_labelWidget;
+    return m_labelWidget;
   }
 protected:
   virtual wxBorder GetDefaultBorder() const
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
   virtual void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO);
   unsigned int m_noItems;

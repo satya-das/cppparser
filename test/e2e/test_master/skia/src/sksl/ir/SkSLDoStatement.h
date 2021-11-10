@@ -16,19 +16,18 @@ namespace SkSL
   struct DoStatement : public Statement
   {
     DoStatement(int offset, std::unique_ptr<Statement> statement, std::unique_ptr<Expression> test)
-      :  INHERITED(offset, kDo_Kind)
-    , fStatement(std::move(statement))
-    , fTest(std::move(test))
+      : INHERITED(offset, kDo_Kind)
+      , fStatement(std::move(statement))
+      , fTest(std::move(test))
     {
     }
     std::unique_ptr<Statement> clone() const override
     {
-        return std::unique_ptr<Statement>(new DoStatement(fOffset, fStatement->clone(),
-                                                          fTest->clone()));
+      return std::unique_ptr<Statement>(new DoStatement(fOffset, fStatement->clone(), fTest->clone()));
     }
     String description() const override
     {
-        return "do " + fStatement->description() + " while (" + fTest->description() + ");";
+      return "do " + fStatement->description() + " while (" + fTest->description() + ");";
     }
     std::unique_ptr<Statement> fStatement;
     std::unique_ptr<Expression> fTest;

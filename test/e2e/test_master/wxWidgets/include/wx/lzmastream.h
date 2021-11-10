@@ -36,28 +36,28 @@ class WXDLLIMPEXP_BASE wxLZMAInputStream : public wxFilterInputStream, private w
 {
 public:
   explicit wxLZMAInputStream(wxInputStream& stream)
-    :  wxFilterInputStream(stream)
+    : wxFilterInputStream(stream)
   {
-        Init();
+    Init();
   }
   explicit wxLZMAInputStream(wxInputStream* stream)
-    :  wxFilterInputStream(stream)
+    : wxFilterInputStream(stream)
   {
-        Init();
+    Init();
   }
   char Peek() override
   {
- return wxInputStream::Peek();
+    return wxInputStream::Peek();
   }
   wxFileOffset GetLength() const override
   {
- return wxInputStream::GetLength();
+    return wxInputStream::GetLength();
   }
 protected:
   size_t OnSysRead(void* buffer, size_t size) override;
   wxFileOffset OnSysTell() const override
   {
- return m_pos;
+    return m_pos;
   }
 private:
   void Init();
@@ -69,33 +69,33 @@ class WXDLLIMPEXP_BASE wxLZMAOutputStream : public wxFilterOutputStream, private
 {
 public:
   explicit wxLZMAOutputStream(wxOutputStream& stream, int level = -1)
-    :  wxFilterOutputStream(stream)
+    : wxFilterOutputStream(stream)
   {
-        Init(level);
+    Init(level);
   }
   explicit wxLZMAOutputStream(wxOutputStream* stream, int level = -1)
-    :  wxFilterOutputStream(stream)
+    : wxFilterOutputStream(stream)
   {
-        Init(level);
+    Init(level);
   }
   virtual ~wxLZMAOutputStream()
   {
- Close();
+    Close();
   }
   void Sync() override
   {
- DoFlush(false);
+    DoFlush(false);
   }
   bool Close() override;
   wxFileOffset GetLength() const override
   {
- return m_pos;
+    return m_pos;
   }
 protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysTell() const override
   {
- return m_pos;
+    return m_pos;
   }
 private:
   void Init(int level);
@@ -118,19 +118,19 @@ public:
   wxLZMAClassFactory();
   wxFilterInputStream* NewStream(wxInputStream& stream) const override
   {
- return new wxLZMAInputStream(stream);
+    return new wxLZMAInputStream(stream);
   }
   wxFilterOutputStream* NewStream(wxOutputStream& stream) const override
   {
- return new wxLZMAOutputStream(stream, -1);
+    return new wxLZMAOutputStream(stream, -1);
   }
   wxFilterInputStream* NewStream(wxInputStream* stream) const override
   {
- return new wxLZMAInputStream(stream);
+    return new wxLZMAInputStream(stream);
   }
   wxFilterOutputStream* NewStream(wxOutputStream* stream) const override
   {
- return new wxLZMAOutputStream(stream, -1);
+    return new wxLZMAOutputStream(stream, -1);
   }
   const wxChar* const * GetProtocols(wxStreamProtocolType type = wxSTREAM_PROTOCOL) const override;
 private:

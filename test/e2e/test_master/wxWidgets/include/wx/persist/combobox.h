@@ -31,63 +31,58 @@ public:
  MaxSavedItemsCount = 10
   };
   explicit wxPersistentComboBox(wxComboBox* combobox)
-    :  wxPersistentWindow<wxComboBox>(combobox)
+    : wxPersistentWindow<wxComboBox>(combobox)
   {
-
   }
   void Save() const override
   {
-        const wxComboBox* const combobox = Get();
-
-        wxArrayString items = combobox->GetStrings();
-
-        const wxString value = combobox->GetValue();
-        if ( !value.empty() )
+    const wxComboBox* const combobox = Get();
+    wxArrayString items = combobox->GetStrings();
+    const wxString value = combobox->GetValue();
+    if (!value.empty())
+    {
+      wxArrayString::iterator it;
+      for (it = items.begin(); it != items.end(); ++it)
+      {
+        if (*it == value)
         {
-            wxArrayString::iterator it;
-            for ( it = items.begin(); it != items.end(); ++it )
-            {
-                if ( *it == value )
-                {
                     // There is no need to add the text of an item already
                     // present in the combobox again, but do move it to the top
                     // of it to indicate that it was the last one used.
-                    wxSwap(*items.begin(), *it);
-                    break;
-                }
-            }
-
-            if ( it == items.end() )
-            {
-                // This is a genuinely new item, so just insert it front.
-                items.insert(items.begin(), value);
-
-                if ( items.size() > MaxSavedItemsCount )
-                    items.erase(items.begin() + MaxSavedItemsCount, items.end());
-            }
+          wxSwap(*items.begin(), *it);
+          break;
         }
-
-        SaveValue(wxPERSIST_COMBOBOX_ITEMS,
-                  wxJoin(items, wxPERSIST_COMBOBOX_ITEMS_SEP));
+      }
+      if (it == items.end())
+      {
+                // This is a genuinely new item, so just insert it front.
+        items.insert(items.begin(), value);
+        if (items.size() > MaxSavedItemsCount)
+        {
+          items.erase(items.begin() + MaxSavedItemsCount, items.end());
+        }
+      }
+    }
+    SaveValue(wxPERSIST_COMBOBOX_ITEMS, wxJoin(items, wxPERSIST_COMBOBOX_ITEMS_SEP));
   }
   bool Restore() override
   {
-        wxString items;
-        if ( !RestoreValue(wxPERSIST_COMBOBOX_ITEMS, &items) )
-            return false;
-
-        Get()->Set(wxSplit(items, wxPERSIST_COMBOBOX_ITEMS_SEP));
-
-        return true;
+    wxString items;
+    if (!RestoreValue(wxPERSIST_COMBOBOX_ITEMS, &items))
+    {
+      return false;
+    }
+    Get()->Set(wxSplit(items, wxPERSIST_COMBOBOX_ITEMS_SEP));
+    return true;
   }
   wxString GetKind() const override
   {
- return wxPERSIST_COMBOBOX_KIND;
+    return wxPERSIST_COMBOBOX_KIND;
   }
 };
 inline wxPersistentObject* wxCreatePersistentObject(wxComboBox* combobox)
 {
-    return new wxPersistentComboBox(combobox);
+  return new wxPersistentComboBox(combobox);
 }
 #  endif
 #endif

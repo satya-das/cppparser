@@ -18,7 +18,7 @@
 struct SkMask
 {
   SkMask()
-    :  fImage(nullptr)
+    : fImage(nullptr)
   {
   }
   enum Format {
@@ -38,13 +38,13 @@ struct SkMask
   Format fFormat;
   static bool IsValidFormat(uint8_t format)
   {
- return format < kCountMaskFormats;
+    return format < kCountMaskFormats;
   }
     /** Returns true if the mask is empty: i.e. it has an empty bounds.
      */
   bool isEmpty() const
   {
- return fBounds.isEmpty();
+    return fBounds.isEmpty();
   }
     /** Return the byte size of the mask, assuming only 1 plane.
         Does not account for k3D_Format. For that, use computeTotalImageSize().
@@ -62,10 +62,10 @@ struct SkMask
     */
   uint8_t* getAddr1(int x, int y) const
   {
-        SkASSERT(kBW_Format == fFormat);
-        SkASSERT(fBounds.contains(x, y));
-        SkASSERT(fImage != nullptr);
-        return fImage + ((x - fBounds.fLeft) >> 3) + (y - fBounds.fTop) * fRowBytes;
+    SkASSERT(kBW_Format == fFormat);
+    SkASSERT(fBounds.contains(x, y));
+    SkASSERT(fImage != nullptr);
+    return fImage + ((x - fBounds.fLeft) >> 3) + (y - fBounds.fTop) * fRowBytes;
   }
     /** Returns the address of the specified byte.
         Asserts that the mask is kA8_Format, and that x,y are in range.
@@ -73,10 +73,10 @@ struct SkMask
     */
   uint8_t* getAddr8(int x, int y) const
   {
-        SkASSERT(kA8_Format == fFormat || kSDF_Format == fFormat);
-        SkASSERT(fBounds.contains(x, y));
-        SkASSERT(fImage != nullptr);
-        return fImage + x - fBounds.fLeft + (y - fBounds.fTop) * fRowBytes;
+    SkASSERT(kA8_Format == fFormat || kSDF_Format == fFormat);
+    SkASSERT(fBounds.contains(x, y));
+    SkASSERT(fImage != nullptr);
+    return fImage + x - fBounds.fLeft + (y - fBounds.fTop) * fRowBytes;
   }
     /**
      *  Return the address of the specified 16bit mask. In the debug build,
@@ -85,11 +85,11 @@ struct SkMask
      */
   uint16_t* getAddrLCD16(int x, int y) const
   {
-        SkASSERT(kLCD16_Format == fFormat);
-        SkASSERT(fBounds.contains(x, y));
-        SkASSERT(fImage != nullptr);
-        uint16_t* row = (uint16_t*)(fImage + (y - fBounds.fTop) * fRowBytes);
-        return row + (x - fBounds.fLeft);
+    SkASSERT(kLCD16_Format == fFormat);
+    SkASSERT(fBounds.contains(x, y));
+    SkASSERT(fImage != nullptr);
+    uint16_t* row = (uint16_t*) (fImage + (y - fBounds.fTop) * fRowBytes);
+    return row + (x - fBounds.fLeft);
   }
     /**
      *  Return the address of the specified 32bit mask. In the debug build,
@@ -98,11 +98,11 @@ struct SkMask
      */
   uint32_t* getAddr32(int x, int y) const
   {
-        SkASSERT(kARGB32_Format == fFormat);
-        SkASSERT(fBounds.contains(x, y));
-        SkASSERT(fImage != nullptr);
-        uint32_t* row = (uint32_t*)(fImage + (y - fBounds.fTop) * fRowBytes);
-        return row + (x - fBounds.fLeft);
+    SkASSERT(kARGB32_Format == fFormat);
+    SkASSERT(fBounds.contains(x, y));
+    SkASSERT(fImage != nullptr);
+    uint32_t* row = (uint32_t*) (fImage + (y - fBounds.fTop) * fRowBytes);
+    return row + (x - fBounds.fLeft);
   }
     /**
      *  Returns the address of the specified pixel, computing the pixel-size
@@ -146,45 +146,53 @@ template <>
 struct SkMask::AlphaIter<SkMask::kBW_Format>
 {
   AlphaIter(const uint8_t* ptr, int offset)
-    :  fPtr(ptr), fOffset(7 - offset)
+    : fPtr(ptr)
+    , fOffset(7 - offset)
   {
   }
   AlphaIter(const AlphaIter& that)
-    :  fPtr(that.fPtr), fOffset(that.fOffset)
+    : fPtr(that.fPtr)
+    , fOffset(that.fOffset)
   {
   }
   AlphaIter& operator++()
   {
-        if (0 < fOffset ) {
-            --fOffset;
-        } else {
-            ++fPtr;
-            fOffset = 7;
-        }
-        return *this;
+    if (0 < fOffset)
+    {
+      --fOffset;
+    }
+    else 
+    {
+      ++fPtr;
+      fOffset = 7;
+    }
+    return *this;
   }
   AlphaIter& operator--()
   {
-        if (fOffset < 7) {
-            ++fOffset;
-        } else {
-            --fPtr;
-            fOffset = 0;
-        }
-        return *this;
+    if (fOffset < 7)
+    {
+      ++fOffset;
+    }
+    else 
+    {
+      --fPtr;
+      fOffset = 0;
+    }
+    return *this;
   }
   AlphaIter& operator>>=(uint32_t rb)
   {
-        fPtr = SkTAddOffset<const uint8_t>(fPtr, rb);
-        return *this;
+    fPtr = SkTAddOffset<const uint8_t>(fPtr, rb);
+    return *this;
   }
   uint8_t operator*() const
   {
- return ((*fPtr) >> fOffset) & 1 ? 0xFF : 0;
+    return ((*fPtr) >> fOffset) & 1 ? 0xFF : 0;
   }
   bool operator<(const AlphaIter& that) const
   {
-        return fPtr < that.fPtr || (fPtr == that.fPtr && fOffset > that.fOffset);
+    return fPtr < that.fPtr || (fPtr == that.fPtr && fOffset > that.fOffset);
   }
   const uint8_t* fPtr;
   int fOffset;
@@ -193,33 +201,35 @@ template <>
 struct SkMask::AlphaIter<SkMask::kA8_Format>
 {
   AlphaIter(const uint8_t* ptr)
-    :  fPtr(ptr)
+    : fPtr(ptr)
   {
   }
   AlphaIter(const AlphaIter& that)
-    :  fPtr(that.fPtr)
+    : fPtr(that.fPtr)
   {
   }
   AlphaIter& operator++()
   {
- ++fPtr; return *this;
+    ++fPtr;
+    return *this;
   }
   AlphaIter& operator--()
   {
- --fPtr; return *this;
+    --fPtr;
+    return *this;
   }
   AlphaIter& operator>>=(uint32_t rb)
   {
-        fPtr = SkTAddOffset<const uint8_t>(fPtr, rb);
-        return *this;
+    fPtr = SkTAddOffset<const uint8_t>(fPtr, rb);
+    return *this;
   }
   uint8_t operator*() const
   {
- return *fPtr;
+    return *fPtr;
   }
   bool operator<(const AlphaIter& that) const
   {
- return fPtr < that.fPtr;
+    return fPtr < that.fPtr;
   }
   const uint8_t* fPtr;
 };
@@ -227,33 +237,35 @@ template <>
 struct SkMask::AlphaIter<SkMask::kARGB32_Format>
 {
   AlphaIter(const uint32_t* ptr)
-    :  fPtr(ptr)
+    : fPtr(ptr)
   {
   }
   AlphaIter(const AlphaIter& that)
-    :  fPtr(that.fPtr)
+    : fPtr(that.fPtr)
   {
   }
   AlphaIter& operator++()
   {
- ++fPtr; return *this;
+    ++fPtr;
+    return *this;
   }
   AlphaIter& operator--()
   {
- --fPtr; return *this;
+    --fPtr;
+    return *this;
   }
   AlphaIter& operator>>=(uint32_t rb)
   {
-        fPtr = SkTAddOffset<const uint32_t>(fPtr, rb);
-        return *this;
+    fPtr = SkTAddOffset<const uint32_t>(fPtr, rb);
+    return *this;
   }
   uint8_t operator*() const
   {
- return SkGetPackedA32(*fPtr);
+    return SkGetPackedA32(*fPtr);
   }
   bool operator<(const AlphaIter& that) const
   {
- return fPtr < that.fPtr;
+    return fPtr < that.fPtr;
   }
   const uint32_t* fPtr;
 };
@@ -261,37 +273,39 @@ template <>
 struct SkMask::AlphaIter<SkMask::kLCD16_Format>
 {
   AlphaIter(const uint16_t* ptr)
-    :  fPtr(ptr)
+    : fPtr(ptr)
   {
   }
   AlphaIter(const AlphaIter& that)
-    :  fPtr(that.fPtr)
+    : fPtr(that.fPtr)
   {
   }
   AlphaIter& operator++()
   {
- ++fPtr; return *this;
+    ++fPtr;
+    return *this;
   }
   AlphaIter& operator--()
   {
- --fPtr; return *this;
+    --fPtr;
+    return *this;
   }
   AlphaIter& operator>>=(uint32_t rb)
   {
-        fPtr = SkTAddOffset<const uint16_t>(fPtr, rb);
-        return *this;
+    fPtr = SkTAddOffset<const uint16_t>(fPtr, rb);
+    return *this;
   }
   uint8_t operator*() const
   {
-        unsigned packed = *fPtr;
-        unsigned r = SkPacked16ToR32(packed);
-        unsigned g = SkPacked16ToG32(packed);
-        unsigned b = SkPacked16ToB32(packed);
-        return (r + g + b) / 3;
+    unsigned packed = *fPtr;
+    unsigned r = SkPacked16ToR32(packed);
+    unsigned g = SkPacked16ToG32(packed);
+    unsigned b = SkPacked16ToB32(packed);
+    return (r + g + b) / 3;
   }
   bool operator<(const AlphaIter& that) const
   {
- return fPtr < that.fPtr;
+    return fPtr < that.fPtr;
   }
   const uint16_t* fPtr;
 };

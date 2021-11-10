@@ -105,7 +105,7 @@ public:
     // Retrieves the registry view used by this key.
   WOW64ViewMode GetView() const
   {
- return m_viewMode;
+    return m_viewMode;
   }
     // return true if the key exists
   bool Exists() const;
@@ -114,12 +114,12 @@ public:
     // return true if the key is opened
   bool IsOpened() const
   {
- return m_hKey != NULL;
+    return m_hKey != NULL;
   }
     // for "if ( !key ) wxLogError(...)" kind of expressions
   operator bool() const
   {
- return m_dwLastError == 0;
+    return m_dwLastError == 0;
   }
   // operations on the key itself
     // explicitly open the key (will be automatically done by all functions
@@ -155,13 +155,14 @@ public:
     // assignment operators set the default value of the key
   wxRegKey& operator=(const wxString& strValue)
   {
- SetValue(wxEmptyString, strValue); return *this;
+    SetValue(wxEmptyString, strValue);
+    return *this;
   }
     // query the default value of the key: implicitly or explicitly
   wxString QueryDefaultValue() const;
   operator wxString() const
   {
- return QueryDefaultValue();
+    return QueryDefaultValue();
   }
     // named values
 
@@ -170,12 +171,12 @@ public:
     // retrieve the string value
   bool QueryValue(const wxString& szValue, wxString& strValue) const
   {
- return QueryValue(szValue, strValue, false);
+    return QueryValue(szValue, strValue, false);
   }
     // retrieve raw string value
   bool QueryRawValue(const wxString& szValue, wxString& strValue) const
   {
- return QueryValue(szValue, strValue, true);
+    return QueryValue(szValue, strValue, true);
   }
     // retrieve either raw or expanded string value
   bool QueryValue(const wxString& szValue, wxString& strValue, bool raw) const;
@@ -199,7 +200,7 @@ public:
     // return true if the key is empty (nothing under this key)
   bool IsEmpty() const
   {
- return !HasSubkeys() && !HasValues();
+    return !HasSubkeys() && !HasValues();
   }
   // enumerate values and subkeys
   bool GetFirstValue(wxString& strValueName, long& lIndex);
@@ -217,7 +218,7 @@ public:
   // for wxRegConfig usage only: preallocate some memory for the name
   void ReserveMemoryForName(size_t bytes)
   {
- m_strKey.reserve(bytes);
+    m_strKey.reserve(bytes);
   }
 private:
   // common part of all ctors

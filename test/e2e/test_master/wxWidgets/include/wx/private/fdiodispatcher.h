@@ -49,7 +49,6 @@ public:
   virtual int Dispatch(int timeout = TIMEOUT_INFINITE) = 0;
   virtual ~wxFDIODispatcher()
   {
-
   }
 };
 //entry for wxFDIOHandlerMap
@@ -57,13 +56,11 @@ struct wxFDIOHandlerEntry
 {
   wxFDIOHandlerEntry()
   {
-
   }
   wxFDIOHandlerEntry(wxFDIOHandler* handler_, int flags_)
-    :  handler(handler_),
-          flags(flags_)
+    : handler(handler_)
+    , flags(flags_)
   {
-
   }
   wxFDIOHandler* handler;
   int flags;
@@ -95,7 +92,6 @@ public:
   bool UnregisterFD(int fd) override;
   virtual ~wxMappedFDIODispatcher()
   {
-
   }
 protected:
     // the fd -> handler map containing all the registered handlers

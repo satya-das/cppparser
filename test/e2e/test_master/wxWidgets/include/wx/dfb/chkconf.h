@@ -12,8 +12,6 @@
 #  define _WX_DFB_CHKCONF_H_
 #  ifndef __WXUNIVERSAL__
 #  endif
-#  if  !wxUSE_CONFIG
-#  endif
 #  if  wxUSE_SOCKETS && !wxUSE_CONSOLE_EVENTLOOP
 #    ifdef wxABORT_ON_CONFIG_ERROR
 #    else 

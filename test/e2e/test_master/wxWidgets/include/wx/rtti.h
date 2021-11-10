@@ -35,82 +35,85 @@ class WXDLLIMPEXP_BASE wxClassInfo
   WXDLLIMPEXP_BASE friend wxObject* wxCreateDynamicObject(const wxString& name);
 public:
   wxClassInfo(const wxChar* className, const wxClassInfo* baseInfo1, const wxClassInfo* baseInfo2, int size, wxObjectConstructorFn ctor)
-    :  m_className(className)
-        , m_objectSize(size)
-        , m_objectConstructor(ctor)
-        , m_baseInfo1(baseInfo1)
-        , m_baseInfo2(baseInfo2)
-        , m_next(sm_first)
+    : m_className(className)
+    , m_objectSize(size)
+    , m_objectConstructor(ctor)
+    , m_baseInfo1(baseInfo1)
+    , m_baseInfo2(baseInfo2)
+    , m_next(sm_first)
   {
-            sm_first = this;
-            Register();
+    sm_first = this;
+    Register();
   }
   ~wxClassInfo();
   wxObject* CreateObject() const
   {
- return m_objectConstructor ? (*m_objectConstructor)() : NULL;
+    return m_objectConstructor ? (*m_objectConstructor)() : NULL;
   }
   bool IsDynamic() const
   {
- return (NULL != m_objectConstructor);
+    return (NULL != m_objectConstructor);
   }
   const wxChar* GetClassName() const
   {
- return m_className;
+    return m_className;
   }
   const wxChar* GetBaseClassName1() const
   {
- return m_baseInfo1 ? m_baseInfo1->GetClassName() : NULL;
+    return m_baseInfo1 ? m_baseInfo1->GetClassName() : NULL;
   }
   const wxChar* GetBaseClassName2() const
   {
- return m_baseInfo2 ? m_baseInfo2->GetClassName() : NULL;
+    return m_baseInfo2 ? m_baseInfo2->GetClassName() : NULL;
   }
   const wxClassInfo* GetBaseClass1() const
   {
- return m_baseInfo1;
+    return m_baseInfo1;
   }
   const wxClassInfo* GetBaseClass2() const
   {
- return m_baseInfo2;
+    return m_baseInfo2;
   }
   int GetSize() const
   {
- return m_objectSize;
+    return m_objectSize;
   }
   wxObjectConstructorFn GetConstructor() const
   {
- return m_objectConstructor;
+    return m_objectConstructor;
   }
   static const wxClassInfo* GetFirst()
   {
- return sm_first;
+    return sm_first;
   }
   const wxClassInfo* GetNext() const
   {
- return m_next;
+    return m_next;
   }
   static wxClassInfo* FindClass(const wxString& className);
         // Climb upwards through inheritance hierarchy.
         // Dual inheritance is catered for.
   bool IsKindOf(const wxClassInfo* info) const
   {
-        if ( info == this )
-            return true;
-
-        if ( m_baseInfo1 )
-        {
-            if ( m_baseInfo1->IsKindOf(info) )
-                return true;
-        }
-
-        if ( m_baseInfo2 )
-        {
-            if ( m_baseInfo2->IsKindOf(info) )
-                return true;
-        }
-
-        return false;
+    if (info == this)
+    {
+      return true;
+    }
+    if (m_baseInfo1)
+    {
+      if (m_baseInfo1->IsKindOf(info))
+      {
+        return true;
+      }
+    }
+    if (m_baseInfo2)
+    {
+      if (m_baseInfo2->IsKindOf(info))
+      {
+        return true;
+      }
+    }
+    return false;
   }
   wxDECLARE_CLASS_INFO_ITERATORS();
 private:

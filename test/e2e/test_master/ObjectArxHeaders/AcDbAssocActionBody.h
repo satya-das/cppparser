@@ -95,7 +95,7 @@ public:
     ///
   AcDbObjectId parentAction() const
   {
- return ownerId();
+    return ownerId();
   }
     /// <summary>
     /// Returns AcDbObjectId of the parent AcDbAssocAction that owns the given  
@@ -363,10 +363,10 @@ public:
     ///
   virtual Acad::ErrorStatus getDependenciesOverride(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& dependencyIds) const
   {
-        ADESK_UNREFED_PARAM(readDependenciesWanted);
-        ADESK_UNREFED_PARAM(writeDependenciesWanted);
-        ADESK_UNREFED_PARAM(dependencyIds);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(readDependenciesWanted);
+    ADESK_UNREFED_PARAM(writeDependenciesWanted);
+    ADESK_UNREFED_PARAM(dependencyIds);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -375,10 +375,10 @@ public:
     ///
   virtual Acad::ErrorStatus getDependentObjectsOverride(bool readDependenciesWanted, bool writeDependenciesWanted, AcDbObjectIdArray& objectIds) const
   {
-        ADESK_UNREFED_PARAM(readDependenciesWanted);
-        ADESK_UNREFED_PARAM(writeDependenciesWanted);
-        ADESK_UNREFED_PARAM(objectIds);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(readDependenciesWanted);
+    ADESK_UNREFED_PARAM(writeDependenciesWanted);
+    ADESK_UNREFED_PARAM(objectIds);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -387,8 +387,8 @@ public:
     ///
   virtual Acad::ErrorStatus removeAllDependenciesOverride(bool alsoEraseThem)
   {
-        ADESK_UNREFED_PARAM(alsoEraseThem);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(alsoEraseThem);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -397,9 +397,9 @@ public:
     ///
   virtual Acad::ErrorStatus isOwnedDependencyOverride(const AcDbAssocDependency* pDependency, bool& isOwnedDependency) const
   {
-        ADESK_UNREFED_PARAM(pDependency);
-        ADESK_UNREFED_PARAM(isOwnedDependency);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(isOwnedDependency);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -408,9 +408,9 @@ public:
     ///
   virtual Acad::ErrorStatus isExternalDependencyOverride(const AcDbAssocDependency* pDependency, bool& isExternalDependency) const
   {
-        ADESK_UNREFED_PARAM(pDependency);
-        ADESK_UNREFED_PARAM(isExternalDependency);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(isExternalDependency);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -419,9 +419,9 @@ public:
     ///
   virtual Acad::ErrorStatus hasDependencyCachedValueOverride(const AcDbAssocDependency* pDependency, bool& hasDepCachedValue) const
   {
-        ADESK_UNREFED_PARAM(pDependency);
-        ADESK_UNREFED_PARAM(hasDepCachedValue);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(hasDepCachedValue);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -430,9 +430,9 @@ public:
     ///
   virtual Acad::ErrorStatus isRelevantDependencyChangeOverride(const AcDbAssocDependency* pDependency, bool& isRelevantDepChange) const
   {
-        ADESK_UNREFED_PARAM(pDependency);
-        ADESK_UNREFED_PARAM(isRelevantDepChange);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(isRelevantDepChange);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -441,10 +441,10 @@ public:
     ///
   virtual Acad::ErrorStatus areDependenciesOnTheSameThingOverride(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2, bool& areDependentOnSameThing) const
   {
-        ADESK_UNREFED_PARAM(pDependency1);
-        ADESK_UNREFED_PARAM(pDependency2);
-        ADESK_UNREFED_PARAM(areDependentOnSameThing);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pDependency1);
+    ADESK_UNREFED_PARAM(pDependency2);
+    ADESK_UNREFED_PARAM(areDependentOnSameThing);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -453,10 +453,10 @@ public:
     ///
   virtual Acad::ErrorStatus areDependenciesEqualOverride(const AcDbAssocDependency* pDependency1, const AcDbAssocDependency* pDependency2, bool& areEqual) const
   {
-        ADESK_UNREFED_PARAM(pDependency1);
-        ADESK_UNREFED_PARAM(pDependency2);
-        ADESK_UNREFED_PARAM(areEqual);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pDependency1);
+    ADESK_UNREFED_PARAM(pDependency2);
+    ADESK_UNREFED_PARAM(areEqual);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -465,8 +465,8 @@ public:
     ///
   virtual Acad::ErrorStatus evaluateDependencyOverride(AcDbAssocDependency* pDependency)
   {
-        ADESK_UNREFED_PARAM(pDependency);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pDependency);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -475,10 +475,10 @@ public:
     ///
   virtual Acad::ErrorStatus dependentObjectClonedOverride(const AcDbAssocDependency* pDependency, const AcDbObject* pDbObj, const AcDbObject* pNewObj)
   {
-        ADESK_UNREFED_PARAM(pDependency);
-        ADESK_UNREFED_PARAM(pDbObj);
-        ADESK_UNREFED_PARAM(pNewObj);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pDependency);
+    ADESK_UNREFED_PARAM(pDbObj);
+    ADESK_UNREFED_PARAM(pNewObj);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -487,7 +487,7 @@ public:
     ///
   virtual Acad::ErrorStatus addMoreObjectsToDeepCloneOverride(AcDbIdMapping&, AcDbObjectIdArray&) const
   {
-        return Acad::eNotImplemented;
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -496,7 +496,7 @@ public:
     ///
   virtual Acad::ErrorStatus postProcessAfterDeepCloneOverride(AcDbIdMapping&)
   {
-        return Acad::eNotImplemented;
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -505,7 +505,7 @@ public:
     ///
   virtual Acad::ErrorStatus postProcessAfterDeepCloneCancelOverride(AcDbIdMapping&)
   {
-        return Acad::eNotImplemented;
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -514,9 +514,9 @@ public:
     ///
   virtual Acad::ErrorStatus ownedDependencyStatusChangedOverride(AcDbAssocDependency* pOwnedDependency, AcDbAssocStatus previousStatus)
   {
-        ADESK_UNREFED_PARAM(pOwnedDependency);
-        ADESK_UNREFED_PARAM(previousStatus);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pOwnedDependency);
+    ADESK_UNREFED_PARAM(previousStatus);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -525,9 +525,9 @@ public:
     ///
   virtual Acad::ErrorStatus isEqualToOverride(const AcDbAssocAction* pOtherAction, bool& isEqual) const
   {
-        ADESK_UNREFED_PARAM(pOtherAction);
-        ADESK_UNREFED_PARAM(isEqual);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pOtherAction);
+    ADESK_UNREFED_PARAM(isEqual);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -536,8 +536,8 @@ public:
     ///
   virtual Acad::ErrorStatus evaluationPriorityOverride(AcDbAssocEvaluationPriority& priority) const
   {
-        ADESK_UNREFED_PARAM(priority);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(priority);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -546,8 +546,8 @@ public:
     ///
   virtual Acad::ErrorStatus getDependentActionsToEvaluateOverride(AcDbActionsToEvaluateCallback* pActionsToEvaluateCallback) const
   {
-        ADESK_UNREFED_PARAM(pActionsToEvaluateCallback);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pActionsToEvaluateCallback);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -556,7 +556,7 @@ public:
     ///
   virtual Acad::ErrorStatus transformActionByOverride(const AcGeMatrix3d&)
   {
- return Acad::eNotImplemented;
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Called from the corresponding method of the parent AcDbAssocAction class 
@@ -565,8 +565,8 @@ public:
     ///
   virtual Acad::ErrorStatus dragStatusOverride(const AcDb::DragStat status)
   {
-        ADESK_UNREFED_PARAM(status);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(status);
+    return Acad::eNotImplemented;
   }
     /// <summary><para>
     /// This method may be overridden in derived action body clases.
@@ -591,8 +591,8 @@ public:
     ///
   virtual Acad::ErrorStatus removeActionsControllingObjectOverride(AcDbObject* pControlledObject)
   {
-        ADESK_UNREFED_PARAM(pControlledObject);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pControlledObject);
+    return Acad::eNotImplemented;
   }
     /// <summary><para>
     /// Called from AcDbAssocManager::auditAssociativeData() after file open and possibly

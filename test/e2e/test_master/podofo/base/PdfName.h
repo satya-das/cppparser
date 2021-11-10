@@ -57,18 +57,18 @@ namespace PoDoFo
      *  use PdfName::KeyNull instead of this constructor
      */
     PdfName()
-      :  PdfDataType(), m_Data("")
+      : PdfDataType()
+      , m_Data("")
     {
-
     }
     /** Create a new PdfName object.
      *  \param sName the unescaped value of this name. Please specify
      *                 the name without the leading '/'.
      */
     PdfName(const std::string& sName)
-      :  PdfDataType(), m_Data(sName)
+      : PdfDataType()
+      , m_Data(sName)
     {
-
     }
     /** Create a new PdfName object.
      *  \param pszName the unescaped value of this name. Please specify
@@ -76,9 +76,12 @@ namespace PoDoFo
      *                 Has to be a zero terminated string.
      */
     PdfName(const char* pszName)
-      :  PdfDataType()
+      : PdfDataType()
     {
-        if (pszName) m_Data.assign( pszName );
+      if (pszName)
+      {
+        m_Data.assign(pszName);
+      }
     }
     /** Create a new PdfName object.
      *  \param pszName the unescaped value of this name. Please specify
@@ -86,9 +89,12 @@ namespace PoDoFo
      *  \param lLen    length of the name
      */
     PdfName(const char* pszName, long lLen)
-      :  PdfDataType()
+      : PdfDataType()
     {
-        if( pszName ) m_Data.assign( pszName, lLen );
+      if (pszName)
+      {
+        m_Data.assign(pszName, lLen);
+      }
     }
     /** Create a new PdfName object from a string containing an escaped
      *  name string without the leading / .
@@ -117,9 +123,9 @@ namespace PoDoFo
      *  \param rhs another PdfName object
      */
     PdfName(const PdfName& rhs)
-      :  PdfDataType(), m_Data(rhs.m_Data)
+      : PdfDataType()
+      , m_Data(rhs.m_Data)
     {
-
     }
     virtual ~PdfName();
     /** Write the name to an output device in PDF format.
@@ -212,14 +218,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   bool PdfName::operator!=(const PdfName& rhs) const
   {
-    return !this->operator==( rhs );
+    return !this->operator==(rhs);
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   bool PdfName::operator!=(const char* rhs) const
   {
-    return !this->operator==( rhs );
+    return !this->operator==(rhs);
   }
   bool PdfName::operator<(const PdfName& rhs) const
   {
@@ -227,11 +233,11 @@ namespace PoDoFo
   }
   bool PdfName::operator==(const PdfName& rhs) const
   {
-    return ( m_Data == rhs.m_Data );
+    return (m_Data == rhs.m_Data);
   }
   bool PdfName::operator==(const std::string& rhs) const
   {
-    return ( m_Data == rhs );
+    return (m_Data == rhs);
   }
   const PdfName& PdfName::operator=(const PdfName& rhs)
   {

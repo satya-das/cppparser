@@ -21,19 +21,17 @@ class GrRenderTargetProxy : public GrSurfaceProxy
 public:
   GrRenderTargetProxy* asRenderTargetProxy() override
   {
- return this;
+    return this;
   }
   const GrRenderTargetProxy* asRenderTargetProxy() const override
   {
- return this;
+    return this;
   }
     // Actually instantiate the backing rendertarget, if necessary.
   bool instantiate(GrResourceProvider*) override;
   bool canUseMixedSamples(const GrCaps& caps) const
   {
-        return caps.mixedSamplesSupport() && !this->glRTFBOIDIs0() &&
-               caps.internalMultisampleCount(this->backendFormat()) > 0 &&
-               this->canChangeStencilAttachment();
+    return caps.mixedSamplesSupport() && !this->glRTFBOIDIs0() && caps.internalMultisampleCount(this->backendFormat()) > 0 && this->canChangeStencilAttachment();
   }
     /*
      * Indicate that a draw to this proxy requires stencil, and how many stencil samples it needs.
@@ -42,8 +40,8 @@ public:
      */
   void setNeedsStencil(int8_t numStencilSamples)
   {
-        SkASSERT(numStencilSamples >= fSampleCnt);
-        fNumStencilSamples = SkTMax(numStencilSamples, fNumStencilSamples);
+    SkASSERT(numStencilSamples >= fSampleCnt);
+    fNumStencilSamples = SkTMax(numStencilSamples, fNumStencilSamples);
   }
     /**
      * Returns the number of stencil samples required by this proxy.
@@ -53,44 +51,44 @@ public:
      */
   int numStencilSamples() const
   {
- return fNumStencilSamples;
+    return fNumStencilSamples;
   }
     /**
      * Returns the number of samples/pixel in the color buffer (One if non-MSAA).
      */
   int numSamples() const
   {
- return fSampleCnt;
+    return fSampleCnt;
   }
   int maxWindowRectangles(const GrCaps& caps) const;
   const GrSwizzle& outputSwizzle() const
   {
- return fOutputSwizzle;
+    return fOutputSwizzle;
   }
   bool wrapsVkSecondaryCB() const
   {
- return fWrapsVkSecondaryCB == WrapsVkSecondaryCB::kYes;
+    return fWrapsVkSecondaryCB == WrapsVkSecondaryCB::kYes;
   }
   void markMSAADirty(const SkIRect& dirtyRect)
   {
-        SkASSERT(SkIRect::MakeWH(this->width(), this->height()).contains(dirtyRect));
-        SkASSERT(this->requiresManualMSAAResolve());
-        fMSAADirtyRect.join(dirtyRect);
+    SkASSERT(SkIRect::MakeWH(this->width(), this->height()).contains(dirtyRect));
+    SkASSERT(this->requiresManualMSAAResolve());
+    fMSAADirtyRect.join(dirtyRect);
   }
   void markMSAAResolved()
   {
-        SkASSERT(this->requiresManualMSAAResolve());
-        fMSAADirtyRect.setEmpty();
+    SkASSERT(this->requiresManualMSAAResolve());
+    fMSAADirtyRect.setEmpty();
   }
   bool isMSAADirty() const
   {
-        SkASSERT(fMSAADirtyRect.isEmpty() || this->requiresManualMSAAResolve());
-        return this->requiresManualMSAAResolve() && !fMSAADirtyRect.isEmpty();
+    SkASSERT(fMSAADirtyRect.isEmpty() || this->requiresManualMSAAResolve());
+    return this->requiresManualMSAAResolve() && !fMSAADirtyRect.isEmpty();
   }
   const SkIRect& msaaDirtyRect() const
   {
-        SkASSERT(this->requiresManualMSAAResolve());
-        return fMSAADirtyRect;
+    SkASSERT(this->requiresManualMSAAResolve());
+    return fMSAADirtyRect;
   }
     // TODO: move this to a priv class!
   bool refsWrappedObjects() const;
@@ -122,11 +120,11 @@ protected:
 private:
   void setGLRTFBOIDIs0()
   {
-        fSurfaceFlags |= GrInternalSurfaceFlags::kGLRTFBOIDIs0;
+    fSurfaceFlags |= GrInternalSurfaceFlags::kGLRTFBOIDIs0;
   }
   bool glRTFBOIDIs0() const
   {
-        return fSurfaceFlags & GrInternalSurfaceFlags::kGLRTFBOIDIs0;
+    return fSurfaceFlags & GrInternalSurfaceFlags::kGLRTFBOIDIs0;
   }
   bool canChangeStencilAttachment() const;
   size_t onUninstantiatedGpuMemorySize() const override;

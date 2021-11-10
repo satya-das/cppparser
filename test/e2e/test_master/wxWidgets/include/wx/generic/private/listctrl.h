@@ -28,8 +28,8 @@ struct wxColWidthInfo
                             //  width == nMaxWidth is removed
   wxColWidthInfo(int w = 0, bool needsUpdate = false)
   {
-        nMaxWidth = w;
-        bNeedsUpdate = needsUpdate;
+    nMaxWidth = w;
+    bNeedsUpdate = needsUpdate;
   }
 };
 WX_DEFINE_ARRAY_PTR(wxColWidthInfo *, ColWidthArray);
@@ -44,35 +44,36 @@ public:
   void SetItem(const wxListItem& info);
   void SetImage(int image)
   {
- m_image = image;
+    m_image = image;
   }
   void SetData(wxUIntPtr data)
   {
- m_data = data;
+    m_data = data;
   }
   void SetPosition(int x, int y);
   void SetSize(int width, int height);
   bool HasText() const
   {
- return !m_text.empty();
+    return !m_text.empty();
   }
   const wxString& GetText() const
   {
- return m_text;
+    return m_text;
   }
   void SetText(const wxString& text)
   {
- m_text = text;
+    m_text = text;
   }
     // we can't use empty string for measuring the string width/height, so
     // always return something
   wxString GetTextForMeasuring() const
   {
-        wxString s = GetText();
-        if ( s.empty() )
-            s = wxT('H');
-
-        return s;
+    wxString s = GetText();
+    if (s.empty())
+    {
+      s = wxT('H');
+    }
+    return s;
   }
   bool IsHit(int x, int y) const;
   int GetX() const;
@@ -81,20 +82,20 @@ public:
   int GetHeight() const;
   int GetImage() const
   {
- return m_image;
+    return m_image;
   }
   bool HasImage() const
   {
- return GetImage() != -1;
+    return GetImage() != -1;
   }
   void GetItem(wxListItem& info) const;
   void SetAttr(wxItemAttr* attr)
   {
- m_attr = attr;
+    m_attr = attr;
   }
   wxItemAttr* GetAttr() const
   {
- return m_attr;
+    return m_attr;
   }
     // the item image or -1
   int m_image;
@@ -129,15 +130,15 @@ public:
   bool HasImage() const;
   bool HasText() const
   {
- return !m_text.empty();
+    return !m_text.empty();
   }
   const wxString& GetText() const
   {
- return m_text;
+    return m_text;
   }
   void SetText(const wxString& text)
   {
- m_text = text;
+    m_text = text;
   }
   void GetItem(wxListItem& item);
   bool IsHit(int x, int y) const;
@@ -180,13 +181,12 @@ public:
         // extend all our rects to be centered inside the one of given width
   void ExtendWidth(wxCoord w)
   {
-            wxASSERT_MSG( m_rectAll.width <= w,
+    wxASSERT_MSG( m_rectAll.width <= w,
                             wxT("width can only be increased") );
-
-            m_rectAll.width = w;
-            m_rectLabel.x = m_rectAll.x + (w - m_rectLabel.width) / 2;
-            m_rectIcon.x = m_rectAll.x + (w - m_rectIcon.width) / 2;
-            m_rectHighlight.x = m_rectAll.x + (w - m_rectHighlight.width) / 2;
+    m_rectAll.width = w;
+    m_rectLabel.x = m_rectAll.x + (w - m_rectLabel.width) / 2;
+    m_rectIcon.x = m_rectAll.x + (w - m_rectIcon.width) / 2;
+    m_rectHighlight.x = m_rectAll.x + (w - m_rectHighlight.width) / 2;
   }
 }* m_gi;
     // is this item selected? [NB: not used in virtual mode]
@@ -197,22 +197,22 @@ public:
   wxListLineData(wxListMainWindow* owner);
   ~wxListLineData()
   {
-        WX_CLEAR_LIST(wxListItemDataList, m_items);
-        delete m_gi;
+    WX_CLEAR_LIST(wxListItemDataList, m_items);
+    delete m_gi;
   }
     // called by the owner when it toggles report view
   void SetReportView(bool inReportView)
   {
         // we only need m_gi when we're not in report view so update as needed
-        if ( inReportView )
-        {
-            delete m_gi;
-            m_gi = NULL;
-        }
-        else
-        {
-            m_gi = new GeometryInfo;
-        }
+    if (inReportView)
+    {
+      delete m_gi;
+      m_gi = NULL;
+    }
+    else 
+    {
+      m_gi = new GeometryInfo;
+    }
   }
     // are we in report mode?
   inline bool InReportView() const;
@@ -228,29 +228,29 @@ public:
     // wxListCtrl API
   void SetImage(int image)
   {
- SetImage(0, image);
+    SetImage(0, image);
   }
   int GetImage() const
   {
- return GetImage(0);
+    return GetImage(0);
   }
   void SetImage(int index, int image);
   int GetImage(int index) const;
   void Check(bool check)
   {
- m_checked = check;
+    m_checked = check;
   }
   bool IsChecked()
   {
- return m_checked;
+    return m_checked;
   }
   bool HasImage() const
   {
- return GetImage() != -1;
+    return GetImage() != -1;
   }
   bool HasText() const
   {
- return !GetText(0).empty();
+    return !GetText(0).empty();
   }
   void SetItem(int index, const wxListItem& info);
   void GetItem(int index, wxListItem& info) const;
@@ -263,9 +263,8 @@ public:
   void ReverseHighlight();
   bool IsHighlighted() const
   {
-        wxASSERT_MSG( !IsVirtual(), wxT("unexpected call to IsHighlighted") );
-
-        return m_highlighted;
+    wxASSERT_MSG( !IsVirtual(), wxT("unexpected call to IsHighlighted") );
+    return m_highlighted;
   }
     // draw the line on the given DC in icon/list mode
   void Draw(wxDC* dc, bool current);
@@ -289,13 +288,15 @@ class wxListLineDataArray : public wxVector<wxListLineData*>
 public:
   void Clear()
   {
-        for ( size_t n = 0; n < size(); ++n )
-            delete (*this)[n];
-        clear();
+    for (size_t n = 0; n < size(); ++n)
+    {
+      delete (*this)[n];
+    }
+    clear();
   }
   ~wxListLineDataArray()
   {
- Clear();
+    Clear();
   }
 };
 //-----------------------------------------------------------------------------
@@ -325,7 +326,7 @@ public:
     // We never need focus as we don't have any keyboard interface.
   bool AcceptsFocus() const override
   {
- return false;
+    return false;
   }
   void DrawCurrent();
   void AdjustDC(wxDC& dc);
@@ -339,7 +340,7 @@ public:
   int m_widthToSend;
   wxWindow* GetMainWindowOfCompositeControl() override
   {
- return GetParent();
+    return GetParent();
   }
   void OnInternalIdle() override;
 private:
@@ -372,9 +373,8 @@ public:
  DELAY = 500
   };
   wxListFindTimer(wxListMainWindow* owner)
-    :  m_owner(owner)
+    : m_owner(owner)
   {
-
   }
   void Notify() override;
 private:
@@ -390,7 +390,7 @@ public:
   wxListTextCtrlWrapper(wxListMainWindow* owner, wxTextCtrl* text, size_t itemEdit);
   wxTextCtrl* GetText() const
   {
- return m_text;
+    return m_text;
   }
     // Check if the given key event should stop editing and return true if it
     // does or false otherwise.
@@ -433,27 +433,27 @@ public:
     // helper to simplify testing for wxLC_XXX flags
   bool HasFlag(int flag) const
   {
- return m_parent->HasFlag(flag);
+    return m_parent->HasFlag(flag);
   }
     // return true if this is a virtual list control
   bool IsVirtual() const
   {
- return HasFlag(wxLC_VIRTUAL);
+    return HasFlag(wxLC_VIRTUAL);
   }
     // return true if the control is in report mode
   bool InReportView() const
   {
- return HasFlag(wxLC_REPORT);
+    return HasFlag(wxLC_REPORT);
   }
     // return true if we are in single selection mode, false if multi sel
   bool IsSingleSel() const
   {
- return HasFlag(wxLC_SINGLE_SEL);
+    return HasFlag(wxLC_SINGLE_SEL);
   }
     // do we have a header window?
   bool HasHeader() const
   {
- return InReportView() && !HasFlag(wxLC_NO_HEADER);
+    return InReportView() && !HasFlag(wxLC_NO_HEADER);
   }
   void HighlightAll(bool on);
     // all these functions only do something if the line is currently visible
@@ -478,7 +478,8 @@ public:
     // toggle the line state and refresh it
   void ReverseHighlight(size_t line)
   {
- HighlightLine(line, !IsHighlighted(line)); RefreshLine(line);
+    HighlightLine(line, !IsHighlighted(line));
+    RefreshLine(line);
   }
     // return true if the line is highlighted
   bool IsHighlighted(size_t line) const;
@@ -507,7 +508,7 @@ public:
     // get the size of the total line rect
   wxSize GetLineSize(size_t line) const
   {
- return GetLineRect(line).GetSize();
+    return GetLineRect(line).GetSize();
   }
     // return the hit code for the corresponding position (in this line)
   long HitTestLine(size_t line, int x, int y) const;
@@ -517,19 +518,19 @@ public:
     // bring the current item into view
   void MoveToFocus()
   {
- MoveToItem(m_current);
+    MoveToItem(m_current);
   }
     // start editing the label of the given item
   wxTextCtrl* EditLabel(long item, wxClassInfo* textControlClass = wxCLASSINFO(wxTextCtrl));
   bool EndEditLabel(bool cancel);
   wxTextCtrl* GetEditControl() const
   {
-        return m_textctrlWrapper ? m_textctrlWrapper->GetText() : NULL;
+    return m_textctrlWrapper ? m_textctrlWrapper->GetText() : NULL;
   }
   void ResetTextControl(wxTextCtrl* text)
   {
-        delete text;
-        m_textctrlWrapper = NULL;
+    delete text;
+    m_textctrlWrapper = NULL;
   }
   void OnRenameTimer();
   bool OnRenameAccept(size_t itemEdit, const wxString& value);
@@ -561,7 +562,7 @@ public:
   int GetColumnWidth(int col) const;
   int GetColumnCount() const
   {
- return m_columns.GetCount();
+    return m_columns.GetCount();
   }
     // returns the sum of the heights of all columns
   int GetHeaderWidth() const;
@@ -573,7 +574,7 @@ public:
   int GetItemState(long item, long stateMask) const;
   bool GetItemRect(long item, wxRect& rect) const
   {
-        return GetSubItemRect(item, wxLIST_GETSUBITEMRECT_WHOLEITEM, rect);
+    return GetSubItemRect(item, wxLIST_GETSUBITEMRECT_WHOLEITEM, rect);
   }
   bool GetSubItemRect(long item, long subItem, wxRect& rect, int code = wxLIST_RECT_BOUNDS) const;
   wxRect GetViewRect() const;
@@ -585,24 +586,24 @@ public:
   void CheckItem(long item, bool check);
   wxString GetItemText(long item, int col = 0) const
   {
-        wxListItem info;
-        info.m_mask = wxLIST_MASK_TEXT;
-        info.m_itemId = item;
-        info.m_col = col;
-        GetItem( info );
-        return info.m_text;
+    wxListItem info;
+    info.m_mask = wxLIST_MASK_TEXT;
+    info.m_itemId = item;
+    info.m_col = col;
+    GetItem(info);
+    return info.m_text;
   }
   void SetItemText(long item, const wxString& value)
   {
-        wxListItem info;
-        info.m_mask = wxLIST_MASK_TEXT;
-        info.m_itemId = item;
-        info.m_text = value;
-        SetItem( info );
+    wxListItem info;
+    info.m_mask = wxLIST_MASK_TEXT;
+    info.m_itemId = item;
+    info.m_text = value;
+    SetItem(info);
   }
   wxImageList* GetSmallImageList() const
   {
- return m_small_image_list;
+    return m_small_image_list;
   }
     // set the scrollbars and update the positions of the items
   void RecalculatePositions(bool noRefresh = false);
@@ -625,41 +626,41 @@ public:
   size_t GetItemCount() const;
   bool IsEmpty() const
   {
- return GetItemCount() == 0;
+    return GetItemCount() == 0;
   }
   void SetItemCount(long count);
     // change the current (== focused) item, send a notification event
   void ChangeCurrent(size_t current);
   void ResetCurrent()
   {
- ChangeCurrent((size_t)-1);
+    ChangeCurrent((size_t) -1);
   }
   bool HasCurrent() const
   {
- return m_current != (size_t)-1;
+    return m_current != (size_t) -1;
   }
     // send out a wxListEvent
   void SendNotify(size_t line, wxEventType command, const wxPoint& point = wxDefaultPosition);
     // override base class virtual to reset m_lineHeight when the font changes
   bool SetFont(const wxFont& font) override
   {
-        if ( !wxWindow::SetFont(font) )
-            return false;
-
-        m_lineHeight = 0;
-
-        return true;
+    if (!wxWindow::SetFont(font))
+    {
+      return false;
+    }
+    m_lineHeight = 0;
+    return true;
   }
   void ExtendRulesAndAlternateColour(bool extend)
   {
-        m_extendRulesAndAlternateColour = extend;
+    m_extendRulesAndAlternateColour = extend;
   }
     // these are for wxListLineData usage only
 
     // get the backpointer to the list ctrl
   wxGenericListCtrl* GetListCtrl() const
   {
-        return wxStaticCast(GetParent(), wxGenericListCtrl);
+    return wxStaticCast(GetParent(), wxGenericListCtrl);
   }
     // get the height of all lines (assuming they all do have the same height)
   wxCoord GetLineHeight() const;
@@ -668,20 +669,20 @@ public:
     // get the brush to use for the item highlighting
   wxBrush* GetHighlightBrush() const
   {
-        return m_hasFocus ? m_highlightBrush : m_highlightUnfocusedBrush;
+    return m_hasFocus ? m_highlightBrush : m_highlightUnfocusedBrush;
   }
   bool HasFocus() const override
   {
-        return m_hasFocus;
+    return m_hasFocus;
   }
   void UpdateSelectionCount(bool selected)
   {
-        wxASSERT_MSG( !IsVirtual(), "Can be called for non virtual lists only" );
-
-        if ( IsSingleSel() )
-            return;
-
-        selected ? ++m_selCount : --m_selCount;
+    wxASSERT_MSG( !IsVirtual(), "Can be called for non virtual lists only" );
+    if (IsSingleSel())
+    {
+      return ;
+    }
+    selected ? ++m_selCount : --m_selCount;
   }
   void DrawInReportModeOnBlank(wxDC* dc, const wxRect& rect, int lineNumber);
 protected:
@@ -727,7 +728,7 @@ protected:
   bool m_hasCheckBoxes;
   wxWindow* GetMainWindowOfCompositeControl() override
   {
- return GetParent();
+    return GetParent();
   }
     // the total count of items selected in a non virtual list control with
     // multiple selections (always 0 otherwise)
@@ -742,15 +743,13 @@ protected:
     // get the line data for the given index
   wxListLineData* GetLine(size_t n) const
   {
-        wxASSERT_MSG( n != (size_t)-1, wxT("invalid line index") );
-
-        if ( IsVirtual() )
-        {
-            wxConstCast(this, wxListMainWindow)->CacheLineData(n);
-            n = 0;
-        }
-
-        return m_lines[n];
+    wxASSERT_MSG( n != (size_t)-1, wxT("invalid line index") );
+    if (IsVirtual())
+    {
+      wxConstCast(this, wxListMainWindow)->CacheLineData(n);
+      n = 0;
+    }
+    return m_lines[n];
   }
     // get a dummy line which can be used for geometry calculations and such:
     // you must use GetLine() if you want to really draw the line
@@ -762,14 +761,14 @@ protected:
     // force us to recalculate the range of visible lines
   void ResetVisibleLinesRange()
   {
- m_lineFrom = (size_t)-1;
+    m_lineFrom = (size_t) -1;
   }
     // find the first item starting with the given prefix after the given item
   size_t PrefixFindItem(size_t item, const wxString& prefix) const;
     // get the colour to be used for drawing the rules
   wxColour GetRuleColour() const
   {
-        return wxSystemSettings::GetColour(wxSYS_COLOUR_3DLIGHT);
+    return wxSystemSettings::GetColour(wxSYS_COLOUR_3DLIGHT);
   }
 private:
     // initialize the current item if needed
@@ -783,7 +782,7 @@ private:
     // in this case, as the wxMSW implementation does.
   bool ShouldSendEventForCurrent() const
   {
-        return HasCurrent() && IsHighlighted(m_current);
+    return HasCurrent() && IsHighlighted(m_current);
   }
     // For multiple selection mode.
     // Change the selected range from [anchor, oldCurrent] to [anchor, newCurrent]

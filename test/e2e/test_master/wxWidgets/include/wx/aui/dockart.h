@@ -26,11 +26,9 @@ class WXDLLIMPEXP_AUI wxAuiDockArt
 public:
   wxAuiDockArt()
   {
-
   }
   virtual ~wxAuiDockArt()
   {
-
   }
   virtual wxAuiDockArt* Clone() = 0;
   virtual int GetMetric(int id) = 0;
@@ -41,11 +39,11 @@ public:
   virtual void SetColour(int id, const wxColor& colour) = 0;
   wxColour GetColor(int id)
   {
- return GetColour(id);
+    return GetColour(id);
   }
   void SetColor(int id, const wxColour& color)
   {
- SetColour(id, color);
+    SetColour(id, color);
   }
   virtual void DrawSash(wxDC& dc, wxWindow* window, int orientation, const wxRect& rect) = 0;
   virtual void DrawBackground(wxDC& dc, wxWindow* window, int orientation, const wxRect& rect) = 0;
@@ -78,9 +76,6 @@ public:
   void DrawGripper(wxDC& dc, wxWindow* window, const wxRect& rect, wxAuiPaneInfo& pane) override;
   void DrawBorder(wxDC& dc, wxWindow* window, const wxRect& rect, wxAuiPaneInfo& pane) override;
   void DrawPaneButton(wxDC& dc, wxWindow* window, int button, int buttonState, const wxRect& rect, wxAuiPaneInfo& pane) override;
-#    if  WXWIN_COMPATIBILITY_3_0
-  wxDEPRECATED_MSG("This is not intended for the public API") void DrawIcon(wxDC& dc, const wxRect& rect, wxAuiPaneInfo& pane);
-#    endif
   void UpdateColoursFromSystem() override;
 protected:
   void DrawCaptionBackground(wxDC& dc, const wxRect& rect, bool active);

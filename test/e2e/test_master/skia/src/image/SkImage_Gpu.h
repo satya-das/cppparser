@@ -23,15 +23,15 @@ public:
   GrSemaphoresSubmitted onFlush(GrContext*, const GrFlushInfo&) override;
   GrTextureProxy* peekProxy() const override
   {
-        return fProxy.get();
+    return fProxy.get();
   }
   sk_sp<GrTextureProxy> asTextureProxyRef(GrRecordingContext*) const override
   {
-        return fProxy;
+    return fProxy;
   }
   bool onIsTextureBacked() const override
   {
- return SkToBool(fProxy.get());
+    return SkToBool(fProxy.get());
   }
   sk_sp<SkImage> onMakeColorTypeAndColorSpace(GrRecordingContext*, SkColorType, sk_sp<SkColorSpace>) const final;
   sk_sp<SkImage> onReinterpretColorSpace(sk_sp<SkColorSpace>) const final;

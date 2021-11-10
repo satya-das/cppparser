@@ -104,8 +104,8 @@ public:
     ///
   virtual bool forceAnnoAllVisible(AcDbObject* pObj) const
   {
-        ADESK_UNREFED_PARAM(pObj);
-        return false;
+    ADESK_UNREFED_PARAM(pObj);
+    return false;
   }
     /// <summary>
     /// Whether to ignore the ANNOALLVISIBLE system variable and
@@ -132,9 +132,9 @@ public:
     /// </remarks>
   virtual Acad::ErrorStatus setForceAnnoAllVisible(AcDbObject* pObj, bool bForce) const
   {
-        ADESK_UNREFED_PARAM(pObj);
-        ADESK_UNREFED_PARAM(bForce);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pObj);
+    ADESK_UNREFED_PARAM(bForce);
+    return Acad::eNotImplemented;
   }
     /// <summary>
     /// Resets any scale dependent object properties to the default 
@@ -160,8 +160,8 @@ public:
     /// </remarks>
   virtual Acad::ErrorStatus resetScaleDependentProperties(AcDbObject* pObject)
   {
-        ADESK_UNREFED_PARAM(pObject);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pObject);
+    return Acad::eNotImplemented;
   }
 };
 /// <summary>
@@ -225,9 +225,9 @@ public:
     ///
   virtual Acad::ErrorStatus applyPaperOrientationTransform(AcDbObject* pObject, const AcDbViewport* pVport) const
   {
-        ADESK_UNREFED_PARAM(pObject);
-        ADESK_UNREFED_PARAM(pVport);
-        return Acad::eNotImplemented;
+    ADESK_UNREFED_PARAM(pObject);
+    ADESK_UNREFED_PARAM(pVport);
+    return Acad::eNotImplemented;
   }
 };
 #pragma  pack (pop)

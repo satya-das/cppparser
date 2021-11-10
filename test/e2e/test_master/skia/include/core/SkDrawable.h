@@ -78,7 +78,7 @@ public:
      */
   std::unique_ptr<GpuDrawHandler> snapGpuDrawHandler(GrBackendApi backendApi, const SkMatrix& matrix, const SkIRect& clipBounds, const SkImageInfo& bufferInfo)
   {
-        return this->onSnapGpuDrawHandler(backendApi, matrix, clipBounds, bufferInfo);
+    return this->onSnapGpuDrawHandler(backendApi, matrix, clipBounds, bufferInfo);
   }
   SkPicture* newPictureSnapshot();
     /**
@@ -103,25 +103,23 @@ public:
   void notifyDrawingChanged();
   static SkFlattenable::Type GetFlattenableType()
   {
-        return kSkDrawable_Type;
+    return kSkDrawable_Type;
   }
   SkFlattenable::Type getFlattenableType() const override
   {
-        return kSkDrawable_Type;
+    return kSkDrawable_Type;
   }
   static sk_sp<SkDrawable> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
-        return sk_sp<SkDrawable>(static_cast<SkDrawable*>(
-                                  SkFlattenable::Deserialize(
-                                  kSkDrawable_Type, data, size, procs).release()));
+    return sk_sp<SkDrawable>(static_cast<SkDrawable*>(SkFlattenable::Deserialize(kSkDrawable_Type, data, size, procs).release()));
   }
   Factory getFactory() const override
   {
- return nullptr;
+    return nullptr;
   }
   const char* getTypeName() const override
   {
- return nullptr;
+    return nullptr;
   }
 protected:
   SkDrawable();
@@ -129,12 +127,12 @@ protected:
   virtual void onDraw(SkCanvas*) = 0;
   virtual std::unique_ptr<GpuDrawHandler> onSnapGpuDrawHandler(GrBackendApi, const SkMatrix&, const SkIRect&, const SkImageInfo&)
   {
-        return nullptr;
+    return nullptr;
   }
     // TODO: Delete this once Android gets updated to take the clipBounds version above.
   virtual std::unique_ptr<GpuDrawHandler> onSnapGpuDrawHandler(GrBackendApi, const SkMatrix&)
   {
-        return nullptr;
+    return nullptr;
   }
     /**
      *  Default implementation calls onDraw() with a canvas that records into a picture. Subclasses

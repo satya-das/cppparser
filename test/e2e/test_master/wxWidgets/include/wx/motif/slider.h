@@ -18,7 +18,7 @@ public:
   wxSlider();
   wxSlider(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr))
   {
-        Create(parent, id, value, minValue, maxValue, pos, size, style, validator, name);
+    Create(parent, id, value, minValue, maxValue, pos, size, style, validator, name);
   }
   virtual ~wxSlider();
   bool Create(wxWindow* parent, wxWindowID id, int value, int minValue, int maxValue, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSL_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxSliderNameStr));
@@ -27,11 +27,11 @@ public:
   void SetRange(int minValue, int maxValue);
   inline int GetMin() const
   {
- return m_rangeMin;
+    return m_rangeMin;
   }
   inline int GetMax() const
   {
- return m_rangeMax;
+    return m_rangeMax;
   }
     // For trackbars only
   void SetPageSize(int pageSize);

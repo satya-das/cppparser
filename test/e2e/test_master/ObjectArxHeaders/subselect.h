@@ -37,7 +37,6 @@ class AcEdSubSelectFilter
 public:
   virtual ~AcEdSubSelectFilter()
   {
-
   }
   enum SubSelectStatus {
         kSubSelectionNone = 0,  // No selection found
@@ -63,7 +62,7 @@ public:
      */
   virtual Acad::ErrorStatus subSelectClassList(AcArray<AcRxClass*>& clsIds)
   {
- return Acad::eOk;
+    return Acad::eOk;
   }
     // The following three methods do the subselection and sub-highlight.
 
@@ -93,7 +92,7 @@ public:
      */
   virtual bool selectEntity(const AcGePoint3d& wvpt, const AcGeVector3d& wvwdir, const AcGeVector3d& wvwxdir, double wxaper, double wyaper, Adesk::Int32 flags, const AcGiViewport* pCurVp, AcDbEntity* pEnt) const
   {
- return false;
+    return false;
   }
     /**
      * If the above method, i.e. hitTestEntity() returns true, 
@@ -139,7 +138,7 @@ public:
      */
   virtual SubSelectStatus subSelectEntity(const AcGePoint3d& wpt1, const AcGePoint3d& wpt2, const AcGeVector3d& wvwdir, const AcGeVector3d& wvwxdir, double wxaper, double wyaper, AcDb::SelectType seltype, bool bAugment, bool bIsInPickfirstSet, bool bEvery, const AcGiViewport* pCurVP, AcDbEntity* pEnt, AcDbFullSubentPathArray& paths)
   {
- return kSubSelectionNone;
+    return kSubSelectionNone;
   }
     /**
      * If hitTestEntity() returns true then createSubSelect() will be invoked
@@ -173,7 +172,7 @@ public:
      */
   virtual SubSelectStatus subSelectEntity(const resbuf* pResbuf, bool bAugment, bool bIsInPickfirstSet, bool bEvery, const AcGiViewport* pCurVP, AcDbEntity* pEnt, AcDbFullSubentPathArray& paths)
   {
- return kSubSelectionNone;
+    return kSubSelectionNone;
   }
     /**
      * Invoked to re-select, if necessary, based on the current entity
@@ -197,7 +196,7 @@ public:
      */
   virtual bool reSubSelectEntity(AcDbEntity* pEnt, AcDbFullSubentPathArray& paths)
   {
- return false;
+    return false;
   }
     /**
      * In case the sub-selection is cancelled, the reactor is notified
@@ -211,7 +210,7 @@ public:
      */
   virtual bool cancelSubSelect(AcDbEntity* pEnt)
   {
- return false;
+    return false;
   }
     /**
      * Similar method to cancelSubSelect, except - all entities
@@ -222,7 +221,7 @@ public:
      */
   virtual bool cancelAllSubSelect()
   {
- return false;
+    return false;
   }
     /**
      * React to keyboard input - and take appropriate action,
@@ -248,13 +247,13 @@ public:
      */
   virtual bool onKey(Adesk::UInt32 wMsg, unsigned int nChar, unsigned int rptCnt, unsigned int flags)
   {
- return false;
+    return false;
   }
     /**
      * @returns true if the entity is subselected.
      */
   virtual bool isSubSelected(AcDbEntity* pEnt) const
   {
- return false;
+    return false;
   }
 };

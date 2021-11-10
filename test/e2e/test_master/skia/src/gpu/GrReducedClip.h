@@ -29,7 +29,7 @@ public:
   };
   InitialState initialState() const
   {
- return fInitialState;
+    return fInitialState;
   }
     /**
      * If hasScissor() is true, the clip mask is not valid outside this rect and the caller must
@@ -37,23 +37,24 @@ public:
      */
   const SkIRect& scissor() const
   {
- SkASSERT(fHasScissor); return fScissor;
+    SkASSERT(fHasScissor);
+    return fScissor;
   }
   int left() const
   {
- return this->scissor().left();
+    return this->scissor().left();
   }
   int top() const
   {
- return this->scissor().top();
+    return this->scissor().top();
   }
   int width() const
   {
- return this->scissor().width();
+    return this->scissor().width();
   }
   int height() const
   {
- return this->scissor().height();
+    return this->scissor().height();
   }
     /**
      * Indicates whether scissor() is defined. It will always be defined if the maskElements() are
@@ -61,7 +62,7 @@ public:
      */
   bool hasScissor() const
   {
- return fHasScissor;
+    return fHasScissor;
   }
     /**
      * If nonempty, the clip mask is not valid inside these windows and the caller must clip them
@@ -69,7 +70,7 @@ public:
      */
   const GrWindowRectangles& windowRectangles() const
   {
- return fWindowRects;
+    return fWindowRects;
   }
     /**
      * An ordered list of clip elements that could not be skipped or implemented by other means. If
@@ -78,7 +79,7 @@ public:
      */
   const ElementList& maskElements() const
   {
- return fMaskElements;
+    return fMaskElements;
   }
     /**
      * If maskElements() are nonempty, uniquely identifies the region of the clip mask that falls
@@ -92,20 +93,22 @@ public:
      */
   uint32_t maskGenID() const
   {
- SkASSERT(!fMaskElements.isEmpty()); return fMaskGenID;
+    SkASSERT(!fMaskElements.isEmpty());
+    return fMaskGenID;
   }
     /**
      * Indicates whether antialiasing is required to process any of the mask elements.
      */
   bool maskRequiresAA() const
   {
- SkASSERT(!fMaskElements.isEmpty()); return fMaskRequiresAA;
+    SkASSERT(!fMaskElements.isEmpty());
+    return fMaskRequiresAA;
   }
   bool drawAlphaClipMask(GrRenderTargetContext*) const;
   bool drawStencilClipMask(GrRecordingContext*, GrRenderTargetContext*) const;
   int numAnalyticFPs() const
   {
- return fAnalyticFPs.count() + fCCPRClipPaths.count();
+    return fAnalyticFPs.count() + fCCPRClipPaths.count();
   }
     /**
      * Called once the client knows the ID of the opsTask that the clip FPs will operate in. This

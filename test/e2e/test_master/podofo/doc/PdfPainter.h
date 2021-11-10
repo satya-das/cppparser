@@ -54,9 +54,9 @@ namespace PoDoFo
   struct TLineElement
   {
     TLineElement()
-      :  pszStart( NULL ), lLen( 0L )
+      : pszStart(NULL)
+      , lLen(0L)
     {
-
     }
     const char* pszStart;
     pdf_long lLen;
@@ -820,7 +820,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   void PdfPainter::SetPrecision(unsigned short inPrec)
   {
-    m_oss.precision( inPrec );
+    m_oss.precision(inPrec);
   }
 // -----------------------------------------------------
 // 
@@ -834,31 +834,28 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline std::ostringstream& PdfPainter::GetCurrentPath(void)
   {
-	return m_curPath;
+    return m_curPath;
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::SetClipRect(const PdfRect& rRect)
   {
-    this->SetClipRect( rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight() );
+    this->SetClipRect(rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight());
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::Rectangle(const PdfRect& rRect, double dRoundX, double dRoundY)
   {
-    this->Rectangle( rRect.GetLeft(), rRect.GetBottom(), 
-                    rRect.GetWidth(), rRect.GetHeight(), 
-                    dRoundX, dRoundY );
+    this->Rectangle(rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight(), dRoundX, dRoundY);
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   void PdfPainter::DrawMultiLineText(const PdfRect& rRect, const PdfString& rsText, EPdfAlignment eAlignment, EPdfVerticalAlignment eVertical, bool bClip, bool bSkipSpaces)
   {
-    this->DrawMultiLineText( rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight(), 
-                             rsText, eAlignment, eVertical, bClip, bSkipSpaces );
+    this->DrawMultiLineText(rRect.GetLeft(), rRect.GetBottom(), rRect.GetWidth(), rRect.GetHeight(), rsText, eAlignment, eVertical, bClip, bSkipSpaces);
   }
 }
 #endif

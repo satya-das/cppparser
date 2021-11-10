@@ -10,26 +10,24 @@
 #ifndef _WX_SOCKET_H_
 #  define _WX_SOCKET_H_
 #  include "wx/defs.h"
-#  if  wxUSE_SOCKETS
 // ---------------------------------------------------------------------------
 // wxSocket headers
 // ---------------------------------------------------------------------------
-#    include "wx/event.h"
-#    include "wx/sckaddr.h"
-#    include "wx/list.h"
+#  include "wx/event.h"
+#  include "wx/sckaddr.h"
+#  include "wx/list.h"
 class wxSocketImpl;
 // ------------------------------------------------------------------------
 // Types and constants
 // ------------------------------------------------------------------------
 
 // Define the type of native sockets.
-#    if  defined(__WINDOWS__)
+#  if  defined(__WINDOWS__)
     // Although socket descriptors are still 32 bit values, even under Win64,
     // the socket type is 64 bit there.
 typedef wxUIntPtr wxSOCKET_T;
-#    else 
 typedef int wxSOCKET_T;
-#    endif
+#  endif
 // Types of different socket notifications or events.
 //
 // NB: the values here should be consecutive and start with 0 as they are
@@ -107,43 +105,43 @@ public:
     // state
   bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const
   {
- return m_impl != NULL;
+    return m_impl != NULL;
   }
   bool Error() const
   {
- return LastError() != wxSOCKET_NOERROR;
+    return LastError() != wxSOCKET_NOERROR;
   }
   bool IsClosed() const
   {
- return m_closed;
+    return m_closed;
   }
   bool IsConnected() const
   {
- return m_connected;
+    return m_connected;
   }
   bool IsData()
   {
- return WaitForRead(0, 0);
+    return WaitForRead(0, 0);
   }
   bool IsDisconnected() const
   {
- return !IsConnected();
+    return !IsConnected();
   }
   wxUint32 LastCount() const
   {
- return m_lcount;
+    return m_lcount;
   }
   wxUint32 LastReadCount() const
   {
- return m_lcount_read;
+    return m_lcount_read;
   }
   wxUint32 LastWriteCount() const
   {
- return m_lcount_write;
+    return m_lcount_write;
   }
   wxSocketError LastError() const;
   void SaveState();
@@ -178,40 +176,40 @@ public:
   bool WaitForLost(long seconds = -1, long milliseconds = 0);
   void InterruptWait()
   {
- m_interrupt = true;
+    m_interrupt = true;
   }
   wxSocketFlags GetFlags() const
   {
- return m_flags;
+    return m_flags;
   }
   void SetFlags(wxSocketFlags flags);
   virtual void SetTimeout(long seconds);
   long GetTimeout() const
   {
- return m_timeout;
+    return m_timeout;
   }
   bool GetOption(int level, int optname, void* optval, int* optlen);
   bool SetOption(int level, int optname, const void* optval, int optlen);
   wxUint32 GetLastIOSize() const
   {
- return m_lcount;
+    return m_lcount;
   }
   wxUint32 GetLastIOReadSize() const
   {
- return m_lcount_read;
+    return m_lcount_read;
   }
   wxUint32 GetLastIOWriteSize() const
   {
- return m_lcount_write;
+    return m_lcount_write;
   }
     // event handling
   void* GetClientData() const
   {
- return m_clientData;
+    return m_clientData;
   }
   void SetClientData(void* data)
   {
- m_clientData = data;
+    m_clientData = data;
   }
   void SetEventHandler(wxEvtHandler& handler, int id = wxID_ANY);
   void SetNotify(wxSocketEventFlags flags);
@@ -240,11 +238,11 @@ public:
     // do not use, not documented nor supported
   bool IsNoWait() const
   {
- return ((m_flags & wxSOCKET_NOWAIT) != 0);
+    return ((m_flags & wxSOCKET_NOWAIT) != 0);
   }
   wxSocketType GetType() const
   {
- return m_type;
+    return m_type;
   }
     // Helper returning wxSOCKET_NONE if non-blocking sockets can be used, i.e.
     // the socket is being created in the main thread and the event loop is
@@ -277,7 +275,7 @@ private:
     // another helper calling DoWait() using our m_timeout
   int DoWaitWithTimeout(wxSocketEventFlags flags)
   {
-        return DoWait(m_timeout*1000, flags);
+    return DoWait(m_timeout * 1000, flags);
   }
     // pushback buffer
   void Pushback(const void* buffer, wxUint32 size);
@@ -347,8 +345,8 @@ public:
     // unchanged)
   void SetInitialSocketBuffers(int recv, int send)
   {
-        m_initialRecvBufferSize = recv;
-        m_initialSendBufferSize = send;
+    m_initialRecvBufferSize = recv;
+    m_initialSendBufferSize = send;
   }
 private:
   virtual bool DoConnect(const wxSockAddress& addr, const wxSockAddress* local, bool wait = true);
@@ -372,6 +370,7 @@ public:
     /* TODO:
        bool Connect(wxSockAddress& addr);
      */
+private:
   wxDECLARE_CLASS(wxDatagramSocket);
   wxDECLARE_NO_COPY_CLASS(wxDatagramSocket);
 };
@@ -382,38 +381,36 @@ class WXDLLIMPEXP_NET wxSocketEvent : public wxEvent
 {
 public:
   wxSocketEvent(int id = 0)
-    :  wxEvent(id, wxEVT_SOCKET)
+    : wxEvent(id, wxEVT_SOCKET)
   {
-
   }
   wxSocketNotify GetSocketEvent() const
   {
- return m_event;
+    return m_event;
   }
   wxSocketBase* GetSocket() const
   {
- return (wxSocketBase *) GetEventObject();
+    return (wxSocketBase*) GetEventObject();
   }
   void* GetClientData() const
   {
- return m_clientData;
+    return m_clientData;
   }
   wxEvent* Clone() const override
   {
- return new wxSocketEvent(*this);
+    return new wxSocketEvent(*this);
   }
   wxEventCategory GetEventCategory() const override
   {
- return wxEVT_CATEGORY_SOCKET;
+    return wxEVT_CATEGORY_SOCKET;
   }
   wxSocketNotify m_event;
   void* m_clientData;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxSocketEvent);
 };
 typedef void (*wxSocketEventFunction) (wxSocketEvent&);
-#    define wxSocketEventHandler(func)	 \
+#  define wxSocketEventHandler(func)	 \
     wxEVENT_HANDLER_CAST(wxSocketEventFunction, func)
-#    define EVT_SOCKET(id, func)	 \
+#  define EVT_SOCKET(id, func)	 \
     wx__DECLARE_EVT1(wxEVT_SOCKET, id, wxSocketEventHandler(func))
-#  endif
 #endif

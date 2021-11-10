@@ -92,7 +92,6 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
     public:
       virtual ~Observer()
       {
-
       }
       virtual void WriteObject(const PdfObject* pObject) = 0;
         /**
@@ -119,7 +118,6 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
     public:
       virtual ~StreamFactory()
       {
-
       }
         /** Creates a stream object
          *
@@ -190,7 +188,7 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
      */
     size_t GetObjectCount() const
     {
- return m_nObjectCount;
+      return m_nObjectCount;
     }
     /** Finds the object with the given reference in m_vecOffsets 
      *  and returns a pointer to it if it is found.
@@ -461,15 +459,15 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
 // -----------------------------------------------------
   inline void PdfVecObjects::Reserve(size_t size)
   {
-    if( size <= m_nMaxReserveSize ) // Fix CVE-2018-5783
+    if (size <= m_nMaxReserveSize)
     {
-        m_vector.reserve( size );
-    } 
-    else
+      m_vector.reserve(size);
+    }
+    else 
     {
-        PdfError::DebugMessage( "Call to PdfVecObjects::Reserve with %"
+      PdfError::DebugMessage("Call to PdfVecObjects::Reserve with %"
                            PDF_SIZE_FORMAT" is over allowed limit of %"
-                           PDF_SIZE_FORMAT".\n", size, m_nMaxReserveSize );
+                           PDF_SIZE_FORMAT".\n", size, m_nMaxReserveSize);
     }
   }
 // -----------------------------------------------------
@@ -519,7 +517,7 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
 // -----------------------------------------------------
   inline void PdfVecObjects::Attach(Observer* pObserver)
   {
-    m_vecObservers.push_back( pObserver );
+    m_vecObservers.push_back(pObserver);
   }
 // -----------------------------------------------------
 // 
@@ -568,8 +566,7 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
 // -----------------------------------------------------
   inline void PdfVecObjects::SetObjectCount(const PdfReference& rRef)
   {
-    if( rRef.ObjectNumber() >= m_nObjectCount )
-    // Peter Petrov 18 September 2008
+    if (rRef.ObjectNumber() >= m_nObjectCount)
     {
         // This was a bug.
         //++m_nObjectCount;
@@ -577,7 +574,7 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
         // In fact "m_bObjectCount" is used for the next free object number.
         // We need to use the greatest object number + 1 for the next free object number.
         // Otherwise, object number overlap would have occurred.
-        m_nObjectCount = rRef.ObjectNumber() + 1;
+      m_nObjectCount = rRef.ObjectNumber() + 1;
     }
   }
 // -----------------------------------------------------
@@ -585,7 +582,7 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
 // -----------------------------------------------------
   inline PdfObject*& PdfVecObjects::operator[](size_t index)
   {
- return m_vector[index];
+    return m_vector[index];
   }
 //inline PdfObject const * & PdfVecObjects::operator[](int index) const { return m_vector[index]; }
 }

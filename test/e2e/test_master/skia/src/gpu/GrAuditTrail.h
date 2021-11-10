@@ -28,7 +28,7 @@ class GrAuditTrail
 {
 public:
   GrAuditTrail()
-    :  fClientID(kGrAuditTrailInvalidID)
+    : fClientID(kGrAuditTrailInvalidID)
     , fEnabled(false)
   {
   }
@@ -36,15 +36,15 @@ public:
   {
   public:
     AutoEnable(GrAuditTrail* auditTrail)
-      :  fAuditTrail(auditTrail)
+      : fAuditTrail(auditTrail)
     {
-            SkASSERT(!fAuditTrail->isEnabled());
-            fAuditTrail->setEnabled(true);
+      SkASSERT(!fAuditTrail->isEnabled());
+      fAuditTrail->setEnabled(true);
     }
     ~AutoEnable()
     {
-            SkASSERT(fAuditTrail->isEnabled());
-            fAuditTrail->setEnabled(false);
+      SkASSERT(fAuditTrail->isEnabled());
+      fAuditTrail->setEnabled(false);
     }
   private:
     GrAuditTrail* fAuditTrail;
@@ -53,12 +53,13 @@ public:
   {
   public:
     AutoManageOpsTask(GrAuditTrail* auditTrail)
-      :  fAutoEnable(auditTrail), fAuditTrail(auditTrail)
+      : fAutoEnable(auditTrail)
+      , fAuditTrail(auditTrail)
     {
     }
     ~AutoManageOpsTask()
     {
- fAuditTrail->fullReset();
+      fAuditTrail->fullReset();
     }
   private:
     AutoEnable fAutoEnable;
@@ -68,13 +69,14 @@ public:
   {
   public:
     AutoCollectOps(GrAuditTrail* auditTrail, int clientID)
-      :  fAutoEnable(auditTrail), fAuditTrail(auditTrail)
+      : fAutoEnable(auditTrail)
+      , fAuditTrail(auditTrail)
     {
-            fAuditTrail->setClientID(clientID);
+      fAuditTrail->setClientID(clientID);
     }
     ~AutoCollectOps()
     {
- fAuditTrail->setClientID(kGrAuditTrailInvalidID);
+      fAuditTrail->setClientID(kGrAuditTrailInvalidID);
     }
   private:
     AutoEnable fAutoEnable;
@@ -82,8 +84,8 @@ public:
   };
   void pushFrame(const char* framename)
   {
-        SkASSERT(fEnabled);
-        fCurrentStackTrace.push_back(SkString(framename));
+    SkASSERT(fEnabled);
+    fCurrentStackTrace.push_back(SkString(framename));
   }
   void addOp(const GrOp*, GrRenderTargetProxy::UniqueID proxyID);
   void opsCombined(const GrOp* consumer, const GrOp* consumed);
@@ -98,15 +100,15 @@ public:
   void toJson(SkJSONWriter& writer, int clientID) const;
   bool isEnabled()
   {
- return fEnabled;
+    return fEnabled;
   }
   void setEnabled(bool enabled)
   {
- fEnabled = enabled;
+    fEnabled = enabled;
   }
   void setClientID(int clientID)
   {
- fClientID = clientID;
+    fClientID = clientID;
   }
     // We could just return our internal bookkeeping struct if copying the data out becomes
     // a performance issue, but until then its nice to decouple
@@ -142,9 +144,8 @@ private:
   struct OpNode
   {
     OpNode(const GrSurfaceProxy::UniqueID& proxyID)
-      :  fProxyUniqueID(proxyID)
+      : fProxyUniqueID(proxyID)
     {
-
     }
     void toJson(SkJSONWriter& writer) const;
     SkRect fBounds;

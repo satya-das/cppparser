@@ -45,46 +45,44 @@ public:
     //     manually in each function.
   bool SetForegroundColour(const wxColour& colour) override
   {
-        if ( !BaseWindowClass::SetForegroundColour(colour) )
-            return false;
-
-        SetForAllParts(&wxWindowBase::SetForegroundColour, colour);
-
-        return true;
+    if (!BaseWindowClass::SetForegroundColour(colour))
+    {
+      return false;
+    }
+    SetForAllParts(&wxWindowBase::SetForegroundColour, colour);
+    return true;
   }
   bool SetBackgroundColour(const wxColour& colour) override
   {
-        if ( !BaseWindowClass::SetBackgroundColour(colour) )
-            return false;
-
-        SetForAllParts(&wxWindowBase::SetBackgroundColour, colour);
-
-        return true;
+    if (!BaseWindowClass::SetBackgroundColour(colour))
+    {
+      return false;
+    }
+    SetForAllParts(&wxWindowBase::SetBackgroundColour, colour);
+    return true;
   }
   bool SetFont(const wxFont& font) override
   {
-        if ( !BaseWindowClass::SetFont(font) )
-            return false;
-
-        SetForAllParts(&wxWindowBase::SetFont, font);
-
-        return true;
+    if (!BaseWindowClass::SetFont(font))
+    {
+      return false;
+    }
+    SetForAllParts(&wxWindowBase::SetFont, font);
+    return true;
   }
   bool SetCursor(const wxCursor& cursor) override
   {
-        if ( !BaseWindowClass::SetCursor(cursor) )
-            return false;
-
-        SetForAllParts(&wxWindowBase::SetCursor, cursor);
-
-        return true;
+    if (!BaseWindowClass::SetCursor(cursor))
+    {
+      return false;
+    }
+    SetForAllParts(&wxWindowBase::SetCursor, cursor);
+    return true;
   }
   void SetLayoutDirection(wxLayoutDirection dir) override
   {
-        BaseWindowClass::SetLayoutDirection(dir);
-
-        SetForAllParts(&wxWindowBase::SetLayoutDirection, dir);
-
+    BaseWindowClass::SetLayoutDirection(dir);
+    SetForAllParts(&wxWindowBase::SetLayoutDirection, dir);
         // The child layout almost invariably depends on the layout direction,
         // so redo it when it changes.
         //
@@ -93,31 +91,29 @@ public:
         // SetSize() may be unexpected. This does mean that any future calls to
         // SetLayoutDirection(wxLayout_Default) wouldn't result in a re-layout
         // neither, but then we're not supposed to be called with it at all.
-        if ( dir != wxLayout_Default )
-            this->SetSize(-1, -1, -1, -1, wxSIZE_FORCE);
+    if (dir != wxLayout_Default)
+    {
+      this->SetSize(-1, -1, -1, -1, wxSIZE_FORCE);
+    }
   }
 #  if  wxUSE_TOOLTIPS
   void DoSetToolTipText(const wxString& tip) override
   {
-        BaseWindowClass::DoSetToolTipText(tip);
-
+    BaseWindowClass::DoSetToolTipText(tip);
         // Use a variable to disambiguate between SetToolTip() overloads.
-        void (wxWindowBase::*func)(const wxString&) = &wxWindowBase::SetToolTip;
-
-        SetForAllParts(func, tip);
+    void (*func) (const wxString&) = &wxWindowBase::SetToolTip;
+    SetForAllParts(func, tip);
   }
   void DoSetToolTip(wxToolTip* tip) override
   {
-        BaseWindowClass::DoSetToolTip(tip);
-
-        SetForAllParts(&wxWindowBase::CopyToolTip, tip);
+    BaseWindowClass::DoSetToolTip(tip);
+    SetForAllParts(&wxWindowBase::CopyToolTip, tip);
   }
 #  endif
 protected:
     // Trivial but necessary default ctor.
   wxCompositeWindowSettersOnly()
   {
-
   }
 private:
     // Must be implemented by the derived class to return all children to which
@@ -127,19 +123,18 @@ private:
   void SetForAllParts(R (*func) (TArg), T arg)
   {
         // Simply call the setters for all parts of this composite window.
-        const wxWindowList parts = GetCompositeWindowParts();
-        for ( wxWindowList::const_iterator i = parts.begin();
-              i != parts.end();
-              ++i )
-        {
-            wxWindow * const child = *i;
-
+    const wxWindowList parts = GetCompositeWindowParts();
+    for (wxWindowList::const_iterator i = parts.begin(); i != parts.end(); ++i)
+    {
+      wxWindow* const child = *i;
             // Allow NULL elements in the list, this makes the code of derived
             // composite controls which may have optionally shown children
             // simpler and it doesn't cost us much here.
-            if ( child )
-                (child->*func)(arg);
-        }
+      if (child)
+      {
+        (child->*func)(arg);
+      }
+    }
   }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCompositeWindowSettersOnly, W);
 };
@@ -150,26 +145,23 @@ class wxCompositeWindow : public wxCompositeWindowSettersOnly<W>
 public:
   void SetFocus() override
   {
-        wxSetFocusToChild(this, NULL);
+    wxSetFocusToChild(this, NULL);
   }
 protected:
     // Default ctor sets things up for handling children events correctly.
   wxCompositeWindow()
   {
-        this->Bind(wxEVT_CREATE, &wxCompositeWindow::OnWindowCreate, this);
+    this->Bind(wxEVT_CREATE, &wxCompositeWindow::OnWindowCreate, this);
   }
 private:
   void OnWindowCreate(wxWindowCreateEvent& event)
   {
-        event.Skip();
-
+    event.Skip();
         // Attach a few event handlers to all parts of the composite window.
         // This makes the composite window behave more like a simple control
         // and allows other code (such as wxDataViewCtrl's inline editing
         // support) to hook into its event processing.
-
-        wxWindow *child = event.GetWindow();
-
+    wxWindow* child = event.GetWindow();
         // Check that it's one of our children: it could also be this window
         // itself (for which we don't need to handle focus at all) or one of
         // its grandchildren and we don't want to bind to those as child
@@ -182,74 +174,74 @@ private:
         // the derived classes would typically not be initialized yet, as this
         // event is generated by "m_child = new wxChildControl(this, ...)" code
         // before "m_child" is assigned.
-        if ( child->GetParent() != this )
-            return;
-
-        child->Bind(wxEVT_SET_FOCUS, &wxCompositeWindow::OnSetFocus, this);
-
-        child->Bind(wxEVT_KILL_FOCUS, &wxCompositeWindow::OnKillFocus, this);
-
+    if (child->GetParent() != this)
+    {
+      return ;
+    }
+    child->Bind(wxEVT_SET_FOCUS, &wxCompositeWindow::OnSetFocus, this);
+    child->Bind(wxEVT_KILL_FOCUS, &wxCompositeWindow::OnKillFocus, this);
         // Some events should be only handled for non-toplevel children. For
         // example, we want to close the control in wxDataViewCtrl when Enter
         // is pressed in the inline editor, but not when it's pressed in a
         // popup dialog it opens.
-        wxWindow *win = child;
-        while ( win && win != this )
-        {
-            if ( win->IsTopLevel() )
-                return;
-            win = win->GetParent();
-        }
-
-        child->Bind(wxEVT_CHAR, &wxCompositeWindow::OnChar, this);
+    wxWindow* win = child;
+    while (win && win != this)
+    {
+      if (win->IsTopLevel())
+      {
+        return ;
+      }
+      win = win->GetParent();
+    }
+    child->Bind(wxEVT_CHAR, &wxCompositeWindow::OnChar, this);
   }
   void OnChar(wxKeyEvent& event)
   {
-        if ( !this->ProcessWindowEvent(event) )
-            event.Skip();
+    if (!this->ProcessWindowEvent(event))
+    {
+      event.Skip();
+    }
   }
   void OnSetFocus(wxFocusEvent& event)
   {
-        event.Skip();
-
+    event.Skip();
         // When a child of a composite window gains focus, the entire composite
         // focus gains focus as well -- unless it had it already.
         //
         // We suppose that we hadn't had focus if the event doesn't carry the
         // previously focused window as it normally means that it comes from
         // outside of this program.
-        wxWindow* const oldFocus = event.GetWindow();
-        if ( !oldFocus || oldFocus->GetMainWindowOfCompositeControl() != this )
-        {
-            wxFocusEvent eventThis(wxEVT_SET_FOCUS, this->GetId());
-            eventThis.SetEventObject(this);
-            eventThis.SetWindow(event.GetWindow());
-
-            this->ProcessWindowEvent(eventThis);
-        }
+    wxWindow* const oldFocus = event.GetWindow();
+    if (!oldFocus || oldFocus->GetMainWindowOfCompositeControl() != this)
+    {
+      wxFocusEvent eventThis(wxEVT_SET_FOCUS, this->GetId());
+      eventThis.SetEventObject(this);
+      eventThis.SetWindow(event.GetWindow());
+      this->ProcessWindowEvent(eventThis);
+    }
   }
   void OnKillFocus(wxFocusEvent& event)
   {
         // Ignore focus changes within the composite control:
-        wxWindow *win = event.GetWindow();
-        while ( win )
-        {
-            if ( win == this )
-            {
-                event.Skip();
-                return;
-            }
-
+    wxWindow* win = event.GetWindow();
+    while (win)
+    {
+      if (win == this)
+      {
+        event.Skip();
+        return ;
+      }
             // Note that we don't use IsTopLevel() check here, because we do
             // want to ignore focus changes going to toplevel window that have
             // the composite control as its parent; these would typically be
             // some kind of control's popup window.
-            win = win->GetParent();
-        }
-
+      win = win->GetParent();
+    }
         // The event shouldn't be ignored, forward it to the main control:
-        if ( !this->ProcessWindowEvent(event) )
-            event.Skip();
+    if (!this->ProcessWindowEvent(event))
+    {
+      event.Skip();
+    }
   }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCompositeWindow, W);
 };

@@ -15,11 +15,10 @@ class WXDLLIMPEXP_CORE wxRadioButton : public wxRadioButtonBase
 public:
   wxRadioButton()
   {
-
   }
   wxRadioButton(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioButtonNameStr))
   {
-        Create( parent, id, label, pos, size, style, validator, name );
+    Create(parent, id, label, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioButtonNameStr));
   virtual void SetLabel(const wxString& label);
@@ -30,7 +29,7 @@ public:
     // implementation
   virtual bool IsRadioButton() const
   {
- return TRUE;
+    return TRUE;
   }
   void DoApplyWidgetStyle(GtkRcStyle* style);
   bool IsOwnGtkWindow(GdkWindow* window);

@@ -28,7 +28,6 @@ class AcLyRelExpr
 public:
   virtual ~AcLyRelExpr()
   {
-
   }
   virtual const ACHAR* getVariable() const = 0;
   virtual const ACHAR* getConstant() const = 0;
@@ -40,7 +39,6 @@ class AcLyAndExpr
 public:
   virtual ~AcLyAndExpr()
   {
-
   }
   virtual const AcArray<AcLyRelExpr*>& getRelExprs() const = 0;
 };
@@ -51,7 +49,6 @@ class AcLyBoolExpr
 public:
   virtual ~AcLyBoolExpr()
   {
-
   }
   virtual const AcArray<AcLyAndExpr*>& getAndExprs() const = 0;
 };
@@ -150,7 +147,6 @@ class AcLyLayerFilterManager
 public:
   virtual ~AcLyLayerFilterManager()
   {
-
   }
     //reads the filters from the database this manager belongs to, and returns
     //the root filter in pRoot.

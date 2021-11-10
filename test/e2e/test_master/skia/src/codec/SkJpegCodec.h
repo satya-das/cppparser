@@ -39,7 +39,7 @@ protected:
   Result onGetYUV8Planes(const SkYUVASizeInfo& sizeInfo, void* planes[SkYUVASizeInfo::kMaxCount]) override;
   SkEncodedImageFormat onGetEncodedFormat() const override
   {
-        return SkEncodedImageFormat::kJPEG;
+    return SkEncodedImageFormat::kJPEG;
   }
   bool onRewind() override;
   bool onDimensionsSupported(const SkISize&) override;

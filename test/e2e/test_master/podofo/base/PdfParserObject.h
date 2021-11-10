@@ -173,7 +173,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   void PdfParserObject::SetObjectNumber(unsigned int nObjNo)
   {
-    m_reference.SetObjectNumber( nObjNo );
+    m_reference.SetObjectNumber(nObjNo);
   }
 // -----------------------------------------------------
 // 
@@ -201,7 +201,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   pdf_int64 PdfParserObject::GetOffset(void) const
   {
-	return static_cast<pdf_int64>(m_lOffset);
+    return static_cast<pdf_int64>(m_lOffset);
   }
 }
 #endif

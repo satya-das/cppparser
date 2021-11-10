@@ -43,77 +43,73 @@ struct SkPackedGlyphID
         kFixedPointSubPixelPosBits = kFixedPointBinaryPointPos - kSubPixelPosLen,
   };
   explicit SkPackedGlyphID(SkGlyphID glyphID)
-    :  fID{glyphID}
+    : fID(glyphID)
   {
-
   }
   SkPackedGlyphID(SkGlyphID glyphID, SkFixed x, SkFixed y)
-    :  fID {PackIDXY(glyphID, x, y)}
+    : fID(PackIDXY(glyphID, x, y))
   {
-        SkASSERT(fID != kImpossibleID);
+    SkASSERT(fID != kImpossibleID);
   }
   SkPackedGlyphID(SkGlyphID code, SkIPoint pt)
-    :  SkPackedGlyphID(code, pt.fX, pt.fY)
+    : SkPackedGlyphID(code, pt.fX, pt.fY)
   {
-
   }
   SkPackedGlyphID()
-    :  fID{kImpossibleID}
+    : fID(kImpossibleID)
   {
   }
   bool operator==(const SkPackedGlyphID& that) const
   {
-        return fID == that.fID;
+    return fID == that.fID;
   }
   bool operator!=(const SkPackedGlyphID& that) const
   {
-        return !(*this == that);
+    return !(*this == that);
   }
   bool operator<(SkPackedGlyphID that) const
   {
-        return this->fID < that.fID;
+    return this->fID < that.fID;
   }
   uint32_t code() const
   {
-        return fID & kGlyphIDMask;
+    return fID & kGlyphIDMask;
   }
   uint32_t value() const
   {
-        return fID;
+    return fID;
   }
   SkFixed getSubXFixed() const
   {
-        return this->subToFixed(kSubPixelX);
+    return this->subToFixed(kSubPixelX);
   }
   SkFixed getSubYFixed() const
   {
-        return this->subToFixed(kSubPixelY);
+    return this->subToFixed(kSubPixelY);
   }
   uint32_t hash() const
   {
-        return SkChecksum::CheapMix(fID);
+    return SkChecksum::CheapMix(fID);
   }
   SkString dump() const
   {
-        SkString str;
-        str.appendf("code: %d, x: %d, y:%d", code(), getSubXFixed(), getSubYFixed());
-        return str;
+    SkString str;
+    str.appendf("code: %d, x: %d, y:%d", code(), getSubXFixed(), getSubYFixed());
+    return str;
   }
 private:
   static constexpr uint32_t PackIDXY(SkGlyphID glyphID, SkFixed x, SkFixed y)
   {
-        return (FixedToSub(x) << kSubPixelX)
-             | (FixedToSub(y) << kSubPixelY)
-             | glyphID;
+    return (FixedToSub(x) << kSubPixelX) | (FixedToSub(y) << kSubPixelY) | glyphID;
   }
   static constexpr uint32_t FixedToSub(SkFixed n)
   {
-        return ((uint32_t)n >> kFixedPointSubPixelPosBits) & kSubPixelPosMask;
+    return ((uint32_t) n >> kFixedPointSubPixelPosBits) & kSubPixelPosMask;
   }
   constexpr SkFixed subToFixed(uint32_t subPixelPosBit) const
   {
-        uint32_t subPixelPosition = (fID >> subPixelPosBit) & kSubPixelPosMask;
-        return subPixelPosition << kFixedPointSubPixelPosBits;
+    uint32_t subPixelPosition = (fID >> subPixelPosBit) & kSubPixelPosMask;
+    return subPixelPosition << kFixedPointSubPixelPosBits;
   }
   uint32_t fID;
 };
@@ -123,38 +119,37 @@ class SkGlyph
 public:
   static constexpr SkFixed kSubpixelRound = SK_FixedHalf >> SkPackedGlyphID::kSubPixelPosLen;
   explicit SkGlyph(SkPackedGlyphID id)
-    :  fID{id}
+    : fID(id)
   {
-
   }
   explicit SkGlyph(const SkGlyphPrototype& p);
   SkVector advanceVector() const
   {
- return SkVector{fAdvanceX, fAdvanceY};
+    return SkVector(fAdvanceX, fAdvanceY);
   }
   SkScalar advanceX() const
   {
- return fAdvanceX;
+    return fAdvanceX;
   }
   SkScalar advanceY() const
   {
- return fAdvanceY;
+    return fAdvanceY;
   }
   SkGlyphID getGlyphID() const
   {
- return fID.code();
+    return fID.code();
   }
   SkPackedGlyphID getPackedID() const
   {
- return fID;
+    return fID;
   }
   SkFixed getSubXFixed() const
   {
- return fID.getSubXFixed();
+    return fID.getSubXFixed();
   }
   SkFixed getSubYFixed() const
   {
- return fID.getSubYFixed();
+    return fID.getSubYFixed();
   }
   size_t rowBytes() const;
   size_t rowBytesUsingFormat(SkMask::Format format) const;
@@ -178,12 +173,13 @@ public:
     // Returns true if the image has been set.
   bool setImageHasBeenCalled() const
   {
-        return fImage != nullptr || this->isEmpty() || this->imageTooLarge();
+    return fImage != nullptr || this->isEmpty() || this->imageTooLarge();
   }
     // Return a pointer to the path if the image exists, otherwise return nullptr.
   const void* image() const
   {
- SkASSERT(this->setImageHasBeenCalled()); return fImage;
+    SkASSERT(this->setImageHasBeenCalled());
+    return fImage;
   }
     // Return the size of the image.
   size_t imageSize() const;
@@ -204,7 +200,7 @@ public:
     // Returns true if that path has been set.
   bool setPathHasBeenCalled() const
   {
- return fPathData != nullptr;
+    return fPathData != nullptr;
   }
     // Return a pointer to the path if it exists, otherwise return nullptr. Only works if the
     // path was previously set.
@@ -212,51 +208,51 @@ public:
     // Format
   bool isColor() const
   {
- return fMaskFormat == SkMask::kARGB32_Format;
+    return fMaskFormat == SkMask::kARGB32_Format;
   }
   SkMask::Format maskFormat() const
   {
- return static_cast<SkMask::Format>(fMaskFormat);
+    return static_cast<SkMask::Format>(fMaskFormat);
   }
   size_t formatAlignment() const;
     // Bounds
   int maxDimension() const
   {
- return std::max(fWidth, fHeight);
+    return std::max(fWidth, fHeight);
   }
   SkIRect iRect() const
   {
- return SkIRect::MakeXYWH(fLeft, fTop, fWidth, fHeight);
+    return SkIRect::MakeXYWH(fLeft, fTop, fWidth, fHeight);
   }
   SkRect rect() const
   {
- return SkRect::MakeXYWH(fLeft, fTop, fWidth, fHeight);
+    return SkRect::MakeXYWH(fLeft, fTop, fWidth, fHeight);
   }
   int left() const
   {
- return fLeft;
+    return fLeft;
   }
   int top() const
   {
- return fTop;
+    return fTop;
   }
   int width() const
   {
- return fWidth;
+    return fWidth;
   }
   int height() const
   {
- return fHeight;
+    return fHeight;
   }
   bool isEmpty() const
   {
         // fHeight == 0 -> fWidth == 0;
-        SkASSERT(fHeight != 0 || fWidth == 0);
-        return fWidth == 0;
+    SkASSERT(fHeight != 0 || fWidth == 0);
+    return fWidth == 0;
   }
   bool imageTooLarge() const
   {
- return fWidth >= kMaxGlyphWidth;
+    return fWidth >= kMaxGlyphWidth;
   }
     // Make sure that the intercept information is on the glyph and return it, or return it if it
     // already exists.

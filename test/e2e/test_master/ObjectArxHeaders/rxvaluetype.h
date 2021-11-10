@@ -190,7 +190,7 @@ public:
     ///
   bool operator==(const AcRxValueType& rhs) const
   {
-        return this == &rhs;
+    return this == &rhs;
   }
     /// <summary>
     /// Returns false if the objects are equal, true if they are not equal.
@@ -206,7 +206,7 @@ public:
     ///
   bool operator!=(const AcRxValueType& rhs) const
   {
-        return this != &rhs;
+    return this != &rhs;
   }
     /// <summary>
     /// Throws a bad cast exception.
@@ -223,7 +223,7 @@ public:
     ///
   unsigned int size() const
   {
- return m_size;
+    return m_size;
   }
     /// <summary>
     /// Determines if the type is blittable. Blittable types can be safely copied with memcpy.
@@ -235,7 +235,7 @@ public:
     ///
   bool isBlittable() const
   {
- return m_pNonBlittable==0;
+    return m_pNonBlittable == 0;
   }
     /// <summary>
     /// Determines if the type is an enum.
@@ -247,7 +247,7 @@ public:
     ///
   bool isEnum() const
   {
-return m_pEnum!=0;
+    return m_pEnum != 0;
   }
     /// <summary>
     /// Determines if the type is a reference type. If it supports IAcRxReferenceType.
@@ -259,7 +259,7 @@ return m_pEnum!=0;
     ///
   bool isReference() const
   {
- return m_pRef!=0;
+    return m_pRef != 0;
   }
     /// <summary>
     /// Returns the object that implements IAcRxNonBlittableType, for a non blittable type.
@@ -271,7 +271,7 @@ return m_pEnum!=0;
     ///
   const IAcRxNonBlittableType* nonBlittable() const
   {
-return m_pNonBlittable;
+    return m_pNonBlittable;
   }
     /// <summary>
     /// Returns the object that implements IAcRxEnumeration, for an enum type.
@@ -283,7 +283,7 @@ return m_pNonBlittable;
     ///
   const IAcRxEnumeration* enumeration() const
   {
-return m_pEnum;
+    return m_pEnum;
   }
     /// <summary>
     /// Returns the object that implements IAcRxReferenceType, for a reference type.
@@ -295,11 +295,11 @@ return m_pEnum;
     ///
   const IAcRxReferenceType* reference() const
   {
-return m_pRef;
+    return m_pRef;
   }
   const IAcRxObjectValue* rxObjectValue() const
   {
-return m_pRxObjValue;
+    return m_pRxObjValue;
   }
     /// <summary>
     /// StringFormat enums can be used to specify as to how the string needs to be 
@@ -339,15 +339,19 @@ return m_pRxObjValue;
     ///
   int toString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, StringFormat format) const
   {
-        ACRXVALUE_ASSERT(instance!=NULL);
-        if (instance==NULL)
-            return -1;
-        ACRXVALUE_ASSERT((sizeInACHARs==0) == (buffer==NULL));
-        if ((sizeInACHARs==0) != (buffer==NULL))
-            return -1;
+    ACRXVALUE_ASSERT(instance != NULL);
+    if (instance == NULL)
+    {
+      return -1;
+    }
+    ACRXVALUE_ASSERT((sizeInACHARs == 0) == (buffer == NULL));
+    if ((sizeInACHARs == 0) != (buffer == NULL))
+    {
+      return -1;
+    }
         //buffer==NULL && size==0 means that we should calculate the required length
         //of the buffer and return it
-        return subToString(instance, buffer, sizeInACHARs, format);
+    return subToString(instance, buffer, sizeInACHARs, format);
   }
     /// <summary>
     /// This method is used to compare two values.
@@ -369,13 +373,17 @@ return m_pRxObjValue;
     ///
   bool equalTo(const void* a, const void* b) const
   {
-        ACRXVALUE_ASSERT(a!=NULL);
-        if (a==NULL)
-            return false;
-        ACRXVALUE_ASSERT(b!=NULL);
-        if (b==NULL)
-            return false;
-        return subEqualTo(a, b);
+    ACRXVALUE_ASSERT(a != NULL);
+    if (a == NULL)
+    {
+      return false;
+    }
+    ACRXVALUE_ASSERT(b != NULL);
+    if (b == NULL)
+    {
+      return false;
+    }
+    return subEqualTo(a, b);
   }
     /// <summary>
     /// This class MUST BE specialized for supported types. It provides mapping from
@@ -622,13 +630,15 @@ class Storage;
 //(C++ does not allow calling the ctor directly)
 inline void* operator new(size_t size, Storage* loc)
 {
- ADESK_UNREFED_PARAM(size); return loc;
+  ADESK_UNREFED_PARAM(size);
+  return loc;
 }
 #pragma  pop_macro("new")
 #pragma  push_macro("delete")
 #undef delete
 inline void operator delete(void* p, Storage* loc)
 {
- ADESK_UNREFED_PARAM(p); (loc);
+  ADESK_UNREFED_PARAM(p);
+  (loc);
 }
 #pragma  pop_macro("delete")

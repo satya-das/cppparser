@@ -216,11 +216,15 @@ namespace SkSL
         INVALID,
     };
     Token()
-      :  fKind(Kind::INVALID), fOffset(-1), fLength(-1)
+      : fKind(Kind::INVALID)
+      , fOffset(-1)
+      , fLength(-1)
     {
     }
     Token(Kind kind, int32_t offset, int32_t length)
-      :  fKind(kind), fOffset(offset), fLength(length)
+      : fKind(kind)
+      , fOffset(offset)
+      , fLength(length)
     {
     }
     Kind fKind;
@@ -232,9 +236,9 @@ namespace SkSL
   public:
     void start(const char* text, int32_t length)
     {
-        fText = text;
-        fLength = length;
-        fOffset = 0;
+      fText = text;
+      fLength = length;
+      fOffset = 0;
     }
     Token next();
   private:

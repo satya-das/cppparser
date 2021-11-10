@@ -30,7 +30,7 @@ public:
   SkOpContour* debugContour(int id) const;
   int debugID() const
   {
-        return SkDEBUGRELEASE(fID, -1);
+    return SkDEBUGRELEASE(fID, -1);
   }
 #  if  DEBUG_SORT
   void debugLoop() const;
@@ -38,7 +38,7 @@ public:
 #  if  DEBUG_ANGLE
   bool debugCheckCoincidence() const
   {
- return fCheckCoincidence;
+    return fCheckCoincidence;
   }
   void debugCheckNearCoincidence() const;
   SkString debugPart() const;
@@ -59,7 +59,7 @@ public:
   void dumpTest() const;
   SkOpSpanBase* end() const
   {
-        return fEnd;
+    return fEnd;
   }
   bool insert(SkOpAngle*);
   SkOpSpanBase* lastMarked() const;
@@ -67,27 +67,27 @@ public:
   int loopCount() const;
   SkOpAngle* next() const
   {
-        return fNext;
+    return fNext;
   }
   SkOpAngle* previous() const;
   SkOpSegment* segment() const;
   void set(SkOpSpanBase* start, SkOpSpanBase* end);
   void setLastMarked(SkOpSpanBase* marked)
   {
-        fLastMarked = marked;
+    fLastMarked = marked;
   }
   SkOpSpanBase* start() const
   {
-        return fStart;
+    return fStart;
   }
   SkOpSpan* starter();
   bool tangentsAmbiguous() const
   {
-        return fTangentsAmbiguous;
+    return fTangentsAmbiguous;
   }
   bool unorderable() const
   {
-        return fUnorderable;
+    return fUnorderable;
   }
 private:
   bool after(SkOpAngle* test);

@@ -19,11 +19,7 @@
  * A wxPrintPaperType can have an id and a name, or just a name and wxPAPER_NONE,
  * so you can add further paper types without needing new ids.
  */
-#  ifdef __WXMSW__
-#    define WXADDPAPER(paperId, platformId, name, w, h)	 AddPaperType(paperId, platformId, name, w, h)
-#  else 
-#    define WXADDPAPER(paperId, platformId, name, w, h)	 AddPaperType(paperId, 0, name, w, h)
-#  endif
+#  define WXADDPAPER(paperId, platformId, name, w, h)	 AddPaperType(paperId, 0, name, w, h)
 class WXDLLIMPEXP_CORE wxPrintPaperType : public wxObject
 {
 public:
@@ -32,34 +28,34 @@ public:
   wxPrintPaperType(wxPaperSize paperId, int platformId, const wxString& name, int w, int h);
   inline wxString GetName() const
   {
- return wxGetTranslation(m_paperName);
+    return wxGetTranslation(m_paperName);
   }
   inline wxPaperSize GetId() const
   {
- return m_paperId;
+    return m_paperId;
   }
   inline int GetPlatformId() const
   {
- return m_platformId;
+    return m_platformId;
   }
     // Get width and height in tenths of a millimetre
   inline int GetWidth() const
   {
- return m_width;
+    return m_width;
   }
   inline int GetHeight() const
   {
- return m_height;
+    return m_height;
   }
     // Get size in tenths of a millimetre
   inline wxSize GetSize() const
   {
- return wxSize(m_width, m_height);
+    return wxSize(m_width, m_height);
   }
     // Get size in a millimetres
   inline wxSize GetSizeMM() const
   {
- return wxSize(m_width/10, m_height/10);
+    return wxSize(m_width / 10, m_height / 10);
   }
     // Get width and height in device units (1/72th of an inch)
   wxSize GetSizeDeviceUnits() const;

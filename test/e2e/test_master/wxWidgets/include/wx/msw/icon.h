@@ -24,11 +24,10 @@ class WXDLLIMPEXP_CORE wxIconRefData : public wxGDIImageRefData
 public:
   wxIconRefData()
   {
-
   }
   virtual ~wxIconRefData()
   {
- Free();
+    Free();
   }
   void Free() override;
 };
@@ -42,14 +41,13 @@ public:
         // default
   wxIcon()
   {
-
   }
         // from raw data
   wxIcon(const char bits[], int width, int height);
         // from XPM data
   wxIcon(const char* const * data)
   {
- CreateIconFromXpm(data);
+    CreateIconFromXpm(data);
   }
         // from resource/file
   wxIcon(const wxString& name, wxBitmapType type = wxICON_DEFAULT_TYPE, int desiredWidth = -1, int desiredHeight = -1);
@@ -60,13 +58,11 @@ public:
     // implementation only from now on
   wxIconRefData* GetIconData() const
   {
- return (wxIconRefData *)m_refData;
+    return (wxIconRefData*) m_refData;
   }
-#  if  WXWIN_COMPATIBILITY_3_0
-#  endif
   WXHICON GetHICON() const
   {
- return (WXHICON)GetHandle();
+    return (WXHICON) GetHandle();
   }
   bool InitFromHICON(WXHICON icon, int width, int height);
     // create from bitmap (which should have a mask unless it's monochrome):
@@ -76,7 +72,7 @@ public:
 protected:
   wxGDIImageRefData* CreateData() const override
   {
-        return new wxIconRefData;
+    return new wxIconRefData;
   }
   wxObjectRefData* CloneRefData(const wxObjectRefData* data) const override;
     // create from XPM data

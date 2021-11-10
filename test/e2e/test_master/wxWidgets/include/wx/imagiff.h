@@ -17,10 +17,10 @@ class WXDLLIMPEXP_CORE wxIFFHandler : public wxImageHandler
 public:
   wxIFFHandler()
   {
-        m_name = wxT("IFF file");
-        m_extension = wxT("iff");
-        m_type = wxBITMAP_TYPE_IFF;
-        m_mime = wxT("image/x-iff");
+    m_name = wxT("IFF file");
+    m_extension = wxT("iff");
+    m_type = wxBITMAP_TYPE_IFF;
+    m_mime = wxT("image/x-iff");
   }
 #    if  wxUSE_STREAMS
   bool LoadFile(wxImage* image, wxInputStream& stream, bool verbose = true, int index = -1) override;

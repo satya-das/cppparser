@@ -44,7 +44,6 @@ namespace PoDoFo
   public:
     virtual ~PdfInputStream()
     {
-
     }
     /** Read data from the input stream
      *  

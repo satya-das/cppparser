@@ -21,12 +21,8 @@ struct wxMarkupSpanAttributes
   };
   wxMarkupSpanAttributes()
   {
-        m_sizeKind = Size_Unspecified;
-
-        m_isBold =
-        m_isItalic =
-        m_isUnderlined =
-        m_isStrikethrough = Unspecified;
+    m_sizeKind = Size_Unspecified;
+    m_isBold = m_isItalic = m_isUnderlined = m_isStrikethrough = Unspecified;
   }
     // If a string is empty, it means that the corresponding attribute is not
     // set.
@@ -63,11 +59,9 @@ class wxMarkupParserOutput
 public:
   wxMarkupParserOutput()
   {
-
   }
   virtual ~wxMarkupParserOutput()
   {
-
   }
     // Virtual functions called by wxMarkupParser while parsing the markup.
 
@@ -91,6 +85,7 @@ public:
     // The generic span start and end functions.
   virtual void OnSpanStart(const wxMarkupSpanAttributes& attrs) = 0;
   virtual void OnSpanEnd(const wxMarkupSpanAttributes& attrs) = 0;
+private:
   wxDECLARE_NO_COPY_CLASS(wxMarkupParserOutput);
 };
 // ----------------------------------------------------------------------------
@@ -102,9 +97,8 @@ public:
     // Initialize the parser with the object that will receive parsing results.
     // This object lifetime must be greater than ours.
   explicit wxMarkupParser(wxMarkupParserOutput& output)
-    :  m_output(output)
+    : m_output(output)
   {
-
   }
     // Parse the entire string and call wxMarkupParserOutput methods.
     //
@@ -125,9 +119,8 @@ private:
   struct TagAndAttrs
   {
     TagAndAttrs(const wxString& name_)
-      :  name(name_)
+      : name(name_)
     {
-
     }
     wxString name;
     wxMarkupSpanAttributes attrs;

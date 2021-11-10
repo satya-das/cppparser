@@ -30,33 +30,32 @@ class WXDLLIMPEXP_CORE wxListBoxBase : public wxControlWithItems
 public:
   wxListBoxBase()
   {
-
   }
   virtual ~wxListBoxBase();
   void InsertItems(unsigned int nItems, const wxString* items, unsigned int pos)
   {
- Insert(nItems, items, pos);
+    Insert(nItems, items, pos);
   }
   void InsertItems(const wxArrayString& items, unsigned int pos)
   {
- Insert(items, pos);
+    Insert(items, pos);
   }
     // multiple selection logic
   virtual bool IsSelected(int n) const = 0;
   void SetSelection(int n) override;
   void SetSelection(int n, bool select)
   {
- DoSetSelection(n, select);
+    DoSetSelection(n, select);
   }
   void Deselect(int n)
   {
- DoSetSelection(n, false);
+    DoSetSelection(n, false);
   }
   void DeselectAll(int itemToLeaveSelected = -1);
   virtual bool SetStringSelection(const wxString& s, bool select);
   virtual bool SetStringSelection(const wxString& s)
   {
-        return SetStringSelection(s, true);
+    return SetStringSelection(s, true);
   }
     // works for single as well as multiple selection listboxes (unlike
     // GetSelection which only works for listboxes with single selection)
@@ -65,7 +64,7 @@ public:
     // range.
   void SetFirstItem(int n)
   {
- DoSetFirstItem(n);
+    DoSetFirstItem(n);
   }
   void SetFirstItem(const wxString& s);
     // ensures that the given item is visible scrolling the listbox if
@@ -73,11 +72,11 @@ public:
   virtual void EnsureVisible(int n);
   virtual int GetTopItem() const
   {
- return wxNOT_FOUND;
+    return wxNOT_FOUND;
   }
   virtual int GetCountPerPage() const
   {
- return -1;
+    return -1;
   }
     // a combination of Append() and EnsureVisible(): appends the item to the
     // listbox and ensures that it is visible i.e. not scrolled out of view
@@ -85,13 +84,12 @@ public:
     // return true if the listbox allows multiple selection
   bool HasMultipleSelection() const
   {
-        return (m_windowStyle & wxLB_MULTIPLE) ||
-               (m_windowStyle & wxLB_EXTENDED);
+    return (m_windowStyle & wxLB_MULTIPLE) || (m_windowStyle & wxLB_EXTENDED);
   }
     // override wxItemContainer::IsSorted
   bool IsSorted() const override
   {
- return HasFlag( wxLB_SORT );
+    return HasFlag(wxLB_SORT);
   }
     // emulate selecting or deselecting the item event.GetInt() (depending on
     // event.GetExtraLong())
@@ -99,11 +97,11 @@ public:
     // return the index of the item at this position or wxNOT_FOUND
   int HitTest(const wxPoint& point) const
   {
- return DoListHitTest(point);
+    return DoListHitTest(point);
   }
   int HitTest(int x, int y) const
   {
- return DoListHitTest(wxPoint(x, y));
+    return DoListHitTest(wxPoint(x, y));
   }
 protected:
   virtual void DoSetFirstItem(int n) = 0;
@@ -111,7 +109,7 @@ protected:
     // there is already wxWindow::DoHitTest() so call this one differently
   virtual int DoListHitTest(const wxPoint&) const
   {
- return wxNOT_FOUND;
+    return wxNOT_FOUND;
   }
     // Helper for the code generating events in single selection mode: updates
     // m_oldSelections and return true if the selection really changed.
@@ -137,6 +135,7 @@ protected:
     // Update m_oldSelections with currently selected items (does nothing in
     // single selection mode on platforms other than MSW).
   void UpdateOldSelections();
+private:
   wxDECLARE_NO_COPY_CLASS(wxListBoxBase);
 };
 // ----------------------------------------------------------------------------

@@ -1304,10 +1304,11 @@ public:
     /// Constructor.
     ///Adesk::UInt32 </summary>
   AcDbEvalEdgeInfo()
-    :  mFlags(0), mRefCount(0)
+    : mFlags(0)
+    , mRefCount(0)
   {
-        mIdFrom = AcDbEvalGraph::kNullNodeId;
-        mIdTo = AcDbEvalGraph::kNullNodeId;
+    mIdFrom = AcDbEvalGraph::kNullNodeId;
+    mIdTo = AcDbEvalGraph::kNullNodeId;
   }
     /// <summary>
     /// Constructor.
@@ -1326,7 +1327,10 @@ public:
     /// Description to come. 
     /// </param>
   AcDbEvalEdgeInfo(AcDbEvalNodeId from, AcDbEvalNodeId to, Adesk::Int32 flags, Adesk::UInt32 count)
-    :  mIdFrom(from), mIdTo(to), mFlags(flags), mRefCount(count)
+    : mIdFrom(from)
+    , mIdTo(to)
+    , mFlags(flags)
+    , mRefCount(count)
   {
   }
     /// <summary>

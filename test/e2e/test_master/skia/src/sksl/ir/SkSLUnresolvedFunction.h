@@ -15,18 +15,15 @@ namespace SkSL
   struct UnresolvedFunction : public Symbol
   {
     UnresolvedFunction(std::vector<const FunctionDeclaration*> funcs)
-      :  INHERITED(-1, kUnresolvedFunction_Kind, funcs[0]->fName)
-    , fFunctions(std::move(funcs))
+      : INHERITED(-1, kUnresolvedFunction_Kind, funcs[0]->fName)
+      , fFunctions(std::move(funcs))
     {
-#ifdef DEBUG
-        for (auto func : funcs) {
-            SkASSERT(func->fName == fName);
-        }
-#endif
+#  ifdef DEBUG
+#  endif
     }
     String description() const override
     {
-        return fName;
+      return fName;
     }
     const std::vector<const FunctionDeclaration*> fFunctions;
     typedef Symbol INHERITED;

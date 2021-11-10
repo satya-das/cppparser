@@ -7,9 +7,7 @@
 /////////////////////////////////////////////////////////////////////////// */
 #ifndef __GTK_PIZZA_H__
 #  define __GTK_PIZZA_H__
-#  ifdef __cplusplus
 extern "C" {
-#  endif
 #  include <gdk/gdk.h>
 #  include <gdk/gdkx.h>
 #  include <gtk/gtkcontainer.h>
@@ -73,7 +71,5 @@ extern "C" {
   WXDLLIMPEXP_CORE void gtk_pizza_move(GtkPizza* pizza, GtkWidget* widget, gint x, gint y);
   WXDLLIMPEXP_CORE void gtk_pizza_resize(GtkPizza* pizza, GtkWidget* widget, gint width, gint height);
   WXDLLIMPEXP_CORE void gtk_pizza_set_size(GtkPizza* pizza, GtkWidget* widget, gint x, gint y, gint width, gint height);
-#  ifdef __cplusplus
   }
-#  endif
 #endif

@@ -60,9 +60,9 @@ namespace PoDoFo
      * initialized to 0.
      */
     PdfReference()
-      :  m_nGenerationNo( 0 ), m_nObjectNo( 0 )
+      : m_nGenerationNo(0)
+      , m_nObjectNo(0)
     {
-
     }
     /**
      * Create a PdfReference to an object with a given object and generation number.
@@ -71,9 +71,9 @@ namespace PoDoFo
      * \param nGenerationNo the generation number
      */
     PdfReference(const pdf_objnum nObjectNo, const pdf_gennum nGenerationNo)
-      :  m_nGenerationNo( nGenerationNo ), m_nObjectNo( nObjectNo )
+      : m_nGenerationNo(nGenerationNo)
+      , m_nObjectNo(nObjectNo)
     {
-
     }
     /**
      * Create a copy of an existing PdfReference.
@@ -81,13 +81,12 @@ namespace PoDoFo
      * \param rhs the object to copy
      */
     PdfReference(const PdfReference& rhs)
-      :  PdfDataType()
+      : PdfDataType()
     {
-        this->operator=( rhs );
+      this->operator=(rhs);
     }
     PODOFO_NOTHROW virtual ~PdfReference()
     {
-
     }
     /** Convert the reference to a string.
      *  \returns a string representation of the object.
@@ -165,7 +164,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   const PdfReference& PdfReference::operator=(const PdfReference& rhs)
   {
-    m_nObjectNo     = rhs.m_nObjectNo;
+    m_nObjectNo = rhs.m_nObjectNo;
     m_nGenerationNo = rhs.m_nGenerationNo;
     return *this;
   }
@@ -181,14 +180,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   bool PdfReference::operator==(const PdfReference& rhs) const
   {
-    return ( m_nObjectNo == rhs.m_nObjectNo && m_nGenerationNo == rhs.m_nGenerationNo);
+    return (m_nObjectNo == rhs.m_nObjectNo && m_nGenerationNo == rhs.m_nGenerationNo);
   }
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
   inline bool PdfReference::operator!=(const PdfReference& rhs) const
   {
-    return !this->operator==( rhs );
+    return !this->operator==(rhs);
   }
 // -----------------------------------------------------
 // 
@@ -223,7 +222,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   bool PdfReference::IsIndirect() const
   {
-    return !( !m_nObjectNo && !m_nGenerationNo );
+    return !(!m_nObjectNo && !m_nGenerationNo);
   }
 }
 #endif

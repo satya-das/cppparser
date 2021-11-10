@@ -146,96 +146,100 @@ private:
 // AcDbGraphNode inlines ...
 inline void* AcDbGraphNode::data() const
 {
- return mpData;
+  return mpData;
 }
 inline void AcDbGraphNode::setData(void* pData)
 {
- mpData = pData;
+  mpData = pData;
 }
 inline int AcDbGraphNode::numOut() const
 {
- return mOutgoing.length();
+  return mOutgoing.length();
 }
 inline int AcDbGraphNode::numIn() const
 {
- return mIncoming.length();
+  return mIncoming.length();
 }
 inline AcDbGraphNode* AcDbGraphNode::in(int idx) const
 {
- return (AcDbGraphNode*)mIncoming.at(idx);
+  return (AcDbGraphNode*) mIncoming.at(idx);
 }
 inline AcDbGraphNode* AcDbGraphNode::out(int idx) const
 {
- return (AcDbGraphNode*)mOutgoing.at(idx);
+  return (AcDbGraphNode*) mOutgoing.at(idx);
 }
 inline bool AcDbGraphNode::isMarkedAs(Adesk::UInt8 flag) const
 {
- return (this->mFlags & flag) != 0;
+  return (this->mFlags & flag) != 0;
 }
 inline AcDbGraph* AcDbGraphNode::owner() const
 {
- return mpOwner;
+  return mpOwner;
 }
 inline Acad::ErrorStatus AcDbGraphNode::setOwner(AcDbGraph* pOwn)
 {
- assert(!mpOwner); if (mpOwner) return Acad::eInvalidOwnerObject;
-        mpOwner = pOwn; return Acad::eOk;
+  assert(!mpOwner);
+  if (mpOwner)
+  {
+    return Acad::eInvalidOwnerObject;
+  }
+  mpOwner = pOwn;
+  return Acad::eOk;
 }
 inline int AcDbGraphNode::numCycleOut() const
 {
- return mpCycleOut == NULL ? 0 : mpCycleOut->length();
+  return mpCycleOut == NULL ? 0 : mpCycleOut->length();
 }
 inline int AcDbGraphNode::numCycleIn() const
 {
- return mpCycleIn == NULL ? 0 : mpCycleIn->length();
+  return mpCycleIn == NULL ? 0 : mpCycleIn->length();
 }
 inline AcDbGraphNode* AcDbGraphNode::cycleOut(int idx) const
 {
- return (AcDbGraphNode*)
-        (mpCycleOut == NULL ? NULL : mpCycleOut->at(idx));
+  return (AcDbGraphNode*) (mpCycleOut == NULL ? NULL : mpCycleOut->at(idx));
 }
 inline AcDbGraphNode* AcDbGraphNode::cycleIn(int idx) const
 {
- return (AcDbGraphNode*)
-        (mpCycleIn == NULL ? NULL : mpCycleIn->at(idx));
+  return (AcDbGraphNode*) (mpCycleIn == NULL ? NULL : mpCycleIn->at(idx));
 }
 inline AcDbGraphNode* AcDbGraphNode::nextCycleNode() const
 {
- assert(mpCycleOut != NULL); return cycleOut(0);
+  assert(mpCycleOut != NULL);
+  return cycleOut(0);
 }
 inline bool AcDbGraphNode::isCycleNode() const
 {
- return mpCycleIn != NULL || mpCycleOut != NULL;
+  return mpCycleIn != NULL || mpCycleOut != NULL;
 }
 // AcDbGraph inlines ...
 inline int AcDbGraph::numNodes() const
 {
- return mNodes.length();
+  return mNodes.length();
 }
 inline AcDbGraphNode* AcDbGraph::node(int idx) const
 {
- return (AcDbGraphNode*)mNodes.at(idx);
+  return (AcDbGraphNode*) mNodes.at(idx);
 }
 inline AcDbGraphNode* AcDbGraph::rootNode() const
 {
- return (numNodes() > 0) ? node(0) : NULL;
+  return (numNodes() > 0) ? node(0) : NULL;
 }
 inline bool AcDbGraph::isEmpty() const
 {
- return numNodes() == 0;
+  return numNodes() == 0;
 }
 inline void AcDbGraph::setDirty()
 {
- mDirty = true;
+  mDirty = true;
 }
 // XreGraphStack inlines ...
 inline bool AcDbGraphStack::isEmpty() const
 {
- return mStack.isEmpty();
+  return mStack.isEmpty();
 }
 inline AcDbGraphNode* AcDbGraphStack::top() const
 {
- return isEmpty() ? NULL : (AcDbGraphNode*)mStack.last();
+  return isEmpty() ? NULL : (AcDbGraphNode*) mStack.last();
 }
 #  pragma  pack (pop)
 #endif

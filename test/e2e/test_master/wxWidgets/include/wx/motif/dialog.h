@@ -17,7 +17,7 @@ public:
   wxDialog();
   wxDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr))
   {
-        Create(parent, id, title, pos, size, style, name);
+    Create(parent, id, title, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_DIALOG_STYLE, const wxString& name = wxASCII_STR(wxDialogNameStr));
   virtual ~wxDialog();
@@ -27,7 +27,7 @@ public:
   void SetModal(bool flag);
   virtual bool IsModal() const
   {
- return m_modalShowing;
+    return m_modalShowing;
   }
   virtual int ShowModal();
   virtual void EndModal(int retCode);
@@ -37,11 +37,11 @@ public:
   virtual void ChangeForegroundColour();
   WXWidget GetTopWidget() const
   {
- return m_mainWidget;
+    return m_mainWidget;
   }
   WXWidget GetClientWidget() const
   {
- return m_mainWidget;
+    return m_mainWidget;
   }
 private:
   virtual bool XmDoCreateTLW(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name);

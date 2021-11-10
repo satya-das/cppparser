@@ -22,7 +22,7 @@ public:
   inline wxMiniFrame(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE | wxTINY_CAPTION, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
         // Use wxFrame constructor in absence of more specific code.
-        Create(parent, id, title, pos, size, style, name);
+    Create(parent, id, title, pos, size, style, name);
   }
   virtual ~wxMiniFrame()
   {

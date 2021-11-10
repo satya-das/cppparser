@@ -81,11 +81,11 @@ ACBASE_PORT void acrxBuildClassHierarchy();
 ACBASE_PORT void deleteAcRxClass(AcRxClass* pClassObj);
 inline bool AcRxClass::isDerivedFrom(const AcRxClass* pOtherClass) const
 {
-    return AcRxClass::isDerivedFrom(this, pOtherClass);
+  return AcRxClass::isDerivedFrom(this, pOtherClass);
 }
 inline bool AcRxObject::isKindOf(const AcRxClass* pOtherClass) const
 {
-    return AcRxClass::isDerivedFrom(this->isA(), pOtherClass);
+  return AcRxClass::isDerivedFrom(this->isA(), pOtherClass);
 }
 typedef void (*RxInitFuncPtr) ();
 AcRxClass* acrxQueueClassForInitialization(AcRxClass** pgpDesc, RxInitFuncPtr rxInit);

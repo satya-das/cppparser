@@ -23,7 +23,7 @@ public:
   std::unique_ptr<GrFragmentProcessor> clone() const override;
   const char* name() const override
   {
- return "SweepGradientLayout";
+    return "SweepGradientLayout";
   }
   GrCoordTransform fCoordTransform0;
   SkMatrix44 gradientMatrix;
@@ -31,14 +31,13 @@ public:
   float scale;
 private:
   GrSweepGradientLayout(SkMatrix44 gradientMatrix, float bias, float scale)
-    :  INHERITED(kGrSweepGradientLayout_ClassID,
-                        (OptimizationFlags)kPreservesOpaqueInput_OptimizationFlag)
-            , fCoordTransform0(gradientMatrix)
-            , gradientMatrix(gradientMatrix)
-            , bias(bias)
-            , scale(scale)
+    : INHERITED(kGrSweepGradientLayout_ClassID, (OptimizationFlags) kPreservesOpaqueInput_OptimizationFlag)
+    , fCoordTransform0(gradientMatrix)
+    , gradientMatrix(gradientMatrix)
+    , bias(bias)
+    , scale(scale)
   {
-        this->addCoordTransform(&fCoordTransform0);
+    this->addCoordTransform(&fCoordTransform0);
   }
   GrGLSLFragmentProcessor* onCreateGLSLInstance() const override;
   void onGetGLSLProcessorKey(const GrShaderCaps&, GrProcessorKeyBuilder*) const override;

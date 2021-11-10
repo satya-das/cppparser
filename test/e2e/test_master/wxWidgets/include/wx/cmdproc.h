@@ -29,15 +29,16 @@ public:
   virtual bool Undo() = 0;
   virtual bool CanUndo() const
   {
- return m_canUndo;
+    return m_canUndo;
   }
   virtual wxString GetName() const
   {
- return m_commandName;
+    return m_commandName;
   }
 protected:
   bool m_canUndo;
   wxString m_commandName;
+private:
   wxDECLARE_CLASS(wxCommand);
 };
 // ----------------------------------------------------------------------------
@@ -70,29 +71,29 @@ public:
     // Call this to manage an edit menu.
   void SetEditMenu(wxMenu* menu)
   {
- m_commandEditMenu = menu;
+    m_commandEditMenu = menu;
   }
   wxMenu* GetEditMenu() const
   {
- return m_commandEditMenu;
+    return m_commandEditMenu;
   }
 #  endif
     // command list access
   wxList& GetCommands()
   {
- return m_commands;
+    return m_commands;
   }
   const wxList& GetCommands() const
   {
- return m_commands;
+    return m_commands;
   }
   wxCommand* GetCurrentCommand() const
   {
-        return (wxCommand *)(m_currentCommand ? m_currentCommand->GetData() : NULL);
+    return (wxCommand*) (m_currentCommand ? m_currentCommand->GetData() : NULL);
   }
   int GetMaxCommands() const
   {
- return m_maxNoCommands;
+    return m_maxNoCommands;
   }
   virtual void ClearCommands();
     // Has the current project been changed?
@@ -100,24 +101,24 @@ public:
     // Mark the current command as the one where the last save took place
   void MarkAsSaved()
   {
-        m_lastSavedCommand = m_currentCommand;
+    m_lastSavedCommand = m_currentCommand;
   }
     // By default, the accelerators are "\tCtrl+Z" and "\tCtrl+Y"
   const wxString& GetUndoAccelerator() const
   {
- return m_undoAccelerator;
+    return m_undoAccelerator;
   }
   const wxString& GetRedoAccelerator() const
   {
- return m_redoAccelerator;
+    return m_redoAccelerator;
   }
   void SetUndoAccelerator(const wxString& accel)
   {
- m_undoAccelerator = accel;
+    m_undoAccelerator = accel;
   }
   void SetRedoAccelerator(const wxString& accel)
   {
- m_redoAccelerator = accel;
+    m_redoAccelerator = accel;
   }
 protected:
     // for further flexibility, command processor doesn't call wxCommand::Do()

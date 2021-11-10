@@ -24,13 +24,12 @@ class WXDLLIMPEXP_CORE wxSpinCtrl : public wxSpinButton
 public:
   wxSpinCtrl()
   {
- Init();
+    Init();
   }
   wxSpinCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, int min = 0, int max = 100, int initial = 0, const wxString& name = wxT("wxSpinCtrl"))
   {
-        Init();
-
-        Create(parent, id, value, pos, size, style, min, max, initial, name);
+    Init();
+    Create(parent, id, value, pos, size, style, min, max, initial, name);
   }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSP_ARROW_KEYS, int min = 0, int max = 100, int initial = 0, const wxString& name = wxT("wxSpinCtrl"));
     // a wxTextCtrl-like method (but we can't have GetValue returning wxString
@@ -55,23 +54,23 @@ public:
     // wxSpinButton doesn't accept focus, but we do
   bool AcceptsFocus() const override
   {
- return wxWindow::AcceptsFocus();
+    return wxWindow::AcceptsFocus();
   }
     // we're like wxTextCtrl and not (default) wxButton
   wxVisualAttributes GetDefaultAttributes() const override
   {
-        return GetClassDefaultAttributes(GetWindowVariant());
+    return GetClassDefaultAttributes(GetWindowVariant());
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL)
   {
-        return GetCompositeControlsDefaultAttributes(variant);
+    return GetCompositeControlsDefaultAttributes(variant);
   }
     // for internal use only
 
     // get the subclassed window proc of the buddy text
   WXWNDPROC GetBuddyWndProc() const
   {
- return m_wndProcBuddy;
+    return m_wndProcBuddy;
   }
     // return the spinctrl object whose buddy is the given window or NULL
   static wxSpinCtrl* GetSpinForTextCtrl(WXHWND hwndBuddy);
@@ -80,7 +79,7 @@ public:
     // recognize buddy window as part of this control at wx level
   bool ContainsHWND(WXHWND hWnd) const override
   {
- return hWnd == m_hwndBuddy;
+    return hWnd == m_hwndBuddy;
   }
   void SetLayoutDirection(wxLayoutDirection dir) override;
   WXHWND MSWGetFocusHWND() const override;

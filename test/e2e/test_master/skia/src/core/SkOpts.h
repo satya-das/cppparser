@@ -39,7 +39,7 @@ namespace SkOpts
   extern uint32_t (*hash_fn) (const void*, size_t, uint32_t seed);
   static uint32_t hash(const void* data, size_t bytes, uint32_t seed = 0)
   {
-        return hash_fn(data, bytes, seed);
+    return hash_fn(data, bytes, seed);
   }
     // SkBitmapProcState optimized Shader, Sample, or Matrix procs.
     // This is the only one that can use anything past SSE2/NEON.

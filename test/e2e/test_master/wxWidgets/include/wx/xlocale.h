@@ -43,9 +43,7 @@ typedef _locale_t wxXLocale_t;
 #        include <locale.h>
 #        include <ctype.h>
 #        include <stdlib.h>
-#        if  wxUSE_UNICODE
-#          include <wctype.h>
-#        endif
+#        include <wctype.h>
         // Locale type and identifier name
 typedef locale_t wxXLocale_t;
 #        define wxXLOCALE_IDENT(name)	 name
@@ -68,7 +66,7 @@ public:
     // Construct an uninitialized locale
   wxXLocale()
   {
- m_locale = NULL;
+    m_locale = NULL;
   }
 #      if  wxUSE_INTL
     // Construct from a symbolic language constant
@@ -77,12 +75,12 @@ public:
     // Construct from the given language string
   wxXLocale(const char* loc)
   {
- Init(loc);
+    Init(loc);
   }
     // Destroy the locale
   ~wxXLocale()
   {
- Free();
+    Free();
   }
     // Get the global "C" locale object
   static wxXLocale& GetCLocale();
@@ -90,23 +88,23 @@ public:
     // wxHAS_XLOCALE_SUPPORT the only valid locale is the "C" one)
   bool IsOk() const
   {
- return m_locale != NULL;
+    return m_locale != NULL;
   }
     // Get the type
   wxXLocale_t Get() const
   {
- return m_locale;
+    return m_locale;
   }
   bool operator==(const wxXLocale& loc) const
   {
- return m_locale == loc.m_locale;
+    return m_locale == loc.m_locale;
   }
 private:
     // Special ctor for the "C" locale, it's only used internally as the user
     // code is supposed to use GetCLocale()
   wxXLocale(struct wxXLocaleCTag*)
   {
- Init("C");
+    Init("C");
   }
     // Create from the given language string (called from ctors)
   void Init(const char* loc);
@@ -129,20 +127,20 @@ public:
     // Construct an uninitialized locale
   wxXLocale()
   {
- m_isC = false;
+    m_isC = false;
   }
     // Construct from a symbolic language constant: unless the language is
     // wxLANGUAGE_ENGLISH_US (which we suppose to be the same as "C" locale)
     // the object will be invalid
   wxXLocale(wxLanguage lang)
   {
-        m_isC = lang == wxLANGUAGE_ENGLISH_US;
+    m_isC = lang == wxLANGUAGE_ENGLISH_US;
   }
     // Construct from the given language string: unless the string is "C" or
     // "POSIX" the object will be invalid
   wxXLocale(const char* loc)
   {
-        m_isC = loc && (strcmp(loc, "C") == 0 || strcmp(loc, "POSIX") == 0);
+    m_isC = loc && (strcmp(loc, "C") == 0 || strcmp(loc, "POSIX") == 0);
   }
     // Default copy ctor, assignment operator and dtor are ok (or would be if
     // we didn't use wxDECLARE_NO_COPY_CLASS() for consistency with the
@@ -155,14 +153,14 @@ public:
     // wxHAS_XLOCALE_SUPPORT the only valid locale is the "C" one)
   bool IsOk() const
   {
- return m_isC;
+    return m_isC;
   }
 private:
     // Special ctor for the "C" locale, it's only used internally as the user
     // code is supposed to use GetCLocale()
   wxXLocale(struct wxXLocaleCTag*)
   {
- m_isC = true;
+    m_isC = true;
   }
     // Without xlocale support this class can only represent "C" locale, if
     // this is false the object is invalid
@@ -194,55 +192,55 @@ WXDLLIMPEXP_BASE extern wxXLocale wxNullXLocale;
 #      define wxCRT_Toupper_lA	wxXLOCALE_IDENT(toupper_l)
 inline int wxIsalnum_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Isalnum_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Isalnum_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIsalpha_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Isalpha_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Isalpha_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIscntrl_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Iscntrl_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Iscntrl_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIsdigit_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Isdigit_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Isdigit_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIsgraph_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Isgraph_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Isgraph_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIslower_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Islower_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Islower_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIsprint_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Isprint_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Isprint_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIspunct_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Ispunct_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Ispunct_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIsspace_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Isspace_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Isspace_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIsupper_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Isupper_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Isupper_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxIsxdigit_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Isxdigit_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Isxdigit_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxTolower_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Tolower_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Tolower_lA(static_cast<unsigned char>(c), loc.Get());
 }
 inline int wxToupper_l(char c, const wxXLocale& loc)
 {
- return wxCRT_Toupper_lA(static_cast<unsigned char>(c), loc.Get());
+  return wxCRT_Toupper_lA(static_cast<unsigned char>(c), loc.Get());
 }
     // stdlib functions for numeric <-> string conversion
     // NOTE: GNU libc does not have ato[fil]_l functions;
@@ -253,114 +251,99 @@ inline int wxToupper_l(char c, const wxXLocale& loc)
 #      define wxCRT_Strtoul_lA	wxXLOCALE_IDENT(strtoul_l)
 inline double wxStrtod_lA(const char* c, char** endptr, const wxXLocale& loc)
 {
- return wxCRT_Strtod_lA(c, endptr, loc.Get());
+  return wxCRT_Strtod_lA(c, endptr, loc.Get());
 }
 inline long wxStrtol_lA(const char* c, char** endptr, int base, const wxXLocale& loc)
 {
- return wxCRT_Strtol_lA(c, endptr, base, loc.Get());
+  return wxCRT_Strtol_lA(c, endptr, base, loc.Get());
 }
 inline unsigned long wxStrtoul_lA(const char* c, char** endptr, int base, const wxXLocale& loc)
 {
- return wxCRT_Strtoul_lA(c, endptr, base, loc.Get());
+  return wxCRT_Strtoul_lA(c, endptr, base, loc.Get());
 }
-#      if  wxUSE_UNICODE
         // ctype functions
-#        define wxCRT_Isalnum_lW	wxXLOCALE_IDENT(iswalnum_l)
-#        define wxCRT_Isalpha_lW	wxXLOCALE_IDENT(iswalpha_l)
-#        define wxCRT_Iscntrl_lW	wxXLOCALE_IDENT(iswcntrl_l)
-#        define wxCRT_Isdigit_lW	wxXLOCALE_IDENT(iswdigit_l)
-#        define wxCRT_Isgraph_lW	wxXLOCALE_IDENT(iswgraph_l)
-#        define wxCRT_Islower_lW	wxXLOCALE_IDENT(iswlower_l)
-#        define wxCRT_Isprint_lW	wxXLOCALE_IDENT(iswprint_l)
-#        define wxCRT_Ispunct_lW	wxXLOCALE_IDENT(iswpunct_l)
-#        define wxCRT_Isspace_lW	wxXLOCALE_IDENT(iswspace_l)
-#        define wxCRT_Isupper_lW	wxXLOCALE_IDENT(iswupper_l)
-#        define wxCRT_Isxdigit_lW	wxXLOCALE_IDENT(iswxdigit_l)
-#        define wxCRT_Tolower_lW	wxXLOCALE_IDENT(towlower_l)
-#        define wxCRT_Toupper_lW	wxXLOCALE_IDENT(towupper_l)
+#      define wxCRT_Isalnum_lW	wxXLOCALE_IDENT(iswalnum_l)
+#      define wxCRT_Isalpha_lW	wxXLOCALE_IDENT(iswalpha_l)
+#      define wxCRT_Iscntrl_lW	wxXLOCALE_IDENT(iswcntrl_l)
+#      define wxCRT_Isdigit_lW	wxXLOCALE_IDENT(iswdigit_l)
+#      define wxCRT_Isgraph_lW	wxXLOCALE_IDENT(iswgraph_l)
+#      define wxCRT_Islower_lW	wxXLOCALE_IDENT(iswlower_l)
+#      define wxCRT_Isprint_lW	wxXLOCALE_IDENT(iswprint_l)
+#      define wxCRT_Ispunct_lW	wxXLOCALE_IDENT(iswpunct_l)
+#      define wxCRT_Isspace_lW	wxXLOCALE_IDENT(iswspace_l)
+#      define wxCRT_Isupper_lW	wxXLOCALE_IDENT(iswupper_l)
+#      define wxCRT_Isxdigit_lW	wxXLOCALE_IDENT(iswxdigit_l)
+#      define wxCRT_Tolower_lW	wxXLOCALE_IDENT(towlower_l)
+#      define wxCRT_Toupper_lW	wxXLOCALE_IDENT(towupper_l)
 inline int wxIsalnum_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Isalnum_lW(c, loc.Get());
+  return wxCRT_Isalnum_lW(c, loc.Get());
 }
 inline int wxIsalpha_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Isalpha_lW(c, loc.Get());
+  return wxCRT_Isalpha_lW(c, loc.Get());
 }
 inline int wxIscntrl_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Iscntrl_lW(c, loc.Get());
+  return wxCRT_Iscntrl_lW(c, loc.Get());
 }
 inline int wxIsdigit_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Isdigit_lW(c, loc.Get());
+  return wxCRT_Isdigit_lW(c, loc.Get());
 }
 inline int wxIsgraph_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Isgraph_lW(c, loc.Get());
+  return wxCRT_Isgraph_lW(c, loc.Get());
 }
 inline int wxIslower_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Islower_lW(c, loc.Get());
+  return wxCRT_Islower_lW(c, loc.Get());
 }
 inline int wxIsprint_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Isprint_lW(c, loc.Get());
+  return wxCRT_Isprint_lW(c, loc.Get());
 }
 inline int wxIspunct_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Ispunct_lW(c, loc.Get());
+  return wxCRT_Ispunct_lW(c, loc.Get());
 }
 inline int wxIsspace_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Isspace_lW(c, loc.Get());
+  return wxCRT_Isspace_lW(c, loc.Get());
 }
 inline int wxIsupper_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Isupper_lW(c, loc.Get());
+  return wxCRT_Isupper_lW(c, loc.Get());
 }
 inline int wxIsxdigit_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Isxdigit_lW(c, loc.Get());
+  return wxCRT_Isxdigit_lW(c, loc.Get());
 }
 inline wchar_t wxTolower_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Tolower_lW(c, loc.Get());
+  return wxCRT_Tolower_lW(c, loc.Get());
 }
 inline wchar_t wxToupper_l(wchar_t c, const wxXLocale& loc)
 {
- return wxCRT_Toupper_lW(c, loc.Get());
+  return wxCRT_Toupper_lW(c, loc.Get());
 }
         // stdlib functions for numeric <-> string conversion
         // (see notes above about missing functions)
-#        define wxCRT_Strtod_lW	wxXLOCALE_IDENT(wcstod_l)
-#        define wxCRT_Strtol_lW	wxXLOCALE_IDENT(wcstol_l)
-#        define wxCRT_Strtoul_lW	wxXLOCALE_IDENT(wcstoul_l)
+#      define wxCRT_Strtod_lW	wxXLOCALE_IDENT(wcstod_l)
+#      define wxCRT_Strtol_lW	wxXLOCALE_IDENT(wcstol_l)
+#      define wxCRT_Strtoul_lW	wxXLOCALE_IDENT(wcstoul_l)
 inline double wxStrtod_l(const wchar_t* c, wchar_t** endptr, const wxXLocale& loc)
 {
- return wxCRT_Strtod_lW(c, endptr, loc.Get());
+  return wxCRT_Strtod_lW(c, endptr, loc.Get());
 }
 inline long wxStrtol_l(const wchar_t* c, wchar_t** endptr, int base, const wxXLocale& loc)
 {
- return wxCRT_Strtol_lW(c, endptr, base, loc.Get());
+  return wxCRT_Strtol_lW(c, endptr, base, loc.Get());
 }
 inline unsigned long wxStrtoul_l(const wchar_t* c, wchar_t** endptr, int base, const wxXLocale& loc)
 {
- return wxCRT_Strtoul_lW(c, endptr, base, loc.Get());
+  return wxCRT_Strtoul_lW(c, endptr, base, loc.Get());
 }
-#      else 
-inline double wxStrtod_l(const char* c, char** endptr, const wxXLocale& loc)
-{
- return wxCRT_Strtod_lA(c, endptr, loc.Get());
-}
-inline long wxStrtol_l(const char* c, char** endptr, int base, const wxXLocale& loc)
-{
- return wxCRT_Strtol_lA(c, endptr, base, loc.Get());
-}
-inline unsigned long wxStrtoul_l(const char* c, char** endptr, int base, const wxXLocale& loc)
-{
- return wxCRT_Strtoul_lA(c, endptr, base, loc.Get());
-}
-#      endif
 #    else 
     // ctype functions
 int WXDLLIMPEXP_BASE wxIsalnum_l(const wxUniChar& c, const wxXLocale& loc);

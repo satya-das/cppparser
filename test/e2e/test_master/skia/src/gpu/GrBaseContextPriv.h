@@ -16,37 +16,37 @@ public:
     // from GrContext_Base
   uint32_t contextID() const
   {
- return fContext->contextID();
+    return fContext->contextID();
   }
   bool matches(GrContext_Base* candidate) const
   {
- return fContext->matches(candidate);
+    return fContext->matches(candidate);
   }
   const GrContextOptions& options() const
   {
- return fContext->options();
+    return fContext->options();
   }
   const GrCaps* caps() const
   {
- return fContext->caps();
+    return fContext->caps();
   }
   sk_sp<const GrCaps> refCaps() const;
   sk_sp<GrSkSLFPFactoryCache> fpFactoryCache();
   GrImageContext* asImageContext()
   {
- return fContext->asImageContext();
+    return fContext->asImageContext();
   }
   GrRecordingContext* asRecordingContext()
   {
- return fContext->asRecordingContext();
+    return fContext->asRecordingContext();
   }
   GrContext* asDirectContext()
   {
- return fContext->asDirectContext();
+    return fContext->asDirectContext();
   }
 private:
   explicit GrBaseContextPriv(GrContext_Base* context)
-    :  fContext(context)
+    : fContext(context)
   {
   }
   GrBaseContextPriv(const GrBaseContextPriv&);
@@ -59,10 +59,10 @@ private:
 };
 inline GrBaseContextPriv GrContext_Base::priv()
 {
- return GrBaseContextPriv(this);
+  return GrBaseContextPriv(this);
 }
 inline const GrBaseContextPriv GrContext_Base::priv() const
 {
-    return GrBaseContextPriv(const_cast<GrContext_Base*>(this));
+  return GrBaseContextPriv(const_cast<GrContext_Base*>(this));
 }
 #endif

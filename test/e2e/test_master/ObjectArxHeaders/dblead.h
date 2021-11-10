@@ -123,60 +123,60 @@ protected:
 //
 inline Adesk::Boolean AcDbLeader::isClosed() const
 {
-    return Adesk::kFalse;
+  return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbLeader::isPeriodic() const
 {
-    return Adesk::kFalse;
+  return Adesk::kFalse;
 }
 inline Adesk::Boolean AcDbLeader::isPlanar() const
 {
-    return Adesk::kTrue;
+  return Adesk::kTrue;
 }
 inline Acad::ErrorStatus AcDbLeader::getStartParam(double& param) const
 {
-    param = 0.0;
-    return Acad::eOk;
+  param = 0.0;
+  return Acad::eOk;
 }
 inline Acad::ErrorStatus AcDbLeader::getOrthoProjectedCurve(const AcGePlane&, AcDbCurve*&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::getProjectedCurve(const AcGePlane&, const AcGeVector3d&, AcDbCurve*&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::getOffsetCurves(double, AcDbVoidPtrArray&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::getSecondDeriv(double, AcGeVector3d&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::getSecondDeriv(const AcGePoint3d&, AcGeVector3d&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::getSplitCurves(const AcGeDoubleArray&, AcDbVoidPtrArray&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::getSplitCurves(const AcGePoint3dArray&, AcDbVoidPtrArray&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::extend(double)
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::extend(Adesk::Boolean, const AcGePoint3d&)
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 inline Acad::ErrorStatus AcDbLeader::getArea(double&) const
 {
-    return Acad::eNotApplicable;
+  return Acad::eNotApplicable;
 }
 #  pragma  pack(pop)
 #endif

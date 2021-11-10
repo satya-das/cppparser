@@ -21,12 +21,12 @@ public:
     // hidden
   wxInfoBarGeneric()
   {
- Init();
+    Init();
   }
   wxInfoBarGeneric(wxWindow* parent, wxWindowID winid = wxID_ANY)
   {
-        Init();
-        Create(parent, winid);
+    Init();
+    Create(parent, winid);
   }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY);
     // implement base class methods
@@ -49,8 +49,8 @@ public:
     // at the bottom
   void SetShowHideEffects(wxShowEffect showEffect, wxShowEffect hideEffect)
   {
-        m_showEffect = showEffect;
-        m_hideEffect = hideEffect;
+    m_showEffect = showEffect;
+    m_hideEffect = hideEffect;
   }
     // get effect used when showing/hiding the window
   wxShowEffect GetShowEffect() const;
@@ -58,12 +58,12 @@ public:
     // set the duration of animation used when showing/hiding the bar, in ms
   void SetEffectDuration(int duration)
   {
- m_effectDuration = duration;
+    m_effectDuration = duration;
   }
     // get the currently used effect animation duration
   int GetEffectDuration() const
   {
- return m_effectDuration;
+    return m_effectDuration;
   }
     // overridden base class methods
     // -----------------------------
@@ -78,7 +78,7 @@ protected:
     // between it and the main window separates it well enough
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
     // update the parent to take our new or changed size into account (notably
     // should be called when we're shown or hidden)

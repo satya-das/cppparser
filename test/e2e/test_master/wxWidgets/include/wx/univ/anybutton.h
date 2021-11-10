@@ -32,13 +32,13 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-        return GetStdInputHandler(handlerDef);
+    return GetStdInputHandler(handlerDef);
   }
 protected:
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_STATIC;
+    return wxBORDER_STATIC;
   }
   wxSize DoGetBestClientSize() const override;
   bool DoDrawBackground(wxDC& dc) override;
@@ -48,6 +48,7 @@ protected:
     // the (optional) image to show and the margins around it
   wxBitmap m_bitmap;
   wxCoord m_marginBmpX, m_marginBmpY;
+private:
   wxDECLARE_NO_COPY_CLASS(wxAnyButton);
 };
 // ----------------------------------------------------------------------------

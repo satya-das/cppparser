@@ -14,7 +14,6 @@ class WXDLLIMPEXP_CORE wxStaticText : public wxStaticTextBase
 public:
   wxStaticText()
   {
-
   }
   wxStaticText(wxWindow* parent, wxWindowID id, const wxString& label, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxStaticTextNameStr))
   {
@@ -26,7 +25,7 @@ public:
   bool SetFont(const wxFont& font) override;
   bool AcceptsFocus() const override
   {
- return false;
+    return false;
   }
 protected:
   wxString WXGetVisibleLabel() const override;

@@ -67,34 +67,33 @@ public:
   {
   }
   wxMimeTypeCommands(const wxArrayString& verbs, const wxArrayString& commands)
-    :  m_verbs(verbs),
-          m_commands(commands)
+    : m_verbs(verbs)
+    , m_commands(commands)
   {
-
   }
     // add a new verb with the command or replace the old value
   void AddOrReplaceVerb(const wxString& verb, const wxString& cmd);
   void Add(const wxString& s)
   {
-        m_verbs.Add(s.BeforeFirst(wxT('=')));
-        m_commands.Add(s.AfterFirst(wxT('=')));
+    m_verbs.Add(s.BeforeFirst(wxT('=')));
+    m_commands.Add(s.AfterFirst(wxT('=')));
   }
     // access the commands
   size_t GetCount() const
   {
- return m_verbs.GetCount();
+    return m_verbs.GetCount();
   }
   const wxString& GetVerb(size_t n) const
   {
- return m_verbs[n];
+    return m_verbs[n];
   }
   const wxString& GetCmd(size_t n) const
   {
- return m_commands[n];
+    return m_commands[n];
   }
   bool HasVerb(const wxString& verb) const
   {
- return m_verbs.Index(verb) != wxNOT_FOUND;
+    return m_verbs.Index(verb) != wxNOT_FOUND;
   }
     // returns empty string and wxNOT_FOUND in idx if no such verb
   wxString GetCommandForVerb(const wxString& verb, size_t* idx = NULL) const;
@@ -122,35 +121,35 @@ public:
   {
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
     CtorString(const char* str)
-      :  m_str(str)
+      : m_str(str)
     {
     }
 #    endif
     CtorString(const wchar_t* str)
-      :  m_str(str)
+      : m_str(str)
     {
     }
     CtorString(const wxString& str)
-      :  m_str(str)
+      : m_str(str)
     {
     }
     CtorString(const wxCStrData& str)
-      :  m_str(str)
+      : m_str(str)
     {
     }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
     CtorString(const wxScopedCharBuffer& str)
-      :  m_str(str)
+      : m_str(str)
     {
     }
 #    endif
     CtorString(const wxScopedWCharBuffer& str)
-      :  m_str(str)
+      : m_str(str)
     {
     }
     operator const wxString*() const
     {
- return &m_str;
+      return &m_str;
     }
     wxString m_str;
   };
@@ -159,9 +158,8 @@ public:
     // Ctor specifying just the MIME type (which is mandatory), the other
     // fields can be set later if needed.
   wxFileTypeInfo(const wxString& mimeType)
-    :  m_mimeType(mimeType)
+    : m_mimeType(mimeType)
   {
-
   }
     // Ctor allowing to specify the values of all fields at once:
     //
@@ -184,87 +182,86 @@ public:
         // wxMimeTypesManager::AddFallbacks
   wxFileTypeInfo()
   {
-
   }
     // test if this object can be used
   bool IsValid() const
   {
- return !m_mimeType.empty();
+    return !m_mimeType.empty();
   }
     // setters
         // set the open/print commands
   void SetOpenCommand(const wxString& command)
   {
- m_openCmd = command;
+    m_openCmd = command;
   }
   void SetPrintCommand(const wxString& command)
   {
- m_printCmd = command;
+    m_printCmd = command;
   }
         // set the description
   void SetDescription(const wxString& desc)
   {
- m_desc = desc;
+    m_desc = desc;
   }
         // add another extension corresponding to this file type
   void AddExtension(const wxString& ext)
   {
- m_exts.push_back(ext);
+    m_exts.push_back(ext);
   }
         // set the icon info
   void SetIcon(const wxString& iconFile, int iconIndex = 0)
   {
-        m_iconFile = iconFile;
-        m_iconIndex = iconIndex;
+    m_iconFile = iconFile;
+    m_iconIndex = iconIndex;
   }
         // set the short desc
   void SetShortDesc(const wxString& shortDesc)
   {
- m_shortDesc = shortDesc;
+    m_shortDesc = shortDesc;
   }
     // accessors
         // get the MIME type
   const wxString& GetMimeType() const
   {
- return m_mimeType;
+    return m_mimeType;
   }
         // get the open command
   const wxString& GetOpenCommand() const
   {
- return m_openCmd;
+    return m_openCmd;
   }
         // get the print command
   const wxString& GetPrintCommand() const
   {
- return m_printCmd;
+    return m_printCmd;
   }
         // get the short description (only used under Win32 so far)
   const wxString& GetShortDesc() const
   {
- return m_shortDesc;
+    return m_shortDesc;
   }
         // get the long, user visible description
   const wxString& GetDescription() const
   {
- return m_desc;
+    return m_desc;
   }
         // get the array of all extensions
   const wxArrayString& GetExtensions() const
   {
- return m_exts;
+    return m_exts;
   }
   size_t GetExtensionsCount() const
   {
-return m_exts.GetCount();
+    return m_exts.GetCount();
   }
         // get the icon info
   const wxString& GetIconFile() const
   {
- return m_iconFile;
+    return m_iconFile;
   }
   int GetIconIndex() const
   {
- return m_iconIndex;
+    return m_iconIndex;
   }
 private:
   wxString m_mimeType, m_openCmd, m_printCmd, m_shortDesc, m_desc;
@@ -300,33 +297,31 @@ public:
         // ctors
     MessageParameters()
     {
-
     }
     MessageParameters(const wxString& filename, const wxString& mimetype = wxEmptyString)
-      :  m_filename(filename), m_mimetype(mimetype)
+      : m_filename(filename)
+      , m_mimetype(mimetype)
     {
-
     }
         // accessors (called by GetOpenCommand)
             // filename
     const wxString& GetFileName() const
     {
- return m_filename;
+      return m_filename;
     }
             // mime type
     const wxString& GetMimeType() const
     {
- return m_mimetype;
+      return m_mimetype;
     }
         // override this function in derived class
     virtual wxString GetParamValue(const wxString&) const
     {
- return wxEmptyString;
+      return wxEmptyString;
     }
         // virtual dtor as in any base class
     virtual ~MessageParameters()
     {
-
     }
   protected:
     wxString m_filename, m_mimetype;
@@ -455,7 +450,7 @@ public:
   void AddFallbacks(const wxFileTypeInfo* filetypes);
   void AddFallback(const wxFileTypeInfo& ft)
   {
- m_fallbacks.Add(ft);
+    m_fallbacks.Add(ft);
   }
     // create or remove associations
 

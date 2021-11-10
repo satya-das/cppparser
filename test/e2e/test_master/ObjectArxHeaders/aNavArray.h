@@ -34,77 +34,78 @@ public:
 // File Navigation Array - implementation
 template <typename T>
 CNavArray<T>::CNavArray()
-  :     CTypedPtrArray<CObArray, T*>()
+  : CTypedPtrArray<CObArray, T*>()
 {
-
 }
 template <typename T>
 CNavArray<T>::~CNavArray()
 {
-    RemoveAllData();
+  RemoveAllData();
 }
 //----------------
 // Data management
 template <typename T>
 T* CNavArray<T>::AddData()
 {
-    T    *d = NewData();
-
-    ASSERT(d != NULL);
-    if (d != NULL)
-        this->Add(d);
-    return d;
+  T* d = NewData();
+  ASSERT(d != NULL);
+  if (d != NULL)
+  {
+    this->Add(d);
+  }
+  return d;
 }
 template <typename T>
 int CNavArray<T>::GetCount()
 {
-    const size_t nCount = this->GetUpperBound() + 1;
-    ASSERT(nCount < 0x1000000);   // 16M sanity check
-    return (int)nCount;
+  const size_t nCount = this->GetUpperBound() + 1;
+  ASSERT(nCount < 0x1000000);
+  return (int) nCount;
 }
 template <typename T>
 T* CNavArray<T>::GetData(INT_PTR index)
 {
-    T    *d = NULL;
-
-    if (IsIndexValid(index))
-        d = this->GetAt(index);
-    return d;
+  T* d = NULL;
+  if (IsIndexValid(index))
+  {
+    d = this->GetAt(index);
+  }
+  return d;
 }
 template <typename T>
 BOOL CNavArray<T>::IsIndexValid(INT_PTR index)
 {
-    return ((index >= 0) && (index <= this->GetUpperBound()));
+  return ((index >= 0) && (index <= this->GetUpperBound()));
 }
 template <typename T>
 T* CNavArray<T>::NewData()
 {
-    return new T;
+  return new T;
 }
 template <typename T>
 void CNavArray<T>::RemoveData(INT_PTR index)
 {
-    T    *d;
-
-    if (IsIndexValid(index)) {
-        d = this->GetAt(index);
-        this->RemoveAt(index);
-        delete d;
-    }
+  T* d;
+  if (IsIndexValid(index))
+  {
+    d = this->GetAt(index);
+    this->RemoveAt(index);
+    delete d;
+  }
 }
 template <typename T>
 void CNavArray<T>::RemoveAllData()
 {
-    const int  n = this->GetCount();
-
-    for (int i = 0; i < n; i++) {
-        T *d = this->GetAt(i);
-        delete d;
-    }
-    this->RemoveAll();
-#ifndef _ADESK_MAC_
-    this->FreeExtra();
-#endif //_ADESK_MAC_
+  const int n = this->GetCount();
+  for (int i = 0; i < n; i++)
+  {
+    T* d = this->GetAt(i);
+    delete d;
+  }
+  this->RemoveAll();
+#  ifndef _ADESK_MAC_
+  this->FreeExtra();
+#  endif
 }
 /////////////////////////////////////////////////////////////////////////////
 //{{AFX_INSERT_LOCATION}}

@@ -19,23 +19,20 @@ class wxCustomBackgroundWindowGenericBase : public wxCustomBackgroundWindowBase
 public:
   wxCustomBackgroundWindowGenericBase()
   {
-
   }
 protected:
   void DoEraseBackground(wxEraseEvent& event, wxWindow* win)
   {
-        wxDC& dc = *event.GetDC();
-
-        const wxSize clientSize = win->GetClientSize();
-        const wxSize bitmapSize = m_bitmapBg.GetSize();
-
-        for ( int x = 0; x < clientSize.x; x += bitmapSize.x )
-        {
-            for ( int y = 0; y < clientSize.y; y += bitmapSize.y )
-            {
-                dc.DrawBitmap(m_bitmapBg, x, y);
-            }
-        }
+    wxDC& dc = *event.GetDC();
+    const wxSize clientSize = win->GetClientSize();
+    const wxSize bitmapSize = m_bitmapBg.GetSize();
+    for (int x = 0; x < clientSize.x; x += bitmapSize.x)
+    {
+      for (int y = 0; y < clientSize.y; y += bitmapSize.y)
+      {
+        dc.DrawBitmap(m_bitmapBg, x, y);
+      }
+    }
   }
     // The bitmap used for painting the background if valid.
   wxBitmap m_bitmapBg;
@@ -51,36 +48,26 @@ public:
   typedef W BaseWindowClass;
   wxCustomBackgroundWindow()
   {
-
   }
 protected:
   void DoSetBackgroundBitmap(const wxBitmap& bmp) override
   {
-        m_bitmapBg = bmp;
-
-        if ( m_bitmapBg.IsOk() )
-        {
-            BaseWindowClass::Bind
-            (
-                wxEVT_ERASE_BACKGROUND,
-                &wxCustomBackgroundWindow::OnEraseBackground, this
-            );
-        }
-        else
-        {
-            BaseWindowClass::Unbind
-            (
-                wxEVT_ERASE_BACKGROUND,
-                &wxCustomBackgroundWindow::OnEraseBackground, this
-            );
-        }
+    m_bitmapBg = bmp;
+    if (m_bitmapBg.IsOk())
+    {
+      BaseWindowClass::Bind(wxEVT_ERASE_BACKGROUND, &wxCustomBackgroundWindow::OnEraseBackground, this);
+    }
+    else 
+    {
+      BaseWindowClass::Unbind(wxEVT_ERASE_BACKGROUND, &wxCustomBackgroundWindow::OnEraseBackground, this);
+    }
   }
 private:
     // Event handler for erasing the background which is only used when we have
     // a valid background bitmap.
   void OnEraseBackground(wxEraseEvent& event)
   {
-        DoEraseBackground(event, this);
+    DoEraseBackground(event, this);
   }
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCustomBackgroundWindow, W);
 };

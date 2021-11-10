@@ -13,15 +13,14 @@ class GrMockOpsRenderPass : public GrOpsRenderPass
 {
 public:
   GrMockOpsRenderPass(GrMockGpu* gpu, GrRenderTarget* rt, GrSurfaceOrigin origin, LoadAndStoreInfo colorInfo)
-    :  INHERITED(rt, origin)
-            , fGpu(gpu)
-            , fColorLoadOp(colorInfo.fLoadOp)
+    : INHERITED(rt, origin)
+    , fGpu(gpu)
+    , fColorLoadOp(colorInfo.fLoadOp)
   {
-
   }
   GrGpu* gpu() override
   {
- return fGpu;
+    return fGpu;
   }
   void inlineUpload(GrOpFlushState*, GrDeferredTextureUploadFn&) override
   {
@@ -31,35 +30,37 @@ public:
   }
   void begin() override
   {
-        if (GrLoadOp::kClear == fColorLoadOp) {
-            this->markRenderTargetDirty();
-        }
+    if (GrLoadOp::kClear == fColorLoadOp)
+    {
+      this->markRenderTargetDirty();
+    }
   }
   void end() override
   {
   }
   int numDraws() const
   {
- return fNumDraws;
+    return fNumDraws;
   }
 private:
   void onDraw(const GrPrimitiveProcessor&, const GrPipeline&, const GrPipeline::FixedDynamicState*, const GrPipeline::DynamicStateArrays*, const GrMesh[], int meshCount, const SkRect& bounds) override
   {
-        this->markRenderTargetDirty();
-        ++fNumDraws;
+    this->markRenderTargetDirty();
+    ++fNumDraws;
   }
   void onClear(const GrFixedClip&, const SkPMColor4f&) override
   {
-        this->markRenderTargetDirty();
+    this->markRenderTargetDirty();
   }
   void onClearStencilClip(const GrFixedClip&, bool insideStencilMask) override
   {
   }
   void markRenderTargetDirty()
   {
-        if (auto* tex = fRenderTarget->asTexture()) {
-            tex->texturePriv().markMipMapsDirty();
-        }
+    if (auto* tex = fRenderTarget->asTexture())
+    {
+      tex->texturePriv().markMipMapsDirty();
+    }
   }
   GrMockGpu* fGpu;
   GrLoadOp fColorLoadOp;

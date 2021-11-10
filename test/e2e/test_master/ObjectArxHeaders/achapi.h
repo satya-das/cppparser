@@ -59,11 +59,11 @@ public:
 };
 inline const Adesk::Int32 AcDbHyperlink::flags() const
 {
-    return  AcDbHyperlink::kUndefined;
+  return AcDbHyperlink::kUndefined;
 }
 inline void AcDbHyperlink::setFlags(const Adesk::Int32 lFlags)
 {
-    ADESK_UNREFED_PARAM(lFlags);
+  ADESK_UNREFED_PARAM(lFlags);
 }
 ///////////////////////////////////////////////////////////////////////////////
 // Hyperlink Collection

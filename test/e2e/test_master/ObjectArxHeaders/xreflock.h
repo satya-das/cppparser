@@ -30,18 +30,18 @@ public:
   Acad::ErrorStatus xloadctlType(int& retstatus, const AcDbObjectId& selectedBTRid);
   int getlockxloadctlType() const
   {
- return mXldctltype;
+    return mXldctltype;
   }
   const AcDbObjectIdArray& getoutofSyncIdArray() const
   {
- return mXBTRidArray;
+    return mXBTRidArray;
   }
   Acad::ErrorStatus reloadFile(int& retstatus, const AcDbObjectIdArray& BTRids, const int xldctltype = -1);
   Acad::ErrorStatus reloadFile(int& retstatus, const int xldctltype = -1);
   void setInternalTNmgmt(bool bTNmgmt);
   AcDbObjectId getLockBtrId() const
   {
- return mXBTRid;
+    return mXBTRid;
   }
 private:
   AcDwgFileHandle* mdwgfile;

@@ -35,7 +35,7 @@ public:
     ///
   ProfileCurve2d()
   {
-        m_type = kLineSeg;
+    m_type = kLineSeg;
   }
     /// <summary>
     /// Construct it as a line segment.
@@ -43,8 +43,8 @@ public:
     ///
   ProfileCurve2d(const AcGeLineSeg2d& seg)
   {
-        m_seg = seg;
-        m_type = kLineSeg;
+    m_seg = seg;
+    m_type = kLineSeg;
   }
     /// <summary>
     /// Construct it as an arc.
@@ -52,8 +52,8 @@ public:
     ///
   ProfileCurve2d(const AcGeCircArc2d& arc)
   {
-        m_arc = arc;
-        m_type = kArc;
+    m_arc = arc;
+    m_type = kArc;
   }
     /// <summary>
     /// If it's a line segment
@@ -61,7 +61,7 @@ public:
     ///
   bool isSegment() const
   {
-        return m_type == kLineSeg;
+    return m_type == kLineSeg;
   }
     /// <summary>
     /// If it's an arc.
@@ -69,7 +69,7 @@ public:
     ///
   bool isArc() const
   {
-        return m_type == kArc;
+    return m_type == kArc;
   }
     /// <summary>
     /// Gets the line segment.
@@ -77,7 +77,7 @@ public:
     ///
   AcGeLineSeg2d lineSeg() const
   {
-        return m_seg;
+    return m_seg;
   }
     /// <summary>
     /// Sets the line segment.
@@ -85,8 +85,8 @@ public:
     ///
   void setLineSeg(const AcGeLineSeg2d& lineSeg)
   {
-        m_seg = lineSeg;
-        m_type = kLineSeg;
+    m_seg = lineSeg;
+    m_type = kLineSeg;
   }
     /// <summary>
     /// Gets the arc.
@@ -94,7 +94,7 @@ public:
     ///
   AcGeCircArc2d arc() const
   {
-        return m_arc;
+    return m_arc;
   }
     /// <summary>
     /// Sets the arc.
@@ -102,8 +102,8 @@ public:
     ///
   void setArc(const AcGeCircArc2d& arc)
   {
-        m_arc = arc;
-        m_type = kArc;
+    m_arc = arc;
+    m_type = kArc;
   }
 };
 /// <summary>

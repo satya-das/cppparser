@@ -22,12 +22,12 @@ class GrGLAttribArrayState
 public:
   explicit GrGLAttribArrayState(int arrayCount = 0)
   {
-        this->resize(arrayCount);
+    this->resize(arrayCount);
   }
   void resize(int newCount)
   {
-        fAttribArrayStates.resize_back(newCount);
-        this->invalidate();
+    fAttribArrayStates.resize_back(newCount);
+    this->invalidate();
   }
     /**
      * This function enables and sets vertex attrib state for the specified attrib index. It is
@@ -41,18 +41,19 @@ public:
   void enableVertexArrays(const GrGLGpu*, int enabledCount, GrPrimitiveRestart = GrPrimitiveRestart::kNo);
   void invalidate()
   {
-        int count = fAttribArrayStates.count();
-        for (int i = 0; i < count; ++i) {
-            fAttribArrayStates[i].invalidate();
-        }
-        fEnableStateIsValid = false;
+    int count = fAttribArrayStates.count();
+    for (int i = 0; i < count; ++i)
+    {
+      fAttribArrayStates[i].invalidate();
+    }
+    fEnableStateIsValid = false;
   }
     /**
      * The number of attrib arrays that this object is configured to track.
      */
   int count() const
   {
- return fAttribArrayStates.count();
+    return fAttribArrayStates.count();
   }
 private:
   static constexpr int kInvalidDivisor = -1;
@@ -63,9 +64,9 @@ private:
   {
     void invalidate()
     {
-            fVertexBufferUniqueID.makeInvalid();
-            fDivisor = kInvalidDivisor;
-            fUsingCpuBuffer = false;
+      fVertexBufferUniqueID.makeInvalid();
+      fDivisor = kInvalidDivisor;
+      fUsingCpuBuffer = false;
     }
     GrGpuResource::UniqueID fVertexBufferUniqueID;
     bool fUsingCpuBuffer;
@@ -101,7 +102,7 @@ public:
   GrGLAttribArrayState* bindWithIndexBuffer(GrGLGpu* gpu, const GrBuffer* indexBuffer);
   GrGLuint arrayID() const
   {
- return fID;
+    return fID;
   }
   void invalidateCachedState();
 private:

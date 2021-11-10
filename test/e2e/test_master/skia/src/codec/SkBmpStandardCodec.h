@@ -42,13 +42,13 @@ protected:
   Result onGetPixels(const SkImageInfo& dstInfo, void* dst, size_t dstRowBytes, const Options&, int*) override;
   bool onInIco() const override
   {
-        return fInIco;
+    return fInIco;
   }
   SkCodec::Result onPrepareToDecode(const SkImageInfo& dstInfo, const SkCodec::Options& options) override;
   SkSampler* getSampler(bool createIfNecessary) override
   {
-        SkASSERT(fSwizzler);
-        return fSwizzler.get();
+    SkASSERT(fSwizzler);
+    return fSwizzler.get();
   }
 private:
   bool createColorTable(SkColorType colorType, SkAlphaType alphaType);

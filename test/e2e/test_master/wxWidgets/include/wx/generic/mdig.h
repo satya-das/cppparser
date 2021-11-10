@@ -36,28 +36,27 @@ class WXDLLIMPEXP_CORE wxGenericMDIParentFrame : public wxMDIParentFrameBase
 public:
   wxGenericMDIParentFrame()
   {
- Init();
+    Init();
   }
   wxGenericMDIParentFrame(wxWindow* parent, wxWindowID winid, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE | wxVSCROLL | wxHSCROLL, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        Create(parent, winid, title, pos, size, style, name);
+    Init();
+    Create(parent, winid, title, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID winid, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE | wxVSCROLL | wxHSCROLL, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxGenericMDIParentFrame();
     // implement base class pure virtuals
   static bool IsTDI()
   {
- return true;
+    return true;
   }
   virtual void ActivateNext()
   {
- AdvanceActive(true);
+    AdvanceActive(true);
   }
   virtual void ActivatePrevious()
   {
- AdvanceActive(false);
+    AdvanceActive(false);
   }
 #  if  wxUSE_MENUS
   virtual void SetWindowMenu(wxMenu* pMenu);
@@ -106,13 +105,12 @@ class WXDLLIMPEXP_CORE wxGenericMDIChildFrame : public wxTDIChildFrame
 public:
   wxGenericMDIChildFrame()
   {
- Init();
+    Init();
   }
   wxGenericMDIChildFrame(wxGenericMDIParentFrame* parent, wxWindowID winid, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        Create(parent, winid, title, pos, size, style, name);
+    Init();
+    Create(parent, winid, title, pos, size, style, name);
   }
   bool Create(wxGenericMDIParentFrame* parent, wxWindowID winid, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
   virtual ~wxGenericMDIChildFrame();
@@ -124,18 +122,18 @@ public:
 #  endif
   virtual wxString GetTitle() const
   {
- return m_title;
+    return m_title;
   }
   virtual void SetTitle(const wxString& title);
   virtual bool TryAfter(wxEvent& event);
     // implementation only from now on
   wxGenericMDIParentFrame* GetGenericMDIParent() const
   {
-#if wxUSE_GENERIC_MDI_AS_NATIVE
-        return GetMDIParent();
-#else // generic != native
-        return m_mdiParentGeneric;
-#endif
+#  if  wxUSE_GENERIC_MDI_AS_NATIVE
+    return GetMDIParent();
+#  else 
+    return m_mdiParentGeneric;
+#  endif
   }
 protected:
   wxString m_title;
@@ -163,7 +161,6 @@ class WXDLLIMPEXP_CORE wxGenericMDIClientWindow : public wxMDIClientWindowBase
 public:
   wxGenericMDIClientWindow()
   {
-
   }
     // unfortunately we need to provide our own version of CreateClient()
     // because of the difference in the type of the first parameter and
@@ -173,7 +170,7 @@ public:
   virtual bool CreateGenericClient(wxWindow* parent);
   virtual bool CreateClient(wxMDIParentFrame* parent, long = wxVSCROLL | wxHSCROLL)
   {
-        return CreateGenericClient(parent);
+    return CreateGenericClient(parent);
   }
     // implementation only
   wxBookCtrlBase* GetBookCtrl() const;
@@ -193,6 +190,6 @@ private:
 inline bool wxGenericMDIParentFrame::
 WXIsInsideChildHandler(wxGenericMDIChildFrame* child) const
 {
-    return child == m_childHandler;
+  return child == m_childHandler;
 }
 #endif

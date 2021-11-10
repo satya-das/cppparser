@@ -57,7 +57,6 @@ namespace PoDoFo
     PdfAcroForm(PdfDocument* pDoc, PdfObject* pObject, EPdfAcroFormDefaulAppearance eDefaultAppearance = ePdfAcroFormDefaultAppearance_BlackText12pt);
     virtual ~PdfAcroForm()
     {
-
     }
     /** Get the document that is associated with this 
      *  acro forms dictionary.

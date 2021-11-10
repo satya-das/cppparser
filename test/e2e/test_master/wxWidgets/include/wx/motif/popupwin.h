@@ -17,18 +17,19 @@ class WXDLLIMPEXP_CORE wxPopupWindow : public wxPopupWindowBase
 public:
   wxPopupWindow()
   {
- Init();
+    Init();
   }
   wxPopupWindow(wxWindow* parent, int flags = wxBORDER_NONE)
   {
- Init(); (void)Create( parent, flags );
+    Init();
+    (void) Create(parent, flags);
   }
   bool Create(wxWindow* parent, int flags = wxBORDER_NONE);
   virtual bool Show(bool show = true);
 private:
   void Init()
   {
- m_isShown = false;
+    m_isShown = false;
   }
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxPopupWindow);
 };

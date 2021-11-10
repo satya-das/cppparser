@@ -29,8 +29,8 @@ public:
 #  endif
 private:
   GrMtlCommandBuffer(id<MTLCommandBuffer> cmdBuffer)
-    :  fCmdBuffer(cmdBuffer)
-        , fPreviousRenderPassDescriptor(nil)
+    : fCmdBuffer(cmdBuffer)
+    , fPreviousRenderPassDescriptor(nil)
   {
   }
   void endAllEncoding();

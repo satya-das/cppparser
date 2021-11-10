@@ -42,7 +42,7 @@ public:
   void bindDescriptorSets(const GrVkGpu* gpu, GrVkPipelineState*, VkPipelineLayout layout, uint32_t firstSet, uint32_t setCount, const VkDescriptorSet* descriptorSets, uint32_t dynamicOffsetCount, const uint32_t* dynamicOffsets);
   GrVkCommandPool* commandPool()
   {
- return fCmdPool;
+    return fCmdPool;
   }
   void setViewport(const GrVkGpu* gpu, uint32_t firstViewport, uint32_t viewportCount, const VkViewport* viewports);
   void setScissor(const GrVkGpu* gpu, uint32_t firstScissor, uint32_t scissorCount, const VkRect2D* scissors);
@@ -55,40 +55,40 @@ public:
     // execution
   void addResource(const GrVkResource* resource)
   {
-        resource->ref();
-        resource->notifyAddedToCommandBuffer();
-        fTrackedResources.append(1, &resource);
+    resource->ref();
+    resource->notifyAddedToCommandBuffer();
+    fTrackedResources.append(1, &resource);
   }
     // Add ref-counted resource that will be tracked and released when this command buffer finishes
     // execution. When it is released, it will signal that the resource can be recycled for reuse.
   void addRecycledResource(const GrVkRecycledResource* resource)
   {
-        resource->ref();
-        resource->notifyAddedToCommandBuffer();
-        fTrackedRecycledResources.append(1, &resource);
+    resource->ref();
+    resource->notifyAddedToCommandBuffer();
+    fTrackedRecycledResources.append(1, &resource);
   }
   void releaseResources(GrVkGpu* gpu);
   void freeGPUData(GrVkGpu* gpu) const;
   void abandonGPUData() const;
   bool hasWork() const
   {
- return fHasWork;
+    return fHasWork;
   }
 protected:
   GrVkCommandBuffer(VkCommandBuffer cmdBuffer, GrVkCommandPool* cmdPool, const GrVkRenderPass* rp = nullptr)
-    :  fIsActive(false)
-            , fActiveRenderPass(rp)
-            , fCmdBuffer(cmdBuffer)
-            , fCmdPool(cmdPool)
-            , fNumResets(0)
+    : fIsActive(false)
+    , fActiveRenderPass(rp)
+    , fCmdBuffer(cmdBuffer)
+    , fCmdPool(cmdPool)
+    , fNumResets(0)
   {
-        fTrackedResources.setReserve(kInitialTrackedResourcesCount);
-        fTrackedRecycledResources.setReserve(kInitialTrackedResourcesCount);
-        this->invalidateState();
+    fTrackedResources.setReserve(kInitialTrackedResourcesCount);
+    fTrackedRecycledResources.setReserve(kInitialTrackedResourcesCount);
+    this->invalidateState();
   }
   bool isWrapped() const
   {
- return fCmdPool == nullptr;
+    return fCmdPool == nullptr;
   }
   void addingWork(const GrVkGpu* gpu);
   void submitPipelineBarriers(const GrVkGpu* gpu);
@@ -169,8 +169,8 @@ public:
   void recycleSecondaryCommandBuffers(GrVkGpu* gpu);
 private:
   explicit GrVkPrimaryCommandBuffer(VkCommandBuffer cmdBuffer, GrVkCommandPool* cmdPool)
-    :  INHERITED(cmdBuffer, cmdPool)
-        , fSubmitFence(VK_NULL_HANDLE)
+    : INHERITED(cmdBuffer, cmdPool)
+    , fSubmitFence(VK_NULL_HANDLE)
   {
   }
   void onFreeGPUData(GrVkGpu* gpu) const override;
@@ -192,11 +192,11 @@ public:
   void recycle(GrVkGpu* gpu);
   VkCommandBuffer vkCommandBuffer()
   {
- return fCmdBuffer;
+    return fCmdBuffer;
   }
 private:
   explicit GrVkSecondaryCommandBuffer(VkCommandBuffer cmdBuffer, GrVkCommandPool* cmdPool)
-    :  INHERITED(cmdBuffer, cmdPool)
+    : INHERITED(cmdBuffer, cmdPool)
   {
   }
   void onFreeGPUData(GrVkGpu* gpu) const override

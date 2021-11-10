@@ -16,7 +16,7 @@ public:
     // return number of unichars cached
   int count() const
   {
-        return fK32.count();
+    return fK32.count();
   }
   void reset();
     /**
@@ -40,12 +40,15 @@ public:
     // helper to pre-seed an entry in the cache
   void addCharAndGlyph(SkUnichar unichar, SkGlyphID glyph)
   {
-        int index = this->findGlyphIndex(unichar);
-        if (index >= 0) {
-            SkASSERT(SkToU16(index) == glyph);
-        } else {
-            this->insertCharAndGlyph(~index, unichar, glyph);
-        }
+    int index = this->findGlyphIndex(unichar);
+    if (index >= 0)
+    {
+      SkASSERT(SkToU16(index) == glyph);
+    }
+    else 
+    {
+      this->insertCharAndGlyph(~index, unichar, glyph);
+    }
   }
 private:
   SkTDArray<int32_t> fK32;

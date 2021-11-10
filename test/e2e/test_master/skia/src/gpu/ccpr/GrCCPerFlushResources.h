@@ -46,8 +46,7 @@ struct GrCCPerFlushResourceSpecs
   GrCCAtlas::Specs fRenderedAtlasSpecs;
   bool isEmpty() const
   {
-        return 0 == fNumCachedPaths + fNumCopiedPaths[kFillIdx] + fNumCopiedPaths[kStrokeIdx] +
-                    fNumRenderedPaths[kFillIdx] + fNumRenderedPaths[kStrokeIdx] + fNumClipPaths;
+    return 0 == fNumCachedPaths + fNumCopiedPaths[kFillIdx] + fNumCopiedPaths[kStrokeIdx] + fNumRenderedPaths[kFillIdx] + fNumRenderedPaths[kStrokeIdx] + fNumClipPaths;
   }
     // Converts the copies to normal cached draws.
   void cancelCopies();
@@ -63,11 +62,11 @@ public:
   GrCCPerFlushResources(GrOnFlushResourceProvider*, GrCCAtlas::CoverageType, const GrCCPerFlushResourceSpecs&);
   bool isMapped() const
   {
- return SkToBool(fPathInstanceData);
+    return SkToBool(fPathInstanceData);
   }
   GrCCAtlas::CoverageType renderedPathCoverageType() const
   {
-        return fRenderedAtlasStack.coverageType();
+    return fRenderedAtlasStack.coverageType();
   }
     // Copies a coverage-counted path out of the given texture proxy, and into a cached, 8-bit,
     // literal coverage atlas. Updates the cache entry to reference the new atlas.
@@ -83,47 +82,49 @@ public:
     // appendDrawPathInstance().
   int nextPathInstanceIdx() const
   {
- return fNextPathInstanceIdx;
+    return fNextPathInstanceIdx;
   }
     // Appends an instance to instanceBuffer() that will draw a path to the destination render
     // target. The caller is responsible to call set() on the returned instance, to keep track of
     // its atlas and index (see nextPathInstanceIdx()), and to issue the actual draw call.
   GrCCPathProcessor::Instance& appendDrawPathInstance()
   {
-        SkASSERT(this->isMapped());
-        SkASSERT(fNextPathInstanceIdx < fEndPathInstance);
-        return fPathInstanceData[fNextPathInstanceIdx++];
+    SkASSERT(this->isMapped());
+    SkASSERT(fNextPathInstanceIdx < fEndPathInstance);
+    return fPathInstanceData[fNextPathInstanceIdx++];
   }
     // Finishes off the GPU buffers and renders the atlas(es).
   bool finalize(GrOnFlushResourceProvider*);
     // Accessors used by draw calls, once the resources have been finalized.
   const GrCCFiller& filler() const
   {
- SkASSERT(!this->isMapped()); return fFiller;
+    SkASSERT(!this->isMapped());
+    return fFiller;
   }
   const GrCCStroker& stroker() const
   {
- SkASSERT(!this->isMapped()); return fStroker;
+    SkASSERT(!this->isMapped());
+    return fStroker;
   }
   sk_sp<const GrGpuBuffer> refIndexBuffer() const
   {
-        SkASSERT(!this->isMapped());
-        return fIndexBuffer;
+    SkASSERT(!this->isMapped());
+    return fIndexBuffer;
   }
   sk_sp<const GrGpuBuffer> refVertexBuffer() const
   {
-        SkASSERT(!this->isMapped());
-        return fVertexBuffer;
+    SkASSERT(!this->isMapped());
+    return fVertexBuffer;
   }
   sk_sp<const GrGpuBuffer> refInstanceBuffer() const
   {
-        SkASSERT(!this->isMapped());
-        return fInstanceBuffer;
+    SkASSERT(!this->isMapped());
+    return fInstanceBuffer;
   }
   sk_sp<const GrGpuBuffer> refStencilResolveBuffer() const
   {
-        SkASSERT(!this->isMapped());
-        return fStencilResolveBuffer;
+    SkASSERT(!this->isMapped());
+    return fStencilResolveBuffer;
   }
 private:
   void recordCopyPathInstance(const GrCCPathCacheEntry&, const SkIVector& newAtlasOffset, GrFillRule, sk_sp<GrTextureProxy> srcProxy);
@@ -150,7 +151,8 @@ private:
   {
     CopyPathRange();
     CopyPathRange(sk_sp<GrTextureProxy> srcProxy, int count)
-      :  fSrcProxy(std::move(srcProxy)), fCount(count)
+      : fSrcProxy(std::move(srcProxy))
+      , fCount(count)
     {
     }
     sk_sp<GrTextureProxy> fSrcProxy;
@@ -171,9 +173,10 @@ private:
 public:
   void debugOnly_didReuseRenderedPath()
   {
-        if (GrCCAtlas::CoverageType::kA8_Multisample == this->renderedPathCoverageType()) {
-            --fEndStencilResolveInstance;
-        }
+    if (GrCCAtlas::CoverageType::kA8_Multisample == this->renderedPathCoverageType())
+    {
+      --fEndStencilResolveInstance;
+    }
   }
 #  endif
   const GrTexture* testingOnly_frontCopyAtlasTexture() const;
@@ -181,9 +184,9 @@ public:
 };
 inline void GrCCRenderedPathStats::statPath(const SkPath& path)
 {
-    fMaxPointsPerPath = SkTMax(fMaxPointsPerPath, path.countPoints());
-    fNumTotalSkPoints += path.countPoints();
-    fNumTotalSkVerbs += path.countVerbs();
-    fNumTotalConicWeights += SkPathPriv::ConicWeightCnt(path);
+  fMaxPointsPerPath = SkTMax(fMaxPointsPerPath, path.countPoints());
+  fNumTotalSkPoints += path.countPoints();
+  fNumTotalSkVerbs += path.countVerbs();
+  fNumTotalConicWeights += SkPathPriv::ConicWeightCnt(path);
 }
 #endif

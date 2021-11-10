@@ -16,64 +16,64 @@ public:
     // from GrContext_Base
   uint32_t contextID() const
   {
- return fContext->contextID();
+    return fContext->contextID();
   }
   bool matches(GrContext_Base* candidate) const
   {
- return fContext->matches(candidate);
+    return fContext->matches(candidate);
   }
   const GrContextOptions& options() const
   {
- return fContext->options();
+    return fContext->options();
   }
   const GrCaps* caps() const
   {
- return fContext->caps();
+    return fContext->caps();
   }
   sk_sp<const GrCaps> refCaps() const;
   sk_sp<GrSkSLFPFactoryCache> fpFactoryCache();
   GrImageContext* asImageContext()
   {
- return fContext->asImageContext();
+    return fContext->asImageContext();
   }
   GrRecordingContext* asRecordingContext()
   {
- return fContext->asRecordingContext();
+    return fContext->asRecordingContext();
   }
   GrContext* asDirectContext()
   {
- return fContext->asDirectContext();
+    return fContext->asDirectContext();
   }
     // from GrImageContext
   GrProxyProvider* proxyProvider()
   {
- return fContext->proxyProvider();
+    return fContext->proxyProvider();
   }
   const GrProxyProvider* proxyProvider() const
   {
- return fContext->proxyProvider();
+    return fContext->proxyProvider();
   }
   bool abandoned() const
   {
- return fContext->abandoned();
+    return fContext->abandoned();
   }
     /** This is only useful for debug purposes */
   GrDrawingManager* drawingManager()
   {
- return fContext->drawingManager();
+    return fContext->drawingManager();
   }
   sk_sp<GrOpMemoryPool> refOpMemoryPool();
   GrOpMemoryPool* opMemoryPool()
   {
- return fContext->opMemoryPool();
+    return fContext->opMemoryPool();
   }
   GrStrikeCache* getGrStrikeCache()
   {
- return fContext->getGrStrikeCache();
+    return fContext->getGrStrikeCache();
   }
   GrTextBlobCache* getTextBlobCache()
   {
- return fContext->getTextBlobCache();
+    return fContext->getTextBlobCache();
   }
     /**
      * Registers an object for flush-related callbacks. (See GrOnFlushCallbackObject.)
@@ -100,14 +100,14 @@ public:
   std::unique_ptr<GrRenderTargetContext> makeDeferredRenderTargetContextWithFallback(SkBackingFit fit, int width, int height, GrColorType, sk_sp<SkColorSpace> colorSpace, int sampleCnt = 1, GrMipMapped = GrMipMapped::kNo, GrSurfaceOrigin origin = kBottomLeft_GrSurfaceOrigin, const SkSurfaceProps* surfaceProps = nullptr, SkBudgeted budgeted = SkBudgeted::kYes, GrProtected isProtected = GrProtected::kNo);
   GrAuditTrail* auditTrail()
   {
- return fContext->auditTrail();
+    return fContext->auditTrail();
   }
     // CONTEXT TODO: remove this backdoor
     // In order to make progress we temporarily need a way to break CL impasses.
   GrContext* backdoor();
 private:
   explicit GrRecordingContextPriv(GrRecordingContext* context)
-    :  fContext(context)
+    : fContext(context)
   {
   }
   GrRecordingContextPriv(const GrRecordingContextPriv&);
@@ -120,10 +120,10 @@ private:
 };
 inline GrRecordingContextPriv GrRecordingContext::priv()
 {
- return GrRecordingContextPriv(this);
+  return GrRecordingContextPriv(this);
 }
 inline const GrRecordingContextPriv GrRecordingContext::priv() const
 {
-    return GrRecordingContextPriv(const_cast<GrRecordingContext*>(this));
+  return GrRecordingContextPriv(const_cast<GrRecordingContext*>(this));
 }
 #endif

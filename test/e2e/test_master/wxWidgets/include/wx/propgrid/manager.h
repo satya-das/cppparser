@@ -13,9 +13,7 @@
 #  if  wxUSE_PROPGRID
 #    include "wx/propgrid/propgrid.h"
 // -----------------------------------------------------------------------
-#    ifndef SWIG
 WXDLLIMPEXP_PROPGRID extern const char wxPropertyGridManagerNameStr[];
-#    endif
 // Holder of property grid page information. You can subclass this and
 // give instance in wxPropertyGridManager::AddPage. It inherits from
 // wxEvtHandler and can be used to process events specific to this
@@ -57,29 +55,29 @@ public:
     // Returns x-coordinate position of splitter on a page.
   int GetSplitterPosition(int col = 0) const
   {
- return GetStatePtr()->DoGetSplitterPosition(col);
+    return GetStatePtr()->DoGetSplitterPosition(col);
   }
     // Returns "root property". It does not have name, etc. and it is not
     // visible. It is only useful for accessing its children.
   wxPGProperty* GetRoot() const
   {
- return GetStatePtr()->DoGetRoot();
+    return GetStatePtr()->DoGetRoot();
   }
     // Returns pointer to contained property grid state.
   wxPropertyGridPageState* GetStatePtr()
   {
-        return this;
+    return this;
   }
     // Returns pointer to contained property grid state.
   const wxPropertyGridPageState* GetStatePtr() const
   {
-        return this;
+    return this;
   }
     // Returns id of the tool bar item that represents this page on
     // wxPropertyGridManager's wxToolBar.
   int GetToolId() const
   {
-        return m_toolId;
+    return m_toolId;
   }
     // Do any member initialization in this method.
     // Notes:
@@ -92,7 +90,7 @@ public:
     // propagated to manager's parent, as normal.
   virtual bool IsHandlingAllEvents() const
   {
- return true;
+    return true;
   }
     // Called every time page is about to be shown.
     // Useful, for instance, creating properties just-in-time.
@@ -104,11 +102,8 @@ public:
     // during form creation may fail as initial grid size is often smaller
     // than desired splitter position, especially when sizers are being used.
   void SetSplitterPosition(int splitterPos, int col = 0);
-#    if  WXWIN_COMPATIBILITY_3_0
     // To avoid ambiguity between functions inherited
     // from both wxPropertyGridInterface and wxPropertyGridPageState
-  using wxPropertyGridInterface::GetPropertyByLabel;
-#    endif
 protected:
     // Propagate to other pages.
   void DoSetSplitterPosition(int pos, int splitterColumn = 0, int flags = wxPG_SPLITTER_REFRESH) override;
@@ -141,13 +136,11 @@ class WXDLLIMPEXP_PROPGRID wxPropertyGridManager : public wxPanel, public wxProp
 {
   wxDECLARE_CLASS(wxPropertyGridManager);
   friend class wxPropertyGridPage;
-#    ifndef SWIG
 public:
     // Two step constructor.
     // Call Create when this constructor is called to build up the
     // wxPropertyGridManager.
   wxPropertyGridManager();
-#    endif
     // The default constructor. The styles to be used are styles valid for
     // the wxWindow.
   wxPropertyGridManager(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxPGMAN_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxPropertyGridManagerNameStr));
@@ -166,7 +159,7 @@ public:
     // switching.
   wxPropertyGridPage* AddPage(const wxString& label = wxEmptyString, const wxBitmap& bmp = wxNullBitmap, wxPropertyGridPage* pageObj = NULL)
   {
-        return InsertPage(-1, label, bmp, pageObj);
+    return InsertPage(-1, label, bmp, pageObj);
   }
     // Deletes all all properties and all pages.
   void Clear() override;
@@ -176,7 +169,7 @@ public:
     // Returns true if DoPropertyChanged was actually called.
   bool CommitChangesFromEditor(wxUint32 flags = 0)
   {
-        return m_pPropGrid->CommitChangesFromEditor(flags);
+    return m_pPropGrid->CommitChangesFromEditor(flags);
   }
     // Two step creation.
     // Whenever the control is created without any parameters, use Create to
@@ -188,10 +181,13 @@ public:
     // Calling this may not properly update toolbar buttons.
   bool EnableCategories(bool enable)
   {
-        long fl = m_windowStyle | wxPG_HIDE_CATEGORIES;
-        if ( enable ) fl = m_windowStyle & ~(wxPG_HIDE_CATEGORIES);
-        SetWindowStyleFlag(fl);
-        return true;
+    long fl = m_windowStyle | wxPG_HIDE_CATEGORIES;
+    if (enable)
+    {
+      fl = m_windowStyle & ~(wxPG_HIDE_CATEGORIES);
+    }
+    SetWindowStyleFlag(fl);
+    return true;
   }
     // Selects page, scrolls and/or expands items to ensure that the
     // given item is visible. Returns true if something was actually done.
@@ -206,13 +202,13 @@ public:
     // pointer once and use it for the entire lifetime of the manager instance.
   wxPropertyGrid* GetGrid()
   {
-        wxASSERT(m_pPropGrid);
-        return m_pPropGrid;
+    wxASSERT(m_pPropGrid);
+    return m_pPropGrid;
   }
   const wxPropertyGrid* GetGrid() const
   {
-        wxASSERT(m_pPropGrid);
-        return m_pPropGrid;
+    wxASSERT(m_pPropGrid);
+    return m_pPropGrid;
   }
     // Returns iterator class instance.
     // Calling this method in wxPropertyGridManager causes run-time assertion
@@ -220,15 +216,15 @@ public:
     // CreateVIterator().
   wxPropertyGridIterator GetIterator(int flags = wxPG_ITERATE_DEFAULT, wxPGProperty* firstProp = NULL)
   {
-        wxFAIL_MSG( wxS("Please only iterate through individual pages ")
+    wxFAIL_MSG( wxS("Please only iterate through individual pages ")
                     wxS("or use CreateVIterator()") );
-        return wxPropertyGridInterface::GetIterator( flags, firstProp );
+    return wxPropertyGridInterface::GetIterator(flags, firstProp);
   }
   wxPropertyGridConstIterator GetIterator(int flags = wxPG_ITERATE_DEFAULT, wxPGProperty* firstProp = NULL) const
   {
-        wxFAIL_MSG( wxS("Please only iterate through individual pages ")
+    wxFAIL_MSG( wxS("Please only iterate through individual pages ")
                     wxS("or use CreateVIterator()") );
-        return wxPropertyGridInterface::GetIterator( flags, firstProp );
+    return wxPropertyGridInterface::GetIterator(flags, firstProp);
   }
     // Returns iterator class instance.
     // Calling this method in wxPropertyGridManager causes run-time assertion
@@ -236,16 +232,15 @@ public:
     // CreateVIterator().
   wxPropertyGridIterator GetIterator(int flags, int startPos)
   {
-        wxFAIL_MSG( wxS("Please only iterate through individual pages ")
+    wxFAIL_MSG( wxS("Please only iterate through individual pages ")
                     wxS("or use CreateVIterator()") );
-
-        return wxPropertyGridInterface::GetIterator( flags, startPos );
+    return wxPropertyGridInterface::GetIterator(flags, startPos);
   }
   wxPropertyGridConstIterator GetIterator(int flags, int startPos) const
   {
-        wxFAIL_MSG( wxS("Please only iterate through individual pages ")
+    wxFAIL_MSG( wxS("Please only iterate through individual pages ")
                     wxS("or use CreateVIterator()") );
-        return wxPropertyGridInterface::GetIterator( flags, startPos );
+    return wxPropertyGridInterface::GetIterator(flags, startPos);
   }
     // Similar to GetIterator, but instead returns wxPGVIterator instance,
     // which can be useful for forward-iterating through arbitrary property
@@ -254,17 +249,17 @@ public:
     // Returns currently selected page.
   wxPropertyGridPage* GetCurrentPage() const
   {
-        return GetPage(m_selPage);
+    return GetPage(m_selPage);
   }
     // Returns page object for given page index.
   wxPropertyGridPage* GetPage(unsigned int ind) const
   {
-        return m_arrPages[ind];
+    return m_arrPages[ind];
   }
     // Returns page object for given page name.
   wxPropertyGridPage* GetPage(const wxString& name) const
   {
-        return GetPage(GetPageByName(name));
+    return GetPage(GetPageByName(name));
   }
     // Returns index for a page name.
     // If no match is found, wxNOT_FOUND is returned.
@@ -286,24 +281,24 @@ public:
     // Returns index to currently selected page.
   int GetSelectedPage() const
   {
- return m_selPage;
+    return m_selPage;
   }
     // Alias for GetSelection().
   wxPGProperty* GetSelectedProperty() const
   {
-        return GetSelection();
+    return GetSelection();
   }
     // Shortcut for GetGrid()->GetSelection().
   wxPGProperty* GetSelection() const
   {
-        return m_pPropGrid->GetSelection();
+    return m_pPropGrid->GetSelection();
   }
 #    if  wxUSE_TOOLBAR
     // Returns a pointer to the toolbar currently associated with the
     // wxPropertyGridManager (if any).
   wxToolBar* GetToolBar() const
   {
- return m_pToolbar;
+    return m_pToolbar;
   }
 #    endif
     // Creates new property page. Note that the first page is not created
@@ -334,24 +329,25 @@ public:
     // Select and displays a given page (by label).
   void SelectPage(const wxString& label)
   {
-        int index = GetPageByName(label);
-        wxCHECK_RET( index >= 0, wxS("No page with such name") );
-        SelectPage( index );
+    int index = GetPageByName(label);
+    wxCHECK_RET(index >= 0, wxS("No page with such name"));
+    SelectPage(index);
   }
     // Select and displays a given page.
   void SelectPage(wxPropertyGridPage* ptr)
   {
-        SelectPage( GetPageByState(ptr) );
+    SelectPage(GetPageByState(ptr));
   }
     // Select a property.
   bool SelectProperty(wxPGPropArg id, bool focus = false)
   {
-        wxPG_PROP_ARG_CALL_PROLOG_RETVAL(false)
-        unsigned int flags = wxPG_SEL_DONT_SEND_EVENT;
-        if ( focus )
-            flags |= wxPG_SEL_FOCUS;
-
-        return p->GetParentState()->DoSelectProperty(p, flags);
+    wxPG_PROP_ARG_CALL_PROLOG_RETVAL(false)
+    unsigned int flags = wxPG_SEL_DONT_SEND_EVENT;
+    if (focus)
+    {
+      flags |= wxPG_SEL_FOCUS;
+    }
+    return p->GetParentState()->DoSelectProperty(p, flags);
   }
 #    if  wxUSE_HEADERCTRL
     // Sets a column title. Default title for column 0 is "Property",
@@ -497,9 +493,11 @@ private:
 // -----------------------------------------------------------------------
 inline int wxPropertyGridPage::GetIndex() const
 {
-    if ( !m_manager )
-        return wxNOT_FOUND;
-    return m_manager->GetPageByState(this);
+  if (!m_manager)
+  {
+    return wxNOT_FOUND;
+  }
+  return m_manager->GetPageByState(this);
 }
 // -----------------------------------------------------------------------
 #  endif

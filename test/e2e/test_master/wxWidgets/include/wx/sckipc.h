@@ -50,12 +50,12 @@ class WXDLLIMPEXP_NET wxTCPConnection : public wxConnectionBase
 public:
   wxTCPConnection()
   {
- Init();
+    Init();
   }
   wxTCPConnection(void* buffer, size_t size)
-    :  wxConnectionBase(buffer, size)
+    : wxConnectionBase(buffer, size)
   {
-        Init();
+    Init();
   }
   virtual ~wxTCPConnection();
     // implement base class pure virtual methods

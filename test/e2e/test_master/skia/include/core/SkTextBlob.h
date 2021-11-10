@@ -33,7 +33,7 @@ public:
     */
   const SkRect& bounds() const
   {
- return fBounds;
+    return fBounds;
   }
     /** Returns a non-zero value unique among all text blobs.
 
@@ -41,7 +41,7 @@ public:
     */
   uint32_t uniqueID() const
   {
- return fUniqueID;
+    return fUniqueID;
   }
     /** Returns the number of intervals that intersect bounds.
         bounds describes a pair of lines parallel to the text advance.
@@ -95,10 +95,11 @@ public:
     */
   static sk_sp<SkTextBlob> MakeFromString(const char* string, const SkFont& font, SkTextEncoding encoding = SkTextEncoding::kUTF8)
   {
-        if (!string) {
-            return nullptr;
-        }
-        return MakeFromText(string, strlen(string), font, encoding);
+    if (!string)
+    {
+      return nullptr;
+    }
+    return MakeFromText(string, strlen(string), font, encoding);
   }
     /** Returns a textblob built from a single run of text with x-positions and a single y value.
         This is equivalent to using SkTextBlobBuilder and calling allocRunPosH().
@@ -202,7 +203,7 @@ private:
     // to know automatically those entries can be purged when this SkTextBlob is deleted.
   void notifyAddedToCache(uint32_t cacheID) const
   {
-        fCacheID.store(cacheID);
+    fCacheID.store(cacheID);
   }
   friend class SkGlyphRunList;
   friend class GrTextBlobCache;
@@ -257,11 +258,11 @@ public:
         // Helpers, since the "pos" field can be different types (always some number of floats).
     SkPoint* points() const
     {
- return reinterpret_cast<SkPoint*>(pos);
+      return reinterpret_cast<SkPoint*>(pos);
     }
     SkRSXform* xforms() const
     {
- return reinterpret_cast<SkRSXform*>(pos);
+      return reinterpret_cast<SkRSXform*>(pos);
     }
   };
     /** Returns run with storage for glyphs. Caller must write count glyphs to

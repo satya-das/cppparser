@@ -25,78 +25,79 @@ public:
   wxFontData& operator=(const wxFontData& data);
   void SetAllowSymbols(bool flag)
   {
- m_allowSymbols = flag;
+    m_allowSymbols = flag;
   }
   bool GetAllowSymbols() const
   {
- return m_allowSymbols;
+    return m_allowSymbols;
   }
   void SetColour(const wxColour& colour)
   {
- m_fontColour = colour;
+    m_fontColour = colour;
   }
   const wxColour& GetColour() const
   {
- return m_fontColour;
+    return m_fontColour;
   }
   void SetShowHelp(bool flag)
   {
- m_showHelp = flag;
+    m_showHelp = flag;
   }
   bool GetShowHelp() const
   {
- return m_showHelp;
+    return m_showHelp;
   }
   void EnableEffects(bool flag)
   {
- m_enableEffects = flag;
+    m_enableEffects = flag;
   }
   bool GetEnableEffects() const
   {
- return m_enableEffects;
+    return m_enableEffects;
   }
   void RestrictSelection(int flags)
   {
- m_restrictSelection = flags;
+    m_restrictSelection = flags;
   }
   int GetRestrictSelection() const
   {
- return m_restrictSelection;
+    return m_restrictSelection;
   }
   void SetInitialFont(const wxFont& font)
   {
- m_initialFont = font;
+    m_initialFont = font;
   }
   wxFont GetInitialFont() const
   {
- return m_initialFont;
+    return m_initialFont;
   }
   void SetChosenFont(const wxFont& font)
   {
- m_chosenFont = font;
+    m_chosenFont = font;
   }
   wxFont GetChosenFont() const
   {
- return m_chosenFont;
+    return m_chosenFont;
   }
   void SetRange(int minRange, int maxRange)
   {
- m_minSize = minRange; m_maxSize = maxRange;
+    m_minSize = minRange;
+    m_maxSize = maxRange;
   }
     // encoding info is split into 2 parts: the logical wxWin encoding
     // (wxFontEncoding) and a structure containing the native parameters for
     // it (wxNativeEncodingInfo)
   wxFontEncoding GetEncoding() const
   {
- return m_encoding;
+    return m_encoding;
   }
   void SetEncoding(wxFontEncoding encoding)
   {
- m_encoding = encoding;
+    m_encoding = encoding;
   }
   wxNativeEncodingInfo& EncodingInfo()
   {
- return m_encodingInfo;
+    return m_encodingInfo;
   }
     // public for backwards compatibility only: don't use directly
   wxColour m_fontColour;

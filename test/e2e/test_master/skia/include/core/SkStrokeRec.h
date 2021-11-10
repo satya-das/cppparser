@@ -30,27 +30,27 @@ public:
   Style getStyle() const;
   SkScalar getWidth() const
   {
- return fWidth;
+    return fWidth;
   }
   SkScalar getMiter() const
   {
- return fMiterLimit;
+    return fMiterLimit;
   }
   SkPaint::Cap getCap() const
   {
- return (SkPaint::Cap)fCap;
+    return (SkPaint::Cap) fCap;
   }
   SkPaint::Join getJoin() const
   {
- return (SkPaint::Join)fJoin;
+    return (SkPaint::Join) fJoin;
   }
   bool isHairlineStyle() const
   {
-        return kHairline_Style == this->getStyle();
+    return kHairline_Style == this->getStyle();
   }
   bool isFillStyle() const
   {
-        return kFill_Style == this->getStyle();
+    return kFill_Style == this->getStyle();
   }
   void setFillStyle();
   void setHairlineStyle();
@@ -63,18 +63,18 @@ public:
   void setStrokeStyle(SkScalar width, bool strokeAndFill = false);
   void setStrokeParams(SkPaint::Cap cap, SkPaint::Join join, SkScalar miterLimit)
   {
-        fCap = cap;
-        fJoin = join;
-        fMiterLimit = miterLimit;
+    fCap = cap;
+    fJoin = join;
+    fMiterLimit = miterLimit;
   }
   SkScalar getResScale() const
   {
-        return fResScale;
+    return fResScale;
   }
   void setResScale(SkScalar rs)
   {
-        SkASSERT(rs > 0 && SkScalarIsFinite(rs));
-        fResScale = rs;
+    SkASSERT(rs > 0 && SkScalarIsFinite(rs));
+    fResScale = rs;
   }
     /**
      *  Returns true if this specifes any thick stroking, i.e. applyToPath()
@@ -82,8 +82,8 @@ public:
      */
   bool needToApply() const
   {
-        Style style = this->getStyle();
-        return (kStroke_Style == style) || (kStrokeAndFill_Style == style);
+    Style style = this->getStyle();
+    return (kStroke_Style == style) || (kStrokeAndFill_Style == style);
   }
     /**
      *  Apply these stroke parameters to the src path, returning the result
@@ -122,14 +122,11 @@ public:
      */
   bool hasEqualEffect(const SkStrokeRec& other) const
   {
-        if (!this->needToApply()) {
-            return this->getStyle() == other.getStyle();
-        }
-        return fWidth == other.fWidth &&
-               fMiterLimit == other.fMiterLimit &&
-               fCap == other.fCap &&
-               fJoin == other.fJoin &&
-               fStrokeAndFill == other.fStrokeAndFill;
+    if (!this->needToApply())
+    {
+      return this->getStyle() == other.getStyle();
+    }
+    return fWidth == other.fWidth && fMiterLimit == other.fMiterLimit && fCap == other.fCap && fJoin == other.fJoin && fStrokeAndFill == other.fStrokeAndFill;
   }
 private:
   void init(const SkPaint&, SkPaint::Style, SkScalar resScale);

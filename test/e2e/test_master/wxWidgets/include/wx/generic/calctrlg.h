@@ -24,7 +24,7 @@ public:
     // construction
   wxGenericCalendarCtrl()
   {
- Init();
+    Init();
   }
   wxGenericCalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr));
@@ -35,7 +35,7 @@ public:
   bool SetDate(const wxDateTime& date) override;
   wxDateTime GetDate() const override
   {
- return m_date;
+    return m_date;
   }
     // set/get the range in which selection can occur
     // ---------------------------------------------
@@ -46,12 +46,12 @@ public:
   bool SetLowerDateLimit(const wxDateTime& date = wxDefaultDateTime);
   const wxDateTime& GetLowerDateLimit() const
   {
- return m_lowdate;
+    return m_lowdate;
   }
   bool SetUpperDateLimit(const wxDateTime& date = wxDefaultDateTime);
   const wxDateTime& GetUpperDateLimit() const
   {
- return m_highdate;
+    return m_highdate;
   }
     // calendar mode
     // -------------
@@ -72,61 +72,59 @@ public:
     // header colours are used for painting the weekdays at the top
   void SetHeaderColours(const wxColour& colFg, const wxColour& colBg) override
   {
-        m_colHeaderFg = colFg;
-        m_colHeaderBg = colBg;
+    m_colHeaderFg = colFg;
+    m_colHeaderBg = colBg;
   }
   const wxColour& GetHeaderColourFg() const override
   {
- return m_colHeaderFg;
+    return m_colHeaderFg;
   }
   const wxColour& GetHeaderColourBg() const override
   {
- return m_colHeaderBg;
+    return m_colHeaderBg;
   }
     // highlight colour is used for the currently selected date
   void SetHighlightColours(const wxColour& colFg, const wxColour& colBg) override
   {
-        m_colHighlightFg = colFg;
-        m_colHighlightBg = colBg;
+    m_colHighlightFg = colFg;
+    m_colHighlightBg = colBg;
   }
   const wxColour& GetHighlightColourFg() const override
   {
- return m_colHighlightFg;
+    return m_colHighlightFg;
   }
   const wxColour& GetHighlightColourBg() const override
   {
- return m_colHighlightBg;
+    return m_colHighlightBg;
   }
     // holiday colour is used for the holidays (if style & wxCAL_SHOW_HOLIDAYS)
   void SetHolidayColours(const wxColour& colFg, const wxColour& colBg) override
   {
-        m_colHolidayFg = colFg;
-        m_colHolidayBg = colBg;
+    m_colHolidayFg = colFg;
+    m_colHolidayBg = colBg;
   }
   const wxColour& GetHolidayColourFg() const override
   {
- return m_colHolidayFg;
+    return m_colHolidayFg;
   }
   const wxColour& GetHolidayColourBg() const override
   {
- return m_colHolidayBg;
+    return m_colHolidayBg;
   }
   wxCalendarDateAttr* GetAttr(size_t day) const override
   {
-        wxCHECK_MSG( day > 0 && day < 32, NULL, wxT("invalid day") );
-
-        return m_attrs[day - 1];
+    wxCHECK_MSG( day > 0 && day < 32, NULL, wxT("invalid day") );
+    return m_attrs[day - 1];
   }
   void SetAttr(size_t day, wxCalendarDateAttr* attr) override
   {
-        wxCHECK_RET( day > 0 && day < 32, wxT("invalid day") );
-
-        delete m_attrs[day - 1];
-        m_attrs[day - 1] = attr;
+    wxCHECK_RET(day > 0 && day < 32, wxT("invalid day"));
+    delete m_attrs[day - 1];
+    m_attrs[day - 1] = attr;
   }
   void ResetAttr(size_t day) override
   {
- SetAttr(day, NULL);
+    SetAttr(day, NULL);
   }
   void SetHoliday(size_t day) override;
   wxCalendarHitTestResult HitTest(const wxPoint& pos, wxDateTime* date = NULL, wxDateTime::WeekDay* wd = NULL) override;
@@ -139,7 +137,7 @@ public:
   void SetWindowStyleFlag(long style) override;
   wxVisualAttributes GetDefaultAttributes() const override
   {
- return GetClassDefaultAttributes(GetWindowVariant());
+    return GetClassDefaultAttributes(GetWindowVariant());
   }
   static wxVisualAttributes GetClassDefaultAttributes(wxWindowVariant variant = wxWINDOW_VARIANT_NORMAL);
   void OnSysColourChanged(wxSysColourChangedEvent& event);
@@ -174,13 +172,11 @@ private:
     // get the first/last days of the week corresponding to the current style
   wxDateTime::WeekDay GetWeekStart() const
   {
-        return WeekStartsOnMonday() ? wxDateTime::Mon
-                                           : wxDateTime::Sun;
+    return WeekStartsOnMonday() ? wxDateTime::Mon : wxDateTime::Sun;
   }
   wxDateTime::WeekDay GetWeekEnd() const
   {
-        return WeekStartsOnMonday() ? wxDateTime::Sun
-                                           : wxDateTime::Sat;
+    return WeekStartsOnMonday() ? wxDateTime::Sun : wxDateTime::Sat;
   }
     // is this date shown?
   bool IsDateShown(const wxDateTime& date) const;
@@ -196,7 +192,7 @@ private:
     // deprecated
   bool AllowYearChange() const
   {
-        return !(GetWindowStyle() & wxCAL_NO_YEAR_CHANGE);
+    return !(GetWindowStyle() & wxCAL_NO_YEAR_CHANGE);
   }
     // show the correct controls
   void ShowCurrentControls();
@@ -211,7 +207,7 @@ private:
   void ResetHolidayAttrs() override;
   void RefreshHolidays() override
   {
- Refresh();
+    Refresh();
   }
     // OnPaint helper-methods
 
@@ -225,7 +221,7 @@ private:
     // typed in by the user
   void SetUserChangedYear()
   {
- m_userChangedYear = true;
+    m_userChangedYear = true;
   }
     // the subcontrols
   wxStaticText* m_staticMonth;

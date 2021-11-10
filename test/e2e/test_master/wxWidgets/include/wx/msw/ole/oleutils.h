@@ -32,26 +32,22 @@
 // return true if ok, false otherwise
 inline bool wxOleInitialize()
 {
-    const HRESULT
-    hr = ::OleInitialize(NULL);
-
+  const HRESULT hr = ::OleInitialize(NULL);
     // RPC_E_CHANGED_MODE indicates that OLE had been already initialized
     // before, albeit with different mode. Don't consider it to be an error as
     // we don't actually care ourselves about the mode used so this allows the
     // main application to call OleInitialize() on its own before we do if it
     // needs non-default mode.
-    if ( hr != RPC_E_CHANGED_MODE && FAILED(hr) )
-    {
-        wxLogError(wxGetTranslation("Cannot initialize OLE"));
-
-        return false;
-    }
-
-    return true;
+  if (hr != RPC_E_CHANGED_MODE && FAILED(hr))
+  {
+    wxLogError(wxGetTranslation("Cannot initialize OLE"));
+    return false;
+  }
+  return true;
 }
 inline void wxOleUninitialize()
 {
-    ::OleUninitialize();
+  ::OleUninitialize();
 }
 // wrapper around BSTR type (by Vadim Zeitlin)
 class WXDLLIMPEXP_CORE wxBasicString
@@ -59,23 +55,23 @@ class WXDLLIMPEXP_CORE wxBasicString
 public:
     // Constructs with the owned BSTR set to NULL
   wxBasicString()
-    :  m_bstrBuf(NULL)
+    : m_bstrBuf(NULL)
   {
   }
     // Constructs with the owned BSTR created from a wxString
   wxBasicString(const wxString& str)
-    :  m_bstrBuf(SysAllocString(str.wc_str(*wxConvCurrent)))
+    : m_bstrBuf(SysAllocString(str.wc_str(*wxConvCurrent)))
   {
   }
     // Constructs with the owned BSTR as a copy of the BSTR owned by bstr
   wxBasicString(const wxBasicString& bstr)
-    :  m_bstrBuf(bstr.Copy())
+    : m_bstrBuf(bstr.Copy())
   {
   }
     // Frees the owned BSTR
   ~wxBasicString()
   {
- SysFreeString(m_bstrBuf);
+    SysFreeString(m_bstrBuf);
   }
     // Creates the owned BSTR from a wxString
   void AssignFromString(const wxString& str);
@@ -86,7 +82,7 @@ public:
     // the caller is responsible for freeing it
   BSTR Copy() const
   {
- return SysAllocString(m_bstrBuf);
+    return SysAllocString(m_bstrBuf);
   }
     // Returns the address of the owned BSTR, not to be called
     // when wxBasicString already contains a non-NULL BSTR
@@ -96,12 +92,13 @@ public:
     /// Returns the owned BSTR while keeping its ownership
   operator BSTR() const
   {
- return m_bstrBuf;
+    return m_bstrBuf;
   }
     // retrieve a copy of our string - caller must SysFreeString() it later!
-  wxDEPRECATED_MSG("use Copy() instead") BSTR Get() const
+  wxDEPRECATED_MSG("use Copy() instead")
+  BSTR Get() const
   {
- return Copy();
+    return Copy();
   }
 private:
     // actual string
@@ -116,19 +113,19 @@ class WXDLLIMPEXP_CORE wxVariantDataCurrency : public wxVariantData
 public:
   wxVariantDataCurrency()
   {
- VarCyFromR8(0.0, &m_value);
+    VarCyFromR8(0.0, &m_value);
   }
   wxVariantDataCurrency(CURRENCY value)
   {
- m_value = value;
+    m_value = value;
   }
   CURRENCY GetValue() const
   {
- return m_value;
+    return m_value;
   }
   void SetValue(CURRENCY value)
   {
- m_value = value;
+    m_value = value;
   }
   bool Eq(wxVariantData& data) const override;
 #      if  wxUSE_STD_IOSTREAM
@@ -137,11 +134,11 @@ public:
   bool Write(wxString& str) const override;
   wxVariantData* Clone() const override
   {
- return new wxVariantDataCurrency(m_value);
+    return new wxVariantDataCurrency(m_value);
   }
   wxString GetType() const override
   {
- return wxS("currency");
+    return wxS("currency");
   }
   DECLARE_WXANY_CONVERSION()
 private:
@@ -153,15 +150,15 @@ class WXDLLIMPEXP_CORE wxVariantDataErrorCode : public wxVariantData
 public:
   wxVariantDataErrorCode(SCODE value = S_OK)
   {
- m_value = value;
+    m_value = value;
   }
   SCODE GetValue() const
   {
- return m_value;
+    return m_value;
   }
   void SetValue(SCODE value)
   {
- m_value = value;
+    m_value = value;
   }
   bool Eq(wxVariantData& data) const override;
 #      if  wxUSE_STD_IOSTREAM
@@ -170,11 +167,11 @@ public:
   bool Write(wxString& str) const override;
   wxVariantData* Clone() const override
   {
- return new wxVariantDataErrorCode(m_value);
+    return new wxVariantDataErrorCode(m_value);
   }
   wxString GetType() const override
   {
- return wxS("errorcode");
+    return wxS("errorcode");
   }
   DECLARE_WXANY_CONVERSION()
 private:
@@ -186,15 +183,15 @@ class WXDLLIMPEXP_CORE wxVariantDataSafeArray : public wxVariantData
 public:
   explicit wxVariantDataSafeArray(SAFEARRAY* value = NULL)
   {
-        m_value = value;
+    m_value = value;
   }
   SAFEARRAY* GetValue() const
   {
- return m_value;
+    return m_value;
   }
   void SetValue(SAFEARRAY* value)
   {
- m_value = value;
+    m_value = value;
   }
   bool Eq(wxVariantData& data) const override;
 #      if  wxUSE_STD_IOSTREAM
@@ -203,11 +200,11 @@ public:
   bool Write(wxString& str) const override;
   wxVariantData* Clone() const override
   {
- return new wxVariantDataSafeArray(m_value);
+    return new wxVariantDataSafeArray(m_value);
   }
   wxString GetType() const override
   {
- return wxS("safearray");
+    return wxS("safearray");
   }
   DECLARE_WXANY_CONVERSION()
 private:
@@ -236,11 +233,10 @@ WXDLLIMPEXP_CORE wxString wxConvertStringFromOle(BSTR bStr);
 // ----------------------------------------------------------------------------
 inline bool wxOleInitialize()
 {
- return false;
+  return false;
 }
 inline void wxOleUninitialize()
 {
-
 }
 #  endif
 // RAII class initializing OLE in its ctor and undoing it in its dtor.
@@ -248,18 +244,19 @@ class wxOleInitializer
 {
 public:
   wxOleInitializer()
-    :  m_ok(wxOleInitialize())
+    : m_ok(wxOleInitialize())
   {
-
   }
   bool IsOk() const
   {
-        return m_ok;
+    return m_ok;
   }
   ~wxOleInitializer()
   {
-        if ( m_ok )
-            wxOleUninitialize();
+    if (m_ok)
+    {
+      wxOleUninitialize();
+    }
   }
 private:
   const bool m_ok;

@@ -43,15 +43,15 @@ public:
     // Set/get dispatch pointer
   void SetDispatchPtr(WXIDISPATCH* dispatchPtr)
   {
- m_dispatchPtr = dispatchPtr;
+    m_dispatchPtr = dispatchPtr;
   }
   WXIDISPATCH* GetDispatchPtr() const
   {
- return m_dispatchPtr;
+    return m_dispatchPtr;
   }
   bool IsOk() const
   {
- return m_dispatchPtr != NULL;
+    return m_dispatchPtr != NULL;
   }
     // Get a dispatch pointer from the current object associated
     // with a ProgID, such as "Excel.Application"

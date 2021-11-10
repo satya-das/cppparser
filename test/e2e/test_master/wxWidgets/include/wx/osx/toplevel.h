@@ -18,13 +18,12 @@ public:
     // constructors and such
   wxTopLevelWindowMac()
   {
- Init();
+    Init();
   }
   wxTopLevelWindowMac(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, title, pos, size, style, name);
+    Init();
+    (void) Create(parent, id, title, pos, size, style, name);
   }
   virtual ~wxTopLevelWindowMac();
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxDEFAULT_FRAME_STYLE, const wxString& name = wxASCII_STR(wxFrameNameStr));
@@ -56,11 +55,11 @@ public:
   bool EnableMinimizeButton(bool enable = true) override;
   void SetLabel(const wxString& label) override
   {
- SetTitle( label );
+    SetTitle(label);
   }
   wxString GetLabel() const override
   {
- return GetTitle();
+    return GetTitle();
   }
   void OSXSetModified(bool modified) override;
   bool OSXIsModified() const override;

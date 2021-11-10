@@ -19,13 +19,12 @@ class WXDLLIMPEXP_CORE wxHeaderCtrl : public wxHeaderCtrlBase
 public:
   wxHeaderCtrl()
   {
-        Init();
+    Init();
   }
   wxHeaderCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHD_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHeaderCtrlNameStr))
   {
-        Init();
-
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxHD_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxHeaderCtrlNameStr));
   virtual ~wxHeaderCtrl();
@@ -76,7 +75,7 @@ private:
     // return true if any drag operation is currently in progress
   bool IsDragging() const
   {
- return IsResizing() || IsReordering();
+    return IsResizing() || IsReordering();
   }
     // end any drag operation currently in progress (resizing or reordering)
   void EndDragging();

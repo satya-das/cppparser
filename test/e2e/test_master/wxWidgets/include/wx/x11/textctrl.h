@@ -50,7 +50,7 @@ class wxSourceLine
 public:
   wxSourceLine(const wxString& text = wxEmptyString)
   {
-        m_text = text;
+    m_text = text;
   }
   wxString m_text;
 };
@@ -69,7 +69,7 @@ class WXDLLIMPEXP_CORE wxTextCtrl : public wxTextCtrlBase, public wxScrollHelper
 public:
   wxTextCtrl()
   {
- Init();
+    Init();
   }
   wxTextCtrl(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxTextCtrlNameStr));
   virtual ~wxTextCtrl();
@@ -78,7 +78,7 @@ public:
     // ------------------------------------------
   virtual void PrepareDC(wxDC& dc)
   {
- DoPrepareDC(dc);
+    DoPrepareDC(dc);
   }
     // implement base class pure virtuals
     // ----------------------------------
@@ -92,11 +92,11 @@ public:
     // ----------------------------------
   bool IsPassword() const
   {
- return (GetWindowStyle() & wxTE_PASSWORD) != 0;
+    return (GetWindowStyle() & wxTE_PASSWORD) != 0;
   }
   bool WrapLines() const
   {
- return false;
+    return false;
   }
     // If the return values from and to are the same, there is no selection.
   virtual void GetSelection(long* from, long* to) const;
@@ -134,11 +134,11 @@ public:
   }
   virtual bool CanUndo() const
   {
- return (m_undos.GetCount() > 0);
+    return (m_undos.GetCount() > 0);
   }
   virtual bool CanRedo() const
   {
- return false;
+    return false;
   }
     // Insertion point
   virtual void SetInsertionPoint(long pos);
@@ -163,7 +163,7 @@ public:
   bool SetBackgroundColour(const wxColour& colour);
   void SetModified()
   {
- m_modified = true;
+    m_modified = true;
   }
     // textctrl specific scrolling
   virtual bool ScrollLines(int lines);
@@ -178,19 +178,19 @@ public:
   void ClearSelection();
   int GetCursorX()
   {
- return m_cursorX;
+    return m_cursorX;
   }
   int GetCursorY()
   {
- return m_cursorY;
+    return m_cursorY;
   }
   bool IsModified()
   {
- return m_modified;
+    return m_modified;
   }
   bool OverwriteMode()
   {
- return m_overwrite;
+    return m_overwrite;
   }
     // implementation from now on...
   int PosToPixel(int line, int pos);
@@ -296,30 +296,30 @@ class WXDLLIMPEXP_CORE wxStdTextCtrlInputHandler : public wxStdInputHandler
 {
 public:
   wxStdTextCtrlInputHandler(wxInputHandler* inphand)
-    :  wxStdInputHandler(inphand)
+    : wxStdInputHandler(inphand)
   {
   }
   virtual bool HandleKey(wxInputConsumer* consumer, const wxKeyEvent& event, bool pressed)
   {
- return false;
+    return false;
   }
   virtual bool HandleMouse(wxInputConsumer* consumer, const wxMouseEvent& event)
   {
- return false;
+    return false;
   }
   virtual bool HandleMouseMove(wxInputConsumer* consumer, const wxMouseEvent& event)
   {
- return false;
+    return false;
   }
   virtual bool HandleFocus(wxInputConsumer* consumer, const wxFocusEvent& event)
   {
- return false;
+    return false;
   }
 protected:
     // get the position of the mouse click
   static wxTextPos HitTest(const wxTextCtrl* text, const wxPoint& pos)
   {
- return 0;
+    return 0;
   }
     // capture data
   wxTextCtrl* m_winCapture;

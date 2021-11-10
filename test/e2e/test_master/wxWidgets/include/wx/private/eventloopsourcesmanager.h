@@ -17,7 +17,6 @@ public:
   virtual wxEventLoopSource* AddSourceForFD(int fd, wxEventLoopSourceHandler* handler, int flags) = 0;
   virtual ~wxEventLoopSourcesManagerBase()
   {
-
   }
 };
 #  endif

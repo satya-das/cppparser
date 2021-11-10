@@ -49,9 +49,8 @@ protected:
 // This overload is deprecated. Please use the other overload, taking AcString & arg
 inline Acad::ErrorStatus AcDbSectionManager::getUniqueSectionName(const ACHAR* pszBaseName, ACHAR*& pszUniqueName) const
 {
-    AcString sUniqueName;
-    return ::acutAcStringToAChar(sUniqueName, pszUniqueName,
-                                 this->getUniqueSectionName(pszBaseName, sUniqueName));
+  AcString sUniqueName;
+  return ::acutAcStringToAChar(sUniqueName, pszUniqueName, this->getUniqueSectionName(pszBaseName, sUniqueName));
 }
 //*************************************************************************
 // AcDbSectionManagerIterator

@@ -47,17 +47,15 @@ public:
   sk_sp<SkMaskFilter> makeWithMatrix(const SkMatrix&) const;
   static SkFlattenable::Type GetFlattenableType()
   {
-        return kSkMaskFilter_Type;
+    return kSkMaskFilter_Type;
   }
   SkFlattenable::Type getFlattenableType() const override
   {
-        return kSkMaskFilter_Type;
+    return kSkMaskFilter_Type;
   }
   static sk_sp<SkMaskFilter> Deserialize(const void* data, size_t size, const SkDeserialProcs* procs = nullptr)
   {
-        return sk_sp<SkMaskFilter>(static_cast<SkMaskFilter*>(
-                                  SkFlattenable::Deserialize(
-                                  kSkMaskFilter_Type, data, size, procs).release()));
+    return sk_sp<SkMaskFilter>(static_cast<SkMaskFilter*>(SkFlattenable::Deserialize(kSkMaskFilter_Type, data, size, procs).release()));
   }
 private:
   static void RegisterFlattenables();

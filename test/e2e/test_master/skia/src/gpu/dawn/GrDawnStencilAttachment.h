@@ -16,7 +16,7 @@ public:
   virtual ~GrDawnStencilAttachment();
   dawn::TextureView view() const
   {
- return fView;
+    return fView;
   }
 protected:
   void onRelease() override;

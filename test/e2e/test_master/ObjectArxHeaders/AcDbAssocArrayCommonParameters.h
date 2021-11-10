@@ -45,13 +45,13 @@ public:
   int levelCount(AcString& expression, AcString& evaluatorId) const;
   inline int levelCount() const
   {
-        AcString expression, evaluatorId;
-        return levelCount(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return levelCount(expression, evaluatorId);
   }
   inline int levelCount(AcString& expression) const
   {
-        AcString evaluatorId;
-        return levelCount(expression, evaluatorId);
+    AcString evaluatorId;
+    return levelCount(expression, evaluatorId);
   }
     /// <summary> 
     /// Gets the level spacing of the array.
@@ -65,13 +65,13 @@ public:
   double levelSpacing(AcString& expression, AcString& evaluatorId) const;
   inline double levelSpacing() const
   {
-        AcString expression, evaluatorId;
-        return levelSpacing(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return levelSpacing(expression, evaluatorId);
   }
   inline double levelSpacing(AcString& expression) const
   {
-        AcString evaluatorId;
-        return levelSpacing(expression, evaluatorId);
+    AcString evaluatorId;
+    return levelSpacing(expression, evaluatorId);
   }
     /// <summary> 
     /// Gets the row count of the array.
@@ -85,13 +85,13 @@ public:
   int rowCount(AcString& expression, AcString& evaluatorId) const;
   inline int rowCount() const
   {
-        AcString expression, evaluatorId;
-        return rowCount(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return rowCount(expression, evaluatorId);
   }
   inline int rowCount(AcString& expression) const
   {
-        AcString evaluatorId;
-        return rowCount(expression, evaluatorId);
+    AcString evaluatorId;
+    return rowCount(expression, evaluatorId);
   }
     /// <summary> 
     /// Gets the row elevation of the array.
@@ -105,13 +105,13 @@ public:
   double rowElevation(AcString& expression, AcString& evaluatorId) const;
   inline double rowElevation() const
   {
-        AcString expression, evaluatorId;
-        return rowElevation(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return rowElevation(expression, evaluatorId);
   }
   inline double rowElevation(AcString& expression) const
   {
-        AcString evaluatorId;
-        return rowElevation(expression, evaluatorId);
+    AcString evaluatorId;
+    return rowElevation(expression, evaluatorId);
   }
     /// <summary> 
     /// Gets the row spacing of the array.
@@ -125,13 +125,13 @@ public:
   double rowSpacing(AcString& expression, AcString& evaluatorId) const;
   inline double rowSpacing() const
   {
-        AcString expression, evaluatorId;
-        return rowSpacing(expression, evaluatorId);
+    AcString expression, evaluatorId;
+    return rowSpacing(expression, evaluatorId);
   }
   inline double rowSpacing(AcString& expression) const
   {
-        AcString evaluatorId;
-        return rowSpacing(expression, evaluatorId);
+    AcString evaluatorId;
+    return rowSpacing(expression, evaluatorId);
   }
     /// <summary> 
     /// Sets the level count of the array.

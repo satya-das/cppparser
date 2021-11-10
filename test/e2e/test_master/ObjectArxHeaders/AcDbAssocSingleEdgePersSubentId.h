@@ -39,9 +39,9 @@ public:
     ///
   int transientSubentCount(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
   {
-        UNREFERENCED_PARAMETER(pEntity); 
-        UNREFERENCED_PARAMETER(pDatabase);
-        return 1;
+    UNREFERENCED_PARAMETER(pEntity);
+    UNREFERENCED_PARAMETER(pDatabase);
+    return 1;
   }
     /// <summary> Always returns AcDb::kEdgeSubentType. </summary>
     /// <param  name="pEntity">   Not used. </param>
@@ -50,9 +50,9 @@ public:
     ///
   AcDb::SubentType subentType(const AcDbEntity* pEntity, AcDbDatabase* pDatabase) const override
   {
-        UNREFERENCED_PARAMETER(pEntity);
-        UNREFERENCED_PARAMETER(pDatabase);
-        return AcDb::kEdgeSubentType;
+    UNREFERENCED_PARAMETER(pEntity);
+    UNREFERENCED_PARAMETER(pDatabase);
+    return AcDb::kEdgeSubentType;
   }
     /// <summary> 
     /// Always returns false because AcDbAssocSingleEdgePersSubentId always 
@@ -62,7 +62,7 @@ public:
     ///
   bool isNull() const override
   {
- return false;
+    return false;
   }
     /// <summary>
     /// Returns true iff this and the other AcDbAssocSingleEdgePersSubentId 

@@ -97,7 +97,7 @@ namespace PoDoFo
      */
     PdfInfo* GetInfo() const
     {
- return m_pInfo;
+      return m_pInfo;
     }
     /** Get access to the Outlines (Bookmarks) dictionary
      *  The returned outlines object is owned by the PdfDocument.
@@ -620,7 +620,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline void PdfDocument::SetCatalog(PdfObject* pObject)
   {
-    m_pCatalog = pObject; // m_pCatalog does not need to 
+    m_pCatalog = pObject;
                           // be reowned as it should
                           // alread by part of m_vecObjects
   }

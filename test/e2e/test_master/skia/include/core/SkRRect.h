@@ -68,8 +68,8 @@ public:
     */
   Type getType() const
   {
-        SkASSERT(this->isValid());
-        return static_cast<Type>(fType);
+    SkASSERT(this->isValid());
+    return static_cast<Type>(fType);
   }
     /** Returns SkRRect::Type, one of:
         kEmpty_Type, kRect_Type, kOval_Type, kSimple_Type, kNinePatch_Type,
@@ -79,31 +79,31 @@ public:
     */
   Type type() const
   {
- return this->getType();
+    return this->getType();
   }
   inline bool isEmpty() const
   {
- return kEmpty_Type == this->getType();
+    return kEmpty_Type == this->getType();
   }
   inline bool isRect() const
   {
- return kRect_Type == this->getType();
+    return kRect_Type == this->getType();
   }
   inline bool isOval() const
   {
- return kOval_Type == this->getType();
+    return kOval_Type == this->getType();
   }
   inline bool isSimple() const
   {
- return kSimple_Type == this->getType();
+    return kSimple_Type == this->getType();
   }
   inline bool isNinePatch() const
   {
- return kNinePatch_Type == this->getType();
+    return kNinePatch_Type == this->getType();
   }
   inline bool isComplex() const
   {
- return kComplex_Type == this->getType();
+    return kComplex_Type == this->getType();
   }
     /** Returns span on the x-axis. This does not check if result fits in 32-bit float;
         result may be infinity.
@@ -112,7 +112,7 @@ public:
     */
   SkScalar width() const
   {
- return fRect.width();
+    return fRect.width();
   }
     /** Returns span on the y-axis. This does not check if result fits in 32-bit float;
         result may be infinity.
@@ -121,7 +121,7 @@ public:
     */
   SkScalar height() const
   {
- return fRect.height();
+    return fRect.height();
   }
     /** Returns top-left corner radii. If type() returns kEmpty_Type, kRect_Type,
         kOval_Type, or kSimple_Type, returns a value representative of all corner radii.
@@ -132,14 +132,14 @@ public:
     */
   SkVector getSimpleRadii() const
   {
-        return fRadii[0];
+    return fRadii[0];
   }
     /** Sets bounds to zero width and height at (0, 0), the origin. Sets
         corner radii to zero and sets type to kEmpty_Type.
     */
   void setEmpty()
   {
- *this = SkRRect();
+    *this = SkRRect();
   }
     /** Sets bounds to sorted rect, and sets corner radii to zero.
         If set bounds has width and height, and sets type to kRect_Type;
@@ -149,14 +149,13 @@ public:
     */
   void setRect(const SkRect& rect)
   {
-        if (!this->initializeRect(rect)) {
-            return;
-        }
-
-        memset(fRadii, 0, sizeof(fRadii));
-        fType = kRect_Type;
-
-        SkASSERT(this->isValid());
+    if (!this->initializeRect(rect))
+    {
+      return ;
+    }
+    memset(fRadii, 0, sizeof(fRadii));
+    fType = kRect_Type;
+    SkASSERT(this->isValid());
   }
     /** Initializes bounds at (0, 0), the origin, with zero width and height.
         Initializes corner radii to (0, 0), and sets type of kEmpty_Type.
@@ -165,7 +164,7 @@ public:
     */
   static SkRRect MakeEmpty()
   {
- return SkRRect();
+    return SkRRect();
   }
     /** Initializes to copy of r bounds and zeroes corner radii.
 
@@ -174,9 +173,9 @@ public:
     */
   static SkRRect MakeRect(const SkRect& r)
   {
-        SkRRect rr;
-        rr.setRect(r);
-        return rr;
+    SkRRect rr;
+    rr.setRect(r);
+    return rr;
   }
     /** Sets bounds to oval, x-axis radii to half oval.width(), and all y-axis radii
         to half oval.height(). If oval bounds is empty, sets to kEmpty_Type.
@@ -187,9 +186,9 @@ public:
     */
   static SkRRect MakeOval(const SkRect& oval)
   {
-        SkRRect rr;
-        rr.setOval(oval);
-        return rr;
+    SkRRect rr;
+    rr.setOval(oval);
+    return rr;
   }
     /** Sets to rounded rectangle with the same radii for all four corners.
         If rect is empty, sets to kEmpty_Type.
@@ -205,9 +204,9 @@ public:
     */
   static SkRRect MakeRectXY(const SkRect& rect, SkScalar xRad, SkScalar yRad)
   {
-        SkRRect rr;
-        rr.setRectXY(rect, xRad, yRad);
-        return rr;
+    SkRRect rr;
+    rr.setRectXY(rect, xRad, yRad);
+    return rr;
   }
     /** Sets bounds to oval, x-axis radii to half oval.width(), and all y-axis radii
         to half oval.height(). If oval bounds is empty, sets to kEmpty_Type.
@@ -217,19 +216,18 @@ public:
     */
   void setOval(const SkRect& oval)
   {
-        if (!this->initializeRect(oval)) {
-            return;
-        }
-
-        SkScalar xRad = SkScalarHalf(fRect.width());
-        SkScalar yRad = SkScalarHalf(fRect.height());
-
-        for (int i = 0; i < 4; ++i) {
-            fRadii[i].set(xRad, yRad);
-        }
-        fType = kOval_Type;
-
-        SkASSERT(this->isValid());
+    if (!this->initializeRect(oval))
+    {
+      return ;
+    }
+    SkScalar xRad = SkScalarHalf(fRect.width());
+    SkScalar yRad = SkScalarHalf(fRect.height());
+    for (int i = 0; i < 4; ++i)
+    {
+      fRadii[i].set(xRad, yRad);
+    }
+    fType = kOval_Type;
+    SkASSERT(this->isValid());
   }
     /** Sets to rounded rectangle with the same radii for all four corners.
         If rect is empty, sets to kEmpty_Type.
@@ -294,7 +292,7 @@ public:
     */
   const SkRect& rect() const
   {
- return fRect;
+    return fRect;
   }
     /** Returns scalar pair for radius of curve on x-axis and y-axis for one corner.
         Both radii may be zero. If not zero, both are positive and finite.
@@ -305,7 +303,7 @@ public:
     */
   SkVector radii(Corner corner) const
   {
- return fRadii[corner];
+    return fRadii[corner];
   }
     /** Returns bounds. Bounds may have zero width or zero height. Bounds right is
         greater than or equal to left; bounds bottom is greater than or equal to top.
@@ -315,7 +313,7 @@ public:
     */
   const SkRect& getBounds() const
   {
- return fRect;
+    return fRect;
   }
     /** Returns true if bounds and radii in a are equal to bounds and radii in b.
 
@@ -328,7 +326,7 @@ public:
     */
   friend bool operator==(const SkRRect& a, const SkRRect& b)
   {
-        return a.fRect == b.fRect && SkScalarsEqual(&a.fRadii[0].fX, &b.fRadii[0].fX, 8);
+    return a.fRect == b.fRect && SkScalarsEqual(&a.fRadii[0].fX, &b.fRadii[0].fX, 8);
   }
     /** Returns true if bounds and radii in a are not equal to bounds and radii in b.
 
@@ -341,7 +339,7 @@ public:
     */
   friend bool operator!=(const SkRRect& a, const SkRRect& b)
   {
-        return a.fRect != b.fRect || !SkScalarsEqual(&a.fRadii[0].fX, &b.fRadii[0].fX, 8);
+    return a.fRect != b.fRect || !SkScalarsEqual(&a.fRadii[0].fX, &b.fRadii[0].fX, 8);
   }
     /** Copies SkRRect to dst, then insets dst bounds by dx and dy, and adjusts dst
         radii by dx and dy. dx and dy may be positive, negative, or zero. dst may be
@@ -376,7 +374,7 @@ public:
     */
   void inset(SkScalar dx, SkScalar dy)
   {
-        this->inset(dx, dy, this);
+    this->inset(dx, dy, this);
   }
     /** Outsets dst bounds by dx and dy, and adjusts radii by dx and dy. dx and dy may be
         positive, negative, or zero.
@@ -395,7 +393,7 @@ public:
     */
   void outset(SkScalar dx, SkScalar dy, SkRRect* dst) const
   {
-        this->inset(-dx, -dy, dst);
+    this->inset(-dx, -dy, dst);
   }
     /** Outsets bounds by dx and dy, and adjusts radii by dx and dy. dx and dy may be
         positive, negative, or zero.
@@ -413,7 +411,7 @@ public:
     */
   void outset(SkScalar dx, SkScalar dy)
   {
-        this->inset(-dx, -dy, this);
+    this->inset(-dx, -dy, this);
   }
     /** Translates SkRRect by (dx, dy).
 
@@ -422,7 +420,7 @@ public:
     */
   void offset(SkScalar dx, SkScalar dy)
   {
-        fRect.offset(dx, dy);
+    fRect.offset(dx, dy);
   }
     /** Returns SkRRect translated by (dx, dy).
 
@@ -432,7 +430,7 @@ public:
     */
   SkRRect SK_WARN_UNUSED_RESULT makeOffset(SkScalar dx, SkScalar dy) const
   {
-        return SkRRect(fRect.makeOffset(dx, dy), fRadii, fType);
+    return SkRRect(fRect.makeOffset(dx, dy), fRadii, fType);
   }
     /** Returns true if rect is inside the bounds and corner radii, and if
         SkRRect and rect are not empty.
@@ -491,7 +489,7 @@ public:
     */
   void dump() const
   {
- this->dump(false);
+    this->dump(false);
   }
     /** Writes text representation of SkRRect to standard output. The representation
         may be directly compiled as C++ code. Floating point values are written
@@ -500,14 +498,14 @@ public:
     */
   void dumpHex() const
   {
- this->dump(true);
+    this->dump(true);
   }
 private:
   static bool AreRectAndRadiiValid(const SkRect&, const SkVector[4]);
   SkRRect(const SkRect& rect, const SkVector radii[4], int32_t type)
-    :  fRect(rect)
-        , fRadii{radii[0], radii[1], radii[2], radii[3]}
-        , fType(type)
+    : fRect(rect)
+    , fRadii(radii[0], radii[1], radii[2], radii[3])
+    , fType(type)
   {
   }
     /**

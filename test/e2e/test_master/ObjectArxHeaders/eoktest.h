@@ -38,11 +38,11 @@
 // For use by eoktest.h only!
 inline Acad::ErrorStatus eOkCheck_imp(const ACHAR* condition, const ACHAR* fname, int lineno, Acad::ErrorStatus es)
 {
-    if (es != Acad::eOk) {
-        acutAssertMessage(condition, fname, lineno,
-                          acadErrorStatusText(es));
-    }
-    return es;
+  if (es != Acad::eOk)
+  {
+    acutAssertMessage(condition, fname, lineno, acadErrorStatusText(es));
+  }
+  return es;
 }
 /// <summary>
 /// Evaluates to true if value is Acad::eOk, otherwise evaluates to false.

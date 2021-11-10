@@ -49,6 +49,7 @@ public:
   bool DoBlit(wxCoord xdest, wxCoord ydest, wxCoord width, wxCoord height, wxDC* source, wxCoord xsrc, wxCoord ysrc, wxRasterOperationMode rop = wxCOPY, bool useMask = false, wxCoord xsrcMask = wxDefaultCoord, wxCoord ysrcMask = wxDefaultCoord) override;
   void DoDrawLines(int n, const wxPoint points[], wxCoord xoffset, wxCoord yoffset) override;
   void DoDrawPolygon(int n, const wxPoint points[], wxCoord xoffset, wxCoord yoffset, wxPolygonFillMode fillStyle = wxODDEVEN_RULE) override;
+private:
   wxDECLARE_CLASS(wxPrinterDCImpl);
   wxDECLARE_NO_COPY_CLASS(wxPrinterDCImpl);
 };

@@ -20,11 +20,12 @@ class WXDLLIMPEXP_CORE wxScrollBar : public wxScrollBarBase
 public:
   wxScrollBar()
   {
- m_adjust = NULL; m_oldPos = 0.0;
+    m_adjust = NULL;
+    m_oldPos = 0.0;
   }
   inline wxScrollBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr))
   {
-        Create( parent, id, pos, size, style, validator, name );
+    Create(parent, id, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr));
   virtual ~wxScrollBar();

@@ -24,11 +24,11 @@ public:
   virtual bool IsChecked() const;
   virtual void SetBitmap(const wxBitmap& bitmap)
   {
- m_bitmap = bitmap;
+    m_bitmap = bitmap;
   }
   virtual const wxBitmap& GetBitmap() const
   {
- return m_bitmap;
+    return m_bitmap;
   }
 #  if  wxUSE_ACCEL
   virtual wxAcceleratorEntry* GetAccel() const;
@@ -36,24 +36,24 @@ public:
     // implementation
   void SetMenuItem(GtkWidget* menuItem)
   {
- m_menuItem = menuItem;
+    m_menuItem = menuItem;
   }
   GtkWidget* GetMenuItem() const
   {
- return m_menuItem;
+    return m_menuItem;
   }
   GtkWidget* GetLabelWidget() const
   {
- return m_labelWidget;
+    return m_labelWidget;
   }
   void SetLabelWidget(GtkWidget* labelWidget)
   {
- m_labelWidget = labelWidget;
+    m_labelWidget = labelWidget;
   }
   wxString GetFactoryPath() const;
   wxString GetHotKey() const
   {
- return m_hotKey;
+    return m_hotKey;
   }
     // compatibility only, don't use in new code
   wxMenuItem(wxMenu* parentMenu, int id, const wxString& text, const wxString& help, bool isCheckable, wxMenu* subMenu = NULL);

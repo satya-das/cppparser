@@ -1,6 +1,6 @@
 void SwitchTest()
 {
-  switch (GetParam())
+  switch(GetParam())
   {
     case 1:
       What();
@@ -10,7 +10,7 @@ void SwitchTest()
     case 3:
       NowBreak();
       break;
-    default:
-      DoDefault();
-  }
+default:
+    DoDefault();
+}
 }

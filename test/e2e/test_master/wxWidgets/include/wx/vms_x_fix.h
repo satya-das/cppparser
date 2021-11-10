@@ -1198,11 +1198,7 @@
     } else \
     req->length += n
 #  endif
-#  ifdef __cplusplus
 extern "C" {
-#  endif
   extern void XtFree(char*);
-#  ifdef __cplusplus
   }
-#  endif
 #endif

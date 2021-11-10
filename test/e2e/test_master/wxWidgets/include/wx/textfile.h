@@ -24,7 +24,6 @@ public:
     // constructors
   wxTextFile()
   {
-
   }
   wxTextFile(const wxString& strFileName);
 protected:

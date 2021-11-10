@@ -22,14 +22,12 @@ public:
     // wxRadioBox construction
   wxRadioBox()
   {
- Init();
+    Init();
   }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString* choices = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, title, pos, size, n, choices,
-                     majorDim, style, val, name);
+    Init();
+    (void) Create(parent, id, title, pos, size, n, choices, majorDim, style, val, name);
   }
   wxRadioBox(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString* choices = NULL, int majorDim = 0, long style = wxRA_SPECIFY_COLS, const wxValidator& val = wxDefaultValidator, const wxString& name = wxASCII_STR(wxRadioBoxNameStr));
@@ -40,7 +38,7 @@ public:
   int GetSelection() const override;
   unsigned int GetCount() const override
   {
- return (unsigned int)m_buttons.GetCount();
+    return (unsigned int) m_buttons.GetCount();
   }
   wxString GetString(unsigned int n) const override;
   void SetString(unsigned int n, const wxString& label) override;
@@ -57,7 +55,7 @@ public:
     // it to behave normally
   bool AcceptsFocus() const override
   {
- return wxControl::AcceptsFocus();
+    return wxControl::AcceptsFocus();
   }
 #  if  wxUSE_TOOLTIPS
   virtual void DoSetToolTip(wxToolTip* tip);
@@ -72,7 +70,7 @@ public:
 protected:
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
     // override the base class methods dealing with window positioning/sizing
     // as we must move/size the buttons as well

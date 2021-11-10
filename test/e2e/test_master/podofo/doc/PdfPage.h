@@ -140,35 +140,35 @@ namespace PoDoFo
      */
     virtual const PdfRect GetMediaBox() const
     {
- return GetPageBox( "MediaBox" );
+      return GetPageBox("MediaBox");
     }
     /** Get the current CropBox (visible page size) in PDF units.
      *  \returns PdfRect the page box
      */
     virtual const PdfRect GetCropBox() const
     {
- return GetPageBox( "CropBox" );
+      return GetPageBox("CropBox");
     }
     /** Get the current TrimBox (cut area) in PDF units.
      *  \returns PdfRect the page box
      */
     virtual const PdfRect GetTrimBox() const
     {
- return GetPageBox( "TrimBox" );
+      return GetPageBox("TrimBox");
     }
     /** Get the current BleedBox (extra area for printing purposes) in PDF units.
      *  \returns PdfRect the page box
      */
     virtual const PdfRect GetBleedBox() const
     {
- return GetPageBox( "BleedBox" );
+      return GetPageBox("BleedBox");
     }
     /** Get the current ArtBox in PDF units.
      *  \returns PdfRect the page box
      */
     virtual const PdfRect GetArtBox() const
     {
- return GetPageBox( "ArtBox" );
+      return GetPageBox("ArtBox");
     }
     /** Get the current page rotation (if any).
      *  \returns int 0, 90, 180 or 270
@@ -309,7 +309,7 @@ namespace PoDoFo
 // -----------------------------------------------------
   inline const PdfObject* PdfPage::GetInheritedKey(const PdfName& rName) const
   {
-    return this->GetInheritedKeyFromObject( rName.GetName().c_str(), this->GetObject() );
+    return this->GetInheritedKeyFromObject(rName.GetName().c_str(), this->GetObject());
   }
 }
 #endif

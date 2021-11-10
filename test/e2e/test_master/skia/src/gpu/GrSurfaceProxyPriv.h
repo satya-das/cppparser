@@ -16,35 +16,35 @@ class GrSurfaceProxyPriv
 public:
   void computeScratchKey(GrScratchKey* key) const
   {
- return fProxy->computeScratchKey(key);
+    return fProxy->computeScratchKey(key);
   }
     // Create a GrSurface-derived class that meets the requirements (i.e, desc, renderability)
     // of the GrSurfaceProxy.
   sk_sp<GrSurface> createSurface(GrResourceProvider* resourceProvider) const
   {
-        return fProxy->createSurface(resourceProvider);
+    return fProxy->createSurface(resourceProvider);
   }
     // Assign this proxy the provided GrSurface as its backing surface
   void assign(sk_sp<GrSurface> surface)
   {
- fProxy->assign(std::move(surface));
+    fProxy->assign(std::move(surface));
   }
     // Don't abuse this call!!!!!!!
   bool isExact() const
   {
- return SkBackingFit::kExact == fProxy->fFit;
+    return SkBackingFit::kExact == fProxy->fFit;
   }
     // Don't. Just don't.
   void exactify(bool allocatedCaseOnly);
   void setLazySize(int width, int height)
   {
- fProxy->setLazySize(width, height);
+    fProxy->setLazySize(width, height);
   }
   bool doLazyInstantiation(GrResourceProvider*);
   static bool SK_WARN_UNUSED_RESULT AttachStencilIfNeeded(GrResourceProvider*, GrSurface*, int minStencilSampleCount);
 private:
   explicit GrSurfaceProxyPriv(GrSurfaceProxy* proxy)
-    :  fProxy(proxy)
+    : fProxy(proxy)
   {
   }
   GrSurfaceProxyPriv(const GrSurfaceProxyPriv&)
@@ -59,10 +59,10 @@ private:
 };
 inline GrSurfaceProxyPriv GrSurfaceProxy::priv()
 {
- return GrSurfaceProxyPriv(this);
+  return GrSurfaceProxyPriv(this);
 }
 inline const GrSurfaceProxyPriv GrSurfaceProxy::priv() const
 {
-    return GrSurfaceProxyPriv(const_cast<GrSurfaceProxy*>(this));
+  return GrSurfaceProxyPriv(const_cast<GrSurfaceProxy*>(this));
 }
 #endif

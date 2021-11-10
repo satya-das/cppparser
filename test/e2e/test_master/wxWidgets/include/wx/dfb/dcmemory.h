@@ -19,11 +19,11 @@ public:
     // override wxMemoryDC-specific base class virtual methods
   virtual const wxBitmap& GetSelectedBitmap() const
   {
- return m_bmp;
+    return m_bmp;
   }
   virtual wxBitmap& GetSelectedBitmap()
   {
- return m_bmp;
+    return m_bmp;
   }
   virtual void DoSelect(const wxBitmap& bitmap);
 private:

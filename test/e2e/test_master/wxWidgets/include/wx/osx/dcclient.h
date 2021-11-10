@@ -37,6 +37,7 @@ public:
   wxClientDCImpl(wxDC* owner);
   wxClientDCImpl(wxDC* owner, wxWindow* window);
   virtual ~wxClientDCImpl();
+private:
   wxDECLARE_CLASS(wxClientDCImpl);
   wxDECLARE_NO_COPY_CLASS(wxClientDCImpl);
 };
@@ -46,6 +47,7 @@ public:
   wxPaintDCImpl(wxDC* owner);
   wxPaintDCImpl(wxDC* owner, wxWindow* win);
   virtual ~wxPaintDCImpl();
+protected:
   wxDECLARE_CLASS(wxPaintDCImpl);
   wxDECLARE_NO_COPY_CLASS(wxPaintDCImpl);
 };

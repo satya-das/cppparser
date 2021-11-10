@@ -53,37 +53,38 @@ class WXDLLIMPEXP_CORE wxFindReplaceData : public wxObject
 public:
   wxFindReplaceData()
   {
- Init();
+    Init();
   }
   wxFindReplaceData(wxUint32 flags)
   {
- Init(); SetFlags(flags);
+    Init();
+    SetFlags(flags);
   }
     // accessors
   const wxString& GetFindString() const
   {
- return m_FindWhat;
+    return m_FindWhat;
   }
   const wxString& GetReplaceString() const
   {
- return m_ReplaceWith;
+    return m_ReplaceWith;
   }
   int GetFlags() const
   {
- return m_Flags;
+    return m_Flags;
   }
     // setters: may only be called before showing the dialog, no effect later
   void SetFlags(wxUint32 flags)
   {
- m_Flags = flags;
+    m_Flags = flags;
   }
   void SetFindString(const wxString& str)
   {
- m_FindWhat = str;
+    m_FindWhat = str;
   }
   void SetReplaceString(const wxString& str)
   {
- m_ReplaceWith = str;
+    m_ReplaceWith = str;
   }
 protected:
   void Init();
@@ -101,21 +102,21 @@ public:
     // ctors and such
   wxFindReplaceDialogBase()
   {
- m_FindReplaceData = NULL;
+    m_FindReplaceData = NULL;
   }
   wxFindReplaceDialogBase(wxWindow*, wxFindReplaceData* data, const wxString&, int = 0)
   {
-        m_FindReplaceData = data;
+    m_FindReplaceData = data;
   }
   virtual ~wxFindReplaceDialogBase();
     // find dialog data access
   const wxFindReplaceData* GetData() const
   {
- return m_FindReplaceData;
+    return m_FindReplaceData;
   }
   void SetData(wxFindReplaceData* data)
   {
- m_FindReplaceData = data;
+    m_FindReplaceData = data;
   }
     // implementation only, don't use
   void Send(wxFindDialogEvent& event);
@@ -139,47 +140,46 @@ class WXDLLIMPEXP_CORE wxFindDialogEvent : public wxCommandEvent
 {
 public:
   wxFindDialogEvent(wxEventType commandType = wxEVT_NULL, int id = 0)
-    :  wxCommandEvent(commandType, id)
+    : wxCommandEvent(commandType, id)
   {
-
   }
   wxFindDialogEvent(const wxFindDialogEvent& event)
-    :  wxCommandEvent(event), m_strReplace(event.m_strReplace)
+    : wxCommandEvent(event)
+    , m_strReplace(event.m_strReplace)
   {
-
   }
   int GetFlags() const
   {
- return GetInt();
+    return GetInt();
   }
   wxString GetFindString() const
   {
- return GetString();
+    return GetString();
   }
   const wxString& GetReplaceString() const
   {
- return m_strReplace;
+    return m_strReplace;
   }
   wxFindReplaceDialog* GetDialog() const
   {
- return wxStaticCast(GetEventObject(), wxFindReplaceDialog);
+    return wxStaticCast(GetEventObject(), wxFindReplaceDialog);
   }
     // implementation only
   void SetFlags(int flags)
   {
- SetInt(flags);
+    SetInt(flags);
   }
   void SetFindString(const wxString& str)
   {
- SetString(str);
+    SetString(str);
   }
   void SetReplaceString(const wxString& str)
   {
- m_strReplace = str;
+    m_strReplace = str;
   }
   wxEvent* Clone() const override
   {
- return new wxFindDialogEvent(*this);
+    return new wxFindDialogEvent(*this);
   }
 private:
   wxString m_strReplace;

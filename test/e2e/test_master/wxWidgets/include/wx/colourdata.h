@@ -21,31 +21,31 @@ public:
   virtual ~wxColourData();
   void SetChooseFull(bool flag)
   {
- m_chooseFull = flag;
+    m_chooseFull = flag;
   }
   bool GetChooseFull() const
   {
- return m_chooseFull;
+    return m_chooseFull;
   }
   void SetChooseAlpha(bool flag)
   {
- m_chooseAlpha = flag;
+    m_chooseAlpha = flag;
   }
   bool GetChooseAlpha() const
   {
- return m_chooseAlpha;
+    return m_chooseAlpha;
   }
   void SetColour(const wxColour& colour)
   {
- m_dataColour = colour;
+    m_dataColour = colour;
   }
   const wxColour& GetColour() const
   {
- return m_dataColour;
+    return m_dataColour;
   }
   wxColour& GetColour()
   {
- return m_dataColour;
+    return m_dataColour;
   }
     // SetCustomColour() modifies colours in an internal array of NUM_CUSTOM
     // custom colours;

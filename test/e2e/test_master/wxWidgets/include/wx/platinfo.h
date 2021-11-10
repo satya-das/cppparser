@@ -107,14 +107,11 @@ struct wxLinuxDistributionInfo
   wxString Description;
   bool operator==(const wxLinuxDistributionInfo& ldi) const
   {
-        return Id == ldi.Id &&
-               Release == ldi.Release &&
-               CodeName == ldi.CodeName &&
-               Description == ldi.Description;
+    return Id == ldi.Id && Release == ldi.Release && CodeName == ldi.CodeName && Description == ldi.Description;
   }
   bool operator!=(const wxLinuxDistributionInfo& ldi) const
   {
- return !(*this == ldi);
+    return !(*this == ldi);
   }
 };
 // ----------------------------------------------------------------------------
@@ -132,7 +129,7 @@ public:
   bool operator==(const wxPlatformInfo& t) const;
   bool operator!=(const wxPlatformInfo& t) const
   {
- return !(*this == t);
+    return !(*this == t);
   }
     // Gets a wxPlatformInfo already initialized with the values for
     // the currently running platform.
@@ -142,7 +139,8 @@ public:
   static wxOperatingSystemId GetOperatingSystemId(const wxString& name);
   static wxPortId GetPortId(const wxString& portname);
   static wxBitness GetBitness(const wxString& bitness);
-  wxDEPRECATED_MSG("Use GetBitness() instead") static wxArchitecture GetArch(const wxString& arch);
+  wxDEPRECATED_MSG("Use GetBitness() instead")
+  static wxArchitecture GetArch(const wxString& arch);
   static wxEndianness GetEndianness(const wxString& end);
     // enum -> string conversions
     // ---------------------------------
@@ -151,110 +149,108 @@ public:
   static wxString GetPortIdName(wxPortId port, bool usingUniversal);
   static wxString GetPortIdShortName(wxPortId port, bool usingUniversal);
   static wxString GetBitnessName(wxBitness bitness);
-  wxDEPRECATED_MSG("Use GetBitnessName() instead") static wxString GetArchName(wxArchitecture arch);
+  wxDEPRECATED_MSG("Use GetBitnessName() instead")
+  static wxString GetArchName(wxArchitecture arch);
   static wxString GetEndiannessName(wxEndianness end);
     // getters
     // -----------------
   int GetOSMajorVersion() const
   {
- return m_osVersionMajor;
+    return m_osVersionMajor;
   }
   int GetOSMinorVersion() const
   {
- return m_osVersionMinor;
+    return m_osVersionMinor;
   }
   int GetOSMicroVersion() const
   {
- return m_osVersionMicro;
+    return m_osVersionMicro;
   }
     // return true if the OS version >= major.minor
   bool CheckOSVersion(int major, int minor, int micro = 0) const;
   int GetToolkitMajorVersion() const
   {
- return m_tkVersionMajor;
+    return m_tkVersionMajor;
   }
   int GetToolkitMinorVersion() const
   {
- return m_tkVersionMinor;
+    return m_tkVersionMinor;
   }
   int GetToolkitMicroVersion() const
   {
- return m_tkVersionMicro;
+    return m_tkVersionMicro;
   }
   bool CheckToolkitVersion(int major, int minor, int micro = 0) const
   {
-        return DoCheckVersion(GetToolkitMajorVersion(),
-                              GetToolkitMinorVersion(),
-                              GetToolkitMicroVersion(),
-                              major,
-                              minor,
-                              micro);
+    return DoCheckVersion(GetToolkitMajorVersion(), GetToolkitMinorVersion(), GetToolkitMicroVersion(), major, minor, micro);
   }
   bool IsUsingUniversalWidgets() const
   {
- return m_usingUniversal;
+    return m_usingUniversal;
   }
   wxOperatingSystemId GetOperatingSystemId() const
   {
- return m_os;
+    return m_os;
   }
   wxLinuxDistributionInfo GetLinuxDistributionInfo() const
   {
- return m_ldi;
+    return m_ldi;
   }
   wxPortId GetPortId() const
   {
- return m_port;
+    return m_port;
   }
   wxBitness GetBitness() const
   {
- return m_bitness;
+    return m_bitness;
   }
-  wxDEPRECATED_MSG("Use GetBitness() instead") wxArchitecture GetArchitecture() const
+  wxDEPRECATED_MSG("Use GetBitness() instead")
+  wxArchitecture GetArchitecture() const
   {
- return GetBitness();
+    return GetBitness();
   }
   wxEndianness GetEndianness() const
   {
- return m_endian;
+    return m_endian;
   }
     // string getters
     // -----------------
   wxString GetOperatingSystemFamilyName() const
   {
- return GetOperatingSystemFamilyName(m_os);
+    return GetOperatingSystemFamilyName(m_os);
   }
   wxString GetOperatingSystemIdName() const
   {
- return GetOperatingSystemIdName(m_os);
+    return GetOperatingSystemIdName(m_os);
   }
   wxString GetPortIdName() const
   {
- return GetPortIdName(m_port, m_usingUniversal);
+    return GetPortIdName(m_port, m_usingUniversal);
   }
   wxString GetPortIdShortName() const
   {
- return GetPortIdShortName(m_port, m_usingUniversal);
+    return GetPortIdShortName(m_port, m_usingUniversal);
   }
   wxString GetBitnessName() const
   {
- return GetBitnessName(m_bitness);
+    return GetBitnessName(m_bitness);
   }
-  wxDEPRECATED_MSG("Use GetBitnessName() instead") wxString GetArchName() const
+  wxDEPRECATED_MSG("Use GetBitnessName() instead")
+  wxString GetArchName() const
   {
- return GetBitnessName();
+    return GetBitnessName();
   }
   wxString GetEndiannessName() const
   {
- return GetEndiannessName(m_endian);
+    return GetEndiannessName(m_endian);
   }
   wxString GetOperatingSystemDescription() const
   {
- return m_osDesc;
+    return m_osDesc;
   }
   wxString GetDesktopEnvironment() const
   {
- return m_desktopEnv;
+    return m_desktopEnv;
   }
   static wxString GetOperatingSystemDirectory();
         // doesn't make sense to store inside wxPlatformInfo the OS directory,
@@ -266,70 +262,60 @@ public:
     // -----------------
   void SetOSVersion(int major, int minor, int micro = 0)
   {
-        m_osVersionMajor = major;
-        m_osVersionMinor = minor;
-        m_osVersionMicro = micro;
+    m_osVersionMajor = major;
+    m_osVersionMinor = minor;
+    m_osVersionMicro = micro;
   }
   void SetToolkitVersion(int major, int minor, int micro = 0)
   {
-        m_tkVersionMajor = major;
-        m_tkVersionMinor = minor;
-        m_tkVersionMicro = micro;
+    m_tkVersionMajor = major;
+    m_tkVersionMinor = minor;
+    m_tkVersionMicro = micro;
   }
   void SetOperatingSystemId(wxOperatingSystemId n)
   {
- m_os = n;
+    m_os = n;
   }
   void SetOperatingSystemDescription(const wxString& desc)
   {
- m_osDesc = desc;
+    m_osDesc = desc;
   }
   void SetPortId(wxPortId n)
   {
- m_port = n;
+    m_port = n;
   }
   void SetBitness(wxBitness n)
   {
- m_bitness = n;
+    m_bitness = n;
   }
-  wxDEPRECATED_MSG("Use SetBitness() instead") void SetArchitecture(wxBitness n)
+  wxDEPRECATED_MSG("Use SetBitness() instead")
+  void SetArchitecture(wxBitness n)
   {
- SetBitness(n);
+    SetBitness(n);
   }
   void SetEndianness(wxEndianness n)
   {
- m_endian = n;
+    m_endian = n;
   }
   void SetDesktopEnvironment(const wxString& de)
   {
- m_desktopEnv = de;
+    m_desktopEnv = de;
   }
   void SetLinuxDistributionInfo(const wxLinuxDistributionInfo& di)
   {
- m_ldi = di;
+    m_ldi = di;
   }
     // miscellaneous
     // -----------------
   bool IsOk() const
   {
-        return m_osVersionMajor != -1 && m_osVersionMinor != -1 &&
-               m_osVersionMicro != -1 &&
-               m_os != wxOS_UNKNOWN &&
-               !m_osDesc.IsEmpty() &&
-               m_tkVersionMajor != -1 && m_tkVersionMinor != -1 &&
-               m_tkVersionMicro != -1 &&
-               m_port != wxPORT_UNKNOWN &&
-               m_bitness != wxBITNESS_INVALID &&
-               m_endian != wxENDIAN_INVALID;
-
+    return m_osVersionMajor != -1 && m_osVersionMinor != -1 && m_osVersionMicro != -1 && m_os != wxOS_UNKNOWN && !m_osDesc.IsEmpty() && m_tkVersionMajor != -1 && m_tkVersionMinor != -1 && m_tkVersionMicro != -1 && m_port != wxPORT_UNKNOWN && m_bitness != wxBITNESS_INVALID && m_endian != wxENDIAN_INVALID;
                // do not check linux-specific info; it's ok to have them empty
   }
 protected:
   static bool DoCheckVersion(int majorCur, int minorCur, int microCur, int major, int minor, int micro)
   {
-        return majorCur > major
-            || (majorCur == major && minorCur > minor)
-            || (majorCur == major && minorCur == minor && microCur >= micro);
+    return majorCur > major || (majorCur == major && minorCur > minor) || (majorCur == major && minorCur == minor && microCur >= micro);
   }
   bool m_initializedForCurrentPlatform;
   void InitForCurrentPlatform();

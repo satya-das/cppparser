@@ -23,7 +23,7 @@ class WXDLLIMPEXP_CORE wxSoundData
 {
 public:
   wxSoundData()
-    :  m_refCnt(1)
+    : m_refCnt(1)
   {
   }
   void IncRef();
@@ -58,7 +58,7 @@ public:
   bool Create(size_t size, const void* data);
   bool IsOk() const
   {
- return m_data != NULL;
+    return m_data != NULL;
   }
     // Stop playing any sound
   static void Stop();

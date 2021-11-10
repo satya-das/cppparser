@@ -164,21 +164,29 @@ namespace PoDoFo
   bool PdfInputDevice::Bad() const
   {
     if (m_pStream)
-        return m_pStream->bad();
+    {
+      return m_pStream->bad();
+    }
     return m_pFile != NULL;
   }
   bool PdfInputDevice::Eof() const
   {
     if (m_pStream)
-        return m_pStream->eof();
+    {
+      return m_pStream->eof();
+    }
     if (m_pFile)
-        return feof(m_pFile) != 0;
+    {
+      return feof(m_pFile) != 0;
+    }
     return true;
   }
   void PdfInputDevice::Clear(std::ios_base::iostate state) const
   {
     if (m_pStream)
-        m_pStream->clear(state);
+    {
+      m_pStream->clear(state);
+    }
   }
 }
 #endif

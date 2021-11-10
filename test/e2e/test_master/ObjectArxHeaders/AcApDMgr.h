@@ -24,26 +24,30 @@ class AcApDataManager : public AcApDocManagerReactor
 public:
   AcApDataManager()
   {
-		acDocManager->addReactor (this) ;
+    acDocManager->addReactor(this);
   }
   ~AcApDataManager()
   {
-		if ( acDocManager != NULL )
-			acDocManager->removeReactor (this) ;
+    if (acDocManager != NULL)
+    {
+      acDocManager->removeReactor(this);
+    }
   }
   virtual void documentToBeDestroyed(AcApDocument* pDoc)
   {
-		m_dataMap.erase (pDoc) ;
+    m_dataMap.erase(pDoc);
   }
   T& docData(AcApDocument* pDoc)
   {
-		if ( m_dataMap.find(pDoc) == m_dataMap.end () )
-			return (m_dataMap[pDoc]) ;
-		return ((*(m_dataMap.find(pDoc))).second) ;
+    if (m_dataMap.find(pDoc) == m_dataMap.end())
+    {
+      return (m_dataMap[pDoc]);
+    }
+    return ((*(m_dataMap.find(pDoc))).second);
   }
   T& docData()
   {
-		return (docData (acDocManager->curDocument ())) ;
+    return (docData(acDocManager->curDocument()));
   }
 private:
   std::map<AcApDocument *, T> m_dataMap;

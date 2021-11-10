@@ -346,28 +346,28 @@ namespace PoDoFo
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::CharWidthMM(unsigned char c) const
   {
-    return static_cast<unsigned long>(this->CharWidth( c ) / PODOFO_CONVERSION_CONSTANT);
+    return static_cast<unsigned long>(this->CharWidth(c) / PODOFO_CONVERSION_CONSTANT);
   }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   double PdfFontMetrics::StringWidth(const PdfString& rsString) const
   {
-    return (rsString.IsUnicode() ?  this->StringWidth( rsString.GetUnicode() ) : this->StringWidth( rsString.GetString() ));
+    return (rsString.IsUnicode() ? this->StringWidth(rsString.GetUnicode()) : this->StringWidth(rsString.GetString()));
   }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::StringWidthMM(const char* pszText, unsigned int nLength) const
   {
-    return static_cast<unsigned long>(this->StringWidth( pszText, nLength ) / PODOFO_CONVERSION_CONSTANT);
+    return static_cast<unsigned long>(this->StringWidth(pszText, nLength) / PODOFO_CONVERSION_CONSTANT);
   }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::StringWidthMM(const pdf_utf16be* pszText, unsigned int nLength) const
   {
-    return static_cast<unsigned long>(this->StringWidth( pszText, nLength ) / PODOFO_CONVERSION_CONSTANT);
+    return static_cast<unsigned long>(this->StringWidth(pszText, nLength) / PODOFO_CONVERSION_CONSTANT);
   }
 // -----------------------------------------------------
 //
@@ -377,7 +377,7 @@ namespace PoDoFo
 #    else 
   unsigned long PdfFontMetrics::StringWidthMM(const wchar_t* pszText, unsigned int nLength) const
   {
-    return static_cast<unsigned long>(this->StringWidth( pszText, nLength ) / PODOFO_CONVERSION_CONSTANT);
+    return static_cast<unsigned long>(this->StringWidth(pszText, nLength) / PODOFO_CONVERSION_CONSTANT);
   }
 #    endif
 #  endif
@@ -393,14 +393,14 @@ namespace PoDoFo
 // -----------------------------------------------------
   long PdfFontMetrics::GetUnderlinePositionMM() const
   {
-    return static_cast<long>(this->GetUnderlinePosition() /  PODOFO_CONVERSION_CONSTANT);
+    return static_cast<long>(this->GetUnderlinePosition() / PODOFO_CONVERSION_CONSTANT);
   }
 // -----------------------------------------------------
 //
 // -----------------------------------------------------
   unsigned long PdfFontMetrics::GetStrikeOutPositionMM() const
   {
-    return static_cast<long>(this->GetStrikeOutPosition() /  PODOFO_CONVERSION_CONSTANT);
+    return static_cast<long>(this->GetStrikeOutPosition() / PODOFO_CONVERSION_CONSTANT);
   }
 // -----------------------------------------------------
 //

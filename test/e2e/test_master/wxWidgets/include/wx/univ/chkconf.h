@@ -43,20 +43,16 @@
 #      endif
 #    endif
 #  endif
-#  if  wxUSE_TEXTCTRL
-#    if  !wxUSE_CARET
-#      ifdef wxABORT_ON_CONFIG_ERROR
-#      else 
-#        undef wxUSE_CARET
-#        define wxUSE_CARET	1
-#      endif
+#  if  !wxUSE_CARET
+#    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef wxUSE_CARET
+#      define wxUSE_CARET	1
 #    endif
-#    if  !wxUSE_SCROLLBAR
-#      ifdef wxABORT_ON_CONFIG_ERROR
-#      else 
-#        undef wxUSE_SCROLLBAR
-#        define wxUSE_SCROLLBAR	1
-#      endif
+#  endif
+#  if  !wxUSE_SCROLLBAR
+#    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef wxUSE_SCROLLBAR
+#      define wxUSE_SCROLLBAR	1
 #    endif
 #  endif
 /* Themes checks */

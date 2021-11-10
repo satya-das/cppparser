@@ -33,8 +33,8 @@ class WXDLLIMPEXP_CORE wxSashEdge
 public:
   wxSashEdge()
   {
- m_show = false;
-      m_margin = 0;
+    m_show = false;
+    m_margin = 0;
   }
   bool m_show;
   int m_margin;
@@ -59,13 +59,13 @@ public:
     // Default constructor
   wxSashWindow()
   {
-        Init();
+    Init();
   }
     // Normal constructor
   wxSashWindow(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSW_3D | wxCLIP_CHILDREN, const wxString& name = wxT("sashWindow"))
   {
-        Init();
-        Create(parent, id, pos, size, style, name);
+    Init();
+    Create(parent, id, pos, size, style, name);
   }
   virtual ~wxSashWindow();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSW_3D | wxCLIP_CHILDREN, const wxString& name = wxT("sashWindow"));
@@ -74,64 +74,64 @@ public:
     // Get whether there's a sash in this position
   bool GetSashVisible(wxSashEdgePosition edge) const
   {
- return m_sashes[edge].m_show;
+    return m_sashes[edge].m_show;
   }
     // Get border size
   int GetEdgeMargin(wxSashEdgePosition edge) const
   {
- return m_sashes[edge].m_margin;
+    return m_sashes[edge].m_margin;
   }
     // Sets the default sash border size
   void SetDefaultBorderSize(int width)
   {
- m_borderSize = width;
+    m_borderSize = width;
   }
     // Gets the default sash border size
   int GetDefaultBorderSize() const
   {
- return m_borderSize;
+    return m_borderSize;
   }
     // Sets the addition border size between child and sash window
   void SetExtraBorderSize(int width)
   {
- m_extraBorderSize = width;
+    m_extraBorderSize = width;
   }
     // Gets the addition border size between child and sash window
   int GetExtraBorderSize() const
   {
- return m_extraBorderSize;
+    return m_extraBorderSize;
   }
   virtual void SetMinimumSizeX(int min)
   {
- m_minimumPaneSizeX = min;
+    m_minimumPaneSizeX = min;
   }
   virtual void SetMinimumSizeY(int min)
   {
- m_minimumPaneSizeY = min;
+    m_minimumPaneSizeY = min;
   }
   virtual int GetMinimumSizeX() const
   {
- return m_minimumPaneSizeX;
+    return m_minimumPaneSizeX;
   }
   virtual int GetMinimumSizeY() const
   {
- return m_minimumPaneSizeY;
+    return m_minimumPaneSizeY;
   }
   virtual void SetMaximumSizeX(int max)
   {
- m_maximumPaneSizeX = max;
+    m_maximumPaneSizeX = max;
   }
   virtual void SetMaximumSizeY(int max)
   {
- m_maximumPaneSizeY = max;
+    m_maximumPaneSizeY = max;
   }
   virtual int GetMaximumSizeX() const
   {
- return m_maximumPaneSizeX;
+    return m_maximumPaneSizeX;
   }
   virtual int GetMaximumSizeY() const
   {
- return m_maximumPaneSizeY;
+    return m_maximumPaneSizeY;
   }
 ////////////////////////////////////////////////////////////////////////////
 // Implementation
@@ -199,48 +199,47 @@ class WXDLLIMPEXP_CORE wxSashEvent : public wxCommandEvent
 public:
   wxSashEvent(int id = 0, wxSashEdgePosition edge = wxSASH_NONE)
   {
-        m_eventType = (wxEventType) wxEVT_SASH_DRAGGED;
-        m_id = id;
-        m_edge = edge;
+    m_eventType = (wxEventType) wxEVT_SASH_DRAGGED;
+    m_id = id;
+    m_edge = edge;
   }
   wxSashEvent(const wxSashEvent& event)
-    :  wxCommandEvent(event),
-          m_edge(event.m_edge),
-          m_dragRect(event.m_dragRect),
-          m_dragStatus(event.m_dragStatus)
+    : wxCommandEvent(event)
+    , m_edge(event.m_edge)
+    , m_dragRect(event.m_dragRect)
+    , m_dragStatus(event.m_dragStatus)
   {
-
   }
   void SetEdge(wxSashEdgePosition edge)
   {
- m_edge = edge;
+    m_edge = edge;
   }
   wxSashEdgePosition GetEdge() const
   {
- return m_edge;
+    return m_edge;
   }
     //// The rectangle formed by the drag operation
   void SetDragRect(const wxRect& rect)
   {
- m_dragRect = rect;
+    m_dragRect = rect;
   }
   wxRect GetDragRect() const
   {
- return m_dragRect;
+    return m_dragRect;
   }
     //// Whether the drag caused the rectangle to be reversed (e.g.
     //// dragging the top below the bottom)
   void SetDragStatus(wxSashDragStatus status)
   {
- m_dragStatus = status;
+    m_dragStatus = status;
   }
   wxSashDragStatus GetDragStatus() const
   {
- return m_dragStatus;
+    return m_dragStatus;
   }
   wxEvent* Clone() const override
   {
- return new wxSashEvent(*this);
+    return new wxSashEvent(*this);
   }
 private:
   wxSashEdgePosition m_edge;

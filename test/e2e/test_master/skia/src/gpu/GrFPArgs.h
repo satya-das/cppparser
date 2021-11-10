@@ -13,13 +13,13 @@ class GrRecordingContext;
 struct GrFPArgs
 {
   GrFPArgs(GrRecordingContext* context, const SkMatrix* viewMatrix, SkFilterQuality filterQuality, const GrColorInfo* dstColorInfo)
-    :  fContext(context)
-            , fViewMatrix(viewMatrix)
-            , fFilterQuality(filterQuality)
-            , fDstColorInfo(dstColorInfo)
+    : fContext(context)
+    , fViewMatrix(viewMatrix)
+    , fFilterQuality(filterQuality)
+    , fDstColorInfo(dstColorInfo)
   {
-        SkASSERT(fContext);
-        SkASSERT(fViewMatrix);
+    SkASSERT(fContext);
+    SkASSERT(fViewMatrix);
   }
   class WithPreLocalMatrix;
   class WithPostLocalMatrix;
@@ -42,16 +42,20 @@ class GrFPArgs::WithPreLocalMatrix final : public GrFPArgs
 {
 public:
   WithPreLocalMatrix(const GrFPArgs& args, const SkMatrix& lm)
-    :  INHERITED(args)
+    : INHERITED(args)
   {
-        if (!lm.isIdentity()) {
-            if (fPreLocalMatrix) {
-                fStorage.setConcat(lm, *fPreLocalMatrix);
-                fPreLocalMatrix = fStorage.isIdentity() ? nullptr : &fStorage;
-            } else {
-                fPreLocalMatrix = &lm;
-            }
-        }
+    if (!lm.isIdentity())
+    {
+      if (fPreLocalMatrix)
+      {
+        fStorage.setConcat(lm, *fPreLocalMatrix);
+        fPreLocalMatrix = fStorage.isIdentity() ? nullptr : &fStorage;
+      }
+      else 
+      {
+        fPreLocalMatrix = &lm;
+      }
+    }
   }
 private:
   WithPreLocalMatrix(const WithPreLocalMatrix&) = delete;
@@ -63,16 +67,20 @@ class GrFPArgs::WithPostLocalMatrix final : public GrFPArgs
 {
 public:
   WithPostLocalMatrix(const GrFPArgs& args, const SkMatrix& lm)
-    :  INHERITED(args)
+    : INHERITED(args)
   {
-        if (!lm.isIdentity()) {
-            if (fPostLocalMatrix) {
-                fStorage.setConcat(*fPostLocalMatrix, lm);
-                fPostLocalMatrix = fStorage.isIdentity() ? nullptr : &fStorage;
-            } else {
-                fPostLocalMatrix = &lm;
-            }
-        }
+    if (!lm.isIdentity())
+    {
+      if (fPostLocalMatrix)
+      {
+        fStorage.setConcat(*fPostLocalMatrix, lm);
+        fPostLocalMatrix = fStorage.isIdentity() ? nullptr : &fStorage;
+      }
+      else 
+      {
+        fPostLocalMatrix = &lm;
+      }
+    }
   }
 private:
   WithPostLocalMatrix(const WithPostLocalMatrix&) = delete;

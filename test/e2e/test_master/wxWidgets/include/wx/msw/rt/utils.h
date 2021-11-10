@@ -24,18 +24,19 @@ namespace wxWinRT
   {
   public:
     Initializer()
-      :  m_ok(Initialize())
+      : m_ok(Initialize())
     {
-
     }
     bool IsOk() const
     {
-        return m_ok;
+      return m_ok;
     }
     ~Initializer()
     {
-        if (m_ok)
-            Uninitialize();
+      if (m_ok)
+      {
+        Uninitialize();
+      }
     }
   private:
     const bool m_ok;
@@ -49,11 +50,11 @@ namespace wxWinRT
   public:
     HSTRING Get() const
     {
- return m_hstring;
+      return m_hstring;
     }
     operator HSTRING() const
     {
- return m_hstring;
+      return m_hstring;
     }
     TempStringRef(const wxString& str);
   private:

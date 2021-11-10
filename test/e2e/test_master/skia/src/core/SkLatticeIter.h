@@ -30,12 +30,13 @@ public:
     /** Version of above that converts the integer src rect to a scalar rect. */
   bool next(SkRect* src, SkRect* dst, bool* isFixedColor = nullptr, SkColor* fixedColor = nullptr)
   {
-        SkIRect isrcR;
-        if (this->next(&isrcR, dst, isFixedColor, fixedColor)) {
-            *src = SkRect::Make(isrcR);
-            return true;
-        }
-        return false;
+    SkIRect isrcR;
+    if (this->next(&isrcR, dst, isFixedColor, fixedColor))
+    {
+      *src = SkRect::Make(isrcR);
+      return true;
+    }
+    return false;
   }
     /**
      *  Apply a matrix to the dst points.
@@ -46,7 +47,7 @@ public:
      */
   int numRectsToDraw() const
   {
-        return fNumRectsToDraw;
+    return fNumRectsToDraw;
   }
 private:
   SkTArray<int> fSrcX;

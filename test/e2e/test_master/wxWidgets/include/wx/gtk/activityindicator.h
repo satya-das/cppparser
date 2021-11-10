@@ -26,11 +26,10 @@ class WXDLLIMPEXP_ADV wxActivityIndicator : public wxActivityIndicatorGtkBase
 public:
   wxActivityIndicator()
   {
-
   }
   explicit wxActivityIndicator(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxActivityIndicatorNameStr)
   {
-        Create(parent, winid, pos, size, style, name);
+    Create(parent, winid, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxActivityIndicatorNameStr);
   void Start() override;

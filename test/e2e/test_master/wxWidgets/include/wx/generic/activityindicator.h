@@ -20,13 +20,12 @@ class WXDLLIMPEXP_ADV wxActivityIndicatorGeneric : public wxActivityIndicatorBas
 public:
   wxActivityIndicatorGeneric()
   {
-        m_impl = NULL;
+    m_impl = NULL;
   }
   explicit wxActivityIndicatorGeneric(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxActivityIndicatorNameStr)
   {
-        m_impl = NULL;
-
-        Create(parent, winid, pos, size, style, name);
+    m_impl = NULL;
+    Create(parent, winid, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxActivityIndicatorNameStr);
   virtual ~wxActivityIndicatorGeneric();

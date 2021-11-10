@@ -74,7 +74,7 @@ public:
         // TODO(khushalsagar): Make pure virtual once chrome implementation lands.
     SK_API virtual bool isHandleDeleted(SkDiscardableHandleId)
     {
- return false;
+      return false;
     }
   };
   SK_API explicit SkStrikeServer(DiscardableHandleManager* discardableHandleManager);
@@ -92,11 +92,11 @@ public:
   static void AddGlyphForTesting(RemoteStrike* cache, SkPackedGlyphID glyphID, bool asPath);
   void setMaxEntriesInDescriptorMapForTesting(size_t count)
   {
-        fMaxEntriesInDescriptorMap = count;
+    fMaxEntriesInDescriptorMap = count;
   }
   size_t remoteStrikeMapSizeForTesting() const
   {
- return fDescToRemoteStrike.size();
+    return fDescToRemoteStrike.size();
   }
 private:
   static constexpr size_t kMaxEntriesInDescriptorMap = 2000u;

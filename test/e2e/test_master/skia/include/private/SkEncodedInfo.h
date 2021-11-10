@@ -19,7 +19,7 @@ public:
     static std::unique_ptr<ICCProfile> Make(const skcms_ICCProfile&);
     const skcms_ICCProfile* profile() const
     {
- return &fProfile;
+      return &fProfile;
     }
   private:
     ICCProfile(const skcms_ICCProfile&, sk_sp<SkData> = nullptr);
@@ -92,59 +92,54 @@ public:
   };
   static SkEncodedInfo Make(int width, int height, Color color, Alpha alpha, int bitsPerComponent)
   {
-        return Make(width, height, color, alpha, bitsPerComponent, nullptr);
+    return Make(width, height, color, alpha, bitsPerComponent, nullptr);
   }
   static SkEncodedInfo Make(int width, int height, Color color, Alpha alpha, int bitsPerComponent, std::unique_ptr<ICCProfile> profile)
   {
-        SkASSERT(1 == bitsPerComponent ||
-                 2 == bitsPerComponent ||
-                 4 == bitsPerComponent ||
-                 8 == bitsPerComponent ||
-                 16 == bitsPerComponent);
-
-        switch (color) {
-            case kGray_Color:
-                SkASSERT(kOpaque_Alpha == alpha);
-                break;
-            case kGrayAlpha_Color:
-                SkASSERT(kOpaque_Alpha != alpha);
-                break;
-            case kPalette_Color:
-                SkASSERT(16 != bitsPerComponent);
-                break;
-            case kRGB_Color:
-            case kBGR_Color:
-            case kBGRX_Color:
-                SkASSERT(kOpaque_Alpha == alpha);
-                SkASSERT(bitsPerComponent >= 8);
-                break;
-            case kYUV_Color:
-            case kInvertedCMYK_Color:
-            case kYCCK_Color:
-                SkASSERT(kOpaque_Alpha == alpha);
-                SkASSERT(8 == bitsPerComponent);
-                break;
-            case kRGBA_Color:
-                SkASSERT(bitsPerComponent >= 8);
-                break;
-            case kBGRA_Color:
-            case kYUVA_Color:
-                SkASSERT(8 == bitsPerComponent);
-                break;
-            case kXAlpha_Color:
-                SkASSERT(kUnpremul_Alpha == alpha);
-                SkASSERT(8 == bitsPerComponent);
-                break;
-            case k565_Color:
-                SkASSERT(kOpaque_Alpha == alpha);
-                SkASSERT(8 == bitsPerComponent);
-                break;
-            default:
-                SkASSERT(false);
-                break;
-        }
-
-        return SkEncodedInfo(width, height, color, alpha, bitsPerComponent, std::move(profile));
+    SkASSERT(1 == bitsPerComponent || 2 == bitsPerComponent || 4 == bitsPerComponent || 8 == bitsPerComponent || 16 == bitsPerComponent);
+    switch(color)
+    {
+      case kGray_Color:
+        SkASSERT(kOpaque_Alpha == alpha);
+        break;
+      case kGrayAlpha_Color:
+        SkASSERT(kOpaque_Alpha != alpha);
+        break;
+      case kPalette_Color:
+        SkASSERT(16 != bitsPerComponent);
+        break;
+      case kRGB_Color:
+      case kBGR_Color:
+      case kBGRX_Color:
+        SkASSERT(kOpaque_Alpha == alpha);
+        SkASSERT(bitsPerComponent >= 8);
+        break;
+      case kYUV_Color:
+      case kInvertedCMYK_Color:
+      case kYCCK_Color:
+        SkASSERT(kOpaque_Alpha == alpha);
+        SkASSERT(8 == bitsPerComponent);
+        break;
+      case kRGBA_Color:
+        SkASSERT(bitsPerComponent >= 8);
+        break;
+      case kBGRA_Color:
+      case kYUVA_Color:
+        SkASSERT(8 == bitsPerComponent);
+        break;
+      case kXAlpha_Color:
+        SkASSERT(kUnpremul_Alpha == alpha);
+        SkASSERT(8 == bitsPerComponent);
+        break;
+      case k565_Color:
+        SkASSERT(kOpaque_Alpha == alpha);
+        SkASSERT(8 == bitsPerComponent);
+        break;
+default:
+      SkASSERT(false);
+      break;
+  }
+    return SkEncodedInfo(width, height, color, alpha, bitsPerComponent, std::move(profile));
   }
     /*
      * Returns a recommended SkImageInfo.
@@ -153,74 +148,74 @@ public:
      */
   SkImageInfo makeImageInfo() const
   {
-        auto ct =  kGray_Color == fColor ? kGray_8_SkColorType   :
-                 kXAlpha_Color == fColor ? kAlpha_8_SkColorType  :
-                    k565_Color == fColor ? kRGB_565_SkColorType  :
-                                           kN32_SkColorType      ;
-        auto alpha = kOpaque_Alpha == fAlpha ? kOpaque_SkAlphaType
-                                             : kUnpremul_SkAlphaType;
-        sk_sp<SkColorSpace> cs = fProfile ? SkColorSpace::Make(*fProfile->profile())
-                                          : nullptr;
-        if (!cs) {
-            cs = SkColorSpace::MakeSRGB();
-        }
-        return SkImageInfo::Make(fWidth, fHeight, ct, alpha, std::move(cs));
+    auto ct = kGray_Color == fColor ? kGray_8_SkColorType : kXAlpha_Color == fColor ? kAlpha_8_SkColorType : k565_Color == fColor ? kRGB_565_SkColorType : kN32_SkColorType;
+    auto alpha = kOpaque_Alpha == fAlpha ? kOpaque_SkAlphaType : kUnpremul_SkAlphaType;
+    sk_sp<SkColorSpace> cs = fProfile ? SkColorSpace::Make(*fProfile->profile()) : nullptr;
+    if (!cs)
+    {
+      cs = SkColorSpace::MakeSRGB();
+    }
+    return SkImageInfo::Make(fWidth, fHeight, ct, alpha, std::move(cs));
   }
   int width() const
   {
- return fWidth;
+    return fWidth;
   }
   int height() const
   {
- return fHeight;
+    return fHeight;
   }
   Color color() const
   {
- return fColor;
+    return fColor;
   }
   Alpha alpha() const
   {
- return fAlpha;
+    return fAlpha;
   }
   bool opaque() const
   {
- return fAlpha == kOpaque_Alpha;
+    return fAlpha == kOpaque_Alpha;
   }
   const skcms_ICCProfile* profile() const
   {
-        if (!fProfile) return nullptr;
-        return fProfile->profile();
+    if (!fProfile)
+    {
+      return nullptr;
+    }
+    return fProfile->profile();
   }
   uint8_t bitsPerComponent() const
   {
- return fBitsPerComponent;
+    return fBitsPerComponent;
   }
   uint8_t bitsPerPixel() const
   {
-        switch (fColor) {
-            case kGray_Color:
-                return fBitsPerComponent;
-            case kXAlpha_Color:
-            case kGrayAlpha_Color:
-                return 2 * fBitsPerComponent;
-            case kPalette_Color:
-                return fBitsPerComponent;
-            case kRGB_Color:
-            case kBGR_Color:
-            case kYUV_Color:
-            case k565_Color:
-                return 3 * fBitsPerComponent;
-            case kRGBA_Color:
-            case kBGRA_Color:
-            case kBGRX_Color:
-            case kYUVA_Color:
-            case kInvertedCMYK_Color:
-            case kYCCK_Color:
-                return 4 * fBitsPerComponent;
-            default:
-                SkASSERT(false);
-                return 0;
-        }
+    switch(fColor)
+    {
+      case kGray_Color:
+        return fBitsPerComponent;
+      case kXAlpha_Color:
+      case kGrayAlpha_Color:
+        return 2 * fBitsPerComponent;
+      case kPalette_Color:
+        return fBitsPerComponent;
+      case kRGB_Color:
+      case kBGR_Color:
+      case kYUV_Color:
+      case k565_Color:
+        return 3 * fBitsPerComponent;
+      case kRGBA_Color:
+      case kBGRA_Color:
+      case kBGRX_Color:
+      case kYUVA_Color:
+      case kInvertedCMYK_Color:
+      case kYCCK_Color:
+        return 4 * fBitsPerComponent;
+default:
+      SkASSERT(false);
+      return 0;
+  }
   }
   SkEncodedInfo(const SkEncodedInfo& orig) = delete;
   SkEncodedInfo& operator=(const SkEncodedInfo&);
@@ -229,20 +224,21 @@ public:
     // Explicit copy method, to avoid accidental copying.
   SkEncodedInfo copy() const
   {
-        auto copy = SkEncodedInfo::Make(fWidth, fHeight, fColor, fAlpha, fBitsPerComponent);
-        if (fProfile) {
-            copy.fProfile.reset(new ICCProfile(*fProfile.get()));
-        }
-        return copy;
+    auto copy = SkEncodedInfo::Make(fWidth, fHeight, fColor, fAlpha, fBitsPerComponent);
+    if (fProfile)
+    {
+      copy.fProfile.reset(new ICCProfile(*fProfile.get()));
+    }
+    return copy;
   }
 private:
   SkEncodedInfo(int width, int height, Color color, Alpha alpha, uint8_t bitsPerComponent, std::unique_ptr<ICCProfile> profile)
-    :  fWidth(width)
-        , fHeight(height)
-        , fColor(color)
-        , fAlpha(alpha)
-        , fBitsPerComponent(bitsPerComponent)
-        , fProfile(std::move(profile))
+    : fWidth(width)
+    , fHeight(height)
+    , fColor(color)
+    , fAlpha(alpha)
+    , fBitsPerComponent(bitsPerComponent)
+    , fProfile(std::move(profile))
   {
   }
   int fWidth;

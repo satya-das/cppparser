@@ -29,60 +29,62 @@ class GrIORef : public SkNoncopyable
 public:
   bool unique() const
   {
- return fRefCnt == 1;
+    return fRefCnt == 1;
   }
   void ref() const
   {
         // Only the cache should be able to add the first ref to a resource.
-        SkASSERT(this->getRefCnt() > 0);
+    SkASSERT(this->getRefCnt() > 0);
         // No barrier required.
-        (void)fRefCnt.fetch_add(+1, std::memory_order_relaxed);
+    (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
   }
   void unref() const
   {
-        SkASSERT(this->getRefCnt() > 0);
-        if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel)) {
+    SkASSERT(this->getRefCnt() > 0);
+    if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel))
+    {
             // At this point we better be the only thread accessing this resource.
             // Trick out the notifyRefCntWillBeZero() call by adding back one more ref.
-            fRefCnt.fetch_add(+1, std::memory_order_relaxed);
-            static_cast<const DERIVED*>(this)->notifyRefCntWillBeZero();
+      fRefCnt.fetch_add(1, std::memory_order_relaxed);
+      static_cast<const DERIVED*>(this)->notifyRefCntWillBeZero();
             // notifyRefCntWillBeZero() could have done anything, including re-refing this and
             // passing on to another thread. Take away the ref-count we re-added above and see
             // if we're back to zero.
             // TODO: Consider making it so that refs can't be added and merge
             //  notifyRefCntWillBeZero()/willRemoveLastRef() with notifyRefCntIsZero().
-            if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel)) {
-                static_cast<const DERIVED*>(this)->notifyRefCntIsZero();
-            }
-        }
+      if (1 == fRefCnt.fetch_add(-1, std::memory_order_acq_rel))
+      {
+        static_cast<const DERIVED*>(this)->notifyRefCntIsZero();
+      }
+    }
   }
 #  if  GR_TEST_UTILS
   int32_t testingOnly_getRefCnt() const
   {
- return this->getRefCnt();
+    return this->getRefCnt();
   }
 #  endif
 protected:
   friend class GrResourceCache;
   GrIORef()
-    :  fRefCnt(1)
+    : fRefCnt(1)
   {
   }
   bool internalHasRef() const
   {
- return SkToBool(this->getRefCnt());
+    return SkToBool(this->getRefCnt());
   }
     // Privileged method that allows going from ref count = 0 to ref count = 1.
   void addInitialRef() const
   {
-        SkASSERT(fRefCnt >= 0);
+    SkASSERT(fRefCnt >= 0);
         // No barrier required.
-        (void)fRefCnt.fetch_add(+1, std::memory_order_relaxed);
+    (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
   }
 private:
   int32_t getRefCnt() const
   {
- return fRefCnt.load(std::memory_order_relaxed);
+    return fRefCnt.load(std::memory_order_relaxed);
   }
   mutable std::atomic<int32_t> fRefCnt;
   typedef SkNoncopyable INHERITED;
@@ -105,7 +107,7 @@ public:
      */
   bool wasDestroyed() const
   {
- return nullptr == fGpu;
+    return nullptr == fGpu;
   }
     /**
      * Retrieves the context that owns the object. Note that it is possible for
@@ -124,39 +126,40 @@ public:
      */
   size_t gpuMemorySize() const
   {
-        if (kInvalidGpuMemorySize == fGpuMemorySize) {
-            fGpuMemorySize = this->onGpuMemorySize();
-            SkASSERT(kInvalidGpuMemorySize != fGpuMemorySize);
-        }
-        return fGpuMemorySize;
+    if (kInvalidGpuMemorySize == fGpuMemorySize)
+    {
+      fGpuMemorySize = this->onGpuMemorySize();
+      SkASSERT(kInvalidGpuMemorySize != fGpuMemorySize);
+    }
+    return fGpuMemorySize;
   }
   class UniqueID
   {
   public:
     UniqueID();
     explicit UniqueID(uint32_t id)
-      :  fID(id)
+      : fID(id)
     {
     }
     uint32_t asUInt() const
     {
- return fID;
+      return fID;
     }
     bool operator==(const UniqueID& other) const
     {
- return fID == other.fID;
+      return fID == other.fID;
     }
     bool operator!=(const UniqueID& other) const
     {
- return !(*this == other);
+      return !(*this == other);
     }
     void makeInvalid()
     {
- fID = SK_InvalidUniqueID;
+      fID = SK_InvalidUniqueID;
     }
     bool isInvalid() const
     {
- return  fID == SK_InvalidUniqueID;
+      return fID == SK_InvalidUniqueID;
     }
   protected:
     uint32_t fID = SK_InvalidUniqueID;
@@ -168,13 +171,13 @@ public:
      */
   UniqueID uniqueID() const
   {
- return fUniqueID;
+    return fUniqueID;
   }
     /** Returns the current unique key for the resource. It will be invalid if the resource has no
         associated unique key. */
   const GrUniqueKey& getUniqueKey() const
   {
- return fUniqueKey;
+    return fUniqueKey;
   }
     /**
      * Internal-only helper class used for manipulations of the resource by the cache.
@@ -220,19 +223,17 @@ protected:
   virtual ~GrGpuResource();
   GrGpu* getGpu() const
   {
- return fGpu;
+    return fGpu;
   }
     /** Overridden to free GPU resources in the backend API. */
   virtual void onRelease()
   {
-
   }
     /** Overridden to abandon any internal handles, ptrs, etc to backend API resources.
         This may be called when the underlying 3D context is no longer valid and so no
         backend API calls should be made. */
   virtual void onAbandon()
   {
-
   }
     /**
      * Allows subclasses to add additional backing information to the SkTraceMemoryDump.
@@ -313,7 +314,7 @@ class GrGpuResource::ProxyAccess
 {
 private:
   ProxyAccess(GrGpuResource* resource)
-    :  fResource(resource)
+    : fResource(resource)
   {
   }
     /** Proxies are allowed to take a resource from no refs to one ref. */
@@ -327,6 +328,6 @@ private:
 };
 inline GrGpuResource::ProxyAccess GrGpuResource::proxyAccess()
 {
- return ProxyAccess(this);
+  return ProxyAccess(this);
 }
 #endif

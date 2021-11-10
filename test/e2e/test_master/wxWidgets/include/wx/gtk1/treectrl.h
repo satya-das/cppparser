@@ -63,7 +63,7 @@ public:
   // ctors
   wxTreeItemId()
   {
- m_itemId = NULL;
+    m_itemId = NULL;
   }
       // default copy ctor/assignment operator are ok for us
 
@@ -71,7 +71,7 @@ public:
       // is this a valid tree item?
   bool IsOk() const
   {
- return m_itemId != NULL;
+    return m_itemId != NULL;
   }
   // conversion to/from either real (system-dependent) tree item id or
   // to "long" which used to be the type for tree item ids in previous
@@ -80,15 +80,15 @@ public:
   // for wxTreeCtrl usage only
   wxTreeItemId(GtkTreeItem* itemId)
   {
- m_itemId = itemId;
+    m_itemId = itemId;
   }
   operator GtkTreeItem*() const
   {
- return m_itemId;
+    return m_itemId;
   }
   void operator =(GtkTreeItem* item)
   {
- m_itemId = item;
+    m_itemId = item;
   }
 protected:
   GtkTreeItem* m_itemId;
@@ -116,16 +116,15 @@ public:
     // allocated in your wxTreeItemData-derived class
   virtual ~wxTreeItemData()
   {
-
   }
     // accessors: set/get the item associated with this node
   void SetId(const wxTreeItemId& id)
   {
- m_itemId = id;
+    m_itemId = id;
   }
   const wxTreeItemId& GetId() const
   {
- return (wxTreeItemId&) m_itemId;
+    return (wxTreeItemId&) m_itemId;
   }
 };
 class WXDLLIMPEXP_CORE wxTreeCtrl : public wxControl
@@ -135,11 +134,11 @@ public:
   // --------
   wxTreeCtrl()
   {
- Init();
+    Init();
   }
   wxTreeCtrl(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTR_HAS_BUTTONS | wxTR_LINES_AT_ROOT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR("wxTreeCtrl"))
   {
-      Create(parent, id, pos, size, style, validator, name);
+    Create(parent, id, pos, size, style, validator, name);
   }
   virtual ~wxTreeCtrl();
   bool Create(wxWindow* parent, wxWindowID id = wxID_ANY, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxTR_HAS_BUTTONS | wxTR_LINES_AT_ROOT, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR("wxTreeCtrl"));
@@ -290,7 +289,7 @@ public:
         // use Set/GetImageList and Set/GetStateImageList
   wxImageList* GetImageList(int) const
   {
- return GetImageList();
+    return GetImageList();
   }
   void SendExpanding(const wxTreeItemId& item);
   void SendExpanded(const wxTreeItemId& item);

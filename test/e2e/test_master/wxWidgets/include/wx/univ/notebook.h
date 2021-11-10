@@ -29,13 +29,12 @@ public:
     // --------------
   wxNotebook()
   {
- Init();
+    Init();
   }
   wxNotebook(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxNotebookNameStr))
   {
-        Init();
-
-        (void)Create(parent, id, pos, size, style, name);
+    Init();
+    (void) Create(parent, id, pos, size, style, name);
   }
     // quasi ctor
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxString& name = wxASCII_STR(wxNotebookNameStr));
@@ -45,12 +44,12 @@ public:
     // --------------------------------------
   int SetSelection(size_t nPage) override
   {
- return DoSetSelection(nPage, SetSelection_SendEvent);
+    return DoSetSelection(nPage, SetSelection_SendEvent);
   }
     // changes selected page without sending events
   int ChangeSelection(size_t nPage) override
   {
- return DoSetSelection(nPage);
+    return DoSetSelection(nPage);
   }
   bool SetPageText(size_t nPage, const wxString& strText) override;
   wxString GetPageText(size_t nPage) const override;
@@ -68,7 +67,7 @@ public:
     // return true if all tabs have the same width
   bool FixedSizeTabs() const
   {
- return HasFlag(wxNB_FIXEDWIDTH);
+    return HasFlag(wxNB_FIXEDWIDTH);
   }
     // return wxTOP/wxBOTTOM/wxRIGHT/wxLEFT
   wxDirection GetTabOrientation() const;
@@ -84,7 +83,7 @@ public:
   static wxInputHandler* GetStdInputHandler(wxInputHandler* handlerDef);
   wxInputHandler* DoGetStdInputHandler(wxInputHandler* handlerDef) override
   {
-        return GetStdInputHandler(handlerDef);
+    return GetStdInputHandler(handlerDef);
   }
     // refresh the currently selected tab
   void RefreshCurrent();
@@ -130,12 +129,12 @@ protected:
     // get the (cached) width of the tab
   wxCoord GetTabWidth(int page) const
   {
- return FixedSizeTabs() ? m_widthMax : m_widths[page];
+    return FixedSizeTabs() ? m_widthMax : m_widths[page];
   }
     // return true if the tab has an associated image
   bool HasImage(int page) const
   {
- return HasImageList() && m_images[page] != -1;
+    return HasImageList() && m_images[page] != -1;
   }
     // get the part of the notebook reserved for the pages (slightly larger
     // than GetPageRect() as we draw a border and leave marginin between)

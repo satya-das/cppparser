@@ -15,18 +15,18 @@ public:
   static sk_sp<GrMtlTextureRenderTarget> MakeWrappedTextureRenderTarget(GrMtlGpu*, const GrSurfaceDesc&, int sampleCnt, id<MTLTexture>, GrWrapCacheable);
   GrBackendFormat backendFormat() const override
   {
-        return GrMtlTexture::backendFormat();
+    return GrMtlTexture::backendFormat();
   }
 protected:
   void onAbandon() override
   {
-        GrMtlRenderTarget::onAbandon();
-        GrMtlTexture::onAbandon();
+    GrMtlRenderTarget::onAbandon();
+    GrMtlTexture::onAbandon();
   }
   void onRelease() override
   {
-        GrMtlRenderTarget::onRelease();
-        GrMtlTexture::onRelease();
+    GrMtlRenderTarget::onRelease();
+    GrMtlTexture::onRelease();
   }
 private:
   GrMtlTextureRenderTarget(GrMtlGpu* gpu, SkBudgeted budgeted, const GrSurfaceDesc& desc, int sampleCnt, id<MTLTexture> colorTexture, id<MTLTexture> resolveTexture, GrMipMapsStatus);
@@ -38,12 +38,12 @@ private:
         // TODO: When used as render targets certain formats may actually have a larger size than
         // the base format size. Check to make sure we are reporting the correct value here.
         // The plus 1 is to account for the resolve texture or if not using msaa the RT itself
-        int numColorSamples = this->numSamples();
-        if (numColorSamples > 1) {
-            ++numColorSamples;
-        }
-        return GrSurface::ComputeSize(this->config(), this->width(), this->height(),
-                                      numColorSamples, GrMipMapped::kNo);
+    int numColorSamples = this->numSamples();
+    if (numColorSamples > 1)
+    {
+      ++numColorSamples;
+    }
+    return GrSurface::ComputeSize(this->config(), this->width(), this->height(), numColorSamples, GrMipMapped::kNo);
   }
 };
 #endif

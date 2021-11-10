@@ -31,20 +31,22 @@ public:
     // -----
         // default - use Create()
   wxCaret()
-    :  m_timer(this)
+    : m_timer(this)
   {
- InitGeneric();
+    InitGeneric();
   }
         // creates a block caret associated with the given window
   wxCaret(wxWindowBase* window, int width, int height)
-    :  wxCaretBase(window, width, height), m_timer(this)
+    : wxCaretBase(window, width, height)
+    , m_timer(this)
   {
- InitGeneric();
+    InitGeneric();
   }
   wxCaret(wxWindowBase* window, const wxSize& size)
-    :  wxCaretBase(window, size), m_timer(this)
+    : wxCaretBase(window, size)
+    , m_timer(this)
   {
- InitGeneric();
+    InitGeneric();
   }
   virtual ~wxCaret();
     // implementation

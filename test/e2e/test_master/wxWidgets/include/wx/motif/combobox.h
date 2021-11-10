@@ -17,51 +17,49 @@ class WXDLLIMPEXP_CORE wxComboBox : public wxChoice, public wxTextEntry
 public:
   wxComboBox()
   {
- m_inSetSelection = false;
+    m_inSetSelection = false;
   }
   virtual ~wxComboBox();
   inline wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-        m_inSetSelection = false;
-        Create(parent, id, value, pos, size, n, choices,
-               style, validator, name);
+    m_inSetSelection = false;
+    Create(parent, id, value, pos, size, n, choices, style, validator, name);
   }
   inline wxComboBox(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr))
   {
-        m_inSetSelection = false;
-        Create(parent, id, value, pos, size, choices,
-               style, validator, name);
+    m_inSetSelection = false;
+    Create(parent, id, value, pos, size, choices, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, int n = 0, const wxString choices[] = NULL, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
   bool Create(wxWindow* parent, wxWindowID id, const wxString& value, const wxPoint& pos, const wxSize& size, const wxArrayString& choices, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxComboBoxNameStr));
     // See wxComboBoxBase discussion of IsEmpty().
   bool IsListEmpty() const
   {
- return wxItemContainer::IsEmpty();
+    return wxItemContainer::IsEmpty();
   }
   bool IsTextEmpty() const
   {
- return wxTextEntry::IsEmpty();
+    return wxTextEntry::IsEmpty();
   }
     // resolve ambiguities among virtual functions inherited from both base
     // classes
   virtual void Clear();
   virtual wxString GetValue() const
   {
- return wxTextEntry::GetValue();
+    return wxTextEntry::GetValue();
   }
   virtual void SetValue(const wxString& value);
   virtual wxString GetStringSelection() const
   {
- return wxChoice::GetStringSelection();
+    return wxChoice::GetStringSelection();
   }
   virtual void SetSelection(long from, long to)
   {
- wxTextEntry::SetSelection(from, to);
+    wxTextEntry::SetSelection(from, to);
   }
   virtual void GetSelection(long* from, long* to) const
   {
- wxTextEntry::GetSelection(from, to);
+    wxTextEntry::GetSelection(from, to);
   }
     // implementation of wxControlWithItems
   virtual int DoInsertItems(const wxArrayStringsAdapter& items, unsigned int pos, void** clientData, wxClientDataType type);
@@ -77,24 +75,24 @@ public:
   virtual void ChangeForegroundColour();
   WXWidget GetTopWidget() const
   {
- return m_mainWidget;
+    return m_mainWidget;
   }
   WXWidget GetMainWidget() const
   {
- return m_mainWidget;
+    return m_mainWidget;
   }
    //Copied from wxComboBoxBase because for wxMOTIF wxComboBox does not inherit from it.
   virtual void Popup()
   {
- wxFAIL_MSG( wxT("Not implemented") );
+    wxFAIL_MSG( wxT("Not implemented") );
   }
   virtual void Dismiss()
   {
- wxFAIL_MSG( wxT("Not implemented") );
+    wxFAIL_MSG( wxT("Not implemented") );
   }
   virtual const wxTextEntry* WXGetTextEntry() const
   {
- return this;
+    return this;
   }
 protected:
   virtual wxSize DoGetBestSize() const;
@@ -102,7 +100,7 @@ protected:
     // implement wxTextEntry pure virtual methods
   virtual wxWindow* GetEditableWindow()
   {
- return this;
+    return this;
   }
   virtual WXWidget GetTextWidget() const;
 private:

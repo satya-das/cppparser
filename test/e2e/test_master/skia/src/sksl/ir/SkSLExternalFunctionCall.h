@@ -17,37 +17,32 @@ namespace SkSL
   struct ExternalFunctionCall : public Expression
   {
     ExternalFunctionCall(int offset, const Type& type, ExternalValue* function, std::vector<std::unique_ptr<Expression>> arguments)
-      :  INHERITED(offset, kExternalFunctionCall_Kind, type)
-    , fFunction(function)
-    , fArguments(std::move(arguments))
+      : INHERITED(offset, kExternalFunctionCall_Kind, type)
+      , fFunction(function)
+      , fArguments(std::move(arguments))
     {
     }
     bool hasSideEffects() const override
     {
-        return true;
+      return true;
     }
     std::unique_ptr<Expression> clone() const override
     {
-        std::vector<std::unique_ptr<Expression>> cloned;
-        for (const auto& arg : fArguments) {
-            cloned.push_back(arg->clone());
-        }
-        return std::unique_ptr<Expression>(new ExternalFunctionCall(fOffset,
-                                                                    fType,
-                                                                    fFunction,
-                                                                    std::move(cloned)));
+      std::vector<std::unique_ptr<Expression>> cloned;
+      return std::unique_ptr<Expression>(new ExternalFunctionCall(fOffset, fType, fFunction, std::move(cloned)));
     }
     String description() const override
     {
-        String result = String(fFunction->fName) + "(";
-        String separator;
-        for (size_t i = 0; i < fArguments.size(); i++) {
-            result += separator;
-            result += fArguments[i]->description();
-            separator = ", ";
-        }
-        result += ")";
-        return result;
+      String result = String(fFunction->fName) + "(";
+      String separator;
+      for (size_t i = 0; i < fArguments.size(); i++)
+      {
+        result += separator;
+        result += fArguments[i]->description();
+        separator = ", ";
+      }
+      result += ")";
+      return result;
     }
     ExternalValue* fFunction;
     std::vector<std::unique_ptr<Expression>> fArguments;

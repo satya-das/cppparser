@@ -52,11 +52,13 @@ class WXDLLIMPEXP_XML wxXmlAttribute
 {
 public:
   wxXmlAttribute()
-    :  m_next(NULL)
+    : m_next(NULL)
   {
   }
   wxXmlAttribute(const wxString& name, const wxString& value, wxXmlAttribute* next = NULL)
-    :  m_name(name), m_value(value), m_next(next)
+    : m_name(name)
+    , m_value(value)
+    , m_next(next)
   {
   }
   virtual ~wxXmlAttribute()
@@ -64,38 +66,39 @@ public:
   }
   const wxString& GetName() const
   {
- return m_name;
+    return m_name;
   }
   const wxString& GetValue() const
   {
- return m_value;
+    return m_value;
   }
   wxXmlAttribute* GetNext() const
   {
- return m_next;
+    return m_next;
   }
   void SetName(const wxString& name)
   {
- m_name = name;
+    m_name = name;
   }
   void SetValue(const wxString& value)
   {
- m_value = value;
+    m_value = value;
   }
   void SetNext(wxXmlAttribute* next)
   {
- m_next = next;
+    m_next = next;
   }
 private:
   wxString m_name;
   wxString m_value;
   wxXmlAttribute* m_next;
 };
-#    if  WXWIN_COMPATIBILITY_2_8
     // NB: #define is used instead of typedef so that forward declarations
     //     continue to work
-#      define wxXmlProperty	wxXmlAttribute
-#    endif
+    #define wxXmlProperty wxXmlAttribute
+#endif
+
+
 // Represents node in XML document. Node has name and may have content and
 // attributes. Most common node types are wxXML_TEXT_NODE (name and attributes
 // are irrelevant) and wxXML_ELEMENT_NODE (e.g. in <title>hi</title> there is
@@ -108,10 +111,13 @@ class WXDLLIMPEXP_XML wxXmlNode
 {
 public:
   wxXmlNode()
-    :  m_attrs(NULL), m_parent(NULL), m_children(NULL), m_next(NULL),
-          m_lineNo(-1), m_noConversion(false)
+    : m_attrs(NULL)
+    , m_parent(NULL)
+    , m_children(NULL)
+    , m_next(NULL)
+    , m_lineNo(-1)
+    , m_noConversion(false)
   {
-
   }
   wxXmlNode(wxXmlNode* parent, wxXmlNodeType type, const wxString& name, const wxString& content = wxEmptyString, wxXmlAttribute* attrs = NULL, wxXmlNode* next = NULL, int lineNo = -1);
   virtual ~wxXmlNode();
@@ -132,15 +138,15 @@ public:
     // access methods:
   wxXmlNodeType GetType() const
   {
- return m_type;
+    return m_type;
   }
   const wxString& GetName() const
   {
- return m_name;
+    return m_name;
   }
   const wxString& GetContent() const
   {
- return m_content;
+    return m_content;
   }
   bool IsWhitespaceOnly() const;
   int GetDepth(wxXmlNode* grandparent = NULL) const;
@@ -152,67 +158,65 @@ public:
   wxString GetNodeContent() const;
   wxXmlNode* GetParent() const
   {
- return m_parent;
+    return m_parent;
   }
   wxXmlNode* GetNext() const
   {
- return m_next;
+    return m_next;
   }
   wxXmlNode* GetChildren() const
   {
- return m_children;
+    return m_children;
   }
   wxXmlAttribute* GetAttributes() const
   {
- return m_attrs;
+    return m_attrs;
   }
   bool GetAttribute(const wxString& attrName, wxString* value) const;
   wxString GetAttribute(const wxString& attrName, const wxString& defaultVal = wxEmptyString) const;
   bool HasAttribute(const wxString& attrName) const;
   int GetLineNumber() const
   {
- return m_lineNo;
+    return m_lineNo;
   }
   void SetType(wxXmlNodeType type)
   {
- m_type = type;
+    m_type = type;
   }
   void SetName(const wxString& name)
   {
- m_name = name;
+    m_name = name;
   }
   void SetContent(const wxString& con)
   {
- m_content = con;
+    m_content = con;
   }
   void SetParent(wxXmlNode* parent)
   {
- m_parent = parent;
+    m_parent = parent;
   }
   void SetNext(wxXmlNode* next)
   {
- m_next = next;
+    m_next = next;
   }
   void SetChildren(wxXmlNode* child)
   {
- m_children = child;
+    m_children = child;
   }
   void SetAttributes(wxXmlAttribute* attr)
   {
- m_attrs = attr;
+    m_attrs = attr;
   }
   virtual void AddAttribute(wxXmlAttribute* attr);
     // If true, don't do encoding conversion to improve efficiency - node content is ASCII text
   bool GetNoConversion() const
   {
- return m_noConversion;
+    return m_noConversion;
   }
   void SetNoConversion(bool noconversion)
   {
- m_noConversion = noconversion;
+    m_noConversion = noconversion;
   }
-#    if  WXWIN_COMPATIBILITY_2_8
-#    endif
     // The following three functions are backward compatibility, but because
     // they were virtual, we must make it possible to override them. This
     // is done by calling e.g. AddProperty() from AddAttribute(), so we have
@@ -220,13 +224,10 @@ public:
     // old code from compiling in that case, we make them private and
     // non-virtual. (This can be removed when WXWIN_COMPATIBILITY_2_8 is
     // removed, we'll have just *Attribute versions then.)
-#    if  WXWIN_COMPATIBILITY_2_8
-#    else 
 private:
   void AddProperty(const wxString& name, const wxString& value);
   bool DeleteProperty(const wxString& name);
   void AddProperty(wxXmlAttribute* attr);
-#    endif
   wxXmlNodeType m_type;
   wxString m_name;
   wxString m_content;
@@ -237,35 +238,13 @@ private:
   void DoFree();
   void DoCopy(const wxXmlNode& node);
 };
-#    if  WXWIN_COMPATIBILITY_2_8
-inline wxXmlAttribute* wxXmlNode::GetProperties() const
-{
- return GetAttributes();
-}
-inline bool wxXmlNode::GetPropVal(const wxString& propName, wxString* value) const
-{
- return GetAttribute(propName, value);
-}
-inline wxString wxXmlNode::GetPropVal(const wxString& propName, const wxString& defaultVal) const
-{
- return GetAttribute(propName, defaultVal);
-}
-inline bool wxXmlNode::HasProp(const wxString& propName) const
-{
- return HasAttribute(propName);
-}
-inline void wxXmlNode::SetProperties(wxXmlAttribute* prop)
-{
- SetAttributes(prop);
-}
-#    endif
 class WXDLLIMPEXP_XML wxXmlDoctype
 {
 public:
   explicit wxXmlDoctype(const wxString& rootName = wxString(), const wxString& systemId = wxString(), const wxString& publicId = wxString())
-    :  m_rootName(rootName),
-                   m_systemId(systemId),
-                   m_publicId(publicId)
+    : m_rootName(rootName)
+    , m_systemId(systemId)
+    , m_publicId(publicId)
   {
   }
     // Default copy ctor and assignment operators are ok.
@@ -273,15 +252,15 @@ public:
   void Clear();
   const wxString& GetRootName() const
   {
- return m_rootName;
+    return m_rootName;
   }
   const wxString& GetSystemId() const
   {
- return m_systemId;
+    return m_systemId;
   }
   const wxString& GetPublicId() const
   {
- return m_publicId;
+    return m_publicId;
   }
   wxString GetFullString() const;
 private:
@@ -305,7 +284,7 @@ public:
   wxXmlDocument(wxInputStream& stream, const wxString& encoding = wxT("UTF-8"));
   virtual ~wxXmlDocument()
   {
- wxDELETE(m_docNode);
+    wxDELETE(m_docNode);
   }
   wxXmlDocument(const wxXmlDocument& doc);
   wxXmlDocument& operator=(const wxXmlDocument& doc);
@@ -318,85 +297,75 @@ public:
   virtual bool Save(wxOutputStream& stream, int indentstep = 2) const;
   bool IsOk() const
   {
- return GetRoot() != NULL;
+    return GetRoot() != NULL;
   }
     // Returns root node of the document.
   wxXmlNode* GetRoot() const;
     // Returns the document node.
   wxXmlNode* GetDocumentNode() const
   {
- return m_docNode;
+    return m_docNode;
   }
     // Returns version of document (may be empty).
   const wxString& GetVersion() const
   {
- return m_version;
+    return m_version;
   }
     // Returns encoding of document (may be empty).
     // Note: this is the encoding original file was saved in, *not* the
     // encoding of in-memory representation!
   const wxString& GetFileEncoding() const
   {
- return m_fileEncoding;
+    return m_fileEncoding;
   }
   const wxXmlDoctype& GetDoctype() const
   {
- return m_doctype;
+    return m_doctype;
   }
     // Returns file type of document
   wxTextFileType GetFileType() const
   {
- return m_fileType;
+    return m_fileType;
   }
   wxString GetEOL() const
   {
- return m_eol;
+    return m_eol;
   }
     // Write-access methods:
   wxXmlNode* DetachDocumentNode()
   {
- wxXmlNode *old=m_docNode; m_docNode=NULL; return old;
+    wxXmlNode* old = m_docNode;
+    m_docNode = NULL;
+    return old;
   }
   void SetDocumentNode(wxXmlNode* node)
   {
- wxDELETE(m_docNode); m_docNode = node;
+    wxDELETE(m_docNode);
+    m_docNode = node;
   }
   wxXmlNode* DetachRoot();
   void SetRoot(wxXmlNode* node);
   void SetVersion(const wxString& version)
   {
- m_version = version;
+    m_version = version;
   }
   void SetFileEncoding(const wxString& encoding)
   {
- m_fileEncoding = encoding;
+    m_fileEncoding = encoding;
   }
   void SetDoctype(const wxXmlDoctype& doctype)
   {
- m_doctype = doctype;
+    m_doctype = doctype;
   }
   void SetFileType(wxTextFileType fileType);
   void AppendToProlog(wxXmlNode* node);
-#    if  !wxUSE_UNICODE
     // Returns encoding of in-memory representation of the document
     // (same as passed to Load or ctor, defaults to UTF-8).
     // NB: this is meaningless in Unicode build where data are stored as wchar_t*
-  wxString GetEncoding() const
-  {
- return m_encoding;
-  }
-  void SetEncoding(const wxString& enc)
-  {
- m_encoding = enc;
-  }
-#    endif
   static wxVersionInfo GetLibraryVersionInfo();
 private:
   wxString m_version;
   wxString m_fileEncoding;
-#    if  !wxUSE_UNICODE
-  wxString m_encoding;
-#    endif
   wxXmlDoctype m_doctype;
   wxXmlNode* m_docNode;
   wxTextFileType m_fileType;

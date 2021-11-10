@@ -25,40 +25,48 @@ class wxBusyInfoFlags
 public:
   wxBusyInfoFlags()
   {
-        m_parent = NULL;
-        m_alpha = wxALPHA_OPAQUE;
+    m_parent = NULL;
+    m_alpha = wxALPHA_OPAQUE;
   }
   wxBusyInfoFlags& Parent(wxWindow* parent)
   {
- m_parent = parent; return *this;
+    m_parent = parent;
+    return *this;
   }
   wxBusyInfoFlags& Icon(const wxIcon& icon)
   {
- m_icon = icon; return *this;
+    m_icon = icon;
+    return *this;
   }
   wxBusyInfoFlags& Title(const wxString& title)
   {
- m_title = title; return *this;
+    m_title = title;
+    return *this;
   }
   wxBusyInfoFlags& Text(const wxString& text)
   {
- m_text = text; return *this;
+    m_text = text;
+    return *this;
   }
   wxBusyInfoFlags& Label(const wxString& label)
   {
- m_label = label; return *this;
+    m_label = label;
+    return *this;
   }
   wxBusyInfoFlags& Foreground(const wxColour& foreground)
   {
- m_foreground = foreground; return *this;
+    m_foreground = foreground;
+    return *this;
   }
   wxBusyInfoFlags& Background(const wxColour& background)
   {
- m_background = background; return *this;
+    m_background = background;
+    return *this;
   }
   wxBusyInfoFlags& Transparency(wxByte alpha)
   {
- m_alpha = alpha; return *this;
+    m_alpha = alpha;
+    return *this;
   }
 private:
   wxWindow* m_parent;

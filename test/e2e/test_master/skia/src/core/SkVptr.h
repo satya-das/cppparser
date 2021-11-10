@@ -12,9 +12,9 @@
 template <typename T>
 static void* SkVptr(const T& object)
 {
-    static_assert(std::has_virtual_destructor<T>::value, "");
-    void* vptr;
-    memcpy(&vptr, (const void*)&object, sizeof(vptr));
-    return vptr;
+  static_assert(std::has_virtual_destructor<T>::value, "");
+  void* vptr;
+  memcpy(&vptr, (const void*) &object, sizeof(vptr));
+  return vptr;
 }
 #endif

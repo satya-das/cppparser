@@ -68,39 +68,39 @@ class WXDLLIMPEXP_GL wxGLAttribsBase
 public:
   wxGLAttribsBase()
   {
- Reset();
+    Reset();
   }
     // Setters
   void AddAttribute(int attribute)
   {
- m_GLValues.push_back(attribute);
+    m_GLValues.push_back(attribute);
   }
     // Search for searchVal and combine the next value with combineVal
   void AddAttribBits(int searchVal, int combineVal);
     // ARB functions necessity
   void SetNeedsARB(bool needsARB = true)
   {
- m_needsARB = needsARB;
+    m_needsARB = needsARB;
   }
     // Delete contents
   void Reset()
   {
-        m_GLValues.clear();
-        m_needsARB = false;
+    m_GLValues.clear();
+    m_needsARB = false;
   }
     // Accessors
   const int* GetGLAttrs() const
   {
-        return (m_GLValues.empty() || !m_GLValues[0]) ? NULL : &*m_GLValues.begin();
+    return (m_GLValues.empty() || !m_GLValues[0]) ? NULL : &*m_GLValues.begin();
   }
   int GetSize() const
   {
- return (int)(m_GLValues.size());
+    return (int) (m_GLValues.size());
   }
     // ARB function (e.g. wglCreateContextAttribsARB) is needed
   bool NeedsARB() const
   {
- return m_needsARB;
+    return m_needsARB;
   }
 private:
   wxVector<int> m_GLValues;
@@ -118,7 +118,7 @@ public:
   wxGLContextAttrs& MinorVersion(int val);
   wxGLContextAttrs& OGLVersion(int vmayor, int vminor)
   {
- return MajorVersion(vmayor).MinorVersion(vminor);
+    return MajorVersion(vmayor).MinorVersion(vminor);
   }
   wxGLContextAttrs& CompatibilityProfile();
   wxGLContextAttrs& ForwardCompatible();
@@ -179,7 +179,7 @@ public:
   virtual bool SetCurrent(const wxGLCanvas& win) const = 0;
   bool IsOK()
   {
- return m_isOk;
+    return m_isOk;
   }
 protected:
   bool m_isOk;
@@ -222,7 +222,7 @@ public:
 #    if  wxUSE_PALETTE
   const wxPalette* GetPalette() const
   {
- return &m_palette;
+    return &m_palette;
   }
 #    endif
     // miscellaneous helper functions
@@ -243,16 +243,14 @@ public:
     // as a parameter
   wxGLContextAttrs& GetGLCTXAttrs()
   {
- return m_GLCTXAttrs;
+    return m_GLCTXAttrs;
   }
     // deprecated methods using the implicit wxGLContext
-#    if  WXWIN_COMPATIBILITY_2_8
-#    endif
 #    ifdef __WXUNIVERSAL__
     // resolve the conflict with wxWindowUniv::SetCurrent()
   virtual bool SetCurrent(bool doit)
   {
- return wxWindow::SetCurrent(doit);
+    return wxWindow::SetCurrent(doit);
   }
 #    endif
 protected:
@@ -260,7 +258,7 @@ protected:
     // (currently only implemented in wxX11 and wxMotif ports)
   virtual int GetColourIndex(const wxColour&)
   {
- return -1;
+    return -1;
   }
     // check if the given extension name is present in the space-separated list
     // of extensions supported by the current implementation such as returned
@@ -276,12 +274,9 @@ protected:
     // (not supported in most ports)
   virtual wxPalette CreateDefaultPalette()
   {
- return wxNullPalette;
+    return wxNullPalette;
   }
   wxPalette m_palette;
-#    endif
-#    if  WXWIN_COMPATIBILITY_2_8
-  wxGLContext* m_glContext;
 #    endif
 };
 // ----------------------------------------------------------------------------
@@ -292,9 +287,8 @@ class WXDLLIMPEXP_GL wxGLAppBase : public wxApp
 {
 public:
   wxGLAppBase()
-    :  wxApp()
+    : wxApp()
   {
-
   }
     // use this in the constructor of the user-derived wxGLApp class to
     // determine if an OpenGL rendering context with these attributes
@@ -321,9 +315,8 @@ class WXDLLIMPEXP_GL wxGLApp : public wxGLAppBase
 {
 public:
   wxGLApp()
-    :  wxGLAppBase()
+    : wxGLAppBase()
   {
-
   }
   bool InitGLVisual(const int* attribList) override;
 private:

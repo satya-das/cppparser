@@ -18,12 +18,12 @@ public:
   static std::unique_ptr<GrDrawableOp> Make(GrRecordingContext*, std::unique_ptr<SkDrawable::GpuDrawHandler> drawable, const SkRect& bounds);
   const char* name() const override
   {
- return "Drawable";
+    return "Drawable";
   }
 #  ifdef SK_DEBUG
   SkString dumpInfo() const override
   {
-        return INHERITED::dumpInfo();
+    return INHERITED::dumpInfo();
   }
 #  endif
 private:
@@ -31,7 +31,7 @@ private:
   GrDrawableOp(std::unique_ptr<SkDrawable::GpuDrawHandler>, const SkRect& bounds);
   CombineResult onCombineIfPossible(GrOp* that, const GrCaps& caps) override
   {
-        return CombineResult::kCannotCombine;
+    return CombineResult::kCannotCombine;
   }
   void onPrepare(GrOpFlushState*) override
   {

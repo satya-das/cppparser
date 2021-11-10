@@ -28,7 +28,8 @@ struct SkFontArguments
     float fStyleValue;
   };
   SkFontArguments()
-    :  fCollectionIndex(0), fVariationDesignPosition{nullptr, 0}
+    : fCollectionIndex(0)
+    , fVariationDesignPosition(nullptr, 0)
   {
   }
     /** Specify the index of the desired font.
@@ -38,16 +39,15 @@ struct SkFontArguments
      */
   SkFontArguments& setCollectionIndex(int collectionIndex)
   {
-        fCollectionIndex = collectionIndex;
-        return *this;
+    fCollectionIndex = collectionIndex;
+    return *this;
   }
     // deprecated, use setVariationDesignPosition instead.
   SkFontArguments& setAxes(const Axis* axes, int axisCount)
   {
-        fVariationDesignPosition.coordinates =
-                reinterpret_cast<const VariationPosition::Coordinate*>(axes);
-        fVariationDesignPosition.coordinateCount = axisCount;
-        return *this;
+    fVariationDesignPosition.coordinates = reinterpret_cast<const VariationPosition::Coordinate*>(axes);
+    fVariationDesignPosition.coordinateCount = axisCount;
+    return *this;
   }
     /** Specify a position in the variation design space.
      *
@@ -58,23 +58,23 @@ struct SkFontArguments
      */
   SkFontArguments& setVariationDesignPosition(VariationPosition position)
   {
-        fVariationDesignPosition.coordinates = position.coordinates;
-        fVariationDesignPosition.coordinateCount = position.coordinateCount;
-        return *this;
+    fVariationDesignPosition.coordinates = position.coordinates;
+    fVariationDesignPosition.coordinateCount = position.coordinateCount;
+    return *this;
   }
   int getCollectionIndex() const
   {
-        return fCollectionIndex;
+    return fCollectionIndex;
   }
     // deprecated, use getVariationDesignPosition instead.
   const Axis* getAxes(int* axisCount) const
   {
-        *axisCount = fVariationDesignPosition.coordinateCount;
-        return reinterpret_cast<const Axis*>(fVariationDesignPosition.coordinates);
+    *axisCount = fVariationDesignPosition.coordinateCount;
+    return reinterpret_cast<const Axis*>(fVariationDesignPosition.coordinates);
   }
   VariationPosition getVariationDesignPosition() const
   {
-        return fVariationDesignPosition;
+    return fVariationDesignPosition;
   }
 private:
   int fCollectionIndex;

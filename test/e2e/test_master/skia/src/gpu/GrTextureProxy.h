@@ -19,11 +19,11 @@ class GrTextureProxy : public GrSurfaceProxy
 public:
   GrTextureProxy* asTextureProxy() override
   {
- return this;
+    return this;
   }
   const GrTextureProxy* asTextureProxy() const override
   {
- return this;
+    return this;
   }
     // Actually instantiate the backing texture, if necessary
   bool instantiate(GrResourceProvider*) override;
@@ -36,34 +36,33 @@ public:
   GrMipMapped mipMapped() const;
   bool mipMapsAreDirty() const
   {
-        SkASSERT((GrMipMapped::kNo == fMipMapped) ==
-                 (GrMipMapsStatus::kNotAllocated == fMipMapsStatus));
-        return GrMipMapped::kYes == fMipMapped && GrMipMapsStatus::kValid != fMipMapsStatus;
+    SkASSERT((GrMipMapped::kNo == fMipMapped) == (GrMipMapsStatus::kNotAllocated == fMipMapsStatus));
+    return GrMipMapped::kYes == fMipMapped && GrMipMapsStatus::kValid != fMipMapsStatus;
   }
   void markMipMapsDirty()
   {
-        SkASSERT(GrMipMapped::kYes == fMipMapped);
-        fMipMapsStatus = GrMipMapsStatus::kDirty;
+    SkASSERT(GrMipMapped::kYes == fMipMapped);
+    fMipMapsStatus = GrMipMapsStatus::kDirty;
   }
   void markMipMapsClean()
   {
-        SkASSERT(GrMipMapped::kYes == fMipMapped);
-        fMipMapsStatus = GrMipMapsStatus::kValid;
+    SkASSERT(GrMipMapped::kYes == fMipMapped);
+    fMipMapsStatus = GrMipMapsStatus::kValid;
   }
     // Returns the GrMipMapped value of the proxy from creation time regardless of whether it has
     // been instantiated or not.
   GrMipMapped proxyMipMapped() const
   {
- return fMipMapped;
+    return fMipMapped;
   }
   GrTextureType textureType() const
   {
- return this->backendFormat().textureType();
+    return this->backendFormat().textureType();
   }
     /** If true then the texture does not support MIP maps and only supports clamp wrap mode. */
   bool hasRestrictedSampling() const
   {
-        return GrTextureTypeHasRestrictedSampling(this->textureType());
+    return GrTextureTypeHasRestrictedSampling(this->textureType());
   }
     // Returns true if the passed in proxies can be used as dynamic state together when flushing
     // draws to the gpu.
@@ -73,21 +72,20 @@ public:
      */
   const GrUniqueKey& getUniqueKey() const
   {
-#ifdef SK_DEBUG
-        if (this->isInstantiated() && fUniqueKey.isValid() && fSyncTargetKey) {
-            GrSurface* surface = this->peekSurface();
-            SkASSERT(surface);
-
-            SkASSERT(surface->getUniqueKey().isValid());
+#  ifdef SK_DEBUG
+    if (this->isInstantiated() && fUniqueKey.isValid() && fSyncTargetKey)
+    {
+      GrSurface* surface = this->peekSurface();
+      SkASSERT(surface);
+      SkASSERT(surface->getUniqueKey().isValid());
             // It is possible for a non-keyed proxy to have a uniquely keyed resource assigned to
             // it. This just means that a future user of the resource will be filling it with unique
             // data. However, if the proxy has a unique key its attached resource should also
             // have that key.
-            SkASSERT(fUniqueKey == surface->getUniqueKey());
-        }
-#endif
-
-        return fUniqueKey;
+      SkASSERT(fUniqueKey == surface->getUniqueKey());
+    }
+#  endif
+    return fUniqueKey;
   }
     /**
      * Internal-only helper class used for manipulations of the resource by the cache.
@@ -123,7 +121,7 @@ protected:
   sk_sp<GrSurface> createSurface(GrResourceProvider*) const override;
   void setTargetKeySync(bool sync)
   {
- fSyncTargetKey = sync;
+    fSyncTargetKey = sync;
   }
 private:
     // WARNING: Be careful when adding or removing fields here. ASAN is likely to trigger warnings

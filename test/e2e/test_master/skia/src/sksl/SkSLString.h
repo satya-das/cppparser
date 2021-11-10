@@ -19,23 +19,23 @@ namespace SkSL
   struct StringFragment
   {
     StringFragment()
-      :  fChars("")
-    , fLength(0)
+      : fChars("")
+      , fLength(0)
     {
     }
     StringFragment(const char* chars)
-      :  fChars(chars)
-    , fLength(strlen(chars))
+      : fChars(chars)
+      , fLength(strlen(chars))
     {
     }
     StringFragment(const char* chars, size_t length)
-      :  fChars(chars)
-    , fLength(length)
+      : fChars(chars)
+      , fLength(length)
     {
     }
     char operator[](size_t idx) const
     {
-        return fChars[idx];
+      return fChars[idx];
     }
     bool operator==(const char* s) const;
     bool operator!=(const char* s) const;
@@ -45,7 +45,7 @@ namespace SkSL
 #  ifndef SKSL_STANDALONE
     operator SkString() const
     {
- return SkString(fChars, fLength);
+      return SkString(fChars, fLength);
     }
 #  endif
     const char* fChars;
@@ -62,15 +62,15 @@ namespace SkSL
     String& operator=(const String&);
     String& operator=(String&&);
     String(const char* s)
-      :  INHERITED(s)
+      : INHERITED(s)
     {
     }
     String(const char* s, size_t size)
-      :  INHERITED(s, size)
+      : INHERITED(s, size)
     {
     }
     String(StringFragment s)
-      :  INHERITED(s.fChars, s.fLength)
+      : INHERITED(s.fChars, s.fLength)
     {
     }
     static String printf(const char* fmt, ...);
@@ -101,7 +101,7 @@ namespace SkSL
 #  ifndef SKSL_STANDALONE
     operator SkString() const
     {
- return SkString(c_str());
+      return SkString(c_str());
     }
 #  endif
   private:
@@ -125,11 +125,12 @@ namespace std
   {
     size_t operator()(const SkSL::StringFragment& s) const
     {
-            size_t result = 0;
-            for (size_t i = 0; i < s.fLength; ++i) {
-                result = result * 101 + s.fChars[i];
-            }
-            return result;
+      size_t result = 0;
+      for (size_t i = 0; i < s.fLength; ++i)
+      {
+        result = result * 101 + s.fChars[i];
+      }
+      return result;
     }
   };
   template <>
@@ -137,7 +138,7 @@ namespace std
   {
     size_t operator()(const SkSL::String& s) const
     {
-            return hash<std::string>{}(s);
+      return hash<std::string>()(s);
     }
   };
 }

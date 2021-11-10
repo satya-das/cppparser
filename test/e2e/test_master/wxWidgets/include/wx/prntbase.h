@@ -125,17 +125,14 @@ public:
   }
   virtual bool TransferTo(wxPrintData& data) = 0;
   virtual bool TransferFrom(const wxPrintData& data) = 0;
-#    ifdef __WXOSX__
     // in order to expose functionality already to the result type of the ..PrintData->GetNativeData()
-  virtual void TransferFrom(const wxPageSetupDialogData*) = 0;
-  virtual void TransferTo(wxPageSetupDialogData*) = 0;
-#    endif
   virtual bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   virtual bool IsOk() const = 0;
   int m_ref;
+private:
   wxDECLARE_CLASS(wxPrintNativeDataBase);
   wxDECLARE_NO_COPY_CLASS(wxPrintNativeDataBase);
 };
@@ -156,11 +153,11 @@ public:
   virtual wxPrintDialogData& GetPrintDialogData() const;
   bool GetAbort() const
   {
- return sm_abortIt;
+    return sm_abortIt;
   }
   static wxPrinterError GetLastError()
   {
- return sm_lastError;
+    return sm_lastError;
   }
     ///////////////////////////////////////////////////////////////////////////
     // OVERRIDES
@@ -174,6 +171,7 @@ protected:
 public:
   static wxWindow* sm_abortWindow;
   static bool sm_abortIt;
+private:
   wxDECLARE_CLASS(wxPrinterBase);
   wxDECLARE_NO_COPY_CLASS(wxPrinterBase);
 };
@@ -193,6 +191,7 @@ public:
   wxPrintDialogData& GetPrintDialogData() const override;
 protected:
   wxPrinterBase* m_pimpl;
+private:
   wxDECLARE_CLASS(wxPrinter);
   wxDECLARE_NO_COPY_CLASS(wxPrinter);
 };
@@ -218,25 +217,24 @@ public:
     // Guaranteed to be before any other functions are called
   virtual void OnPreparePrinting()
   {
-
   }
   virtual bool HasPage(int page);
   virtual bool OnPrintPage(int page) = 0;
   virtual void GetPageInfo(int* minPage, int* maxPage, int* pageFrom, int* pageTo);
   virtual wxString GetTitle() const
   {
- return m_printoutTitle;
+    return m_printoutTitle;
   }
     // Port-specific code should call this function to initialize this object
     // with everything it needs, instead of using individual accessors below.
   bool SetUp(wxDC& dc);
   wxDC* GetDC() const
   {
- return m_printoutDC;
+    return m_printoutDC;
   }
   void SetDC(wxDC* dc)
   {
- m_printoutDC = dc;
+    m_printoutDC = dc;
   }
   void FitThisSizeToPaper(const wxSize& imageSize);
   void FitThisSizeToPage(const wxSize& imageSize);
@@ -252,65 +250,73 @@ public:
   void OffsetLogicalOrigin(wxCoord xoff, wxCoord yoff);
   void SetPageSizePixels(int w, int h)
   {
- m_pageWidthPixels = w; m_pageHeightPixels = h;
+    m_pageWidthPixels = w;
+    m_pageHeightPixels = h;
   }
   void GetPageSizePixels(int* w, int* h) const
   {
- *w = m_pageWidthPixels; *h = m_pageHeightPixels;
+    *w = m_pageWidthPixels;
+    *h = m_pageHeightPixels;
   }
   void SetPageSizeMM(int w, int h)
   {
- m_pageWidthMM = w; m_pageHeightMM = h;
+    m_pageWidthMM = w;
+    m_pageHeightMM = h;
   }
   void GetPageSizeMM(int* w, int* h) const
   {
- *w = m_pageWidthMM; *h = m_pageHeightMM;
+    *w = m_pageWidthMM;
+    *h = m_pageHeightMM;
   }
   void SetPPIScreen(int x, int y)
   {
- m_PPIScreenX = x; m_PPIScreenY = y;
+    m_PPIScreenX = x;
+    m_PPIScreenY = y;
   }
   void SetPPIScreen(const wxSize& ppi)
   {
- SetPPIScreen(ppi.x, ppi.y);
+    SetPPIScreen(ppi.x, ppi.y);
   }
   void GetPPIScreen(int* x, int* y) const
   {
- *x = m_PPIScreenX; *y = m_PPIScreenY;
+    *x = m_PPIScreenX;
+    *y = m_PPIScreenY;
   }
   void SetPPIPrinter(int x, int y)
   {
- m_PPIPrinterX = x; m_PPIPrinterY = y;
+    m_PPIPrinterX = x;
+    m_PPIPrinterY = y;
   }
   void SetPPIPrinter(const wxSize& ppi)
   {
- SetPPIPrinter(ppi.x, ppi.y);
+    SetPPIPrinter(ppi.x, ppi.y);
   }
   void GetPPIPrinter(int* x, int* y) const
   {
- *x = m_PPIPrinterX; *y = m_PPIPrinterY;
+    *x = m_PPIPrinterX;
+    *y = m_PPIPrinterY;
   }
   void SetPaperRectPixels(const wxRect& paperRectPixels)
   {
- m_paperRectPixels = paperRectPixels;
+    m_paperRectPixels = paperRectPixels;
   }
   wxRect GetPaperRectPixels() const
   {
- return m_paperRectPixels;
+    return m_paperRectPixels;
   }
     // This must be called by wxPrintPreview to associate itself with the
     // printout it uses.
   virtual void SetPreview(wxPrintPreview* preview)
   {
- m_preview = preview;
+    m_preview = preview;
   }
   wxPrintPreview* GetPreview() const
   {
- return m_preview;
+    return m_preview;
   }
   virtual bool IsPreview() const
   {
- return GetPreview() != NULL;
+    return GetPreview() != NULL;
   }
 private:
   wxString m_printoutTitle;
@@ -342,7 +348,7 @@ public:
   virtual ~wxPreviewCanvas();
   void SetPreview(wxPrintPreviewBase* preview)
   {
- m_printPreview = preview;
+    m_printPreview = preview;
   }
   void OnPaint(wxPaintEvent& event);
   void OnChar(wxKeyEvent& event);
@@ -381,7 +387,7 @@ public:
     // g++ with -Woverloaded-virtual).
   virtual void Initialize()
   {
-        InitializeWithModality(wxPreviewFrame_AppModal);
+    InitializeWithModality(wxPreviewFrame_AppModal);
   }
     // Also note that this method is not virtual as it doesn't need to be
     // overridden: it's never called by wxWidgets (of course, the same is true
@@ -392,7 +398,7 @@ public:
   virtual void CreateControlBar();
   inline wxPreviewControlBar* GetControlBar() const
   {
- return m_controlBar;
+    return m_controlBar;
   }
 protected:
   wxPreviewCanvas* m_previewCanvas;
@@ -447,7 +453,7 @@ public:
   virtual int GetZoomControl();
   virtual wxPrintPreviewBase* GetPrintPreview() const
   {
- return m_printPreview;
+    return m_printPreview;
   }
     // Implementation only from now on.
   void OnWindowClose(wxCommandEvent& event);
@@ -459,48 +465,48 @@ public:
   void OnPrint();
   void OnPrintButton(wxCommandEvent&)
   {
- OnPrint();
+    OnPrint();
   }
   void OnNextButton(wxCommandEvent&)
   {
- OnNext();
+    OnNext();
   }
   void OnPreviousButton(wxCommandEvent&)
   {
- OnPrevious();
+    OnPrevious();
   }
   void OnFirstButton(wxCommandEvent&)
   {
- OnFirst();
+    OnFirst();
   }
   void OnLastButton(wxCommandEvent&)
   {
- OnLast();
+    OnLast();
   }
   void OnPaint(wxPaintEvent& event);
   void OnUpdateNextButton(wxUpdateUIEvent& event)
   {
- event.Enable(IsNextEnabled());
+    event.Enable(IsNextEnabled());
   }
   void OnUpdatePreviousButton(wxUpdateUIEvent& event)
   {
- event.Enable(IsPreviousEnabled());
+    event.Enable(IsPreviousEnabled());
   }
   void OnUpdateFirstButton(wxUpdateUIEvent& event)
   {
- event.Enable(IsFirstEnabled());
+    event.Enable(IsFirstEnabled());
   }
   void OnUpdateLastButton(wxUpdateUIEvent& event)
   {
- event.Enable(IsLastEnabled());
+    event.Enable(IsLastEnabled());
   }
   void OnUpdateZoomInButton(wxUpdateUIEvent& event)
   {
- event.Enable(IsZoomInEnabled());
+    event.Enable(IsZoomInEnabled());
   }
   void OnUpdateZoomOutButton(wxUpdateUIEvent& event)
   {
- event.Enable(IsZoomOutEnabled());
+    event.Enable(IsZoomOutEnabled());
   }
     // These methods are not private because they are called by wxPreviewCanvas.
   void DoZoomIn();
@@ -523,15 +529,15 @@ private:
   bool IsZoomOutEnabled() const;
   void OnZoomInButton(wxCommandEvent&)
   {
- DoZoomIn();
+    DoZoomIn();
   }
   void OnZoomOutButton(wxCommandEvent&)
   {
- DoZoomOut();
+    DoZoomOut();
   }
   void OnZoomChoice(wxCommandEvent&)
   {
- DoZoom();
+    DoZoom();
   }
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_NO_COPY_CLASS(wxPreviewControlBar);
@@ -578,7 +584,7 @@ public:
   virtual int GetMinPage() const;
   virtual bool Ok() const
   {
- return IsOk();
+    return IsOk();
   }
   virtual bool IsOk() const;
   virtual void SetOk(bool ok);
@@ -655,7 +661,7 @@ public:
   int GetMinPage() const override;
   bool Ok() const override
   {
- return IsOk();
+    return IsOk();
   }
   bool IsOk() const override;
   void SetOk(bool ok) override;

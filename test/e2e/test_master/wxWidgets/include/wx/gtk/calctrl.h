@@ -15,7 +15,7 @@ public:
   }
   wxGtkCalendarCtrl(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr))
   {
-        Create(parent, id, date, pos, size, style, name);
+    Create(parent, id, date, pos, size, style, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxDateTime& date = wxDefaultDateTime, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCAL_SHOW_HOLIDAYS, const wxString& name = wxASCII_STR(wxCalendarNameStr));
   virtual ~wxGtkCalendarCtrl()

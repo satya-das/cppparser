@@ -23,11 +23,11 @@ protected:
     // socket streams are both un-seekable and size-less streams:
   wxFileOffset OnSysTell() const override
   {
- return wxInvalidOffset;
+    return wxInvalidOffset;
   }
   wxFileOffset OnSysSeek(wxFileOffset, wxSeekMode) override
   {
- return wxInvalidOffset;
+    return wxInvalidOffset;
   }
   wxDECLARE_NO_COPY_CLASS(wxSocketOutputStream);
 };
@@ -42,11 +42,11 @@ protected:
     // socket streams are both un-seekable and size-less streams:
   wxFileOffset OnSysTell() const override
   {
- return wxInvalidOffset;
+    return wxInvalidOffset;
   }
   wxFileOffset OnSysSeek(wxFileOffset, wxSeekMode) override
   {
- return wxInvalidOffset;
+    return wxInvalidOffset;
   }
   wxDECLARE_NO_COPY_CLASS(wxSocketInputStream);
 };

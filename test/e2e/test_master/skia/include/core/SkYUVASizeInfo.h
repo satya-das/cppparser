@@ -33,15 +33,15 @@ struct SK_API SkYUVASizeInfo
   SkEncodedOrigin fOrigin = kDefault_SkEncodedOrigin;
   bool operator==(const SkYUVASizeInfo& that) const
   {
-        for (int i = 0; i < kMaxCount; ++i) {
-            SkASSERT((!fSizes[i].isEmpty() && fWidthBytes[i]) ||
-                     (fSizes[i].isEmpty() && !fWidthBytes[i]));
-            if (fSizes[i] != that.fSizes[i] || fWidthBytes[i] != that.fWidthBytes[i]) {
-                return false;
-            }
-        }
-
-        return true;
+    for (int i = 0; i < kMaxCount; ++i)
+    {
+      SkASSERT((!fSizes[i].isEmpty() && fWidthBytes[i]) || (fSizes[i].isEmpty() && !fWidthBytes[i]));
+      if (fSizes[i] != that.fSizes[i] || fWidthBytes[i] != that.fWidthBytes[i])
+      {
+        return false;
+      }
+    }
+    return true;
   }
   size_t computeTotalBytes() const;
   void computePlanes(void* base, void* planes[kMaxCount]) const;

@@ -155,19 +155,23 @@ class WXDLLIMPEXP_BASE wxMutexLocker
 public:
     // lock the mutex in the ctor
   wxMutexLocker(wxMutex& mutex)
-    :  m_isOk(false), m_mutex(mutex)
+    : m_isOk(false)
+    , m_mutex(mutex)
   {
- m_isOk = ( m_mutex.Lock() == wxMUTEX_NO_ERROR );
+    m_isOk = (m_mutex.Lock() == wxMUTEX_NO_ERROR);
   }
     // returns true if mutex was successfully locked in ctor
   bool IsOk() const
   {
- return m_isOk;
+    return m_isOk;
   }
     // unlock the mutex in dtor
   ~wxMutexLocker()
   {
- if ( IsOk() ) m_mutex.Unlock();
+    if (IsOk())
+    {
+      m_mutex.Unlock();
+    }
   }
 private:
     // no assignment operator nor copy ctor
@@ -244,25 +248,23 @@ private:
 #    if  wxCRITSECT_IS_MUTEX
     // implement wxCriticalSection using mutexes
 inline wxCriticalSection::wxCriticalSection(wxCriticalSectionType critSecType)
-  :  m_mutex( critSecType == wxCRITSEC_DEFAULT ? wxMUTEX_RECURSIVE : wxMUTEX_DEFAULT )
+  : m_mutex(critSecType == wxCRITSEC_DEFAULT ? wxMUTEX_RECURSIVE : wxMUTEX_DEFAULT)
 {
-
 }
 inline wxCriticalSection::~wxCriticalSection()
 {
-
 }
 inline void wxCriticalSection::Enter()
 {
- (void)m_mutex.Lock();
+  (void) m_mutex.Lock();
 }
 inline bool wxCriticalSection::TryEnter()
 {
- return m_mutex.TryLock() == wxMUTEX_NO_ERROR;
+  return m_mutex.TryLock() == wxMUTEX_NO_ERROR;
 }
 inline void wxCriticalSection::Leave()
 {
- (void)m_mutex.Unlock();
+  (void) m_mutex.Unlock();
 }
 #    endif
 #    undef wxCRITSECT_INLINE
@@ -273,13 +275,13 @@ class WXDLLIMPEXP_BASE wxCriticalSectionLocker
 {
 public:
   wxCriticalSectionLocker(wxCriticalSection& cs)
-    :  m_critsect(cs)
+    : m_critsect(cs)
   {
-        m_critsect.Enter();
+    m_critsect.Enter();
   }
   ~wxCriticalSectionLocker()
   {
-        m_critsect.Leave();
+    m_critsect.Leave();
   }
 private:
   wxCriticalSection& m_critsect;
@@ -310,13 +312,15 @@ public:
   template <typename Functor>
   wxCondError Wait(const Functor& predicate)
   {
-        while ( !predicate() )
-        {
-            wxCondError e = Wait();
-            if ( e != wxCOND_NO_ERROR )
-                return e;
-        }
-        return wxCOND_NO_ERROR;
+    while (!predicate())
+    {
+      wxCondError e = Wait();
+      if (e != wxCOND_NO_ERROR)
+      {
+        return e;
+      }
+    }
+    return wxCOND_NO_ERROR;
   }
     // exactly as Wait() except that it may also return if the specified
     // timeout elapses even if the condition hasn't been signalled: in this
@@ -412,12 +416,12 @@ public:
         // process for any other threads to have been created in this case.
   static bool IsMain()
   {
-        return !ms_idMainThread || GetCurrentId() == ms_idMainThread;
+    return !ms_idMainThread || GetCurrentId() == ms_idMainThread;
   }
         // Return the main thread id
   static wxThreadIdType GetMainId()
   {
- return ms_idMainThread;
+    return ms_idMainThread;
   }
         // Release the rest of our time slice letting the other threads run
   static void Yield();
@@ -502,7 +506,7 @@ public:
         // is the thread of detached kind?
   bool IsDetached() const
   {
- return m_isDetached;
+    return m_isDetached;
   }
     // Get the thread ID - a platform dependent number which uniquely
     // identifies a thread inside a process
@@ -513,7 +517,7 @@ public:
 #    endif
   wxThreadKind GetKind() const
   {
- return m_isDetached ? wxTHREAD_DETACHED : wxTHREAD_JOINABLE;
+    return m_isDetached ? wxTHREAD_DETACHED : wxTHREAD_JOINABLE;
   }
     // Returns true if the thread was asked to terminate: this function should
     // be called by the thread from time to time, otherwise the main thread
@@ -573,9 +577,9 @@ public:
     // constructor only creates the C++ thread object and doesn't create (or
     // start) the real thread
   wxThreadHelperThread(wxThreadHelper& owner, wxThreadKind kind)
-    :  wxThread(kind), m_owner(owner)
+    : wxThread(kind)
+    , m_owner(owner)
   {
-
   }
 protected:
     // entry point for the thread -- calls Entry() in owner.
@@ -601,42 +605,37 @@ private:
         // set m_thread to NULL so don't delete it then.
         // But if KillThread is called before wxThreadHelperThread (in detached mode)
         // sets it to NULL, then the thread object still exists and can be killed
-        wxCriticalSectionLocker locker(m_critSection);
-
-        if ( m_thread )
-        {
-            m_thread->Kill();
-
-            if ( m_kind == wxTHREAD_JOINABLE )
-              delete m_thread;
-
-            m_thread = NULL;
-        }
+    wxCriticalSectionLocker locker(m_critSection);
+    if (m_thread)
+    {
+      m_thread->Kill();
+      if (m_kind == wxTHREAD_JOINABLE)
+      {
+        delete m_thread;
+      }
+      m_thread = NULL;
+    }
   }
 public:
     // constructor only initializes m_thread to NULL
   wxThreadHelper(wxThreadKind kind = wxTHREAD_JOINABLE)
-    :  m_thread(NULL), m_kind(kind)
+    : m_thread(NULL)
+    , m_kind(kind)
   {
-
   }
     // destructor deletes m_thread
   virtual ~wxThreadHelper()
   {
- KillThread();
+    KillThread();
   }
-#    if  WXWIN_COMPATIBILITY_2_8
-#    endif
     // create a new thread (and optionally set the stack size on platforms that
     // support/need that), call Run() to start it
   wxThreadError CreateThread(wxThreadKind kind = wxTHREAD_JOINABLE, unsigned int stackSize = 0)
   {
-        KillThread();
-
-        m_kind = kind;
-        m_thread = new wxThreadHelperThread(*this, m_kind);
-
-        return m_thread->Create(stackSize);
+    KillThread();
+    m_kind = kind;
+    m_thread = new wxThreadHelperThread(*this, m_kind);
+    return m_thread->Create(stackSize);
   }
     // entry point for the thread - called by Run() and executes in the context
     // of this thread.
@@ -644,11 +643,9 @@ public:
     // returns a pointer to the thread which can be used to call Run()
   wxThread* GetThread() const
   {
-        wxCriticalSectionLocker locker(m_critSection);
-
-        wxThread* thread = m_thread;
-
-        return thread;
+    wxCriticalSectionLocker locker(m_critSection);
+    wxThread* thread = m_thread;
+    return thread;
   }
 protected:
   wxThread* m_thread;
@@ -656,27 +653,20 @@ protected:
   mutable wxCriticalSection m_critSection;
   friend class wxThreadHelperThread;
 };
-#    if  WXWIN_COMPATIBILITY_2_8
-inline wxThreadError wxThreadHelper::Create(unsigned int stackSize)
-{
- return CreateThread(m_kind, stackSize);
-}
-#    endif
 // call Entry() in owner, put it down here to avoid circular declarations
 inline void* wxThreadHelperThread::Entry()
 {
-    void * const result = m_owner.Entry();
-
-    wxCriticalSectionLocker locker(m_owner.m_critSection);
-
+  void* const result = m_owner.Entry();
+  wxCriticalSectionLocker locker(m_owner.m_critSection);
     // Detached thread will be deleted after returning, so make sure
     // wxThreadHelper::GetThread will not return an invalid pointer.
     // And that wxThreadHelper::KillThread will not try to kill
     // an already deleted thread
-    if ( m_owner.m_kind == wxTHREAD_DETACHED )
-        m_owner.m_thread = NULL;
-
-    return result;
+  if (m_owner.m_kind == wxTHREAD_DETACHED)
+  {
+    m_owner.m_thread = NULL;
+  }
+  return result;
 }
 // ----------------------------------------------------------------------------
 // Automatic initialization
@@ -696,17 +686,15 @@ void WXDLLIMPEXP_BASE wxMutexGuiLeave();
 // wxUSE_THREADS is 0 or 1
 inline bool wxIsMainThread()
 {
- return wxThread::IsMain();
+  return wxThread::IsMain();
 }
 #  else 
 // no thread support
 inline void wxMutexGuiEnter()
 {
-
 }
 inline void wxMutexGuiLeave()
 {
-
 }
 // macros for entering/leaving critical sections which may be used without
 // having to take them inside "#if wxUSE_THREADS"
@@ -719,7 +707,7 @@ inline void wxMutexGuiLeave()
 // if there is only one thread, it is always the main one
 inline bool wxIsMainThread()
 {
- return true;
+  return true;
 }
 #  endif
 // mark part of code as being a critical section: this macro declares a
@@ -748,11 +736,11 @@ class WXDLLIMPEXP_BASE wxMutexGuiLocker
 public:
   wxMutexGuiLocker()
   {
- wxMutexGuiEnter();
+    wxMutexGuiEnter();
   }
   ~wxMutexGuiLocker()
   {
- wxMutexGuiLeave();
+    wxMutexGuiLeave();
   }
 };
 // -----------------------------------------------------------------------------

@@ -24,9 +24,9 @@ public:
 protected:
   virtual bool onEncodeRows(int numRows) = 0;
   SkEncoder(const SkPixmap& src, size_t storageBytes)
-    :  fSrc(src)
-        , fCurrRow(0)
-        , fStorage(storageBytes)
+    : fSrc(src)
+    , fCurrRow(0)
+    , fStorage(storageBytes)
   {
   }
   const SkPixmap& fSrc;

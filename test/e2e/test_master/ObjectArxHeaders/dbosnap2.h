@@ -30,7 +30,7 @@ public:
     /// </returns>
   virtual HICON menuIcon()
   {
-        return NULL;
+    return NULL;
   }
     /// <summary>
     /// This method is called to get an icon that will be displayed on osnap 
@@ -44,7 +44,7 @@ public:
     /// </returns>
   virtual HICON menuIconForDarkTheme()
   {
-        return NULL;
+    return NULL;
   }
     /// <summary>
     /// This method is called to get a string used for displaying on osnap 
@@ -55,7 +55,7 @@ public:
     /// </returns>
   virtual const ACHAR* displayString()
   {
-        return localModeString();
+    return localModeString();
   }
 };
 #endif

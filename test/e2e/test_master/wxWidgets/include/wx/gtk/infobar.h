@@ -21,12 +21,12 @@ class WXDLLIMPEXP_CORE wxInfoBar : public wxInfoBarGeneric
 public:
   wxInfoBar()
   {
- Init();
+    Init();
   }
   wxInfoBar(wxWindow* parent, wxWindowID winid = wxID_ANY)
   {
-        Init();
-        Create(parent, winid);
+    Init();
+    Create(parent, winid);
   }
   bool Create(wxWindow* parent, wxWindowID winid = wxID_ANY);
   virtual ~wxInfoBar();
@@ -47,7 +47,7 @@ protected:
 private:
   void Init()
   {
- m_impl = NULL;
+    m_impl = NULL;
   }
     // add a button with the given id/label and return its widget
   GtkWidget* GTKAddButton(wxWindowID btnid, const wxString& label = wxString());

@@ -51,7 +51,6 @@ public:
   wxDialogBase();
   virtual ~wxDialogBase()
   {
-
   }
     // define public wxDialog methods to be implemented by the derived classes
   virtual int ShowModal() = 0;
@@ -67,18 +66,18 @@ public:
     // pressed button
   void SetReturnCode(int returnCode)
   {
- m_returnCode = returnCode;
+    m_returnCode = returnCode;
   }
   int GetReturnCode() const
   {
- return m_returnCode;
+    return m_returnCode;
   }
     // Set the identifier for the affirmative button: this button will close
     // the dialog after validating data and calling TransferDataFromWindow()
   void SetAffirmativeId(int affirmativeId);
   int GetAffirmativeId() const
   {
- return m_affirmativeId;
+    return m_affirmativeId;
   }
     // Set identifier for Esc key translation: the button with this id will
     // close the dialog without doing anything else; special value wxID_NONE
@@ -87,7 +86,7 @@ public:
   void SetEscapeId(int escapeId);
   int GetEscapeId() const
   {
- return m_escapeId;
+    return m_escapeId;
   }
     // Find the parent to use for modal dialog: try to use the specified parent
     // but fall back to the current active window or main application window as
@@ -103,7 +102,7 @@ public:
     // from the ctor. It uses the current window parent and style.
   wxWindow* GetParentForModalDialog() const
   {
-        return GetParentForModalDialog(GetParent(), GetWindowStyle());
+    return GetParentForModalDialog(GetParent(), GetWindowStyle());
   }
 #  if  wxUSE_STATTEXT // && wxUSE_TEXTCTRL
     // splits text up at newlines and places the lines into a vertical
@@ -141,21 +140,21 @@ public:
     // example to make the pages of a book control into scrolling windows
   virtual wxWindow* GetContentWindow() const
   {
- return NULL;
+    return NULL;
   }
     // Add an id to the list of main button identifiers that should be in the button sizer
   void AddMainButtonId(wxWindowID id)
   {
- m_mainButtonIds.Add((int) id);
+    m_mainButtonIds.Add((int) id);
   }
   wxArrayInt& GetMainButtonIds()
   {
- return m_mainButtonIds;
+    return m_mainButtonIds;
   }
     // Is this id in the main button id array?
   bool IsMainButtonId(wxWindowID id) const
   {
- return (m_mainButtonIds.Index((int) id) != wxNOT_FOUND);
+    return (m_mainButtonIds.Index((int) id) != wxNOT_FOUND);
   }
     // Level of adaptation, from none (Level 0) to full (Level 3). To disable adaptation,
     // set level 0, for example in your dialog constructor. You might
@@ -163,44 +162,44 @@ public:
     // dialog changed.
   void SetLayoutAdaptationLevel(int level)
   {
- m_layoutAdaptationLevel = level;
+    m_layoutAdaptationLevel = level;
   }
   int GetLayoutAdaptationLevel() const
   {
- return m_layoutAdaptationLevel;
+    return m_layoutAdaptationLevel;
   }
     /// Override global adaptation enabled/disabled status
   void SetLayoutAdaptationMode(wxDialogLayoutAdaptationMode mode)
   {
- m_layoutAdaptationMode = mode;
+    m_layoutAdaptationMode = mode;
   }
   wxDialogLayoutAdaptationMode GetLayoutAdaptationMode() const
   {
- return m_layoutAdaptationMode;
+    return m_layoutAdaptationMode;
   }
     // Returns true if the adaptation has been done
   void SetLayoutAdaptationDone(bool adaptationDone)
   {
- m_layoutAdaptationDone = adaptationDone;
+    m_layoutAdaptationDone = adaptationDone;
   }
   bool GetLayoutAdaptationDone() const
   {
- return m_layoutAdaptationDone;
+    return m_layoutAdaptationDone;
   }
     // Set layout adapter class, returning old adapter
   static wxDialogLayoutAdapter* SetLayoutAdapter(wxDialogLayoutAdapter* adapter);
   static wxDialogLayoutAdapter* GetLayoutAdapter()
   {
- return sm_layoutAdapter;
+    return sm_layoutAdapter;
   }
     // Global switch for layout adaptation
   static bool IsLayoutAdaptationEnabled()
   {
- return sm_layoutAdaptation;
+    return sm_layoutAdaptation;
   }
   static void EnableLayoutAdaptation(bool enable)
   {
- sm_layoutAdaptation = enable;
+    sm_layoutAdaptation = enable;
   }
     // modality kind
   virtual wxDialogModality GetModality() const;
@@ -345,22 +344,22 @@ class WXDLLIMPEXP_CORE wxWindowModalDialogEvent : public wxCommandEvent
 {
 public:
   wxWindowModalDialogEvent(wxEventType commandType = wxEVT_NULL, int id = 0)
-    :  wxCommandEvent(commandType, id)
+    : wxCommandEvent(commandType, id)
   {
-
   }
   wxDialog* GetDialog() const
   {
- return wxStaticCast(GetEventObject(), wxDialog);
+    return wxStaticCast(GetEventObject(), wxDialog);
   }
   int GetReturnCode() const
   {
- return GetDialog()->GetReturnCode();
+    return GetDialog()->GetReturnCode();
   }
   wxEvent* Clone() const override
   {
- return new wxWindowModalDialogEvent (*this);
+    return new wxWindowModalDialogEvent(*this);
   }
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxWindowModalDialogEvent);
 };
 wxDECLARE_EXPORTED_EVENT(WXDLLIMPEXP_CORE, wxEVT_WINDOW_MODAL_DIALOG_CLOSED , wxWindowModalDialogEvent );
@@ -374,25 +373,24 @@ class wxWindowModalDialogEventFunctor
 {
 public:
   wxWindowModalDialogEventFunctor(const Functor& f)
-    :  m_f(new Functor(f))
+    : m_f(new Functor(f))
   {
   }
   void operator()(wxWindowModalDialogEvent& event)
   {
-        if ( m_f )
-        {
+    if (m_f)
+    {
             // We only want to call this handler once. Also, by deleting
             // the functor here, its data (such as wxWindowPtr pointing to
             // the dialog) are freed immediately after exiting this operator().
-            wxSharedPtr<Functor> functor(m_f);
-            m_f.reset();
-
-            (*functor)(event.GetReturnCode());
-        }
-        else // was already called once
-        {
-            event.Skip();
-        }
+      wxSharedPtr<Functor> functor(m_f);
+      m_f.reset();
+      (*functor)(event.GetReturnCode());
+    }
+    else 
+    {
+      event.Skip();
+    }
   }
 private:
   wxSharedPtr<Functor> m_f;
@@ -400,9 +398,8 @@ private:
 template <typename Functor>
 void wxDialogBase::ShowWindowModalThenDo(const Functor& onEndModal)
 {
-    Bind(wxEVT_WINDOW_MODAL_DIALOG_CLOSED,
-         wxWindowModalDialogEventFunctor<Functor>(onEndModal));
-    ShowWindowModal();
+  Bind(wxEVT_WINDOW_MODAL_DIALOG_CLOSED, wxWindowModalDialogEventFunctor<Functor>(onEndModal));
+  ShowWindowModal();
 }
 #endif
     // _WX_DIALOG_H_BASE_

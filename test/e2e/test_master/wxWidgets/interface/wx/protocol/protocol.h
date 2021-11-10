@@ -119,7 +119,7 @@ public:
      */
   wxProtocolLog* GetLog() const
   {
- return m_log;
+    return m_log;
   }
     /**
         Detach the existing logger without deleting it.

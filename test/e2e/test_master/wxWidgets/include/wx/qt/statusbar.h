@@ -24,7 +24,7 @@ public:
   void Refresh(bool eraseBackground = true, const wxRect* rect = (const wxRect*) NULL) override;
   QStatusBar* GetQStatusBar() const
   {
- return m_qtStatusBar;
+    return m_qtStatusBar;
   }
   QWidget* GetHandle() const override;
 protected:

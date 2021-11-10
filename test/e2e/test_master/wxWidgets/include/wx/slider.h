@@ -52,7 +52,6 @@ public:
     */
   wxSliderBase()
   {
-
   }
     // get/set the current slider value (should be in range)
   virtual int GetValue() const = 0;
@@ -63,11 +62,11 @@ public:
   virtual int GetMax() const = 0;
   void SetMin(int minValue)
   {
- SetRange( minValue , GetMax() ) ;
+    SetRange(minValue, GetMax());
   }
   void SetMax(int maxValue)
   {
- SetRange( GetMin() , maxValue ) ;
+    SetRange(GetMin(), maxValue);
   }
     // the line/page size is the increment by which the slider moves when
     // cursor arrow key/page up or down are pressed (clicking the mouse is like
@@ -83,57 +82,55 @@ public:
     //          wxMSW and are silently ignored on other platforms
   void SetTickFreq(int freq)
   {
- DoSetTickFreq(freq);
+    DoSetTickFreq(freq);
   }
   virtual int GetTickFreq() const
   {
- return 0;
+    return 0;
   }
   virtual void ClearTicks()
   {
-
   }
   virtual void SetTick(int)
   {
-
   }
   virtual void ClearSel()
   {
-
   }
   virtual int GetSelEnd() const
   {
- return GetMin();
+    return GetMin();
   }
   virtual int GetSelStart() const
   {
- return GetMax();
+    return GetMax();
   }
   virtual void SetSelection(int, int)
   {
-
   }
-#    if  WXWIN_COMPATIBILITY_2_8
-#    endif
 protected:
     // Platform-specific implementation of SetTickFreq
   virtual void DoSetTickFreq(int)
   {
- /* unsupported by default */
   }
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override
   {
- return wxBORDER_NONE;
+    return wxBORDER_NONE;
   }
     // adjust value according to wxSL_INVERSE style
   virtual int ValueInvertOrNot(int value) const
   {
-        if (HasFlag(wxSL_INVERSE))
-            return (GetMax() + GetMin()) - value;
-        else
-            return value;
+    if (HasFlag(wxSL_INVERSE))
+    {
+      return (GetMax() + GetMin()) - value;
+    }
+    else 
+    {
+      return value;
+    }
   }
+private:
   wxDECLARE_NO_COPY_CLASS(wxSliderBase);
 };
 // ----------------------------------------------------------------------------

@@ -17,10 +17,10 @@ class WXDLLIMPEXP_CORE wxXPMHandler : public wxImageHandler
 public:
   inline wxXPMHandler()
   {
-        m_name = wxT("XPM file");
-        m_extension = wxT("xpm");
-        m_type = wxBITMAP_TYPE_XPM;
-        m_mime = wxT("image/xpm");
+    m_name = wxT("XPM file");
+    m_extension = wxT("xpm");
+    m_type = wxBITMAP_TYPE_XPM;
+    m_mime = wxT("image/xpm");
   }
 #    if  wxUSE_STREAMS
   bool LoadFile(wxImage* image, wxInputStream& stream, bool verbose = true, int index = -1) override;

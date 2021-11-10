@@ -77,14 +77,14 @@ private:
     //
   void* operator new[](size_t)
   {
- return 0;
+    return 0;
   }
   void operator delete[](void*)
   {
   }
   void* operator new[](size_t, const char*, int)
   {
- return 0;
+    return 0;
   }
     // Data members
     //
@@ -93,7 +93,7 @@ private:
 };
 inline ClassVersion AcDbRasterVariables::classVersion()
 {
-   return mVersion;
+  return mVersion;
 }
 #  pragma  warning( default : 4275 ) 
 #  pragma  pack (pop)

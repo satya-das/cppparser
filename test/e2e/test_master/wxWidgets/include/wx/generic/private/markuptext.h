@@ -24,7 +24,7 @@ public:
     // Update the markup string.
   void SetMarkup(const wxString& markup)
   {
- m_markup = markup;
+    m_markup = markup;
   }
     // Return the width and height required by the given string and optionally
     // the height of the visible part above the baseline (i.e. ascent minus
@@ -36,9 +36,8 @@ public:
   wxSize Measure(wxDC& dc, int* visibleHeight = NULL) const;
 protected:
   wxMarkupTextBase(const wxString& markup)
-    :  m_markup(markup)
+    : m_markup(markup)
   {
-
   }
     // Return m_markup suitable for measuring by Measure, i.e. stripped of
     // any mnenomics.
@@ -66,9 +65,8 @@ public:
     // search for other occurrences of this comment to find the places which
     // need to be updated to support multiline labels with markup.
   wxMarkupText(const wxString& markup)
-    :  wxMarkupTextBase(markup)
+    : wxMarkupTextBase(markup)
   {
-
   }
     // Default copy ctor, assignment operator and dtor are ok.
 
@@ -77,7 +75,7 @@ public:
     // The same rules for mnemonics as in the ctor apply to this string.
   void SetMarkup(const wxString& markup)
   {
- m_markup = markup;
+    m_markup = markup;
   }
     // Render the markup string into the given DC in the specified rectangle.
     //
@@ -102,9 +100,8 @@ public:
     // Notice that mnemonics are not interpreted at all by this class, so
     // literal ampersands shouldn't be escaped/doubled.
   wxItemMarkupText(const wxString& markup)
-    :  wxMarkupTextBase(markup)
+    : wxMarkupTextBase(markup)
   {
-
   }
     // Default copy ctor, assignment operator and dtor are ok.
 
@@ -121,7 +118,7 @@ public:
 protected:
   wxString GetMarkupForMeasuring() const override
   {
- return m_markup;
+    return m_markup;
   }
 };
 #endif

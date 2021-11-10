@@ -102,9 +102,10 @@ namespace AcDbDictUtil
     name.setEmpty();
     AcDbDictionary* pDict;
     Acad::ErrorStatus es = ::acdbOpenObject(pDict, ownerDictId, AcDb::kForRead);
-    if (es == Acad::eOk) {
-        es = pDict->nameAt(itemId, name);
-        pDict->close();
+    if (es == Acad::eOk)
+    {
+      es = pDict->nameAt(itemId, name);
+      pDict->close();
     }
     return es;
   }
@@ -113,8 +114,7 @@ namespace AcDbDictUtil
   inline Acad::ErrorStatus dictionaryNameAt(ACHAR*& pName, AcDbObjectId itemId, AcDbObjectId ownerDictId)
   {
     AcString sName;
-    return ::acutAcStringToAChar(sName, pName,
-                                 AcDbDictUtil::dictionaryNameAt(sName, itemId, ownerDictId));
+    return ::acutAcStringToAChar(sName, pName, AcDbDictUtil::dictionaryNameAt(sName, itemId, ownerDictId));
   }
 // Given an item id, get the item's name in its owning dictionary
 // Note: If you already know the owner of itemId, then call the overload above
@@ -125,8 +125,10 @@ namespace AcDbDictUtil
     AcDbObject* pObject;
     Acad::ErrorStatus es = ::acdbOpenObject(pObject, itemId, AcDb::kForRead);
     if (es != Acad::eOk)
-        return es;
-    const AcDbObjectId dictId = pObject->ownerId(); //get the owner id
+    {
+      return es;
+    }
+    const AcDbObjectId dictId = pObject->ownerId();
     es = pObject->close();
     return AcDbDictUtil::dictionaryNameAt(name, itemId, dictId);
   }
@@ -143,9 +145,10 @@ namespace AcDbDictUtil
     id.setNull();
     AcDbDictionary* pDict;
     Acad::ErrorStatus es = ::acdbOpenObject(pDict, ownerDictId, AcDb::kForRead);
-    if (es == Acad::eOk) {
-        es = pDict->getAt(name, id);
-        pDict->close();
+    if (es == Acad::eOk)
+    {
+      es = pDict->getAt(name, id);
+      pDict->close();
     }
     return es;
   }

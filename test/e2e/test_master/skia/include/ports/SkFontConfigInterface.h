@@ -39,18 +39,17 @@ public:
   struct FontIdentity
   {
     FontIdentity()
-      :  fID(0), fTTCIndex(0)
+      : fID(0)
+      , fTTCIndex(0)
     {
     }
     bool operator==(const FontIdentity& other) const
     {
-            return fID == other.fID &&
-                   fTTCIndex == other.fTTCIndex &&
-                   fString == other.fString;
+      return fID == other.fID && fTTCIndex == other.fTTCIndex && fString == other.fString;
     }
     bool operator!=(const FontIdentity& other) const
     {
-            return !(*this == other);
+      return !(*this == other);
     }
     uint32_t fID;
     int32_t fTTCIndex;
@@ -88,8 +87,7 @@ public:
      */
   virtual sk_sp<SkTypeface> makeTypeface(const FontIdentity& identity)
   {
-        return SkTypeface::MakeFromStream(std::unique_ptr<SkStreamAsset>(this->openStream(identity)),
-                                          identity.fTTCIndex);
+    return SkTypeface::MakeFromStream(std::unique_ptr<SkStreamAsset>(this->openStream(identity)), identity.fTTCIndex);
   }
     /**
      *  Return a singleton instance of a direct subclass that calls into

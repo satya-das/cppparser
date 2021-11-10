@@ -16,14 +16,14 @@ class wxTextMeasure : public wxTextMeasureBase
 {
 public:
   explicit wxTextMeasure(const wxDC* dc, const wxFont* font = NULL)
-    :  wxTextMeasureBase(dc, font)
+    : wxTextMeasureBase(dc, font)
   {
-        Init();
+    Init();
   }
   explicit wxTextMeasure(const wxWindow* win, const wxFont* font = NULL)
-    :  wxTextMeasureBase(win, font)
+    : wxTextMeasureBase(win, font)
   {
-        Init();
+    Init();
   }
 protected:
     // Common part of both ctors.

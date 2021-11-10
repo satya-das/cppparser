@@ -16,10 +16,10 @@ class WXDLLIMPEXP_CORE wxAnyButton : public wxAnyButtonBase
 public:
   wxAnyButton()
   {
-        m_imageData = NULL;
-#if wxUSE_MARKUP
-        m_markupText = NULL;
-#endif // wxUSE_MARKUP
+    m_imageData = NULL;
+#  if  wxUSE_MARKUP
+    m_markupText = NULL;
+#  endif
   }
   virtual ~wxAnyButton();
     // overridden base class methods
@@ -32,7 +32,7 @@ public:
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
   {
- return false;
+    return false;
   }
 protected:
     // usually overridden base class virtuals
@@ -60,6 +60,7 @@ protected:
   void MakeOwnerDrawn();
   bool IsOwnerDrawn() const;
   virtual bool MSWIsPushed() const;
+private:
   wxDECLARE_NO_COPY_CLASS(wxAnyButton);
 };
 #endif

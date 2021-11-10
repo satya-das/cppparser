@@ -23,11 +23,11 @@ public:
   {
   public:
     Resource(VkSemaphore semaphore, bool prohibitSignal, bool prohibitWait, bool isOwned)
-      :  INHERITED()
-                , fSemaphore(semaphore)
-                , fHasBeenSubmittedToQueueForSignal(prohibitSignal)
-                , fHasBeenSubmittedToQueueForWait(prohibitWait)
-                , fIsOwned(isOwned)
+      : INHERITED()
+      , fSemaphore(semaphore)
+      , fHasBeenSubmittedToQueueForSignal(prohibitSignal)
+      , fHasBeenSubmittedToQueueForWait(prohibitWait)
+      , fIsOwned(isOwned)
     {
     }
     virtual ~Resource()
@@ -35,28 +35,28 @@ public:
     }
     VkSemaphore semaphore() const
     {
- return fSemaphore;
+      return fSemaphore;
     }
     bool shouldSignal() const
     {
-            return !fHasBeenSubmittedToQueueForSignal;
+      return !fHasBeenSubmittedToQueueForSignal;
     }
     bool shouldWait() const
     {
-            return !fHasBeenSubmittedToQueueForWait;
+      return !fHasBeenSubmittedToQueueForWait;
     }
     void markAsSignaled()
     {
-            fHasBeenSubmittedToQueueForSignal = true;
+      fHasBeenSubmittedToQueueForSignal = true;
     }
     void markAsWaited()
     {
-            fHasBeenSubmittedToQueueForWait = true;
+      fHasBeenSubmittedToQueueForWait = true;
     }
 #  ifdef SK_TRACE_VK_RESOURCES
     void dumpInfo() const override
     {
-            SkDebugf("GrVkSemaphore: %d (%d refs)\n", fSemaphore, this->getRefCnt());
+      SkDebugf("GrVkSemaphore: %d (%d refs)\n", fSemaphore, this->getRefCnt());
     }
 #  endif
   private:
@@ -69,7 +69,7 @@ public:
   };
   Resource* getResource()
   {
- return fResource;
+    return fResource;
   }
 private:
   GrVkSemaphore(GrVkGpu* gpu, VkSemaphore semaphore, bool prohibitSignal, bool prohibitWait, bool isOwned);

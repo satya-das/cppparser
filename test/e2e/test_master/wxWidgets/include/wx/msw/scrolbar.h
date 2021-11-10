@@ -15,41 +15,43 @@ class WXDLLIMPEXP_CORE wxScrollBar : public wxScrollBarBase
 public:
   wxScrollBar()
   {
- m_pageSize = 0; m_viewSize = 0; m_objectSize = 0;
+    m_pageSize = 0;
+    m_viewSize = 0;
+    m_objectSize = 0;
   }
   virtual ~wxScrollBar();
   wxScrollBar(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr))
   {
-        Create(parent, id, pos, size, style, validator, name);
+    Create(parent, id, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxSB_HORIZONTAL, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxScrollBarNameStr));
   int GetThumbPosition() const override;
   int GetThumbSize() const override
   {
- return m_pageSize;
+    return m_pageSize;
   }
   int GetPageSize() const override
   {
- return m_viewSize;
+    return m_viewSize;
   }
   int GetRange() const override
   {
- return m_objectSize;
+    return m_objectSize;
   }
   void SetThumbPosition(int viewStart) override;
   void SetScrollbar(int position, int thumbSize, int range, int pageSize, bool refresh = true) override;
     // needed for RTTI
   void SetThumbSize(int s)
   {
- SetScrollbar( GetThumbPosition() , s , GetRange() , GetPageSize() , true ) ;
+    SetScrollbar(GetThumbPosition(), s, GetRange(), GetPageSize(), true);
   }
   void SetPageSize(int s)
   {
- SetScrollbar( GetThumbPosition() , GetThumbSize() , GetRange() , s , true ) ;
+    SetScrollbar(GetThumbPosition(), GetThumbSize(), GetRange(), s, true);
   }
   void SetRange(int s)
   {
- SetScrollbar( GetThumbPosition() , GetThumbSize() , s , GetPageSize() , true ) ;
+    SetScrollbar(GetThumbPosition(), GetThumbSize(), s, GetPageSize(), true);
   }
   void Command(wxCommandEvent& event) override;
   bool MSWOnScroll(int orientation, WXWORD wParam, WXWORD pos, WXHWND control) override;
@@ -59,7 +61,7 @@ public:
     // returns true if the platform should explicitly apply a theme border
   bool CanApplyThemeBorder() const override
   {
- return false;
+    return false;
   }
 protected:
   wxSize DoGetBestSize() const override;

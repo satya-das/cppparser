@@ -19,42 +19,28 @@ public:
     // ctors and such
   wxFont()
   {
-
   }
   wxFont(const wxFontInfo& info);
   wxFont(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        Create(size, family, style, weight, underlined, face, encoding);
+    Create(size, family, style, weight, underlined, face, encoding);
   }
   bool Create(int size, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        return DoCreate(InfoFromLegacyParams(size,
-                                             family,
-                                             style,
-                                             weight,
-                                             underlined,
-                                             face,
-                                             encoding));
+    return DoCreate(InfoFromLegacyParams(size, family, style, weight, underlined, face, encoding));
   }
   wxFont(const wxSize& pixelSize, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        (void)Create(pixelSize, family, style, weight,
-                     underlined, face, encoding);
+    (void) Create(pixelSize, family, style, weight, underlined, face, encoding);
   }
   wxFont(const wxNativeFontInfo& info, WXHFONT hFont = NULL)
   {
-        Create(info, hFont);
+    Create(info, hFont);
   }
   wxFont(const wxString& fontDesc);
   bool Create(const wxSize& pixelSize, wxFontFamily family, wxFontStyle style, wxFontWeight weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        return DoCreate(InfoFromLegacyParams(pixelSize,
-                                             family,
-                                             style,
-                                             weight,
-                                             underlined,
-                                             face,
-                                             encoding));
+    return DoCreate(InfoFromLegacyParams(pixelSize, family, style, weight, underlined, face, encoding));
   }
   bool Create(const wxNativeFontInfo& info, WXHFONT hFont = NULL);
   virtual ~wxFont();
@@ -85,14 +71,15 @@ public:
     //
     // This method is not considered to be part of wxWidgets public API.
   void WXAdjustToPPI(const wxSize& ppi);
-  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants ie: wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD") wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
+  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants ie: wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD")
+  wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        (void)Create(size, (wxFontFamily)family, (wxFontStyle)style, (wxFontWeight)weight, underlined, face, encoding);
+    (void) Create(size, (wxFontFamily) family, (wxFontStyle) style, (wxFontWeight) weight, underlined, face, encoding);
   }
-  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants ie: wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD") wxFont(const wxSize& pixelSize, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
+  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants ie: wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD")
+  wxFont(const wxSize& pixelSize, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT)
   {
-        (void)Create(pixelSize, (wxFontFamily)family, (wxFontStyle)style, (wxFontWeight)weight,
-                     underlined, face, encoding);
+    (void) Create(pixelSize, (wxFontFamily) family, (wxFontStyle) style, (wxFontWeight) weight, underlined, face, encoding);
   }
     // implementation only from now on
     // -------------------------------
