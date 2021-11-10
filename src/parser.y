@@ -845,6 +845,13 @@ vardecllist       : optfunctype varinit ',' opttypemodifier name optvarassign [Z
                     $$ = new CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));
                     /* TODO: Use optvarassign as well */
                   }
+                  | optfunctype vardecl ',' opttypemodifier name '[' expr ']' [ZZLOG;] {
+                    $2->addAttr($1);
+                    CppVarDecl var2($5);
+                    var2.addArraySize($7);
+                    $$ = new CppVarList($2, CppVarDeclInList($4, std::move(var2)));
+                    /* TODO: Use optvarassign as well */
+                  }
                   | optfunctype vardecl ',' opttypemodifier name ':' expr [ZZLOG;] {
                     $2->addAttr($1);
                     $$ = new CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));

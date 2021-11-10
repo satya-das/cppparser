@@ -1,66 +1,17 @@
 #include <catch/catch.hpp>
 
 #include "cppparser.h"
-#include "utils.h"
 
-#include <boost/filesystem.hpp>
+#include "embedded-snippet-test-base.h"
 
 #include <string>
 
-namespace fs = boost::filesystem;
-
-namespace {
-
-/**
- * Returns the iterator that points to the element in file content that is at the start of the given `lineNum`.
- */
-auto getBeforeLine(const std::string& fileContent, int lineNum)
+class DisabledCodeTest : public EmbeddedSnippetTestBase
 {
-  auto itr = fileContent.begin();
-  for (; lineNum && itr != fileContent.end(); ++itr)
-  {
-    if (*itr == '\n')
-      --lineNum;
-  }
-  return itr;
-}
-
-} // namespace
-
-class DisabledCodeTest
-{
-  const std::string thisFileContent;
-  const std::string reverseContent;
-
 protected:
   DisabledCodeTest()
-    : thisFileContent(readFile(__FILE__))
-    , reverseContent(thisFileContent.rbegin(), thisFileContent.rend())
+    : EmbeddedSnippetTestBase(__FILE__)
   {
-  }
-
-  /**
-   * Returns the test snippet embedded in this file.
-   */
-  std::string getTestSnippet(int lastSnippetBeforeLineNum) const
-  {
-    const auto testSnippetStartsAfter  = std::string("#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE\n");
-    const auto reverseSearchStartPoint = std::string(testSnippetStartsAfter.rbegin(), testSnippetStartsAfter.rend());
-
-    const auto snippetEnd    = getBeforeLine(thisFileContent, lastSnippetBeforeLineNum);
-    const auto snippetEndPos = snippetEnd - thisFileContent.begin();
-    const auto snippetBeginPos =
-      thisFileContent.size() - reverseContent.find(reverseSearchStartPoint, thisFileContent.size() - snippetEndPos);
-
-    return thisFileContent.substr(snippetBeginPos, snippetEndPos - snippetBeginPos);
-  }
-
-  /**
-   * Returns string suitable to feed to the parser.
-   */
-  std::string getTestSnippetParseStream(int lastSnippetBeforeLineNum) const
-  {
-    return getTestSnippet(lastSnippetBeforeLineNum).append(3, '\0');
   }
 };
 
