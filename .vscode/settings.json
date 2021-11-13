@@ -65,5 +65,6 @@
     "regex": "cpp",
     "iomanip": "cpp",
     "variant": "cpp"
-  }
+  },
+  "git.ignoreLimitWarning": true
 }
