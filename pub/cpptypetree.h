@@ -83,4 +83,15 @@ struct CppTypeTreeNode
     }
     return false;
   }
+
+  const CppObj* getObjInSet(CppObjType objType) const
+  {
+    for (const auto obj : cppObjSet)
+    {
+      if (obj->objType_ == objType)
+        return obj;
+    }
+
+    return nullptr;
+  }
 };
