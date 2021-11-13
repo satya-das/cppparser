@@ -52,8 +52,9 @@ namespace fs = boost::filesystem;
 TEST_CASE(" Parsing hello world program")
 {
   CppParser parser;
-  auto      testFilePath = fs::path(__FILE__).parent_path() / "test-files/hello-world.cpp";
-  auto      ast          = parser.parseFile(testFilePath.string());
+  parser.parseFunctionBodyAsBlob(false);
+  auto testFilePath = fs::path(__FILE__).parent_path() / "test-files/hello-world.cpp";
+  auto ast          = parser.parseFile(testFilePath.string());
   REQUIRE(ast != nullptr);
 
   const auto& members = ast->members();
