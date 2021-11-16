@@ -34,3 +34,33 @@ TEST_CASE_METHOD(ExpressionTest, "new char* []")
 
   CHECK(var->assignValue() != nullptr);
 }
+
+TEST_CASE_METHOD(ExpressionTest, "goto cleanup")
+{
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+  const auto Cleanup = [&]() {
+    // Do cleanup;
+  };
+
+  goto cleanup;
+
+cleanup:
+  Cleanup();
+#endif
+  auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
+
+  CppParser  parser;
+  const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
+  REQUIRE(ast != nullptr);
+
+  const auto& members = ast->members();
+  REQUIRE(members.size() == 4);
+
+  CppExprEPtr gotoStmt = members[1];
+  REQUIRE(gotoStmt);
+  CHECK(gotoStmt->flags_ == CppExpr::kGoto);
+
+  CppLabelEPtr labelStmt = members[2];
+  REQUIRE(labelStmt);
+  CHECK(labelStmt->expr_ != nullptr);
+}

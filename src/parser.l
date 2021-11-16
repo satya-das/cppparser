@@ -439,6 +439,11 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknAsm);
 }
 
+<ctxGeneral>goto/{TS} {
+  LOG();
+  RETURN(tknGoto);
+}
+
 <ctxGeneral>signed|unsigned/{TS}+ {
   LOG();
   setupToken();

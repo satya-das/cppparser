@@ -229,6 +229,8 @@ extern int yylex();
   CppPragma*              hashPragma;
 
   CppBlob*                blob;
+
+  CppLabel*               label;
 }
 
 %token  <str>   tknName tknID tknStrLit tknCharLit tknNumber tknMacro tknApiDecor
@@ -261,6 +263,7 @@ extern int yylex();
 %token  <str>   tknOverride tknFinal // override, final are not a reserved keywords
 %token  <str>   tknAsm
 %token  <str>   tknBlob
+%token  <str>   tknGoto
 
 %token  tknStatic tknExtern tknVirtual tknInline tknExplicit tknFriend tknVolatile tknMutable tknNoExcept
 
@@ -342,6 +345,8 @@ extern int yylex();
 %type  <cppObj>             preprocessor
 
 %type  <blob>               blob
+
+%type  <label>              label
 
 // precedence as mentioned at https://en.cppreference.com/w/cpp/language/operator_precedence
 %left COMMA
@@ -477,6 +482,10 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | ';'                 [ZZLOG;] { $$ = nullptr; }  /* blank statement */
                   | asmblock            [ZZLOG;] { $$ = $1; }
                   | blob                [ZZLOG;] { $$ = $1; }
+                  | label               [ZZLOG;] { $$ = $1; }
+                  ;
+
+label             : expr ':'            [ZZLOG;] { $$ = new CppLabel($1); }
                   ;
 
 preprocessor      : define              [ZZLOG;] { $$ = $1; }
@@ -1902,11 +1911,12 @@ expr              : strlit                                                [ZZLOG
                   | tknSizeOf '(' expr ')'                                [ZZLOG;] { $$ = new CppExpr($3, CppExpr::kSizeOf);             }
                   | tknSizeOf tknEllipsis '(' vartype ')'                 [ZZLOG;] { $$ = new CppExpr($4, CppExpr::kSizeOf | CppExpr::kVariadicPack);             }
                   | tknSizeOf tknEllipsis '(' expr ')'                    [ZZLOG;] { $$ = new CppExpr($4, CppExpr::kSizeOf | CppExpr::kVariadicPack);             }
-                  | expr tknEllipsis                                      [ZZLOG;] { $$ = $1; $$->flags_ |= CppExpr::kVariadicPack; }
-                  | lambda                                                [ZZLOG;] { $$ = new CppExpr($1); }
+                  | expr tknEllipsis                                      [ZZLOG;] { $$ = $1; $$->flags_ |= CppExpr::kVariadicPack;      }
+                  | lambda                                                [ZZLOG;] { $$ = new CppExpr($1);                               }
+                  | tknGoto expr                                          [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kGoto);               }
 
                   /* This is to parse implementation of string user literal, see https://en.cppreference.com/w/cpp/language/user_literal */
-                  | tknNumber name                                          [ZZLOG;] { $$ = new CppExpr((std::string) $1, kNone);          }
+                  | tknNumber name                                        [ZZLOG;] { $$ = new CppExpr((std::string) $1, kNone);          }
                   ;
 
 exprlist          : expr ',' expr %prec COMMA                             [ZZLOG;] { $$ = new CppExpr($1, kComma, $3);                   }

@@ -1425,6 +1425,7 @@ struct CppExpr : public CppObj
     kThrow        = 0x80,
     kSizeOf       = 0x100,
     kVariadicPack = 0x200,
+    kGoto         = 0x400,
   };
 
   const CppExprAtom expr1_ {(CppExpr*) (nullptr)};
@@ -1720,6 +1721,21 @@ inline void CppExprAtom::destroy() const
       break;
   }
 }
+
+struct CppLabel : public CppObj
+{
+  static constexpr CppObjType kObjectType = CppObjType::kLabel;
+
+  const CppExprPtr expr_;
+
+  CppLabel(CppExpr* expr)
+    : CppObj(kObjectType, CppAccessType::kUnknown)
+    , expr_(expr)
+  {
+  }
+};
+
+using CppLabelEPtr = CppEasyPtr<CppLabel>;
 
 inline CppVarDecl::CppVarDecl(std::string name, CppExpr* assign)
   : name_(std::move(name))

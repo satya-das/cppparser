@@ -66,6 +66,7 @@ enum class CppObjType : std::uint8_t
   kMacroCall,
   kAsmBlock,
   kBlob, // Some unparsed/unrecognized part of C++ source code.
+  kLabel,
   kCppStatementObjectTypeEnds,
 
   kCppControlStatementStarts,
