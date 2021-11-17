@@ -8,7 +8,7 @@ include("../common/cmake/conf.cmake")
 
 set(CMAKE_CXX_STANDARD 17)
 
-if(NOT MSVC)
+if(MSVC)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd\"4996\"")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd\"4996\"")
 endif()
