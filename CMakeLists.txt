@@ -6,7 +6,9 @@ enable_testing()
 
 include("../common/cmake/conf.cmake")
 
-if(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")
+set(CMAKE_CXX_STANDARD 17)
+
+if(NOT MSVC)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd\"4996\"")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd\"4996\"")
 endif()
@@ -171,10 +173,13 @@ target_link_libraries(cppparserembeddedsnippetvalidity
 		boost_program_options
 		boost_system
 )
-target_compile_options(cppparserembeddedsnippetvalidity
-	PRIVATE
-		-Wno-unused-variable
-)
+
+if(NOT MSVC)
+	target_compile_options(cppparserembeddedsnippetvalidity
+		PRIVATE
+			-Wno-unused-variable
+	)
+endif()
 
 find_program(
 	MARKDOWN_PP
@@ -193,5 +198,5 @@ if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 		ReadMe ALL
 		DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 else()
-  message("Markdown-pp NOT FOUND: ${MARKDOWN_PP}")
+  message("Markdown-pp NOT FOUND: README cannot be updated.")
 endif()

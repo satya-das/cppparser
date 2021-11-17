@@ -807,7 +807,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   /* Ignore line comment when it does not stand alone in a line. */
   // We are also ignoring the last new-line character
   // It is because we want the #define to conclude if C++ comment is present at the end of #define.
-  yyless(yyleng-1);
+  yyless((yyleng-1));
 }
 
 <ctxDefineDefn>{WS}*"/*"[^\n]*"*/"{WS}*/{NL} {
@@ -1691,13 +1691,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 <ctxMemInitList>({ID2}{WSNL}*)/"(" {
   LOG();
   g.mPossibleFuncImplStartBracePosition = findMatchedClosingBracket(yytext+yyleng, '(') + 1;
-  yyless(g.mPossibleFuncImplStartBracePosition - yytext);
+  yyless((g.mPossibleFuncImplStartBracePosition - yytext));
 }
 
 <ctxMemInitList>({ID2}{WSNL}*)/"{" {
   LOG();
   g.mPossibleFuncImplStartBracePosition = findMatchedClosingBracket(yytext+yyleng, '{') + 1;
-  yyless(g.mPossibleFuncImplStartBracePosition - yytext);
+  yyless((g.mPossibleFuncImplStartBracePosition - yytext));
 }
 
 <ctxMemInitList>^{WS}*"#"{WS}*"if"(.*)/{TS} {

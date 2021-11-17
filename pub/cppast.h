@@ -39,14 +39,14 @@
 
 #include "string-utils.h"
 
-#include <boost/optional.hpp>
-
 #include <cstdint>
 #include <list>
 #include <memory>
 #include <string>
 #include <utility>
 #include <vector>
+#include <optional>
+#include <cassert>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -913,8 +913,8 @@ private:
   const CppConstructor*              moveCtor_ {nullptr};
   const CppDestructor*               dtor_ {nullptr};
 
-  mutable boost::optional<bool> hasVirtual_;
-  mutable boost::optional<bool> hasPureVirtual_;
+  mutable std::optional<bool> hasVirtual_;
+  mutable std::optional<bool> hasPureVirtual_;
 };
 
 using CppCompoundEPtr      = CppEasyPtr<CppCompound>;
@@ -1196,8 +1196,8 @@ struct CppConstructor : public CppFuncCtorBase
   bool isMoveConstructor() const;
 
 private:
-  mutable boost::optional<bool> isCopyConstructor_;
-  mutable boost::optional<bool> isMoveConstructor_;
+  mutable std::optional<bool> isCopyConstructor_;
+  mutable std::optional<bool> isMoveConstructor_;
 };
 
 using CppConstructorEPtr = CppEasyPtr<CppConstructor>;
