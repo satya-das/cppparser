@@ -263,6 +263,31 @@ struct CppUnRecogPrePro : public CppObj
   }
 };
 
+struct CppExpr;
+using CppExprPtr              = std::unique_ptr<CppExpr>;
+using AttribSpecifier         = CppExprPtr;
+using AttribSpecifierArray    = std::vector<AttribSpecifier>;
+using AttribSpecifierSequence = std::unique_ptr<AttribSpecifierArray>;
+
+/**
+ * @brief A mixin class to allow objects to have attribute specifier sequence
+ * as described at https://en.cppreference.com/w/cpp/language/attributes.
+ */
+struct AttribSpecified
+{
+  const AttribSpecifierSequence& attribSpecifierSequence() const
+  {
+    return attributeSpecifiers_;
+  }
+  void attribSpecifierSequence(AttribSpecifierArray* attribSpecifierArray)
+  {
+    attributeSpecifiers_ = AttribSpecifierSequence(attribSpecifierArray);
+  }
+
+private:
+  AttribSpecifierSequence attributeSpecifiers_; // C++11 Attribute specifier sequence
+};
+
 using CppUnRecogPreProEPtr = CppEasyPtr<CppUnRecogPrePro>;
 using CppCompoundPtr       = std::unique_ptr<CppCompound>;
 using CppObjPtr            = std::unique_ptr<CppObj>;
@@ -270,7 +295,7 @@ using CppObjPtr            = std::unique_ptr<CppObj>;
 struct CppFunctionPointer;
 struct CppEnum;
 
-struct CppVarType : public CppObj
+struct CppVarType : public CppObj, public AttribSpecified
 {
   static constexpr CppObjType kObjectType = CppObjType::kVarType;
 
@@ -340,8 +365,6 @@ private:
 using CppVarTypeEPtr      = CppEasyPtr<CppVarType>;
 using CppConstVarTypeEPtr = CppEasyPtr<const CppVarType>;
 
-struct CppExpr;
-using CppExprPtr    = std::unique_ptr<CppExpr>;
 using CppArraySizes = std::vector<CppExprPtr>;
 
 struct CppVarDecl
@@ -736,7 +759,7 @@ struct CppDestructor;
  *  - A block of statements inside { }.
  *  - Body of function definition.
  */
-struct CppCompound : public CppObj
+struct CppCompound : public CppObj, public AttribSpecified
 {
   static constexpr CppObjType kObjectType = CppObjType::kCompound;
 
@@ -906,7 +929,7 @@ private:
   CppInheritanceListPtr   inheritanceList_;
   std::string             apidecor_;
   CppTemplateParamListPtr templSpec_;
-  std::uint32_t           attr_ {0};
+  std::uint32_t           attr_ {0}; // e.g. final
 
   std::vector<const CppConstructor*> ctors_;
   const CppConstructor*              copyCtor_ {nullptr};
@@ -1468,6 +1491,11 @@ struct CppExpr : public CppObj
   {
   }
 
+  CppExpr(std::string name)
+    : CppExpr(CppExprAtom(std::move(name)), CppOperator::kNone)
+  {
+  }
+
   CppExpr(CppLambda* l)
     : CppObj(kObjectType, CppAccessType::kUnknown)
     , expr1_(l)
@@ -1784,4 +1812,33 @@ inline CppTemplateParam::CppTemplateParam(const CppFunctionPointer* paramType, s
   : paramType_(paramType)
   , paramName_(std::move(paramName))
 {
+}
+
+//////////////////////////////////////////////////////////////////
+
+bool operator==(const CppExpr& expr1, const CppExpr& expr2);
+
+inline bool operator!=(const CppExpr& expr1, const CppExpr& expr2)
+{
+  return !(expr1 == expr2);
+}
+
+inline bool operator==(const CppExprAtom& exprAtom1, const CppExprAtom& exprAtom2)
+{
+  if (exprAtom1.type != exprAtom2.type)
+    return false;
+  if (exprAtom1.type == CppExprAtom::kAtom)
+  {
+    return (*exprAtom1.atom) == (*exprAtom2.atom);
+  }
+  if (exprAtom1.type == CppExprAtom::kExpr)
+  {
+    return (*exprAtom1.expr) == (*exprAtom2.expr);
+  }
+  return false;
+}
+
+inline bool operator!=(const CppExprAtom& exprAtom1, const CppExprAtom& exprAtom2)
+{
+  return !(exprAtom1 == exprAtom2);
 }

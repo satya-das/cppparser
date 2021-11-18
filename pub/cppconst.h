@@ -152,6 +152,7 @@ enum /*class*/ CppOperator : std::uint8_t
   kGreaterEqual,
   k3WayCmp,
   kComma,
+  kBinaryOperatorEnd,
 
   kDerefOperatorStart,
   kDot,   // .

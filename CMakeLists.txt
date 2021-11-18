@@ -123,6 +123,7 @@ add_test(
 set(TEST_SNIPPET_EMBEDDED_TESTS
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/disabled-code-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/expr-tests.cpp
+	${CMAKE_CURRENT_LIST_DIR}/test/unit/attribute-specifier-sequence.cpp
 )
 
 add_executable(cppparserunittest
@@ -178,6 +179,7 @@ if(NOT MSVC)
 	target_compile_options(cppparserembeddedsnippetvalidity
 		PRIVATE
 			-Wno-unused-variable
+			-Wno-attributes
 	)
 endif()
 

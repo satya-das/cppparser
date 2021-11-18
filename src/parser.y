@@ -209,6 +209,9 @@ extern int yylex();
   unsigned int            attr;
   CppAccessType           objAccessType;
 
+  CppExpr*                attribSpecifier;
+  AttribSpecifierArray*   attribSpecifiers;
+
   CppIfBlock*             ifBlock;
   CppWhileBlock*          whileBlock;
   CppDoWhileBlock*        doWhileBlock;
@@ -333,7 +336,8 @@ extern int yylex();
 %type  <objAccessType>      protlevel changeprotlevel
 %type  <identifierList>     identifierlist
 %type  <funcThrowSpec>      functhrowspec optfuncthrowspec
-
+%type  <attribSpecifier>    attribspecifier
+%type  <attribSpecifiers>   attribspecifiers optattribspecifiers
 %type  <hashDefine>         define
 %type  <hashUndef>          undef
 %type  <hashInclude>        include
@@ -942,7 +946,11 @@ vardecl           : vartype varidentifier       [ZZLOG;]         {
                   }
                   ;
 
-vartype           : typeidentifier opttypemodifier    [ZZLOG;] {
+vartype           : attribspecifiers typeidentifier opttypemodifier    [ZZLOG;] {
+                    $$ = new CppVarType(gCurAccessType, $2, $3);
+                    $$->attribSpecifierSequence($1);
+                  }
+                  | typeidentifier opttypemodifier    [ZZLOG;] {
                     $$ = new CppVarType(gCurAccessType, $1, $2);
                   }
                   | tknClass identifier opttypemodifier [
@@ -1580,10 +1588,29 @@ optcomment        :            [ZZLOG;]{
 classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
                   ;
 
-classdefn         : classspecifier optapidecor identifier optfinal optinheritlist optcomment '{'
+attribspecifier   : '[' '[' expr ']' ']' {
+                    $$ = $3;
+                  }
+                  ;
+
+optattribspecifiers : { $$ = nullptr; }
+                  | attribspecifiers { $$ = $1; }
+                  ;
+
+attribspecifiers  : attribspecifier {
+                    $$ = new AttribSpecifierArray;
+                    $$->emplace_back($1);
+                  }
+                  | attribspecifiers attribspecifier {
+                    $$ = $1;
+                    $$->emplace_back($2);
+                  }
+                  ;
+
+classdefn         : classspecifier optapidecor optattribspecifiers identifier optfinal optinheritlist optcomment '{'
                   [
                     ZZVALID;
-                    gCompoundStack.push($3);
+                    gCompoundStack.push($4);
                     gAccessTypeStack.push(gCurAccessType); gCurAccessType = CppAccessType::kUnknown;
                   ]
                   optstmtlist '}'
@@ -1594,14 +1621,15 @@ classdefn         : classspecifier optapidecor identifier optfinal optinheritlis
                     gAccessTypeStack.pop();
                   ]
                   {
-                    $$ = $9 ? $9 : newCompound(gCurAccessType);
+                    $$ = $10 ? $10 : newCompound(gCurAccessType);
                     $$->compoundType($1);
                     $$->apidecor($2);
-                    $$->name(pruneClassName($3));
-                    $$->inheritanceList($5);
-                    $$->addAttr($4);
+                    $$->attribSpecifierSequence($3);
+                    $$->name(pruneClassName($4));
+                    $$->inheritanceList($6);
+                    $$->addAttr($5);
                   }
-                  | classspecifier optinheritlist optcomment
+                  | classspecifier optattribspecifiers optinheritlist optcomment
                     '{' { gAccessTypeStack.push(gCurAccessType); gCurAccessType = CppAccessType::kUnknown; }
                       optstmtlist
                     '}' [ZZVALID;]
@@ -1609,9 +1637,10 @@ classdefn         : classspecifier optapidecor identifier optfinal optinheritlis
                     gCurAccessType = gAccessTypeStack.top();
                     gAccessTypeStack.pop();
 
-                    $$ = $6 ? $6 : newCompound(gCurAccessType);
+                    $$ = $7 ? $7 : newCompound(gCurAccessType);
                     $$->compoundType($1);
-                    $$->inheritanceList($2);
+                    $$->attribSpecifierSequence($2);
+                    $$->inheritanceList($3);
                   }
                   | templatespecifier classdefn [ZZLOG;]
                   {

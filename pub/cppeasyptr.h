@@ -93,6 +93,11 @@ public:
     return ptr_;
   }
 
+  _TCppObj& operator*() const
+  {
+    return *ptr_;
+  }
+
   template <typename _UCppObj>
   operator _UCppObj*() const
   {
