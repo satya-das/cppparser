@@ -30,24 +30,24 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include <iostream>
 #include <utility>
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/program_options.hpp>
 #include <boost/system/config.hpp>
 
-namespace bfs = boost::filesystem;
+namespace bfs = std::filesystem;
 namespace bpo = boost::program_options;
 
 //////////////////////////////////////////////////////////////////////////
 
 static bool parseAndEmitFormatted(CppParser&       parser,
-                                  const bfs::path& inputFilePath,
-                                  const bfs::path& outputFilePath,
+                                  const fs::path& inputFilePath,
+                                  const fs::path& outputFilePath,
                                   const CppWriter& cppWriter)
 {
   auto progUnit = parser.parseFile(inputFilePath.string().c_str());
   if (!progUnit)
     return false;
-  bfs::create_directories(outputFilePath.parent_path());
+  fs::create_directories(outputFilePath.parent_path());
   std::ofstream stm(outputFilePath.string());
   cppWriter.emit(progUnit.get(), stm);
 
@@ -73,21 +73,21 @@ static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam&
   std::vector<std::string> parsingFailedFor;
   std::vector<FilePair>    diffFailedList;
 
-  for (bfs::recursive_directory_iterator dirItr(params.inputPath); dirItr != bfs::recursive_directory_iterator();
+  for (fs::recursive_directory_iterator dirItr(params.inputPath); dirItr != fs::recursive_directory_iterator();
        ++dirItr)
   {
     CppWriter cppWriter;
-    bfs::path file = *dirItr;
-    if (bfs::is_regular_file(file))
+    fs::path file = *dirItr;
+    if (fs::is_regular_file(file))
     {
       ++numInputFiles;
       std::cout << "CppParserTest: Parsing " << file.string() << " ...\n";
       auto      fileRelPath = file.string().substr(inputPathLen);
-      bfs::path outfile     = params.outputPath / fileRelPath;
-      bfs::remove(outfile);
-      if (parseAndEmitFormatted(parser, file, outfile, cppWriter) && bfs::exists(outfile))
+      fs::path outfile     = params.outputPath / fileRelPath;
+      fs::remove(outfile);
+      if (parseAndEmitFormatted(parser, file, outfile, cppWriter) && fs::exists(outfile))
       {
-        bfs::path           masfile = params.masterPath / fileRelPath;
+        fs::path           masfile = params.masterPath / fileRelPath;
         std::pair<int, int> diffStartInfo;
         auto                rez = compareFiles(outfile, masfile, diffStartInfo);
         if (rez == kSameFiles)

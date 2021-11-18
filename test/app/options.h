@@ -25,11 +25,11 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <iostream>
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/program_options.hpp>
 #include <boost/system/config.hpp>
 
-namespace fs  = boost::filesystem;
+namespace fs  = std::filesystem;
 namespace bpo = boost::program_options;
 
 struct TestParam

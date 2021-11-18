@@ -23,12 +23,13 @@
 
 #pragma once
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
+#include <functional>
 
 #include "cppast.h"
 #include "cppconst.h"
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 using CppProgFileSelecter = std::function<bool(const std::string&)>;
 

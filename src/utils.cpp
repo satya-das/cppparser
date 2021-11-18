@@ -27,7 +27,7 @@
 
 #include <fstream>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
 {
