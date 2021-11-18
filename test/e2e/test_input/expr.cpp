@@ -6,3 +6,7 @@ a[n] = x;
 
 x = !y;
 x = ~y;
+x = z;
+
+s = "string literal";
+
