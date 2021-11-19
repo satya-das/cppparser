@@ -489,7 +489,7 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | label               [ZZLOG;] { $$ = $1; }
                   ;
 
-label             : expr ':'            [ZZLOG;] { $$ = new CppLabel($1); }
+label             : name ':'            [ZZLOG;] { $$ = new CppLabel($1); }
                   ;
 
 preprocessor      : define              [ZZLOG;] { $$ = $1; }
@@ -1942,7 +1942,7 @@ expr              : strlit                                                [ZZLOG
                   | tknSizeOf tknEllipsis '(' expr ')'                    [ZZLOG;] { $$ = new CppExpr($4, CppExpr::kSizeOf | CppExpr::kVariadicPack);             }
                   | expr tknEllipsis                                      [ZZLOG;] { $$ = $1; $$->flags_ |= CppExpr::kVariadicPack;      }
                   | lambda                                                [ZZLOG;] { $$ = new CppExpr($1);                               }
-                  | tknGoto expr                                          [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kGoto);               }
+                  | tknGoto name                                          [ZZLOG;] { $$ = new CppExpr((std::string) $2, CppExpr::kGoto);               }
 
                   /* This is to parse implementation of string user literal, see https://en.cppreference.com/w/cpp/language/user_literal */
                   | tknNumber name                                        [ZZLOG;] { $$ = new CppExpr((std::string) $1, kNone);          }

@@ -62,5 +62,5 @@ cleanup:
 
   CppLabelEPtr labelStmt = members[2];
   REQUIRE(labelStmt);
-  CHECK(labelStmt->expr_ != nullptr);
+  CHECK(labelStmt->label_ == "cleanup");
 }

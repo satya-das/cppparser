@@ -39,14 +39,14 @@
 
 #include "string-utils.h"
 
+#include <cassert>
 #include <cstdint>
 #include <list>
 #include <memory>
+#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
-#include <optional>
-#include <cassert>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -1754,11 +1754,11 @@ struct CppLabel : public CppObj
 {
   static constexpr CppObjType kObjectType = CppObjType::kLabel;
 
-  const CppExprPtr expr_;
+  const std::string label_;
 
-  CppLabel(CppExpr* expr)
+  CppLabel(std::string label)
     : CppObj(kObjectType, CppAccessType::kUnknown)
-    , expr_(expr)
+    , label_(std::move(label))
   {
   }
 };
