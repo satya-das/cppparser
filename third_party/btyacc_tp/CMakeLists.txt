@@ -13,3 +13,10 @@ file(GLOB BTYACC_SOURCES
 
 add_executable(btyacc ${BTYACC_SOURCES})
 target_include_directories(btyacc PRIVATE btyacc/hack)
+
+if(NOT MSVC)
+	target_compile_options(btyacc
+		PRIVATE
+			-Wno-implicit-function-declaration
+	)
+endif()

@@ -1996,12 +1996,16 @@ void defaultErrorHandler(const char* errLineText, size_t lineNum, size_t errorSt
   for(size_t i = 0; i < errorStartPos; ++i)
     spacechars[i] = (errLineText[i] == '\t') ? '\t' : ' ';
   char errmsg[bufsize];
-  std::sprintf(errmsg, "Error: Unexpected '%s', while in context=%s(%d), found at line#%d\n"
-    "%s\n"   // Line that contains the error.
-    "%s^\n",  // A ^ below the beginning of unexpected token.
-    errLineText+errorStartPos, contextNameFromState(lexerContext), lexerContext, lineNum,
-    errLineText,
-    spacechars);
+  const auto* errText = errLineText+errorStartPos;
+  const auto* strLexerContext = contextNameFromState(lexerContext);
+
+  std::sprintf(errmsg, "Error: Unexpected '%.*s', while in context=%.*s(%d), found at line#%ld\n"
+    "%.*s\n"   // Line that contains the error.
+    "%.*s^\n",  // A ^ below the beginning of unexpected token.
+    static_cast<int>(strlen(errText)), errText,
+    static_cast<int>(strlen(strLexerContext)), strLexerContext, lexerContext, lineNum,
+    static_cast<int>(strlen(errLineText)), errLineText,
+    static_cast<int>(strlen(spacechars)), spacechars);
 
   printf("%s", errmsg);
 }
