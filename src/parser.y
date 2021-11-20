@@ -44,9 +44,10 @@
 #include "obj-factory-helper.h"
 #include "utils.h"
 
+#include <cstdio>
 #include <iostream>
-#include <stack>
 #include <map>
+#include <stack>
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -196,7 +197,7 @@ extern int yylex();
   CppConstructor*         cppCtorObj;
   CppDestructor*          cppDtorObj;
   CppTypeConverter*       cppTypeConverter;
-  CppMemInits          memInitList;
+  CppMemInits             memInitList;
   CppInheritanceList*     inheritList;
   bool                    inheritType;
   CppIdentifierList*      identifierList;
@@ -2017,11 +2018,12 @@ void yyerror_detailed  (  char* text,
       ++lineEnd;
     }
   }
-  char spacechars[1024] = {0}; // For printing enough whitespace chars so that we can show a ^ below the start of unexpected token.
+  constexpr size_t bufsize = 1024;
+  char spacechars[bufsize] = {0}; // For printing enough whitespace chars so that we can show a ^ below the start of unexpected token.
   for(const char* p = lineStart; p < errt_posn; ++p)
     spacechars[p-lineStart] = *p == '\t' ? '\t' : ' ';
-  char errmsg[1024];
-  sprintf(errmsg, "Error: Unexpected token '%s', while in context=%s(%d), found at line#%d\n"
+  char errmsg[bufsize];
+  std::sprintf(errmsg, "Error: Unexpected token '%s', while in context=%s(%d), found at line#%d\n"
     "%s\n"   // Line that contains the error.
     "%s^\n",  // A ^ below the beginning of unexpected token.
     errt_posn, contextNameFromState(getLexerContext()), getLexerContext(), g.mLineNo, // The error message
