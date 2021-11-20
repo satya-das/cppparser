@@ -24,6 +24,7 @@
 #include "cppparser.h"
 #include "cppast.h"
 #include "cppobjfactory.h"
+#include "parser.h"
 #include "string-utils.h"
 #include "utils.h"
 
@@ -47,8 +48,7 @@ std::map<std::string, int> gRenamedKeywords;
 bool gParseEnumBodyAsBlob     = false;
 bool gParseFunctionBodyAsBlob = false;
 
-extern CppCompoundPtr parseStream(char* stm, size_t stmSize);
-CppObjFactory*        gObjFactory = nullptr;
+CppObjFactory* gObjFactory = nullptr;
 
 CppParser::CppParser(CppObjFactoryPtr objFactory)
   : objFactory_(std::move(objFactory))
@@ -143,4 +143,14 @@ CppCompoundPtr CppParser::parseStream(char* stm, size_t stmSize)
     return nullptr;
   gObjFactory = objFactory_.get();
   return ::parseStream(stm, stmSize);
+}
+
+void CppParser::setErrorHandler(ErrorHandler errorHandler)
+{
+  ::setErrorHandler(errorHandler);
+}
+
+void CppParser::resetErrorHandler()
+{
+  ::resetErrorHandler();
 }

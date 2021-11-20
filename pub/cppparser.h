@@ -25,10 +25,22 @@
 
 #include "cppobjfactory.h"
 
+#include <functional>
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+/**
+ * @brief Parses C++ source and generates an AST.
+ *
+ * @warning Although its a class it is not reentrant because underlying btyacc is not reentrant.
+ * So, any change done through this class is global and affects the result of other instances too.
+ */
 class CppParser
 {
+public:
+  using ErrorHandler =
+    std::function<void(const char* errLineText, size_t lineNum, size_t errorStartPos, int lexerContext)>;
+
 public:
   CppParser(CppObjFactoryPtr objFactory = nullptr);
   CppParser(CppParser&& rhs)
@@ -59,6 +71,9 @@ public:
 public:
   CppCompoundPtr parseFile(const std::string& filename);
   CppCompoundPtr parseStream(char* stm, size_t stmSize);
+
+  void setErrorHandler(ErrorHandler errorHandler);
+  void resetErrorHandler();
 
 private:
   CppObjFactoryPtr objFactory_;

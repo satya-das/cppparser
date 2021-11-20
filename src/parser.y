@@ -1981,6 +1981,10 @@ exprstmt          : expr ';'           [ZZLOG;] { $$ = $1; }
 
 //////////////////////////////////////////////////////////////////////////
 
+// clang-format on
+
+#include "parser.h"
+
 extern LexerData g;
 
 extern const char* contextNameFromState(int ctx);
@@ -2001,6 +2005,8 @@ void defaultErrorHandler(const char* errLineText, size_t lineNum, size_t errorSt
 
   printf("%s", errmsg);
 }
+
+ErrorHandler gErrorHandler = defaultErrorHandler;
 
 /**
  * yyparser() invokes this function when it encounters unexpected token.
@@ -2035,7 +2041,7 @@ void yyerror_detailed  (  char* text,
       ++lineEnd;
     }
   }
-  defaultErrorHandler(lineStart, g.mLineNo, errt_posn - lineStart, getLexerContext());
+  gErrorHandler(lineStart, g.mLineNo, errt_posn - lineStart, getLexerContext());
   // Replace back the end char
   if(endReplaceChar)
     *lineEnd = endReplaceChar;
@@ -2060,6 +2066,16 @@ static void setupEnv()
     yydebug   = ((yyn & kYaccLog)  ? 1 : 0);
   }
 #endif
+}
+
+void setErrorHandler(ErrorHandler errorHandler)
+{
+  gErrorHandler = errorHandler;
+}
+
+void resetErrorHandler()
+{
+  gErrorHandler = defaultErrorHandler;
 }
 
 CppCompoundPtr parseStream(char* stm, size_t stmSize)
