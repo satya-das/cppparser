@@ -1985,6 +1985,23 @@ extern LexerData g;
 
 extern const char* contextNameFromState(int ctx);
 
+void defaultErrorHandler(const char* errLineText, size_t lineNum, size_t errorStartPos, int lexerContext)
+{
+  constexpr size_t bufsize = 1024;
+  char spacechars[bufsize] = {0};
+  for(size_t i = 0; i < errorStartPos; ++i)
+    spacechars[i] = (errLineText[i] == '\t') ? '\t' : ' ';
+  char errmsg[bufsize];
+  std::sprintf(errmsg, "Error: Unexpected '%s', while in context=%s(%d), found at line#%d\n"
+    "%s\n"   // Line that contains the error.
+    "%s^\n",  // A ^ below the beginning of unexpected token.
+    errLineText+errorStartPos, contextNameFromState(lexerContext), lexerContext, lineNum,
+    errLineText,
+    spacechars);
+
+  printf("%s", errmsg);
+}
+
 /**
  * yyparser() invokes this function when it encounters unexpected token.
  */
@@ -2018,19 +2035,7 @@ void yyerror_detailed  (  char* text,
       ++lineEnd;
     }
   }
-  constexpr size_t bufsize = 1024;
-  char spacechars[bufsize] = {0}; // For printing enough whitespace chars so that we can show a ^ below the start of unexpected token.
-  for(const char* p = lineStart; p < errt_posn; ++p)
-    spacechars[p-lineStart] = *p == '\t' ? '\t' : ' ';
-  char errmsg[bufsize];
-  std::sprintf(errmsg, "Error: Unexpected token '%s', while in context=%s(%d), found at line#%d\n"
-    "%s\n"   // Line that contains the error.
-    "%s^\n",  // A ^ below the beginning of unexpected token.
-    errt_posn, contextNameFromState(getLexerContext()), getLexerContext(), g.mLineNo, // The error message
-    lineStart,
-    spacechars);
-
-  printf("%s", errmsg);
+  defaultErrorHandler(lineStart, g.mLineNo, errt_posn - lineStart, getLexerContext());
   // Replace back the end char
   if(endReplaceChar)
     *lineEnd = endReplaceChar;
