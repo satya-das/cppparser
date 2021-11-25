@@ -33,10 +33,8 @@ public:
   void SetColour(unsigned char r, unsigned char g, unsigned char b) override;
   void SetStyle(wxBrushStyle style) override;
   void SetStipple(const wxBitmap& stipple) override;
-  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants")
-  wxBrush(const wxColour& col, int style);
-  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants")
-  void SetStyle(int style)
+  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") wxBrush(const wxColour& col, int style);
+  wxDEPRECATED_MSG("use wxBRUSHSTYLE_XXX constants") void SetStyle(int style)
   {
     SetStyle((wxBrushStyle) style);
   }

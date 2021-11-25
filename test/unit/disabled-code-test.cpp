@@ -245,3 +245,28 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #ifndef")
   REQUIRE(params != nullptr);
   CHECK(params->size() == 2);
 }
+
+TEST_CASE_METHOD(DisabledCodeTest, " Enabled code section has disabled subsection")
+{
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+#  if CPPPARSER_TEST_DEFINED_MACRO
+  int x;
+#    ifdef CPPPARSER_DISABLED_USING_IFDEF
+  int y;   // We don't expect this part to get parsed in the AST
+#    endif // CPPPARSER_DISABLED_USING_IFDEF
+#  endif   // CPPPARSER_TEST_DEFINED_MACRO
+#endif
+  auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
+
+  CppParser parser;
+  parser.addDefinedName("CPPPARSER_TEST_DEFINED_MACRO", 1);
+  parser.addUndefinedName("CPPPARSER_DISABLED_USING_IFDEF");
+  const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
+  REQUIRE(ast != nullptr);
+
+  const auto& members = ast->members();
+  REQUIRE(members.size() == 1);
+
+  const CppVarEPtr var = members[0];
+  REQUIRE(var);
+}

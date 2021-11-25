@@ -68,21 +68,17 @@ public:
     return false;
   }
     // Deprecated methods not doing anything since a long time.
-  wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything")
-  void SetShadowWidth(int)
+  wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything") void SetShadowWidth(int)
   {
   }
-  wxDEPRECATED_MSG("Remove calls to this method, it always returns 0")
-  int GetShadowWidth() const
+  wxDEPRECATED_MSG("Remove calls to this method, it always returns 0") int GetShadowWidth() const
   {
     return 0;
   }
-  wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything")
-  void SetBezelFace(int)
+  wxDEPRECATED_MSG("Remove calls to this method, it doesn't do anything") void SetBezelFace(int)
   {
   }
-  wxDEPRECATED_MSG("Remove calls to this method, it always returns 0")
-  int GetBezelFace() const
+  wxDEPRECATED_MSG("Remove calls to this method, it always returns 0") int GetBezelFace() const
   {
     return 0;
   }

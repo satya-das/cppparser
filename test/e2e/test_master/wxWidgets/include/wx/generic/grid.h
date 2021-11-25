@@ -3239,5 +3239,7 @@ typedef void (*wxGridEditorCreatedEventFunction) (wxGridEditorCreatedEvent&);
 
 // same as above: RANGE_SELECT was split in RANGE_SELECTING and SELECTED in 3.2,
 // but we keep the old name for compatibility
+#    define wxEVT_GRID_RANGE_SELECT	wxEVT_GRID_RANGE_SELECTED
+#    define EVT_GRID_RANGE_SELECT	EVT_GRID_RANGE_SELECTED
 #  endif
 #endif

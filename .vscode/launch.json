@@ -8,11 +8,11 @@
       "name": "Run parser test for",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/cppparsertest",
-      "args": [
-        "-p",
-        "/home/dassat/github/cppparser/test/e2e/test_input/wxWidgets/include/wx/generic/private/grid.h"
-      ],
+      "program": "${workspaceFolder}/build/cppparserunittest",
+      // "args": [
+      //   "-p",
+      //   "/home/dassat/github/cppparser/test/e2e/test_input/wxWidgets/include/wx/generic/private/grid.h"
+      // ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build/",
       "environment": [
@@ -21,6 +21,7 @@
           "value": "0"
         }
       ],
+      "preLaunchTask": "BuildAll",
       "externalConsole": false,
       "MIMode": "gdb",
       "setupCommands": [

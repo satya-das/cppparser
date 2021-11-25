@@ -120,7 +120,6 @@ public:
   }
     // implementation
 };
-#endif
 // wxUSE_DRAG_AND_DROP
 #endif
 //_WX_DND_H_

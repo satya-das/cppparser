@@ -53,10 +53,8 @@ public:
   int GetDashCount() const;
   wxDash* GetDash() const;
   wxBitmap* GetStipple() const;
-  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
-  wxPen(const wxColour& col, int width, int style);
-  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants")
-  void SetStyle(int style)
+  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") wxPen(const wxColour& col, int width, int style);
+  wxDEPRECATED_MSG("use wxPENSTYLE_XXX constants") void SetStyle(int style)
   {
     SetStyle((wxPenStyle) style);
   }

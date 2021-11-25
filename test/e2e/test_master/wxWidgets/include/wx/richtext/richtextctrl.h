@@ -495,8 +495,7 @@ public:
   {
     m_dragStartTime = st;
   }
-#  endif
-#  if  wxRICHTEXT_BUFFERED_PAINTING
+#    if  wxRICHTEXT_BUFFERED_PAINTING
     //@{
     /**
         Returns the buffer bitmap if using buffered painting.
@@ -510,7 +509,7 @@ public:
     return m_bufferBitmap;
   }
     //@}
-#  endif
+#    endif
     /**
         Returns the current context menu.
     */
@@ -611,7 +610,7 @@ public:
         Removes the content in the specified range.
     */
   void Remove(long from, long to) override;
-#  ifdef DOXYGEN
+#    ifdef DOXYGEN
     /**
         Loads content into the control's buffer using the given type.
 
@@ -621,8 +620,8 @@ public:
         This function looks for a suitable wxRichTextFileHandler object.
     */
   bool LoadFile(const wxString& file, int type = wxRICHTEXT_TYPE_ANY);
-#  endif
-#  if  wxUSE_FFILE && wxUSE_STREAMS
+#    endif
+#    if  wxUSE_FFILE && wxUSE_STREAMS
     /**
         Helper function for LoadFile(). Loads content into the control's buffer using the given type.
 
@@ -632,8 +631,8 @@ public:
         This function looks for a suitable wxRichTextFileHandler object.
     */
   bool DoLoadFile(const wxString& file, int fileType) override;
-#  endif
-#  ifdef DOXYGEN
+#    endif
+#    ifdef DOXYGEN
     /**
         Saves the buffer content using the given type.
 
@@ -643,8 +642,8 @@ public:
         This function looks for a suitable wxRichTextFileHandler object.
     */
   bool SaveFile(const wxString& file = wxEmptyString, int type = wxRICHTEXT_TYPE_ANY);
-#  endif
-#  if  wxUSE_FFILE && wxUSE_STREAMS
+#    endif
+#    if  wxUSE_FFILE && wxUSE_STREAMS
     /**
         Helper function for SaveFile(). Saves the buffer content using the given type.
 
@@ -654,7 +653,7 @@ public:
         This function looks for a suitable wxRichTextFileHandler object.
     */
   bool DoSaveFile(const wxString& file = wxEmptyString, int fileType = wxRICHTEXT_TYPE_ANY) override;
-#  endif
+#    endif
     /**
         Sets flags that change the behaviour of loading or saving.
 
@@ -1993,12 +1992,12 @@ public:
   virtual void PaintAboveContent(wxDC&)
   {
   }
-#  if  wxRICHTEXT_BUFFERED_PAINTING
+#    if  wxRICHTEXT_BUFFERED_PAINTING
     /**
         Recreates the buffer bitmap if necessary.
     */
   virtual bool RecreateBuffer(const wxSize& size = wxDefaultSize);
-#  endif
+#    endif
     // Write text
   virtual void DoWriteText(const wxString& value, int flags = 0);
     // Should we inherit colours?
@@ -2230,7 +2229,7 @@ public:
   {
     m_delayedImageProcessingTime = t;
   }
-#  ifdef DOXYGEN
+#    ifdef DOXYGEN
     /**
         Returns the content of the entire control as a string.
     */
@@ -2252,7 +2251,7 @@ public:
         Returns @true if Freeze has been called without a Thaw.
     */
   bool IsFrozen() const;
-#  endif
+#    endif
     /// Set the line increment height in pixels
   void SetLineHeight(int height)
   {
@@ -2321,14 +2320,14 @@ protected:
   wxPoint DoGetMargins() const override;
      // FIXME: this does not work, it allows this code to compile but will fail
      //        during run-time
-#  ifndef __WXUNIVERSAL__
-#    ifdef __WXMOTIF__
+#    ifndef __WXUNIVERSAL__
+#      ifdef __WXMOTIF__
   virtual WXWidget GetTextWidget() const
   {
     return NULL;
   }
-#    endif
-#    ifdef __WXGTK20__
+#      endif
+#      ifdef __WXGTK20__
   virtual GtkEditable* GetEditable() const
   {
     return NULL;
@@ -2337,8 +2336,8 @@ protected:
   {
     return NULL;
   }
+#      endif
 #    endif
-#  endif
 // Overrides
     /**
         Currently this simply returns @c wxSize(10, 10).
@@ -2347,10 +2346,10 @@ protected:
   void DoSetValue(const wxString& value, int flags = 0) override;
   void DoThaw() override;
 // Data members
-#  if  wxRICHTEXT_BUFFERED_PAINTING
+#    if  wxRICHTEXT_BUFFERED_PAINTING
     /// Buffer bitmap
   wxBitmap m_bufferBitmap;
-#  endif
+#    endif
     /// Text buffer
   wxRichTextBuffer m_buffer;
   wxMenu* m_contextMenu;
@@ -2386,7 +2385,6 @@ protected:
   wxPoint m_dragStartPoint;
     /// Initial time when starting Drag'n'Drop
   wxDateTime m_dragStartTime;
-#endif
     /// Do we need full layout in idle?
   bool m_fullLayoutRequired;
   wxLongLong m_fullLayoutTime;
@@ -2720,47 +2718,47 @@ wxDECLARE_EXPORTED_EVENT( WXDLLIMPEXP_RICHTEXT, wxEVT_RICHTEXT_SELECTION_CHANGED
 wxDECLARE_EXPORTED_EVENT( WXDLLIMPEXP_RICHTEXT, wxEVT_RICHTEXT_BUFFER_RESET, wxRichTextEvent );
 wxDECLARE_EXPORTED_EVENT( WXDLLIMPEXP_RICHTEXT, wxEVT_RICHTEXT_FOCUS_OBJECT_CHANGED, wxRichTextEvent );
 typedef void (*wxRichTextEventFunction) (wxRichTextEvent&);
-#define wxRichTextEventHandler(func)	 \
+#    define wxRichTextEventHandler(func)	 \
     wxEVENT_HANDLER_CAST(wxRichTextEventFunction, func)
-#define EVT_RICHTEXT_LEFT_CLICK(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_LEFT_CLICK, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_RIGHT_CLICK(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_RIGHT_CLICK, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_MIDDLE_CLICK(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_MIDDLE_CLICK, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_LEFT_DCLICK(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_LEFT_DCLICK, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_RETURN(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_RETURN, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_CHARACTER(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_CHARACTER, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_CONSUMING_CHARACTER(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_CONSUMING_CHARACTER, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_DELETE(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_DELETE, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_STYLESHEET_CHANGING(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLESHEET_CHANGING, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_STYLESHEET_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLESHEET_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_STYLESHEET_REPLACING(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLESHEET_REPLACING, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_STYLESHEET_REPLACED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLESHEET_REPLACED, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_CONTENT_INSERTED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_CONTENT_INSERTED, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_CONTENT_DELETED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_CONTENT_DELETED, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_STYLE_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLE_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_PROPERTIES_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_PROPERTIES_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_SELECTION_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_SELECTION_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_BUFFER_RESET(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_BUFFER_RESET, id, -1, wxRichTextEventHandler( fn ), NULL ),
-#define EVT_RICHTEXT_FOCUS_OBJECT_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_FOCUS_OBJECT_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_LEFT_CLICK(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_LEFT_CLICK, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_RIGHT_CLICK(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_RIGHT_CLICK, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_MIDDLE_CLICK(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_MIDDLE_CLICK, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_LEFT_DCLICK(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_LEFT_DCLICK, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_RETURN(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_RETURN, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_CHARACTER(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_CHARACTER, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_CONSUMING_CHARACTER(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_CONSUMING_CHARACTER, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_DELETE(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_DELETE, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_STYLESHEET_CHANGING(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLESHEET_CHANGING, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_STYLESHEET_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLESHEET_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_STYLESHEET_REPLACING(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLESHEET_REPLACING, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_STYLESHEET_REPLACED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLESHEET_REPLACED, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_CONTENT_INSERTED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_CONTENT_INSERTED, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_CONTENT_DELETED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_CONTENT_DELETED, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_STYLE_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_STYLE_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_PROPERTIES_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_PROPERTIES_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_SELECTION_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_SELECTION_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_BUFFER_RESET(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_BUFFER_RESET, id, -1, wxRichTextEventHandler( fn ), NULL ),
+#    define EVT_RICHTEXT_FOCUS_OBJECT_CHANGED(id, fn)	 wxDECLARE_EVENT_TABLE_ENTRY( wxEVT_RICHTEXT_FOCUS_OBJECT_CHANGED, id, -1, wxRichTextEventHandler( fn ), NULL ),
 // old wxEVT_COMMAND_* constants
-#define wxEVT_COMMAND_RICHTEXT_LEFT_CLICK	wxEVT_RICHTEXT_LEFT_CLICK
-#define wxEVT_COMMAND_RICHTEXT_RIGHT_CLICK	wxEVT_RICHTEXT_RIGHT_CLICK
-#define wxEVT_COMMAND_RICHTEXT_MIDDLE_CLICK	wxEVT_RICHTEXT_MIDDLE_CLICK
-#define wxEVT_COMMAND_RICHTEXT_LEFT_DCLICK	wxEVT_RICHTEXT_LEFT_DCLICK
-#define wxEVT_COMMAND_RICHTEXT_RETURN	wxEVT_RICHTEXT_RETURN
-#define wxEVT_COMMAND_RICHTEXT_CHARACTER	wxEVT_RICHTEXT_CHARACTER
-#define wxEVT_COMMAND_RICHTEXT_DELETE	wxEVT_RICHTEXT_DELETE
-#define wxEVT_COMMAND_RICHTEXT_STYLESHEET_CHANGING	wxEVT_RICHTEXT_STYLESHEET_CHANGING
-#define wxEVT_COMMAND_RICHTEXT_STYLESHEET_CHANGED	wxEVT_RICHTEXT_STYLESHEET_CHANGED
-#define wxEVT_COMMAND_RICHTEXT_STYLESHEET_REPLACING	wxEVT_RICHTEXT_STYLESHEET_REPLACING
-#define wxEVT_COMMAND_RICHTEXT_STYLESHEET_REPLACED	wxEVT_RICHTEXT_STYLESHEET_REPLACED
-#define wxEVT_COMMAND_RICHTEXT_CONTENT_INSERTED	wxEVT_RICHTEXT_CONTENT_INSERTED
-#define wxEVT_COMMAND_RICHTEXT_CONTENT_DELETED	wxEVT_RICHTEXT_CONTENT_DELETED
-#define wxEVT_COMMAND_RICHTEXT_STYLE_CHANGED	wxEVT_RICHTEXT_STYLE_CHANGED
-#define wxEVT_COMMAND_RICHTEXT_PROPERTIES_CHANGED	wxEVT_RICHTEXT_PROPERTIES_CHANGED
-#define wxEVT_COMMAND_RICHTEXT_SELECTION_CHANGED	wxEVT_RICHTEXT_SELECTION_CHANGED
-#define wxEVT_COMMAND_RICHTEXT_BUFFER_RESET	wxEVT_RICHTEXT_BUFFER_RESET
-#define wxEVT_COMMAND_RICHTEXT_FOCUS_OBJECT_CHANGED	wxEVT_RICHTEXT_FOCUS_OBJECT_CHANGED
-#endif
+#    define wxEVT_COMMAND_RICHTEXT_LEFT_CLICK	wxEVT_RICHTEXT_LEFT_CLICK
+#    define wxEVT_COMMAND_RICHTEXT_RIGHT_CLICK	wxEVT_RICHTEXT_RIGHT_CLICK
+#    define wxEVT_COMMAND_RICHTEXT_MIDDLE_CLICK	wxEVT_RICHTEXT_MIDDLE_CLICK
+#    define wxEVT_COMMAND_RICHTEXT_LEFT_DCLICK	wxEVT_RICHTEXT_LEFT_DCLICK
+#    define wxEVT_COMMAND_RICHTEXT_RETURN	wxEVT_RICHTEXT_RETURN
+#    define wxEVT_COMMAND_RICHTEXT_CHARACTER	wxEVT_RICHTEXT_CHARACTER
+#    define wxEVT_COMMAND_RICHTEXT_DELETE	wxEVT_RICHTEXT_DELETE
+#    define wxEVT_COMMAND_RICHTEXT_STYLESHEET_CHANGING	wxEVT_RICHTEXT_STYLESHEET_CHANGING
+#    define wxEVT_COMMAND_RICHTEXT_STYLESHEET_CHANGED	wxEVT_RICHTEXT_STYLESHEET_CHANGED
+#    define wxEVT_COMMAND_RICHTEXT_STYLESHEET_REPLACING	wxEVT_RICHTEXT_STYLESHEET_REPLACING
+#    define wxEVT_COMMAND_RICHTEXT_STYLESHEET_REPLACED	wxEVT_RICHTEXT_STYLESHEET_REPLACED
+#    define wxEVT_COMMAND_RICHTEXT_CONTENT_INSERTED	wxEVT_RICHTEXT_CONTENT_INSERTED
+#    define wxEVT_COMMAND_RICHTEXT_CONTENT_DELETED	wxEVT_RICHTEXT_CONTENT_DELETED
+#    define wxEVT_COMMAND_RICHTEXT_STYLE_CHANGED	wxEVT_RICHTEXT_STYLE_CHANGED
+#    define wxEVT_COMMAND_RICHTEXT_PROPERTIES_CHANGED	wxEVT_RICHTEXT_PROPERTIES_CHANGED
+#    define wxEVT_COMMAND_RICHTEXT_SELECTION_CHANGED	wxEVT_RICHTEXT_SELECTION_CHANGED
+#    define wxEVT_COMMAND_RICHTEXT_BUFFER_RESET	wxEVT_RICHTEXT_BUFFER_RESET
+#    define wxEVT_COMMAND_RICHTEXT_FOCUS_OBJECT_CHANGED	wxEVT_RICHTEXT_FOCUS_OBJECT_CHANGED
+#  endif
     // wxUSE_RICHTEXT
 #endif
     // _WX_RICHTEXTCTRL_H_

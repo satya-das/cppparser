@@ -104,6 +104,7 @@ public:
   void SetSplitterPosition(int splitterPos, int col = 0);
     // To avoid ambiguity between functions inherited
     // from both wxPropertyGridInterface and wxPropertyGridPageState
+  using wxPropertyGridInterface::GetPropertyByLabel;
 protected:
     // Propagate to other pages.
   void DoSetSplitterPosition(int pos, int splitterColumn = 0, int flags = wxPG_SPLITTER_REFRESH) override;

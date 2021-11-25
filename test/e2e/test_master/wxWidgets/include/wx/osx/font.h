@@ -76,8 +76,7 @@ public:
   void SetStrikethrough(bool strikethrough) override;
   void SetEncoding(wxFontEncoding encoding) override;
   wxDECLARE_COMMON_FONT_METHODS();
-  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants")
-  wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
+  wxDEPRECATED_MSG("use wxFONT{FAMILY,STYLE,WEIGHT}_XXX constants") wxFont(int size, int family, int style, int weight, bool underlined = false, const wxString& face = wxEmptyString, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
     // implementation only from now on
     // -------------------------------
   virtual bool RealizeResource();

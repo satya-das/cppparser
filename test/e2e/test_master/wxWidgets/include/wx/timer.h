@@ -156,6 +156,11 @@ public:
   }
     // default ctor creates an unusable event object and should not be used (in
     // fact, no code outside wxWidgets is supposed to create event objects)
+  wxDEPRECATED_MSG("wxTimerEvent not supposed to be created by user code") wxTimerEvent()
+    : wxEvent(wxID_ANY, wxEVT_TIMER)
+  {
+    m_timer = NULL;
+  }
 private:
   wxTimer* m_timer;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxTimerEvent);

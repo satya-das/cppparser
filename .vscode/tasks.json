@@ -2,7 +2,7 @@
   "tasks": [
     {
       "type": "shell",
-      "label": "Build All",
+      "label": "BuildAll",
       "command": "ninja",
       "args": [],
       "options": {

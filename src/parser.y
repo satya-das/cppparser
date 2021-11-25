@@ -484,6 +484,7 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | namespacealias      [ZZLOG;] { $$ = $1; }
                   | macrocall           [ZZLOG;] { $$ = new CppMacroCall($1, gCurAccessType); }
                   | macrocall ';'       [ZZLOG;] { $$ = new CppMacroCall(mergeCppToken($1, $2), gCurAccessType); }
+                  | apidecortokensq macrocall [ZZLOG;] { $$ = new CppMacroCall(mergeCppToken($1, $2), gCurAccessType); }
                   | ';'                 [ZZLOG;] { $$ = nullptr; }  /* blank statement */
                   | asmblock            [ZZLOG;] { $$ = $1; }
                   | blob                [ZZLOG;] { $$ = $1; }
@@ -1810,6 +1811,7 @@ apidecor          : apidecortokensq                     [ZZLOG;] { $$ = $1; }
 
 apidecortokensq   : tknApiDecor                  [ZZLOG;] { $$ = $1; }
                   | apidecortokensq tknApiDecor  [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+                  | tknApiDecor '(' strlit ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   ;
 
 changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = CppAccessType::kPublic;     }

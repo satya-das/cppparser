@@ -143,6 +143,14 @@ protected:
     wxASSERT(this->HasTextCtrl());
     return m_sizer->GetItem((size_t) 0);
   }
+  wxDEPRECATED_MSG("useless and will be removed in the future") int GetDefaultPickerCtrlFlag() const
+  {
+    return wxALIGN_CENTER_VERTICAL;
+  }
+  wxDEPRECATED_MSG("useless and will be removed in the future") int GetDefaultTextCtrlFlag() const
+  {
+    return wxALIGN_CENTER_VERTICAL | wxRIGHT;
+  }
   void PostCreation();
   wxTextCtrl* m_text;
   wxControl* m_picker;

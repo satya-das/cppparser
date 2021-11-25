@@ -76,7 +76,7 @@ public:
     // In that case the item is index to wxPropertyGrid's custom values.
   virtual wxSize GetImageSize(const wxPGProperty* property, int column, int item) const;
     // Paints property category selection rectangle.
-  virtual void DrawCaptionSelectionRect(wxWindow* win, wxDC& dc, int x, int y, int w, int h) const;
+  virtual void DrawCaptionSelectionRect(wxDC& dc, int x, int y, int w, int h) const;
     // Utility to draw vertically centered text.
   void DrawText(wxDC& dc, const wxRect& rect, int imageWidth, const wxString& text) const;
     // Utility to draw editor's value, or vertically
@@ -461,21 +461,23 @@ wxPG_PROP_CLASS_SPECIFIC_3          = 0x00400000
 // default is empty.
 // Sets the initial path of where to look for files.
 #    define wxPG_FILE_INITIAL_PATH	wxS("InitialPath")
+#    ifdef wxPG_MUST_DEPRECATE_MACRO_NAME
+#      pragma  deprecated(wxPG_FILE_DIALOG_TITLE)
+#    endif
 // Specific to wxFileProperty and derivatives, wxString, default is empty.
 // Sets a specific title for the dir dialog.
-#define wxPG_FILE_DIALOG_TITLE wxPG_DEPRECATED_MACRO_VALUE(wxS("DialogTitle"),\
+#    define wxPG_FILE_DIALOG_TITLE	wxPG_DEPRECATED_MACRO_VALUE(wxS("DialogTitle"),\
     "wxPG_FILE_DIALOG_TITLE is deprecated. Use wxPG_DIALOG_TITLE instead.")
-#endif // WXWIN_COMPATIBILITY_3_0
-
 // Specific to wxFileProperty and derivatives, long, default is 0.
 // Sets a specific wxFileDialog style for the file dialog, e.g. ::wxFD_SAVE.
 #    define wxPG_FILE_DIALOG_STYLE	wxS("DialogStyle")
+#    ifdef wxPG_MUST_DEPRECATE_MACRO_NAME
+#      pragma  deprecated(wxPG_DIR_DIALOG_MESSAGE)
+#    endif
 // Specific to wxDirProperty, wxString, default is empty.
 // Sets a specific message for the dir dialog.
-#define wxPG_DIR_DIALOG_MESSAGE wxPG_DEPRECATED_MACRO_VALUE(wxS("DialogMessage"),\
+#    define wxPG_DIR_DIALOG_MESSAGE	wxPG_DEPRECATED_MACRO_VALUE(wxS("DialogMessage"),\
     "wxPG_DIR_DIALOG_MESSAGE is deprecated. Use wxPG_DIALOG_TITLE instead.")
-#endif // WXWIN_COMPATIBILITY_3_0
-
 // wxArrayStringProperty's string delimiter character. If this is
 // a quotation mark or hyphen, then strings will be quoted instead
 // (with given character).
@@ -1192,16 +1194,16 @@ public:
     return m_value.IsNull();
   }
     // Returns non-zero if property has given flag set.
-    FlagType HasFlag( wxPGPropertyFlags flag ) const
-    {
-        return ( m_flags & flag );
-    }
-#else
-    // Returns true if property has given flag set.
-  bool HasFlag(wxPGPropertyFlags flag) const
+  FlagType HasFlag(wxPGPropertyFlags flag) const
   {
-    return (m_flags & flag) != 0;
+    return (m_flags & flag);
   }
+    // Returns true if property has given flag set.
+    bool HasFlag(wxPGPropertyFlags flag) const
+    {
+        return (m_flags & flag) != 0;
+    }
+#endif
     // Returns true if property has given flag set.
   bool HasFlag(FlagType flag) const
   {
@@ -1220,13 +1222,10 @@ public:
     // Returns m_attributes as list wxVariant.
   wxVariant GetAttributesAsList() const;
     // Returns property flags.
-    wxDEPRECATED_MSG("Use HasFlag or HasFlagsExact functions instead.")
-    FlagType GetFlags() const
-    {
-        return m_flags;
-    }
-#endif
-
+  wxDEPRECATED_MSG("Use HasFlag or HasFlagsExact functions instead.") FlagType GetFlags() const
+  {
+    return m_flags;
+  }
     // Returns wxPGEditor that will be used and created when
     // property becomes selected. Returns more accurate value
     // than DoGetEditorClass().
@@ -1618,14 +1617,7 @@ public:
     // Returns (direct) child property with given name (or NULL if not found).
   wxPGProperty* GetPropertyByName(const wxString& name) const;
     // Returns various display-related information for given column
-#if WXWIN_COMPATIBILITY_3_0
-    wxDEPRECATED_MSG("don't use GetDisplayInfo function with argument of 'const wxPGCell**' type. Use 'wxPGCell*' argument instead")
-    void GetDisplayInfo( unsigned int column,
-                         int choiceIndex,
-                         int flags,
-                         wxString* pString,
-                         const wxPGCell** pCell );
-#endif //  WXWIN_COMPATIBILITY_3_0
+  wxDEPRECATED_MSG("don't use GetDisplayInfo function with argument of 'const wxPGCell**' type. Use 'wxPGCell*' argument instead") void GetDisplayInfo(unsigned int column, int choiceIndex, int flags, wxString* pString, const wxPGCell** pCell);
     // This function can return modified (customized) cell object.
   void GetDisplayInfo(unsigned int column, int choiceIndex, int flags, wxString* pString, wxPGCell* pCell);
   static wxString* sm_wxPG_LABEL;
@@ -1778,10 +1770,8 @@ const wxPGEditor* PROPNAME::DoGetEditorClass() const \
     return wxPGEditor_##EDITOR; \
 }
 // This macro is deprecated. Use wxPG_IMPLEMENT_PROPERTY_CLASS_PLAIN instead.
-#define WX_PG_IMPLEMENT_PROPERTY_CLASS_PLAIN(PROPNAME,T,EDITOR) \
+#    define WX_PG_IMPLEMENT_PROPERTY_CLASS_PLAIN(PROPNAME,T,EDITOR)	 \
 wxPG_IMPLEMENT_PROPERTY_CLASS_PLAIN(PROPNAME, EDITOR)
-#endif // WXWIN_COMPATIBILITY_3_0
-
 // -----------------------------------------------------------------------
 
 // Root parent property.

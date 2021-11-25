@@ -940,6 +940,10 @@ extern HCURSOR wxGetCurrentBusyCursor();
 extern const wxCursor* wxGetGlobalCursor();
 // GetCursorPos can fail without populating the POINT. This falls back to GetMessagePos.
 WXDLLIMPEXP_CORE void wxGetCursorPosMSW(POINT* pt);
+wxDEPRECATED_MSG("Use wxNativeFontInfo::lf directly instead of this private function")
+WXDLLIMPEXP_CORE void wxFillLogFont(LOGFONT* logFont, const wxFont* font);
+wxDEPRECATED_MSG("Use wxNativeFontInfo(LOGFONT) ctor instead of this private function")
+WXDLLIMPEXP_CORE wxFont wxCreateFontFromLogFont(const LOGFONT* logFont);
 WXDLLIMPEXP_CORE void wxGetCharSize(WXHWND wnd, int* x, int* y, const wxFont& the_font);
 WXDLLIMPEXP_CORE wxFontEncoding wxGetFontEncFromCharSet(int charset);
 inline void wxSetWindowFont(HWND hwnd, const wxFont& font)

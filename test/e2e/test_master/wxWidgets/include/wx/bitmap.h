@@ -222,11 +222,9 @@ public:
     // implementation:
 #if WXWIN_COMPATIBILITY_3_0
     // deprecated
-    virtual void SetHeight(int height) = 0;
-    virtual void SetWidth(int width) = 0;
-    virtual void SetDepth(int depth) = 0;
-#endif
-
+  virtual void SetHeight(int height) = 0;
+  virtual void SetWidth(int width) = 0;
+  virtual void SetDepth(int depth) = 0;
     // Format handling
   static wxList& GetHandlers()
   {
@@ -253,39 +251,38 @@ protected:
   static wxList sm_handlers;
   wxDECLARE_ABSTRACT_CLASS(wxBitmapBase);
 };
-#endif
 // the wxBITMAP_DEFAULT_TYPE constant defines the default argument value
 // for wxBitmap's ctor and wxBitmap::LoadFile() functions.
-#if  defined(__WXMSW__)
-#  define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_BMP_RESOURCE
-#  include "wx/msw/bitmap.h"
-#elif  defined(__WXMOTIF__)
-#  define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
-#  include "wx/x11/bitmap.h"
-#elif  defined(__WXGTK20__)
-#  ifdef __WINDOWS__
+#  if  defined(__WXMSW__)
 #    define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_BMP_RESOURCE
-#  else 
+#    include "wx/msw/bitmap.h"
+#  elif  defined(__WXMOTIF__)
 #    define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
+#    include "wx/x11/bitmap.h"
+#  elif  defined(__WXGTK20__)
+#    ifdef __WINDOWS__
+#      define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_BMP_RESOURCE
+#    else 
+#      define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
+#    endif
+#    include "wx/gtk/bitmap.h"
+#  elif  defined(__WXGTK__)
+#    define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
+#    include "wx/gtk1/bitmap.h"
+#  elif  defined(__WXX11__)
+#    define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
+#    include "wx/x11/bitmap.h"
+#  elif  defined(__WXDFB__)
+#    define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_BMP_RESOURCE
+#    include "wx/dfb/bitmap.h"
+#  elif  defined(__WXMAC__)
+#    define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_PICT_RESOURCE
+#    include "wx/osx/bitmap.h"
+#  elif  defined(__WXQT__)
+#    define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
+#    include "wx/qt/bitmap.h"
 #  endif
-#  include "wx/gtk/bitmap.h"
-#elif  defined(__WXGTK__)
-#  define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
-#  include "wx/gtk1/bitmap.h"
-#elif  defined(__WXX11__)
-#  define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
-#  include "wx/x11/bitmap.h"
-#elif  defined(__WXDFB__)
-#  define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_BMP_RESOURCE
-#  include "wx/dfb/bitmap.h"
-#elif  defined(__WXMAC__)
-#  define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_PICT_RESOURCE
-#  include "wx/osx/bitmap.h"
-#elif  defined(__WXQT__)
-#  define wxBITMAP_DEFAULT_TYPE	wxBITMAP_TYPE_XPM
-#  include "wx/qt/bitmap.h"
-#endif
-#if  wxUSE_IMAGE
+#  if  wxUSE_IMAGE
 inline wxBitmap wxBitmapBase::
 #else
 wxBitmap::
@@ -295,14 +292,14 @@ ConvertToDisabled(unsigned char brightness) const
   const wxImage imgDisabled = ConvertToImage().ConvertToDisabled(brightness);
   return wxBitmap(imgDisabled, -1, GetScaleFactor());
 }
-#endif
+#  endif
 // we must include generic mask.h after wxBitmap definition
-#if  defined(__WXDFB__)
-#  define wxUSE_GENERIC_MASK	1
-#else 
-#  define wxUSE_GENERIC_MASK	0
-#endif
-#if  wxUSE_GENERIC_MASK
-#  include "wx/generic/mask.h"
-#endif
+#  if  defined(__WXDFB__)
+#    define wxUSE_GENERIC_MASK	1
+#  else 
+#    define wxUSE_GENERIC_MASK	0
+#  endif
+#  if  wxUSE_GENERIC_MASK
+#    include "wx/generic/mask.h"
+#  endif
 #endif

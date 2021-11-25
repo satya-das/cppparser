@@ -409,13 +409,6 @@ typedef wxWritableCharTypeBuffer<wchar_t> wxWritableWCharBuffer;
 #  define wxWxCharBuffer	wxWCharBuffer
 #  define wxMB2WXbuf	wxWCharBuffer
 #  define wxWX2MBbuf	wxCharBuffer
-#else 
-#  define wxWxCharBuffer	wxCharBuffer
-#  define wxMB2WXbuf	wxChar*
-#  define wxWX2MBbuf	wxChar*
-#  define wxWC2WXbuf	wxCharBuffer
-#  define wxWX2WCbuf	wxWCharBuffer
-#endif
 // ----------------------------------------------------------------------------
 // A class for holding growable data buffers (not necessarily strings)
 // ----------------------------------------------------------------------------

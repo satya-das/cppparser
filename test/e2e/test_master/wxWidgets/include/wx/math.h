@@ -60,7 +60,6 @@ inline bool wxIsSameDouble(double x, double y)
   return x == y;
 #    pragma  warning(pop)
 }
-#  else 
 inline bool wxIsSameDouble(double x, double y)
 {
   return x == y;
@@ -92,27 +91,16 @@ inline int wxRound(long double x)
 }
 // For compatibility purposes, make wxRound() work with integer types too, as
 // this used to compile with wx 3.0.
-#if WXWIN_COMPATIBILITY_3_0
-
 template <typename T>
-wxDEPRECATED_MSG("rounding an integer is useless")
-inline int wxRound(T x)
+wxDEPRECATED_MSG("rounding an integer is useless") inline int wxRound(T x)
 {
     // We have to disable this warning for the unsigned types. We do handle
     // them correctly in this comparison due to "x > 0" below (removing it
     // would make this fail for them!).
-    wxGCC_WARNING_SUPPRESS(sign-compare)
-
-    wxASSERT_MSG((x > 0 || x > INT_MIN) && x < INT_MAX,
+  wxASSERT_MSG((x > 0 || x > INT_MIN) && x < INT_MAX,
         "argument out of supported range");
-
-    wxGCC_WARNING_RESTORE(sign-compare)
-
-    return int(x);
+  return int(x);
 }
-
-#endif // WXWIN_COMPATIBILITY_3_0
-
 // Convert between degrees and radians.
 inline double wxDegToRad(double deg)
 {
@@ -124,20 +112,19 @@ inline double wxRadToDeg(double rad)
 }
 // Count trailing zeros.
 WXDLLIMPEXP_BASE unsigned int wxCTZ(wxUint32 x);
-#endif
-#if  defined(__WINDOWS__)
-#  define wxMulDivInt32( a , b , c )	 ::MulDiv( a , b , c )
-#else 
-#  define wxMulDivInt32( a , b , c ) (wxRound((a)*(((wxDouble)b)/((wxDouble)c))))
-#endif
-#if  wxUSE_APPLE_IEEE
+#  if  defined(__WINDOWS__)
+#    define wxMulDivInt32( a , b , c )	 ::MulDiv( a , b , c )
+#  else 
+#    define wxMulDivInt32( a , b , c ) (wxRound((a)*(((wxDouble)b)/((wxDouble)c))))
+#  endif
+#  if  wxUSE_APPLE_IEEE
 extern "C" {
     /* functions from common/extended.c */
   WXDLLIMPEXP_BASE wxFloat64 wxConvertFromIeeeExtended(const wxInt8* bytes);
   WXDLLIMPEXP_BASE void wxConvertToIeeeExtended(wxFloat64 num, wxInt8* bytes);
     /* use wxConvertFromIeeeExtended() and wxConvertToIeeeExtended() instead */
   }
-#endif
+#  endif
 /* Compute the greatest common divisor of two positive integers */
 WXDLLIMPEXP_BASE unsigned int wxGCD(unsigned int u, unsigned int v);
 #endif

@@ -236,6 +236,7 @@ CppParser constructCppParserForTest()
                             "WXDLLIMPEXP_XML",
                             "WXDLLIMPEXP_XRC",
                             "wxMSVC_FWD_MULTIPLE_BASES",
+                            "wxDEPRECATED_MSG",
                             "wxDEPRECATED_CLASS_MSG",
                             "wxEXTERNC",
                             "LINKAGEMODE",
@@ -443,7 +444,6 @@ CppParser constructCppParserForTest()
                          "wxDEPRECATED_BUT_USED_INTERNALLY_INLINE",
                          "wxDEPRECATED_CONSTRUCTOR",
                          "wxDEPRECATED_INLINE",
-                         "wxDEPRECATED_MSG",
                          "WXDFB_DEFINE_EVENT_WRAPPER",
                          "wxDISABLED_FORMAT_STRING_SPECIFIER",
                          "wxDO_FOR_CHAR_INT_TYPES",
@@ -556,7 +556,7 @@ CppParser constructCppParserForTest()
   parser.addDefinedName("wxUSE_TEXTCTRL", 1);
   parser.addDefinedName("wxHAS_TEXT_WINDOW_STREAM", 1);
   parser.addDefinedName("WXWIN_COMPATIBILITY_2_8", 0);
-  parser.addDefinedName("WXWIN_COMPATIBILITY_3_0", 0);
+  parser.addDefinedName("WXWIN_COMPATIBILITY_3_0", 1);
   parser.addDefinedName("wxUSE_CONFIG", 0);
   parser.addDefinedName("wxUSE_STD_CONTAINERS", 0);
   parser.addDefinedName("__cplusplus", 201103);
@@ -570,6 +570,7 @@ CppParser constructCppParserForTest()
   parser.addDefinedName("wxUSE_UNICODE_WCHAR", 0);
   parser.addDefinedName("wxGAUGE_EMULATE_INDETERMINATE_MODE", 1);
   parser.addDefinedName("wxUSE_DRAG_AND_DROP", 1);
+  // parser.addDefinedName("wxUSE_UNICODE_UTF8", 0);
 
   parser.addRenamedKeyword("virtual", "ADESK_SEALED_VIRTUAL");
   parser.addRenamedKeyword("virtual", "_VIRTUAL");

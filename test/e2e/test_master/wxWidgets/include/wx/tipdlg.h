@@ -45,6 +45,10 @@ public:
   virtual ~wxTipProvider()
   {
   }
+  wxDEPRECATED_MSG("this method does nothing, simply don't call it") wxString PreprocessTip(const wxString& tip)
+  {
+    return tip;
+  }
 protected:
   size_t m_currentTip;
 };

@@ -545,7 +545,7 @@ public:
   bool IsPropertyModified(wxPGPropArg id) const
   {
     wxPG_PROP_ARG_CALL_PROLOG_RETVAL(false)
-    return p->HasFlag(wxPG_PROP_MODIFIED);
+    return p->HasFlag(wxPG_PROP_MODIFIED) ? true : false;
   }
     // Returns true if property is selected.
   bool IsPropertySelected(wxPGPropArg id) const
@@ -674,7 +674,8 @@ public:
     // id - Property name or pointer.
     // flags - Default is wxPG_DONT_RECURSE which causes colour to be reset
     //   only for the property in question (for backward compatibility).
-  void SetPropertyColoursToDefault(wxPGPropArg id, int flags = wxPG_DONT_RECURSE);
+  void SetPropertyColoursToDefault(wxPGPropArg id);
+  void SetPropertyColoursToDefault(wxPGPropArg id, int flags);
     // Sets text colour of a property.
     // id - Property name or pointer.
     // colour - New background colour.

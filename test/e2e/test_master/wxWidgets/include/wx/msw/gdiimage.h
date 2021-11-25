@@ -119,7 +119,6 @@ public:
   {
     return IsNull() ? wxSize(0, 0) : wxSize(GetGDIImageData()->m_width, GetGDIImageData()->m_height);
   }
-    // forward some of base class virtuals to wxGDIImageRefData
   bool FreeResource(bool force = false) override;
   WXHANDLE GetResourceHandle() const override;
 protected:

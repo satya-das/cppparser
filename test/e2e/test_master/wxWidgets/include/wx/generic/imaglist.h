@@ -38,6 +38,14 @@ public:
   bool Remove(int index);
   bool RemoveAll();
   virtual bool Draw(int index, wxDC& dc, int x, int y, int flags = wxIMAGELIST_DRAW_NORMAL, bool solidBackground = false);
+  wxDEPRECATED_MSG("Don't use this overload: it's not portable and does nothing") bool Create()
+  {
+    return true;
+  }
+  wxDEPRECATED_MSG("Use GetBitmap() instead") const wxBitmap* GetBitmapPtr(int index) const
+  {
+    return DoGetPtr(index);
+  }
 private:
   const wxBitmap* DoGetPtr(int index) const;
   wxVector<wxBitmap> m_images;

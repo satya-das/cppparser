@@ -27,11 +27,9 @@ class WXDLLIMPEXP_FWD_PROPGRID wxPGArrayEditorDialog;
 wxIMPLEMENT_DYNAMIC_CLASS(NAME, UPCLASS); \
 wxPG_IMPLEMENT_PROPERTY_CLASS_PLAIN(NAME, EDITOR)
 // This macro is deprecated. Use wxPG_IMPLEMENT_PROPERTY_CLASS instead.
-#define WX_PG_IMPLEMENT_PROPERTY_CLASS(NAME, UPCLASS, T, T_AS_ARG, EDITOR) \
+#    define WX_PG_IMPLEMENT_PROPERTY_CLASS(NAME, UPCLASS, T, T_AS_ARG, EDITOR)	 \
 wxIMPLEMENT_DYNAMIC_CLASS(NAME, UPCLASS); \
 WX_PG_IMPLEMENT_PROPERTY_CLASS_PLAIN(NAME, T, EDITOR)
-#endif // WXWIN_COMPATIBILITY_3_0
-
 // -----------------------------------------------------------------------
 
 //
@@ -286,6 +284,17 @@ public:
 protected:
   int GetIndex() const;
   void SetIndex(int index);
+  wxDEPRECATED_MSG("use ValueFromString_(wxVariant&, int*, const wxString&, int) function instead") bool ValueFromString_(wxVariant& value, const wxString& text, int argFlags) const
+  {
+    return ValueFromString_(value, NULL, text, argFlags);
+  }
+  wxDEPRECATED_MSG("use ValueFromInt_(wxVariant&, int*, int, int) function instead") bool ValueFromInt_(wxVariant& value, int intVal, int argFlags) const
+  {
+    return ValueFromInt_(value, NULL, intVal, argFlags);
+  }
+  wxDEPRECATED_MSG("don't use ResetNextIndex() function") static void ResetNextIndex()
+  {
+  }
     // Converts text to value and returns corresponding index in the collection
   bool ValueFromString_(wxVariant& value, int* pIndex, const wxString& text, int argFlags) const;
     // Converts number to value and returns corresponding index in the collection
@@ -433,6 +442,7 @@ public:
   virtual ~wxDirProperty();
   wxString ValueToString(wxVariant& value, int argFlags = 0) const override;
   bool StringToValue(wxVariant& variant, const wxString& text, int argFlags = 0) const override;
+  bool DoSetAttribute(const wxString& name, wxVariant& value) override;
   wxValidator* DoGetValidator() const override;
 protected:
   bool DisplayEditorDialog(wxPropertyGrid* pg, wxVariant& value) override;
@@ -463,12 +473,7 @@ public:
     // should be returned if that was the case.
   virtual bool OnCustomStringEdit(wxWindow* parent, wxString& value);
     // Helper.
-    wxDEPRECATED_MSG("OnButtonClick() function is no longer used")
-    virtual bool OnButtonClick( wxPropertyGrid* propgrid,
-                                wxWindow* primary,
-                                const wxChar* cbt );
-#endif // WXWIN_COMPATIBILITY_3_0
-
+  wxDEPRECATED_MSG("OnButtonClick() function is no longer used") virtual bool OnButtonClick(wxPropertyGrid* propgrid, wxWindow* primary, const wxChar* cbt);
     // Creates wxPGArrayEditorDialog for string editing. Called in OnButtonClick.
   virtual wxPGArrayEditorDialog* CreateEditorDialog();
   enum ConversionFlags {

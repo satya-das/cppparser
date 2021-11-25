@@ -156,6 +156,7 @@ class WXDLLIMPEXP_FWD_PROPGRID wxPGValidationInfo;
 #    define wxPG_LABEL(*wxPGProperty::sm_wxPG_LABEL)
 // This is the value placed in wxPGProperty::sm_wxPG_LABEL
 #    define wxPG_LABEL_STRING	wxS("@!")
+#    define wxPG_NULL_BITMAP	wxNullBitmap
 #    define wxPG_COLOUR_BLACK(*wxBLACK)
 // Convert Red, Green and Blue to a single 32-bit value.
 #    define wxPG_COLOUR(R,G,B) ((wxUint32)((R)+((G)<<8)+((B)<<16)))
@@ -174,6 +175,7 @@ class WXDLLIMPEXP_FWD_PROPGRID wxPGValidationInfo;
 //      return p1->GetBaseName().compare( p2->GetBaseName() );
 //   }
 typedef int (*wxPGSortCallback) (wxPropertyGrid* propGrid, wxPGProperty* p1, wxPGProperty* p2);
+typedef wxString wxPGCachedString;
 // -----------------------------------------------------------------------
 
 // Used to indicate wxPGChoices::Add etc. that the value is actually not given
@@ -203,6 +205,9 @@ WX_DECLARE_HASH_SET_WITH_DECL(int,
                               wxIntegerEqual,
                               wxPGHashSetInt,
                               class WXDLLIMPEXP_PROPGRID);
+WX_DEFINE_TYPEARRAY_WITH_DECL_PTR(wxObject*, wxArrayPGObject,
+                                  wxBaseArrayPtrVoid,
+                                  class WXDLLIMPEXP_PROPGRID);
 // -----------------------------------------------------------------------
 enum wxPG_PROPERTYVALUES_FLAGS {
 // Flag for wxPropertyGridInterface::SetProperty* functions,
@@ -516,7 +521,6 @@ inline wxVariant WXVARIANT(const wxColour& value)
 #      define wxPG_VARIANT_TYPE_LONGLONG	wxS("longlong")
 #      define wxPG_VARIANT_TYPE_ULONGLONG	wxS("ulonglong")
 #    endif
-#  endif
 // -----------------------------------------------------------------------
 
 //
@@ -525,16 +529,16 @@ inline wxVariant WXVARIANT(const wxColour& value)
 //   wise) use wxStringTokenizer and better ones (may have unfound bugs)
 //   use custom code.
 //
-#  include "wx/tokenzr.h"
+#    include "wx/tokenzr.h"
 // TOKENIZER1 can be done with wxStringTokenizer
-#  define WX_PG_TOKENIZER1_BEGIN(WXSTRING,DELIMITER)	 \
+#    define WX_PG_TOKENIZER1_BEGIN(WXSTRING,DELIMITER)	 \
     wxStringTokenizer tkz(WXSTRING,DELIMITER,wxTOKEN_RET_EMPTY); \
     while ( tkz.HasMoreTokens() ) \
     { \
         wxString token = tkz.GetNextToken(); \
         token.Trim(true); \
         token.Trim(false);
-#  define WX_PG_TOKENIZER1_END()	 \
+#    define WX_PG_TOKENIZER1_END()	 \
     }
 //
 // 2nd version: tokens are surrounded by DELIMITERs (for example, C-style
@@ -556,12 +560,12 @@ protected:
   wxString m_readyToken;
   wxUniChar m_delimiter;
 };
-#  define WX_PG_TOKENIZER2_BEGIN(WXSTRING,DELIMITER)	 \
+#    define WX_PG_TOKENIZER2_BEGIN(WXSTRING,DELIMITER)	 \
     wxPGStringTokenizer tkz(WXSTRING,DELIMITER); \
     while ( tkz.HasMoreTokens() ) \
     { \
         wxString token = tkz.GetNextToken();
-#  define WX_PG_TOKENIZER2_END()	 \
+#    define WX_PG_TOKENIZER2_END()	 \
     }
 // -----------------------------------------------------------------------
 // wxVector utilities
@@ -570,9 +574,9 @@ protected:
 template <typename T>
 inline bool wxPGItemExistsInVector(const wxVector<T>& vector, const T& item)
 {
-#  if  wxUSE_STL
+#    if  wxUSE_STL
   return std::find(vector.begin(), vector.end(), item) != vector.end();
-#  else 
+#    else 
   for (typename wxVector<T>::const_iterator it = vector.begin(); it != vector.end(); ++it)
   {
     if (*it == item)
@@ -581,20 +585,20 @@ inline bool wxPGItemExistsInVector(const wxVector<T>& vector, const T& item)
     }
   }
   return false;
-#  endif
+#    endif
 }
 // Utility to determine the index of the item in the vector.
 template <typename T>
 inline int wxPGItemIndexInVector(const wxVector<T>& vector, const T& item)
 {
-#  if  wxUSE_STL
+#    if  wxUSE_STL
   typename wxVector<T>::const_iterator it = std::find(vector.begin(), vector.end(), item);
   if (it != vector.end())
   {
     return (int) (it - vector.begin());
   }
   return wxNOT_FOUND;
-#  else 
+#    else 
   for (typename wxVector<T>::const_iterator it = vector.begin(); it != vector.end(); ++it)
   {
     if (*it == item)
@@ -603,19 +607,19 @@ inline int wxPGItemIndexInVector(const wxVector<T>& vector, const T& item)
     }
   }
   return wxNOT_FOUND;
-#  endif
+#    endif
 }
 // Utility to remove given item from the vector.
 template <typename T>
 inline void wxPGRemoveItemFromVector(wxVector<T>& vector, const T& item)
 {
-#  if  wxUSE_STL
+#    if  wxUSE_STL
   typename wxVector<T>::iterator it = std::find(vector.begin(), vector.end(), item);
   if (it != vector.end())
   {
     vector.erase(it);
   }
-#  else 
+#    else 
   for (typename wxVector<T>::iterator it = vector.begin(); it != vector.end(); ++it)
   {
     if (*it == item)
@@ -624,7 +628,7 @@ inline void wxPGRemoveItemFromVector(wxVector<T>& vector, const T& item)
       return ;
     }
   }
-#  endif
+#    endif
 }
 // Utility to calaculate sum of all elements of the vector.
 template <typename T>
@@ -637,5 +641,5 @@ inline T wxPGGetSumVectorItems(const wxVector<T>& vector, T init)
   return init;
 }
 // -----------------------------------------------------------------------
-#endif
+#  endif
 #endif

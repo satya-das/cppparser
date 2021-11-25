@@ -119,21 +119,15 @@ typedef wchar_t wxUChar;
 #  endif
 #  if  wxUSE_UNICODE_UTF8
 #    define wxUSE_UNICODE_WCHAR	0
-#  else 
 #    define wxUSE_UNICODE_WCHAR	1
 #  endif
-#else 
-#  define wxUSE_UNICODE_WCHAR	0
-#  define wxUSE_UNICODE_UTF8	0
-#  define wxUSE_UTF8_LOCALE_ONLY	0
-#endif
-#ifndef SIZEOF_WCHAR_T
-#endif
-#if  wxUSE_UNICODE_WCHAR && SIZEOF_WCHAR_T == 2
-#  define wxUSE_UNICODE_UTF16	1
-#else 
-#  define wxUSE_UNICODE_UTF16	0
-#endif
+#  ifndef SIZEOF_WCHAR_T
+#  endif
+#  if  wxUSE_UNICODE_WCHAR && SIZEOF_WCHAR_T == 2
+#    define wxUSE_UNICODE_UTF16	1
+#  else 
+#    define wxUSE_UNICODE_UTF16	0
+#  endif
 /* define char type used by wxString internal representation: */
 typedef char wxStringCharType;
 /* ------------------------------------------------------------------------- */
@@ -141,34 +135,34 @@ typedef char wxStringCharType;
 /* ------------------------------------------------------------------------- */
 
 /* BSD systems define _T() to be something different in ctype.h, override it */
-#if  defined(__FreeBSD__) || defined(__DARWIN__)
-#  include <ctype.h>
-#  undef _T
-#endif
+#  if  defined(__FreeBSD__) || defined(__DARWIN__)
+#    include <ctype.h>
+#    undef _T
+#  endif
 /*
    wxT ("wx text") macro turns a literal string constant into a wide char
    constant. It is mostly unnecessary with wx 2.9 but defined for
    compatibility.
  */
-#ifndef wxT
+#  ifndef wxT
         /*
             Notice that we use an intermediate macro to allow x to be expanded
             if it's a macro itself.
          */
-#  define wxT(x)	 wxCONCAT_HELPER(L, x)
-#endif
+#    define wxT(x)	 wxCONCAT_HELPER(L, x)
+#  endif
 /*
     wxT_2 exists only for compatibility with wx 2.x and is the same as wxT() in
     that version but nothing in the newer ones.
  */
-#define wxT_2(x)	 x
+#  define wxT_2(x)	 x
 /*
    wxS ("wx string") macro can be used to create literals using the same
    representation as wxString does internally, i.e. wchar_t in Unicode build
    under Windows or char in UTF-8-based Unicode builds and (deprecated) ANSI
    builds everywhere (see wxStringCharType definition above).
  */
-#define wxS(x)	 x
+#  define wxS(x)	 x
 /*
     _T() is a synonym for wxT() familiar to Windows programmers. As this macro
     has even higher risk of conflicting with system headers, its use is
@@ -176,24 +170,24 @@ typedef char wxStringCharType;
     do it ourselves for Sun CC which is known to use it in its standard headers
     (see #10660).
  */
-#if  defined(__SUNPRO_C) || defined(__SUNPRO_CC)
-#  ifndef wxNO__T
-#    define wxNO__T
+#  if  defined(__SUNPRO_C) || defined(__SUNPRO_CC)
+#    ifndef wxNO__T
+#      define wxNO__T
+#    endif
 #  endif
-#endif
-#if  !defined(_T) && !defined(wxNO__T)
-#  define _T(x)	 wxT(x)
-#endif
+#  if  !defined(_T) && !defined(wxNO__T)
+#    define _T(x)	 wxT(x)
+#  endif
 /* a helper macro allowing to make another macro Unicode-friendly, see below */
-#define wxAPPLY_T(x)	 wxT(x)
+#  define wxAPPLY_T(x)	 wxT(x)
 /* Unicode-friendly __FILE__, __DATE__ and __TIME__ analogs */
-#ifndef __TFILE__
-#  define __TFILE__	wxAPPLY_T(__FILE__)
-#endif
-#ifndef __TDATE__
-#  define __TDATE__	wxAPPLY_T(__DATE__)
-#endif
-#ifndef __TTIME__
-#  define __TTIME__	wxAPPLY_T(__TIME__)
-#endif
+#  ifndef __TFILE__
+#    define __TFILE__	wxAPPLY_T(__FILE__)
+#  endif
+#  ifndef __TDATE__
+#    define __TDATE__	wxAPPLY_T(__DATE__)
+#  endif
+#  ifndef __TTIME__
+#    define __TTIME__	wxAPPLY_T(__TIME__)
+#  endif
 #endif

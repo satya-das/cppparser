@@ -76,6 +76,7 @@ public:
   void DrawGripper(wxDC& dc, wxWindow* window, const wxRect& rect, wxAuiPaneInfo& pane) override;
   void DrawBorder(wxDC& dc, wxWindow* window, const wxRect& rect, wxAuiPaneInfo& pane) override;
   void DrawPaneButton(wxDC& dc, wxWindow* window, int button, int buttonState, const wxRect& rect, wxAuiPaneInfo& pane) override;
+  wxDEPRECATED_MSG("This is not intended for the public API") void DrawIcon(wxDC& dc, const wxRect& rect, wxAuiPaneInfo& pane);
   void UpdateColoursFromSystem() override;
 protected:
   void DrawCaptionBackground(wxDC& dc, const wxRect& rect, bool active);

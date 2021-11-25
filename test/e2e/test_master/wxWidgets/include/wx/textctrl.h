@@ -81,7 +81,6 @@ const wxTextCoord wxInvalidTextCoord = -2;
 #  define wxTE_RICH2	0x8000
 #  if  defined(__WXOSX_IPHONE__)
 #    define wxTE_CAPITALIZE	wxTE_RICH2
-#  else 
 #    define wxTE_CAPITALIZE	0
 #  endif
 // ----------------------------------------------------------------------------
@@ -1158,6 +1157,5 @@ private:
 #  define wxEVT_COMMAND_TEXT_ENTER	wxEVT_TEXT_ENTER
 #  define wxEVT_COMMAND_TEXT_URL	wxEVT_TEXT_URL
 #  define wxEVT_COMMAND_TEXT_MAXLEN	wxEVT_TEXT_MAXLEN
-#endif
 #endif
     // _WX_TEXTCTRL_H_BASE_

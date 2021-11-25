@@ -1497,10 +1497,9 @@ public:
   }
     // Accept files for dragging
   virtual void DragAcceptFiles(bool accept);
-#endif
     // constraints and sizers
     // ----------------------
-#if  wxUSE_CONSTRAINTS
+#  if  wxUSE_CONSTRAINTS
         // set the constraints for this window or retrieve them (may be NULL)
   void SetConstraints(wxLayoutConstraints* constraints);
   wxLayoutConstraints* GetConstraints() const
@@ -1528,7 +1527,7 @@ public:
   virtual void GetSizeConstraint(int* w, int* h) const;
   virtual void GetClientSizeConstraint(int* w, int* h) const;
   virtual void GetPositionConstraint(int* x, int* y) const;
-#endif
+#  endif
         // when using constraints or sizers, it makes sense to update
         // children positions automatically whenever the window is resized
         // - this is done if autoLayout is on
@@ -1557,7 +1556,7 @@ public:
   }
     // accessibility
     // ----------------------
-#if  wxUSE_ACCESSIBILITY
+#  if  wxUSE_ACCESSIBILITY
     // Override to create a specific accessible object.
   virtual wxAccessible* CreateAccessible()
   {
@@ -1573,7 +1572,7 @@ public:
     // Returns the accessible object, calling CreateAccessible if necessary.
     // May return NULL, in which case system-provide accessible is used.
   wxAccessible* GetOrCreateAccessible();
-#endif
+#  endif
     // Set window transparency if the platform supports it
   virtual bool SetTransparent(wxByte)
   {
@@ -1590,9 +1589,9 @@ public:
   void OnSysColourChanged(wxSysColourChangedEvent& event);
   void OnInitDialog(wxInitDialogEvent& event);
   void OnMiddleClick(wxMouseEvent& event);
-#if  wxUSE_HELP
+#  if  wxUSE_HELP
   void OnHelp(wxHelpEvent& event);
-#endif
+#  endif
         // virtual function for implementing internal idle
         // behaviour
   virtual void OnInternalIdle();
@@ -1616,7 +1615,7 @@ public:
   virtual void DissociateHandle()
   {
   }
-#if  wxUSE_PALETTE
+#  if  wxUSE_PALETTE
         // Store the palette used by DCs in wxWindow so that the dcs can share
         // a palette. And we can respond to palette messages.
   wxPalette GetPalette() const
@@ -1633,7 +1632,7 @@ public:
   }
         // return the first parent window with a custom palette or NULL
   wxWindow* GetAncestorWithCustomPalette() const;
-#endif
+#  endif
     // inherit the parents visual attributes if they had been explicitly set
     // by the user (i.e. we don't inherit default attributes) and if we don't
     // have our own explicitly set
@@ -1705,10 +1704,10 @@ protected:
   virtual void DoMoveInTabOrder(wxWindow* win, WindowOrder move);
     // implementation of Navigate() and NavigateIn()
   virtual bool DoNavigateIn(int flags);
-#if  wxUSE_CONSTRAINTS
+#  if  wxUSE_CONSTRAINTS
     // satisfy the constraints for the windows but don't set the window sizes
   void SatisfyConstraints();
-#endif
+#  endif
     // Send the wxWindowDestroyEvent if not done yet and sets m_isBeingDeleted
     // to true
   void SendDestroyEvent();
@@ -1732,36 +1731,36 @@ protected:
     // event handler for this window: usually is just 'this' but may be
     // changed with SetEventHandler()
   wxEvtHandler* m_eventHandler;
-#if  wxUSE_VALIDATORS
+#  if  wxUSE_VALIDATORS
     // associated validator or NULL if none
   wxValidator* m_windowValidator;
-#endif
+#  endif
   wxDropTarget* m_dropTarget;
     // visual window attributes
   wxCursor m_cursor;
   wxFont m_font;
   wxColour m_backgroundColour, m_foregroundColour;
-#if  wxUSE_CARET
+#  if  wxUSE_CARET
   wxCaret* m_caret;
-#endif
+#  endif
     // the region which should be repainted in response to paint event
   wxRegion m_updateRegion;
-#if  wxUSE_ACCEL
+#  if  wxUSE_ACCEL
     // the accelerator table for the window which translates key strokes into
     // command events
   wxAcceleratorTable m_acceleratorTable;
-#endif
+#  endif
     // the tooltip for this window (may be NULL)
-#if  wxUSE_TOOLTIPS
+#  if  wxUSE_TOOLTIPS
   wxToolTip* m_tooltip;
-#endif
+#  endif
     // constraints and sizers
-#if  wxUSE_CONSTRAINTS
+#  if  wxUSE_CONSTRAINTS
     // the constraints for this window or NULL
   wxLayoutConstraints* m_constraints;
     // constraints this window is involved in
   wxWindowList* m_constraintsInvolvedIn;
-#endif
+#  endif
     // this window's sizer
   wxSizer* m_windowSizer;
     // The sizer this window is a member of, if any
@@ -1787,13 +1786,13 @@ protected:
   wxString m_windowName;
   bool m_themeEnabled;
   wxBackgroundStyle m_backgroundStyle;
-#if  wxUSE_PALETTE
+#  if  wxUSE_PALETTE
   wxPalette m_palette;
   bool m_hasCustomPalette;
-#endif
-#if  wxUSE_ACCESSIBILITY
+#  endif
+#  if  wxUSE_ACCESSIBILITY
   wxAccessible* m_accessible;
-#endif
+#  endif
     // Virtual size (scrolling)
   wxSize m_virtualSize;
   wxScrollHelper* m_scrollHelper;
@@ -1897,13 +1896,13 @@ protected:
     // wxCENTRE_ON_SCREEN shouldn't be specified here, it only makes sense for
     // TLWs
   virtual void DoCentre(int dir);
-#if  wxUSE_TOOLTIPS
+#  if  wxUSE_TOOLTIPS
   virtual void DoSetToolTipText(const wxString& tip);
   virtual void DoSetToolTip(wxToolTip* tip);
-#endif
-#if  wxUSE_MENUS
+#  endif
+#  if  wxUSE_MENUS
   virtual bool DoPopupMenu(wxMenu* menu, int x, int y) = 0;
-#endif
+#  endif
     // Makes an adjustment to the window position to make it relative to the
     // parents client area, e.g. if the parent is a frame with a toolbar, its
     // (0, 0) is just below the toolbar
@@ -1925,13 +1924,13 @@ private:
     // enabled/disabled status changed because a parent window had been
     // enabled/disabled
   void NotifyWindowOnEnableChange(bool enabled);
-#if  wxUSE_MENUS
+#  if  wxUSE_MENUS
     // temporary event handlers used by GetPopupMenuSelectionFromUser()
   void InternalOnPopupMenu(wxCommandEvent& event);
   void InternalOnPopupMenuUpdate(wxUpdateUIEvent& event);
     // implementation of the public GetPopupMenuSelectionFromUser() method
   int DoGetPopupMenuSelectionFromUser(wxMenu& menu, int x, int y);
-#endif
+#  endif
     // layout the window children when its size changes unless this was
     // explicitly disabled with SetAutoLayout(false)
   void InternalOnSize(wxSizeEvent& event);
@@ -1972,65 +1971,65 @@ inline void wxWindowBase::SetInitialBestSize(const wxSize& size)
 // ----------------------------------------------------------------------------
 
 // include the declaration of the platform-specific class
-#if  defined(__WXMSW__)
-#  ifdef __WXUNIVERSAL__
-#    define wxWindowNative	wxWindowMSW
-#  else 
-#    define wxWindowMSW	wxWindow
-#  endif
-#  include "wx/msw/window.h"
-#elif  defined(__WXMOTIF__)
-#  include "wx/motif/window.h"
-#elif  defined(__WXGTK20__)
-#  ifdef __WXUNIVERSAL__
-#    define wxWindowNative	wxWindowGTK
-#  else 
-#    define wxWindowGTK	wxWindow
-#  endif
-#  include "wx/gtk/window.h"
-#  ifdef __WXGTK3__
+#  if  defined(__WXMSW__)
+#    ifdef __WXUNIVERSAL__
+#      define wxWindowNative	wxWindowMSW
+#    else 
+#      define wxWindowMSW	wxWindow
+#    endif
+#    include "wx/msw/window.h"
+#  elif  defined(__WXMOTIF__)
+#    include "wx/motif/window.h"
+#  elif  defined(__WXGTK20__)
+#    ifdef __WXUNIVERSAL__
+#      define wxWindowNative	wxWindowGTK
+#    else 
+#      define wxWindowGTK	wxWindow
+#    endif
+#    include "wx/gtk/window.h"
+#    ifdef __WXGTK3__
+#      define wxHAVE_DPI_INDEPENDENT_PIXELS
+#    endif
+#  elif  defined(__WXGTK__)
+#    ifdef __WXUNIVERSAL__
+#      define wxWindowNative	wxWindowGTK
+#    else 
+#      define wxWindowGTK	wxWindow
+#    endif
+#    include "wx/gtk1/window.h"
+#  elif  defined(__WXX11__)
+#    ifdef __WXUNIVERSAL__
+#      define wxWindowNative	wxWindowX11
+#    else 
+#      define wxWindowX11	wxWindow
+#    endif
+#    include "wx/x11/window.h"
+#  elif  defined(__WXDFB__)
+#    define wxWindowNative	wxWindowDFB
+#    include "wx/dfb/window.h"
+#  elif  defined(__WXMAC__)
+#    ifdef __WXUNIVERSAL__
+#      define wxWindowNative	wxWindowMac
+#    else 
+#      define wxWindowMac	wxWindow
+#    endif
+#    include "wx/osx/window.h"
 #    define wxHAVE_DPI_INDEPENDENT_PIXELS
+#  elif  defined(__WXQT__)
+#    ifdef __WXUNIVERSAL__
+#      define wxWindowNative	wxWindowQt
+#    else 
+#      define wxWindowQt	wxWindow
+#    endif
+#    include "wx/qt/window.h"
 #  endif
-#elif  defined(__WXGTK__)
-#  ifdef __WXUNIVERSAL__
-#    define wxWindowNative	wxWindowGTK
-#  else 
-#    define wxWindowGTK	wxWindow
-#  endif
-#  include "wx/gtk1/window.h"
-#elif  defined(__WXX11__)
-#  ifdef __WXUNIVERSAL__
-#    define wxWindowNative	wxWindowX11
-#  else 
-#    define wxWindowX11	wxWindow
-#  endif
-#  include "wx/x11/window.h"
-#elif  defined(__WXDFB__)
-#  define wxWindowNative	wxWindowDFB
-#  include "wx/dfb/window.h"
-#elif  defined(__WXMAC__)
-#  ifdef __WXUNIVERSAL__
-#    define wxWindowNative	wxWindowMac
-#  else 
-#    define wxWindowMac	wxWindow
-#  endif
-#  include "wx/osx/window.h"
-#  define wxHAVE_DPI_INDEPENDENT_PIXELS
-#elif  defined(__WXQT__)
-#  ifdef __WXUNIVERSAL__
-#    define wxWindowNative	wxWindowQt
-#  else 
-#    define wxWindowQt	wxWindow
-#  endif
-#  include "wx/qt/window.h"
-#endif
 // for wxUniversal, we now derive the real wxWindow from wxWindow<platform>,
 // for the native ports we already have defined it above
-#if  defined(__WXUNIVERSAL__)
-#  ifndef wxWindowNative
+#  if  defined(__WXUNIVERSAL__)
+#    ifndef wxWindowNative
+#    endif
+#    include "wx/univ/window.h"
 #  endif
-#  include "wx/univ/window.h"
-#endif
 // ----------------------------------------------------------------------------
 // inline functions which couldn't be declared in the class body because of
 // forward dependencies
@@ -2039,7 +2038,7 @@ inline wxWindow* wxWindowBase::GetGrandParent() const
 {
   return m_parent ? m_parent->GetParent() : NULL;
 }
-#ifdef wxHAVE_DPI_INDEPENDENT_PIXELS
+#  ifdef wxHAVE_DPI_INDEPENDENT_PIXELS
 // FromDIP() and ToDIP() become trivial in this case, so make them inline to
 // avoid any overhead.
 
@@ -2053,7 +2052,7 @@ inline wxSize wxWindowBase::ToDIP(const wxSize& sz, const wxWindowBase*)
 {
   return sz;
 }
-#endif
+#  endif
 // ----------------------------------------------------------------------------
 // global functions
 // ----------------------------------------------------------------------------
@@ -2067,7 +2066,7 @@ WXDLLIMPEXP_CORE extern wxPoint wxGetMousePosition();
 WXDLLIMPEXP_CORE extern wxWindow* wxGetActiveWindow();
 // get the (first) top level parent window
 WXDLLIMPEXP_CORE wxWindow* wxGetTopLevelParent(wxWindowBase* win);
-#if  wxUSE_ACCESSIBILITY
+#  if  wxUSE_ACCESSIBILITY
 // ----------------------------------------------------------------------------
 // accessible object for windows
 // ----------------------------------------------------------------------------
@@ -2138,7 +2137,7 @@ public:
         // this subhierarchy has the focus.
         // If this object has the focus, child should be 'this'.
   wxAccStatus GetFocus(int* childId, wxAccessible** child) override;
-#  if  wxUSE_VARIANT
+#    if  wxUSE_VARIANT
         // Gets a variant representing the selected children
         // of this object.
         // Acceptable values:
@@ -2148,7 +2147,7 @@ public:
         //   or 0 if this object is selected (GetType() == wxT("long")
         // - a "void*" pointer to a wxAccessible child object
   wxAccStatus GetSelections(wxVariant* selections) override;
-#  endif
+#    endif
 };
-#endif
+#  endif
 #endif

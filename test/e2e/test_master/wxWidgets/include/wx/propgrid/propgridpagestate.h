@@ -438,6 +438,7 @@ public:
   }
   void ResetColumnSizes(int setSplitterFlags);
   wxPropertyCategory* GetPropertyCategory(const wxPGProperty* p) const;
+  wxDEPRECATED_MSG("don't refer directly to wxPropertyGridPageState::GetPropertyByLabel") wxPGProperty* GetPropertyByLabel(const wxString& name, wxPGProperty* parent = NULL) const;
   wxVariant DoGetPropertyValues(const wxString& listname, wxPGProperty* baseparent, long flags) const;
   wxPGProperty* DoGetRoot() const
   {
@@ -557,20 +558,21 @@ protected:
     // 1 items appended/inserted, so stuff needs to be done before drawing;
     // If m_virtualHeight == 0, then calcylatey's must be done.
     // Otherwise just sort.
-    unsigned char               m_itemsAdded;
-
+  unsigned char m_itemsAdded;
     // 1 if any value is modified.
-    unsigned char               m_anyModified;
-
-    unsigned char               m_vhCalcPending;
-#else
+  unsigned char m_anyModified;
+  unsigned char m_vhCalcPending;
     // True: items appended/inserted, so stuff needs to be done before drawing;
     // If m_virtualHeight == 0, then calcylatey's must be done.
     // Otherwise just sort.
-  bool m_itemsAdded;
+    bool                        m_itemsAdded;
+
     // True if any value is modified.
-  bool m_anyModified;
-  bool m_vhCalcPending;
+    bool                        m_anyModified;
+
+    bool                        m_vhCalcPending;
+#endif // WXWIN_COMPATIBILITY_3_0
+
     // True if splitter has been pre-set by the application.
   bool m_isSplitterPreSet;
     // Used to (temporarily) disable splitter centering.

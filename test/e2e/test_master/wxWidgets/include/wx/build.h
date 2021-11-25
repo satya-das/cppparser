@@ -77,7 +77,7 @@
 #  endif
 // WXWIN_COMPATIBILITY macros affect presence of virtual functions
 #  define __WX_BO_WXWIN_COMPAT_2_8
-#  define __WX_BO_WXWIN_COMPAT_3_0
+#  define __WX_BO_WXWIN_COMPAT_3_0	",compatible with 3.0"
 // deriving wxWin containers from STL ones changes them completely:
 #  define __WX_BO_STL	",wx containers"
 // This macro is passed as argument to wxAppConsole::CheckBuildOptions()

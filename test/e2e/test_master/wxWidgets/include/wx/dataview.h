@@ -872,6 +872,18 @@ public:
     // These methods shouldn't be used outside of wxWidgets and wxWidgets
     // itself doesn't use them any longer neither as it constructs the events
     // with the appropriate ctors directly.
+  wxDEPRECATED_MSG("Pass the argument to the ctor instead") void SetModel(wxDataViewModel* model)
+  {
+    m_model = model;
+  }
+  wxDEPRECATED_MSG("Pass the argument to the ctor instead") void SetDataViewColumn(wxDataViewColumn* col)
+  {
+    m_column = col;
+  }
+  wxDEPRECATED_MSG("Pass the argument to the ctor instead") void SetItem(const wxDataViewItem& item)
+  {
+    m_item = item;
+  }
   void SetColumn(int col)
   {
     m_col = col;
