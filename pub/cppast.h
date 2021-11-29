@@ -1073,7 +1073,8 @@ protected:
   const CppParamVectorPtr params_;
 };
 
-using CppVarTypePtr = std::unique_ptr<CppVarType>;
+using CppVarTypePtr  = std::unique_ptr<CppVarType>;
+using CppVarTypeEPtr = CppEasyPtr<CppVarType>;
 
 struct CppFunction : public CppFuncCtorBase
 {

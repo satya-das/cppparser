@@ -218,14 +218,3 @@ enum class AssignType
   kUsingBracket,
   kUsingBraces
 };
-
-/// Miscellaneous constants for readability of code
-enum : std::uint8_t
-{
-  kNoPtr      = 0,
-  kPtr        = 1,
-  kDblPtr     = 2,
-  kNoVarAttr  = 0,
-  kNoTypeAttr = 0,
-  kNoAttr     = 0,
-};
