@@ -1059,6 +1059,29 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
+<ctxGeneral>^{WS}*#{WS}*if{WS}+"defined("{WS}*{ID}{WS}*")"("//"|"/*")?{NL} {
+  LOG();
+
+  std::string id(yyleng, '\0');
+  sscanf(yytext, " # if defined( %[a-zA-Z0-9_])", id.data());
+  id.resize(strlen(id.data()));
+
+  const auto macroDefineInfo = getMacroDefineInfo(id);
+  if (macroDefineInfo == MacroDefineInfo::kNoInfo) {
+    REJECT;
+  }
+
+  startNewMacroDependentParsing();
+  g.currentCodeEnablementInfo.macroDependentCodeEnablement = (macroDefineInfo == MacroDefineInfo::kDefined)
+                                    ? MacroDependentCodeEnablement::kEnabled
+                                    : MacroDependentCodeEnablement::kDisabled;
+
+  if (g.currentCodeEnablementInfo.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
+    LOG();
+    BEGINCONTEXT(ctxDisabledCode);
+  }
+}
+
 <ctxGeneral>^{WS}*#{WS}*ifndef{WS}+{ID} {
   LOG();
 
