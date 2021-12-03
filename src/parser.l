@@ -301,6 +301,8 @@ CSP (({WS}*{ID}{WS}*,{WS}*)*{ID}{WS}*)*
 /* Function Trailing Attributes. Should be only used in trailing context.*/
 FTA ("const"|"final"|"override"|{ID})
 
+IgnorableTrailingContext {WS}*("//".*)?
+
 /*@}*/
 
 %x ctxGeneral
@@ -991,7 +993,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>^{WS}*"#"{WS}*"if"{WS}+{ID}{WS}*">="{WS}*{NUM}{WS}*("//"|"/*")?{NL} {
+<ctxGeneral>^{WS}*"#"{WS}*"if"{WS}+{ID}{WS}*">="{WS}*{NUM}{IgnorableTrailingContext}{NL} {
   LOG();
 
   std::string id(yyleng, '\0');
@@ -1013,7 +1015,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>^{WS}*#{WS}*if{WS}+"!"{ID}{WS}*("//"|"/*")?{NL} {
+<ctxGeneral>^{WS}*#{WS}*if{WS}+"!"{ID}{IgnorableTrailingContext}{NL} {
   LOG();
 
   std::string id(yyleng, '\0');
@@ -1036,7 +1038,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>^{WS}*#{WS}*ifdef{WS}+{ID} {
+<ctxGeneral>^{WS}*#{WS}*ifdef{WS}+{ID}{IgnorableTrailingContext}{NL} {
   LOG();
 
   std::string id(yyleng, '\0');
@@ -1059,7 +1061,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>^{WS}*#{WS}*if{WS}+"defined("{WS}*{ID}{WS}*")"("//"|"/*")?{NL} {
+<ctxGeneral>^{WS}*#{WS}*if{WS}+"defined("{WS}*{ID}{WS}*")"{IgnorableTrailingContext}{NL} {
   LOG();
 
   std::string id(yyleng, '\0');
@@ -1082,7 +1084,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral>^{WS}*#{WS}*ifndef{WS}+{ID} {
+<ctxGeneral>^{WS}*#{WS}*ifndef{WS}+{ID}{IgnorableTrailingContext}{NL} {
   LOG();
 
   std::string id(yyleng, '\0');
@@ -1105,7 +1107,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral,ctxDisabledCode>^{WS}*#{WS}*else{TS} {
+<ctxGeneral,ctxDisabledCode>^{WS}*#{WS}*else{IgnorableTrailingContext}{NL} {
   LOG();
   if (!codeSegmentDependsOnMacroDefinition()) {
     LOG();
@@ -1136,7 +1138,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   g.currentCodeEnablementInfo.numHashIfInMacroDependentCode += 1;
 }
 
-<*>^{WS}*#{WS}*endif[^\n]* {
+<*>^{WS}*#{WS}*endif{IgnorableTrailingContext}{NL}* {
   LOG();
 
   if (!codeSegmentDependsOnMacroDefinition()) {
