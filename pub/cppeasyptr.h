@@ -31,44 +31,52 @@ struct CppObj;
 
 CppObjType objType(const CppObj* cppObj);
 
-template <typename _TCppObj>
+/**
+ * @brief Helps working with raw or unique_ptr of CppObj in a uniform way.
+ *
+ * It is design to not handle the ownership of the object. Just to make itr easy to work with raw pointer or unique_ptr
+ * in the same way.
+ *
+ * @tparam CppObjT CppObj or any of it's descendent type.
+ */
+template <typename CppObjT>
 class CppEasyPtr
 {
 public:
-  CppEasyPtr(_TCppObj* rawPtr)
+  CppEasyPtr(CppObjT* rawPtr)
     : ptr_(rawPtr)
   {
   }
-  CppEasyPtr(const std::unique_ptr<_TCppObj>& ptr)
+  CppEasyPtr(const std::unique_ptr<CppObjT>& ptr)
     : ptr_(ptr.get())
   {
   }
 
-  template <typename = std::enable_if<!std::is_const<_TCppObj>::value>>
+  template <typename = std::enable_if<!std::is_const<CppObjT>::value>>
   CppEasyPtr(CppObj* rawPtr)
     : ptr_(nullptr)
   {
-    if ((objType(rawPtr) == _TCppObj::kObjectType))
-      ptr_ = static_cast<_TCppObj*>(rawPtr);
+    if ((objType(rawPtr) == CppObjT::kObjectType))
+      ptr_ = static_cast<CppObjT*>(rawPtr);
   }
 
-  template <typename = std::enable_if<std::is_const<_TCppObj>::value>>
+  template <typename = std::enable_if<std::is_const<CppObjT>::value>>
   CppEasyPtr(const CppObj* rawPtr)
     : ptr_(nullptr)
   {
-    if ((objType(rawPtr) == _TCppObj::kObjectType))
-      ptr_ = static_cast<_TCppObj*>(rawPtr);
+    if ((objType(rawPtr) == CppObjT::kObjectType))
+      ptr_ = static_cast<CppObjT*>(rawPtr);
   }
 
   template <typename _UCppObj>
   CppEasyPtr(const std::unique_ptr<_UCppObj>& ptr)
     : ptr_(nullptr)
   {
-    if (ptr && (ptr->objType_ == _TCppObj::kObjectType))
-      ptr_ = static_cast<_TCppObj*>(ptr.get());
+    if (ptr && (ptr->objType_ == CppObjT::kObjectType))
+      ptr_ = static_cast<CppObjT*>(ptr.get());
   }
 
-  _TCppObj* operator->() const
+  CppObjT* operator->() const
   {
     return ptr_;
   }
@@ -78,7 +86,7 @@ public:
     return ptr_ != nullptr;
   }
 
-  operator _TCppObj*() const
+  operator CppObjT*() const
   {
     return ptr_;
   }
@@ -93,7 +101,7 @@ public:
     return ptr_;
   }
 
-  _TCppObj& operator*() const
+  CppObjT& operator*() const
   {
     return *ptr_;
   }
@@ -101,14 +109,14 @@ public:
   template <typename _UCppObj>
   operator _UCppObj*() const
   {
-    return _UCppObj::kObjectType == _TCppObj::kObjectType ? static_cast<_UCppObj*>(ptr_) : nullptr;
+    return _UCppObj::kObjectType == CppObjT::kObjectType ? static_cast<_UCppObj*>(ptr_) : nullptr;
   }
 
-  _TCppObj* get() const
+  CppObjT* get() const
   {
     return ptr_;
   }
 
 private:
-  _TCppObj* ptr_;
+  CppObjT* ptr_;
 };

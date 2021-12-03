@@ -24,12 +24,14 @@
 #pragma once
 
 #include "cppast.h"
+#include "cppconst.h"
 
 /*!
  * \brief Factory class to create various CppObj instances.
- * Ideally this factory class should be used to create any CppObj object
- * instead of directly calling new. At present creation of only CppCompound and CppFunction
- * are added. That's because CIB needs only these. :)
+ *
+ * Ideally this factory class should be used to create any CppObj object so that clients of CppParser can supply its own
+ * type.
+ * At present creation of only few are added as per the requirement of CIB.
  */
 class CppObjFactory
 {

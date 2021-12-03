@@ -27,7 +27,7 @@
 #include <ostream>
 
 /**
- * \brief Helper class to manage indentation.
+ * \brief Helper class to manage indentation while writing C++ file from AST.
  */
 class CppIndent
 {
