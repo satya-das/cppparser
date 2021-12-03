@@ -343,6 +343,8 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 %x ctxMemInitList
 
+%x ctxObjectiveC
+
 %%
 
 <ctxGeneral>^{WS}*{NL} {
@@ -1829,6 +1831,22 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <*>__attribute__{WS}*\(\(.*\)\) {
   /* Ignore as of now */
+}
+
+<ctxGeneral>^"@interface" {
+  BEGINCONTEXT(ctxObjectiveC);
+}
+
+<ctxObjectiveC>{NL} {
+  INCREMENT_INPUT_LINE_NUM();
+}
+
+<ctxObjectiveC>. {
+  /* Ignore everything Objective C */
+}
+
+<ctxObjectiveC>^"@end" {
+  ENDCONTEXT();
 }
 
 %%

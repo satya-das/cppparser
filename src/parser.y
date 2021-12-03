@@ -312,6 +312,7 @@ extern int yylex();
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
 %type  <cppExprObj>         expr exprlist exprorlist funcargs exprstmt optexpr lambdacapture captureallbyref captureallbyval
+%type  <cppExprObj>         objcarg objcarglist
 %type  <cppLambda>          lambda
 %type  <ifBlock>            ifblock;
 %type  <whileBlock>         whileblock;
@@ -1949,6 +1950,17 @@ expr              : strlit                                                [ZZLOG
 
                   /* This is to parse implementation of string user literal, see https://en.cppreference.com/w/cpp/language/user_literal */
                   | tknNumber name                                        [ZZLOG;] { $$ = new CppExpr((std::string) $1, kNone);          }
+                  /* Objective C expressions */
+                  /* This will need improvements, as of now the aim is just to mainly parse C++ content. */
+                  | '[' expr expr ']'                                     [ZZLOG;] { $$ = $2;          }
+                  | '[' expr objcarglist ']'                              [ZZLOG;] { $$ = $2;          }
+                  ;
+
+objcarg           : name ':' expr { $$ = $3; }
+                  ;
+
+objcarglist       : objcarg { $$ = $1; }
+                  | objcarglist objcarg { $$ = $1; }
                   ;
 
 exprlist          : expr ',' expr %prec COMMA                             [ZZLOG;] { $$ = new CppExpr($1, kComma, $3);                   }
