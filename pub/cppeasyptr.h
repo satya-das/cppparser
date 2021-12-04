@@ -34,7 +34,7 @@ CppObjType objType(const CppObj* cppObj);
 /**
  * @brief Helps working with raw or unique_ptr of CppObj in a uniform way.
  *
- * It is design to not handle the ownership of the object. Just to make itr easy to work with raw pointer or unique_ptr
+ * It is design to not handle the ownership of the object. Just to make it easy to work with raw pointer or unique_ptr
  * in the same way.
  *
  * @tparam CppObjT CppObj or any of it's descendent type.
