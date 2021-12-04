@@ -45,13 +45,12 @@ struct AcEdCommandStruc
   AcEdCommand* cmd;
 };
 #  pragma  pack (pop)
-#  if  defined(__cplusplus)
-#    include "dbmain.h"
-#    include "rxobject.h"
+#  include "dbmain.h"
+#  include "rxobject.h"
 class AcRxDictionary;
 class AcEdUIContext;
 class AcEdCommandReactor;
-#    pragma  pack (push, 8)
+#  pragma  pack (push, 8)
 class AcEdCommand : public AcRxObject
 {
 public:
@@ -126,7 +125,7 @@ public:
   virtual const AcEdCommand* command() const = 0;
   virtual const ACHAR* commandGroup() const = 0;
 };
-#    define acedRegCmds	AcEdCommandStack::cast(acrxSysRegistry()->at(ACRX_COMMAND_DOCK))
+#  define acedRegCmds	AcEdCommandStack::cast(acrxSysRegistry()->at(ACRX_COMMAND_DOCK))
 class AcEdCommandStack : public AcRxObject
 {
 public:
@@ -146,6 +145,5 @@ public:
   void addReactor(AcEdCommandStackReactor* pReactor);
   void removeReactor(AcEdCommandStackReactor* pReactor);
 };
-#    pragma  pack (pop)
-#  endif
+#  pragma  pack (pop)
 #endif

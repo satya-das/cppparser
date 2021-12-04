@@ -113,5 +113,13 @@ protected:
   wxDECLARE_NO_COPY_CLASS(wxAddRemoveImplWithButtons);
 };
 #  endif
-#  include "wx/generic/private/addremovectrl.h"
+#  ifdef __WXOSX__
+#    include "wx/osx/private/addremovectrl.h"
+#  elif  defined(__WXGTK20__)
+#    include "wx/gtk/private/addremovectrl.h"
+#  elif  defined(__WXGTK__)
+#    include "wx/gtk1/private/addremovectrl.h"
+#  else 
+#    include "wx/generic/private/addremovectrl.h"
+#  endif
 #endif

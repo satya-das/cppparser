@@ -323,33 +323,28 @@ inline RECT wxGetClientRect(HWND hwnd)
 // {Set,Get}HWND() methods in the other ports, but this file is currently
 // included for wxQt/MSW too. It's not clear whether it should be, really, but
 // for now allow it to compile in this port too.
-#ifdef __WXMSW__
-
+#    ifdef __WXMSW__
 // Temporarily assign the given HWND to the window in ctor and unset it back to
 // the original value (usually 0) in dtor.
 class TempHWNDSetter
 {
 public:
-    TempHWNDSetter(wxWindow* win, WXHWND hWnd)
-        : m_win(win), m_hWndOrig(m_win->GetHWND())
-    {
-        m_win->SetHWND(hWnd);
-    }
-
-    ~TempHWNDSetter()
-    {
-        m_win->SetHWND(m_hWndOrig);
-    }
-
+  TempHWNDSetter(wxWindow* win, WXHWND hWnd)
+    : m_win(win)
+    , m_hWndOrig(m_win->GetHWND())
+  {
+    m_win->SetHWND(hWnd);
+  }
+  ~TempHWNDSetter()
+  {
+    m_win->SetHWND(m_hWndOrig);
+  }
 private:
-    wxWindow* const m_win;
-    WXHWND const m_hWndOrig;
-
-    wxDECLARE_NO_COPY_CLASS(TempHWNDSetter);
+  wxWindow* const m_win;
+  const WXHWND m_hWndOrig;
+  wxDECLARE_NO_COPY_CLASS(TempHWNDSetter);
 };
-
-#endif // __WXMSW__
-
+#    endif
 // create an instance of this class and use it as the HDC for screen, will
 // automatically release the DC going out of scope
 class ScreenHDC

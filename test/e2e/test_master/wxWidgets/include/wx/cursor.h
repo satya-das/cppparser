@@ -13,7 +13,11 @@
 #  include "wx/gdicmn.h"
 // Under most ports, wxCursor derives directly from wxGDIObject, but in wxMSW
 // there is an intermediate wxGDIImage class.
+#  ifdef __WXMSW__
+#    include "wx/msw/gdiimage.h"
+#  else 
 typedef wxGDIObject wxGDIImage;
+#  endif
 class WXDLLIMPEXP_CORE wxCursorBase : public wxGDIImage
 {
 public:

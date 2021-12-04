@@ -87,8 +87,11 @@ public:
     m_ownedByUser = false;
     DoDisown();
   }
+#    ifdef __WXMSW__
     // Prevent the native window, not owned by us, from being destroyed by the
     // base class dtor, unless Disown() had been called.
+  virtual ~wxNativeWindow();
+#    endif
 private:
   void Init()
   {
@@ -180,11 +183,18 @@ public:
     wxFAIL_MSG( "not implemented for native windows" );
     return false;
   }
+#    ifdef __WXMSW__
+  bool IsShown() const override;
+#    endif
     // this is an implementation detail: called when the native window is
     // destroyed by an outside agency; deletes the C++ object too but can in
     // principle be overridden to something else (knowing that the window
     // handle of this object and all of its children is invalid any more)
   virtual void OnNativeDestroyed();
+#    ifdef __WXMSW__
+protected:
+  WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
+#    endif
 private:
   wxDECLARE_NO_COPY_CLASS(wxNativeContainerWindow);
 };

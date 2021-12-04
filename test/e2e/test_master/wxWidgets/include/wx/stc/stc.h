@@ -4446,6 +4446,9 @@ protected:
     // Turn notifications from Scintilla into events
   void NotifyChange();
   void NotifyParent(SCNotification* scn);
+#    ifdef __WXMSW__
+  WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
+#    endif
 private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxStyledTextCtrl);

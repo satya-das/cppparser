@@ -14,15 +14,13 @@
 #ifndef _WX_WINUNDEF_H_
 #define _WX_WINUNDEF_H_
  */
-
 #ifndef wxUSE_UNICODE_WINDOWS_H
-    #ifdef _UNICODE
-        #define wxUSE_UNICODE_WINDOWS_H 1
-    #else
-        #define wxUSE_UNICODE_WINDOWS_H 0
-    #endif
+#  ifdef _UNICODE
+#    define wxUSE_UNICODE_WINDOWS_H	1
+#  else 
+#    define wxUSE_UNICODE_WINDOWS_H	0
+#  endif
 #endif
-
 // ----------------------------------------------------------------------------
 // windows.h #defines the following identifiers which are also used in wxWin so
 // we replace these symbols with the corresponding inline functions and

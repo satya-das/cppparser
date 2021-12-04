@@ -2321,6 +2321,12 @@ protected:
      // FIXME: this does not work, it allows this code to compile but will fail
      //        during run-time
 #    ifndef __WXUNIVERSAL__
+#      ifdef __WXMSW__
+  virtual WXHWND GetEditHWND() const
+  {
+    return GetHWND();
+  }
+#      endif
 #      ifdef __WXMOTIF__
   virtual WXWidget GetTextWidget() const
   {

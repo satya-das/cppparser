@@ -1364,18 +1364,11 @@ public:
     assign(str.c_str(), str.length());
   }
 #    ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
-#      if  !wxUSE_UNICODE // ANSI build
     // FIXME-UTF8: do this in UTF8 build #if wxUSE_UTF8_LOCALE_ONLY, too
-  wxString(const std::string& str)
-    : m_impl(str)
-  {
-  }
-#      else 
   wxString(const std::string& str)
   {
     assign(str.c_str(), str.length());
   }
-#      endif
 #    endif
 #  endif
   // Also always provide explicit conversions to std::[w]string in any case,

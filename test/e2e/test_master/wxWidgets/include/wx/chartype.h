@@ -117,6 +117,9 @@ typedef wchar_t wxUChar;
 #  ifndef wxUSE_UTF8_LOCALE_ONLY
 #    define wxUSE_UTF8_LOCALE_ONLY	0
 #  endif
+#  ifndef wxUSE_UNICODE_UTF8
+#    define wxUSE_UNICODE_UTF8	0
+#  endif
 #  if  wxUSE_UNICODE_UTF8
 #    define wxUSE_UNICODE_WCHAR	0
 #    define wxUSE_UNICODE_WCHAR	1

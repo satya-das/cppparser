@@ -125,7 +125,11 @@ wxDECLARE_EXPORTED_EVENT( WXDLLIMPEXP_CORE, wxEVT_TASKBAR_BALLOON_CLICK, wxTaskB
 // taskbar menu is shown on right button press under all platforms except MSW
 // where it's shown on right button release, using this event type and macro
 // allows to write code which works correctly on all platforms
-#    define wxEVT_TASKBAR_CLICK	wxEVT_TASKBAR_RIGHT_DOWN
+#    ifdef __WXMSW__
+#      define wxEVT_TASKBAR_CLICK	wxEVT_TASKBAR_RIGHT_UP
+#    else 
+#      define wxEVT_TASKBAR_CLICK	wxEVT_TASKBAR_RIGHT_DOWN
+#    endif
 #    define EVT_TASKBAR_CLICK(fn)	        wx__DECLARE_TASKBAREVT(CLICK, fn)
 // these events are currently generated only under wxMSW and only after (MSW-
 // specific) ShowBalloon() had been called, don't use them in portable code

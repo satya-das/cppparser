@@ -81,12 +81,15 @@ public:
     //
     // Returns true if we have any focusable children, false otherwise.
   bool UpdateCanFocusChildren();
+#  ifdef __WXMSW__
     // This is not strictly related to navigation, but all windows containing
     // more than one children controls need to return from this method if any
     // of their parents has an inheritable background, so do this automatically
     // for all of them (another alternative could be to do it in wxWindow
     // itself but this would be potentially more backwards incompatible and
     // could conceivably break some custom windows).
+  bool HasTransparentBackground() const;
+#  endif
 protected:
     // set the focus to the child which had it the last time
   virtual bool SetFocusToChild();
@@ -216,6 +219,16 @@ public:
   {
     BaseWindowClass::SetFocus();
   }
+#  ifdef __WXMSW__
+  WXDLLIMPEXP_INLINE_CORE bool HasTransparentBackground() override
+  {
+    return m_container.HasTransparentBackground();
+  }
+  WXDLLIMPEXP_INLINE_CORE void WXSetPendingFocus(wxWindow* win) override
+  {
+    return m_container.SetLastFocus(win);
+  }
+#  endif
 #  ifndef wxHAS_NATIVE_TAB_TRAVERSAL
 protected:
   void OnNavigationKey(wxNavigationKeyEvent& event)

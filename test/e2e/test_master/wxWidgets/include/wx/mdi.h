@@ -291,6 +291,20 @@ public:
     return wxWindow::Destroy();
   }
     // extra platform-specific hacks
+#    ifdef __WXMSW__
+  WXDWORD MSWGetStyle(long flags, WXDWORD* exstyle = NULL) const override
+  {
+    return wxWindow::MSWGetStyle(flags, exstyle);
+  }
+  WXHWND MSWGetParent() const override
+  {
+    return wxWindow::MSWGetParent();
+  }
+  WXLRESULT MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam) override
+  {
+    return wxWindow::MSWWindowProc(message, wParam, lParam);
+  }
+#    endif
 protected:
   void DoGetSize(int* width, int* height) const override
   {

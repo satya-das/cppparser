@@ -7,9 +7,12 @@
 /////////////////////////////////////////////////////////////////////////////
 #ifndef _WX_DATAVIEWCTRL_COCOOA_H_
 #  define _WX_DATAVIEWCTRL_COCOOA_H_
+#  ifdef __WXOSX__
+#    include "wx/defs.h"
+#    include "wx/osx/core/dataview.h"
+#    include "wx/osx/private.h"
 // Forward declaration
 class wxCocoaDataViewControl;
-
 /*
     Dramatis personae:
 
@@ -73,100 +76,108 @@ class wxCocoaDataViewControl;
 // ============================================================================
 // wxDataViewColumnNativeData: extra data for wxDataViewColumn
 // ============================================================================
-
 class wxDataViewColumnNativeData
 {
 public:
-    wxDataViewColumnNativeData() : m_NativeColumnPtr(NULL)
-    {
-    }
-
-    wxDataViewColumnNativeData(NSTableColumn* initNativeColumnPtr)
-        : m_NativeColumnPtr(initNativeColumnPtr)
-    {
-    }
-
-    NSTableColumn* GetNativeColumnPtr() const
-    {
-        return m_NativeColumnPtr;
-    }
-
-    void SetNativeColumnPtr(NSTableColumn* newNativeColumnPtr)
-    {
-        m_NativeColumnPtr = newNativeColumnPtr;
-    }
-
+  wxDataViewColumnNativeData()
+    : m_NativeColumnPtr(NULL)
+  {
+  }
+  wxDataViewColumnNativeData(NSTableColumn* initNativeColumnPtr)
+    : m_NativeColumnPtr(initNativeColumnPtr)
+  {
+  }
+  NSTableColumn* GetNativeColumnPtr() const
+  {
+    return m_NativeColumnPtr;
+  }
+  void SetNativeColumnPtr(NSTableColumn* newNativeColumnPtr)
+  {
+    m_NativeColumnPtr = newNativeColumnPtr;
+  }
 private:
     // not owned by us
-    NSTableColumn* m_NativeColumnPtr;
+  NSTableColumn* m_NativeColumnPtr;
 };
-
 // ============================================================================
 // wxDataViewRendererNativeData: extra data for wxDataViewRenderer
 // ============================================================================
-
 class wxDataViewRendererNativeData
 {
 public:
-    wxDataViewRendererNativeData()
-        : m_Object(NULL), m_ColumnCell(NULL), m_ItemCell(NULL)
-    {
-        Init();
-    }
-
-    wxDataViewRendererNativeData(NSCell* initColumnCell)
-        : m_Object(NULL), m_ColumnCell([initColumnCell retain]), m_ItemCell(NULL)
-    {
-        Init();
-    }
-
-    wxDataViewRendererNativeData(NSCell* initColumnCell, id initObject)
-        : m_Object([initObject retain]), m_ColumnCell([initColumnCell retain]), m_ItemCell(NULL)
-    {
-        Init();
-    }
-
-    ~wxDataViewRendererNativeData()
-    {
-        [m_ColumnCell release];
-        [m_Object release];
-
-        [m_origFont release];
-        [m_origTextColour release];
-        [m_origBackgroundColour release];
-    }
-
-    NSCell* GetColumnCell() const { return m_ColumnCell; }
-    NSTableColumn* GetColumnPtr() const { return m_TableColumnPtr; }
-    id GetItem() const { return m_Item; }
-    NSCell* GetItemCell() const { return m_ItemCell; }
-    id GetObject() const { return m_Object; }
-
-    void SetColumnCell(NSCell* newCell)
-    {
-        [newCell retain];
-        [m_ColumnCell release];
-        m_ColumnCell = newCell;
-    }
-    void SetColumnPtr(NSTableColumn* newColumnPtr)
-    {
-        m_TableColumnPtr = newColumnPtr;
-    }
-    void SetItem(id newItem)
-    {
-        m_Item = newItem;
-    }
-    void SetItemCell(NSCell* newCell)
-    {
-        m_ItemCell = newCell;
-    }
-    void SetObject(id newObject)
-    {
-        [newObject retain];
-        [m_Object release];
-        m_Object = newObject;
-    }
-
+  wxDataViewRendererNativeData()
+    : m_Object(NULL)
+    , m_ColumnCell(NULL)
+    , m_ItemCell(NULL)
+  {
+    Init();
+  }
+  wxDataViewRendererNativeData(NSCell* initColumnCell)
+    : m_Object(NULL)
+    , m_ColumnCell(initColumnCell)
+    , m_ItemCell(NULL)
+  {
+    Init();
+  }
+  wxDataViewRendererNativeData(NSCell* initColumnCell, id initObject)
+    : m_Object(initObject)
+    , m_ColumnCell(initColumnCell)
+    , m_ItemCell(NULL)
+  {
+    Init();
+  }
+  ~wxDataViewRendererNativeData()
+  {
+    m_ColumnCell;
+    m_Object;
+    m_origFont;
+    m_origTextColour;
+    m_origBackgroundColour;
+  }
+  NSCell* GetColumnCell() const
+  {
+    return m_ColumnCell;
+  }
+  NSTableColumn* GetColumnPtr() const
+  {
+    return m_TableColumnPtr;
+  }
+  id GetItem() const
+  {
+    return m_Item;
+  }
+  NSCell* GetItemCell() const
+  {
+    return m_ItemCell;
+  }
+  id GetObject() const
+  {
+    return m_Object;
+  }
+  void SetColumnCell(NSCell* newCell)
+  {
+    newCell;
+    m_ColumnCell;
+    m_ColumnCell = newCell;
+  }
+  void SetColumnPtr(NSTableColumn* newColumnPtr)
+  {
+    m_TableColumnPtr = newColumnPtr;
+  }
+  void SetItem(id newItem)
+  {
+    m_Item = newItem;
+  }
+  void SetItemCell(NSCell* newCell)
+  {
+    m_ItemCell = newCell;
+  }
+  void SetObject(id newObject)
+  {
+    newObject;
+    m_Object;
+    m_Object = newObject;
+  }
     // The original cell font and text colour stored here are NULL by default
     // and are only initialized to the values retrieved from the cell when we
     // change them from wxCocoaOutlineView:willDisplayCell:forTableColumn:item:
@@ -176,61 +187,67 @@ public:
     // This allows us to avoid doing anything for the columns without any
     // attributes but still be able to restore the correct attributes for the
     // ones that do.
-    NSFont *GetOriginalFont() const { return m_origFont; }
-    NSColor *GetOriginalTextColour() const { return m_origTextColour; }
-    NSColor *GetOriginalBackgroundColour() const { return m_origBackgroundColour; }
-
-    void SaveOriginalFont(NSFont *font)
-    {
-        m_origFont = [font retain];
-    }
-
-    void SaveOriginalTextColour(NSColor *textColour)
-    {
-        m_origTextColour = [textColour retain];
-    }
-
-    void SaveOriginalBackgroundColour(NSColor *backgroundColour)
-    {
-        m_origBackgroundColour = [backgroundColour retain];
-    }
-
+  NSFont* GetOriginalFont() const
+  {
+    return m_origFont;
+  }
+  NSColor* GetOriginalTextColour() const
+  {
+    return m_origTextColour;
+  }
+  NSColor* GetOriginalBackgroundColour() const
+  {
+    return m_origBackgroundColour;
+  }
+  void SaveOriginalFont(NSFont* font)
+  {
+    m_origFont = font;
+  }
+  void SaveOriginalTextColour(NSColor* textColour)
+  {
+    m_origTextColour = textColour;
+  }
+  void SaveOriginalBackgroundColour(NSColor* backgroundColour)
+  {
+    m_origBackgroundColour = backgroundColour;
+  }
     // The ellipsization mode which we need to set for each cell being rendered.
-    void SetEllipsizeMode(wxEllipsizeMode mode) { m_ellipsizeMode = mode; }
-    wxEllipsizeMode GetEllipsizeMode() const { return m_ellipsizeMode; }
-
+  void SetEllipsizeMode(wxEllipsizeMode mode)
+  {
+    m_ellipsizeMode = mode;
+  }
+  wxEllipsizeMode GetEllipsizeMode() const
+  {
+    return m_ellipsizeMode;
+  }
     // Set the line break mode for the given cell using our m_ellipsizeMode
-    void ApplyLineBreakMode(NSCell *cell);
-
+  void ApplyLineBreakMode(NSCell* cell);
     // Does the rendered use a font that the control can't override?
-    void SetHasCustomFont(bool has) { m_hasCustomFont = has; }
-    bool HasCustomFont() const { return m_hasCustomFont; }
-
+  void SetHasCustomFont(bool has)
+  {
+    m_hasCustomFont = has;
+  }
+  bool HasCustomFont() const
+  {
+    return m_hasCustomFont;
+  }
 private:
     // common part of all ctors
-    void Init();
-
-    id m_Item;   // item NOT owned by renderer
-
+  void Init();
+  id m_Item;
     // object that can be used by renderer for storing special data (owned by
     // renderer)
-    id m_Object;
-
-    NSCell* m_ColumnCell; // column's cell is owned by renderer
-    NSCell* m_ItemCell;   // item's cell is NOT owned by renderer
-
-    NSTableColumn* m_TableColumnPtr; // column NOT owned by renderer
-
+  id m_Object;
+  NSCell* m_ColumnCell;
+  NSCell* m_ItemCell;
+  NSTableColumn* m_TableColumnPtr;
     // we own those if they're non-NULL
-    NSFont *m_origFont;
-    NSColor *m_origTextColour;
-    NSColor *m_origBackgroundColour;
-
-    wxEllipsizeMode m_ellipsizeMode;
-
-    bool m_hasCustomFont;
+  NSFont* m_origFont;
+  NSColor* m_origTextColour;
+  NSColor* m_origBackgroundColour;
+  wxEllipsizeMode m_ellipsizeMode;
+  bool m_hasCustomFont;
 };
-
 // ============================================================================
 // wxCocoaOutlineDataSource
 // ============================================================================
@@ -446,108 +463,83 @@ private:
 
 // This is the internal interface class between wxDataViewCtrl (wxWidget) and
 // the native source view (Mac OS X cocoa).
-class wxCocoaDataViewControl : public wxWidgetCocoaImpl,
-                               public wxDataViewWidgetImpl
+class wxCocoaDataViewControl : public wxWidgetCocoaImpl, public wxDataViewWidgetImpl
 {
 public:
     // constructors / destructor
-    wxCocoaDataViewControl(wxWindow* peer,
-                           const wxPoint& pos,
-                           const wxSize& size,
-                           long style);
-    virtual ~wxCocoaDataViewControl();
-
-    wxDataViewCtrl* GetDataViewCtrl() const
-    {
-        return static_cast<wxDataViewCtrl*>(GetWXPeer());
-    }
-
+  wxCocoaDataViewControl(wxWindow* peer, const wxPoint& pos, const wxSize& size, long style);
+  virtual ~wxCocoaDataViewControl();
+  wxDataViewCtrl* GetDataViewCtrl() const
+  {
+    return static_cast<wxDataViewCtrl*>(GetWXPeer());
+  }
     // column related methods (inherited from wxDataViewWidgetImpl)
-    virtual bool ClearColumns();
-    virtual bool DeleteColumn(wxDataViewColumn* columnPtr);
-    virtual void DoSetExpanderColumn(wxDataViewColumn const* columnPtr);
-    virtual wxDataViewColumn* GetColumn(unsigned int pos) const;
-    virtual int GetColumnPosition(wxDataViewColumn const* columnPtr) const;
-    virtual bool InsertColumn(unsigned int pos, wxDataViewColumn* columnPtr);
-    virtual void FitColumnWidthToContent(unsigned int pos);
-
+  virtual bool ClearColumns();
+  virtual bool DeleteColumn(wxDataViewColumn* columnPtr);
+  virtual void DoSetExpanderColumn(const wxDataViewColumn* columnPtr);
+  virtual wxDataViewColumn* GetColumn(unsigned int pos) const;
+  virtual int GetColumnPosition(const wxDataViewColumn* columnPtr) const;
+  virtual bool InsertColumn(unsigned int pos, wxDataViewColumn* columnPtr);
+  virtual void FitColumnWidthToContent(unsigned int pos);
     // item related methods (inherited from wxDataViewWidgetImpl)
-    virtual bool Add(const wxDataViewItem& parent, const wxDataViewItem& item);
-    virtual bool Add(const wxDataViewItem& parent,
-                     const wxDataViewItemArray& items);
-    virtual void Collapse(const wxDataViewItem& item);
-    virtual void EnsureVisible(const wxDataViewItem& item,
-                               wxDataViewColumn const* columnPtr);
-    virtual unsigned int GetCount() const;
-    virtual int GetCountPerPage() const;
-    virtual wxRect GetRectangle(const wxDataViewItem& item,
-                                wxDataViewColumn const* columnPtr);
-    virtual wxDataViewItem GetTopItem() const;
-    virtual bool IsExpanded(const wxDataViewItem& item) const;
-    virtual bool Reload();
-    virtual bool Remove(const wxDataViewItem& parent);
-    virtual bool Update(const wxDataViewColumn* columnPtr);
-    virtual bool Update(const wxDataViewItem& parent,
-                        const wxDataViewItem& item);
-    virtual bool Update(const wxDataViewItem& parent,
-                        const wxDataViewItemArray& items);
-
+  virtual bool Add(const wxDataViewItem& parent, const wxDataViewItem& item);
+  virtual bool Add(const wxDataViewItem& parent, const wxDataViewItemArray& items);
+  virtual void Collapse(const wxDataViewItem& item);
+  virtual void EnsureVisible(const wxDataViewItem& item, const wxDataViewColumn* columnPtr);
+  virtual unsigned int GetCount() const;
+  virtual int GetCountPerPage() const;
+  virtual wxRect GetRectangle(const wxDataViewItem& item, const wxDataViewColumn* columnPtr);
+  virtual wxDataViewItem GetTopItem() const;
+  virtual bool IsExpanded(const wxDataViewItem& item) const;
+  virtual bool Reload();
+  virtual bool Remove(const wxDataViewItem& parent);
+  virtual bool Update(const wxDataViewColumn* columnPtr);
+  virtual bool Update(const wxDataViewItem& parent, const wxDataViewItem& item);
+  virtual bool Update(const wxDataViewItem& parent, const wxDataViewItemArray& items);
     // model related methods
-    virtual bool AssociateModel(wxDataViewModel* model);
-
+  virtual bool AssociateModel(wxDataViewModel* model);
     //
     // selection related methods (inherited from wxDataViewWidgetImpl)
     //
-    virtual wxDataViewItem GetCurrentItem() const;
-    virtual void SetCurrentItem(const wxDataViewItem& item);
-    virtual wxDataViewColumn *GetCurrentColumn() const;
-    virtual int  GetSelectedItemsCount() const;
-    virtual int  GetSelections(wxDataViewItemArray& sel)   const;
-    virtual bool IsSelected(const wxDataViewItem& item) const;
-    virtual void Select(const wxDataViewItem& item);
-    virtual void Select(const wxDataViewItemArray& items);
-    virtual void SelectAll();
-    virtual void Unselect(const wxDataViewItem& item);
-    virtual void UnselectAll();
-
+  virtual wxDataViewItem GetCurrentItem() const;
+  virtual void SetCurrentItem(const wxDataViewItem& item);
+  virtual wxDataViewColumn* GetCurrentColumn() const;
+  virtual int GetSelectedItemsCount() const;
+  virtual int GetSelections(wxDataViewItemArray& sel) const;
+  virtual bool IsSelected(const wxDataViewItem& item) const;
+  virtual void Select(const wxDataViewItem& item);
+  virtual void Select(const wxDataViewItemArray& items);
+  virtual void SelectAll();
+  virtual void Unselect(const wxDataViewItem& item);
+  virtual void UnselectAll();
     //
     // sorting related methods
     //
-    virtual wxDataViewColumn* GetSortingColumn () const;
-    virtual void Resort();
-
+  virtual wxDataViewColumn* GetSortingColumn() const;
+  virtual void Resort();
     //
     // other methods (inherited from wxDataViewWidgetImpl)
     //
-    virtual void DoSetIndent(int indent);
-
-    virtual void DoExpand(const wxDataViewItem& item, bool expandChildren);
-
-    virtual void HitTest(const wxPoint& point,
-                         wxDataViewItem& item,
-                         wxDataViewColumn*& columnPtr) const;
-    virtual void SetRowHeight(int height);
-    virtual void SetRowHeight(const wxDataViewItem& item, unsigned int height);
-    virtual void OnSize();
-
-    virtual void StartEditor( const wxDataViewItem & item, unsigned int column );
-
+  virtual void DoSetIndent(int indent);
+  virtual void DoExpand(const wxDataViewItem& item, bool expandChildren);
+  virtual void HitTest(const wxPoint& point, wxDataViewItem& item, wxDataViewColumn*& columnPtr) const;
+  virtual void SetRowHeight(int height);
+  virtual void SetRowHeight(const wxDataViewItem& item, unsigned int height);
+  virtual void OnSize();
+  virtual void StartEditor(const wxDataViewItem& item, unsigned int column);
     // drag & drop helper methods
-    wxDataFormat GetDnDDataFormat(wxDataObjectComposite* dataObjects);
-    wxDataObjectComposite* GetDnDDataObjects(NSData* dataObject) const;
-
+  wxDataFormat GetDnDDataFormat(wxDataObjectComposite* dataObjects);
+  wxDataObjectComposite* GetDnDDataObjects(NSData* dataObject) const;
     // Cocoa-specific helpers
-    id GetItemAtRow(int row) const;
-
-    virtual void SetFont(const wxFont& font);
-
+  id GetItemAtRow(int row) const;
+  virtual void SetFont(const wxFont& font);
 private:
-    void InitOutlineView(long style);
-    int GetDefaultRowHeight() const;
-
-    wxCocoaOutlineDataSource* m_DataSource;
-
-    wxCocoaOutlineView* m_OutlineView;
-
+  void InitOutlineView(long style);
+  int GetDefaultRowHeight() const;
+  wxCocoaOutlineDataSource* m_DataSource;
+  wxCocoaOutlineView* m_OutlineView;
     // Width of expander in pixels, computed on demand.
+  int m_expanderWidth;
+};
+#  endif
 #endif

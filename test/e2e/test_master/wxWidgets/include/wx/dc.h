@@ -544,18 +544,17 @@ public:
   {
     return m_contentScaleFactor;
   }
+#  ifdef __WXMSW__
     // Native Windows functions using the underlying HDC don't honour GDI+
     // transformations which may be applied to it. Using this function we can
     // transform the coordinates manually before passing them to such functions
     // (as in e.g. wxRendererMSW code). It doesn't do anything if this is not a
     // wxGCDC.
-    virtual wxRect MSWApplyGDIPlusTransform(const wxRect& r) const
-    {
-        return r;
-    }
-#endif // __WXMSW__
-
-
+  virtual wxRect MSWApplyGDIPlusTransform(const wxRect& r) const
+  {
+    return r;
+  }
+#  endif
     // ---------------------------------------------------------
     // the actual drawing API
   virtual bool DoFloodFill(wxCoord x, wxCoord y, const wxColour& col, wxFloodFillStyle style = wxFLOOD_SURFACE) = 0;
@@ -1363,62 +1362,57 @@ public:
   }
 #  endif
     // for compatibility with the old code when wxCoord was long everywhere
-    wxDEPRECATED( void GetTextExtent(const wxString& string,
-                       long *x, long *y,
-                       long *descent = NULL,
-                       long *externalLeading = NULL,
-                       const wxFont *theFont = NULL) const );
-    wxDEPRECATED( void GetLogicalOrigin(long *x, long *y) const );
-    wxDEPRECATED( void GetDeviceOrigin(long *x, long *y) const );
-    wxDEPRECATED( void GetClippingBox(long *x, long *y, long *w, long *h) const );
-
-    wxDEPRECATED( void DrawObject(wxDrawObject* drawobject) );
-#endif  // WXWIN_COMPATIBILITY_2_8
-
-#ifdef __WXMSW__
+#  ifdef __WXMSW__
     // GetHDC() is the simplest way to retrieve an HDC From a wxDC but only
     // works if this wxDC is GDI-based and fails for GDI+ contexts (and
     // anything else without HDC, e.g. wxPostScriptDC)
-    WXHDC GetHDC() const;
-
+  WXHDC GetHDC() const;
     // don't use these methods manually, use GetTempHDC() instead
-    virtual WXHDC AcquireHDC() { return GetHDC(); }
-    virtual void ReleaseHDC(WXHDC WXUNUSED(hdc)) { }
-
+  virtual WXHDC AcquireHDC()
+  {
+    return GetHDC();
+  }
+  virtual void ReleaseHDC(WXHDC)
+  {
+  }
     // helper class holding the result of GetTempHDC() with std::auto_ptr<>-like
     // semantics, i.e. it is moved when copied
-    class TempHDC
+  class TempHDC
+  {
+  public:
+    TempHDC(wxDC& dc)
+      : m_dc(dc)
+      , m_hdc(dc.AcquireHDC())
     {
-    public:
-        TempHDC(wxDC& dc)
-            : m_dc(dc),
-              m_hdc(dc.AcquireHDC())
-        {
-        }
-
-        TempHDC(const TempHDC& thdc)
-            : m_dc(thdc.m_dc),
-              m_hdc(thdc.m_hdc)
-        {
-            const_cast<TempHDC&>(thdc).m_hdc = NULL;
-        }
-
-        ~TempHDC()
-        {
-            if ( m_hdc )
-                m_dc.ReleaseHDC(m_hdc);
-        }
-
-        WXHDC GetHDC() const { return m_hdc; }
-
-    private:
-        wxDC& m_dc;
-        WXHDC m_hdc;
-
-        wxDECLARE_NO_ASSIGN_CLASS(TempHDC);
-    };
-
+    }
+    TempHDC(const TempHDC& thdc)
+      : m_dc(thdc.m_dc)
+      , m_hdc(thdc.m_hdc)
+    {
+      const_cast<TempHDC&>(thdc).m_hdc = NULL;
+    }
+    ~TempHDC()
+    {
+      if (m_hdc)
+      {
+        m_dc.ReleaseHDC(m_hdc);
+      }
+    }
+    WXHDC GetHDC() const
+    {
+      return m_hdc;
+    }
+  private:
+    wxDC& m_dc;
+    WXHDC m_hdc;
+    wxDECLARE_NO_ASSIGN_CLASS(TempHDC);
+  };
     // GetTempHDC() also works for wxGCDC (but still not for wxPostScriptDC &c)
+  TempHDC GetTempHDC()
+  {
+    return TempHDC(*this);
+  }
+#  endif
 #  if  wxUSE_GRAPHICS_CONTEXT
   virtual wxGraphicsContext* GetGraphicsContext() const
   {

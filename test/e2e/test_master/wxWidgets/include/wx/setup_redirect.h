@@ -8,3 +8,7 @@
  * Copyright:   (c) Vadim Zeitlin
  * Licence:     wxWindows Licence
  */
+#ifdef __WXMSW__
+#  include "wx/msw/setup.h"
+#else 
+#endif

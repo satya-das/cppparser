@@ -95,7 +95,10 @@ protected:
   wxSize DoGetBestSize() const override;
   wxSize DoGetSizeFromTextSize(int xlen, int ylen = -1) const override;
   void DoMoveWindow(int x, int y, int width, int height) override;
+#    ifdef __WXMSW__
     // and, for MSW, enabling this window itself
+  void DoEnable(bool enable) override;
+#    endif
   enum SendEvent {
         SendEvent_None,
         SendEvent_Text

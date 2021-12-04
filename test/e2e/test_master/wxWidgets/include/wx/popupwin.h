@@ -111,22 +111,31 @@ protected:
     OnDismiss();
   }
 };
+#    ifdef __WXMSW__
+class WXDLLIMPEXP_CORE wxPopupTransientWindow : public wxPopupTransientWindowBase
+{
+public:
     // ctors
-    wxPopupTransientWindow() { }
-    wxPopupTransientWindow(wxWindow *parent, int style = wxBORDER_NONE)
-        { Create(parent, style); }
-
+  wxPopupTransientWindow()
+  {
+  }
+  wxPopupTransientWindow(wxWindow* parent, int style = wxBORDER_NONE)
+  {
+    Create(parent, style);
+  }
     // Implement base class pure virtuals.
-    virtual void Popup(wxWindow *focus = NULL) wxOVERRIDE;
-    virtual void Dismiss() wxOVERRIDE;
-
+  void Popup(wxWindow* focus = NULL) override;
+  void Dismiss() override;
     // Override to handle WM_NCACTIVATE.
-    virtual bool MSWHandleMessage(WXLRESULT *result,
-                                  WXUINT message,
-                                  WXWPARAM wParam,
-                                  WXLPARAM lParam) wxOVERRIDE;
-
+  bool MSWHandleMessage(WXLRESULT* result, WXUINT message, WXWPARAM wParam, WXLPARAM lParam) override;
     // Override to dismiss the popup.
+  void MSWDismissUnfocusedPopup() override;
+private:
+  void DismissOnDeactivate();
+  wxDECLARE_DYNAMIC_CLASS(wxPopupTransientWindow);
+  wxDECLARE_NO_COPY_CLASS(wxPopupTransientWindow);
+};
+#    else 
 class WXDLLIMPEXP_FWD_CORE wxPopupWindowHandler;
 class WXDLLIMPEXP_FWD_CORE wxPopupFocusHandler;
 class WXDLLIMPEXP_CORE wxPopupTransientWindow : public wxPopupTransientWindowBase
@@ -151,11 +160,11 @@ protected:
   void PopHandlers();
     // get alerted when child gets deleted from under us
   void OnDestroy(wxWindowDestroyEvent& event);
-#    if  defined(__WXMAC__) && wxOSX_USE_COCOA_OR_CARBON
+#      if  defined(__WXMAC__) && wxOSX_USE_COCOA_OR_CARBON
     // Check if the mouse needs to be captured or released: we must release
     // when it's inside our window if we want the embedded controls to work.
   void OnIdle(wxIdleEvent& event);
-#    endif
+#      endif
     // the child of this popup if any
   wxWindow* m_child;
     // the window which has the focus while we're shown
@@ -170,6 +179,7 @@ protected:
   wxDECLARE_DYNAMIC_CLASS(wxPopupTransientWindow);
   wxDECLARE_NO_COPY_CLASS(wxPopupTransientWindow);
 };
+#    endif
 #    if  wxUSE_COMBOBOX && defined(__WXUNIVERSAL__)
 // ----------------------------------------------------------------------------
 // wxPopupComboWindow: wxPopupTransientWindow used by wxComboBox

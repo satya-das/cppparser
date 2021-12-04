@@ -71,6 +71,11 @@ class WXDLLIMPEXP_FWD_CORE wxMemoryDC;
 #    if  wxUSE_PRINTING_ARCHITECTURE
 class WXDLLIMPEXP_FWD_CORE wxPrinterDC;
 #    endif
+#    ifdef __WXMSW__
+#      if  wxUSE_ENH_METAFILE
+class WXDLLIMPEXP_FWD_CORE wxEnhMetaFileDC;
+#      endif
+#    endif
 class WXDLLIMPEXP_FWD_CORE wxGraphicsContext;
 class WXDLLIMPEXP_FWD_CORE wxGraphicsPath;
 class WXDLLIMPEXP_FWD_CORE wxGraphicsMatrix;
@@ -550,10 +555,18 @@ public:
 #    if  wxUSE_PRINTING_ARCHITECTURE
   static wxGraphicsContext* Create(const wxPrinterDC& dc);
 #    endif
+#    ifdef __WXMSW__
+#      if  wxUSE_ENH_METAFILE
+  static wxGraphicsContext* Create(const wxEnhMetaFileDC& dc);
+#      endif
+#    endif
     // Create a context from a DC of unknown type, if supported, returns NULL otherwise
   static wxGraphicsContext* CreateFromUnknownDC(const wxDC& dc);
   static wxGraphicsContext* CreateFromNative(void* context);
   static wxGraphicsContext* CreateFromNativeWindow(void* window);
+#    ifdef __WXMSW__
+  static wxGraphicsContext* CreateFromNativeHDC(WXHDC dc);
+#    endif
   static wxGraphicsContext* Create(wxWindow* window);
 #    if  wxUSE_IMAGE
     // Create a context for drawing onto a wxImage. The image life time must be
@@ -850,15 +863,31 @@ public:
   }
   static wxGraphicsRenderer* GetDefaultRenderer();
   static wxGraphicsRenderer* GetCairoRenderer();
+#    ifdef __WXMSW__
+#      if  wxUSE_GRAPHICS_GDIPLUS
+  static wxGraphicsRenderer* GetGDIPlusRenderer();
+#      endif
+#      if  wxUSE_GRAPHICS_DIRECT2D
+  static wxGraphicsRenderer* GetDirect2DRenderer();
+#      endif
+#    endif
     // Context
   virtual wxGraphicsContext* CreateContext(const wxWindowDC& dc) = 0;
   virtual wxGraphicsContext* CreateContext(const wxMemoryDC& dc) = 0;
 #    if  wxUSE_PRINTING_ARCHITECTURE
   virtual wxGraphicsContext* CreateContext(const wxPrinterDC& dc) = 0;
 #    endif
+#    ifdef __WXMSW__
+#      if  wxUSE_ENH_METAFILE
+  virtual wxGraphicsContext* CreateContext(const wxEnhMetaFileDC& dc) = 0;
+#      endif
+#    endif
   wxGraphicsContext* CreateContextFromUnknownDC(const wxDC& dc);
   virtual wxGraphicsContext* CreateContextFromNativeContext(void* context) = 0;
   virtual wxGraphicsContext* CreateContextFromNativeWindow(void* window) = 0;
+#    ifdef __WXMSW__
+  virtual wxGraphicsContext* CreateContextFromNativeHDC(WXHDC dc) = 0;
+#    endif
   virtual wxGraphicsContext* CreateContext(wxWindow* window) = 0;
 #    if  wxUSE_IMAGE
   virtual wxGraphicsContext* CreateContextFromImage(wxImage& image) = 0;

@@ -16,10 +16,9 @@
 //  
 #ifndef _DBJIG_H_
 #  define _DBJIG_H_	1
-#  if  defined(__cplusplus)
-#    include "AcCoreDefs.h"
-#    include "dbdimdata.h"
-#    pragma  pack (push, 8)
+#  include "AcCoreDefs.h"
+#  include "dbdimdata.h"
+#  pragma  pack (push, 8)
 class AcEdImpJig;
 class AcDbEntity;
 class AcEdImpDragStyle;
@@ -182,6 +181,5 @@ private:
   AcEdImpDragStyle* mpDraggedDragStyle;
   friend class AcEdImpDragStyle;
 };
-#    pragma  pack (pop)
-#  endif
+#  pragma  pack (pop)
 #endif

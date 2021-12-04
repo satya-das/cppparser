@@ -19,7 +19,11 @@
  * A wxPrintPaperType can have an id and a name, or just a name and wxPAPER_NONE,
  * so you can add further paper types without needing new ids.
  */
-#  define WXADDPAPER(paperId, platformId, name, w, h)	 AddPaperType(paperId, 0, name, w, h)
+#  ifdef __WXMSW__
+#    define WXADDPAPER(paperId, platformId, name, w, h)	 AddPaperType(paperId, platformId, name, w, h)
+#  else 
+#    define WXADDPAPER(paperId, platformId, name, w, h)	 AddPaperType(paperId, 0, name, w, h)
+#  endif
 class WXDLLIMPEXP_CORE wxPrintPaperType : public wxObject
 {
 public:

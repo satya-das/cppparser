@@ -15,7 +15,11 @@
 class wxEventLoopSource;
 class wxFDIODispatcher;
 class wxWakeUpPipeMT;
+#    ifdef __WXOSX__
+typedef wxCFEventLoop wxEventLoopParent;
+#    else 
 typedef wxEventLoopManual wxEventLoopParent;
+#    endif
 class WXDLLIMPEXP_BASE wxConsoleEventLoop : public wxEventLoopParent
 {
 public:

@@ -53,7 +53,11 @@ public:
   }
   bool RawControlDown() const
   {
+#  ifdef __WXOSX__
+    return m_rawControlDown;
+#  else 
     return m_controlDown;
+#  endif
   }
   bool ShiftDown() const
   {
@@ -84,7 +88,11 @@ public:
   }
   void SetRawControlDown(bool down)
   {
+#  ifdef __WXOSX__
+    m_rawControlDown = down;
+#  else 
     m_controlDown = down;
+#  endif
   }
   void SetShiftDown(bool down)
   {
@@ -105,5 +113,8 @@ public:
   bool m_shiftDown;
   bool m_altDown;
   bool m_metaDown;
+#  ifdef __WXOSX__
+  bool m_rawControlDown;
+#  endif
 };
 #endif

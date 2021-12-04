@@ -241,6 +241,12 @@
 #      define wxUSE_XML	0
 #    endif
 #  endif
+#  ifndef wxUSE_STD_CONTAINERS_COMPATIBLY
+#    ifdef wxABORT_ON_CONFIG_ERROR
+#    else 
+#      define wxUSE_STD_CONTAINERS_COMPATIBLY	0
+#    endif
+#  endif
 #  ifndef wxUSE_STD_STRING_CONV_IN_WXSTRING
 #    ifdef wxABORT_ON_CONFIG_ERROR
 #    else 
@@ -1434,8 +1440,10 @@
         define it in wx/setup_inc.h so don't complain if it happens to be
         defined under another platform but just silently fix it.
      */
-#      undef wxUSE_MS_HTML_HELP
-#      define wxUSE_MS_HTML_HELP	0
+#      ifndef __WXMSW__
+#        undef wxUSE_MS_HTML_HELP
+#        define wxUSE_MS_HTML_HELP	0
+#      endif
 #    endif
 #    if  wxUSE_WXHTML_HELP
 #      if  !wxUSE_HELP || !wxUSE_HTML || !wxUSE_COMBOBOX || !wxUSE_NOTEBOOK || !wxUSE_SPINCTRL

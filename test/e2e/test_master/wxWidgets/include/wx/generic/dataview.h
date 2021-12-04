@@ -306,6 +306,9 @@ private:
   wxSize GetSizeAvailableForScrollTarget(const wxSize& size) override;
     // we need to return a special WM_GETDLGCODE value to process just the
     // arrows but let the other navigation characters through
+#  ifdef __WXMSW__
+  WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
+#  endif
   WX_FORWARD_TO_SCROLL_HELPER()
   wxDECLARE_DYNAMIC_CLASS(wxDataViewCtrl);
   wxDECLARE_NO_COPY_CLASS(wxDataViewCtrl);

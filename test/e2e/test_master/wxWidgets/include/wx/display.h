@@ -71,7 +71,11 @@ public:
     // get the default resolution for displays on this platform
   static int GetStdPPIValue()
   {
+#  ifdef __WXOSX__
+    return 72;
+#  else 
     return 96;
+#  endif
   }
   static wxSize GetStdPPI()
   {

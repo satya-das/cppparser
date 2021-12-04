@@ -65,7 +65,9 @@
 #        define NSAppKitVersionNumber10_11	1404
 #      endif
 #    endif
-#    define __WXOSX__	1
+#    ifndef __WXOSX__
+#      define __WXOSX__	1
+#    endif
 #    ifndef __WXMAC__
 #      define __WXMAC__	1
 #    endif
@@ -113,11 +115,17 @@
     wxWidgets for compatibility.
  */
 #  if  defined(WXBUILDING) && defined(wxUSE_GUI) && !wxUSE_GUI
+#    ifdef __WXMSW__
+#      undef __WXMSW__
+#    endif
 #    ifdef __WXGTK__
 #      undef __WXGTK__
 #    endif
 #  endif
 #  if  (defined(__WXGTK__) || defined(__WXQT__)) && defined(__WINDOWS__)
+#    ifdef __WXMSW__
+#      undef __WXMSW__
+#    endif
 #  endif
 #  ifdef __ANDROID__
 #    define __WXANDROID__
@@ -342,9 +350,25 @@
     for it.
  */
 #  if  defined(__WXOSX_COCOA__) || defined(__WXOSX_IPHONE__)
-#    define __WXOSX__	1
+#    ifndef __WXOSX__
+#      define __WXOSX__	1
+#    endif
 #    ifndef __WXMAC__
 #      define __WXMAC__	1
+#    endif
+#  endif
+#  ifdef __WXOSX__
+/* setup precise defines according to sdk used */
+#    include <TargetConditionals.h>
+#    if  defined(__WXOSX_IPHONE__)
+#      if  !( defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE )
+#      endif
+#    else 
+#      if  wxUSE_GUI && !defined(__WXOSX_COCOA__)
+#      endif
+#      if  !( defined(TARGET_OS_MAC) && TARGET_OS_MAC )
+#      endif
+#      define __WXOSX_MAC__	1
 #    endif
 #  endif
 #  ifdef __WXOSX_MAC__

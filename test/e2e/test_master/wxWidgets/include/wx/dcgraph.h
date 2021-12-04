@@ -28,8 +28,12 @@ public:
   wxGCDC(wxGraphicsContext* context);
   wxGCDC();
   virtual ~wxGCDC();
+#    ifdef __WXMSW__
     // override wxDC virtual functions to provide access to HDC associated with
     // this Graphics object (implemented in src/msw/graphics.cpp)
+  WXHDC AcquireHDC() override;
+  void ReleaseHDC(WXHDC hdc) override;
+#    endif
 private:
   wxDECLARE_DYNAMIC_CLASS(wxGCDC);
   wxDECLARE_NO_COPY_CLASS(wxGCDC);
@@ -127,6 +131,9 @@ public:
   bool DoGetClippingRect(wxRect& rect) const override;
   void DoGetTextExtent(const wxString& string, wxCoord* x, wxCoord* y, wxCoord* descent = NULL, wxCoord* externalLeading = NULL, const wxFont* theFont = NULL) const override;
   bool DoGetPartialTextExtents(const wxString& text, wxArrayInt& widths) const override;
+#    ifdef __WXMSW__
+  wxRect MSWApplyGDIPlusTransform(const wxRect& r) const override;
+#    endif
     // update the internal clip box variables
   void UpdateClipBox();
 protected:

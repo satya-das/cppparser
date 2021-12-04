@@ -41,7 +41,11 @@
 /*  separate define for it */
 #  define wxHAS_ICON_LOCATION
 /*  same for wxCrashReport */
-#  undef wxHAS_CRASH_REPORT
+#  ifdef __WXMSW__
+#    define wxHAS_CRASH_REPORT
+#  else 
+#    undef wxHAS_CRASH_REPORT
+#  endif
 /*  wxRE_ADVANCED is not always available, depending on regex library used
  *  (it's unavailable only if compiling via configure against system library) */
 #  ifndef WX_NO_REGEX_ADVANCED

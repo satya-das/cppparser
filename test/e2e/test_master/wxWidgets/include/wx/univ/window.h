@@ -214,7 +214,11 @@ protected:
   wxSize m_oldSize;
     // is the mouse currently inside the window?
   bool m_isCurrent;
+#  ifdef __WXMSW__
+public:
     // override MSWWindowProc() to process WM_NCHITTEST
+  WXLRESULT MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam);
+#  endif
 #  if  wxUSE_SCROLLBAR
 private:
     // the window scrollbars

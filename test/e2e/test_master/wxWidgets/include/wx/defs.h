@@ -2378,14 +2378,8 @@ old C struct with the same name.  Unfortunately, because the compiler
 does not see a struct as an Objective-C class we cannot declare it
 as a struct in Objective-C(++) mode.
 */
-#      if  defined(__OBJC__)
-#        define DECLARE_WXCOCOA_OBJC_CLASS(klass)	 \
-@class klass; \
-typedef klass *WX_##klass
-#      else 
-#        define DECLARE_WXCOCOA_OBJC_CLASS(klass)	 \
+#      define DECLARE_WXCOCOA_OBJC_CLASS(klass)	 \
 typedef struct klass *WX_##klass
-#      endif
 #    else 
 /*  NOTE: typedef struct objc_object *id; */
 /*  IOW, we're declaring these using the id type without using that name, */
@@ -2516,6 +2510,9 @@ typedef void* WXHTREEITEM;
 typedef void* WXDRAWITEMSTRUCT;
 typedef void* WXMEASUREITEMSTRUCT;
 typedef void* WXLPCREATESTRUCT;
+#    ifdef __WXMSW__
+typedef WXHWND WXWidget;
+#    endif
 #    ifdef __WIN64__
 typedef wxUint64 WXWPARAM;
 typedef wxInt64 WXLPARAM;

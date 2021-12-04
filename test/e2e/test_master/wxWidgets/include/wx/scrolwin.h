@@ -11,6 +11,9 @@
 #  define _WX_SCROLWIN_H_BASE_
 #  include "wx/control.h"
 #  include "wx/panel.h"
+#  ifdef __WXOSX__
+#    include "wx/scrolbar.h"
+#  endif
 class WXDLLIMPEXP_FWD_CORE wxScrollHelperEvtHandler;
 class WXDLLIMPEXP_FWD_BASE wxTimer;
 // default scrolled window style: scroll in both directions
@@ -357,6 +360,9 @@ public:                                                                       \
 struct WXDLLIMPEXP_CORE wxScrolledT_Helper
 {
   static wxSize FilterBestSize(const wxWindow* win, const wxScrollHelper* helper, const wxSize& origBest);
+#  ifdef __WXMSW__
+  static WXLRESULT FilterMSWWindowProc(WXUINT nMsg, WXLRESULT origResult);
+#  endif
 };
 // Scrollable window base on window type T. This used to be wxScrolledWindow,
 // but wxScrolledWindow includes wxControlContainer functionality and that's
@@ -403,14 +409,19 @@ public:
     }
     return wxCreateScrolled((T*) this, parent, winid, pos, size, style, name);
   }
+#  ifdef __WXMSW__
     // we need to return a special WM_GETDLGCODE value to process just the
     // arrows but let the other navigation characters through
-    virtual WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) wxOVERRIDE
-    {
-        return FilterMSWWindowProc(nMsg, T::MSWWindowProc(nMsg, wParam, lParam));
-    }
-
+  WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override
+  {
+    return FilterMSWWindowProc(nMsg, T::MSWWindowProc(nMsg, wParam, lParam));
+  }
     // Take into account the scroll origin.
+  void MSWAdjustBrushOrg(int* xOrg, int* yOrg) const override
+  {
+    CalcUnscrolledPosition(*xOrg, *yOrg, xOrg, yOrg);
+  }
+#  endif
   WX_FORWARD_TO_SCROLL_HELPER()
 protected:
   wxSize DoGetBestSize() const override

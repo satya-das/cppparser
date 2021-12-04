@@ -12,6 +12,9 @@
 class WXDLLIMPEXP_FWD_CORE wxPalette;
 #  include "wx/msw/private.h"
 #  if  wxUSE_WXDIB
+#    ifdef __WXMSW__
+#      include "wx/bitmap.h"
+#    endif
 // ----------------------------------------------------------------------------
 // wxDIB: represents a DIB section
 // ----------------------------------------------------------------------------
@@ -31,11 +34,14 @@ public:
     Init();
     (void) Create(width, height, depth);
   }
+#    ifdef __WXMSW__
     // create a DIB from the DDB
-    wxDIB(const wxBitmap& bmp, int depth = -1)
-        { Init(); (void)Create(bmp, depth); }
-#endif // __WXMSW__
-
+  wxDIB(const wxBitmap& bmp, int depth = -1)
+  {
+    Init();
+    (void) Create(bmp, depth);
+  }
+#    endif
     // create a DIB from the Windows DDB
   wxDIB(HBITMAP hbmp)
   {
@@ -52,6 +58,12 @@ public:
   }
     // same as the corresponding ctors but with return value
   bool Create(int width, int height, int depth);
+#    ifdef __WXMSW__
+  bool Create(const wxBitmap& bmp, int depth = -1)
+  {
+    return Create(GetHbitmapOf(bmp), depth);
+  }
+#    endif
   bool Create(HBITMAP hbmp, int depth = -1);
   bool Load(const wxString& filename);
     // dtor is not virtual, this class is not meant to be used polymorphically
