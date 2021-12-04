@@ -28,9 +28,9 @@ public:
           m_shiftDown(shiftDown),
           m_altDown(altDown),
           m_metaDown(metaDown)
-#ifdef __WXOSX__
-          ,m_rawControlDown(false)
-#endif
+// CIB #ifdef __WXOSX__
+// CIB           ,m_rawControlDown(false)
+// CIB #endif
     {
     }
 
@@ -48,9 +48,9 @@ public:
         return (m_controlDown ? wxMOD_CONTROL : 0) |
                (m_shiftDown ? wxMOD_SHIFT : 0) |
                (m_metaDown ? wxMOD_META : 0) |
-#ifdef __WXOSX__
-               (m_rawControlDown ? wxMOD_RAW_CONTROL : 0) |
-#endif
+// CIB #ifdef __WXOSX__
+// CIB                (m_rawControlDown ? wxMOD_RAW_CONTROL : 0) |
+// CIB #endif
                (m_altDown ? wxMOD_ALT : 0);
     }
 

@@ -1434,11 +1434,11 @@ public:
 
     // Accept files for dragging
     virtual void DragAcceptFiles(bool accept)
-#ifdef __WXMSW__
+// CIB #ifdef __WXMSW__
     // it does have common implementation but not for MSW which has its own
     // native version of it
-    = 0
-#endif // __WXMSW__
+// CIB     = 0
+// CIB #endif // __WXMSW__
     ;
 
 #endif // wxUSE_DRAG_AND_DROP

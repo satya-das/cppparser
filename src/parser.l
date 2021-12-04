@@ -1109,7 +1109,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   }
 }
 
-<ctxGeneral,ctxDisabledCode>^{WS}*#{WS}*else{IgnorableTrailingContext}{NL} {
+<ctxGeneral,ctxDisabledCode>^{WS}*#{WS}*else{TS} {
   LOG();
   if (!codeSegmentDependsOnMacroDefinition()) {
     LOG();

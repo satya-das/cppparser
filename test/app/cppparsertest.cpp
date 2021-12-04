@@ -543,13 +543,14 @@ CppParser constructCppParserForTest()
                              "wxTRY",
                              "WXUNUSED",
                              "WXUNUSED_UNLESS_DEBUG",
-                             "wxW64"});
+                             "wxW64",
+                             "WX_OSX_BRIDGE_RETAINED"});
 
   parser.addUndefinedNames({"SWIG",
                             "CPPPARSER_DISABLED_USING_IFNDEF_PARAM_TEST",
-                            "__WXMSW__",
+                            // "__WXMSW__",
                             "__OBJC__",
-                            "__WXOSX__",
+                            // "__WXOSX__",
                             "WXBUILDING",
                             "wxHAS_SYSTEM_THEMED_CONTROL"});
 
