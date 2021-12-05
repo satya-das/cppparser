@@ -2003,6 +2003,14 @@ extern LexerData g;
 
 extern const char* contextNameFromState(int ctx);
 
+enum class ParseStatus {
+  NotAvailable,
+  Success,
+  Failure
+};
+
+ParseStatus gParseStatus = ParseStatus::NotAvailable;
+
 void defaultErrorHandler(const char* errLineText, size_t lineNum, size_t errorStartPos, int lexerContext)
 {
   constexpr size_t bufsize = 1024;
@@ -2059,6 +2067,7 @@ void yyerror_detailed  (  char* text,
       ++lineEnd;
     }
   }
+  gParseStatus = ParseStatus::Failure;
   gErrorHandler(lineStart, g.mLineNo, errt_posn - lineStart, getLexerContext());
   // Replace back the end char
   if(endReplaceChar)
@@ -2100,7 +2109,7 @@ CppCompoundPtr parseStream(char* stm, size_t stmSize)
 {
   gProgUnit = nullptr;
   gCurAccessType = CppAccessType::kUnknown;
-  
+
   void setupScanBuffer(char* buf, size_t bufsize);
   void cleanupScanBuffer();
   setupScanBuffer(stm, stmSize);
@@ -2109,12 +2118,18 @@ CppCompoundPtr parseStream(char* stm, size_t stmSize)
   gParamModPos = nullptr;
   gInTemplateSpec = false;
   gDisableYyValid = 0;
+  gParseStatus = ParseStatus::NotAvailable;
   yyparse();
   cleanupScanBuffer();
   CppCompoundStack tmpStack;
   gCompoundStack.swap(tmpStack);
-  
+
   CppCompoundPtr ret(gProgUnit);
   gProgUnit = nullptr;
+
+  // TODO: Make better error  handling
+  /* if (gParseStatus == ParseStatus::Failure)
+    throw std::runtime_error("Parsing error"); */
+
   return ret;
 }

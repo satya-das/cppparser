@@ -11,7 +11,7 @@ y.output
 
 # Lex and yacc generated files
 parser.lex.cpp
-#parser.tab.*
+parser.tab.*
 
 # Build results
 

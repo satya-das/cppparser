@@ -27,7 +27,7 @@
 #include "cppconst.h"
 #include "cpputil.h"
 
-#include "cppobj-accessor.h"
+#include "cppobj-info-accessor.h"
 
 #include <functional>
 

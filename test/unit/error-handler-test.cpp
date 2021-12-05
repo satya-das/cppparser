@@ -34,8 +34,20 @@ TEST_CASE_METHOD(ErrorHandlerTest, "Error line and column")
     };
   CppParser parser;
   parser.setErrorHandler(errHandler);
-  const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
+  const bool exceptionThrown = [&]() {
+    try
+    {
+      parser.parseStream(testSnippet.data(), testSnippet.size());
+      FAIL();
+    }
+    catch (const std::exception& e)
+    {
+      return true;
+    }
 
-  CHECK(errHandlerCalled == true);
-  REQUIRE(ast == nullptr);
+    return false;
+  }();
+
+  CHECK(errHandlerCalled);
+  CHECK(exceptionThrown);
 }

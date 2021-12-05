@@ -28,7 +28,7 @@
 #include "cppast.h"
 #include "cppconst.h"
 
-#include "cppobj-accessor.h"
+#include "cppobj-info-accessor.h"
 
 inline bool isConst(const CppFunctionBase* func)
 {
