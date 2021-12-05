@@ -25,6 +25,13 @@
 
 #include <cstdint>
 
+enum class TriStateBool : std::int8_t
+{
+  Unknown = -1,
+  False   = 0,
+  True    = 1
+};
+
 enum class CppObjType : std::uint8_t
 {
   kUnknown = 0x0000,

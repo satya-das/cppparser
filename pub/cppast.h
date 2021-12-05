@@ -43,7 +43,6 @@
 #include <cstdint>
 #include <list>
 #include <memory>
-#include <optional>
 #include <string>
 #include <utility>
 #include <vector>
@@ -936,8 +935,8 @@ private:
   const CppConstructor*              moveCtor_ {nullptr};
   const CppDestructor*               dtor_ {nullptr};
 
-  mutable std::optional<bool> hasVirtual_;
-  mutable std::optional<bool> hasPureVirtual_;
+  mutable TriStateBool hasVirtual_     = TriStateBool::Unknown;
+  mutable TriStateBool hasPureVirtual_ = TriStateBool::Unknown;
 };
 
 using CppCompoundEPtr      = CppEasyPtr<CppCompound>;
@@ -1220,8 +1219,8 @@ struct CppConstructor : public CppFuncCtorBase
   bool isMoveConstructor() const;
 
 private:
-  mutable std::optional<bool> isCopyConstructor_;
-  mutable std::optional<bool> isMoveConstructor_;
+  mutable TriStateBool isCopyConstructor_ = TriStateBool::Unknown;
+  mutable TriStateBool isMoveConstructor_ = TriStateBool::Unknown;
 };
 
 using CppConstructorEPtr = CppEasyPtr<CppConstructor>;

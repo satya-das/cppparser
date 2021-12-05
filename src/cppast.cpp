@@ -31,10 +31,10 @@
 
 bool CppConstructor::isCopyConstructor() const
 {
-  if (isCopyConstructor_)
-    return *isCopyConstructor_;
+  if (isCopyConstructor_ != TriStateBool::Unknown)
+    return isCopyConstructor_ == TriStateBool::True;
 
-  isCopyConstructor_ = false;
+  isCopyConstructor_ = TriStateBool::False;
   if (!params_ || (params_->size() != 1))
     return false;
   const auto& param = params_->front();
@@ -58,16 +58,17 @@ bool CppConstructor::isCopyConstructor() const
   {
     return false;
   }
-  isCopyConstructor_ = true;
-  return *isCopyConstructor_;
+  isCopyConstructor_ = TriStateBool::True;
+
+  return true;
 }
 
 bool CppConstructor::isMoveConstructor() const
 {
-  if (isMoveConstructor_)
-    return *isMoveConstructor_;
+  if (isMoveConstructor_ != TriStateBool::Unknown)
+    return isMoveConstructor_ == TriStateBool::True;
 
-  isMoveConstructor_ = false;
+  isMoveConstructor_ = TriStateBool::False;
   if (!params_ || (params_->size() != 1))
     return false;
   const auto& param = params_->front();
@@ -93,46 +94,50 @@ bool CppConstructor::isMoveConstructor() const
   {
     return false;
   }
-  isMoveConstructor_ = true;
-  return *isMoveConstructor_;
+  isMoveConstructor_ = TriStateBool::True;
+
+  return true;
 }
 
 bool CppCompound::hasPublicVirtualMethod() const
 {
   if (!isClassLike(this))
     return false;
-  if (hasVirtual_)
-    return *hasVirtual_;
-  hasVirtual_ = false;
+  if (hasVirtual_ != TriStateBool::Unknown)
+    return hasVirtual_ == TriStateBool::True;
+
+  hasVirtual_ = TriStateBool::False;
   forEachMember(this, [&](const CppObj* mem) {
     if (isFunction(mem) && isPublic(mem))
     {
       auto func = (CppFunction*) mem;
       if (func->attr() & (kVirtual | kOverride))
       {
-        hasVirtual_ = true;
+        hasVirtual_ = TriStateBool::True;
         return true;
       }
     }
     return false;
   });
-  return *hasVirtual_;
+
+  return hasVirtual_ == TriStateBool::True;
 }
 
 bool CppCompound::hasPureVirtual() const
 {
   if (!isClassLike(this))
     return false;
-  if (hasPureVirtual_)
-    return *hasPureVirtual_;
-  hasPureVirtual_ = false;
+  if (hasPureVirtual_ != TriStateBool::Unknown)
+    return hasPureVirtual_ == TriStateBool::True;
+
+  hasPureVirtual_ = TriStateBool::False;
   forEachMember(this, [&](const CppObj* mem) {
     if (isFunction(mem))
     {
       auto func = static_cast<const CppFunction*>(mem);
       if (isPureVirtual(func))
       {
-        hasPureVirtual_ = true;
+        hasPureVirtual_ = TriStateBool::True;
         return true;
       }
     }
@@ -141,14 +146,15 @@ bool CppCompound::hasPureVirtual() const
       auto dtor = static_cast<const CppDestructor*>(mem);
       if (isPureVirtual(dtor))
       {
-        hasPureVirtual_ = true;
+        hasPureVirtual_ = TriStateBool::True;
         return true;
       }
     }
 
     return false;
   });
-  return *hasPureVirtual_;
+
+  return hasPureVirtual_ == TriStateBool::True;
 }
 
 bool CppCompound::triviallyConstructable() const
