@@ -35,14 +35,13 @@
 //////////////////////////////////////////////////////////////////////////
 
 CppProgram::CppProgram(const std::vector<std::string>& files, CppParser parser)
-  : parser_(std::move(parser))
 {
   cppObjToTypeNode_[nullptr] = &cppTypeTreeRoot_;
 
   for (const auto& f : files)
   {
     std::cout << "INFO\t Parsing '" << f << "'\n";
-    auto cppAst = parser_.parseFile(f.c_str());
+    auto cppAst = parser.parseFile(f.c_str());
     if (cppAst)
       addCppAst(std::move(cppAst));
   }

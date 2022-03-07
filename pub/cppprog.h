@@ -117,7 +117,6 @@ private:
   CppCompoundArray    fileAsts_;        ///< Array of all top level ASTs corresponding to files.
   CppTypeTreeNode     cppTypeTreeRoot_; ///< Repository of all compound objects arranged as type-tree.
   CppObjToTypeNodeMap cppObjToTypeNode_;
-  CppParser           parser_;
 };
 
 inline const CppCompoundArray& CppProgram::getFileAsts() const
