@@ -282,7 +282,7 @@ extern int yylex();
 
 %type  <str>                strlit
 %type  <str>                optapidecor apidecor apidecortokensq
-%type  <str>                identifier numbertype typeidentifier varidentifier optname id name operfuncname funcname
+%type  <str>                identifier optidentifier numbertype typeidentifier varidentifier optname id name operfuncname funcname
 %type  <str>                templidentifier templqualifiedid
 %type  <str>                doccommentstr
 %type  <str>                rshift
@@ -727,6 +727,9 @@ id                : tknID  [ZZLOG; $$ = $1; ] {}
 
 optname           :         [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
                   | name    [ZZLOG;] { $$ = $1; }
+
+optidentifier     :             [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
+                  | identifier  [ZZLOG;] { $$ = $1; }
                   ;
 
 enumitem          : name            [ZZLOG;]   { $$ = new CppEnumItem($1);     }
@@ -1652,7 +1655,7 @@ classdefn         : classspecifier optapidecor optattribspecifiers identifier op
                   }
                   ;
 
-namespacedefn     : tknNamespace optname '{'
+namespacedefn     : tknNamespace optidentifier '{'
                   [
                     ZZVALID;
                     gCompoundStack.push(classNameFromIdentifier($2));
