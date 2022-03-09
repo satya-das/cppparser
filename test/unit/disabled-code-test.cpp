@@ -15,7 +15,7 @@ protected:
   }
 };
 
-TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #if")
+TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #if")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
@@ -43,7 +43,7 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #if")
   CHECK(params->size() == 1);
 }
 
-TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #if !")
+TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #if !")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
@@ -71,7 +71,7 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #if !")
   CHECK(params->size() == 2);
 }
 
-TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #if")
+TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #if")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
@@ -101,7 +101,7 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #if")
   CHECK(params->size() == 2);
 }
 
-TEST_CASE_METHOD(DisabledCodeTest, " Code enabled using #if {ID} >= {NUM}")
+TEST_CASE_METHOD(DisabledCodeTest, "Code enabled using #if {ID} >= {NUM}")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
@@ -129,7 +129,7 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code enabled using #if {ID} >= {NUM}")
   CHECK(params->size() == 2);
 }
 
-TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #ifdef")
+TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #ifdef")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
@@ -157,7 +157,7 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #ifdef")
   CHECK(params->size() == 1);
 }
 
-TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #ifdef")
+TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #ifdef")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
@@ -187,7 +187,7 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #ifdef")
   CHECK(params->size() == 2);
 }
 
-TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #ifndef")
+TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #ifndef")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
@@ -216,7 +216,7 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code disabled using #ifndef")
   CHECK(params->size() == 1);
 }
 
-TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #ifndef")
+TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #ifndef")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
   void FunctionWithDisabledParams(int normalParam
@@ -246,7 +246,7 @@ TEST_CASE_METHOD(DisabledCodeTest, " Code enabled in #else part of #ifndef")
   CHECK(params->size() == 2);
 }
 
-TEST_CASE_METHOD(DisabledCodeTest, " Enabled code section has disabled subsection")
+TEST_CASE_METHOD(DisabledCodeTest, "Enabled code section has disabled subsection")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
 #  if CPPPARSER_TEST_DEFINED_MACRO

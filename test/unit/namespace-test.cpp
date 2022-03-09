@@ -21,7 +21,7 @@ auto p = new char*[5];
 #  endif
 #endif
 
-TEST_CASE_METHOD(NamespaceTest, " C++17 style nested namespace")
+TEST_CASE_METHOD(NamespaceTest, "C++17 style nested namespace")
 {
   auto testSnippet = getTestSnippetParseStream(__LINE__ - 5);
 

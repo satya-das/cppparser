@@ -49,12 +49,11 @@ Below is the program written as unit-test for validating the correctness of gene
 
 namespace fs = boost::filesystem;
 
-TEST_CASE(" Parsing hello world program")
+TEST_CASE("Parsing hello world program")
 {
-  CppParser parser;
-  parser.parseFunctionBodyAsBlob(false);
-  auto testFilePath = fs::path(__FILE__).parent_path() / "test-files/hello-world.cpp";
-  auto ast          = parser.parseFile(testFilePath.string());
+  CppParser  parser;
+  const auto testFilePath = fs::path(__FILE__).parent_path() / "test-files/hello-world.cpp";
+  const auto ast          = parser.parseFile(testFilePath.string());
   REQUIRE(ast != nullptr);
 
   const auto& members = ast->members();
