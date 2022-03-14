@@ -58,7 +58,49 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
 
   CppCompoundEPtr classDefn = members[1];
   REQUIRE(classDefn);
-  REQUIRE(classDefn->attribSpecifierSequence());
+  const auto& classAttribSeq = classDefn->attribSpecifierSequence();
+  REQUIRE(classAttribSeq);
+  REQUIRE(classAttribSeq->size() == 2);
+
+  CppExprEPtr classAttrib0 = classAttribSeq->at(0);
+  REQUIRE(classAttrib0);
+  CHECK((*classAttrib0) == CppExpr("xnet::HttpController"));
+
+  CppExprEPtr classAttrib1 = classAttribSeq->at(1);
+  REQUIRE(classAttrib1);
+  REQUIRE(classAttrib1->expr1_.atom);
+  CHECK(*(classAttrib1->expr1_.atom) == "xnet::Route");
+  CHECK(classAttrib1->oper_ == CppOperator::kFunctionCall);
+  const auto funcArgs = classAttrib1->expr2_.expr;
+  REQUIRE(funcArgs);
+  CHECK(funcArgs->expr1_.type == CppExprAtom::kAtom);
+  REQUIRE(funcArgs->expr1_.atom);
+  CHECK(*(funcArgs->expr1_.atom) == "\"/plakmp\"");
+
   const auto& classMembers = classDefn->members();
   REQUIRE(classMembers.size() == 3);
+
+  const CppFunctionEPtr methodGetPlakMpPlayers = classMembers[0];
+  REQUIRE(methodGetPlakMpPlayers);
+  const auto& returnTypeGetPlakMpPlayers = methodGetPlakMpPlayers->retType_;
+  REQUIRE(returnTypeGetPlakMpPlayers);
+
+  const auto& attribSeqGetPlakMpPlayers = returnTypeGetPlakMpPlayers->attribSpecifierSequence();
+  REQUIRE(attribSeqGetPlakMpPlayers);
+  REQUIRE(attribSeqGetPlakMpPlayers->size() == 2);
+
+  CppExprEPtr methodAttrib0 = attribSeqGetPlakMpPlayers->at(0);
+  REQUIRE(methodAttrib0);
+  CHECK((*methodAttrib0) == CppExpr("xnet::HttpGet"));
+
+  CppExprEPtr methodAttrib1 = attribSeqGetPlakMpPlayers->at(1);
+  REQUIRE(methodAttrib1);
+  REQUIRE(methodAttrib1->expr1_.atom);
+  CHECK(*(methodAttrib1->expr1_.atom) == "xnet::Route");
+  CHECK(methodAttrib1->oper_ == CppOperator::kFunctionCall);
+  const auto funcArgs2 = methodAttrib1->expr2_.expr;
+  REQUIRE(funcArgs2);
+  CHECK(funcArgs2->expr1_.type == CppExprAtom::kAtom);
+  REQUIRE(funcArgs2->expr1_.atom);
+  CHECK(*(funcArgs2->expr1_.atom) == "\"/players\"");
 }
