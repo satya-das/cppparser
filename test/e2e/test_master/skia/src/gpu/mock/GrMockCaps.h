@@ -164,7 +164,7 @@ private:
   }
   SupportedRead onSupportedReadPixelsColorType(GrColorType srcColorType, const GrBackendFormat&, GrColorType) const override
   {
-    return SupportedRead(srcColorType, 1);
+    return SupportedRead{srcColorType, 1};
   }
   static const int kMaxSampleCnt = 16;
   GrMockOptions fOptions;

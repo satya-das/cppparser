@@ -34,7 +34,7 @@ struct SK_API SkIRect
     */
   static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeEmpty()
   {
-    return SkIRect(0, 0, 0, 0);
+    return SkIRect{0, 0, 0, 0};
   }
     /** Returns constructed SkIRect set to (0, 0, w, h). Does not validate input; w or h
         may be negative.
@@ -45,7 +45,7 @@ struct SK_API SkIRect
     */
   static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeWH(int32_t w, int32_t h)
   {
-    return SkIRect(0, 0, w, h);
+    return SkIRect{0, 0, w, h};
   }
     /** Returns constructed SkIRect set to (0, 0, size.width(), size.height()).
         Does not validate input; size.width() or size.height() may be negative.
@@ -55,7 +55,7 @@ struct SK_API SkIRect
     */
   static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeSize(const SkISize& size)
   {
-    return SkIRect(0, 0, size.fWidth, size.fHeight);
+    return SkIRect{0, 0, size.fWidth, size.fHeight};
   }
     /** Returns constructed SkIRect set to (l, t, r, b). Does not sort input; SkIRect may
         result in fLeft greater than fRight, or fTop greater than fBottom.
@@ -68,7 +68,7 @@ struct SK_API SkIRect
     */
   static constexpr SkIRect SK_WARN_UNUSED_RESULT MakeLTRB(int32_t l, int32_t t, int32_t r, int32_t b)
   {
-    return SkIRect(l, t, r, b);
+    return SkIRect{l, t, r, b};
   }
     /** Returns constructed SkIRect set to: (x, y, x + w, y + h).
         Does not validate input; w or h may be negative.
@@ -589,7 +589,7 @@ struct SK_API SkRect
     */
   static constexpr SkRect SK_WARN_UNUSED_RESULT MakeEmpty()
   {
-    return SkRect(0, 0, 0, 0);
+    return SkRect{0, 0, 0, 0};
   }
     /** Returns constructed SkRect set to SkScalar values (0, 0, w, h). Does not
         validate input; w or h may be negative.
@@ -603,7 +603,7 @@ struct SK_API SkRect
     */
   static constexpr SkRect SK_WARN_UNUSED_RESULT MakeWH(SkScalar w, SkScalar h)
   {
-    return SkRect(0, 0, w, h);
+    return SkRect{0, 0, w, h};
   }
     /** Returns constructed SkRect set to integer values (0, 0, w, h). Does not validate
         input; w or h may be negative.
@@ -627,7 +627,7 @@ struct SK_API SkRect
     */
   static constexpr SkRect SK_WARN_UNUSED_RESULT MakeSize(const SkSize& size)
   {
-    return SkRect(0, 0, size.fWidth, size.fHeight);
+    return SkRect{0, 0, size.fWidth, size.fHeight};
   }
     /** Returns constructed SkRect set to (l, t, r, b). Does not sort input; SkRect may
         result in fLeft greater than fRight, or fTop greater than fBottom.
@@ -640,7 +640,7 @@ struct SK_API SkRect
     */
   static constexpr SkRect SK_WARN_UNUSED_RESULT MakeLTRB(SkScalar l, SkScalar t, SkScalar r, SkScalar b)
   {
-    return SkRect(l, t, r, b);
+    return SkRect{l, t, r, b};
   }
     /** Returns constructed SkRect set to (x, y, x + w, y + h).
         Does not validate input; w or h may be negative.
@@ -653,7 +653,7 @@ struct SK_API SkRect
     */
   static constexpr SkRect SK_WARN_UNUSED_RESULT MakeXYWH(SkScalar x, SkScalar y, SkScalar w, SkScalar h)
   {
-    return SkRect(x, y, x + w, y + h);
+    return SkRect{x, y, x + w, y + h};
   }
     /** Returns constructed SkIRect set to (0, 0, size.width(), size.height()).
         Does not validate input; size.width() or size.height() may be negative.

@@ -18,7 +18,7 @@ class GrPremulInputFragmentProcessor : public GrFragmentProcessor
 public:
   SkPMColor4f constantOutputForConstantInput(const SkPMColor4f& input) const override
   {
-    return SkColor4f(input.fR, input.fG, input.fB, input.fA).premul();
+    return SkColor4f{input.fR, input.fG, input.fB, input.fA}.premul();
   }
   static std::unique_ptr<GrFragmentProcessor> Make()
   {

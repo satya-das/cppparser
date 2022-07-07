@@ -332,15 +332,15 @@ public:
   }
   void readColor4f(SkColor4f* out)
   {
-    *out = SkColor4f(0, 0, 0, 0);
+    *out = SkColor4f{0, 0, 0, 0};
   }
   void readPoint(SkPoint* out)
   {
-    *out = SkPoint(0, 0);
+    *out = SkPoint{0, 0};
   }
   void readPoint3(SkPoint3* out)
   {
-    *out = SkPoint3(0, 0, 0);
+    *out = SkPoint3{0, 0, 0};
   }
   void readMatrix(SkMatrix* out)
   {
@@ -348,11 +348,11 @@ public:
   }
   void readIRect(SkIRect* out)
   {
-    *out = SkIRect(0, 0, 0, 0);
+    *out = SkIRect{0, 0, 0, 0};
   }
   void readRect(SkRect* out)
   {
-    *out = SkRect(0, 0, 0, 0);
+    *out = SkRect{0, 0, 0, 0};
   }
   void readRRect(SkRRect* out)
   {

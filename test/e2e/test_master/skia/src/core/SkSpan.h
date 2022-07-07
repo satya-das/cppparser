@@ -81,7 +81,7 @@ public:
   }
   constexpr SkSpan<T> first(size_t prefixLen)
   {
-    return SkSpan<T>(fPtr, prefixLen);
+    return SkSpan<T>{fPtr, prefixLen};
   }
 private:
   T* fPtr;
@@ -90,12 +90,12 @@ private:
 template <typename T, typename S>
 inline constexpr SkSpan<T> SkMakeSpan(T* p, S s)
 {
-  return SkSpan<T>(p, SkTo<size_t>(s));
+  return SkSpan<T>{p, SkTo<size_t>(s)};
 }
 template <size_t N, typename T>
 inline constexpr SkSpan<T> SkMakeSpan(T (&a)[N])
 {
-  return SkSpan<T>(a, N);
+  return SkSpan<T>{a, N};
 }
 template <typename Container>
 inline auto SkMakeSpan(Container& c) -> SkSpan<typename std::remove_reference<decltype(*(c.data()))>::type>

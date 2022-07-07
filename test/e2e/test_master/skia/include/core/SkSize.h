@@ -21,7 +21,7 @@ struct SkISize
   }
   void set(int32_t w, int32_t h)
   {
-    *this = SkISize(w, h);
+    *this = SkISize{w, h};
   }
     /** Returns true iff fWidth == 0 && fHeight == 0
      */
@@ -75,7 +75,7 @@ struct SkSize
   }
   SkSize& operator=(const SkISize& src)
   {
-    return *this = SkSize(SkIntToScalar(src.fWidth), SkIntToScalar(src.fHeight));
+    return *this = SkSize{SkIntToScalar(src.fWidth), SkIntToScalar(src.fHeight)};
   }
   static SkSize MakeEmpty()
   {
@@ -83,7 +83,7 @@ struct SkSize
   }
   void set(SkScalar w, SkScalar h)
   {
-    *this = SkSize(w, h);
+    *this = SkSize{w, h};
   }
     /** Returns true iff fWidth == 0 && fHeight == 0
      */
@@ -99,7 +99,7 @@ struct SkSize
     /** Set the width and height to 0 */
   void setEmpty()
   {
-    *this = SkSize(0, 0);
+    *this = SkSize{0, 0};
   }
   SkScalar width() const
   {

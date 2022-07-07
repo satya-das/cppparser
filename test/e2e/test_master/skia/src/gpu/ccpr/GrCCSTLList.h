@@ -70,19 +70,19 @@ public:
   };
   Iter<const T> begin() const
   {
-    return Iter<const T>(&fHead);
+    return Iter<const T>{&fHead};
   }
   Iter<const T> end() const
   {
-    return Iter<const T>(nullptr);
+    return Iter<const T>{nullptr};
   }
   Iter<T> begin()
   {
-    return Iter<T>(&fHead);
+    return Iter<T>{&fHead};
   }
   Iter<T> end()
   {
-    return Iter<T>(nullptr);
+    return Iter<T>{nullptr};
   }
 private:
   T fHead;

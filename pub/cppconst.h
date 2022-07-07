@@ -167,6 +167,7 @@ enum /*class*/ CppOperator : std::uint8_t
 
   kSpecialOperations = 100,
   kFunctionCall,
+  kUniformInitCall,
   kArrayElem, // x[5]
   kCStyleCast,
   kFunctionStyleCast,

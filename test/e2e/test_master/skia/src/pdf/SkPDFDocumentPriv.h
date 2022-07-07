@@ -98,7 +98,7 @@ public:
   int getMarkIdForNodeId(int nodeId);
   SkPDFIndirectReference reserveRef()
   {
-    return SkPDFIndirectReference(fNextObjectNumber++);
+    return SkPDFIndirectReference{fNextObjectNumber++};
   }
   SkExecutor* executor() const
   {

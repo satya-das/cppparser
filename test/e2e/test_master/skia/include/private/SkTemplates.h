@@ -546,6 +546,6 @@ constexpr auto SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>) -
 template <size_t N, typename C>
 constexpr auto SkMakeArray(C c) -> std::array<skstd::result_of_t<C(std::size_t)>, N>
 {
-  return SkMakeArrayFromIndexSequence(c, skstd::make_index_sequence<N>());
+  return SkMakeArrayFromIndexSequence(c, skstd::make_index_sequence<N>{});
 }
 #endif

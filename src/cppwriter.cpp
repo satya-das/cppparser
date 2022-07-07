@@ -1015,6 +1015,13 @@ void CppWriter::emitExpr(const CppExpr* exprObj, std::ostream& stm, CppIndent in
     emitExprAtom(exprObj->expr2_, stm);
     stm << ')';
   }
+  else if (exprObj->oper_ == kUniformInitCall)
+  {
+    emitExprAtom(exprObj->expr1_, stm);
+    stm << '{';
+    emitExprAtom(exprObj->expr2_, stm);
+    stm << '}';
+  }
   else if (exprObj->oper_ == kArrayElem)
   {
     emitExprAtom(exprObj->expr1_, stm);

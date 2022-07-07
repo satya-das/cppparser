@@ -125,7 +125,7 @@ public:
   explicit SkGlyph(const SkGlyphPrototype& p);
   SkVector advanceVector() const
   {
-    return SkVector(fAdvanceX, fAdvanceY);
+    return SkVector{fAdvanceX, fAdvanceY};
   }
   SkScalar advanceX() const
   {

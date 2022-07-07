@@ -487,7 +487,7 @@ private:
         // descriptor
     SubRun* initARGBFallback()
     {
-      fFallbackStrikeSpec.reset(new SkStrikeSpec());
+      fFallbackStrikeSpec.reset(new SkStrikeSpec{});
             // Push back a new subrun to fill and set the override descriptor
       SubRun* subRun = this->pushBackSubRun(*fFallbackStrikeSpec, fColor);
       subRun->setMaskFormat(kARGB_GrMaskFormat);

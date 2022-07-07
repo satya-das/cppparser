@@ -77,7 +77,7 @@ namespace SK_OPTS_NS
     }
     while (count-- > 0)
     {
-      *dst++ = kernel(U32(*src++))[0];
+      *dst++ = kernel(U32{*src++})[0];
     }
   }
 #  if  defined(SK_ARM_HAS_NEON)

@@ -59,8 +59,8 @@ namespace
     AI static void Load2(const void* ptr, SkNx* x, SkNx* y)
     {
       const float* m = (const float*) ptr;
-      *x = SkNx(m[0], m[2]);
-      *y = SkNx(m[1], m[3]);
+      *x = SkNx{m[0], m[2]};
+      *y = SkNx{m[1], m[3]};
     }
     AI static void Store2(void* dst, const SkNx& a, const SkNx& b)
     {
@@ -213,8 +213,8 @@ namespace
     AI static void Load2(const void* ptr, SkNx* x, SkNx* y)
     {
       SkNx lo = SkNx::Load((const float*) ptr + 0), hi;
-      *x = SkNx(lo[0], lo[2], hi[0], hi[2]);
-      *y = SkNx(lo[1], lo[3], hi[1], hi[3]);
+      *x = SkNx{lo[0], lo[2], hi[0], hi[2]};
+      *y = SkNx{lo[1], lo[3], hi[1], hi[3]};
     }
     AI static void Load4(const void* ptr, SkNx* r, SkNx* g, SkNx* b, SkNx* a)
     {
@@ -657,7 +657,7 @@ namespace
     {
       SkNx v20{_mm_mul_epu32(m.fVec, fVec)};
       SkNx v31{_mm_mul_epu32(_mm_srli_si128(m.fVec, 4), _mm_srli_si128(fVec, 4))};
-      return SkNx(v20[1], v31[1], v20[3], v31[3]);
+      return SkNx{v20[1], v31[1], v20[3], v31[3]};
     }
     __m128i fVec;
   };

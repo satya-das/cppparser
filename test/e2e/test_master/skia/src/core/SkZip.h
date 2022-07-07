@@ -103,11 +103,11 @@ public:
   }
   constexpr Iterator begin() const
   {
-    return Iterator(this, 0);
+    return Iterator{this, 0};
   }
   constexpr Iterator end() const
   {
-    return Iterator(this, this->size());
+    return Iterator{this, this->size()};
   }
   template <size_t I>
   constexpr auto get() const
@@ -119,7 +119,7 @@ private:
   {
     SkASSERT(this->size() > 0);
     SkASSERT(i < this->size());
-    return indexDetail(i, skstd::make_index_sequence<sizeof...(Ts)>());
+    return indexDetail(i, skstd::make_index_sequence<sizeof...(Ts)>{});
   }
   template <std::size_t... Is>
   constexpr ReturnTuple indexDetail(size_t i, skstd::index_sequence<Is...>) const

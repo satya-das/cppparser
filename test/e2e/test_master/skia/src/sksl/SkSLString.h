@@ -138,7 +138,7 @@ namespace std
   {
     size_t operator()(const SkSL::String& s) const
     {
-      return hash<std::string>()(s);
+      return hash<std::string>{}(s);
     }
   };
 }

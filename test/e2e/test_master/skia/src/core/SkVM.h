@@ -393,7 +393,7 @@ namespace skvm
       template <typename T>
       static size_t Hash(T val)
       {
-        return std::hash<T>()(val);
+        return std::hash<T>{}(val);
       }
             // TODO: replace with SkOpts::hash()?
       size_t operator()(const Instruction& inst) const

@@ -79,10 +79,10 @@ namespace
       Half al, bl, cl, dl, ah, bh, ch, dh;
       Half::Load4(ptr, &al, &bl, &cl, &dl);
       Half::Load4(ptr + 4 * N / 2 * sizeof(T), &ah, &bh, &ch, &dh);
-      *a = SkNx(al, ah);
-      *b = SkNx(bl, bh);
-      *c = SkNx(cl, ch);
-      *d = SkNx(dl, dh);
+      *a = SkNx{al, ah};
+      *b = SkNx{bl, bh};
+      *c = SkNx{cl, ch};
+      *d = SkNx{dl, dh};
     }
     AI static void Load3(const void* vptr, SkNx* a, SkNx* b, SkNx* c)
     {
@@ -90,9 +90,9 @@ namespace
       Half al, bl, cl, ah, bh, ch;
       Half::Load3(ptr, &al, &bl, &cl);
       Half::Load3(ptr + 3 * N / 2 * sizeof(T), &ah, &bh, &ch);
-      *a = SkNx(al, ah);
-      *b = SkNx(bl, bh);
-      *c = SkNx(cl, ch);
+      *a = SkNx{al, ah};
+      *b = SkNx{bl, bh};
+      *c = SkNx{cl, ch};
     }
     AI static void Load2(const void* vptr, SkNx* a, SkNx* b)
     {
@@ -100,8 +100,8 @@ namespace
       Half al, bl, ah, bh;
       Half::Load2(ptr, &al, &bl);
       Half::Load2(ptr + 2 * N / 2 * sizeof(T), &ah, &bh);
-      *a = SkNx(al, ah);
-      *b = SkNx(bl, bh);
+      *a = SkNx{al, ah};
+      *b = SkNx{bl, bh};
     }
     AI static void Store4(void* vptr, const SkNx& a, const SkNx& b, const SkNx& c, const SkNx& d)
     {

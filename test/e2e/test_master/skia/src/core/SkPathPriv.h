@@ -138,11 +138,11 @@ default:
     };
     Iter begin()
     {
-      return Iter(fPathRef->verbsBegin());
+      return Iter{fPathRef->verbsBegin()};
     }
     Iter end()
     {
-      return Iter(fPathRef->verbsEnd());
+      return Iter{fPathRef->verbsEnd()};
     }
   private:
     Verbs(const Verbs&) = delete;
@@ -352,7 +352,7 @@ public:
       SkASSERT(fVerbs <= fVerbsStop);
       if (fVerbs == fVerbsStop)
       {
-        return fNeedsCloseLine ? closeline() : Result(nullptr, Edge(kIllegalEdgeValue));
+        return fNeedsCloseLine ? closeline() : Result{nullptr, Edge(kIllegalEdgeValue)};
       }
       const auto v = *fVerbs++;
       switch(v)

@@ -87,7 +87,7 @@ public:
   static SkPoint MakeOrthog(const SkPoint& vec, Side side = kLeft_Side)
   {
     SkASSERT(side == kRight_Side || side == kLeft_Side);
-    return (side == kRight_Side) ? SkPoint(-vec.fY, vec.fX) : SkPoint(vec.fY, -vec.fX);
+    return (side == kRight_Side) ? SkPoint{-vec.fY, vec.fX} : SkPoint{vec.fY, -vec.fX};
   }
     // counter-clockwise fan
   static void SetRectFan(SkPoint v[], SkScalar l, SkScalar t, SkScalar r, SkScalar b, size_t stride)

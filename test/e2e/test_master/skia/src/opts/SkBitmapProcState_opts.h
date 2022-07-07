@@ -54,7 +54,7 @@ namespace SK_OPTS_NS
     }
     if (count > 0)
     {
-      __m256i active = skvx::bit_pun<__m256i>(count > skvx::Vec<8,int>(0, 1, 2, 3, 4, 5, 6, 7)), coords, pixels;
+      __m256i active = skvx::bit_pun<__m256i>(count > skvx::Vec<8,int>{0, 1, 2, 3, 4, 5, 6, 7}), coords, pixels;
       bilerp(skvx::bit_pun<skvx::Vec<8,uint32_t>>(coords)).store(&pixels);
       _mm256_maskstore_epi32((int*) colors, active, pixels);
       sk_msan_mark_initialized(colors, colors + count, "MSAN still doesn't understand AVX2 mask loads and stores.");
