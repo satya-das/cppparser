@@ -365,7 +365,7 @@ extern int yylex();
 %left '&'
 %left tknCmpEq tknNotEq // ==, !=
 // tknLT and tknGT are used instead of '<', and '>' because otherwise parsing template and template args is very difficult.
-%left tknLT /*tknGT*/ tknLessEq tknGreaterEq
+%left tknLT /*tknGT*/ tknLessEq tknGreaterEq GTPREC
 %left tkn3WayCmp       // <=>
 %left  tknLShift RSHIFT
 
@@ -1884,7 +1884,7 @@ expr              : strlit                                                [ZZLOG
                   | expr '^' expr                                         [ZZLOG;] { $$ = new CppExpr($1, kXor, $3);                     }
                   | expr '=' expr                                         [ZZLOG;] { $$ = new CppExpr($1, kEqual, $3);                   }
                   | expr tknLT expr                                       [ZZLOG;] { $$ = new CppExpr($1, kLess, $3);                    }
-                  | expr tknGT expr                                       [ZZLOG;] { $$ = new CppExpr($1, kGreater, $3);                 }
+                  | expr tknGT expr %prec GTPREC                          [ZZLOG;] { $$ = new CppExpr($1, kGreater, $3);                 }
                   | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = new CppExpr($1, $3, $5);                       }
                   | expr tknPlusEq expr                                   [ZZLOG;] { $$ = new CppExpr($1, kPlusEqual, $3);               }
                   | expr tknMinusEq expr                                  [ZZLOG;] { $$ = new CppExpr($1, kMinusEqual, $3);              }
