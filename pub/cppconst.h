@@ -69,7 +69,6 @@ enum class CppObjType : std::uint8_t
   kFunctionPtr, // Function proc declaration using typedef. e.g. typedef void (*fp) (void);
   kExpression,  // A C++ expression
   kExpressionList,
-  kFuncCall, // A function call expression
   kMacroCall,
   kAsmBlock,
   kBlob, // Some unparsed/unrecognized part of C++ source code.
