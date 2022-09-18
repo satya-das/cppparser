@@ -64,3 +64,27 @@ cleanup:
   REQUIRE(labelStmt);
   CHECK(labelStmt->label_ == "cleanup");
 }
+
+TEST_CASE_METHOD(ExpressionTest, "a == b ? c : d")
+{
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+  int a, b, c, d;
+  a == b ? c : d;
+#endif
+  auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
+
+  CppParser  parser;
+  const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
+  REQUIRE(ast != nullptr);
+
+  const auto& members = ast->members();
+  REQUIRE(members.size() == 2);
+
+  CppExprEPtr topLevelOp = members[1];
+  REQUIRE(topLevelOp);
+  CHECK(topLevelOp->oper_ == kTertiaryOperator);
+
+  const auto cond = topLevelOp->expr1_.expr;
+  REQUIRE(cond);
+  CHECK(cond->oper_ == kCmpEqual);
+}

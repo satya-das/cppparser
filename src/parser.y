@@ -357,7 +357,7 @@ extern int yylex();
 // precedence as mentioned at https://en.cppreference.com/w/cpp/language/operator_precedence
 %left COMMA
 // &=, ^=, |=, <<=, >>=, *=, /=, %=, +=, -=, =, throw, a?b:c
-%right tknAndEq tknXorEq tknOrEq tknLShiftEq tknRShiftEq tknMulEq tknDivEq tknPerEq tknPlusEq tknMinusEq '=' tknThrow TERNARYCOND tknReturn
+%right tknAndEq tknXorEq tknOrEq tknLShiftEq tknRShiftEq tknMulEq tknDivEq tknPerEq tknPlusEq tknMinusEq '=' tknThrow '?' TERNARYCOND tknReturn
 %left tknOr
 %left tknAnd
 %left '|'
