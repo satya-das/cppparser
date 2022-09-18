@@ -1892,7 +1892,8 @@ void setupScanBuffer(char* buf, size_t bufsize)
 {
   gParseBuffer = yy_scan_buffer(buf, bufsize);
   g = LexerData();
-
+  g.mInputBuffer = buf;
+  g.mInputBufferSize = bufsize;
   BEGIN(ctxGeneral);
 }
 
@@ -1900,6 +1901,8 @@ void cleanupScanBuffer()
 {
   yy_delete_buffer(gParseBuffer);
   gParseBuffer = nullptr;
+  g.mInputBuffer = nullptr;
+  g.mInputBufferSize = 0;
 
   g = LexerData();
 }
