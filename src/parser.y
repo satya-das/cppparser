@@ -679,7 +679,7 @@ identifier        : name                                          [ZZLOG; $$ = $
                   | identifier tknScopeResOp identifier           [ZZLOG; $$ = mergeCppToken($1, $3); ] {}
                   | id                                            [ZZLOG; $$ = $1; ] {}
                   | templidentifier                               [ZZLOG; $$ = $1; ] {}
-                  | tknOverride                                   [ZZLOG; $$ = $1; /* override is not a reserved keyword */ ] {}
+                  | tknOverride                                   [ZZLOG; $$ = $1;] { /* override is not a reserved keyword */ }
                   | identifier tknEllipsis                        [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
                   | macrocall                                     [ZZLOG; $$ = $1; ] {}
                   | templqualifiedid                              [ZZLOG; $$ = $1; ] {}
@@ -1340,15 +1340,15 @@ param             : varinit                        [ZZLOG;] { $$ = $1; $1->addAt
                   }
                   ;
 
-templatearg       :                 [ZZLOG; $$ = nullptr; /*$$ = makeCppToken(nullptr, nullptr);*/ ] {}
-                  | vartype         [ZZLOG; $$ = nullptr; /*$$ = mergeCppToken($1, $2);*/ ] {}
-                  | funcobjstr      [ZZLOG; $$ = nullptr; /*$$ = $1;*/ ] {}
+templatearg       :                 [ZZLOG; $$ = nullptr;] { /*$$ = makeCppToken(nullptr, nullptr);*/ }
+                  | vartype         [ZZLOG; $$ = nullptr;] { /*$$ = mergeCppToken($1, $2);*/ }
+                  | funcobjstr      [ZZLOG; $$ = nullptr;] { /*$$ = $1;*/ }
                   | expr            [ZZLOG; $$ = nullptr; ] {}
                   ;
 
 templatearglist   : templatearg                       [ZZLOG; $$ = $1; ] {}
-                  | templatearglist ',' templatearg   [ZZLOG; $$ = $1; /*$$ = mergeCppToken($1, $3);*/ ] {}
-                  | templatearglist ',' doccomment templatearg   [ZZLOG; $$ = $1; /*$$ = mergeCppToken($1, $3);*/ ] {}
+                  | templatearglist ',' templatearg   [ZZLOG; $$ = $1;] { /*$$ = mergeCppToken($1, $3);*/ }
+                  | templatearglist ',' doccomment templatearg   [ZZLOG; $$ = $1;] { /*$$ = mergeCppToken($1, $3);*/ }
                   ;
 
 functype          : exptype        [ZZLOG;] { $$ = $1; }
