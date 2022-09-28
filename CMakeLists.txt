@@ -183,6 +183,9 @@ if(NOT MSVC)
 		PRIVATE
 			-Wno-unused-variable
 			-Wno-attributes
+			-Wno-unused-value
+			-Wno-uninitialized
+			-Wno-unused-but-set-variable
 	)
 endif()
 
