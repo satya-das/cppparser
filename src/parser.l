@@ -461,43 +461,43 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknGoto);
 }
 
-<ctxGeneral>signed|unsigned/{TS}+ {
+<ctxGeneral>signed|unsigned/{TS} {
   LOG();
   setupToken();
   RETURN(tknNumSignSpec);
 }
 
-<ctxGeneral>long{WS}+long{WS}+int|long{WS}+long|long{WS}+int|long|int|short{WS}+int|short/{TS}+ {
+<ctxGeneral>long{WS}+long{WS}+int|long{WS}+long|long{WS}+int|long|int|short{WS}+int|short/{TS} {
   LOG();
   setupToken();
   RETURN(tknInteger);
 }
 
-<ctxGeneral>__int8|__int16|__int32|__int64|__int128/{TS}+ {
+<ctxGeneral>__int8|__int16|__int32|__int64|__int128/{TS} {
   LOG();
   setupToken();
   RETURN(tknInteger);
 }
 
-<ctxGeneral>char/{TS}+ {
+<ctxGeneral>char/{TS} {
   LOG();
   setupToken();
   RETURN(tknChar);
 }
 
-<ctxGeneral>long{WS}+double|double/{TS}+ {
+<ctxGeneral>long{WS}+double|double/{TS} {
   LOG();
   setupToken();
   RETURN(tknDouble);
 }
 
-<ctxGeneral>long{WS}+float|float/{TS}+ {
+<ctxGeneral>long{WS}+float|float/{TS} {
   LOG();
   setupToken();
   RETURN(tknFloat);
 }
 
-<ctxGeneral>auto/{TS}+ {
+<ctxGeneral>auto/{TS} {
   LOG();
   setupToken();
   RETURN(tknAuto);
@@ -515,25 +515,25 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknUsing);
 }
 
-<ctxGeneral>class/{TS}+ {
+<ctxGeneral>class/{TS} {
   LOG();
   setupToken();
   RETURN(tknClass);
 }
 
-<ctxGeneral>namespace/{TS}+ {
+<ctxGeneral>namespace/{TS} {
   LOG();
   setupToken();
   RETURN(tknNamespace);
 }
 
-<ctxGeneral>struct/{TS}+ {
+<ctxGeneral>struct/{TS} {
   LOG();
   setupToken();
   RETURN(tknStruct);
 }
 
-<ctxGeneral>union/{TS}+ {
+<ctxGeneral>union/{TS} {
   LOG();
   setupToken();
   RETURN(tknUnion);
@@ -589,19 +589,19 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknPrivate);
 }
 
-<ctxGeneral>template/{TS}+ {
+<ctxGeneral>template/{TS} {
   LOG();
   setupToken();
   RETURN(tknTemplate);
 }
 
-<ctxGeneral>typename/{TS}+ {
+<ctxGeneral>typename/{TS} {
   LOG();
   setupToken();
   RETURN(tknTypename);
 }
 
-<ctxGeneral>decltype/{TS}+ {
+<ctxGeneral>decltype/{TS} {
   LOG();
   setupToken();
   RETURN(tknDecltype);
@@ -1220,67 +1220,67 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknScopeResOp);
 }
 
-<ctxGeneral>const/{TS}+ {
+<ctxGeneral>const/{TS} {
   LOG();
   setupToken();
   RETURN(tknConst);
 }
 
-<ctxGeneral>constexpr/{TS}+ {
+<ctxGeneral>constexpr/{TS} {
   LOG();
   setupToken();
   RETURN(tknConstExpr);
 }
 
-<ctxGeneral>static/{TS}+ {
+<ctxGeneral>static/{TS} {
   LOG();
   setupToken();
   RETURN(tknStatic);
 }
 
-<ctxGeneral>inline/{TS}+ {
+<ctxGeneral>inline/{TS} {
   LOG();
   setupToken();
   RETURN(tknInline);
 }
 
-<ctxGeneral>virtual/{TS}+ {
+<ctxGeneral>virtual/{TS} {
   LOG();
   setupToken();
   RETURN(tknVirtual);
 }
 
-<ctxGeneral>override/{TS}+ {
+<ctxGeneral>override/{TS} {
   LOG();
   setupToken();
   RETURN(tknOverride);
 }
 
-<ctxGeneral>final/{TS}+ {
+<ctxGeneral>final/{TS} {
   LOG();
   setupToken();
   RETURN(tknFinal);
 }
 
-<ctxGeneral>noexcept/{TS}+ {
+<ctxGeneral>noexcept/{TS} {
   LOG();
   setupToken();
   RETURN(tknNoExcept);
 }
 
-<ctxGeneral>extern/{TS}+ {
+<ctxGeneral>extern/{TS} {
   LOG();
   setupToken();
   RETURN(tknExtern);
 }
 
-<ctxGeneral>explicit/{TS}+ {
+<ctxGeneral>explicit/{TS} {
   LOG();
   setupToken();
   RETURN(tknExplicit);
 }
 
-<ctxGeneral>friend/{TS}+ {
+<ctxGeneral>friend/{TS} {
   LOG();
   setupToken();
   RETURN(tknFriend);
@@ -1292,139 +1292,139 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknExternC);
 }
 
-<ctxGeneral>volatile/{TS}+ {
+<ctxGeneral>volatile/{TS} {
   LOG();
   setupToken();
   RETURN(tknVolatile);
 }
 
-<ctxGeneral>mutable/{TS}+ {
+<ctxGeneral>mutable/{TS} {
   LOG();
   setupToken();
   RETURN(tknMutable);
 }
 
-<ctxGeneral>new/{TS}+ {
+<ctxGeneral>new/{TS} {
   LOG();
   setupToken();
   RETURN(tknNew);
 }
 
-<ctxGeneral>delete/{TS}+ {
+<ctxGeneral>delete/{TS} {
   LOG();
   setupToken();
   RETURN(tknDelete);
 }
 
-<ctxGeneral>default/{TS}+ {
+<ctxGeneral>default/{TS} {
   LOG();
   setupToken();
   RETURN(tknDefault);
 }
 
-<ctxGeneral>return/{TS}+ {
+<ctxGeneral>return/{TS} {
   LOG();
   setupToken();
   RETURN(tknReturn);
 }
 
-<ctxGeneral>if/{TS}+ {
+<ctxGeneral>if/{TS} {
   LOG();
   setupToken();
   RETURN(tknIf);
 }
 
-<ctxGeneral>else/{TS}+ {
+<ctxGeneral>else/{TS} {
   LOG();
   setupToken();
   RETURN(tknElse);
 }
 
-<ctxGeneral>for/{TS}+ {
+<ctxGeneral>for/{TS} {
   LOG();
   setupToken();
   RETURN(tknFor);
 }
 
-<ctxGeneral>do/{TS}+ {
+<ctxGeneral>do/{TS} {
   LOG();
   setupToken();
   RETURN(tknDo);
 }
 
-<ctxGeneral>while/{TS}+ {
+<ctxGeneral>while/{TS} {
   LOG();
   setupToken();
   RETURN(tknWhile);
 }
 
-<ctxGeneral>switch/{TS}+ {
+<ctxGeneral>switch/{TS} {
   LOG();
   setupToken();
   RETURN(tknSwitch);
 }
 
-<ctxGeneral>case/{TS}+ {
+<ctxGeneral>case/{TS} {
   LOG();
   setupToken();
   RETURN(tknCase);
 }
 
-<ctxGeneral>const_cast/{TS}+ {
+<ctxGeneral>const_cast/{TS} {
   LOG();
   setupToken();
   RETURN(tknConstCast);
 }
 
-<ctxGeneral>static_cast/{TS}+ {
+<ctxGeneral>static_cast/{TS} {
   LOG();
   setupToken();
   RETURN(tknStaticCast);
 }
 
-<ctxGeneral>dynamic_cast/{TS}+ {
+<ctxGeneral>dynamic_cast/{TS} {
   LOG();
   setupToken();
   RETURN(tknDynamicCast);
 }
 
-<ctxGeneral>reinterpret_cast/{TS}+ {
+<ctxGeneral>reinterpret_cast/{TS} {
   LOG();
   setupToken();
   RETURN(tknReinterpretCast);
 }
 
-<ctxGeneral>try/{TS}+ {
+<ctxGeneral>try/{TS} {
   LOG();
   setupToken();
   RETURN(tknTry);
 }
 
-<ctxGeneral>catch/{TS}+ {
+<ctxGeneral>catch/{TS} {
   LOG();
   setupToken();
   RETURN(tknCatch);
 }
 
-<ctxGeneral>throw/{TS}+ {
+<ctxGeneral>throw/{TS} {
   LOG();
   setupToken();
   RETURN(tknThrow);
 }
 
-<ctxGeneral>sizeof/{TS}+ {
+<ctxGeneral>sizeof/{TS} {
   LOG();
   setupToken();
   RETURN(tknSizeOf);
 }
 
-<ctxGeneral>operator/{TS}+ {
+<ctxGeneral>operator/{TS} {
   LOG();
   setupToken();
   RETURN(tknOperator);
 }
 
-<ctxGeneral>void/{TS}+ {
+<ctxGeneral>void/{TS} {
   LOG();
   setupToken();
   RETURN(tknVoid);
