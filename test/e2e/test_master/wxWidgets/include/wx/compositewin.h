@@ -28,7 +28,7 @@ class WXDLLIMPEXP_FWD_CORE wxToolTip;
 // rather than the full wxCompositeWindow.
 
 // The template parameter W must be a wxWindow-derived class.
-template <typename W>
+template <class W >
 class wxCompositeWindowSettersOnly : public W
 {
 public:
@@ -119,7 +119,7 @@ private:
     // Must be implemented by the derived class to return all children to which
     // the public methods we override should forward to.
   virtual wxWindowList GetCompositeWindowParts() const = 0;
-  template <typename T, typename TArg, typename R>
+  template <typename T, typename TArg, class R >
   void SetForAllParts(R (*func) (TArg), T arg)
   {
         // Simply call the setters for all parts of this composite window.
@@ -139,7 +139,7 @@ private:
   wxDECLARE_NO_COPY_TEMPLATE_CLASS(wxCompositeWindowSettersOnly, W);
 };
 // The real wxCompositeWindow itself, inheriting all the setters defined above.
-template <typename W>
+template <class W >
 class wxCompositeWindow : public wxCompositeWindowSettersOnly<W>
 {
 public:

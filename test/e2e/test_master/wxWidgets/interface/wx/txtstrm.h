@@ -323,7 +323,7 @@ public:
 
         @since 3.1.0
     */
-  template <typename T>
+  template <typename T >
   void Write(const T& i);
      /**
         Writes the 64 bit unsigned integer @a i64 to the stream.

@@ -16,7 +16,7 @@
 // wxFDIOHandler depending on the kind of dispatcher/event loop it is used
 // with. In the future, when we get rid of wxFDIOHandler entirely, it will
 // derive from wxEventLoopSourceHandler only.
-template <typename T>
+template <class T >
 class wxExecuteIOHandlerBase : public T
 {
 public:

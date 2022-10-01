@@ -29,7 +29,7 @@ typedef uint16_t SK_OT_UFWORD;
 //Number of seconds since 12:00 midnight, January 1, 1904.
 typedef uint64_t SK_OT_LONGDATETIME;
 #  define SK_OT_BYTE_BITFIELD	SK_UINT8_BITFIELD
-template <typename T>
+template <typename T >
 class SkOTTableTAG
 {
 public:

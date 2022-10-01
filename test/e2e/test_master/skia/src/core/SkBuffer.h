@@ -85,7 +85,7 @@ public:
   }
     // returns nullptr on failure
   const void* skip(size_t bytes);
-  template <typename T>
+  template <typename T >
   const T* skipCount(size_t count)
   {
     return static_cast<const T*>(this->skip(SkSafeMath::Mul(count, sizeof(T))));

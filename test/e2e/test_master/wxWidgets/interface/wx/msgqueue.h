@@ -48,7 +48,7 @@ enum wxMessageQueueError {
 
     @see wxThread
 */
-template <typename T>
+template <typename T >
 class wxMessageQueue<T>
 {
 public:

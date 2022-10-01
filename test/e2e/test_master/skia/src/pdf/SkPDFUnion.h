@@ -3,7 +3,7 @@
 #ifndef SkPDFUnion_DEFINED
 #  define SkPDFUnion_DEFINED
 #  include "src/pdf/SkPDFTypes.h"
-template <typename T>
+template <class T >
 class SkStorageFor
 {
 public:

@@ -181,7 +181,7 @@ private:
   wxPGProperty::FlagType m_itemExMask;
   wxPGProperty::FlagType m_parentExMask;
 };
-template <typename PROPERTY, typename STATE>
+template <typename PROPERTY, typename STATE >
 class wxPGIterator : public wxPropertyGridIteratorBase
 {
 public:

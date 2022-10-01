@@ -32,7 +32,7 @@
  * event to the window. */
 #  include "wx/vector.h"
 class QShortcut;
-template <typename T>
+template <class T >
 class QList;
 class WXDLLIMPEXP_CORE wxAcceleratorTable : public wxObject
 {

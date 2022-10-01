@@ -42,7 +42,7 @@
 
     @since 2.9.3
  */
-template <typename W>
+template <class W >
 class wxNavigationEnabled : public W
 {
 public:

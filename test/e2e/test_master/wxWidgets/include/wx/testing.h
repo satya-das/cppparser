@@ -79,7 +79,7 @@ protected:
 // also be specialized outside of the library for the custom dialogs.
 //
 // All specializations must derive from wxExpectModalBase<T>.
-template <typename T>
+template <class T >
 class wxExpectModal;
 /**
     Base class for the expectation of a dialog of the given type T.
@@ -169,7 +169,7 @@ protected:
   virtual int OnInvoked(DialogType* dlg) const = 0;
 };
 // wxExpectModal<T> specializations for common dialogs:
-template <typename T>
+template <class T >
 class wxExpectDismissableModal : public wxExpectModalBase<T, wxExpectDismissableModal<T> >
 {
 public:

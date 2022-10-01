@@ -33,7 +33,7 @@
 namespace wxGTKImpl
 {
 // init wxMouseEvent with the info from GdkEventXXX struct
-  template <typename T>
+  template <typename T >
   void InitMouseEvent(wxWindowGTK* win, wxMouseEvent& event, T* gdk_event)
   {
     event.m_shiftDown = (gdk_event->state & GDK_SHIFT_MASK) != 0;

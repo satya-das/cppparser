@@ -14,7 +14,7 @@
 
 // Template parameter T must be a wxGTK class providing the required methods,
 // e.g. wxCheckBox, wxChoice, ...
-template <typename T>
+template <typename T >
 class wxGtkEventsDisabler
 {
 public:

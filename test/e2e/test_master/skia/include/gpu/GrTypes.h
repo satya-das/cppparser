@@ -57,7 +57,7 @@ class SkSurface;
  * Wraps a C++11 enum that we use as a bitfield, and enables a limited amount of
  * masking with type safety. Instantiated with the ~ operator.
  */
-template <typename TFlags>
+template <typename TFlags >
 class GrTFlagsMask
 {
 public:
@@ -77,43 +77,43 @@ private:
   const int fValue;
 };
 // Or-ing a mask always returns another mask.
-template <typename TFlags>
+template <typename TFlags >
 constexpr GrTFlagsMask<TFlags> operator|(GrTFlagsMask<TFlags> a, GrTFlagsMask<TFlags> b)
 {
   return GrTFlagsMask<TFlags>(a.value() | b.value());
 }
-template <typename TFlags>
+template <typename TFlags >
 constexpr GrTFlagsMask<TFlags> operator|(GrTFlagsMask<TFlags> a, TFlags b)
 {
   return GrTFlagsMask<TFlags>(a.value() | static_cast<int>(b));
 }
-template <typename TFlags>
+template <typename TFlags >
 constexpr GrTFlagsMask<TFlags> operator|(TFlags a, GrTFlagsMask<TFlags> b)
 {
   return GrTFlagsMask<TFlags>(static_cast<int>(a) | b.value());
 }
-template <typename TFlags>
+template <typename TFlags >
 inline GrTFlagsMask<TFlags>& operator|=(GrTFlagsMask<TFlags>& a, GrTFlagsMask<TFlags> b)
 {
   return (a = a | b);
 }
 // And-ing two masks returns another mask; and-ing one with regular flags returns flags.
-template <typename TFlags>
+template <typename TFlags >
 constexpr GrTFlagsMask<TFlags> operator&(GrTFlagsMask<TFlags> a, GrTFlagsMask<TFlags> b)
 {
   return GrTFlagsMask<TFlags>(a.value() & b.value());
 }
-template <typename TFlags>
+template <typename TFlags >
 constexpr TFlags operator&(GrTFlagsMask<TFlags> a, TFlags b)
 {
   return static_cast<TFlags>(a.value() & static_cast<int>(b));
 }
-template <typename TFlags>
+template <typename TFlags >
 constexpr TFlags operator&(TFlags a, GrTFlagsMask<TFlags> b)
 {
   return static_cast<TFlags>(static_cast<int>(a) & b.value());
 }
-template <typename TFlags>
+template <typename TFlags >
 inline TFlags& operator&=(TFlags& a, GrTFlagsMask<TFlags> b)
 {
   return (a = a & b);

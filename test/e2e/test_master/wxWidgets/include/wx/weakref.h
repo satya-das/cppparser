@@ -11,7 +11,7 @@
 #  include "wx/tracker.h"
 #  include "wx/meta/convertible.h"
 #  include "wx/meta/int2type.h"
-template <typename T>
+template <class T >
 struct wxIsStaticTrackable
 {
   enum {
@@ -19,7 +19,7 @@ struct wxIsStaticTrackable
   };
 };
 // A weak reference to an object of type T (which must inherit from wxTrackable)
-template <typename T>
+template <class T >
 class wxWeakRef : public wxTrackerNode
 {
 public:
@@ -40,7 +40,7 @@ public:
   }
     // When we have the full type here, static_cast<> will always work
     // (or give a straight compiler error).
-  template <typename TDerived>
+  template <class TDerived >
   wxWeakRef(TDerived* pobj)
     : m_pobj(NULL)
     , m_ptbase(NULL)
@@ -101,7 +101,7 @@ public:
   }
 protected:
     // Assign receives most derived class here and can use that
-  template <typename TDerived>
+  template <class TDerived >
   void Assign(TDerived* pobj)
   {
     wxCOMPILE_TIME_ASSERT(wxIsStaticTrackable<TDerived>::value, Tracked_class_should_inherit_from_wxTrackable);
@@ -134,7 +134,7 @@ protected:
 #  ifndef wxNO_RTTI
 // Weak ref implementation assign objects are queried for wxTrackable
 // using dynamic_cast<>
-template <typename T>
+template <class T >
 class wxWeakRefDynamic : public wxTrackerNode
 {
 public:

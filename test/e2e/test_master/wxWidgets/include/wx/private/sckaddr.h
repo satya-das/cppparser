@@ -43,7 +43,7 @@ union wxSockAddressStorage
 // ----------------------------------------------------------------------------
 
 // helper class mapping sockaddr_xxx types to corresponding AF_XXX values
-template <typename T>
+template <class T >
 struct AddressFamily;
 template <>
 struct AddressFamily<sockaddr_in>
@@ -256,13 +256,13 @@ private:
     m_addr = static_cast<sockaddr*>(calloc(1, len));
     m_len = len;
   }
-  template <typename T>
+  template <class T >
   T* Alloc()
   {
     DoAlloc(sizeof(T));
     return reinterpret_cast<T*>(m_addr);
   }
-  template <typename T>
+  template <class T >
   T* Get() const
   {
     wxCHECK_MSG( static_cast<int>(m_family) == AddressFamily<T>::value,

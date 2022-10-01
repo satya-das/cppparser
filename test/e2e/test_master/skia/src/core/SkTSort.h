@@ -11,7 +11,7 @@
 #  include "src/core/SkMathPriv.h"
 #  include <utility>
 /* A comparison functor which performs the comparison 'a < b'. */
-template <typename T>
+template <typename T >
 struct SkTCompareLT
 {
   bool operator()(const T a, const T b) const
@@ -20,7 +20,7 @@ struct SkTCompareLT
   }
 };
 /* A comparison functor which performs the comparison '*a < *b'. */
-template <typename T>
+template <typename T >
 struct SkTPointerCompareLT
 {
   bool operator()(const T* a, const T* b) const
@@ -44,7 +44,7 @@ struct SkTPointerCompareLT
  *  @param root the one based index into array of the out-of-place root of the heap.
  *  @param bottom the one based index in the array of the last entry in the heap.
  */
-template <typename T, typename C>
+template <typename T, typename C >
 void SkTHeapSort_SiftUp(T array[], size_t root, size_t bottom, C lessThan)
 {
   T x = array[root - 1];
@@ -84,7 +84,7 @@ void SkTHeapSort_SiftUp(T array[], size_t root, size_t bottom, C lessThan)
  *  @param root the one based index into array of the out-of-place root of the heap.
  *  @param bottom the one based index in the array of the last entry in the heap.
  */
-template <typename T, typename C>
+template <typename T, typename C >
 void SkTHeapSort_SiftDown(T array[], size_t root, size_t bottom, C lessThan)
 {
   T x = array[root - 1];
@@ -115,7 +115,7 @@ void SkTHeapSort_SiftDown(T array[], size_t root, size_t bottom, C lessThan)
  *  @param count the number of elements in the array.
  *  @param lessThan a functor with bool operator()(T a, T b) which returns true if a comes before b.
  */
-template <typename T, typename C>
+template <typename T, typename C >
 void SkTHeapSort(T array[], size_t count, C lessThan)
 {
   for (size_t i = count >> 1; i > 0; --i)
@@ -130,7 +130,7 @@ void SkTHeapSort(T array[], size_t count, C lessThan)
   }
 }
 /** Sorts the array of size count using comparator '<' using a Heap Sort algorithm. */
-template <typename T>
+template <typename T >
 void SkTHeapSort(T array[], size_t count)
 {
   SkTHeapSort(array, count, SkTCompareLT<T>());
@@ -138,7 +138,7 @@ void SkTHeapSort(T array[], size_t count)
 ///////////////////////////////////////////////////////////////////////////////
 
 /** Sorts the array of size count using comparator lessThan using an Insertion Sort algorithm. */
-template <typename T, typename C>
+template <typename T, typename C >
 static void SkTInsertionSort(T* left, T* right, C lessThan)
 {
   for (T* next = left + 1; next <= right; ++next)
@@ -158,7 +158,7 @@ static void SkTInsertionSort(T* left, T* right, C lessThan)
   }
 }
 ///////////////////////////////////////////////////////////////////////////////
-template <typename T, typename C>
+template <typename T, typename C >
 static T* SkTQSort_Partition(T* left, T* right, T* pivot, C lessThan)
 {
   using std::swap;
@@ -189,7 +189,7 @@ static T* SkTQSort_Partition(T* left, T* right, T* pivot, C lessThan)
  *  @param right the end of the region to be sorted (inclusive).
  *  @param lessThan a functor with bool operator()(T a, T b) which returns true if a comes before b.
  */
-template <typename T, typename C>
+template <typename T, typename C >
 void SkTIntroSort(int depth, T* left, T* right, C lessThan)
 {
   while (true)
@@ -218,7 +218,7 @@ void SkTIntroSort(int depth, T* left, T* right, C lessThan)
  *  @param right the end of the region to be sorted (inclusive).
  *  @param lessThan a functor with bool operator()(T a, T b) which returns true if a comes before b.
  */
-template <typename T, typename C>
+template <typename T, typename C >
 void SkTQSort(T* left, T* right, C lessThan)
 {
   if (left >= right)
@@ -230,13 +230,13 @@ void SkTQSort(T* left, T* right, C lessThan)
   SkTIntroSort(depth, left, right, lessThan);
 }
 /** Sorts the region from left to right using comparator '<' using a Quick Sort algorithm. */
-template <typename T>
+template <typename T >
 void SkTQSort(T* left, T* right)
 {
   SkTQSort(left, right, SkTCompareLT<T>());
 }
 /** Sorts the region from left to right using comparator '* < *' using a Quick Sort algorithm. */
-template <typename T>
+template <typename T >
 void SkTQSort(T** left, T** right)
 {
   SkTQSort(left, right, SkTPointerCompareLT<T>());

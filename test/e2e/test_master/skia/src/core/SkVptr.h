@@ -9,7 +9,7 @@
 #  include <string.h>
 #  include <type_traits>
 // Experimentally, see if we can get at the vptr of objects with one.
-template <typename T>
+template <typename T >
 static void* SkVptr(const T& object)
 {
   static_assert(std::has_virtual_destructor<T>::value, "");

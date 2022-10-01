@@ -61,7 +61,7 @@ ACBASE_PORT AcRxClass* acrxFindAcRxClass(const ACHAR* pClassName);
 #  define ACRX_DECLARE_GPDESC(CLASS_NAME)	 \
     static AcRxClass* gpDesc; 
 class AcRxObject;
-template <typename T>
+template <typename T >
 static AcRxObject* acrxInstantiateClass()
 {
   return new T();

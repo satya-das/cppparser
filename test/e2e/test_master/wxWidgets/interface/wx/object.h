@@ -530,7 +530,7 @@ public:
     @see wxObject, wxObjectRefData, @ref overview_refcount, wxSharedPtr<T>,
          wxScopedPtr<T>, wxWeakRef<T>
 */
-template <typename T>
+template <class T >
 class wxObjectDataPtr<T>
 {
 public:

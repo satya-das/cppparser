@@ -316,7 +316,7 @@ WX_PG_DECLARE_EDITOR_WITH_DECL(TextCtrlAndButton,WXDLLIMPEXP_PROPGRID)
 WX_PG_DECLARE_EDITOR_WITH_DECL(CheckBox,WXDLLIMPEXP_PROPGRID)
 #    endif
 WX_PG_DECLARE_EDITOR_WITH_DECL(ChoiceAndButton,WXDLLIMPEXP_PROPGRID)
-template <typename T>
+template <class T >
 wxVariant WXVARIANT(const T&)
 {
   wxFAIL_MSG(wxS("Code should always call specializations of this template"));
@@ -571,7 +571,7 @@ protected:
 // wxVector utilities
 
 // Utility to check if specific item is in a vector.
-template <typename T>
+template <typename T >
 inline bool wxPGItemExistsInVector(const wxVector<T>& vector, const T& item)
 {
 #    if  wxUSE_STL
@@ -588,7 +588,7 @@ inline bool wxPGItemExistsInVector(const wxVector<T>& vector, const T& item)
 #    endif
 }
 // Utility to determine the index of the item in the vector.
-template <typename T>
+template <typename T >
 inline int wxPGItemIndexInVector(const wxVector<T>& vector, const T& item)
 {
 #    if  wxUSE_STL
@@ -610,7 +610,7 @@ inline int wxPGItemIndexInVector(const wxVector<T>& vector, const T& item)
 #    endif
 }
 // Utility to remove given item from the vector.
-template <typename T>
+template <typename T >
 inline void wxPGRemoveItemFromVector(wxVector<T>& vector, const T& item)
 {
 #    if  wxUSE_STL
@@ -631,7 +631,7 @@ inline void wxPGRemoveItemFromVector(wxVector<T>& vector, const T& item)
 #    endif
 }
 // Utility to calaculate sum of all elements of the vector.
-template <typename T>
+template <typename T >
 inline T wxPGGetSumVectorItems(const wxVector<T>& vector, T init)
 {
   for (typename wxVector<T>::const_iterator it = vector.begin(); it != vector.end(); ++it)

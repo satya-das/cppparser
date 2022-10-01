@@ -16,7 +16,7 @@
 #  include "wx/qt/private/converter.h"
 #  include "wx/qt/private/utils.h"
 class QPaintEvent;
-template <typename Handler>
+template <typename Handler >
 class wxQtSignalHandler
 {
 protected:
@@ -37,7 +37,7 @@ protected:
 private:
   Handler* m_handler;
 };
-template <typename Widget, typename Handler>
+template <typename Widget, typename Handler >
 class wxQtEventSignalHandler : public Widget, public wxQtSignalHandler< Handler >
 {
 public:

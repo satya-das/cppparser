@@ -9,7 +9,7 @@
 #  include "wx/statusbr.h"
 class QLabel;
 class QStatusBar;
-template <typename T>
+template <class T >
 class QList;
 class WXDLLIMPEXP_CORE wxStatusBar : public wxStatusBarBase
 {

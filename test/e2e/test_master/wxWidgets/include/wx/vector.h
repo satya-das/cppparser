@@ -37,7 +37,7 @@ namespace wxPrivate
 // optimized version for "movable" types that uses realloc() and memmove().
 
 // version for movable types:
-  template <typename T>
+  template <typename T >
   struct wxVectorMemOpsMovable
   {
     static void Free(T* array)
@@ -58,7 +58,7 @@ namespace wxPrivate
     }
   };
 // generic version for non-movable types:
-  template <typename T>
+  template <typename T >
   struct wxVectorMemOpsGeneric
   {
     static void Free(T* array)
@@ -110,7 +110,7 @@ namespace wxPrivate
   struct IsNotIntType
   {
   };
-  template <typename T>
+  template <typename T >
   struct IsInt :  IsNotIntType
   {
   };
@@ -130,7 +130,7 @@ namespace wxPrivate
 #  endif
 #  undef WX_DECLARE_TYPE_IS_INT
 }
-template <typename T>
+template <typename T >
 class wxVector
 {
 private:
@@ -402,7 +402,7 @@ public:
   {
     Copy(c);
   }
-  template <typename InputIterator>
+  template <class InputIterator >
   wxVector(InputIterator first, InputIterator last)
     : m_size(0)
     , m_capacity(0)
@@ -418,7 +418,7 @@ public:
   {
     AssignFromValue(p_size, v);
   }
-  template <typename InputIterator>
+  template <typename InputIterator >
   void assign(InputIterator first, InputIterator last)
   {
     AssignDispatch(first, last, typename wxPrivate::IsInt<InputIterator>());
@@ -715,12 +715,12 @@ private:
       push_back(v);
     }
   }
-  template <typename InputIterator>
+  template <typename InputIterator >
   void AssignDispatch(InputIterator first, InputIterator last, wxPrivate::IsIntType)
   {
     AssignFromValue(static_cast<size_type>(first), static_cast<const value_type&>(last));
   }
-  template <typename InputIterator>
+  template <typename InputIterator >
   void AssignDispatch(InputIterator first, InputIterator last, wxPrivate::IsNotIntType)
   {
     clear();
@@ -739,7 +739,7 @@ namespace wxPrivate
 {
 // This is a helper for the wxVectorSort function, and should not be used
 // directly in user's code.
-  template <typename T>
+  template <typename T >
   struct wxVectorComparator
   {
     static int Compare(const void* pitem1, const void* pitem2, const void*)
@@ -764,12 +764,12 @@ namespace wxPrivate
     }
   };
 }
-template <typename T>
+template <typename T >
 void wxVectorSort(wxVector<T>& v)
 {
   wxQsort(v.begin(), v.size(), sizeof(T), wxPrivate::wxVectorComparator<T>::Compare, NULL);
 }
-template <typename T>
+template <typename T >
 inline bool wxVectorContains(const wxVector<T>& v, const T& obj)
 {
   for (size_t n = 0; n < v.size(); ++n)
@@ -783,7 +783,7 @@ inline bool wxVectorContains(const wxVector<T>& v, const T& obj)
 }
 // Define vector::shrink_to_fit() equivalent which can be always used, even
 // when using pre-C++11 std::vector.
-template <typename T>
+template <typename T >
 inline void wxShrinkToFit(wxVector<T>& v)
 {
 #  if  !wxUSE_STD_CONTAINERS || __cplusplus >= 201103L || wxCHECK_VISUALC_VERSION(10)

@@ -187,7 +187,7 @@ public:
 
     @see wxSharedPtr<T>, wxWeakRef<T>
 */
-template <typename T>
+template <typename T >
 class wxScopedPtr<T>
 {
 public:

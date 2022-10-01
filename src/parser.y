@@ -257,7 +257,7 @@ extern int yylex();
 %token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
 %token  <str>   tknTry tknCatch tknThrow tknSizeOf
 %token  <str>   tknOperator tknPlusEq tknMinusEq tknMulEq tknDivEq tknPerEq tknXorEq tknAndEq tknOrEq
-%token  <str>   tknLShift /*tknRShift*/ tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
+%token  <str>   tknLShift tknRShift tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
 %token  <str>   tknLT tknGT // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';'
@@ -280,12 +280,17 @@ extern int yylex();
 
 %token  tknBlankLine
 
+/**
+ * The '<' and '>' operators used in template parameter specification after 'template'.
+ * And also used in template argument specification, e.g. in 'std::vector<int>'.
+ */
+%token  <str> tknTLT tknTGT
+
 %type  <str>                strlit
 %type  <str>                optapidecor apidecor apidecortokensq
 %type  <str>                identifier optidentifier numbertype typeidentifier varidentifier optname id name operfuncname funcname
 %type  <str>                templidentifier templqualifiedid
 %type  <str>                doccommentstr
-%type  <str>                rshift
 %type  <str>                macrocall
 %type  <cppObj>             stmt
 %type  <typeModifier>       opttypemodifier typemodifier
@@ -354,6 +359,8 @@ extern int yylex();
 
 %type  <label>              label
 
+%type <str>                 templatespecificationstart templatespecificationend
+
 // precedence as mentioned at https://en.cppreference.com/w/cpp/language/operator_precedence
 %left COMMA
 // &=, ^=, |=, <<=, >>=, *=, /=, %=, +=, -=, =, throw, a?b:c
@@ -365,9 +372,9 @@ extern int yylex();
 %left '&'
 %left tknCmpEq tknNotEq // ==, !=
 // tknLT and tknGT are used instead of '<', and '>' because otherwise parsing template and template args is very difficult.
-%left tknLT /*tknGT*/ tknLessEq tknGreaterEq GTPREC
+%left tknLT tknGT tknLessEq tknGreaterEq
 %left tkn3WayCmp       // <=>
-%left  tknLShift RSHIFT
+%left  tknLShift tknRShift
 
 %left   '+' '-'
 %left   '*' '/' '%'
@@ -713,7 +720,7 @@ typeidentifier    : identifier                            [ZZLOG;] { $$ = $1; }
                   | tknDecltype '(' expr ')'              [ZZLOG;] { $$ = mergeCppToken($1, $4); delete $3; }
                   ;
 
-templidentifier   : identifier tknLT templatearglist tknGT  [ZZLOG; $$ = mergeCppToken($1, $4); ] {}
+templidentifier   : identifier tknTLT templatearglist tknTGT  [ZZLOG; $$ = mergeCppToken($1, $4); ] {}
                   ;
 
 templqualifiedid  : tknTemplate templidentifier             [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
@@ -1241,9 +1248,6 @@ funcname          : operfuncname                          [ZZLOG;] { $$ = $1; }
                   | tknFinal                              [ZZLOG;] { $$ = $1; }
                   ;
 
-rshift            : tknGT tknGT %prec RSHIFT [ if ($2.sz != ($1.sz + 1)) ZZERROR; ] { $$ = mergeCppToken($1, $2); }
-                  ;
-
 operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator '-'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator '*'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
@@ -1266,7 +1270,7 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
                   | tknOperator tknAndEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknOrEq           [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknLShift         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator rshift            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknRShift         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknLShiftEq       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknRShiftEq       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknCmpEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
@@ -1297,7 +1301,7 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
                   /* To fix something like:
                       friend void* operator new<T>(size_t, GrTAllocator*);
                   */
-                  | operfuncname tknLT templatearglist tknGT [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+                  | operfuncname tknTLT templatearglist tknTGT [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   ;
 
 paramlist         :                     [ZZLOG;] { $$ = nullptr; }
@@ -1421,7 +1425,7 @@ ctordefn          : ctordecl meminitlist block  [ZZVALID;]
                     $$->defn($12);
                     $$->throwSpec($10);
                   }
-                  | name tknLT templatearglist tknGT tknScopeResOp name [if($1 != $6) ZZERROR; else ZZVALID;]
+                  | name tknTLT templatearglist tknTGT tknScopeResOp name [if($1 != $6) ZZERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
                   {
                     $$ = newConstructor(gCurAccessType, mergeCppToken($1, $6), $9, $12, 0);
@@ -1519,7 +1523,7 @@ dtordefn          : dtordecl block  [ZZVALID;]
                     $$ = newDestructor(gCurAccessType, mergeCppToken($1, $6), 0);
                     $$->defn($10 ? $10 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
                   }
-                  | name tknLT templatearglist tknGT tknScopeResOp '~' name [if($1 != $7) ZZERROR; else ZZVALID;]
+                  | name tknTLT templatearglist tknTGT tknScopeResOp '~' name [if($1 != $7) ZZERROR; else ZZVALID;]
                     '(' ')' block
                   {
                     $$ = newDestructor(gCurAccessType, mergeCppToken($1, $7), 0);
@@ -1719,8 +1723,8 @@ classspecifier    : tknClass      [ZZLOG;] { $$ = CppCompoundType::kClass;     }
                   | tknUnion      [ZZLOG;] { $$ = CppCompoundType::kUnion;     }
                   ;
 
-templatespecifier : tknTemplate tknLT       [gInTemplateSpec = true;  ZZLOG;   ]
-                    templateparamlist tknGT [gInTemplateSpec = false; ZZVALID; ]
+templatespecifier : tknTemplate tknTLT       [gInTemplateSpec = true;  ZZLOG;   ]
+                    templateparamlist tknTGT   [gInTemplateSpec = false; ZZVALID; ]
                   {
                     $$ = $4;
                   }
@@ -1884,7 +1888,7 @@ expr              : strlit                                                [ZZLOG
                   | expr '^' expr                                         [ZZLOG;] { $$ = new CppExpr($1, kXor, $3);                     }
                   | expr '=' expr                                         [ZZLOG;] { $$ = new CppExpr($1, kEqual, $3);                   }
                   | expr tknLT expr                                       [ZZLOG;] { $$ = new CppExpr($1, kLess, $3);                    }
-                  | expr tknGT expr %prec GTPREC                          [ZZLOG;] { $$ = new CppExpr($1, kGreater, $3);                 }
+                  | expr tknGT expr                                       [ZZLOG;] { $$ = new CppExpr($1, kGreater, $3);                 }
                   | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = new CppExpr($1, $3, $5);                       }
                   | expr tknPlusEq expr                                   [ZZLOG;] { $$ = new CppExpr($1, kPlusEqual, $3);               }
                   | expr tknMinusEq expr                                  [ZZLOG;] { $$ = new CppExpr($1, kMinusEqual, $3);              }
@@ -1895,7 +1899,7 @@ expr              : strlit                                                [ZZLOG
                   | expr tknAndEq expr                                    [ZZLOG;] { $$ = new CppExpr($1, kAndEqual, $3);                }
                   | expr tknOrEq expr                                     [ZZLOG;] { $$ = new CppExpr($1, kOrEqual, $3);                 }
                   | expr tknLShift expr                                   [ZZLOG;] { $$ = new CppExpr($1, kLeftShift, $3);               }
-                  | expr rshift expr                                      [ZZLOG;] { $$ = new CppExpr($1, kRightShift, $3);              }
+                  | expr tknRShift expr                                   [ZZLOG;] { $$ = new CppExpr($1, kRightShift, $3);              }
                   | expr tknLShiftEq expr                                 [ZZLOG;] { $$ = new CppExpr($1, kLShiftEqual, $3);             }
                   | expr tknRShiftEq expr                                 [ZZLOG;] { $$ = new CppExpr($1, kRShiftEqual, $3);             }
                   | expr tknCmpEq expr                                    [ZZLOG;] { $$ = new CppExpr($1, kCmpEqual, $3);                }
@@ -1928,10 +1932,10 @@ expr              : strlit                                                [ZZLOG
                   /* TODO: Properly support uniform initialization */
                   | identifier '{' funcargs '}' %prec FUNCCALL            [ZZLOG;] { $$ = new CppExpr(new CppExpr((std::string) $1, kNone), kUniformInitCall, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                 [ZZLOG;] { $$ = new CppExpr($2, kCStyleCast, $4);              }
-                  | tknConstCast tknLT vartype tknGT '(' expr ')'         [ZZLOG;] { $$ = new CppExpr($3, kConstCast, $6);               }
-                  | tknStaticCast tknLT vartype tknGT '(' expr ')'        [ZZLOG;] { $$ = new CppExpr($3, kStaticCast, $6);              }
-                  | tknDynamicCast tknLT vartype tknGT '(' expr ')'       [ZZLOG;] { $$ = new CppExpr($3, kDynamicCast, $6);             }
-                  | tknReinterpretCast tknLT vartype tknGT '(' expr ')'   [ZZLOG;] { $$ = new CppExpr($3, kReinterpretCast, $6);         }
+                  | tknConstCast tknTLT vartype tknTGT '(' expr ')'         [ZZLOG;] { $$ = new CppExpr($3, kConstCast, $6);               }
+                  | tknStaticCast tknTLT vartype tknTGT '(' expr ')'        [ZZLOG;] { $$ = new CppExpr($3, kStaticCast, $6);              }
+                  | tknDynamicCast tknTLT vartype tknTGT '(' expr ')'       [ZZLOG;] { $$ = new CppExpr($3, kDynamicCast, $6);             }
+                  | tknReinterpretCast tknTLT vartype tknTGT '(' expr ')'   [ZZLOG;] { $$ = new CppExpr($3, kReinterpretCast, $6);         }
                   | '(' exprorlist ')'                                    [ZZLOG;] { $$ = $2; $2->flags_ |= CppExpr::kBracketed;         }
                   | tknNew typeidentifier opttypemodifier                 [ZZLOG;] { $$ = new CppExpr((std::string) $2, CppExpr::kNew);  }
                   | tknNew expr                                           [ZZLOG;] { $$ = new CppExpr($2, CppExpr::kNew);  }
@@ -2014,6 +2018,14 @@ enum class ParseStatus {
 
 ParseStatus gParseStatus = ParseStatus::NotAvailable;
 
+const char* getTokenName(int tokenVal) {
+  if ((tokenVal < 0) || (tokenVal > YYMAXTOKEN)) {
+    return "<bad-token-value>";
+  }
+
+  return yyname[tokenVal];
+}
+
 void defaultErrorHandler(const char* errLineText, size_t lineNum, size_t errorStartPos, int lexerContext)
 {
   constexpr size_t bufsize = 1024;
@@ -2049,7 +2061,7 @@ void yyerror_detailed  (  char* text,
   extern int getLexerContext();
 
   const char* lineStart = errt_posn;
-  const char* buffStart = g.mInputBuffer;
+  const char* buffStart = g.mInputBufferBegin;
   while(lineStart > buffStart)
   {
     if(lineStart[-1] == '\n' || lineStart[-1] == '\r')

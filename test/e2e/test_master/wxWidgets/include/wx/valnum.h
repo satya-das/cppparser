@@ -111,7 +111,7 @@ namespace wxPrivate
 //
 // The template argument T is just the type handled by the validator that will
 // inherit from this one.
-  template <typename B, typename T>
+  template <typename B, typename T >
   class wxNumValidator : public B
   {
   public:
@@ -284,7 +284,7 @@ private:
 // Validator for integer numbers. It can actually work with any integer type
 // (short, int or long and long long if supported) and their unsigned versions
 // as well.
-template <typename T>
+template <typename T >
 class wxIntegerValidator : public wxPrivate::wxNumValidator<wxIntegerValidatorBase, T>
 {
 public:
@@ -309,7 +309,7 @@ private:
 };
 // Helper function for creating integer validators which allows to avoid
 // explicitly specifying the type as it deduces it from its parameter.
-template <typename T>
+template <typename T >
 inline wxIntegerValidator<T> wxMakeIntegerValidator(T* value, int style = wxNUM_VAL_DEFAULT)
 {
   return wxIntegerValidator<T>(value, style);
@@ -391,7 +391,7 @@ private:
 };
 // Validator for floating point numbers. It can be used with float, double or
 // long double values.
-template <typename T>
+template <typename T >
 class wxFloatingPointValidator : public wxPrivate::wxNumValidator<wxFloatingPointValidatorBase, T>
 {
 public:
@@ -431,12 +431,12 @@ private:
 // NB: Unfortunately we can't just have a wxMakeNumericValidator() which would
 //     return either wxIntegerValidator<> or wxFloatingPointValidator<> so we
 //     do need two different functions.
-template <typename T>
+template <typename T >
 inline wxFloatingPointValidator<T> wxMakeFloatingPointValidator(T* value, int style = wxNUM_VAL_DEFAULT)
 {
   return wxFloatingPointValidator<T>(value, style);
 }
-template <typename T>
+template <typename T >
 inline wxFloatingPointValidator<T> wxMakeFloatingPointValidator(int precision, T* value, int style = wxNUM_VAL_DEFAULT)
 {
   return wxFloatingPointValidator<T>(precision, value, style);

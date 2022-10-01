@@ -14,7 +14,7 @@
  *  Efficient way to defer allocating/initializing a class until it is needed
  *  (if ever).
  */
-template <typename T>
+template <typename T >
 class SkTLazy
 {
 public:
@@ -173,7 +173,7 @@ private:
  *
  * consume_a_thing(thing); // could be constThing or a modified copy.
  */
-template <typename T>
+template <typename T >
 class SkTCopyOnFirstWrite
 {
 public:

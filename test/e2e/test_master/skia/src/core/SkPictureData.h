@@ -62,7 +62,7 @@ public:
 #  define SK_PICT_IMAGE_BUFFER_TAG	SkSetFourByteTag('i', 'm', 'a', 'g')
 // Always write this guy last (with no length field afterwards)
 #  define SK_PICT_EOF_TAG	SkSetFourByteTag('e', 'o', 'f', ' ')
-template <typename T>
+template <typename T >
 T* read_index_base_1_or_null(SkReadBuffer* reader, const SkTArray<sk_sp<T>>& array)
 {
   int index = reader->readInt();

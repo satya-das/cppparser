@@ -68,7 +68,7 @@ private:
 };
 class GrProcessor;
 class GrTexture;
-template <typename ProcessorSmartPtr>
+template <class ProcessorSmartPtr >
 class GrProcessorTestFactory : private SkNoncopyable
 {
 public:

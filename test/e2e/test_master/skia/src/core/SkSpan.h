@@ -8,7 +8,7 @@
 #  define SkSpan_DEFINED
 #  include <cstddef>
 #  include "include/private/SkTo.h"
-template <typename T>
+template <typename T >
 class SkSpan
 {
 public:
@@ -87,17 +87,17 @@ private:
   T* fPtr;
   size_t fSize;
 };
-template <typename T, typename S>
+template <typename T, typename S >
 inline constexpr SkSpan<T> SkMakeSpan(T* p, S s)
 {
   return SkSpan<T>{p, SkTo<size_t>(s)};
 }
-template <size_t N, typename T>
+template <size_t N, typename T >
 inline constexpr SkSpan<T> SkMakeSpan(T (&a)[N])
 {
   return SkSpan<T>{a, N};
 }
-template <typename Container>
+template <typename Container >
 inline auto SkMakeSpan(Container& c) -> SkSpan<typename std::remove_reference<decltype(*(c.data()))>::type>
 {
   return {c.data(), c.size()};

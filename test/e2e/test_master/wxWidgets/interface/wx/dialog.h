@@ -597,7 +597,7 @@ public:
 
         @see wxWindowPtr<T>
      */
-  template <typename Functor>
+  template <typename Functor >
   void ShowWindowModalThenDo(const Functor& onEndModal);
 };
 /**

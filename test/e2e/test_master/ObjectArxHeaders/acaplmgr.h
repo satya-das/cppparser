@@ -19,9 +19,9 @@ class AcDbObjectId;
 class AcGePoint2d;
 class AcGePoint3d;
 // All this just to forward declare AcGePoint2dArray.
-template <typename T>
+template <class T >
 class AcArrayMemCopyReallocator;
-template <typename T, typename R>
+template <typename T, class R >
 class AcArray;
 typedef AcArray<AcGePoint2d> AcGePoint2dArray;
 class AcApLayoutManager : public AcDbLayoutManager

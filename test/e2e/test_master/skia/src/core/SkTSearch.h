@@ -30,7 +30,7 @@
 // used to perform comparisons. It has two function operators:
 //      bool operator() (const T& t, const K& k)
 //      bool operator() (const K& t, const T& k)
-template <typename T, typename K, typename LESS>
+template <typename T, typename K, typename LESS >
 int SkTSearch(const T base[], int count, const K& key, size_t elemSize, LESS& less)
 {
   SkASSERT(count >= 0);
@@ -83,7 +83,7 @@ int SkTSearch(const T base[], int count, const T& target, size_t elemSize) {
 }
 */
 // Adapts operator < to a functor.
-template <typename T>
+template <typename T >
 struct SkTLessFunctor
 {
   bool operator()(const T& a, const T& b)
@@ -92,7 +92,7 @@ struct SkTLessFunctor
   }
 };
 // Specialization for T==K, compare using op <.
-template <typename T>
+template <typename T >
 int SkTSearch(const T base[], int count, const T& target, size_t elemSize)
 {
   static SkTLessFunctor<T> functor;

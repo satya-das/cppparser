@@ -26,7 +26,7 @@ namespace wxPrivate
     // in the original implementation this was a member template function of
     // ScopeGuardImplBase but gcc 2.8 which is still used for OS/2 doesn't
     // support member templates and so we must make it global
-  template <typename ScopeGuardImpl>
+  template <class ScopeGuardImpl >
   void OnScopeExit(ScopeGuardImpl& guard)
   {
     if (!guard.WasDismissed())
@@ -35,7 +35,7 @@ namespace wxPrivate
     }
   }
     // just to avoid the warning about unused variables
-  template <typename T>
+  template <class T >
   void Use(const T&)
   {
   }
@@ -84,7 +84,7 @@ typedef const wxScopeGuardImplBase& wxScopeGuard;
 // ----------------------------------------------------------------------------
 // wxScopeGuardImpl0: scope guard for actions without parameters
 // ----------------------------------------------------------------------------
-template <typename F>
+template <class F >
 class wxScopeGuardImpl0 : public wxScopeGuardImplBase
 {
 public:
@@ -108,7 +108,7 @@ protected:
   F m_fun;
   wxScopeGuardImpl0& operator=(const wxScopeGuardImpl0&);
 };
-template <typename F>
+template <class F >
 inline wxScopeGuardImpl0<F> wxMakeGuard(F fun)
 {
   return wxScopeGuardImpl0<F>::MakeGuard(fun);
@@ -116,7 +116,7 @@ inline wxScopeGuardImpl0<F> wxMakeGuard(F fun)
 // ----------------------------------------------------------------------------
 // wxScopeGuardImpl1: scope guard for actions with 1 parameter
 // ----------------------------------------------------------------------------
-template <typename F, typename P1>
+template <typename F, class P1 >
 class wxScopeGuardImpl1 : public wxScopeGuardImplBase
 {
 public:
@@ -142,7 +142,7 @@ protected:
   const P1 m_p1;
   wxScopeGuardImpl1& operator=(const wxScopeGuardImpl1&);
 };
-template <typename F, typename P1>
+template <typename F, class P1 >
 inline wxScopeGuardImpl1<F, P1> wxMakeGuard(F fun, P1 p1)
 {
   return wxScopeGuardImpl1<F, P1>::MakeGuard(fun, p1);
@@ -150,7 +150,7 @@ inline wxScopeGuardImpl1<F, P1> wxMakeGuard(F fun, P1 p1)
 // ----------------------------------------------------------------------------
 // wxScopeGuardImpl2: scope guard for actions with 2 parameters
 // ----------------------------------------------------------------------------
-template <typename F, typename P1, typename P2>
+template <typename F, typename P1, class P2 >
 class wxScopeGuardImpl2 : public wxScopeGuardImplBase
 {
 public:
@@ -178,7 +178,7 @@ protected:
   const P2 m_p2;
   wxScopeGuardImpl2& operator=(const wxScopeGuardImpl2&);
 };
-template <typename F, typename P1, typename P2>
+template <typename F, typename P1, class P2 >
 inline wxScopeGuardImpl2<F, P1, P2> wxMakeGuard(F fun, P1 p1, P2 p2)
 {
   return wxScopeGuardImpl2<F, P1, P2>::MakeGuard(fun, p1, p2);
@@ -186,7 +186,7 @@ inline wxScopeGuardImpl2<F, P1, P2> wxMakeGuard(F fun, P1 p1, P2 p2)
 // ----------------------------------------------------------------------------
 // wxScopeGuardImpl3: scope guard for actions with 3 parameters
 // ----------------------------------------------------------------------------
-template <typename F, typename P1, typename P2, typename P3>
+template <typename F, typename P1, typename P2, class P3 >
 class wxScopeGuardImpl3 : public wxScopeGuardImplBase
 {
 public:
@@ -216,7 +216,7 @@ protected:
   const P3 m_p3;
   wxScopeGuardImpl3& operator=(const wxScopeGuardImpl3&);
 };
-template <typename F, typename P1, typename P2, typename P3>
+template <typename F, typename P1, typename P2, class P3 >
 inline wxScopeGuardImpl3<F, P1, P2, P3> wxMakeGuard(F fun, P1 p1, P2 p2, P3 p3)
 {
   return wxScopeGuardImpl3<F, P1, P2, P3>::MakeGuard(fun, p1, p2, p3);
@@ -228,7 +228,7 @@ inline wxScopeGuardImpl3<F, P1, P2, P3> wxMakeGuard(F fun, P1 p1, P2 p2, P3 p3)
 // ----------------------------------------------------------------------------
 // wxObjScopeGuardImpl0
 // ----------------------------------------------------------------------------
-template <typename Obj, typename MemFun>
+template <typename Obj, class MemFun >
 class wxObjScopeGuardImpl0 : public wxScopeGuardImplBase
 {
 public:
@@ -253,12 +253,12 @@ protected:
   Obj& m_obj;
   MemFun m_memfun;
 };
-template <typename Obj, typename MemFun>
+template <typename Obj, class MemFun >
 inline wxObjScopeGuardImpl0<Obj, MemFun> wxMakeObjGuard(Obj& obj, MemFun memFun)
 {
   return wxObjScopeGuardImpl0<Obj, MemFun>::MakeObjGuard(obj, memFun);
 }
-template <typename Obj, typename MemFun, typename P1>
+template <typename Obj, typename MemFun, class P1 >
 class wxObjScopeGuardImpl1 : public wxScopeGuardImplBase
 {
 public:
@@ -285,12 +285,12 @@ protected:
   MemFun m_memfun;
   const P1 m_p1;
 };
-template <typename Obj, typename MemFun, typename P1>
+template <typename Obj, typename MemFun, class P1 >
 inline wxObjScopeGuardImpl1<Obj, MemFun, P1> wxMakeObjGuard(Obj& obj, MemFun memFun, P1 p1)
 {
   return wxObjScopeGuardImpl1<Obj, MemFun, P1>::MakeObjGuard(obj, memFun, p1);
 }
-template <typename Obj, typename MemFun, typename P1, typename P2>
+template <typename Obj, typename MemFun, typename P1, class P2 >
 class wxObjScopeGuardImpl2 : public wxScopeGuardImplBase
 {
 public:
@@ -319,13 +319,13 @@ protected:
   const P1 m_p1;
   const P2 m_p2;
 };
-template <typename Obj, typename MemFun, typename P1, typename P2>
+template <typename Obj, typename MemFun, typename P1, class P2 >
 inline wxObjScopeGuardImpl2<Obj, MemFun, P1, P2> wxMakeObjGuard(Obj& obj, MemFun memFun, P1 p1, P2 p2)
 {
   return wxObjScopeGuardImpl2<Obj, MemFun, P1, P2>::
                                             MakeObjGuard(obj, memFun, p1, p2);
 }
-template <typename Obj, typename MemFun, typename P1, typename P2, typename P3>
+template <typename Obj, typename MemFun, typename P1, typename P2, class P3 >
 class wxObjScopeGuardImpl3 : public wxScopeGuardImplBase
 {
 public:
@@ -356,7 +356,7 @@ protected:
   const P2 m_p2;
   const P3 m_p3;
 };
-template <typename Obj, typename MemFun, typename P1, typename P2, typename P3>
+template <typename Obj, typename MemFun, typename P1, typename P2, class P3 >
 inline wxObjScopeGuardImpl3<Obj, MemFun, P1, P2, P3> wxMakeObjGuard(Obj& obj, MemFun memFun, P1 p1, P2 p2, P3 p3)
 {
   return wxObjScopeGuardImpl3<Obj, MemFun, P1, P2, P3>::
@@ -373,7 +373,7 @@ namespace wxPrivate
   {
   };
   typedef const VariableSetterBase& VariableSetter;
-  template <typename T, typename U>
+  template <typename T, typename U >
   class VariableSetterImpl : public VariableSetterBase
   {
   public:
@@ -396,7 +396,7 @@ namespace wxPrivate
     // suppress the warning about assignment operator not being generated
     VariableSetterImpl<T, U>& operator=(const VariableSetterImpl<T, U>&);
   };
-  template <typename T>
+  template <typename T >
   class VariableNullerImpl : public VariableSetterBase
   {
   public:
@@ -417,7 +417,7 @@ namespace wxPrivate
     VariableNullerImpl<T>& operator=(const VariableNullerImpl<T>&);
   };
 }
-template <typename T, typename U>
+template <typename T, typename U >
 inline wxPrivate::VariableSetterImpl<T, U> wxMakeVarSetter(T& var, U value)
 {
   return wxPrivate::VariableSetterImpl<T, U>(var, value);
@@ -425,7 +425,7 @@ inline wxPrivate::VariableSetterImpl<T, U> wxMakeVarSetter(T& var, U value)
 // calling wxMakeVarSetter(ptr, NULL) doesn't work because U is deduced to be
 // "int" and subsequent assignment of "U" to "T *" fails, so provide a special
 // function for this special case
-template <typename T>
+template <typename T >
 inline wxPrivate::VariableNullerImpl<T> wxMakeVarNuller(T& var)
 {
   return wxPrivate::VariableNullerImpl<T>(var);

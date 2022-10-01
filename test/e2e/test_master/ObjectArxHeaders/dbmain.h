@@ -186,7 +186,7 @@ inline Acad::ErrorStatus acdbOpenAcDbObject(AcDbObject*& pObj, AcDbObjectId id, 
 /// <param name="openErased"> If true, then open the object even when it is erased</param>
 /// <returns> Returns Acad::eOk if the object is opened successfully, otherwise an error code.</returns>
 ///
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus acdbOpenObject(T_OBJECT*& pObj, AcDbObjectId id, AcDb::OpenMode mode = AcDb::kForRead, bool openErased = false)
 {
   return ::acdbOpenObject((AcDbObject*&) pObj, id, &T_OBJECT::desc, mode, openErased);
@@ -362,7 +362,7 @@ public:
   ACDBCORE2D_PORT AcDbObjectId namedObjectsDictionaryId() const;
   ACDBCORE2D_PORT AcDbObjectId plotSettingsDictionaryId() const;
     // Template helper method for getting symtab ids
-  template <typename TableType>
+  template <class TableType >
   AcDbObjectId getSymbolTableId() const;
   AcDbObjectId layerZero() const;
   AcDbObjectId continuousLinetype() const;
@@ -1039,7 +1039,7 @@ private:
 // Helper function for legacy functions that return an allocated ACHAR buffer.
 // Might want to move these helpers to their own header..
 //
-template <typename ObjType>
+template <class ObjType >
 inline Acad::ErrorStatus acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const, ACHAR*& pOutput)
 {
   AcString sOutput;
@@ -1051,7 +1051,7 @@ inline Acad::ErrorStatus acutGetAcStringConvertToAChar(const ObjType* pObj, Acad
   }
   return ::acutNewString(sOutput.kwszPtr(), pOutput);
 }
-template <typename ObjType>
+template <class ObjType >
 inline ACHAR* acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const)
 {
   AcString sOutput;

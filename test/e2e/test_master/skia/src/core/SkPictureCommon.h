@@ -87,12 +87,12 @@ struct SkPathCounter
   {
     this->checkPaint(AsPtr(op.paint));
   }
-  template <typename T>
+  template <typename T >
   SK_WHEN(T::kTags & SkRecords::kHasPaint_Tag, void) operator()(const T& op)
   {
     this->checkPaint(AsPtr(op.paint));
   }
-  template <typename T>
+  template <typename T >
   SK_WHEN(!(T::kTags & SkRecords::kHasPaint_Tag), void) operator()(const T& op)
   {
   }

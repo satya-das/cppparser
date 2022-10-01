@@ -9,7 +9,7 @@
 #  include "include/core/SkTypes.h"
 // Opaque handle to a resource. Users should always use the macro below to create a specific
 // template instantiation of GrResourceHandle.
-template <typename kind>
+template <typename kind >
 class GrResourceHandle
 {
 public:

@@ -65,7 +65,7 @@ extern "C" {
     //       wxTlsValue<T> is destroyed.  The only exception to this is the
     //       value for the main thread, which is always freed when
     //       wxTlsValue<T> is destroyed.
-template <typename T>
+template <typename T >
 class wxTlsValue
 {
 public:

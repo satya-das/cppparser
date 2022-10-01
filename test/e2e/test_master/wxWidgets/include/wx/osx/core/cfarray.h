@@ -15,7 +15,7 @@
 #  include "wx/osx/core/cfref.h"
 #  include "wx/osx/core/cftype.h"
 #  include <CoreFoundation/CFArray.h>
-template <typename T, typename E>
+template <typename T, typename E >
 class wxCFArrayRefCommon : public wxCFRef<T>
 {
 public:
@@ -59,7 +59,7 @@ public:
     return at(size() - 1);
   }
 };
-template <typename E>
+template <typename E >
 class wxCFArrayRef : public wxCFArrayRefCommon<CFArrayRef, E>
 {
 public:
@@ -72,7 +72,7 @@ public:
   {
   }
 };
-template <typename E>
+template <typename E >
 class wxCFMutableArrayRef : public wxCFArrayRefCommon<CFMutableArrayRef, E>
 {
 public:

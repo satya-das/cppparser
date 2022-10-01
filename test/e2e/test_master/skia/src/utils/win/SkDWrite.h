@@ -57,7 +57,7 @@ private:
   IDWriteFontFace* fFontFace;
   void* fLock;
 };
-template <typename T>
+template <typename T >
 class AutoTDWriteTable : public AutoDWriteTable
 {
 public:

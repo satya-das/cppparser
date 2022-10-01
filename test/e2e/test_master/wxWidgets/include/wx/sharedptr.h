@@ -13,7 +13,7 @@
 // ----------------------------------------------------------------------------
 // wxSharedPtr: A smart pointer with non-intrusive reference counting.
 // ----------------------------------------------------------------------------
-template <typename T>
+template <class T >
 class wxSharedPtr
 {
 public:
@@ -26,7 +26,7 @@ public:
       m_ref = new reftype(ptr);
     }
   }
-  template <typename Deleter>
+  template <typename Deleter >
   explicit wxSharedPtr(T* ptr, Deleter d)
     : m_ref(NULL)
   {
@@ -102,7 +102,7 @@ public:
       m_ref = new reftype(ptr);
     }
   }
-  template <typename Deleter>
+  template <typename Deleter >
   void reset(T* ptr, Deleter d)
   {
     Release();
@@ -137,7 +137,7 @@ private:
     T* m_ptr;
     wxAtomicInt m_count;
   };
-  template <typename Deleter>
+  template <typename Deleter >
   struct reftype_with_deleter : public reftype
   {
     reftype_with_deleter(T* ptr, Deleter d)
@@ -173,12 +173,12 @@ private:
     }
   }
 };
-template <typename T, typename U>
+template <typename T, class U >
 bool operator ==(const wxSharedPtr<T>& a, const wxSharedPtr<U>& b)
 {
   return a.get() == b.get();
 }
-template <typename T, typename U>
+template <typename T, class U >
 bool operator !=(const wxSharedPtr<T>& a, const wxSharedPtr<U>& b)
 {
   return a.get() != b.get();

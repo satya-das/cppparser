@@ -115,7 +115,7 @@ public:
     SkASSERT(fCurr <= fStop);
     return addr;
   }
-  template <typename T>
+  template <typename T >
   const T& skipT()
   {
     SkASSERT(SkAlign4(sizeof(T)) == sizeof(T));
@@ -182,7 +182,7 @@ public:
     return SkData::MakeWithCopy(this->skip(byteLength), byteLength);
   }
 private:
-  template <typename T>
+  template <typename T >
   bool readObjectFromMemory(T* obj)
   {
     size_t size = obj->readFromMemory(this->peek(), this->available());

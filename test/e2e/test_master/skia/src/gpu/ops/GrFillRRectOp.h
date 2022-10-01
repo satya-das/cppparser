@@ -42,7 +42,7 @@ private:
   GrFillRRectOp(GrAAType, const SkRRect&, Flags, const SkMatrix& totalShapeMatrix, GrPaint&&, const SkRect& devBounds);
     // These methods are used to append data of various POD types to our internal array of instance
     // data. The actual layout of the instance buffer can vary from Op to Op.
-  template <typename T>
+  template <typename T >
   inline T* appendInstanceData(int count)
   {
     static_assert(std::is_pod<T>::value, "");

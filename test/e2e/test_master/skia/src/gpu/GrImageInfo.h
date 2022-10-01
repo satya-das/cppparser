@@ -87,7 +87,7 @@ public:
      * surfacePt, the width/height of this GrImageInfo, and the data pointer will be modified to
      * reflect the clipped rectangle.
      */
-  template <typename T>
+  template <typename T >
   bool clip(int surfaceWidth, int surfaceHeight, SkIPoint* surfacePt, T** data, size_t rowBytes)
   {
     auto bounds = SkIRect::MakeWH(surfaceWidth, surfaceHeight);

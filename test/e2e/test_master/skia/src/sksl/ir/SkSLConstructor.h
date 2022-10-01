@@ -126,7 +126,7 @@ namespace SkSL
       }
       return true;
     }
-    template <typename type>
+    template <typename type >
     type getVecComponent(int index) const
     {
       SkASSERT(fType.kind() == Type::kVector_Kind);

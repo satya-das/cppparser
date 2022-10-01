@@ -19,7 +19,7 @@
 /*! @class wxCFDictionaryRef
  @discussion Properly retains/releases reference to CoreFoundation data objects
  */
-template <typename T>
+template <typename T >
 class wxCFDictionaryRefCommon : public wxCFRef<T>
 {
 public:

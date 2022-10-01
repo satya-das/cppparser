@@ -152,12 +152,12 @@ private:
 #    if  wxUSE_STL || defined WX_TEST_ARCHIVE_ITERATOR
 #      include <iterator>
 #      include <utility>
-template <typename X, typename Y>
+template <typename X, class Y >
 inline void _wxSetArchiveIteratorValue(X& val, Y entry, void*)
 {
   val = X(entry);
 }
-template <typename X, typename Y, typename Z>
+template <typename X, typename Y, class Z >
 inline void _wxSetArchiveIteratorValue(std::pair<X, Y>& val, Z entry, Z)
 {
   val = std::make_pair(X(entry->GetInternalName()), Y(entry));

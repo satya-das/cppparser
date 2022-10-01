@@ -128,7 +128,7 @@ public:
 
 /** Call obj->ref() and return obj. The obj must not be nullptr.
  */
-template <typename T>
+template <typename T >
 static T* SkRef(T* obj)
 {
   SkASSERT(obj);
@@ -137,7 +137,7 @@ static T* SkRef(T* obj)
 }
 /** Check if the argument is non-null, and if so, call obj->ref() and return obj.
  */
-template <typename T>
+template <typename T >
 static T* SkSafeRef(T* obj)
 {
   if (obj)
@@ -148,7 +148,7 @@ static T* SkSafeRef(T* obj)
 }
 /** Check if the argument is non-null, and if so, call obj->unref()
  */
-template <typename T>
+template <typename T >
 static void SkSafeUnref(T* obj)
 {
   if (obj)
@@ -160,7 +160,7 @@ static void SkSafeUnref(T* obj)
 
 // This is a variant of SkRefCnt that's Not Virtual, so weighs 4 bytes instead of 8 or 16.
 // There's only benefit to using this if the deriving class does not otherwise need a vtable.
-template <typename Derived>
+template <typename Derived >
 class SkNVRefCnt
 {
 public:
@@ -215,7 +215,7 @@ private:
  *  classes that match the interface, but have different internal choices: e.g. the hosted class
  *  may have its ref/unref be thread-safe, but that is not assumed/imposed by sk_sp.
  */
-template <typename T>
+template <typename T >
 class sk_sp
 {
 public:
@@ -359,42 +359,42 @@ public:
 private:
   T* fPtr;
 };
-template <typename T>
+template <typename T >
 inline void swap(sk_sp<T>& a, sk_sp<T>& b)
 {
   a.swap(b);
 }
-template <typename T, typename U>
+template <typename T, typename U >
 inline bool operator==(const sk_sp<T>& a, const sk_sp<U>& b)
 {
   return a.get() == b.get();
 }
-template <typename T>
+template <typename T >
 inline bool operator==(const sk_sp<T>& a, std::nullptr_t)
 {
   return !a;
 }
-template <typename T>
+template <typename T >
 inline bool operator==(std::nullptr_t, const sk_sp<T>& b)
 {
   return !b;
 }
-template <typename T, typename U>
+template <typename T, typename U >
 inline bool operator!=(const sk_sp<T>& a, const sk_sp<U>& b)
 {
   return a.get() != b.get();
 }
-template <typename T>
+template <typename T >
 inline bool operator!=(const sk_sp<T>& a, std::nullptr_t)
 {
   return static_cast<bool>(a);
 }
-template <typename T>
+template <typename T >
 inline bool operator!=(std::nullptr_t, const sk_sp<T>& b)
 {
   return static_cast<bool>(b);
 }
-template <typename C, typename CT, typename T>
+template <typename C, typename CT, typename T >
 auto operator<<(std::basic_ostream<C, CT>& os, const sk_sp<T>& sp) -> decltype(os << sp.get())
 {
   return os << sp.get();
@@ -410,12 +410,12 @@ sk_sp<T> sk_make_sp(Args&&... args)
  *  This is different than the semantics of the constructor for sk_sp, which just wraps the ptr,
  *  effectively "adopting" it.
  */
-template <typename T>
+template <typename T >
 sk_sp<T> sk_ref_sp(T* obj)
 {
   return sk_sp<T>(SkSafeRef(obj));
 }
-template <typename T>
+template <typename T >
 sk_sp<T> sk_ref_sp(const T* obj)
 {
   return sk_sp<T>(const_cast<T*>(SkSafeRef(obj)));

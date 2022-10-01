@@ -18,7 +18,7 @@
         - It adds a convenient wxPersistentWindow::Get() accessor returning the
         window object of the correct type.
  */
-template <typename T>
+template <class T >
 class wxPersistentWindow : public wxPersistentObject
 {
 public:

@@ -17,7 +17,7 @@ namespace wxPrivate
   template <>
   struct wxIfImpl<true>
   {
-    template <typename TTrue, typename TFalse>
+    template <typename TTrue, typename TFalse >
     struct Result
     {
       typedef TTrue value;
@@ -27,7 +27,7 @@ namespace wxPrivate
   template <>
   struct wxIfImpl<false>
   {
-    template <typename TTrue, typename TFalse>
+    template <typename TTrue, typename TFalse >
     struct Result
     {
       typedef TFalse value;
@@ -39,7 +39,7 @@ namespace wxPrivate
 // TFalse if it wasn't.
 //
 // See wxVector<T> in vector.h for usage example
-template <bool Cond, typename TTrue, typename TFalse>
+template <bool Cond, typename TTrue, typename TFalse >
 struct wxIf
 {
   typedef typename wxPrivate::wxIfImpl<Cond> ::template Result<TTrue, TFalse>::value value;

@@ -50,7 +50,7 @@ private:
   }
   wxDECLARE_NO_COPY_CLASS(wxPersistentWindowBase);
 };
-template <typename T>
+template <class T >
 class wxPersistentWindow : public wxPersistentWindowBase
 {
 public:

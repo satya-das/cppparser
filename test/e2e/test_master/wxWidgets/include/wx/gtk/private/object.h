@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------------------
 // Convenience class for calling g_object_unref() automatically
 // ----------------------------------------------------------------------------
-template <typename T>
+template <typename T >
 class wxGtkObject
 {
 public:

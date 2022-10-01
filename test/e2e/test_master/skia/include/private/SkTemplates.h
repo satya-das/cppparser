@@ -25,14 +25,14 @@
  *  Marks a local variable as known to be unused (to avoid warnings).
  *  Note that this does *not* prevent the local variable from being optimized away.
  */
-template <typename T>
+template <typename T >
 inline void sk_ignore_unused_variable(const T&)
 {
 }
 /**
  *  Returns a pointer to a D which comes immediately after S[count].
  */
-template <typename D, typename S>
+template <typename D, typename S >
 static D* SkTAfter(S* ptr, size_t count = 1)
 {
   return reinterpret_cast<D*>(ptr + count);
@@ -40,7 +40,7 @@ static D* SkTAfter(S* ptr, size_t count = 1)
 /**
  *  Returns a pointer to a D which comes byteOffset bytes after S.
  */
-template <typename D, typename S>
+template <typename D, typename S >
 static D* SkTAddOffset(S* ptr, size_t byteOffset)
 {
     // The intermediate char* has the same cv-ness as D as this produces better error messages.
@@ -78,7 +78,7 @@ public:
 
 /** Allocate an array of T elements, and free the array in the destructor
  */
-template <typename T>
+template <typename T >
 class SkAutoTArray
 {
 public:
@@ -131,7 +131,7 @@ private:
 };
 /** Wraps SkAutoTArray, with room for kCountRequested elements preallocated.
  */
-template <int kCountRequested, typename T>
+template <int kCountRequested, typename T >
 class SkAutoSTArray
 {
 public:
@@ -251,7 +251,7 @@ private:
 /** Manages an array of T elements, freeing the array in the destructor.
  *  Does NOT call any constructors/destructors on T (T must be POD).
  */
-template <typename T>
+template <typename T >
 class SkAutoTMalloc
 {
 public:
@@ -310,7 +310,7 @@ public:
 private:
   std::unique_ptr<T, SkFunctionWrapper<void(void*), sk_free>> fPtr;
 };
-template <size_t kCountRequested, typename T>
+template <size_t kCountRequested, typename T >
 class SkAutoSTMalloc
 {
 public:
@@ -445,7 +445,7 @@ private:
  *  Pass the object and the storage that was offered during SkInPlaceNewCheck, and this will
  *  safely destroy (and free if it was dynamically allocated) the object.
  */
-template <typename T>
+template <typename T >
 void SkInPlaceDeleteCheck(T* obj, void* storage)
 {
   if (storage == obj)
@@ -511,7 +511,7 @@ private:
  * we have to do some arcane trickery to determine alignment of non-POD
  * types. Lifetime of the memory is the lifetime of the object.
  */
-template <int N, typename T>
+template <int N, typename T >
 class SkAlignedSTStorage
 {
 public:
@@ -543,7 +543,7 @@ constexpr auto SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>) -
 {
   return {{c(Is)...}};
 }
-template <size_t N, typename C>
+template <size_t N, typename C >
 constexpr auto SkMakeArray(C c) -> std::array<skstd::result_of_t<C(std::size_t)>, N>
 {
   return SkMakeArrayFromIndexSequence(c, skstd::make_index_sequence<N>{});

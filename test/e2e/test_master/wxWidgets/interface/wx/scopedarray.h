@@ -107,7 +107,7 @@ public:
     @library{wxbase}
     @category{smartpointers}
  */
-template <typename T>
+template <class T >
 class wxScopedArray
 {
 public:

@@ -8,7 +8,7 @@
 #  define GrQuadBuffer_DEFINED
 #  include "include/private/SkTDArray.h"
 #  include "src/gpu/geometry/GrQuad.h"
-template <typename T>
+template <typename T >
 class GrQuadBuffer
 {
 public:
@@ -235,7 +235,7 @@ private:
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Buffer implementation
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-template <typename T>
+template <typename T >
 float* GrQuadBuffer<T>::packQuad(const GrQuad& quad, float* coords)
 {
     // Copies all 12 (or 8) floats at once, so requires the 3 arrays to be contiguous
@@ -252,7 +252,7 @@ float* GrQuadBuffer<T>::packQuad(const GrQuad& quad, float* coords)
     return coords + k2DQuadFloats;
   }
 }
-template <typename T>
+template <typename T >
 const float* GrQuadBuffer<T>::unpackQuad(GrQuad::Type type, const float* coords, GrQuad* quad) const
 {
   SkASSERT(quad->xs() + 4 == quad->ys() && quad->xs() + 8 == quad->ws());
@@ -279,7 +279,7 @@ const float* GrQuadBuffer<T>::unpackQuad(GrQuad::Type type, const float* coords,
   quad->setQuadType(type);
   return coords;
 }
-template <typename T>
+template <typename T >
 void GrQuadBuffer<T>::append(const GrQuad& deviceQuad, T&& metadata, const GrQuad* localQuad)
 {
   GrQuad::Type localType = localQuad ? localQuad->quadType() : GrQuad::Type::kAxisAligned;
@@ -312,7 +312,7 @@ void GrQuadBuffer<T>::append(const GrQuad& deviceQuad, T&& metadata, const GrQua
     fLocalType = localQuad->quadType();
   }
 }
-template <typename T>
+template <typename T >
 void GrQuadBuffer<T>::concat(const GrQuadBuffer<T>& that)
 {
   fData.append(that.fData.count(), that.fData.begin());
@@ -327,7 +327,7 @@ void GrQuadBuffer<T>::concat(const GrQuadBuffer<T>& that)
   }
 }
 #  ifdef SK_DEBUG
-template <typename T>
+template <typename T >
 void GrQuadBuffer<T>::validate(const char* entry, int expectedCount) const
 {
     // Triggers if accessing before next() is called on an iterator
@@ -343,7 +343,7 @@ void GrQuadBuffer<T>::validate(const char* entry, int expectedCount) const
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // Iterator implementations
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-template <typename T>
+template <typename T >
 bool GrQuadBuffer<T>::Iter::next()
 {
   SkASSERT(fNextEntry);
@@ -371,7 +371,7 @@ bool GrQuadBuffer<T>::Iter::next()
   SkASSERT((fNextEntry - fCurrentEntry) == fBuffer->entrySize(h));
   return true;
 }
-template <typename T>
+template <typename T >
 bool GrQuadBuffer<T>::MetadataIter::next()
 {
   if (fCurrentEntry)

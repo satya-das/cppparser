@@ -184,7 +184,7 @@ public:
 
         @since 3.0
     */
-  template <typename Functor>
+  template <typename Functor >
   wxCondError Wait(const Functor& predicate);
     /**
         Waits until the condition is signalled or the timeout has elapsed.

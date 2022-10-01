@@ -8,11 +8,11 @@
       "name": "Run parser test for",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/cppparserunittest",
-      // "args": [
-      //   "-p",
-      //   "/home/dassat/github/cppparser/test/e2e/test_input/wxWidgets/include/wx/generic/private/grid.h"
-      // ],
+      "program": "${workspaceFolder}/build/cppparsertest",
+      "args": [
+        "-p",
+        "/home/dassat/github/cppparser/test/e2e/test_input/template.h"
+      ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build/",
       "environment": [
@@ -21,6 +21,27 @@
           "value": "0"
         }
       ],
+      "preLaunchTask": "BuildAll",
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ]
+    },
+    {
+      "name": "Run unit test",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/cppparserunittest",
+      "args": [
+        "uniform init test"
+      ],
+      "stopAtEntry": false,
+      "cwd": "${workspaceFolder}/build/",
       "preLaunchTask": "BuildAll",
       "externalConsole": false,
       "MIMode": "gdb",

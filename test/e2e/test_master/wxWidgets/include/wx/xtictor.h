@@ -40,7 +40,7 @@ public:
 // ----------------------------------------------------------------------------
 
 // no params
-template <typename Class>
+template <typename Class >
 struct wxObjectAllocatorAndCreator_0 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny*)
@@ -67,7 +67,7 @@ struct wxObjectAllocatorAndCreator_Dummy : public wxObjectAllocatorAndCreator
     const wxChar *klass::ms_constructorProperties[] = { NULL }; \
     const int klass::ms_constructorPropertiesCount = 0;
 // direct constructor version
-template <typename Class>
+template <typename Class >
 struct wxDirectConstructorBridge_0 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -82,7 +82,7 @@ struct wxDirectConstructorBridge_0 : public wxObjectAllocator
     const wxChar *klass::ms_constructorProperties[] = { NULL }; \
     const int klass::ms_constructorPropertiesCount = 0;
 // 1 param
-template <typename Class, typename T0>
+template <typename Class, typename T0 >
 struct wxObjectAllocatorAndCreator_1 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -97,7 +97,7 @@ struct wxObjectAllocatorAndCreator_1 : public wxObjectAllocatorAndCreator
     const wxChar *klass::ms_constructorProperties[] = { wxT(#v0) }; \
     const int klass::ms_constructorPropertiesCount = 1;
 // direct constructor version
-template <typename Class, typename T0>
+template <typename Class, typename T0 >
 struct wxDirectConstructorBridge_1 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -112,7 +112,7 @@ struct wxDirectConstructorBridge_1 : public wxObjectAllocator
     const wxChar *klass::ms_constructorProperties[] = { wxT(#v0) }; \
     const int klass::ms_constructorPropertiesCount = 1;
 // 2 params
-template <typename Class, typename T0, typename T1>
+template <typename Class, typename T0, typename T1 >
 struct wxObjectAllocatorAndCreator_2 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -127,7 +127,7 @@ struct wxObjectAllocatorAndCreator_2 : public wxObjectAllocatorAndCreator
     const wxChar *klass::ms_constructorProperties[] = { wxT(#v0), wxT(#v1)  }; \
     const int klass::ms_constructorPropertiesCount = 2;
 // direct constructor version
-template <typename Class, typename T0, typename T1>
+template <typename Class, typename T0, typename T1 >
 struct wxDirectConstructorBridge_2 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -142,7 +142,7 @@ struct wxDirectConstructorBridge_2 : public wxObjectAllocator
     const wxChar *klass::ms_constructorProperties[] = { wxT(#v0), wxT(#v1)  }; \
     const int klass::ms_constructorPropertiesCount = 2;
 // 3 params
-template <typename Class, typename T0, typename T1, typename T2>
+template <typename Class, typename T0, typename T1, typename T2 >
 struct wxObjectAllocatorAndCreator_3 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -157,7 +157,7 @@ struct wxObjectAllocatorAndCreator_3 : public wxObjectAllocatorAndCreator
     const wxChar *klass::ms_constructorProperties[] = { wxT(#v0), wxT(#v1), wxT(#v2)  }; \
     const int klass::ms_constructorPropertiesCount = 3;
 // direct constructor version
-template <typename Class, typename T0, typename T1, typename T2>
+template <typename Class, typename T0, typename T1, typename T2 >
 struct wxDirectConstructorBridge_3 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -172,7 +172,7 @@ struct wxDirectConstructorBridge_3 : public wxObjectAllocator
     const wxChar *klass::ms_constructorProperties[] = { wxT(#v0), wxT(#v1), wxT(#v2) }; \
     const int klass::ms_constructorPropertiesCount = 3;
 // 4 params
-template <typename Class, typename T0, typename T1, typename T2, typename T3>
+template <typename Class, typename T0, typename T1, typename T2, typename T3 >
 struct wxObjectAllocatorAndCreator_4 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -188,7 +188,7 @@ struct wxObjectAllocatorAndCreator_4 : public wxObjectAllocatorAndCreator
         { wxT(#v0), wxT(#v1), wxT(#v2), wxT(#v3)  }; \
     const int klass::ms_constructorPropertiesCount = 4;
 // direct constructor version
-template <typename Class, typename T0, typename T1, typename T2, typename T3>
+template <typename Class, typename T0, typename T1, typename T2, typename T3 >
 struct wxDirectConstructorBridge_4 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -204,7 +204,7 @@ struct wxDirectConstructorBridge_4 : public wxObjectAllocator
         { wxT(#v0), wxT(#v1), wxT(#v2), wxT(#v3)  }; \
     const int klass::ms_constructorPropertiesCount = 4;
 // 5 params
-template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4>
+template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4 >
 struct wxObjectAllocatorAndCreator_5 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -220,7 +220,7 @@ struct wxObjectAllocatorAndCreator_5 : public wxObjectAllocatorAndCreator
         { wxT(#v0), wxT(#v1), wxT(#v2), wxT(#v3), wxT(#v4)  }; \
     const int klass::ms_constructorPropertiesCount = 5;
 // direct constructor version
-template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4>
+template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4 >
 struct wxDirectConstructorBridge_5 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -236,7 +236,7 @@ struct wxDirectConstructorBridge_5 : public wxObjectAllocator
         { wxT(#v0), wxT(#v1), wxT(#v2), wxT(#v3), wxT(#v4) }; \
     const int klass::ms_constructorPropertiesCount = 5;
 // 6 params
-template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
+template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5 >
 struct wxObjectAllocatorAndCreator_6 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -252,7 +252,7 @@ struct wxObjectAllocatorAndCreator_6 : public wxObjectAllocatorAndCreator
         { wxT(#v0), wxT(#v1), wxT(#v2), wxT(#v3), wxT(#v4), wxT(#v5)  }; \
     const int klass::ms_constructorPropertiesCount = 6;
 // direct constructor version
-template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5>
+template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5 >
 struct wxDirectConstructorBridge_6 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -268,7 +268,7 @@ struct wxDirectConstructorBridge_6 : public wxObjectAllocator
         wxT(#v2), wxT(#v3), wxT(#v4), wxT(#v5)  }; \
     const int klass::ms_constructorPropertiesCount = 6;
 // 7 params
-template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
+template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6 >
 struct wxObjectAllocatorAndCreator_7 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -284,7 +284,7 @@ struct wxObjectAllocatorAndCreator_7 : public wxObjectAllocatorAndCreator
         wxT(#v2), wxT(#v3), wxT(#v4), wxT(#v5), wxT(#v6) }; \
     const int klass::ms_constructorPropertiesCount = 7;
 // direct constructor version
-template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6>
+template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6 >
 struct wxDirectConstructorBridge_7 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -300,7 +300,7 @@ struct wxDirectConstructorBridge_7 : public wxObjectAllocator
         { wxT(#v0), wxT(#v1), wxT(#v2), wxT(#v3), wxT(#v4), wxT(#v5), wxT(#v6) }; \
     const int klass::ms_constructorPropertiesCount = 7;
 // 8 params
-template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
+template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7 >
 struct wxObjectAllocatorAndCreator_8 : public wxObjectAllocatorAndCreator
 {
   bool Create(wxObject*& o, wxAny* args)
@@ -316,7 +316,7 @@ struct wxObjectAllocatorAndCreator_8 : public wxObjectAllocatorAndCreator
         { wxT(#v0), wxT(#v1), wxT(#v2), wxT(#v3), wxT(#v4), wxT(#v5), wxT(#v6), wxT(#v7) }; \
     const int klass::ms_constructorPropertiesCount = 8;
 // direct constructor version
-template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7>
+template <typename Class, typename T0, typename T1, typename T2, typename T3, typename T4, typename T5, typename T6, typename T7 >
 struct wxDirectConstructorBridge_8 : public wxObjectAllocator
 {
   bool Create(wxObject*& o, wxAny* args)

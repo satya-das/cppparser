@@ -89,7 +89,7 @@ union wxPrintfArg
 };
 // helper for converting string into either char* or wchar_t* depending
 // on the type of wxPrintfConvSpec<T> instantiation:
-template <typename CharType>
+template <typename CharType >
 struct wxPrintfStringHelper
 {
 };
@@ -115,7 +115,7 @@ struct wxPrintfStringHelper<wchar_t>
 // wxCRT_VsnprintfW and parsed from the format string
 // NOTE: in C++ there is almost no difference between struct & classes thus
 //       there is no performance gain by using a struct here...
-template <typename CharType>
+template <typename CharType >
 class wxPrintfConvSpec
 {
 public:
@@ -159,7 +159,7 @@ private:
     // An helper function of LoadArg() which is used to handle the '*' flag
   void ReplaceAsteriskWith(int w);
 };
-template <typename CharType>
+template <typename CharType >
 void wxPrintfConvSpec<CharType>::Init()
 {
   m_nMinWidth = 0;
@@ -173,7 +173,7 @@ void wxPrintfConvSpec<CharType>::Init()
     // is important when calling sprintf() in wxPrintfConvSpec::Process() !
   m_szFlags[0] = '%';
 }
-template <typename CharType>
+template <typename CharType >
 bool wxPrintfConvSpec<CharType>::Parse(const CharType* format)
 {
   bool done = false;
@@ -466,7 +466,7 @@ default:
   } while (!done);
   return true;
 }
-template <typename CharType>
+template <typename CharType >
 void wxPrintfConvSpec<CharType>::ReplaceAsteriskWith(int width)
 {
   char temp[wxMAX_SVNPRINTF_FLAGBUFFER_LEN];
@@ -488,7 +488,7 @@ void wxPrintfConvSpec<CharType>::ReplaceAsteriskWith(int width)
     // restore after the expanded * what was following it
   strcpy(pwidth + offset, temp);
 }
-template <typename CharType>
+template <typename CharType >
 bool wxPrintfConvSpec<CharType>::LoadArg(wxPrintfArg* p, va_list& argptr)
 {
     // did the '*' width/precision specifier was used ?
@@ -568,7 +568,7 @@ default:
 }
   return true;
 }
-template <typename CharType>
+template <typename CharType >
 int wxPrintfConvSpec<CharType>::Process(CharType* buf, size_t lenMax, wxPrintfArg* p, size_t written)
 {
     // buffer to avoid dynamic memory allocation each time for small strings;
@@ -731,7 +731,7 @@ default:
   return lenCur;
 }
 // helper that parses format string
-template <typename CharType>
+template <typename CharType >
 struct wxPrintfConvSpecParser
 {
   typedef wxPrintfConvSpec<CharType> ConvSpec;

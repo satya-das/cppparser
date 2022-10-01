@@ -41,7 +41,7 @@
     @nolibrary
     @category{data}
 */
-template <typename T>
+template <typename T >
 class wxScopedCharTypeBuffer
 {
 public:
@@ -134,7 +134,7 @@ typedef wxScopedCharTypeBuffer<wchar_t> wxScopedWCharBuffer;
     @nolibrary
     @category{data}
 */
-template <typename T>
+template <typename T >
 class wxCharTypeBuffer : public wxScopedCharTypeBuffer<T>
 {
 public:

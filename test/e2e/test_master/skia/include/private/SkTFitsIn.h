@@ -17,7 +17,7 @@ struct sk_strip_enum
 {
   typedef T type;
 };
-template <typename T>
+template <typename T >
 struct sk_strip_enum<T, typename std::enable_if<std::is_enum<T>::value>::type>
 {
   typedef typename std::underlying_type<T>::type type;
@@ -61,7 +61,7 @@ struct sk_strip_enum<T, typename std::enable_if<std::is_enum<T>::value>::type>
  * The two 'full' checks which otherwise require two comparisons are valid cast checks.
  * The two remaining checks s -> U [v >= 0] and U -> s [v <= max(s)] can be done with one op.
  */
-template <typename D, typename S>
+template <typename D, typename S >
 static constexpr typename std::enable_if<(std::is_integral<S>::value || std::is_enum<S>::value) && (std::is_integral<D>::value || std::is_enum<D>::value), bool>::type SkTFitsIn(S src)
 {
 #  if  !defined(SK_DEBUG) && !defined(__MSVC_RUNTIME_CHECKS )

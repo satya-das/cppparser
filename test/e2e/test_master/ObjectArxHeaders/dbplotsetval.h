@@ -20,7 +20,7 @@
 #  define AD_DBPLOTSETVAL_H
 #  include "AdAChar.h"
 #  pragma  pack (push, 8)
-template <typename T, typename R>
+template <typename T, class R >
 class AcArray;
 class AcDbPlotSettings;
 typedef AcDbPlotSettings::PlotPaperUnits PlotPaperUnits;

@@ -30,6 +30,7 @@
 #include <functional>
 #include <map>
 #include <set>
+#include <stack>
 #include <vector>
 
 /*
@@ -86,8 +87,8 @@ struct LexerData
   int mLexLog = 0;
   int mLineNo = 1;
 
-  const char* mInputBuffer     = nullptr;
-  size_t      mInputBufferSize = 0;
+  const char* mInputBufferBegin = nullptr;
+  const char* mInputBufferEnd   = nullptr;
 
   const char* mOldYytext = nullptr;
 
@@ -104,6 +105,10 @@ struct LexerData
   const char* mPossibleFuncImplStartBracePosition = nullptr;
   //@}
 
+  //@{
+  const char*             expectedTemplateStartAngleBracket {nullptr};
+  std::stack<const char*> matchedClosingTemplateAngleBracket {{nullptr}};
+  //@}
   /**
    * Comments can appear anywhere in a C/C++ program and unfortunately not all coments can be preserved.
    *

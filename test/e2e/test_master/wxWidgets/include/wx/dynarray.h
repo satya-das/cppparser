@@ -40,7 +40,7 @@ extern "C" {
 // signatures are used to sort normal arrays and to keep sorted arrays sorted.
 // These two functors can be used as predicates with std::sort() adapting the
 // sort function to it, whichever signature it uses.
-template <typename T>
+template <class T >
 class wxArray_SortFunction
 {
 public:
@@ -56,7 +56,7 @@ public:
 private:
   CMPFUNC m_f;
 };
-template <typename T>
+template <class T >
 class wxSortedArray_SortFunction
 {
 public:
@@ -100,7 +100,7 @@ public:
     : base_vec(n, v)
   {
   }
-  template <typename InputIterator>
+  template <class InputIterator >
   wxBaseArray(InputIterator first, InputIterator last)
     : base_vec(first, last)
   {
@@ -275,7 +275,7 @@ private:
 // parameter, which is declared by WX_DECLARE_OBJARRAY() and defined by
 // WX_DEFINE_OBJARRAY(), for providing a way to create and destroy objects of
 // type T
-template <typename T, typename Traits>
+template <typename T, typename Traits >
 class wxBaseObjectArray : private wxBaseArray<T*>
 {
   typedef wxBaseArray<T*> base;
@@ -844,7 +844,7 @@ WX_DEFINE_USER_EXPORTED_ARRAY_PTR(void *, wxArrayPtrVoid, class WXDLLIMPEXP_BASE
 // prepend all element of one array to another one; e.g. if first array contains
 // elements X,Y,Z and the second contains A,B,C (in those orders), then the
 // first array will be result as A,B,C,X,Y,Z
-template <typename A1, typename A2>
+template <typename A1, typename A2 >
 inline void WX_PREPEND_ARRAY(A1& array, const A2& other)
 {
   const size_t size = other.size();
@@ -855,7 +855,7 @@ inline void WX_PREPEND_ARRAY(A1& array, const A2& other)
   }
 }
 // append all element of one array to another one
-template <typename A1, typename A2>
+template <typename A1, typename A2 >
 inline void WX_APPEND_ARRAY(A1& array, const A2& other)
 {
   size_t size = other.size();
@@ -871,7 +871,7 @@ inline void WX_APPEND_ARRAY(A1& array, const A2& other)
 //     place where you use this macro, otherwise the proper destructor may not
 //     be called (a decent compiler should give a warning about it, but don't
 //     count on it)!
-template <typename A>
+template <typename A >
 inline void WX_CLEAR_ARRAY(A& array)
 {
   size_t size = array.size();

@@ -13,7 +13,7 @@
 #  include "afxtempl.h"
 /////////////////////////////////////////////////////////////////////////////
 // File Navigation Array
-template <typename T>
+template <class T >
 class CNavArray : public CTypedPtrArray<CObArray, T*>
 {
 public:
@@ -32,19 +32,19 @@ public:
 };
 /////////////////////////////////////////////////////////////////////////////
 // File Navigation Array - implementation
-template <typename T>
+template <class T >
 CNavArray<T>::CNavArray()
   : CTypedPtrArray<CObArray, T*>()
 {
 }
-template <typename T>
+template <class T >
 CNavArray<T>::~CNavArray()
 {
   RemoveAllData();
 }
 //----------------
 // Data management
-template <typename T>
+template <class T >
 T* CNavArray<T>::AddData()
 {
   T* d = NewData();
@@ -55,14 +55,14 @@ T* CNavArray<T>::AddData()
   }
   return d;
 }
-template <typename T>
+template <class T >
 int CNavArray<T>::GetCount()
 {
   const size_t nCount = this->GetUpperBound() + 1;
   ASSERT(nCount < 0x1000000);
   return (int) nCount;
 }
-template <typename T>
+template <class T >
 T* CNavArray<T>::GetData(INT_PTR index)
 {
   T* d = NULL;
@@ -72,17 +72,17 @@ T* CNavArray<T>::GetData(INT_PTR index)
   }
   return d;
 }
-template <typename T>
+template <class T >
 BOOL CNavArray<T>::IsIndexValid(INT_PTR index)
 {
   return ((index >= 0) && (index <= this->GetUpperBound()));
 }
-template <typename T>
+template <class T >
 T* CNavArray<T>::NewData()
 {
   return new T;
 }
-template <typename T>
+template <class T >
 void CNavArray<T>::RemoveData(INT_PTR index)
 {
   T* d;
@@ -93,7 +93,7 @@ void CNavArray<T>::RemoveData(INT_PTR index)
     delete d;
   }
 }
-template <typename T>
+template <class T >
 void CNavArray<T>::RemoveAllData()
 {
   const int n = this->GetCount();

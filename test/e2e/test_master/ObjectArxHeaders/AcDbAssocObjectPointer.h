@@ -61,7 +61,7 @@
 /// object as the pObject argument. 
 /// </para> </summary>
 ///
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 class AcDbAssocObjectPointer
 {
 public:
@@ -180,7 +180,7 @@ private:
   AcDbAssocObjectPointer& operator =(const AcDbAssocObjectPointer&);
 };
 ACDBCORE2D_PORT AcDbAssocAction* acdbAssocGetCurrentlyEvaluatedActionPointer(const AcDbDatabase*);
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   : mpActionBeingEvaluated(acdbAssocGetCurrentlyEvaluatedActionPointer(objectId.database()))
   , mpActionBodyBeingEvaluated(NULL)
@@ -193,7 +193,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbObjectId o
 {
   setup(mpActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   : mpActionBeingEvaluated(pActionBeingEvaluated)
   , mpActionBodyBeingEvaluated(NULL)
@@ -206,7 +206,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocActio
 {
   setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   : mpActionBeingEvaluated(NULL)
   , mpActionBodyBeingEvaluated(pActionBodyBeingEvaluated)
@@ -227,7 +227,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
   }
   setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocDependency* pDependencyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   : mpActionBeingEvaluated(NULL)
   , mpActionBodyBeingEvaluated(NULL)
@@ -248,7 +248,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
   }
   setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocDependencyBody* pDependencyBodyBeingEvaluated, AcDbObjectId objectId, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
   : mpActionBeingEvaluated(NULL)
   , mpActionBodyBeingEvaluated(NULL)
@@ -273,7 +273,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
   }
   setup(pActionBeingEvaluated, openMode, openErased, openOnLockedLayer);
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocAction* pActionBeingEvaluated, ACDB_CLASS* pObject)
   : mpActionBeingEvaluated(pActionBeingEvaluated)
   , mpActionBodyBeingEvaluated(NULL)
@@ -304,7 +304,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(AcDbAssocActio
     }
   }
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAssocActionBody* pActionBodyBeingEvaluated, ACDB_CLASS* pObject)
   : mpActionBeingEvaluated(NULL)
   , mpActionBodyBeingEvaluated(pActionBodyBeingEvaluated)
@@ -339,7 +339,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::AcDbAssocObjectPointer(const AcDbAsso
     }
   }
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline void AcDbAssocObjectPointer<ACDB_CLASS>::setup(AcDbAssocAction* pActionBeingEvaluated, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer)
 {
   mpObject = NULL;
@@ -373,7 +373,7 @@ inline void AcDbAssocObjectPointer<ACDB_CLASS>::setup(AcDbAssocAction* pActionBe
     }
   }
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbAssocObjectPointer<ACDB_CLASS>::~AcDbAssocObjectPointer()
 {
   if (mObjectId.isNull() && mpSubstituteObject == NULL)
@@ -423,7 +423,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::~AcDbAssocObjectPointer()
     }
   }
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus AcDbAssocObjectPointer<ACDB_CLASS>::openStatus() const
 {
   return mpSubstituteObject != NULL ? mSubstituteObjectErrorStatus : mObjectPtr.openStatus();

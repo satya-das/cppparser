@@ -16,7 +16,7 @@
 //
 
 // Helper to decide if an object of type T is POD (Plain Old Data)
-template <typename T>
+template <typename T >
 struct wxIsPod
 {
   static const bool value = false;
@@ -48,12 +48,12 @@ WX_DECLARE_TYPE_POD(wxLongLong_t)
 WX_DECLARE_TYPE_POD(wxULongLong_t)
 #  endif
 // pointers are Plain Old Data:
-template <typename T>
+template <typename T >
 struct wxIsPod<T*>
 {
   static const bool value = true;
 };
-template <typename T>
+template <typename T >
 struct wxIsPod<const T*>
 {
   static const bool value = true;

@@ -15,7 +15,7 @@
 //
 // Another difference is that comparison operators between stacks are not
 // implemented (but they should be, see 23.2.3.3 of ISO/IEC 14882:1998).
-template <typename T>
+template <typename T >
 class wxStack
 {
 public:

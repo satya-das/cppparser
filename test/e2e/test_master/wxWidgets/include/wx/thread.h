@@ -309,7 +309,7 @@ public:
     // the lock on the associated mutex object, before returning.
   wxCondError Wait();
     // std::condition_variable-like variant that evaluates the associated condition
-  template <typename Functor>
+  template <typename Functor >
   wxCondError Wait(const Functor& predicate)
   {
     while (!predicate())

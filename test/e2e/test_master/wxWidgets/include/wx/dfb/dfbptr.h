@@ -38,7 +38,7 @@ protected:
     reference count is increased on copying and the interface is released when
     the pointer is deleted.
  */
-template <typename T>
+template <typename T >
 class wxDfbPtr : private wxDfbPtrBase
 {
 public:

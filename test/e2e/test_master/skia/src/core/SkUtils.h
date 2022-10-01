@@ -88,7 +88,7 @@ namespace SkHexadecimalDigits
 // We force-inline sk_unaligned_load() and sk_unaligned_store() to avoid that,
 // making them safe to use for all types on all platforms, thus solving the
 // problem once and for all!
-template <typename T, typename P>
+template <typename T, typename P >
 SK_ALWAYS_INLINE static T sk_unaligned_load(const P* ptr)
 {
     // TODO: static_assert desirable things about T here so as not to be totally abused.
@@ -96,7 +96,7 @@ SK_ALWAYS_INLINE static T sk_unaligned_load(const P* ptr)
   memcpy(&val, ptr, sizeof(val));
   return val;
 }
-template <typename T, typename P>
+template <typename T, typename P >
 SK_ALWAYS_INLINE static void sk_unaligned_store(P* ptr, T val)
 {
     // TODO: ditto

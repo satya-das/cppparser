@@ -19,7 +19,7 @@ namespace wxPrivate
 //
 // This helper function computes font dimensions in the same way. It works with
 // either wxDC or wxWindow argument.
-  template <typename T>
+  template <typename T >
   inline wxSize GetAverageASCIILetterSize(const T& of_what)
   {
     const wxStringCharType* TEXT_TO_MEASURE = wxS("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz");
@@ -39,7 +39,7 @@ namespace wxPrivate
       return s_checkDPI;
     }
   }
-  template <typename T>
+  template <typename T >
   class DpiDependentValue
   {
   public:

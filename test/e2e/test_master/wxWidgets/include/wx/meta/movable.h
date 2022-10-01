@@ -14,7 +14,7 @@
 // copied to another memory location using memmove() or realloc() C functions.
 // C++ only guarantees that POD types (including primitive types) are
 // movable.
-template <typename T>
+template <typename T >
 struct wxIsMovable
 {
   static const bool value = wxIsPod<T>::value;

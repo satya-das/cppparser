@@ -179,7 +179,7 @@
 // Use at your own risk!
 //
 // #define DBOBJPTR_EXPOSE_PTR_REF 1
-template <typename T_OBJECT>
+template <class T_OBJECT >
 class AcDbObjectPointerBase
 {
 public:
@@ -224,7 +224,7 @@ private:
 //
 // These arguments have the same meaning as acdbOpenObject().
 //
-template <typename T_OBJECT>
+template <class T_OBJECT >
 class AcDbObjectPointer : public AcDbObjectPointerBase<T_OBJECT>
 {
 public:
@@ -256,7 +256,7 @@ typedef AcDbObjectPointer<AcDbEntity> AcDbEntityPointer;
 // AcDbObjectPointer<T_OBJECT>.  If the database pointer is NULL, the
 // open status after construction is eNullObjectPointer.
 //
-template <typename T_OBJECT>
+template <class T_OBJECT >
 class AcDbSymbolTablePointer : public AcDbObjectPointerBase<T_OBJECT>
 {
 public:
@@ -302,7 +302,7 @@ typedef AcDbSymbolTablePointer<AcDbViewportTable> AcDbViewportTablePointer;
 // construction is eInvalidInput.  If the database pointer is a
 // null pointer, then the open status after construction is
 // eNullObjectPointer.
-template <typename T_OBJECT>
+template <class T_OBJECT >
 class AcDbSymbolTableRecordPointer : public AcDbObjectPointerBase<T_OBJECT>
 {
 public:
@@ -332,19 +332,19 @@ typedef AcDbSymbolTableRecordPointer<AcDbUCSTableRecord> AcDbUCSTableRecordPoint
 typedef AcDbSymbolTableRecordPointer<AcDbViewTableRecord> AcDbViewTableRecordPointer;
 typedef AcDbSymbolTableRecordPointer<AcDbViewportTableRecord> AcDbViewportTableRecordPointer;
 // --------- Inline definitions ---------
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbObjectPointerBase<T_OBJECT>::AcDbObjectPointerBase()
   : m_ptr(NULL)
   , m_status(Acad::eNullObjectPointer)
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbObjectPointerBase<T_OBJECT>::AcDbObjectPointerBase(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased)
   : m_ptr(NULL)
   , m_status(acdbOpenObject(m_ptr, objId, mode, openErased))
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbObjectPointerBase<T_OBJECT>::~AcDbObjectPointerBase()
 {
   if (m_ptr != NULL)
@@ -355,7 +355,7 @@ inline AcDbObjectPointerBase<T_OBJECT>::~AcDbObjectPointerBase()
     assert(closeStatus == Acad::eOk);
   }
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::open(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased)
 {
   if (m_ptr != NULL)
@@ -370,7 +370,7 @@ inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::open(AcDbObjectId objI
   m_status = acdbOpenObject(m_ptr, objId, mode, openErased);
   return m_status;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline const T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::object() const
 {
   assert(m_status == Acad::eOk);
@@ -382,7 +382,7 @@ inline const T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::object() const
 // it const.  Doing so will overload it with the const operator->()
 // function above, which is not allowed (we're overloading on
 // const-ness).
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::object()
 {
   assert(m_status == Acad::eOk);
@@ -390,41 +390,41 @@ inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::object()
   DbObjPtr_Assert(m_ptr == NULL || m_ptr->isReadEnabled());
   return m_ptr;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline const T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::operator->() const
 {
   return object();
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline T_OBJECT* AcDbObjectPointerBase<T_OBJECT>::operator->()
 {
   return object();
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 operator const T_OBJECT*() const
 {
   return object();
 }
 #  if  DBOBJPTR_EXPOSE_PTR_REF
-template <typename T_OBJECT>
+template <class T_OBJECT >
 operator T_OBJECT*&()
 {
     // Allows direct modification of the pointer member
   return this->m_ptr;
 }
 #  else 
-template <typename T_OBJECT>
+template <class T_OBJECT >
 operator T_OBJECT*()
 {
   return object();
 }
 #  endif
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::openStatus() const
 {
   return m_status;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::acquire(T_OBJECT*& pObjToAcquire)
 {
   if (pObjToAcquire == NULL)
@@ -445,7 +445,7 @@ inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::acquire(T_OBJECT*& pOb
   pObjToAcquire = NULL;
   return Acad::eOk;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::release(T_OBJECT*& pReleasedObj)
 {
   if (m_ptr == NULL)
@@ -458,7 +458,7 @@ inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::release(T_OBJECT*& pRe
   m_status = Acad::eNullObjectPointer;
   return Acad::eOk;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::close()
 {
   if (m_ptr == NULL)
@@ -471,7 +471,7 @@ inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::close()
   assert(closeStatus == Acad::eOk);
   return Acad::eOk;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::create()
 {
   T_OBJECT* pObject = new T_OBJECT;
@@ -493,7 +493,7 @@ inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::create()
   m_status = Acad::eOk;
   return Acad::eOk;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::closeInternal()
 {
   if (m_ptr == NULL)
@@ -514,43 +514,43 @@ inline Acad::ErrorStatus AcDbObjectPointerBase<T_OBJECT>::closeInternal()
   m_status = Acad::eNullObjectPointer;
   return es;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbObjectPointer<T_OBJECT>::AcDbObjectPointer()
   : AcDbObjectPointerBase<T_OBJECT>()
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbObjectPointer<T_OBJECT>::AcDbObjectPointer(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased)
   : AcDbObjectPointerBase<T_OBJECT>(objId, mode, openErased)
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbObjectPointer<T_OBJECT>::open(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased)
 {
   return AcDbObjectPointerBase<T_OBJECT>::open(objId, mode, openErased);
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbSymbolTablePointer<T_OBJECT>::AcDbSymbolTablePointer()
   : AcDbObjectPointerBase<T_OBJECT>()
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbSymbolTablePointer<T_OBJECT>::AcDbSymbolTablePointer(AcDbObjectId objId, AcDb::OpenMode mode)
   : AcDbObjectPointerBase<T_OBJECT>(objId, mode, false)
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbSymbolTablePointer<T_OBJECT>::AcDbSymbolTablePointer(AcDbDatabase* pDb, AcDb::OpenMode mode)
   : AcDbObjectPointerBase<T_OBJECT>()
 {
   this->m_status = (pDb == NULL) ? Acad::eNullObjectPointer : pDb->getSymbolTable(this->m_ptr, mode);
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbSymbolTablePointer<T_OBJECT>::open(AcDbObjectId objId, AcDb::OpenMode mode)
 {
   return AcDbObjectPointerBase<T_OBJECT>::open(objId, mode, false);
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbSymbolTablePointer<T_OBJECT>::open(AcDbDatabase* pDb, AcDb::OpenMode mode)
 {
   if (pDb == NULL)
@@ -569,17 +569,17 @@ inline Acad::ErrorStatus AcDbSymbolTablePointer<T_OBJECT>::open(AcDbDatabase* pD
   }
   return es;
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbSymbolTableRecordPointer<T_OBJECT>::AcDbSymbolTableRecordPointer()
   : AcDbObjectPointerBase<T_OBJECT>()
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbSymbolTableRecordPointer<T_OBJECT>::AcDbSymbolTableRecordPointer(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased)
   : AcDbObjectPointerBase<T_OBJECT>(objId, mode, openErased)
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbSymbolTableRecordPointer<T_OBJECT>
     ::AcDbSymbolTableRecordPointer(const ACHAR* name, AcDbDatabase* pDb, AcDb::OpenMode mode, bool openErased)
   : AcDbObjectPointerBase<T_OBJECT>()
@@ -598,12 +598,12 @@ inline AcDbSymbolTableRecordPointer<T_OBJECT>
     }
   }
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbSymbolTableRecordPointer<T_OBJECT>::open(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased)
 {
   return AcDbObjectPointerBase<T_OBJECT>::open(objId, mode, openErased);
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline Acad::ErrorStatus AcDbSymbolTableRecordPointer<T_OBJECT>
     ::open(const ACHAR* name, AcDbDatabase* pDb, AcDb::OpenMode mode, bool openErased)
 {
@@ -631,7 +631,7 @@ inline Acad::ErrorStatus AcDbSymbolTableRecordPointer<T_OBJECT>
   }
 }
 #  if  DBOBJPTR_EXPOSE_PTR_REF
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbObjectPointerBase<T_OBJECT>::AcDbObjectPointerBase(T_OBJECT* pObject)
   : m_ptr(NULL)
   , m_status(Acad::eNullObjectPointer)
@@ -641,7 +641,7 @@ inline AcDbObjectPointerBase<T_OBJECT>::AcDbObjectPointerBase(T_OBJECT* pObject)
     this->acquire(pObject);
   }
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline void AcDbObjectPointerBase<T_OBJECT>::operator=(T_OBJECT* pObject)
 {
   if (pObject == NULL)
@@ -653,34 +653,34 @@ inline void AcDbObjectPointerBase<T_OBJECT>::operator=(T_OBJECT* pObject)
     this->acquire(pObject);
   }
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbObjectPointer<T_OBJECT>::AcDbObjectPointer(T_OBJECT* pObject)
   : AcDbObjectPointerBase<T_OBJECT>(pObject)
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbSymbolTablePointer<T_OBJECT>::
         AcDbSymbolTablePointer(T_OBJECT* pObject)
   : AcDbObjectPointerBase<T_OBJECT>(pObject)
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcDbSymbolTableRecordPointer<T_OBJECT>::
         AcDbSymbolTableRecordPointer(T_OBJECT* pObject)
   : AcDbObjectPointerBase<T_OBJECT>(pObject)
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline void AcDbObjectPointer<T_OBJECT>::operator=(T_OBJECT* pObject)
 {
   AcDbObjectPointerBase<T_OBJECT>::operator =(pObject);
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline void AcDbSymbolTablePointer<T_OBJECT>::operator=(T_OBJECT* pObject)
 {
   AcDbObjectPointerBase<T_OBJECT>::operator =(pObject);
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline void AcDbSymbolTableRecordPointer<T_OBJECT>::operator=(T_OBJECT* pObject)
 {
   AcDbObjectPointerBase<T_OBJECT>::operator =(pObject);

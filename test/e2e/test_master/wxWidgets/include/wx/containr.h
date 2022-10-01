@@ -159,7 +159,7 @@ WXDLLIMPEXP_CORE extern bool wxSetFocusToChild(wxWindow* win, wxWindow** child);
 // ----------------------------------------------------------------------------
 
 // The template parameter W must be a wxWindow-derived class.
-template <typename W>
+template <class W >
 class wxNavigationEnabled : public W
 {
 public:

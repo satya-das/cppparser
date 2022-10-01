@@ -184,7 +184,7 @@ inline AcDbObjectId AcAxObjectRef::objectId()
 //      3. All of the caveats and usage notes mentioned for
 //      AcDbObjectPointerBase in dbobjptr.h apply to this class as well.
 //
-template <typename T_OBJECT>
+template <class T_OBJECT >
 class AcAxObjectRefPtr : public AcDbObjectPointer<T_OBJECT>
 {
 public:
@@ -197,13 +197,13 @@ private:
   AcAxObjectRefPtr& operator=(AcAxObjectRefPtr& pObj);
   AcAxObjectRef* const m_pRef;
 };
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr()
   : AcDbObjectPointer<T_OBJECT>()
   , m_pRef(NULL)
 {
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr(AcAxObjectRef* const pRef, AcDb::OpenMode mode, bool openErased)
   : m_pRef(pRef)
 {
@@ -239,7 +239,7 @@ inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr(AcAxObjectRef* const pRef, A
     }
   }
 }
-template <typename T_OBJECT>
+template <class T_OBJECT >
 inline AcAxObjectRefPtr<T_OBJECT>::~AcAxObjectRefPtr()
 {
     // If the objectid is null we need to release

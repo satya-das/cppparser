@@ -22,7 +22,7 @@ namespace wxPrivate
     }
   };
 }
-template <typename T>
+template <typename T >
 class wxWindowPtr : public wxSharedPtr<T>
 {
 public:

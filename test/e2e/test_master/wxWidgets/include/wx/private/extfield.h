@@ -25,7 +25,7 @@
 // the type of the field itself and FieldMap is the hash map, defined
 // separately using WX_DECLARE_HASH_MAP(), with Object* as the key and Field*
 // as the value type.
-template <typename Object, typename Field, typename FieldMap>
+template <typename Object, typename Field, typename FieldMap >
 class wxExternalField
 {
 public:
@@ -72,6 +72,6 @@ public:
 private:
   static FieldMap ms_map;
 };
-template <typename O, typename F, typename M>
+template <typename O, typename F, typename M >
 M wxExternalField<O, F, M>::ms_map;
 #endif

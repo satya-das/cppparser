@@ -100,7 +100,7 @@ WXDLLIMPEXP_BASE extern wxEventType wxNewEventType();
     extern const expdecl wxEventTypeTag< type > name
 // The type-erased method signature used for event handling.
 typedef void (*wxEventFunction) (wxEvent&);
-template <typename T>
+template <typename T >
 inline wxEventFunction wxEventFunctionCast(void (*func) (T&))
 {
     // There is no going around the cast here: we do rely calling the event
@@ -156,7 +156,7 @@ struct EventArgOf;
 // in spite of its name) value. It exists in order to be used as a template
 // parameter and provide a mapping between the event type values and their
 // corresponding wxEvent-derived classes.
-template <typename T>
+template <typename T >
 class wxEventTypeTag
 {
 public:
@@ -270,11 +270,11 @@ namespace wxPrivate
 {
 // helper template defining nested "type" typedef as the event class
 // corresponding to the given event type
-  template <typename T>
+  template <typename T >
   struct EventClassOf;
 // the typed events provide the information about the class of the events they
 // carry themselves:
-  template <typename T>
+  template <typename T >
   struct EventClassOf< wxEventTypeTag<T> >
   {
     typedef typename wxEventTypeTag<T>::EventClass type;
@@ -291,7 +291,7 @@ namespace wxPrivate
   template <typename T, typename A, bool >
   struct HandlerImpl;
 // specialization for handlers deriving from wxEvtHandler
-  template <typename T, typename A>
+  template <typename T, typename A >
   struct HandlerImpl<T, A, true>
   {
     static bool IsEvtHandler()
@@ -312,7 +312,7 @@ namespace wxPrivate
     }
   };
 // specialization for handlers not deriving from wxEvtHandler
-  template <typename T, typename A>
+  template <typename T, typename A >
   struct HandlerImpl<T, A, false>
   {
     static bool IsEvtHandler()
@@ -342,7 +342,7 @@ namespace wxPrivate
 // as EventTag::EventClass but it must be its base class -- this is explicitly
 // allowed to handle different events in the same handler taking wxEvent&, for
 // example
-template <typename EventTag, typename Class, typename EventArg, typename EventHandler>
+template <typename EventTag, typename Class, typename EventArg, typename EventHandler >
 class wxEventFunctorMethod : public wxEventFunctor, private wxPrivate::HandlerImpl
               <
                 Class,
@@ -413,7 +413,7 @@ private:
   WX_DECLARE_TYPEINFO_INLINE(thisClass)
 };
 // functor forwarding the event to function (function, static method)
-template <typename EventTag, typename EventArg>
+template <typename EventTag, typename EventArg >
 class wxEventFunctorFunction : public wxEventFunctor
 {
 private:
@@ -461,7 +461,7 @@ private:
   typedef wxEventFunctorFunction<EventTag, EventArg> thisClass;
   WX_DECLARE_TYPEINFO_INLINE(thisClass)
 };
-template <typename EventTag, typename Functor>
+template <typename EventTag, typename Functor >
 class wxEventFunctorFunctor : public wxEventFunctor
 {
 public:
@@ -514,34 +514,34 @@ private:
 
 
 // Create functors wrapping functions:
-template <typename EventTag, typename EventArg>
+template <typename EventTag, typename EventArg >
 inline wxEventFunctorFunction<EventTag, EventArg>* wxNewEventFunctor(const EventTag&, void (*func) (EventArg&))
 {
   return new wxEventFunctorFunction<EventTag, EventArg>(func);
 }
-template <typename EventTag, typename EventArg>
+template <typename EventTag, typename EventArg >
 inline wxEventFunctorFunction<EventTag, EventArg> wxMakeEventFunctor(const EventTag&, void (*func) (EventArg&))
 {
   return wxEventFunctorFunction<EventTag, EventArg>(func);
 }
 // Create functors wrapping other functors:
-template <typename EventTag, typename Functor>
+template <typename EventTag, typename Functor >
 inline wxEventFunctorFunctor<EventTag, Functor>* wxNewEventFunctor(const EventTag&, const Functor& func)
 {
   return new wxEventFunctorFunctor<EventTag, Functor>(func);
 }
-template <typename EventTag, typename Functor>
+template <typename EventTag, typename Functor >
 inline wxEventFunctorFunctor<EventTag, Functor> wxMakeEventFunctor(const EventTag&, const Functor& func)
 {
   return wxEventFunctorFunctor<EventTag, Functor>(func);
 }
 // Create functors wrapping methods:
-template <typename EventTag, typename Class, typename EventArg, typename EventHandler>
+template <typename EventTag, typename Class, typename EventArg, typename EventHandler >
 inline wxEventFunctorMethod<EventTag, Class, EventArg, EventHandler>* wxNewEventFunctor(const EventTag&, void (*method) (EventArg&), EventHandler* handler)
 {
   return new wxEventFunctorMethod<EventTag, Class, EventArg, EventHandler>(method, handler);
 }
-template <typename EventTag, typename Class, typename EventArg, typename EventHandler>
+template <typename EventTag, typename Class, typename EventArg, typename EventHandler >
 inline wxEventFunctorMethod<EventTag, Class, EventArg, EventHandler> wxMakeEventFunctor(const EventTag&, void (*method) (EventArg&), EventHandler* handler)
 {
   return wxEventFunctorMethod<EventTag, Class, EventArg, EventHandler>(method, handler);
@@ -549,7 +549,7 @@ inline wxEventFunctorMethod<EventTag, Class, EventArg, EventHandler> wxMakeEvent
 // Create an event functor for the event table via wxDECLARE_EVENT_TABLE_ENTRY:
 // in this case we don't have the handler (as it's always the same as the
 // object which generated the event) so we must use Class as its type
-template <typename EventTag, typename Class, typename EventArg>
+template <typename EventTag, typename Class, typename EventArg >
 inline wxEventFunctorMethod<EventTag, Class, EventArg, Class>* wxNewEventTableFunctor(const EventTag&, void (*method) (EventArg&))
 {
   return new wxEventFunctorMethod<EventTag, Class, EventArg, Class>(method, NULL);
@@ -1143,12 +1143,12 @@ public:
   {
   }
 #  if  wxUSE_ANY
-  template <typename T>
+  template <typename T >
   void SetPayload(const T& payload)
   {
     m_payload = payload;
   }
-  template <typename T>
+  template <typename T >
   T GetPayload() const
   {
     return m_payload.As<T>();
@@ -1268,7 +1268,7 @@ public:
   virtual void Execute() = 0;
 };
 // This is a version for calling methods without parameters.
-template <typename T>
+template <typename T >
 class wxAsyncMethodCallEvent0 : public wxAsyncMethodCallEvent
 {
 public:
@@ -1299,7 +1299,7 @@ private:
   const MethodType m_method;
 };
 // This is a version for calling methods with a single parameter.
-template <typename T, typename T1>
+template <typename T, typename T1 >
 class wxAsyncMethodCallEvent1 : public wxAsyncMethodCallEvent
 {
 public:
@@ -1334,7 +1334,7 @@ private:
   const ParamType1 m_param1;
 };
 // This is a version for calling methods with two parameters.
-template <typename T, typename T1, typename T2>
+template <typename T, typename T1, typename T2 >
 class wxAsyncMethodCallEvent2 : public wxAsyncMethodCallEvent
 {
 public:
@@ -1373,7 +1373,7 @@ private:
   const ParamType2 m_param2;
 };
 // This is a version for calling any functors
-template <typename T>
+template <typename T >
 class wxAsyncMethodCallEventFunctor : public wxAsyncMethodCallEvent
 {
 public:
@@ -3821,7 +3821,7 @@ public:
     // CallAfter() is called on must have the correct dynamic type.
     //
     // These method can be used from another thread.
-  template <typename T>
+  template <typename T >
   void CallAfter(void (*method) ())
   {
     QueueEvent(new wxAsyncMethodCallEvent0<T>(static_cast<T*>(this), method));
@@ -3830,17 +3830,17 @@ public:
     // parameters that are convertible to the type taken by the method
     // instead of being exactly the same, to be closer to the usual method call
     // semantics.
-  template <typename T, typename T1, typename P1>
+  template <typename T, typename T1, typename P1 >
   void CallAfter(void (*method) (T1 x1), P1 x1)
   {
     QueueEvent(new wxAsyncMethodCallEvent1<T, T1>(static_cast<T*>(this), method, x1));
   }
-  template <typename T, typename T1, typename T2, typename P1, typename P2>
+  template <typename T, typename T1, typename T2, typename P1, typename P2 >
   void CallAfter(void (*method) (T1 x1, T2 x2), P1 x1, P2 x2)
   {
     QueueEvent(new wxAsyncMethodCallEvent2<T, T1, T2>(static_cast<T*>(this), method, x1, x2));
   }
-  template <typename T>
+  template <typename T >
   void CallAfter(const T& fn)
   {
     QueueEvent(new wxAsyncMethodCallEventFunctor<T>(this, fn));
@@ -3887,35 +3887,35 @@ public:
     return Disconnect(wxID_ANY, eventType, func, userData, eventSink);
   }
     // Bind functions to an event:
-  template <typename EventTag, typename EventArg>
+  template <typename EventTag, typename EventArg >
   void Bind(const EventTag& eventType, void (*function) (EventArg&), int winid = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL)
   {
     DoBind(winid, lastId, eventType, wxNewEventFunctor(eventType, function), userData);
   }
-  template <typename EventTag, typename EventArg>
+  template <typename EventTag, typename EventArg >
   bool Unbind(const EventTag& eventType, void (*function) (EventArg&), int winid = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL)
   {
     return DoUnbind(winid, lastId, eventType, wxMakeEventFunctor(eventType, function), userData);
   }
     // Bind functors to an event:
-  template <typename EventTag, typename Functor>
+  template <typename EventTag, typename Functor >
   void Bind(const EventTag& eventType, const Functor& functor, int winid = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL)
   {
     DoBind(winid, lastId, eventType, wxNewEventFunctor(eventType, functor), userData);
   }
-  template <typename EventTag, typename Functor>
+  template <typename EventTag, typename Functor >
   bool Unbind(const EventTag& eventType, const Functor& functor, int winid = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL)
   {
     return DoUnbind(winid, lastId, eventType, wxMakeEventFunctor(eventType, functor), userData);
   }
     // Bind a method of a class (called on the specified handler which must
     // be convertible to this class) object to an event:
-  template <typename EventTag, typename Class, typename EventArg, typename EventHandler>
+  template <typename EventTag, typename Class, typename EventArg, typename EventHandler >
   void Bind(const EventTag& eventType, void (*method) (EventArg&), EventHandler* handler, int winid = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL)
   {
     DoBind(winid, lastId, eventType, wxNewEventFunctor(eventType, method, handler), userData);
   }
-  template <typename EventTag, typename Class, typename EventArg, typename EventHandler>
+  template <typename EventTag, typename Class, typename EventArg, typename EventHandler >
   bool Unbind(const EventTag& eventType, void (*method) (EventArg&), EventHandler* handler, int winid = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL)
   {
     return DoUnbind(winid, lastId, eventType, wxMakeEventFunctor(eventType, method, handler), userData);

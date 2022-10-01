@@ -297,7 +297,7 @@ namespace PoDoFo
     /* See PdfVariant.h for a detailed explanation of this member, which is
      * here to prevent accidental construction of a PdfObject of integer type
      * when passing a pointer. */
-    template <typename T>
+    template <typename T >
     PdfObject(T*);
     // Shared initialization between all the ctors
     void InitPdfObject();

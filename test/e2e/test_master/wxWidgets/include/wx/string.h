@@ -75,7 +75,7 @@ class WXDLLIMPEXP_FWD_BASE wxString;
 #  endif
 namespace wxPrivate
 {
-  template <typename T>
+  template <typename T >
   struct wxStringAsBufHelper;
 }
 // ---------------------------------------------------------------------------
@@ -332,7 +332,7 @@ private:
 #  endif
   // buffer for holding temporary substring when using any of the methods
   // that take (char*,size_t) or (wchar_t*,size_t) arguments:
-  template <typename T>
+  template <typename T >
   struct SubstrBufFromType
   {
     T data;
@@ -1065,7 +1065,7 @@ public:
   }
   friend class iterator;
   friend class const_iterator;
-  template <typename T>
+  template <typename T >
   class reverse_iterator_impl
   {
   public:
@@ -1799,7 +1799,7 @@ public:
     // also optionally return the buffer length
     //
     // this is mostly/only useful for the template functions
-  template <typename T>
+  template <typename T >
   wxCharTypeBuffer<T> tchar_str(size_t* len = NULL) const
   {
         // we need a helper dispatcher depending on type
@@ -4081,7 +4081,7 @@ private:
   // temporary buffer won't do and we need to cache the conversion results
 
   // TODO-UTF8: benchmark various approaches to keeping compatibility buffers
-  template <typename T>
+  template <typename T >
   struct ConvertedBuffer
   {
       // notice that there is no need to initialize m_len here as it's unused
@@ -4324,7 +4324,7 @@ private:
   wxDECLARE_NO_COPY_CLASS(wxStringInternalBufferLength);
 };
 #  endif
-template <typename T>
+template <typename T >
 class wxStringTypeBufferBase
 {
 public:
@@ -4360,7 +4360,7 @@ protected:
   wxString& m_str;
   wxCharTypeBuffer<CharType> m_buf;
 };
-template <typename T>
+template <typename T >
 class wxStringTypeBufferLengthBase : public wxStringTypeBufferBase<T>
 {
 public:
@@ -4383,7 +4383,7 @@ protected:
   size_t m_len;
   bool m_lenSet;
 };
-template <typename T>
+template <typename T >
 class wxStringTypeBuffer : public wxStringTypeBufferBase<T>
 {
 public:
@@ -4397,7 +4397,7 @@ public:
   }
   wxDECLARE_NO_COPY_CLASS(wxStringTypeBuffer);
 };
-template <typename T>
+template <typename T >
 class wxStringTypeBufferLength : public wxStringTypeBufferLengthBase<T>
 {
 public:

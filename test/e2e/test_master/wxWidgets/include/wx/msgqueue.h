@@ -33,7 +33,7 @@ enum wxMessageQueueError {
 // should terminate as there is no other way to gracefully shutdown a thread
 // waiting on the message queue.
 // ---------------------------------------------------------------------------
-template <typename T>
+template <typename T >
 class wxMessageQueue
 {
 public:

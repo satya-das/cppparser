@@ -460,7 +460,7 @@ namespace PoDoFo
      * and replacing it with a couple of overloads specific to PdfObject*, PdfVariant*,
      * and char* (at least).
      */
-    template <typename T>
+    template <typename T >
     PdfVariant(T*);
     /** To reduce memory usage of this very often used class,
      *  we use a union here, as there is always only

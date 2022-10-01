@@ -37,7 +37,7 @@ private:
 };
 // This class used CRTP, i.e. it should be instantiated for the real base class
 // and inherited from.
-template <typename C>
+template <class C >
 class wxSystemThemedControl : public C, public wxSystemThemedControlBase
 {
 public:

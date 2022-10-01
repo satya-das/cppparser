@@ -8,7 +8,7 @@
 #include "rxmember.h"
 #include "rxvalue.h"
 #include "AcArray.h"
-template <typename ValueType>
+template <typename ValueType >
 class AcRxValueTypePOD : public AcRxValueType
 {
 public:
@@ -92,12 +92,12 @@ public:
   bool subEqualTo(const void* a, const void* b) const override;
 };
 #ifdef __GNUC__
-template <typename ValueType>
+template <typename ValueType >
 int AcRxValueTypePOD<ValueType>::subToString(const void* instance, ACHAR* buffer, size_t sizeInACHARs, AcRxValueType::StringFormat format) const
 {
   return -1;
 }
-template <typename ValueType>
+template <typename ValueType >
 bool AcRxValueTypePOD<ValueType>::subEqualTo(const void* a, const void* b) const
 {
   return false;
@@ -108,7 +108,7 @@ bool AcRxValueTypePOD<ValueType>::subEqualTo(const void* a, const void* b) const
 //we simply store the pointer and don't try to use it immediately.
 //
 #pragma  warning(disable: 4355) 
-template <typename ValueType>
+template <typename ValueType >
 class AcRxEnumType : public AcRxValueTypePOD<ValueType>, public IAcRxEnumeration
 {
   AcArray<const AcRxEnumTag*> m_tags;
@@ -144,7 +144,7 @@ public:
 #endif
 };
 #pragma  warning(pop)
-template <typename T>
+template <typename T >
 class AcRxNonBlittableType : public AcRxValueType
 {
   class NonBlittable : public IAcRxNonBlittableType

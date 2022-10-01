@@ -40,6 +40,7 @@ endif()
 set_source_files_properties(src/parser.tab.cpp GENERATED)
 set_source_files_properties(src/parser.lex.cpp GENERATED)
 set_source_files_properties(src/parser.tab.h GENERATED)
+set_source_files_properties(src/angle-bracket-match-finder.lex.cpp GENERATED)
 
 add_custom_command(
 	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.tab.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.tab.h
@@ -57,6 +58,12 @@ add_custom_command(
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.tab.h
 )
 
+add_custom_command(
+	OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/src/angle-bracket-match-finder.lex.cpp
+	COMMAND ${FLEX} -o${CMAKE_CURRENT_SOURCE_DIR}/src/angle-bracket-match-finder.lex.cpp ${CMAKE_CURRENT_SOURCE_DIR}/src/angle-bracket-match-finder.l
+	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/angle-bracket-match-finder.l
+)
+
 set(CPPPARSER_SOURCES
 	src/cppparser.cpp
 	src/cppast.cpp
@@ -64,11 +71,10 @@ set(CPPPARSER_SOURCES
 	src/cppwriter.cpp
 	src/cppobjfactory.cpp
 	src/lexer-helper.cpp
-	src/parser.l
-	src/parser.y
 	src/parser.lex.cpp
 	src/parser.tab.cpp
 	src/utils.cpp
+	src/angle-bracket-match-finder.lex.cpp
 )
 
 add_library(cppparser STATIC ${CPPPARSER_SOURCES})
@@ -121,6 +127,7 @@ add_test(
 ## Unit Test
 
 set(TEST_SNIPPET_EMBEDDED_TESTS
+	${CMAKE_CURRENT_LIST_DIR}/test/unit/angle-bracket-match-finder-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/disabled-code-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/expr-tests.cpp
 	${CMAKE_CURRENT_LIST_DIR}/test/unit/attribute-specifier-sequence.cpp

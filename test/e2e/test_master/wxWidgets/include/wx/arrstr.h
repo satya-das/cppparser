@@ -353,7 +353,7 @@ public:
     Init(false);
     assign(n, v);
   }
-  template <typename Iterator>
+  template <class Iterator >
   void assign(Iterator first, Iterator last)
   {
     clear();

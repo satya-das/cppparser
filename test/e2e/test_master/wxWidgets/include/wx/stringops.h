@@ -24,25 +24,25 @@
 struct WXDLLIMPEXP_BASE wxStringOperationsWchar
 {
     // moves the iterator to the next Unicode character
-  template <typename Iterator>
+  template <typename Iterator >
   static void IncIter(Iterator& i)
   {
     ++i;
   }
     // moves the iterator to the previous Unicode character
-  template <typename Iterator>
+  template <typename Iterator >
   static void DecIter(Iterator& i)
   {
     --i;
   }
     // moves the iterator by n Unicode characters
-  template <typename Iterator>
+  template <typename Iterator >
   static Iterator AddToIter(const Iterator& i, ptrdiff_t n)
   {
     return i + n;
   }
     // returns distance of the two iterators in Unicode characters
-  template <typename Iterator>
+  template <typename Iterator >
   static ptrdiff_t DiffIters(const Iterator& i1, const Iterator& i2)
   {
     return i1 - i2;
@@ -106,13 +106,13 @@ struct WXDLLIMPEXP_BASE wxStringOperationsUtf8
   }
     // returns offset to skip forward when iterating over UTF-8 sequence
   static unsigned char GetUTF8IterOffset(unsigned char c);
-  template <typename Iterator>
+  template <typename Iterator >
   static void IncIter(Iterator& i)
   {
     wxASSERT(IsValidUtf8LeadByte(*i));
     i += GetUTF8IterOffset(*i);
   }
-  template <typename Iterator>
+  template <typename Iterator >
   static void DecIter(Iterator& i)
   {
         // Non-lead bytes are all in the 0x80..0xBF range (i.e. 10xxxxxx in
@@ -127,7 +127,7 @@ struct WXDLLIMPEXP_BASE wxStringOperationsUtf8
       --i;
     }
   }
-  template <typename Iterator>
+  template <typename Iterator >
   static Iterator AddToIter(const Iterator& i, ptrdiff_t n)
   {
     Iterator out(i);
@@ -150,7 +150,7 @@ struct WXDLLIMPEXP_BASE wxStringOperationsUtf8
     }
     return out;
   }
-  template <typename Iterator>
+  template <typename Iterator >
   static ptrdiff_t DiffIters(Iterator i1, Iterator i2)
   {
     ptrdiff_t dist = 0;

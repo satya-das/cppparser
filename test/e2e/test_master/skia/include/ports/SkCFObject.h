@@ -12,7 +12,7 @@
  * CFRetain and CFRelease appropriately on creation, assignment, and deletion.
  * Based on sk_sp<>.
  */
-template <typename T>
+template <typename T >
 static T SkCFSafeRetain(T obj)
 {
   if (obj)
@@ -21,7 +21,7 @@ static T SkCFSafeRetain(T obj)
   }
   return obj;
 }
-template <typename T>
+template <typename T >
 static void SkCFSafeRelease(T obj)
 {
   if (obj)
@@ -29,7 +29,7 @@ static void SkCFSafeRelease(T obj)
     CFRelease(obj);
   }
 }
-template <typename T>
+template <typename T >
 class sk_cf_obj
 {
 public:
@@ -132,12 +132,12 @@ public:
 private:
   T fObject;
 };
-template <typename T>
+template <typename T >
 inline bool operator==(const sk_cf_obj<T>& a, const sk_cf_obj<T>& b)
 {
   return a.get() == b.get();
 }
-template <typename T>
+template <typename T >
 inline bool operator!=(const sk_cf_obj<T>& a, const sk_cf_obj<T>& b)
 {
   return a.get() != b.get();

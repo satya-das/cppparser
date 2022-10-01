@@ -24,7 +24,7 @@
 
     @see wxSharedPtr<T>
 */
-template <typename T>
+template <typename T >
 class wxWindowPtr<T> : public wxSharedPtr<T>
 {
 public:
@@ -49,7 +49,7 @@ public:
                     zero.
 
     */
-  template <typename Deleter>
+  template <typename Deleter >
   explicit wxWindowPtr(T* ptr, Deleter d);
     /// Copy constructor.
   wxWindowPtr(const wxWindowPtr<T>& tocopy);

@@ -10,7 +10,7 @@
 #  include "include/private/SkNx.h"
 namespace SK_OPTS_NS
 {
-  template <typename T>
+  template <typename T >
   static void memsetT(T buffer[], T value, int count)
   {
 #  if  defined(SK_CPU_SSE_LEVEL) && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_AVX
@@ -41,7 +41,7 @@ namespace SK_OPTS_NS
   {
     memsetT(buffer, value, count);
   }
-  template <typename T>
+  template <typename T >
   static void rect_memsetT(T buffer[], T value, int count, size_t rowBytes, int height)
   {
     while (height-- > 0)

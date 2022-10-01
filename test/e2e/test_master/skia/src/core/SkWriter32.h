@@ -73,7 +73,7 @@ public:
      *  Read a T record at offset, which must be a multiple of 4. Only legal if the record
      *  was written atomically using the write methods below.
      */
-  template <typename T>
+  template <typename T >
   const T& readTAt(size_t offset) const
   {
     SkASSERT(SkAlign4(offset) == offset);
@@ -84,7 +84,7 @@ public:
      *  Overwrite a T record at offset, which must be a multiple of 4. Only legal if the record
      *  was written atomically using the write methods below.
      */
-  template <typename T>
+  template <typename T >
   void overwriteTAt(size_t offset, const T& value)
   {
     SkASSERT(SkAlign4(offset) == offset);

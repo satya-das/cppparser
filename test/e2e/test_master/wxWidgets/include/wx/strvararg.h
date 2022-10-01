@@ -217,7 +217,7 @@ struct wxFormatStringArgument
     return m_str;
   }
 };
-template <typename T>
+template <typename T >
 struct wxFormatStringArgumentFinder
 {
   static wxFormatStringArgument find(T)
@@ -305,7 +305,7 @@ struct wxFormatStringSpecifierNonPodType<true>
  value = wxFormatString::Arg_Int
   };
 };
-template <typename T>
+template <typename T >
 struct wxFormatStringSpecifier
 {
 #    ifdef HAVE_TYPE_TRAITS
@@ -318,7 +318,7 @@ struct wxFormatStringSpecifier
   };
 };
 #  else 
-template <typename T>
+template <typename T >
 struct wxFormatStringSpecifier
 {
     // We can't detect enums without is_enum, so the only thing we can
@@ -334,14 +334,14 @@ struct wxFormatStringSpecifier
   };
 };
 #  endif
-template <typename T>
+template <typename T >
 struct wxFormatStringSpecifier<T*>
 {
   enum {
  value = wxFormatString::Arg_Pointer
   };
 };
-template <typename T>
+template <typename T >
 struct wxFormatStringSpecifier<const T*>
 {
   enum {
@@ -409,7 +409,7 @@ wxFORMAT_STRING_SPECIFIER(std::nullptr_t, wxFormatString::Arg_Pointer)
 // Converts an argument passed to wxPrint etc. into standard form expected,
 // by wxXXX functions, e.g. all strings (wxString, char*, wchar_t*) are
 // converted into wchar_t* or char* depending on the build.
-template <typename T>
+template <typename T >
 struct wxArgNormalizer
 {
     // Ctor. 'value' is the value passed as variadic argument, 'fmt' is pointer
@@ -434,7 +434,7 @@ struct wxArgNormalizer
 // until ANSI build is removed, char* in ANSI build as well - FIXME-UTF8)
 // string representation
 #  if  !wxUSE_UTF8_LOCALE_ONLY
-template <typename T>
+template <typename T >
 struct wxArgNormalizerWchar : public wxArgNormalizer<T>
 {
   wxArgNormalizerWchar(T value, const wxFormatString* fmt, unsigned index)
@@ -446,7 +446,7 @@ struct wxArgNormalizerWchar : public wxArgNormalizer<T>
 // normalizer for passing arguments to functions working with UTF-8 encoded
 // char* strings
 #  if  wxUSE_UNICODE_UTF8
-template <typename T>
+template <typename T >
 struct wxArgNormalizerUtf8 : public wxArgNormalizer<T>
 {
   wxArgNormalizerUtf8(T value, const wxFormatString* fmt, unsigned index)
@@ -464,7 +464,7 @@ struct wxArgNormalizerUtf8 : public wxArgNormalizer<T>
 // base class for wxArgNormalizer<T> specializations that need to do conversion;
 // CharType is either wxStringCharType or wchar_t in UTF-8 build when wrapping
 // widechar CRT function
-template <typename CharType>
+template <typename CharType >
 struct wxArgNormalizerWithBuffer
 {
   typedef wxScopedCharTypeBuffer<CharType> CharBuffer;
@@ -740,7 +740,7 @@ struct wxArgNormalizer<const wxUniChar&> : public wxArgNormalizer<wchar_t>
 // wxUniChar) or as an integer value (which should be left as-is). We take
 // advantage of the fact that both char and wchar_t are converted into int
 // in variadic arguments here.
-template <typename T>
+template <typename T >
 struct wxArgNormalizerNarrowChar
 {
   wxArgNormalizerNarrowChar(T value, const wxFormatString* fmt, unsigned index)

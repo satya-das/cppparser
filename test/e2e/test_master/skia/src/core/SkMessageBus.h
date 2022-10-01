@@ -20,7 +20,7 @@
  * We may want to consider providing a default template implementation, to avoid this requirement by
  * sending to all inboxes when the specialization for type 'Message' is not present.
  */
-template <typename Message>
+template <typename Message >
 class SkMessageBus :  SkNoncopyable
 {
 public:
@@ -62,7 +62,7 @@ private:
         return bus;                                                \
     }
 //   ----------------------- Implementation of SkMessageBus::Inbox -----------------------
-template <typename Message>
+template <typename Message >
 SkMessageBus<Message>::Inbox::Inbox(uint32_t uniqueID)
   : fUniqueID(uniqueID)
 {
@@ -71,7 +71,7 @@ SkMessageBus<Message>::Inbox::Inbox(uint32_t uniqueID)
   SkAutoMutexExclusive lock(bus->fInboxesMutex);
   bus->fInboxes.push_back(this);
 }
-template <typename Message>
+template <typename Message >
 SkMessageBus<Message>::Inbox::~Inbox()
 {
     // Remove ourselves from the corresponding message bus.
@@ -87,13 +87,13 @@ SkMessageBus<Message>::Inbox::~Inbox()
     }
   }
 }
-template <typename Message>
+template <typename Message >
 void SkMessageBus<Message>::Inbox::receive(const Message& m)
 {
   SkAutoMutexExclusive lock(fMessagesMutex);
   fMessages.push_back(m);
 }
-template <typename Message>
+template <typename Message >
 void SkMessageBus<Message>::Inbox::poll(SkTArray<Message>* messages)
 {
   SkASSERT(messages);
@@ -102,11 +102,11 @@ void SkMessageBus<Message>::Inbox::poll(SkTArray<Message>* messages)
   fMessages.swap(*messages);
 }
 //   ----------------------- Implementation of SkMessageBus -----------------------
-template <typename Message>
+template <typename Message >
 SkMessageBus<Message>::SkMessageBus()
 {
 }
-template <typename Message>
+template <typename Message >
 void SkMessageBus<Message>::Post(const Message& m)
 {
   SkMessageBus<Message>* bus = SkMessageBus<Message>::Get();

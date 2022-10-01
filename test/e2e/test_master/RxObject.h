@@ -725,7 +725,7 @@ public:
     This template class is a specialization of the OdSmartPtr class template for OdRxClass object pointers. 
 */
 typedef OdSmartPtr<OdRxClass> OdRxClassPtr;
-template <typename Class, typename Parent>
+template <typename Class, class Parent >
 OdRxObject* odQueryXImpl(const Class* pThis, const OdRxClass* pClass)
 {
   OdRxObject* pObj = 0;

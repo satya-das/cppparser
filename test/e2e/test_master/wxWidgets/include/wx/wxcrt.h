@@ -653,23 +653,23 @@ inline wchar_t* wxStrncat(wchar_t* dest, const char* src, size_t n)
     inline rettype WX_STR_DECL(name, const wxScopedWCharBuffer&, const wxString&)   \
         { return WX_STR_CALL(crtW, s1.data(), s2.wc_str()); }
 #  endif
-template <typename T>
+template <typename T >
 inline int wxStrcmp_String(const wxString& s1, const T& s2)
 {
   return s1.compare(s2);
 }
 WX_STRCMP_FUNC(wxStrcmp, wxCRT_StrcmpA, wxCRT_StrcmpW, wxStrcmp_String)
-template <typename T>
+template <typename T >
 inline int wxStricmp_String(const wxString& s1, const T& s2)
 {
   return s1.CmpNoCase(s2);
 }
 WX_STRCMP_FUNC(wxStricmp, wxCRT_StricmpA, wxCRT_StricmpW, wxStricmp_String)
 #  if  defined(wxCRT_StrcollA) && defined(wxCRT_StrcollW)
-template <typename T>
+template <typename T >
 inline int wxStrcoll_String(const wxString& s1, const T& s2);
 WX_STRCMP_FUNC(wxStrcoll, wxCRT_StrcollA, wxCRT_StrcollW, wxStrcoll_String)
-template <typename T>
+template <typename T >
 inline int wxStrcoll_String(const wxString& s1, const T& s2)
 {
     // NB: strcoll() doesn't work correctly on UTF-8 strings, so we have to use
@@ -679,14 +679,14 @@ inline int wxStrcoll_String(const wxString& s1, const T& s2)
   return wxStrcoll((const wchar_t*) s1.wc_str(), s2);
 }
 #  endif
-template <typename T>
+template <typename T >
 inline size_t wxStrspn_String(const wxString& s1, const T& s2)
 {
   size_t pos = s1.find_first_not_of(s2);
   return pos == wxString::npos ? s1.length() : pos;
 }
 WX_STR_FUNC(size_t, wxStrspn, wxCRT_StrspnA, wxCRT_StrspnW, wxStrspn_String)
-template <typename T>
+template <typename T >
 inline size_t wxStrcspn_String(const wxString& s1, const T& s2)
 {
   size_t pos = s1.find_first_of(s2);
@@ -697,13 +697,13 @@ WX_STR_FUNC(size_t, wxStrcspn, wxCRT_StrcspnA, wxCRT_StrcspnW, wxStrcspn_String)
 #  undef WX_STR_CALL
 #  define WX_STR_DECL(name, T1, T2)	  name(T1 s1, T2 s2, size_t n)
 #  define WX_STR_CALL(func, a1, a2)	  func(a1, a2, n)
-template <typename T>
+template <typename T >
 inline int wxStrncmp_String(const wxString& s1, const T& s2, size_t n)
 {
   return s1.compare(0, n, s2, 0, n);
 }
 WX_STRCMP_FUNC(wxStrncmp, wxCRT_StrncmpA, wxCRT_StrncmpW, wxStrncmp_String)
-template <typename T>
+template <typename T >
 inline int wxStrnicmp_String(const wxString& s1, const T& s2, size_t n)
 {
   return s1.substr(0, n).CmpNoCase(wxString(s2).substr(0, n));
@@ -723,7 +723,7 @@ inline size_t wxStrxfrm(wchar_t* dest, const wchar_t* src, size_t n)
 {
   return wxCRT_StrxfrmW(dest, src, n);
 }
-template <typename T>
+template <typename T >
 inline size_t wxStrxfrm(T* dest, const wxScopedCharTypeBuffer<T>& src, size_t n)
 {
   return wxStrxfrm(dest, src.data(), n);
@@ -757,7 +757,7 @@ inline wchar_t* wxStrtok(wchar_t* str, const wchar_t* delim, wchar_t** saveptr)
 {
   return wxCRT_StrtokW(str, delim, saveptr);
 }
-template <typename T>
+template <typename T >
 inline T* wxStrtok(T* str, const wxScopedCharTypeBuffer<T>& delim, T** saveptr)
 {
   return wxStrtok(str, delim.data(), saveptr);
@@ -887,32 +887,32 @@ inline const wchar_t* wxStrrchr(const wchar_t* s, const wxUniCharRef& c)
 {
   return wxCRT_StrrchrW(s, (wchar_t) c);
 }
-template <typename T>
+template <typename T >
 inline const T* wxStrchr(const wxScopedCharTypeBuffer<T>& s, T c)
 {
   return wxStrchr(s.data(), c);
 }
-template <typename T>
+template <typename T >
 inline const T* wxStrrchr(const wxScopedCharTypeBuffer<T>& s, T c)
 {
   return wxStrrchr(s.data(), c);
 }
-template <typename T>
+template <typename T >
 inline const T* wxStrchr(const wxScopedCharTypeBuffer<T>& s, const wxUniChar& c)
 {
   return wxStrchr(s.data(), (T) c);
 }
-template <typename T>
+template <typename T >
 inline const T* wxStrrchr(const wxScopedCharTypeBuffer<T>& s, const wxUniChar& c)
 {
   return wxStrrchr(s.data(), (T) c);
 }
-template <typename T>
+template <typename T >
 inline const T* wxStrchr(const wxScopedCharTypeBuffer<T>& s, const wxUniCharRef& c)
 {
   return wxStrchr(s.data(), (T) c);
 }
-template <typename T>
+template <typename T >
 inline const T* wxStrrchr(const wxScopedCharTypeBuffer<T>& s, const wxUniCharRef& c)
 {
   return wxStrrchr(s.data(), (T) c);
@@ -1075,48 +1075,48 @@ inline const char* wxStrpbrk(const wxCStrData& s, const wxCStrData& accept)
   return wxCRT_StrpbrkA(s.AsChar(), accept.AsCharBuf());
 }
 #  endif
-template <typename S, typename T>
+template <typename S, typename T >
 inline const T* wxStrpbrk(const S& s, const wxScopedCharTypeBuffer<T>& accept)
 {
   return wxStrpbrk(s, accept.data());
 }
 /* inlined non-const versions */
-template <typename T>
+template <typename T >
 inline char* wxStrstr(char* haystack, T needle)
 {
   return const_cast<char*>(wxStrstr(const_cast<const char*>(haystack), needle));
 }
-template <typename T>
+template <typename T >
 inline wchar_t* wxStrstr(wchar_t* haystack, T needle)
 {
   return const_cast<wchar_t*>(wxStrstr(const_cast<const wchar_t*>(haystack), needle));
 }
-template <typename T>
+template <typename T >
 inline char* wxStrchr(char* s, T c)
 {
   return const_cast<char*>(wxStrchr(const_cast<const char*>(s), c));
 }
-template <typename T>
+template <typename T >
 inline wchar_t* wxStrchr(wchar_t* s, T c)
 {
   return const_cast<wchar_t*>(wxStrchr(const_cast<const wchar_t*>(s), c));
 }
-template <typename T>
+template <typename T >
 inline char* wxStrrchr(char* s, T c)
 {
   return const_cast<char*>(wxStrrchr(const_cast<const char*>(s), c));
 }
-template <typename T>
+template <typename T >
 inline wchar_t* wxStrrchr(wchar_t* s, T c)
 {
   return const_cast<wchar_t*>(wxStrrchr(const_cast<const wchar_t*>(s), c));
 }
-template <typename T>
+template <typename T >
 inline char* wxStrpbrk(char* s, T accept)
 {
   return const_cast<char*>(wxStrpbrk(const_cast<const char*>(s), accept));
 }
-template <typename T>
+template <typename T >
 inline wchar_t* wxStrpbrk(wchar_t* s, T accept)
 {
   return const_cast<wchar_t*>(wxStrpbrk(const_cast<const wchar_t*>(s), accept));
@@ -1221,7 +1221,7 @@ inline double wxStrtod(const wchar_t* nptr, wchar_t** endptr)
 {
   return wxCRT_StrtodW(nptr, endptr);
 }
-template <typename T>
+template <typename T >
 inline double wxStrtod(const wxScopedCharTypeBuffer<T>& nptr, T** endptr)
 {
   return wxStrtod(nptr.data(), endptr);
@@ -1234,7 +1234,7 @@ inline double wxStrtod(const wxScopedCharTypeBuffer<T>& nptr, T** endptr)
 // converted to from the type of 'endptr'. We need wxStrtoxCharType<T> template
 // to make the code compile even for T=int (that's the case when it's not going
 // to be ever used, but it still has to compile).
-template <typename T>
+template <typename T >
 struct wxStrtoxCharType
 {
 };
@@ -1266,7 +1266,7 @@ struct wxStrtoxCharType<int>
     return NULL;
   }
 };
-template <typename T>
+template <typename T >
 inline double wxStrtod(const wxString& nptr, T endptr)
 {
   if (!endptr)
@@ -1283,7 +1283,7 @@ inline double wxStrtod(const wxString& nptr, T endptr)
   typedef typename wxStrtoxCharType<T>::Type CharType;
   return wxStrtod((CharType) nptr.c_str(), wxStrtoxCharType<T>::AsPointer(endptr));
 }
-template <typename T>
+template <typename T >
 inline double wxStrtod(const wxCStrData& nptr, T endptr)
 {
   return wxStrtod(nptr.AsString(), endptr);

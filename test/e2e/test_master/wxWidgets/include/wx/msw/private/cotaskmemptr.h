@@ -13,7 +13,7 @@
 // ----------------------------------------------------------------------------
 // wxCoTaskMemPtr: A barebone RAII class for pointers to be freed with ::CoTaskMemFree().
 // ----------------------------------------------------------------------------
-template <typename T>
+template <class T >
 class wxCoTaskMemPtr
 {
 public:

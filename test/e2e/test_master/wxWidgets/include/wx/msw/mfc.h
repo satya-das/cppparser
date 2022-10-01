@@ -45,7 +45,7 @@ public:
 
 // The template parameter here is an existing class deriving from CWinApp or,
 // if there is no such class, just CWinApp itself.
-template <typename T>
+template <typename T >
 class wxMFCApp : public T
 {
 public:

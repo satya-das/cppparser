@@ -42,7 +42,7 @@ extern "C" {
     @discussion The parameter is template not for type safety but to ensure the argument
                 is a raw pointer and not a ref holder of any type.
 */
-template <typename Type>
+template <class Type >
 inline void wxCFRelease(Type* r)
 {
   if (r != NULL)
@@ -55,7 +55,7 @@ inline void wxCFRelease(Type* r)
     @discussion The parameter is template not for type safety but to ensure the argument
                 is a raw pointer and not a ref holder of any type.
 */
-template <typename Type>
+template <class Type >
 inline Type* wxCFAutorelease(Type* r)
 {
   if (r != NULL)
@@ -67,7 +67,7 @@ inline Type* wxCFAutorelease(Type* r)
 /*! @function   wxCFRetain
     @abstract   A typesafe CFRetain variant that checks for NULL.
 */
-template <typename Type>
+template <class Type >
 inline Type* wxCFRetain(Type* r)
 {
     // NOTE(DE): Setting r to the result of CFRetain improves efficiency on both x86 and PPC
@@ -79,7 +79,7 @@ inline Type* wxCFRetain(Type* r)
   }
   return r;
 }
-template <typename refType>
+template <class refType >
 class wxCFRef;
 /*! @class wxCFWeakRef
     @templatefield  refType     The CF reference type (e.g. CFStringRef, CFRunLoopRef, etc.)
@@ -91,10 +91,10 @@ class wxCFRef;
                 class will cause it to be retained because it is assumed that a wxCFWeakRef
                 does not own its pointer.
 */
-template <typename refType>
+template <class refType >
 class wxCFWeakRef
 {
-  template <typename refTypeA, typename otherRefType>
+  template <typename refTypeA, class otherRefType >
   friend wxCFWeakRef<refTypeA> static_cfref_cast(const wxCFRef<otherRefType>& otherRef);
 public:
     /*! @method     wxCFWeakRef
@@ -118,7 +118,7 @@ public:
         @param otherRef The other weak ref holder to copy.
         @discussion This is merely a copy or implicit cast.
     */
-  template <typename otherRefType>
+  template <class otherRefType >
   wxCFWeakRef(const wxCFWeakRef<otherRefType>& otherRef)
     : m_ptr(otherRef.get())
   {
@@ -129,7 +129,7 @@ public:
         @param otherRef The strong ref holder to copy.
         @discussion This ref is merely a pointer copy, the strong ref still holds the pointer.
     */
-  template <typename otherRefType>
+  template <class otherRefType >
   wxCFWeakRef(const wxCFRef<otherRefType>& otherRef)
     : m_ptr(otherRef.get())
   {
@@ -157,7 +157,7 @@ protected:
         @param p        The raw pointer to assume ownership of.  May be NULL.
         @discussion This method is private so that the friend static_cfref_cast can use it
     */
-  template <typename otherType>
+  template <class otherType >
   explicit wxCFWeakRef(otherType* p)
     : m_ptr(p)
   {
@@ -172,7 +172,7 @@ protected:
                                 shared_ptr where the template parameter is the pointee type.
     @discussion Properly retains/releases reference to CoreFoundation objects
 */
-template <typename refType>
+template <class refType >
 class wxCFRef
 {
 public:
@@ -208,7 +208,7 @@ public:
                     This method is templated and takes an otherType *p.  This prevents implicit conversion
                     using an operator refType() in a different ref-holding class type.
     */
-  template <typename otherType>
+  template <class otherType >
   explicit wxCFRef(otherType* p)
     : m_ptr(p)
   {
@@ -230,7 +230,7 @@ public:
         @discussion Ownership will be shared by the original ref and the newly created ref. That is,
                     the object will be explicitly retained by this new ref.
     */
-  template <typename otherRefType>
+  template <class otherRefType >
   wxCFRef(const wxCFRef<otherRefType>& otherRef)
     : m_ptr(wxCFRetain(otherRef.get()))
   {
@@ -243,7 +243,7 @@ public:
                     the object will be explicitly retained by this new ref.
                     Ownership is most likely shared with some other ref as well.
     */
-  template <typename otherRefType>
+  template <class otherRefType >
   wxCFRef(const wxCFWeakRef<otherRefType>& otherRef)
     : m_ptr(wxCFRetain(otherRef.get()))
   {
@@ -280,7 +280,7 @@ public:
         @discussion The incoming pointer is retained, the original pointer is released, and this object
                     is made to point to the new pointer.
     */
-  template <typename otherRefType>
+  template <class otherRefType >
   wxCFRef& operator=(const wxCFRef<otherRefType>& otherRef)
   {
     wxCFRetain(otherRef.get());
@@ -334,7 +334,7 @@ public:
                     This method is templated and takes an otherType *p.  This prevents implicit conversion
                     using an operator refType() in a different ref-holding class type.
     */
-  template <typename otherType>
+  template <class otherType >
   void reset(otherType* p)
   {
     wxCFRelease(m_ptr);
@@ -367,7 +367,7 @@ protected:
                 CFAttributedStringGetString() which return a temporary reference (Get-rule functions).
                 FIXME: Anybody got a better name?
 */
-template <typename Type>
+template <typename Type >
 inline wxCFRef<Type*> wxCFRefFromGet(Type* p)
 {
   return wxCFRef<Type*>(wxCFRetain(p));
@@ -386,9 +386,9 @@ inline wxCFRef<Type*> wxCFRefFromGet(Type* p)
 
                 FIXME: Anybody got a better name?
 */
-template <typename refType, typename otherRefType>
+template <typename refType, class otherRefType >
 inline wxCFWeakRef<refType> static_cfref_cast(const wxCFRef<otherRefType>& otherRef);
-template <typename refType, typename otherRefType>
+template <typename refType, class otherRefType >
 inline wxCFWeakRef<refType> static_cfref_cast(const wxCFRef<otherRefType>& otherRef)
 {
   return wxCFWeakRef<refType>(static_cast<refType>(otherRef.get()));
@@ -399,7 +399,7 @@ inline wxCFWeakRef<refType> static_cfref_cast(const wxCFRef<otherRefType>& other
                 must do it he can explicitly get() the raw pointer
                 Normally, this function is unimplemented resulting in a linker error if used.
 */
-template <typename T>
+template <class T >
 inline void CFRelease(const wxCFRef<T*>& cfref);
 /*! @function   CFRetain
     @abstract   Overloads CFRetain so that the user is warned of bad behaviour.
@@ -407,7 +407,7 @@ inline void CFRelease(const wxCFRef<T*>& cfref);
                 must do it he can explicitly get() the raw pointer
                 Normally, this function is unimplemented resulting in a linker error if used.
 */
-template <typename T>
+template <class T >
 inline void CFRetain(const wxCFRef<T*>& cfref);
 // Change the 0 to a 1 if you want the functions to work (no link errors)
 // Neither function will cause retain/release side-effects if implemented.

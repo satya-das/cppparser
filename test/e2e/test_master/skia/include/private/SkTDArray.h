@@ -11,7 +11,7 @@
 #  include "include/private/SkTo.h"
 #  include <initializer_list>
 #  include <utility>
-template <typename T>
+template <typename T >
 class SkTDArray
 {
 public:
@@ -443,7 +443,7 @@ private:
     fArray = (T*) sk_realloc_throw(fArray, fReserve * sizeof(T));
   }
 };
-template <typename T>
+template <typename T >
 static void swap(SkTDArray<T>& a, SkTDArray<T>& b)
 {
   a.swap(b);

@@ -37,7 +37,7 @@ enum GrStencilFlags {
     kLast_StencilFlag = kSingleSided_StencilFlag,
     kAll_StencilFlags = kLast_StencilFlag | (kLast_StencilFlag - 1)
 };
-template <typename TTest, typename TOp>
+template <typename TTest, typename TOp >
 struct GrTStencilFaceSettings
 {
   uint16_t fRef;

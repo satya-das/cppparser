@@ -97,7 +97,7 @@ private:
  *  Templated wrapper for SkPtrSet, just meant to automate typecasting
  *  parameters to and from void* (which the base class expects).
  */
-template <typename T>
+template <typename T >
 class SkTPtrSet : public SkPtrSet
 {
 public:

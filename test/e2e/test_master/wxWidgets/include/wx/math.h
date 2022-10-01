@@ -91,7 +91,7 @@ inline int wxRound(long double x)
 }
 // For compatibility purposes, make wxRound() work with integer types too, as
 // this used to compile with wx 3.0.
-template <typename T>
+template <typename T >
 wxDEPRECATED_MSG("rounding an integer is useless") inline int wxRound(T x)
 {
     // We have to disable this warning for the unsigned types. We do handle

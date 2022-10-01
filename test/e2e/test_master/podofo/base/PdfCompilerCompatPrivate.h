@@ -207,7 +207,7 @@ namespace PoDoFo
  * warning.
  */
 #  ifndef _WIN32
-template <typename T>
+template <typename T >
 inline void podofo_unused(T& t)
 {
   (void) t;

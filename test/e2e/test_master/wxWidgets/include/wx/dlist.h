@@ -10,7 +10,7 @@
 #  define _WX_DLIST_H_
 #  include "wx/defs.h"
 #  include "wx/utils.h"
-template <typename T>
+template <typename T >
 class wxDList
 {
 public:

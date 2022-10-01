@@ -1127,7 +1127,7 @@ public:
   {
     wxListBase::Sort(compfunc);
   }
-  template <typename T>
+  template <typename T >
   wxVector<T> AsVector() const
   {
     wxVector<T> vector(size());

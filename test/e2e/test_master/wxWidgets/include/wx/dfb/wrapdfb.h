@@ -118,7 +118,7 @@ protected:
        can be or-combination of enum elements (this is workaround for
        C++-unfriendly DirectFB API)
  */
-template <typename T>
+template <typename T >
 class wxDfbWrapper : public wxDfbWrapperBase
 {
 public:

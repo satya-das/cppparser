@@ -22,7 +22,7 @@ struct GrVkInterface : public SkRefCnt
 {
 private:
     // simple wrapper class that exists only to initialize a pointer to NULL
-  template <typename FNPTR_TYPE>
+  template <typename FNPTR_TYPE >
   class VkPtr
   {
   public:

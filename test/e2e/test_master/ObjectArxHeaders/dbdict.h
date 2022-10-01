@@ -53,7 +53,7 @@ public:
   virtual const ACHAR* name() const = 0;
     // Sets sName and returns true if not done. Else clears sName and returns false
   virtual bool name(AcString& sName) const = 0;
-  template <typename ObjType>
+  template <class ObjType >
   Acad::ErrorStatus getObject(ObjType*& pObject, AcDb::OpenMode mode = AcDb::kForRead)
   {
     const AcDbObjectId id = this->objectId();
@@ -83,7 +83,7 @@ public:
   AcDbDictionary& operator =(const AcDbDictionary&);
     // Get an entry by name.
     //
-  template <typename ObjType>
+  template <class ObjType >
   Acad::ErrorStatus getAt(const ACHAR* entryName, ObjType*& entryObj, AcDb::OpenMode mode = AcDb::kForRead) const
   {
     entryObj = nullptr;

@@ -268,7 +268,7 @@ namespace skvm
         // TODO: different types for varying and uniforms?
     Arg arg(int stride);
         // Convenience arg() wrappers for most common strides, sizeof(T) and 0.
-    template <typename T>
+    template <typename T >
     Arg varying()
     {
       return this->arg(sizeof(T));
@@ -390,7 +390,7 @@ namespace skvm
   private:
     struct InstructionHash
     {
-      template <typename T>
+      template <typename T >
       static size_t Hash(T val)
       {
         return std::hash<T>{}(val);

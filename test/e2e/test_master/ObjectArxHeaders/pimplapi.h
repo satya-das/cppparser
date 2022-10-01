@@ -13,7 +13,7 @@ namespace Pimpl
 {
   class ImpBase;
     //Simple helper template to implement to help implement the Pimpl Idiom.
-  template <typename Base, typename ImpPart>
+  template <typename Base, class ImpPart >
   class ApiPart : public Base
   {
   protected:
@@ -29,7 +29,7 @@ namespace Pimpl
     ImpPart* m_pImp;
   };
     //partial specialization for no base class
-  template <typename ImpPart>
+  template <class ImpPart >
   class ApiPart<void, ImpPart>
   {
   protected:

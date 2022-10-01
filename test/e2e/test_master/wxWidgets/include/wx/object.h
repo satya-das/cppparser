@@ -129,7 +129,7 @@ name##PluginSentinel  m_pluginsentinel
 // to cast the this pointer and avoid compiler warnings.
 #  define wxDynamicCastThis(className)	 \
      (IsKindOf(&className::ms_classInfo) ? (className*)this : NULL)
-template <typename T>
+template <class T >
 inline T* wxCheckCast(const void* ptr)
 {
   wxASSERT_MSG( wxDynamicCast(ptr, T), "wxStaticCast() used incorrectly" );
@@ -227,7 +227,7 @@ typedef wxRefCounter wxObjectRefData;
 // wxObjectDataPtr: helper class to avoid memleaks because of missing calls
 //                  to wxObjectRefData::DecRef
 // ----------------------------------------------------------------------------
-template <typename T>
+template <class T >
 class wxObjectDataPtr
 {
 public:

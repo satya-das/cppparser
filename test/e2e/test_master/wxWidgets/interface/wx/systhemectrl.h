@@ -55,7 +55,7 @@
 
    @since 3.1.0
 */
-template <typename C>
+template <class C >
 class wxSystemThemedControl : public C
 {
 public:

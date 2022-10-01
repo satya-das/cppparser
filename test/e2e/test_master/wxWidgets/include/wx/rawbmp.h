@@ -177,7 +177,7 @@ typedef wxPixelFormat<unsigned char, 32, wxNativePixelFormat::RED, wxNativePixel
 #    endif
 // we also define the (default/best) pixel format for the given class: this is
 // used as default value for the pixel format in wxPixelIterator template
-template <typename T>
+template <class T >
 struct wxPixelFormatFor;
 #    if  wxUSE_IMAGE
 // wxPixelFormatFor is only defined for wxImage, attempt to use it with other
@@ -268,10 +268,10 @@ protected:
  */
 
 // we need to define this skeleton template to mollify VC++
-template <typename Image>
+template <class Image >
 struct wxPixelDataOut
 {
-  template <typename PixelFormat>
+  template <class PixelFormat >
   class wxPixelDataIn
   {
   public:
@@ -288,7 +288,7 @@ struct wxPixelDataOut<wxImage>
 {
     // NB: this is a template class even though it doesn't use its template
     //     parameter because otherwise wxPixelData couldn't compile
-  template <typename dummyPixelFormat>
+  template <class dummyPixelFormat >
   class wxPixelDataIn : public wxPixelDataBase
   {
   public:
@@ -480,7 +480,7 @@ struct wxPixelDataOut<wxImage>
 template <>
 struct wxPixelDataOut<wxBitmap>
 {
-  template <typename Format>
+  template <class Format >
   class wxPixelDataIn : public wxPixelDataBase
   {
   public:

@@ -22,7 +22,7 @@
 struct GrVertexWriter
 {
   void* fPtr;
-  template <typename T>
+  template <typename T >
   class Conditional
   {
   public:
@@ -36,12 +36,12 @@ struct GrVertexWriter
     bool fCondition;
     T fValue;
   };
-  template <typename T>
+  template <typename T >
   static Conditional<T> If(bool condition, const T& value)
   {
     return Conditional<T>(condition, value);
   }
-  template <typename T>
+  template <typename T >
   struct Skip
   {
   };
@@ -113,7 +113,7 @@ struct GrVertexWriter
      * - For any arguments of type TriStrip, a unique SkPoint will be written at each vertex,
      *   in this order: left-top, left-bottom, right-top, right-bottom.
      */
-  template <typename T>
+  template <typename T >
   struct TriStrip
   {
     T l, t, r, b;
@@ -122,7 +122,7 @@ struct GrVertexWriter
   {
     return {r.fLeft, r.fTop, r.fRight, r.fBottom};
   }
-  template <typename T>
+  template <typename T >
   struct TriFan
   {
     T l, t, r, b;
@@ -150,12 +150,12 @@ private:
   void writeQuadVert()
   {
   }
-  template <int corner, typename T>
+  template <int corner, typename T >
   void writeQuadValue(const T& val)
   {
     this->write(val);
   }
-  template <int corner, typename T>
+  template <int corner, typename T >
   void writeQuadValue(const TriStrip<T>& r)
   {
     switch(corner)
@@ -174,7 +174,7 @@ private:
         break;
     }
   }
-  template <int corner, typename T>
+  template <int corner, typename T >
   void writeQuadValue(const TriFan<T>& r)
   {
     switch(corner)

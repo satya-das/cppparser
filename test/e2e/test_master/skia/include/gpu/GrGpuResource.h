@@ -23,7 +23,7 @@ class SkTraceMemoryDump;
  * during this time. AFTER the ref count reaches zero DERIVED::notifyRefCntIsZero() will be
  * called.
  */
-template <typename DERIVED>
+template <typename DERIVED >
 class GrIORef : public SkNoncopyable
 {
 public:

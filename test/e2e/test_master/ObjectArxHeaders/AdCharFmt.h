@@ -134,7 +134,7 @@ public:
     // Inserts 7 CIF chars of the form "\U+xxxx" into the destination
     // buffer.  Assumes there is room in the buffer.  Does *not*
     // append a null terminator.
-  template <typename ChType>
+  template <class ChType >
   static void putCIF(wchar_t wch, ChType* pDest)
   {
     pDest[0] = '\\';
@@ -222,13 +222,13 @@ public:
       }
     }
   }
-  template <typename ChType>
+  template <class ChType >
   static bool isHex(ChType ch)
   {
         // true if in range 0..9, a..f or A..F
     return (ch >= '0' && ch <= '9') || (ch >= 'A' && ch <= 'F') || (ch >= 'a' && ch <= 'f');
   }
-  template <typename ChType>
+  template <class ChType >
   static bool isHex(ChType ch, unsigned& uVal)
   {
     if (ch >= '0' && ch <= '9')
@@ -256,7 +256,7 @@ public:
     // Static method. 
     // Returns true if pSrcBuf contains a CIF sequence, or false otherwise.
     // Assumes the string is null terminated
-  template <typename ChType>
+  template <class ChType >
   static bool isCIFString(const ChType* pSrcBuf)
   {
     AdCharFmt_Assert(pSrcBuf != NULL);
@@ -268,7 +268,7 @@ public:
     return false;
   }
     // Takes a string length arg instead of assuming it's null terminated
-  template <typename ChType>
+  template <class ChType >
   static bool isCIFString(const ChType* pSrcBuf, unsigned nSrcBufSize)
   {
     AdCharFmt_Assert(pSrcBuf != NULL);
@@ -281,7 +281,7 @@ public:
   }
     // Static method. Parse a wide character from a CIF string.
     // Returns true if parsing is successful, or false otherwise.
-  template <typename ChType>
+  template <class ChType >
   static bool parseCIF(const ChType* pSrcBuf, wchar_t& wch)
   {
     AdCharFmt_Assert(pSrcBuf != NULL);
@@ -321,7 +321,7 @@ public:
     // Static method. 
     // Returns true if pSrcBuf contains a MIF sequence, or false otherwise.
     // Assumes the string is null terminated
-  template <typename ChType>
+  template <class ChType >
   static bool isMIFString(const ChType* pSrcBuf)
   {
     AdCharFmt_Assert(pSrcBuf != NULL);
@@ -333,7 +333,7 @@ public:
     return false;
   }
     // Takes a string length arg instead of assuming it's null terminated
-  template <typename ChType>
+  template <class ChType >
   static bool isMIFString(const ChType* pSrcBuf, unsigned nSrcBufSize)
   {
     AdCharFmt_Assert(pSrcBuf != NULL);
@@ -383,7 +383,7 @@ default:
     // The public API is retained. But will be obsolted. Use putMIF() the code_page_id version instead.
     // Assumes output buffer is at least 8 chars.  Returns true
     // if widechar converted to MIF, false otherwise.
-  template <typename ChType>
+  template <class ChType >
   ADESK_DEPRECATED static bool putMIF(wchar_t wch, ChType* pMbOut, unsigned nWinCodePage)
   {
     const unsigned char nMIFIndex = MIFIndexFromWinCodePage(nWinCodePage);
@@ -423,7 +423,7 @@ default:
   }
     // Assumes output buffer is at least 8 chars.  Returns true
     // if widechar converted to MIF, false otherwise.
-  template <typename ChType>
+  template <class ChType >
   static bool putMIF(wchar_t wch, ChType* pMbOut, code_page_id codePageId)
   {
     const auto nMIFIndex = MIFIndexFromCodePageId(codePageId);
@@ -462,20 +462,20 @@ default:
     return true;
   }
     // Returns 0 if input char doesn't represent a valid MIF codepage
-  template <typename ChType>
+  template <class ChType >
   static unsigned getMIFCodePage(ChType ch)
   {
     return ch == '1' ? 932 : ch == '2' ? 950 : ch == '3' ? 949 : ch == '4' ? 1361 : ch == '5' ? 936 : 0;
   }
     // Returns 0 if input char doesn't represent a valid MIF codepage
-  template <typename ChType>
+  template <class ChType >
   static code_page_id getMIFCodePageId(ChType ch)
   {
     return ch == '1' ? code_page_id::CODE_PAGE_DOS932 : ch == '2' ? code_page_id::CODE_PAGE_BIG5 : ch == '3' ? code_page_id::CODE_PAGE_KSC5601 : ch == '4' ? code_page_id::CODE_PAGE_JOHAB : ch == '5' ? code_page_id::CODE_PAGE_GB2312 : code_page_id::CODE_PAGE_UNDEFINED;
   }
     // Static method. Parse a wide character from a MIF string.
     // Returns true if parsing is successful, or false otherwise.
-  template <typename ChType>
+  template <class ChType >
   static bool parseMIF(const ChType* pSrcBuf, wchar_t& wch)
   {
         // Convert the given MIF sequence \M+xyyzz to wide character. 

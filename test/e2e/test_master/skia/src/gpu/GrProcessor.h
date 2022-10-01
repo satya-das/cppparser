@@ -206,7 +206,7 @@ public:
     ::operator delete(target, placement);
   }
     /** Helper for down-casting to a GrProcessor subclass */
-  template <typename T>
+  template <typename T >
   const T& cast() const
   {
     return *static_cast<const T*>(this);

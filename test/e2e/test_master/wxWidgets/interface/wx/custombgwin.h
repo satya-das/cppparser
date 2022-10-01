@@ -44,7 +44,7 @@
 
     @since 2.9.3
  */
-template <typename W>
+template <class W >
 class wxCustomBackgroundWindow : public W
 {
 public:

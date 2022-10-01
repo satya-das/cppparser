@@ -84,7 +84,7 @@ public:
 private:
   wxString m_name;
 };
-template <typename coll_t>
+template <typename coll_t >
 void WXDLLIMPEXP_BASE wxCollectionToVariantArray(const coll_t& coll, wxAnyList& result);
 class WXDLLIMPEXP_BASE wxPropertyCollectionAdder
 {

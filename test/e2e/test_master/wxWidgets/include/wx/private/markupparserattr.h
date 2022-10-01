@@ -213,7 +213,7 @@ private:
   }
     // A helper class used to apply the given function to a wxFont object
     // depending on the value of an OptionalBool.
-  template <typename T>
+  template <typename T >
   struct FontModifier
   {
     FontModifier()

@@ -114,7 +114,7 @@ private:
 //
 // ----------------------------------------------------------------------------
 void WXDLLIMPEXP_BASE wxSetStringToArray(const wxString& s, wxArrayString& array);
-template <typename e>
+template <typename e >
 void wxSetFromString(const wxString& s, wxBitset<e>& data)
 {
   wxEnumData* edata = wxGetEnumData((e) 0);
@@ -132,7 +132,7 @@ void wxSetFromString(const wxString& s, wxBitset<e>& data)
     }
   }
 }
-template <typename e>
+template <typename e >
 void wxSetToString(wxString& s, const wxBitset<e>& data)
 {
   wxEnumData* edata = wxGetEnumData((e) 0);
@@ -167,7 +167,7 @@ void wxSetToString(wxString& s, const wxBitset<e>& data)
     wxEnumTypeInfo s_typeInfo##SetName(wxT_SET, &s_enumData##e,               \
             &wxTO_STRING( SetName ), &wxFROM_STRING( SetName ),               \
             &ToLong##SetName, &FromLong##SetName, typeid(SetName).name() );
-template <typename e>
+template <typename e >
 void wxFlagsFromString(const wxString& s, e& data)
 {
   wxEnumData* edata = wxGetEnumData((e*) 0);
@@ -185,7 +185,7 @@ void wxFlagsFromString(const wxString& s, e& data)
     }
   }
 }
-template <typename e>
+template <typename e >
 void wxFlagsToString(wxString& s, const e& data)
 {
   wxEnumData* edata = wxGetEnumData((e*) 0);
@@ -474,7 +474,7 @@ private:
   int m_eventType;
   int m_lastEventType;
 };
-template <typename T>
+template <typename T >
 const wxTypeInfo* wxGetTypeInfo(T*)
 {
   return wxTypeInfo::FindType(typeid(T).name());

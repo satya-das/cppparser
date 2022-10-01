@@ -121,13 +121,13 @@ public:
     /**
      * Helper for safely down-casting to a GrOp subclass
      */
-  template <typename T>
+  template <typename T >
   const T& cast() const
   {
     SkASSERT(T::ClassID() == this->classID());
     return *static_cast<const T*>(this);
   }
-  template <typename T>
+  template <typename T >
   T* cast()
   {
     SkASSERT(T::ClassID() == this->classID());

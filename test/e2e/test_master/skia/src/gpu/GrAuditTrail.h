@@ -154,7 +154,7 @@ private:
   };
   typedef SkTArray<std::unique_ptr<OpNode>, true> OpsTask;
   void copyOutFromOpsTask(OpInfo* outOpInfo, int opsTask);
-  template <typename T>
+  template <typename T >
   static void JsonifyTArray(SkJSONWriter& writer, const char* name, const T& array);
   OpPool fOpPool;
   SkTHashMap<uint32_t, int> fIDLookup;

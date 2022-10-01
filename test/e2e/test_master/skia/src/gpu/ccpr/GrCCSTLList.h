@@ -14,7 +14,7 @@
  * GrCCDrawPathsOp because the owning opsTask is unknown at the time of creation, so we can't use
  * its associated allocator to create the first element.
  */
-template <typename T>
+template <typename T >
 class GrCCSTLList :  SkNoncopyable
 {
 public:
@@ -51,7 +51,7 @@ public:
     fTail->fNext = newRightHead;
     fTail = !nextTail ? newRightHead : nextTail;
   }
-  template <typename U>
+  template <typename U >
   struct Iter
   {
     bool operator!=(const Iter& that)

@@ -34,7 +34,7 @@ public:
     return chunk && SkToBool(*chunk & mask);
   }
     // Calls f(unsigned) for each set value.
-  template <typename FN>
+  template <typename FN >
   void getSetValues(FN f) const
   {
     const uint32_t* data = fBitData.get();

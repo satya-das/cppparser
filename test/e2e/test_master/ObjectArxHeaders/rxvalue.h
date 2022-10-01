@@ -13,9 +13,9 @@
 #include "dbintar.h"
 #include "rxvaluetype.h"
 #include "rxmember.h"
-template <typename ValueType>
+template <typename ValueType >
 ValueType* rxvalue_cast(AcRxValue* value);
-template <typename ValueType>
+template <typename ValueType >
 ValueType* rxenum_cast(AcRxValue* value);
 //*************************************************************************
 // AcRxValue
@@ -259,7 +259,7 @@ public:
     /// The type of the object.
     /// </param>
     ///
-  template <typename ValueType>
+  template <typename ValueType >
   AcRxValue(const ValueType& value)
     : m_type(AcRxValueType::Desc<ValueType>::value())
   {
@@ -280,7 +280,7 @@ public:
     /// Caller will need to check the return value to see if the cast was successful.
     /// </remarks>
     ///
-  template <typename ValueType>
+  template <typename ValueType >
   ValueType* rxvalue_cast(AcRxValue* value)
   {
     constexpr bool inlined = sizeof(ValueType) <= 24;
@@ -300,7 +300,7 @@ public:
     /// Caller will need to check the return value to see if the cast was successful.
     /// </remarks>
     ///
-  template <typename ValueType>
+  template <typename ValueType >
   friend ValueType* rxenum_cast(AcRxValue* value)
   {
     ACRXVALUE_ASSERT(value == NULL || value->isVaries() || value->type().isEnum());
@@ -320,7 +320,7 @@ public:
     ///
     /// <returns> Returns reference to this AcRxValue object. </returns>
     ///
-  template <typename ValueType>
+  template <typename ValueType >
   AcRxValue& operator=(const ValueType& rhs)
   {
     *this = AcRxValue(rhs);
@@ -340,7 +340,7 @@ public:
     /// Caller will need to check the return value to see if the cast was successful.
     /// </remarks>
     ///
-  template <typename ValueType>
+  template <typename ValueType >
   inline const ValueType* rxvalue_cast(const AcRxValue* value)
   {
     return rxvalue_cast<ValueType>(const_cast<AcRxValue*>(value));
@@ -359,7 +359,7 @@ public:
     /// Caller will need to check the return value to see if the cast was successful.
     /// </remarks>
     ///
-  template <typename ValueType>
+  template <typename ValueType >
   inline const ValueType* rxenum_cast(const AcRxValue* value)
   {
     return rxenum_cast<ValueType>(const_cast<AcRxValue*>(value));
@@ -472,19 +472,19 @@ private:
   public:
     static void init(AcRxValue& rxValue, const T& value);
   };
-  template <typename T>
+  template <typename T >
   class InitNonBlittable<T, true>
   {
   public:
     static void init(AcRxValue& rxValue, const T& value);
   };
-  template <typename T>
+  template <typename T >
   class InitNonBlittable<T, false>
   {
   public:
     static void init(AcRxValue& rxValue, const T& value);
   };
-  template <typename T>
+  template <typename T >
   void initNonBlittable(const T& value)
   {
     constexpr bool inlined = sizeof(value) <= sizeof(m_value);
@@ -631,13 +631,13 @@ inline void AcRxValue::initBlittable<false>(const void* value, size_t size)
   m_value.m_ptr = allocate(size);
   memcpy_s(nonInlineValuePtr(), size, value, size);
 }
-template <typename T>
+template <typename T >
 inline void AcRxValue::InitNonBlittable< T, true>::init(AcRxValue& rxValue, const T& value)
 {
     //call global placement new defined above so that we can call copy constructor
   new ((Storage*) (rxValue.inlineValuePtr())) T(value);
 }
-template <typename T>
+template <typename T >
 inline void AcRxValue::InitNonBlittable< T, false>::init(AcRxValue& rxValue, const T& value)
 {
   rxValue.setNonInlineValue(&value, false, false, false);

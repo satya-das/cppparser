@@ -82,7 +82,7 @@ namespace SkRecords
     operator T*() const { return ptr; } \
     T* operator->() const { return ptr; }
 // An Optional doesn't own the pointer's memory, but may need to destroy non-POD data.
-  template <typename T>
+  template <typename T >
   class Optional
   {
   public:
@@ -113,7 +113,7 @@ namespace SkRecords
     Optional& operator=(const Optional&);
   };
 // Like Optional, but ptr must not be NULL.
-  template <typename T>
+  template <typename T >
   class Adopted
   {
   public:
@@ -142,7 +142,7 @@ namespace SkRecords
     Adopted& operator=(const Adopted&);
   };
 // PODArray doesn't own the pointer's memory, and we assume the data is POD.
-  template <typename T>
+  template <typename T >
   class PODArray
   {
   public:

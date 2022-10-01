@@ -90,7 +90,7 @@ public:
         // This must be last to make objects with nested use of this allocator work.
     return new (objStart) T(std::forward<Args>(args)...);
   }
-  template <typename T>
+  template <typename T >
   T* makeArrayDefault(size_t count)
   {
     AssertRelease(SkTFitsIn<uint32_t>(count));
@@ -103,7 +103,7 @@ public:
     }
     return array;
   }
-  template <typename T>
+  template <typename T >
   T* makeArray(size_t count)
   {
     AssertRelease(SkTFitsIn<uint32_t>(count));
@@ -164,7 +164,7 @@ private:
     return fCursor + alignedOffset;
   }
   char* allocObjectWithFooter(uint32_t sizeIncludingFooter, uint32_t alignment);
-  template <typename T>
+  template <typename T >
   char* commonArrayAlloc(uint32_t count)
   {
     char* objStart;

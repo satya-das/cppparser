@@ -613,7 +613,7 @@ public:
             string couldn't be converted to the current encoding when @a T is
             @c char).
      */
-  template <typename T>
+  template <typename T >
   wxCharTypeBuffer<T> tchar_str(size_t* len = NULL) const;
     /**
         Returns a string representation suitable for passing to OS' functions

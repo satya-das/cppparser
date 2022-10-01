@@ -137,7 +137,7 @@ static uint32_t ClipParams_pack(SkClipOp op, bool doAA)
   unsigned doAABit = doAA ? 1 : 0;
   return (doAABit << 4) | static_cast<int>(op);
 }
-template <typename T>
+template <typename T >
 T asValidEnum(SkReadBuffer* buffer, uint32_t candidate)
 {
   if (buffer->validate(candidate <= static_cast<uint32_t>(T::kMax_EnumValue)))

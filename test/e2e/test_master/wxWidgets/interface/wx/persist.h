@@ -75,7 +75,7 @@ public:
             The object to register. wxCreatePersistentObject() overload must be
             defined for the objects of this class.
      */
-  template <typename T>
+  template <class T >
   wxPersistentObject* Register(T* obj);
     /**
         Register an object with the manager.
@@ -141,7 +141,7 @@ public:
   void SaveAndUnregister(void* obj);
     /// Combines both Register() and Restore() calls.
     //@{
-  template <typename T>
+  template <class T >
   bool RegisterAndRestore(T* obj);
   bool RegisterAndRestore(void* obj, wxPersistentObject* po);
     //@}
@@ -260,7 +260,7 @@ protected:
         @return
             @true if the value was saved or @false if an error occurred.
      */
-  template <typename T>
+  template <typename T >
   bool SaveValue(const wxString& name, T value) const;
     /**
         Restore the value saved by Save().
@@ -274,7 +274,7 @@ protected:
             @true if the value was successfully read or @false if it was not
             found or an error occurred.
      */
-  template <typename T>
+  template <typename T >
   bool RestoreValue(const wxString& name, T* value);
 };
 /**
@@ -291,7 +291,7 @@ protected:
 
     @header{wx/persist.h}
  */
-template <typename T>
+template <class T >
 wxPersistentObject* wxCreatePersistentObject(T* obj);
 /**
     A shorter synonym for wxPersistenceManager::RegisterAndRestore().
@@ -313,5 +313,5 @@ wxPersistentObject* wxCreatePersistentObject(T* obj);
 
     @header{wx/persist.h}
  */
-template <typename T>
+template <class T >
 bool wxPersistentRegisterAndRestore(T* obj, const wxString& name = wxString());

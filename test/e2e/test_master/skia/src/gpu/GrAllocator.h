@@ -240,7 +240,7 @@ protected:
     fInsertionIndexInBlock = 0;
   }
     // For access to above function.
-  template <typename T>
+  template <typename T >
   friend class GrTAllocator;
 private:
   static const int NUM_INIT_BLOCK_PTRS = 8;
@@ -253,11 +253,11 @@ private:
   int fInsertionIndexInBlock;
   typedef SkNoncopyable INHERITED;
 };
-template <typename T>
+template <typename T >
 class GrTAllocator;
-template <typename T>
+template <typename T >
 void* operator new(size_t, GrTAllocator<T>*);
-template <typename T>
+template <typename T >
 class GrTAllocator :  SkNoncopyable
 {
 public:
@@ -437,7 +437,7 @@ private:
   GrAllocator fAllocator;
   typedef SkNoncopyable INHERITED;
 };
-template <int N, typename T>
+template <int N, typename T >
 class GrSTAllocator : public GrTAllocator<T>
 {
 private:
@@ -451,7 +451,7 @@ public:
 private:
   SkAlignedSTStorage<N, T> fStorage;
 };
-template <typename T>
+template <typename T >
 void* operator new(size_t size, GrTAllocator<T>* allocator)
 {
   return allocator->fAllocator.push_back();
@@ -459,7 +459,7 @@ void* operator new(size_t size, GrTAllocator<T>* allocator)
 // Skia doesn't use C++ exceptions but it may be compiled with them enabled. Having an op delete
 // to match the op new silences warnings about missing op delete when a constructor throws an
 // exception.
-template <typename T>
+template <typename T >
 void operator delete(void*, GrTAllocator<T>*)
 {
   SK_ABORT("Invalid Operation");

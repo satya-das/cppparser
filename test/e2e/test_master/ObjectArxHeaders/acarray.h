@@ -97,7 +97,7 @@
 #  define ACARRAY_GROWTH_THRESHOLD	0x10000
 // Helper function for asserting that copy/move params are valid.
 // Shouldn't generate any code in production builds
-template <typename T>
+template <class T >
 void AcArrayValidateParams(bool bSameBuffer, T* pDest, size_t nBufLen, const T* pSource, size_t nCount)
 {
   ADESK_UNREFED_PARAM(pDest);
@@ -129,7 +129,7 @@ void AcArrayValidateParams(bool bSameBuffer, T* pDest, size_t nBufLen, const T* 
 
 // This reallocator assumes that we can just do a memcpy (or memmove) for all
 // copying and moving operations
-template <typename T>
+template <class T >
 class AcArrayMemCopyReallocator
 {
 public:
@@ -160,7 +160,7 @@ public:
   }
 };
 // This reallocator copies and moves actual T objects, so assgt operators are called.
-template <typename T>
+template <class T >
 class AcArrayObjectCopyReallocator
 {
 public:
@@ -190,17 +190,17 @@ public:
 // define allocator type for passing as default arg to the AcArray template
 template <typename T, bool >
 struct AcArrayItemCopierSelector;
-template <typename T>
+template <typename T >
 struct AcArrayItemCopierSelector<T, false>
 {
   typedef AcArrayObjectCopyReallocator<T> allocator;
 };
-template <typename T>
+template <typename T >
 struct AcArrayItemCopierSelector<T, true>
 {
   typedef AcArrayMemCopyReallocator<T> allocator;
 };
-template <typename T>
+template <typename T >
 using AcArrayAllocator = typename AcArrayItemCopierSelector<T, std::is_trivial<T>::value>::allocator;
 template <typename T, typename R = AcArrayAllocator<T>>
 class AcArray
@@ -317,130 +317,130 @@ protected:
 #  endif
 #  pragma  pack (push, 8)
 // Inline methods.
-template <typename T, typename R>
+template <typename T, class R >
 inline bool AcArray<T,R>::contains(const T& value, int start) const
 {
   return this->findFrom(value, start) != -1;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline int AcArray<T,R>::length() const
 {
   return mLogicalLen;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline bool AcArray<T,R>::isEmpty() const
 {
   return mLogicalLen == 0;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline int AcArray<T,R>::logicalLength() const
 {
   return mLogicalLen;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline int AcArray<T,R>::physicalLength() const
 {
   return mPhysicalLen;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline int AcArray<T,R>::growLength() const
 {
   return mGrowLen;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline const T* AcArray<T,R>::asArrayPtr() const
 {
   return mpArray;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline T* AcArray<T,R>::asArrayPtr()
 {
   return mpArray;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline bool AcArray<T,R>::isValid(int i) const
 {
   return i >= 0 && i < mLogicalLen;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline T& AcArray<T,R>::operator [](int i)
 {
   AC_ARRAY_ASSERT(this->isValid(i));
   return mpArray[i];
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline const T& AcArray<T,R>::operator [](int i) const
 {
   AC_ARRAY_ASSERT(this->isValid(i));
   return mpArray[i];
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline T& AcArray<T,R>::at(int i)
 {
   AC_ARRAY_ASSERT(this->isValid(i));
   return mpArray[i];
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline const T& AcArray<T,R>::at(int i) const
 {
   AC_ARRAY_ASSERT(this->isValid(i));
   return mpArray[i];
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>& AcArray<T,R>::setAt(int i, const T& value)
 {
   AC_ARRAY_ASSERT(this->isValid(i));
   mpArray[i] = value;
   return *this;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline T& AcArray<T,R>::first()
 {
   AC_ARRAY_ASSERT(!this->isEmpty());
   return mpArray[0];
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline const T& AcArray<T,R>::first() const
 {
   AC_ARRAY_ASSERT(!this->isEmpty());
   return mpArray[0];
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline T& AcArray<T,R>::last()
 {
   AC_ARRAY_ASSERT(!this->isEmpty());
   return mpArray[mLogicalLen - 1];
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline const T& AcArray<T,R>::last() const
 {
   AC_ARRAY_ASSERT(!this->isEmpty());
   return mpArray[mLogicalLen - 1];
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline int AcArray<T,R>::append(const T& value)
 {
   insertAt(mLogicalLen, value);
   return mLogicalLen - 1;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline int AcArray<T,R>::append(T&& value)
 {
   return this->appendMove(value);
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline int AcArray<T,R>::appendMove(T& value)
 {
   this->insertAtMove(mLogicalLen, value);
   return this->mLogicalLen - 1;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>& AcArray<T,R>::removeFirst()
 {
   AC_ARRAY_ASSERT(!isEmpty());
   return removeAt(0);
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>& AcArray<T,R>::removeLast()
 {
   AC_ARRAY_ASSERT(!isEmpty());
@@ -450,20 +450,20 @@ inline AcArray<T,R>& AcArray<T,R>::removeLast()
   }
   return *this;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>& AcArray<T,R>::removeAll()
 {
   this->setLogicalLength(0);
   return *this;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>& AcArray<T,R>::setGrowLength(int glen)
 {
   AC_ARRAY_ASSERT(glen > 0);
   mGrowLen = glen;
   return *this;
 }
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray< T, R > ::AcArray(int physicalLength, int growLength)
   : mpArray(nullptr)
   , mPhysicalLen(0)
@@ -481,7 +481,7 @@ inline AcArray< T, R > ::AcArray(int physicalLength, int growLength)
 }
 // Copy ctor. Similar to copy assignment operator.
 //
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>::AcArray(const AcArray<T,R>& src)
   : mpArray(nullptr)
   , mPhysicalLen(0)
@@ -491,7 +491,7 @@ inline AcArray<T,R>::AcArray(const AcArray<T,R>& src)
   this->copyOtherIntoThis(src);
 }
 // Move ctor
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>::AcArray(AcArray<T,R>&& src)
   : mpArray(nullptr)
   , mPhysicalLen(0)
@@ -501,7 +501,7 @@ inline AcArray<T,R>::AcArray(AcArray<T,R>&& src)
   this->moveOtherIntoThis(src);
 }
 // Dtor
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>::~AcArray()
 {
   this->setPhysicalLength(0);
@@ -509,7 +509,7 @@ inline AcArray<T,R>::~AcArray()
 // Copy assignment operator.Similar to copy ctor
 // The grow length of this array is not affected by this operation.
 //
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>& AcArray<T,R>::operator =(const AcArray<T,R>& src)
 {
   if (this != &src)
@@ -519,7 +519,7 @@ inline AcArray<T,R>& AcArray<T,R>::operator =(const AcArray<T,R>& src)
   return *this;
 }
 // Move assignment operator
-template <typename T, typename R>
+template <typename T, class R >
 inline AcArray<T,R>& AcArray<T,R>::operator =(AcArray<T,R>&& src)
 {
   if (this != &src)
@@ -535,7 +535,7 @@ inline AcArray<T,R>& AcArray<T,R>::operator =(AcArray<T,R>&& src)
 // the two arrays are equal, true is returned. Otherwise,
 // false is returned.
 //
-template <typename T, typename R>
+template <typename T, class R >
 bool AcArray<T,R>::operator ==(const AcArray<T,R>& cpr) const
 {
   if (mLogicalLen == cpr.mLogicalLen)
@@ -554,7 +554,7 @@ bool AcArray<T,R>::operator ==(const AcArray<T,R>& cpr) const
 // Sets all the elements within the logical-length of the array,
 // (that is, elements 0..length()-1), to `value'.
 //
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::setAll(const T& value)
 {
   for (int i = 0; i < mLogicalLen; i++)
@@ -568,7 +568,7 @@ AcArray<T,R>& AcArray<T,R>::setAll(const T& value)
 // Special case: appending to self, where otherArray == this. That works,
 // because otherArray.mpArray gets updated by setPhysicalLength.
 //
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::append(const AcArray<T,R>& otherArray)
 {
   const int nOrigLogLen = this->mLogicalLen;
@@ -582,7 +582,7 @@ AcArray<T,R>& AcArray<T,R>::append(const AcArray<T,R>& otherArray)
 // Helper meethod called from copy ctor and copy asst oper
 // Doesn't mess with this->mGrowLen
 // this->mpArray is re-used, if it's big enough
-template <typename T, typename R>
+template <typename T, class R >
 inline void AcArray<T,R>::copyOtherIntoThis(const AcArray<T,R>& otherArray)
 {
   AC_ARRAY_ASSERT(this != &otherArray);
@@ -594,7 +594,7 @@ inline void AcArray<T,R>::copyOtherIntoThis(const AcArray<T,R>& otherArray)
 // Helper meethod called from move ctor, move asst oper and appendMove
 // Doesn't mess with this->mGrowLen
 // Assumes this->mpArray has been destroyed (or not created yet)
-template <typename T, typename R>
+template <typename T, class R >
 inline void AcArray<T,R>::moveOtherIntoThis(AcArray<T,R>& otherArray)
 {
   AC_ARRAY_ASSERT(this != &otherArray);
@@ -607,7 +607,7 @@ inline void AcArray<T,R>::moveOtherIntoThis(AcArray<T,R>& otherArray)
   otherArray.mPhysicalLen = 0;
   otherArray.mGrowLen = 8;
 }
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::appendMove(AcArray<T,R>& otherArray)
 {
     // Can't move into ourselves!
@@ -638,7 +638,7 @@ AcArray<T,R>& AcArray<T,R>::appendMove(AcArray<T,R>& otherArray)
 // length is not long enough it will increase by the grow length (with the
 // usual caveat about insufficient memory).
 //
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::insertAt(int index, const T& value)
 {
   AC_ARRAY_ASSERT(index >= 0);
@@ -663,12 +663,12 @@ AcArray<T,R>& AcArray<T,R>::insertAt(int index, const T& value)
   }
   return *this;
 }
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::insertAt(int index, T&& value)
 {
   return this->insertAtMove(index, value);
 }
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::insertAtMove(int index, T& value)
 {
   AC_ARRAY_ASSERT(index >= 0);
@@ -696,7 +696,7 @@ AcArray<T,R>& AcArray<T,R>::insertAtMove(int index, T& value)
 // helper for the insertAt() and insertAtMove() methods.
 // called when we need to slide items up to make a hole, or when we want to
 // append and the buffer is already maxed out
-template <typename T, typename R>
+template <typename T, class R >
 void AcArray<T,R>::insertSpace(int nIndex)
 {
     // Grow logical (and maybe physical) buffer
@@ -721,7 +721,7 @@ void AcArray<T,R>::insertSpace(int nIndex)
 // Removes the element at `index'.  The logical length will
 // decrease by one.  `index' MUST BE within bounds.
 //
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::removeAt(int index)
 {
   AC_ARRAY_ASSERT(isValid(index));
@@ -744,7 +744,7 @@ AcArray<T,R>& AcArray<T,R>::removeAt(int index)
 // The logical length will decrease by number of removed elements.
 // Both `startIndex' and 'endIndex' MUST BE within bounds.
 //
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::removeSubArray(int startIndex, int endIndex)
 {
   AC_ARRAY_ASSERT(isValid(startIndex));
@@ -769,7 +769,7 @@ AcArray<T,R>& AcArray<T,R>::removeSubArray(int startIndex, int endIndex)
 // `start' is supplied with a default value of `0', i.e., the
 // beginning of the array.
 //
-template <typename T, typename R>
+template <typename T, class R >
 bool AcArray<T,R>::find(const T& value, int& index, int start) const
 {
   const int nFoundAt = this->findFrom(value, start);
@@ -780,12 +780,12 @@ bool AcArray<T,R>::find(const T& value, int& index, int start) const
   index = nFoundAt;
   return true;
 }
-template <typename T, typename R>
+template <typename T, class R >
 int AcArray<T,R>::find(const T& value) const
 {
   return this->findFrom(value, 0);
 }
-template <typename T, typename R>
+template <typename T, class R >
 int AcArray<T,R>::findFrom(const T& value, int start) const
 {
   AC_ARRAY_ASSERT(start >= 0);
@@ -809,7 +809,7 @@ int AcArray<T,R>::findFrom(const T& value, int start) const
 // AND the physical length).
 // Also, the physical length will grow in growth length
 // steps.
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::setLogicalLength(int n)
 {
   AC_ARRAY_ASSERT(n >= 0);
@@ -838,7 +838,7 @@ AcArray<T,R>& AcArray<T,R>::setLogicalLength(int n)
 // Uses move semantics to move old cells to corresponding new cells
 // Uses placement new to initialize new cells above previous buffer length
 //
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::setPhysicalLength(int n)
 {
   AC_ARRAY_ASSERT(mPhysicalLen >= mLogicalLen);
@@ -899,7 +899,7 @@ AcArray<T,R>& AcArray<T,R>::setPhysicalLength(int n)
 // arrays, `a' and `b', then if you assign `a = b' then call
 // `a.reverse()' then a[0] == b[n], a[1] == b[n-1],... a[n] == b[0].
 //
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::reverse()
 {
   for (int i = 0; i < mLogicalLen / 2; i++)
@@ -913,7 +913,7 @@ AcArray<T,R>& AcArray<T,R>::reverse()
 }
 // Swaps the elements in `i1' and `i2'.
 //
-template <typename T, typename R>
+template <typename T, class R >
 AcArray<T,R>& AcArray<T,R>::swap(int i1, int i2)
 {
   AC_ARRAY_ASSERT(isValid(i1));
@@ -933,7 +933,7 @@ AcArray<T,R>& AcArray<T,R>::swap(int i1, int i2)
 // is removed.  Calling this function is equivalent to doing a "find(),
 // then "removeAt()".
 //
-template <typename T, typename R>
+template <typename T, class R >
 bool AcArray<T,R>::remove(const T& value, int start)
 {
   const int i = this->findFrom(value, start);

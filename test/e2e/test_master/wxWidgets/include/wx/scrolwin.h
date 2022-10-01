@@ -367,7 +367,7 @@ struct WXDLLIMPEXP_CORE wxScrolledT_Helper
 // Scrollable window base on window type T. This used to be wxScrolledWindow,
 // but wxScrolledWindow includes wxControlContainer functionality and that's
 // not always desirable.
-template <typename T>
+template <class T >
 bool wxCreateScrolled(T* self, wxWindow* parent, wxWindowID winid, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 {
   return self->Create(parent, winid, pos, size, style, name);
@@ -381,7 +381,7 @@ inline bool wxCreateScrolled(wxControl* self, wxWindow* parent, wxWindowID winid
   return self->Create(parent, winid, pos, size, style, wxDefaultValidator, name);
 }
 #  endif
-template <typename T>
+template <class T >
 class wxScrolled : public T, public wxScrollHelper, private wxScrolledT_Helper
 {
 public:

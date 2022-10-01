@@ -11,7 +11,7 @@
 //
 // Introduce an extra class to make this header compilable with g++3.2
 //
-template <typename D, typename B>
+template <typename D, class B >
 struct wxConvertibleTo_SizeHelper
 {
   static char Match(B* pb);
@@ -19,7 +19,7 @@ struct wxConvertibleTo_SizeHelper
 };
 // Helper to decide if an object of type D is convertible to type B (the test
 // succeeds in particular when D derives from B)
-template <typename D, typename B>
+template <typename D, class B >
 struct wxConvertibleTo
 {
   enum
@@ -32,7 +32,7 @@ struct wxConvertibleTo
 // value (false) will be deduced instead of getting a compile-time error as
 // with wxConvertibleTo. For pre-C++11 compilers there is no difference between
 // this helper and wxConvertibleTo.
-template <typename D, typename B>
+template <typename D, class B >
 struct wxIsPubliclyDerived
 {
   enum

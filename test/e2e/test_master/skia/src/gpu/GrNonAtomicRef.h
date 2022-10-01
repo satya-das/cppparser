@@ -13,7 +13,7 @@
  * A simple non-atomic ref used in the GrBackendApi when we don't want to pay for the overhead of a
  * threadsafe ref counted object
  */
-template <typename TSubclass>
+template <typename TSubclass >
 class GrNonAtomicRef : public SkNoncopyable
 {
 public:
@@ -60,7 +60,7 @@ private:
   mutable int32_t fRefCnt;
   typedef SkNoncopyable INHERITED;
 };
-template <typename T>
+template <typename T >
 inline void GrTDeleteNonAtomicRef(const T* ref)
 {
   delete ref;

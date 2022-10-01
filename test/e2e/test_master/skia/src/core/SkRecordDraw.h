@@ -44,7 +44,7 @@ namespace SkRecords
     // This operator calls methods on the |canvas|. The various draw() wrapper
     // methods around SkCanvas are defined by the DRAW() macro in
     // SkRecordDraw.cpp.
-    template <typename T>
+    template <typename T >
     void operator()(const T& r)
     {
       this->draw(r);
@@ -60,7 +60,7 @@ namespace SkRecords
     }
   private:
     // No base case, so we'll be compile-time checked that we implement all possibilities.
-    template <typename T>
+    template <typename T >
     void draw(const T&);
     const SkMatrix fInitialCTM;
     SkCanvas* fCanvas;

@@ -65,12 +65,12 @@ public:
   {
     return fReader.available();
   }
-  template <typename T>
+  template <typename T >
   const T* skipT()
   {
     return static_cast<const T*>(this->skip(sizeof(T)));
   }
-  template <typename T>
+  template <typename T >
   const T* skipT(size_t count)
   {
     return static_cast<const T*>(this->skip(count, sizeof(T)));
@@ -82,7 +82,7 @@ public:
   SkScalar readScalar();
   uint32_t readUInt();
   int32_t read32();
-  template <typename T>
+  template <typename T >
   T read32LE(T max)
   {
     uint32_t value = this->readUInt();
@@ -116,7 +116,7 @@ public:
     return SkPaintPriv::Unflatten(paint, *this, font);
   }
   SkFlattenable* readFlattenable(SkFlattenable::Type);
-  template <typename T>
+  template <typename T >
   sk_sp<T> readFlattenable()
   {
     return sk_sp<T>((T*) this->readFlattenable(T::GetFlattenableType()));
@@ -198,7 +198,7 @@ public:
      * Returns true if there is enough bytes in the buffer to read n elements of T.
      * If not, the buffer will be "invalid" and false will be returned.
      */
-  template <typename T>
+  template <typename T >
   bool validateCanReadN(size_t n)
   {
     return this->validate(n <= (fReader.available() / sizeof(T)));
@@ -216,7 +216,7 @@ public:
     // If the read value is outside of the range, validate(false) is called, and min
     // is returned, else the value is returned.
   int32_t checkInt(int min, int max);
-  template <typename T>
+  template <typename T >
   T checkRange(T min, T max)
   {
     return static_cast<T>(this->checkInt(static_cast<int32_t>(min), static_cast<int32_t>(max)));
@@ -287,12 +287,12 @@ public:
   {
     return nullptr;
   }
-  template <typename T>
+  template <typename T >
   const T* skipT()
   {
     return nullptr;
   }
-  template <typename T>
+  template <typename T >
   const T* skipT(size_t)
   {
     return nullptr;
@@ -321,7 +321,7 @@ public:
   {
     return 0;
   }
-  template <typename T>
+  template <typename T >
   T read32LE(T max)
   {
     return max;
@@ -387,7 +387,7 @@ public:
   {
     return nullptr;
   }
-  template <typename T>
+  template <typename T >
   sk_sp<T> readFlattenable()
   {
     return nullptr;
@@ -464,7 +464,7 @@ public:
   {
     return false;
   }
-  template <typename T>
+  template <typename T >
   bool validateCanReadN(size_t)
   {
     return false;
@@ -481,7 +481,7 @@ public:
   {
     return min;
   }
-  template <typename T>
+  template <typename T >
   T checkRange(T min, T)
   {
     return min;

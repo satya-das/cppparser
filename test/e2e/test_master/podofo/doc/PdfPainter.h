@@ -732,7 +732,7 @@ namespace PoDoFo
     PdfString ExpandTabs_char(const char* pszText, long lStringLen, int nTabCnt, const char cTab, const char cSpace) const;
     PdfString ExpandTabs_pdf_utf16be(const pdf_utf16be* pszText, long lStringLen, int nTabCnt, const pdf_utf16be cTab, const pdf_utf16be cSpace) const;
 #  else 
-    template <typename C>
+    template <typename C >
     PdfString ExpandTabsPrivate(const C* pszText, pdf_long lStringLen, int nTabCnt, const C cTab, const C cSpace) const;
 #  endif
     /** All drawing operations work on this stream.

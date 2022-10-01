@@ -48,7 +48,7 @@ public:
     The @a func should be a functor taking parameters of the types P1, ..., PN,
     i.e. the expression @c func(p1, ..., pN) should be valid.
  */
-template <typename F, typename P1, ... , typename PN>
+template <typename F, typename P1, ... , typename PN >
 wxScopeGuard wxMakeGuard(F func, P1 p1, ..., PN pN);
 //@}
 

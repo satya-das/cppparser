@@ -53,7 +53,7 @@ class FrameSite;
 //  wxActiveXContainer
 //
 //---------------------------------------------------------------------------
-template <typename I>
+template <typename I >
 class wxAutoOleInterface
 {
 public:

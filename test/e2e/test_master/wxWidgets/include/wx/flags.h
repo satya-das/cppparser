@@ -14,7 +14,7 @@
 // enums must be in a sequence , their value determines the bit position
 // that they represent
 // The api is made as close as possible to <bitset>
-template <typename T>
+template <class T >
 class wxBitset
 {
   friend class wxEnumData;

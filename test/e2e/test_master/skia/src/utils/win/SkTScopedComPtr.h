@@ -9,13 +9,13 @@
 #  include "src/core/SkLeanWindows.h"
 #  include "src/utils/win/SkObjBase.h"
 #  ifdef SK_BUILD_FOR_WIN
-template <typename T>
+template <typename T >
 T* SkRefComPtr(T* ptr)
 {
   ptr->AddRef();
   return ptr;
 }
-template <typename T>
+template <typename T >
 T* SkSafeRefComPtr(T* ptr)
 {
   if (ptr)
@@ -24,7 +24,7 @@ T* SkSafeRefComPtr(T* ptr)
   }
   return ptr;
 }
-template <typename T>
+template <typename T >
 class SkTScopedComPtr
 {
 private:

@@ -44,7 +44,7 @@ namespace skvx
 // All Vec have the same simple memory layout, the same as `T vec[N]`.
 // This gives Vec a consistent ABI, letting them pass between files compiled with
 // different instruction sets (e.g. SSE2 and AVX2) without fear of ODR violation.
-  template <int N, typename T>
+  template <int N, typename T >
   struct SKVX_ALIGNMENT Vec
   {
     static_assert((N & (N - 1)) == 0, "N must be a power of 2.");
@@ -87,7 +87,7 @@ namespace skvx
       memcpy(ptr, this, sizeof(Vec));
     }
   };
-  template <typename T>
+  template <typename T >
   struct Vec<1,T>
   {
     T val;
@@ -131,7 +131,7 @@ namespace skvx
 #  define SINTU	template <int N, typename T, typename U, \
                         typename=typename std::enable_if<std::is_convertible<U,T>::value>::type> \
               static inline
-  template <typename D, typename S>
+  template <typename D, typename S >
   static D bit_pun(const S& s)
   {
     static_assert(sizeof(D) == sizeof(S), "");
@@ -140,7 +140,7 @@ namespace skvx
     return d;
   }
 // Translate from a value type T to its corresponding Mask, the result of a comparison.
-  template <typename T>
+  template <typename T >
   struct Mask
   {
     using type = T;
@@ -155,7 +155,7 @@ namespace skvx
   {
     using type = int64_t;
   };
-  template <typename T>
+  template <typename T >
   using M = typename Mask<T>::type;
 // Join two Vec<N,T> into one Vec<2N,T>.
   SINT Vec<2*N,T> join(const Vec<N,T>& lo, const Vec<N,T>& hi)
@@ -173,15 +173,15 @@ namespace skvx
     // VExt<N,T> types have the same size as Vec<N,T> and support most operations directly.
     // N.B. VExt<N,T> alignment is N*alignof(T), stricter than Vec<N,T>'s alignof(T).
 #    if  defined(__clang__)
-  template <int N, typename T>
+  template <int N, typename T >
   using VExt = T;
 #    elif  defined(__GNUC__)
-  template <int N, typename T>
+  template <int N, typename T >
   struct VExtHelper
   {
     typedef T type;
   };
-  template <int N, typename T>
+  template <int N, typename T >
   using VExt = typename VExtHelper<N,T>::type;
         // For some reason some (new!) versions of GCC cannot seem to deduce N in the generic
         // to_vec<N,T>() below for N=4 and T=float.  This workaround seems to help...
@@ -771,12 +771,12 @@ namespace skvx
     return (x = x >> bits);
   }
 // cast() Vec<N,S> to Vec<N,D>, as if applying a C-cast to each lane.
-  template <typename D, typename S>
+  template <typename D, typename S >
   static Vec<1,D> cast(const Vec<1,S>& src)
   {
     return (D) src.val;
   }
-  template <typename D, int N, typename S>
+  template <typename D, int N, typename S >
   static Vec<N,D> cast(const Vec<N,S>& src)
   {
 #  if  !defined(SKNX_NO_SIMD) && defined(__clang__)
@@ -792,7 +792,7 @@ namespace skvx
 //    shuffle<2,1,2,1,2,1,2,1>(rgba) ~> {B,G,B,G,B,G,B,G}
 //    shuffle<3,3,3,3>        (rgba) ~> {A,A,A,A}
 // The only real restriction is that the output also be a legal N=power-of-two sknx::Vec.
-  template <int... Ix, int N, typename T>
+  template <int... Ix, int N, typename T >
   static Vec<sizeof...(Ix),T> shuffle(const Vec<N,T>& x)
   {
 #  if  !defined(SKNX_NO_SIMD) && defined(__clang__)

@@ -29,7 +29,7 @@
 
     @since 2.9.2
 */
-template <typename T>
+template <typename T >
 class wxStack<T>
 {
 public:

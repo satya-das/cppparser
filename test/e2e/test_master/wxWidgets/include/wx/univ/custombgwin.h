@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------------------
 // wxCustomBackgroundWindow
 // ----------------------------------------------------------------------------
-template <typename W>
+template <class W >
 class wxCustomBackgroundWindow : public W, public wxCustomBackgroundWindowBase
 {
 public:

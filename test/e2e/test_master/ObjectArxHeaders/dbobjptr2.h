@@ -41,7 +41,7 @@
 // Worker function used by the template function. For Internal Use Only
 ACDBCORE2D_PORT Acad::ErrorStatus accessAcDbObjectForRead(AcDbObject*& pObj, AcDbObjectId id, AcRxClass* (*pfDesc) (), bool& bWasOpened, bool bOpenErased);
 // Template function, used by the smart pointer template. For Internal use Only.
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus accessAcDbObjectForRead(ACDB_CLASS*& pObj, AcDbObjectId id, bool& bWasOpened, bool bOpenErased = false)
 {
   return ::accessAcDbObjectForRead((AcDbObject*&) pObj, id, &ACDB_CLASS::desc, bWasOpened, bOpenErased);
@@ -52,7 +52,7 @@ inline Acad::ErrorStatus accessAcDbObjectForRead<AcDbObject>(AcDbObject*& pObj, 
 {
   return ::accessAcDbObjectForRead(pObj, id, nullptr, bWasOpened, bOpenErased);
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 class AcDbSmartObjectPointer;
 // ReadableAcDbObject:  For Internal Use Only
 //
@@ -74,7 +74,7 @@ class AcDbSmartObjectPointer;
 //          result in program error.  If used with a non database resident
 //          object the destructor for this class will delete the object being held.
 //
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 class ReadableAcDbObject
 {
 public:
@@ -378,7 +378,7 @@ private:
 // it is closed once, and the caller is responsible for it
 // afterwards.
 //
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 class AcDbSmartObjectPointer
 {
 public:
@@ -414,14 +414,14 @@ private:
   ACDB_CLASS* mpObj{nullptr};
 };
 // --------- Inline definitions ---------
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer()
   : mReadable()
   , mWritable()
 {
     // mReadable and mWritable constructors do all the work.
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased, bool openOnLockedLayer)
   : mReadable(objId, openErased)
   , mWritable(mReadable.object(), AcDb::kForWrite == mode, openOnLockedLayer)
@@ -431,13 +431,13 @@ inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer(AcDbObjectId o
     // outside pointer to set, so we feed its own member to its constructor.
     // then, mWritable takes an object that is open in some way.
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbSmartObjectPointer<ACDB_CLASS>::~AcDbSmartObjectPointer()
 {
     // mReadable and mWritable destructors do all the work.
   mpObj = NULL;
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::open(AcDbObjectId objId, AcDb::OpenMode mode, bool openErased, bool openOnLockedLayer)
 {
   if (mReadable.isReadable())
@@ -456,7 +456,7 @@ inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::open(AcDbObjectId o
   }
   return openStatus();
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline const ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::object() const
 {
   DbObjPtr_Assert(mReadable.object() == NULL || mReadable.isReadable());
@@ -464,7 +464,7 @@ inline const ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::object() const
 }
 // This function does not modify the object, but the caller is
 // allowed to.
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::object()
 {
     // It would be more theoretically pure to return the mWritable,
@@ -474,23 +474,23 @@ inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::object()
   DbObjPtr_Assert(mReadable.object() == NULL || mReadable.isReadable());
   return mReadable.object();
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline const ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::operator->() const
 {
   return object();
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline ACDB_CLASS* AcDbSmartObjectPointer<ACDB_CLASS>::operator->()
 {
   return object();
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 operator const ACDB_CLASS*() const
 {
   return object();
 }
 #  if  DBOBJPTR_EXPOSE_PTR_REF
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 operator ACDB_CLASS*&()
 {
     // Allows direct modification of the pointer member
@@ -502,20 +502,20 @@ operator ACDB_CLASS*&()
   return mReadable.mpObj;
 }
 #  else 
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 operator ACDB_CLASS*()
 {
   return object();
 }
 #  endif
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::openStatus() const
 {
     // In English:  If object was requested to open for write, return the write
     //              status, else return the read status.
   return (mWritable.isWritable() || ((mWritable.statusCode() != Acad::eNullObjectPointer) && (mWritable.statusCode() != Acad::eNotOpenForWrite))) ? mWritable.statusCode() : mReadable.statusCode();
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::acquire(ACDB_CLASS*& pObjToAcquire)
 {
     // Semantic Change Alert: unlike AcDbObjectPointer, this class
@@ -527,7 +527,7 @@ inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::acquire(ACDB_CLASS*
   pObjToAcquire = NULL;
   return Acad::eOk;
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::release(ACDB_CLASS*& pReleasedObj)
 {
   pReleasedObj = mReadable.object();
@@ -535,13 +535,13 @@ inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::release(ACDB_CLASS*
   mReadable.forgetCurrentAndAcceptNewAsIs(NULL);
   return Acad::eOk;
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::close()
 {
   closeInternal();
   return Acad::eOk;
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::create()
 {
   ACDB_CLASS* pObject = new ACDB_CLASS;
@@ -553,7 +553,7 @@ inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::create()
   mReadable.forgetCurrentAndAcceptNewAsIs(pObject);
   return Acad::eOk;
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::closeInternal()
 {
   mWritable.revertWrite();
@@ -561,12 +561,12 @@ inline Acad::ErrorStatus AcDbSmartObjectPointer<ACDB_CLASS>::closeInternal()
   return Acad::eOk;
 }
 #  if  DBOBJPTR_EXPOSE_PTR_REF
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline AcDbSmartObjectPointer<ACDB_CLASS>::AcDbSmartObjectPointer(ACDB_CLASS* pObject)
 {
   acquire(pObject);
 }
-template <typename ACDB_CLASS>
+template <class ACDB_CLASS >
 inline void AcDbSmartObjectPointer<ACDB_CLASS>::operator=(ACDB_CLASS* pObject)
 {
   acquire(pObject);

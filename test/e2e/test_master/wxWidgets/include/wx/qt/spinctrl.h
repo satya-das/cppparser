@@ -10,7 +10,7 @@ class QSpinBox;
 class QDoubleSpinBox;
 // Take advantage of the Qt compile time polymorphy and use a template to avoid
 // copy&paste code for the usage of QSpinBox/QDoubleSpinBox.
-template <typename T, typename Widget>
+template <typename T, typename Widget >
 class WXDLLIMPEXP_CORE wxSpinCtrlQt : public wxSpinCtrlBase
 {
 public:

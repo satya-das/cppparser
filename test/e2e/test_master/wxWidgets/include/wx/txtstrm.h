@@ -122,7 +122,7 @@ public:
   {
     return m_mode;
   }
-  template <typename T>
+  template <typename T >
   void Write(const T& i)
   {
     wxString str;

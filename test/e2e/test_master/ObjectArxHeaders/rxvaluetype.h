@@ -389,7 +389,7 @@ public:
     /// This class MUST BE specialized for supported types. It provides mapping from
     /// C++ type to AcRxValueType.
     /// </summary>
-  template <typename ValueType>
+  template <typename ValueType >
   struct Desc
   {
     static const AcRxValueType& value();

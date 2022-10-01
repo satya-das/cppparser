@@ -765,7 +765,7 @@ public:
   }
     // store extra data in our log record and return this object itself (so
     // that further calls to its functions could be chained)
-  template <typename T>
+  template <typename T >
   wxLogger& Store(const wxString& key, T val)
   {
     m_info.StoreValue(key, val);

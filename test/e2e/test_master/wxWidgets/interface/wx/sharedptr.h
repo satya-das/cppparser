@@ -16,7 +16,7 @@
 
     @see wxScopedPtr<T>, wxWeakRef<T>, wxObjectDataPtr<T>
 */
-template <typename T>
+template <typename T >
 class wxSharedPtr<T>
 {
 public:
@@ -40,7 +40,7 @@ public:
 
         @since 3.0
     */
-  template <typename Deleter>
+  template <typename Deleter >
   wxEXPLICIT wxSharedPtr(T* ptr, Deleter d);
     /**
         Copy constructor.
@@ -105,7 +105,7 @@ public:
 
         @since 3.0
     */
-  template <typename Deleter>
+  template <typename Deleter >
   void reset(T* ptr, Deleter d);
     /**
         Returns @true if this is the only pointer pointing to its object.

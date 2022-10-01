@@ -461,7 +461,7 @@ extern "C" {
   }
 // This is a lighter-weight std::function, trying to reduce code size and compile time
 // by only supporting the exact use cases we require.
-template <typename T>
+template <typename T >
 class GrGLFunction;
 template <typename R, typename... Args>
 class GrGLFunction<R GR_GL_FUNCTION_TYPE(Args...)>
@@ -484,7 +484,7 @@ public:
     }
   }
     // Construct from a small closure.
-  template <typename Closure>
+  template <typename Closure >
   GrGLFunction(Closure closure)
     : GrGLFunction()
   {

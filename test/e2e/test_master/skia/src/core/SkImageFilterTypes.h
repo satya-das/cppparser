@@ -80,7 +80,7 @@ namespace skif
 //
 // A value of ParameterSpace<SkIRect> implies that its wrapped SkIRect is defined in the local
 // parameter space.
-  template <typename T>
+  template <typename T >
   class ParameterSpace
   {
   public:
@@ -105,7 +105,7 @@ namespace skif
 // tracks, such as its clip bounds are defined in this space and DeviceSpace provides a
 // type-enforced mechanism for the canvas to pass that information into the image filtering system,
 // using the Mapping of the filtering context.
-  template <typename T>
+  template <typename T >
   class DeviceSpace
   {
   public:
@@ -135,7 +135,7 @@ namespace skif
 // region is). LayerSpace specializations for the six common Skia math types (Sk[I]Rect, Sk[I]Point,
 // and Sk[I]Size), and skif::[I]Vector (to allow vectors to be specialized separately from points))
 // are provided that mimic their APIs but preserve the coordinate space and enforce type semantics.
-  template <typename T>
+  template <typename T >
   class LayerSpace
   {
   };
@@ -645,12 +645,12 @@ namespace skif
     {
       return SkMatrix::Concat(fLayerToDevMatrix, fParamToLayerMatrix);
     }
-    template <typename T>
+    template <typename T >
     LayerSpace<T> paramToLayer(const ParameterSpace<T>& paramGeometry) const
     {
       return LayerSpace<T>(map(static_cast<const T&>(paramGeometry), fParamToLayerMatrix));
     }
-    template <typename T>
+    template <typename T >
     LayerSpace<T> deviceToLayer(const DeviceSpace<T>& devGeometry) const
     {
         // The mapping from device space to layer space is defined by the inverse of the
@@ -666,7 +666,7 @@ namespace skif
         return LayerSpace<T>(map(static_cast<const T&>(devGeometry), devToLayerMatrix));
       }
     }
-    template <typename T>
+    template <typename T >
     DeviceSpace<T> layerToDevice(const LayerSpace<T>& layerGeometry) const
     {
       return DeviceSpace<T>(map(static_cast<const T&>(layerGeometry), fLayerToDevMatrix));
@@ -680,7 +680,7 @@ namespace skif
     SkMatrix fParamToLayerMatrix;
     // Actual geometric mapping operations that work on coordinates and matrices w/o the type
     // safety of the coordinate space wrappers (hence these are private).
-    template <typename T>
+    template <typename T >
     static T map(const T& geom, const SkMatrix& matrix);
   };
 // Usage is a template tag to improve the readability of filter implementations. It is attached to

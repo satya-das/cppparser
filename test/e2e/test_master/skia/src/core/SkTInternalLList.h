@@ -20,7 +20,7 @@
 /**
  * This class implements a templated internal doubly linked list data structure.
  */
-template <typename T>
+template <class T >
 class SkTInternalLList
 {
 public:

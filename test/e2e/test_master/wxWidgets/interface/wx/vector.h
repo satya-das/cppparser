@@ -21,7 +21,7 @@
 
     @see @ref overview_container, wxList<T>, wxArray<T>, wxVectorSort<T>
 */
-template <typename T>
+template <typename T >
 class wxVector<T>
 {
 public:
@@ -56,7 +56,7 @@ public:
 
         @since 2.9.5
      */
-  template <typename InputIterator>
+  template <class InputIterator >
   wxVector(InputIterator first, InputIterator last);
     /**
         Copy constructor.
@@ -83,7 +83,7 @@ public:
 
         @since 2.9.5
      */
-  template <typename InputIterator>
+  template <class InputIterator >
   void assign(InputIterator first, InputIterator last);
     /**
         Returns item at position @a idx.
@@ -233,5 +233,5 @@ public:
 
    @see wxVector<T>
 */
-template <typename T>
+template <typename T >
 void wxVectorSort(wxVector<T>& v);

@@ -202,7 +202,7 @@ private:
   friend class SkBigPicture;
   friend class SkEmptyPicture;
   friend class SkPicturePriv;
-  template <typename T>
+  template <typename T >
   friend class SkMiniPicture;
   void serialize(SkWStream*, const SkSerialProcs*, class SkRefCntSet* typefaces, bool textBlobsOnly = false) const;
   static sk_sp<SkPicture> MakeFromStream(SkStream*, const SkDeserialProcs*, class SkTypefacePlayback*);

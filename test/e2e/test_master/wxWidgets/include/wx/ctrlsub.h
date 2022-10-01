@@ -411,7 +411,7 @@ private:
 // So we need to explicitly resolve them and this helper template class is
 // provided to do it. To use it, simply inherit from wxWindowWithItems<Window,
 // Container> instead of Window and Container interface directly.
-template <typename W, typename C>
+template <typename W, class C >
 class wxWindowWithItems : public W, public C
 {
 public:

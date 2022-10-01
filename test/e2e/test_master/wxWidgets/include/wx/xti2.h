@@ -207,16 +207,16 @@ wxObject* wxVariantOfPtrToObjectConverter##name ( const wxAny &data )        \
     (wxObjectConstructorFn) 0);
 // templated streaming, every type that can be converted to wxString
 // must have their specialization for these methods
-template <typename T>
+template <typename T >
 void wxStringReadValue(const wxString& s, T& data);
-template <typename T>
+template <typename T >
 void wxStringWriteValue(wxString& s, const T& data);
-template <typename T>
+template <typename T >
 void wxToStringConverter(const wxAny& v, wxString& s)
 {
   wxStringWriteValue(s, v.As<T>());
 }
-template <typename T>
+template <typename T >
 void wxFromStringConverter(const wxString& s, wxAny& v)
 {
   T d;
@@ -226,7 +226,7 @@ void wxFromStringConverter(const wxString& s, wxAny& v)
 // --------------------------------------------------------------------------
 // Collection Support
 // --------------------------------------------------------------------------
-template <typename iter, typename collection_t>
+template <typename iter, typename collection_t >
 void wxListCollectionToAnyList(const collection_t& coll, wxAnyList& value)
 {
   for (iter current = coll.GetFirst(); current; current = current->GetNext())
@@ -234,7 +234,7 @@ void wxListCollectionToAnyList(const collection_t& coll, wxAnyList& value)
     value.Append(new wxAny(current->GetData()));
   }
 }
-template <typename collection_t>
+template <typename collection_t >
 void wxArrayCollectionToVariantArray(const collection_t& coll, wxAnyList& value)
 {
   for (size_t i = 0; i < coll.GetCount(); i++)

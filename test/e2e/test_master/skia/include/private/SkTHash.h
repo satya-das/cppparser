@@ -157,7 +157,7 @@ public:
     }
   }
     // Call fn on every entry in the table.  You may mutate the entries, but be very careful.
-  template <typename Fn>
+  template <typename Fn >
   void foreach(Fn&& fn)
   {
     for (int i = 0; i < fCapacity; i++)
@@ -169,7 +169,7 @@ public:
     }
   }
     // Call fn on every entry in the table.  You may not mutate anything.
-  template <typename Fn>
+  template <typename Fn >
   void foreach(Fn&& fn) const
   {
     for (int i = 0; i < fCapacity; i++)
@@ -326,13 +326,13 @@ public:
     fTable.remove(key);
   }
     // Call fn on every key/value pair in the table.  You may mutate the value but not the key.
-  template <typename Fn>
+  template <typename Fn >
   void foreach(Fn&& fn)
   {
     fTable.foreach();
   }
     // Call fn on every key/value pair in the table.  You may not mutate anything.
-  template <typename Fn>
+  template <typename Fn >
   void foreach(Fn&& fn) const
   {
     fTable.foreach();
@@ -408,7 +408,7 @@ public:
     fTable.remove(item);
   }
     // Call fn on every item in the set.  You may not mutate anything.
-  template <typename Fn>
+  template <typename Fn >
   void foreach(Fn&& fn) const
   {
     fTable.foreach(fn);

@@ -128,7 +128,7 @@ public:
     return m_spinMotion;
   }
     // Common validation code - for internal use.
-  template <typename T>
+  template <typename T >
   bool DoNumericValidation(T& value, wxPGValidationInfo* pValidationInfo, int mode, T defMin, T defMax) const;
 protected:
   wxNumericProperty(const wxString& label, const wxString& name);

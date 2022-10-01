@@ -9,7 +9,7 @@
 #  define _WX_QT_REGION_H_
 class QRegion;
 class QRect;
-template <typename T>
+template <class T >
 class QVector;
 class WXDLLIMPEXP_CORE wxRegion : public wxRegionBase
 {

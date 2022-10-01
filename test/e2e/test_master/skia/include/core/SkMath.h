@@ -42,7 +42,7 @@ static int SkClampMax(int value, int max)
  *  Returns true if value is a power of 2. Does not explicitly check for
  *  value <= 0.
  */
-template <typename T>
+template <typename T >
 inline constexpr bool SkIsPow2(T value)
 {
   return (value & (value - 1)) == 0;

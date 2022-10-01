@@ -23,7 +23,7 @@
  *                trivially destructable or that TBase has a virtual destructor as ~TBase()
  *                is called to destroy the items.
  */
-template <typename TBase>
+template <typename TBase >
 class GrTRecorder
 {
 private:
@@ -114,7 +114,7 @@ private:
   Header* fTail = nullptr;
 };
 ////////////////////////////////////////////////////////////////////////////////
-template <typename TBase>
+template <typename TBase >
 inline SK_WHEN((std::is_base_of<TBase, TItem>::value), TItem&) GrTRecorder<TBase>::emplaceWithData(size_t extraDataSize, Args... args)
 {
   static constexpr size_t kTAlign = alignof(TItem);
@@ -142,7 +142,7 @@ inline SK_WHEN((std::is_base_of<TBase, TItem>::value), TItem&) GrTRecorder<TBase
   SkASSERT(reinterpret_cast<uintptr_t>(item) == reinterpret_cast<uintptr_t>(static_cast<TBase*>(item)));
   return *item;
 }
-template <typename TBase>
+template <typename TBase >
 inline void GrTRecorder<TBase>::reset()
 {
   GR_STATIC_ASSERT(std::is_trivially_destructible<Header>::value);
@@ -152,7 +152,7 @@ inline void GrTRecorder<TBase>::reset()
 /**
  * Iterates through a recorder front-to-back, const or not.
  */
-template <typename TBase>
+template <typename TBase >
 class GrTRecorder<TBase>::IterImpl
 {
 private:

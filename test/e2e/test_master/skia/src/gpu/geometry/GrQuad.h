@@ -189,7 +189,7 @@ public:
     fType = newType;
   }
 private:
-  template <typename T>
+  template <typename T >
   friend class GrQuadListBase;
   float fX[4];
   float fY[4];

@@ -786,7 +786,7 @@ void wxMacCocoaRelease(void* obj);
 void wxMacCocoaAutorelease(void* obj);
 void* wxMacCocoaRetain(void* obj);
 // shared_ptr like API for NSObject and subclasses
-template <typename T>
+template <class T >
 class wxNSObjRef
 {
 public:

@@ -35,7 +35,7 @@ protected:
       : fPtr(ptr)
     {
     }
-    template <typename T>
+    template <typename T >
     operator T*() const
     {
       return (T*) fPtr;

@@ -401,7 +401,7 @@ namespace PoDoFo
  */
 // Not actually a macro, because function-like macros are evil and
 // prone to nasty issues with double-evaluation of arguments.
-  template <typename T>
+  template <typename T >
   const T PDF_MAX(const T a, const T b)
   {
     return (b < a) ? a : b;
@@ -412,7 +412,7 @@ namespace PoDoFo
  */
 // Not actually a macro, because function-like macros are evil and
 // prone to nasty issues with double-evaluation of arguments.
-  template <typename T>
+  template <typename T >
   const T PDF_MIN(const T a, const T b)
   {
     return (a < b) ? a : b;

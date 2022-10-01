@@ -15,7 +15,7 @@
 // The template argument T is typically a pointer to some opaque type. While
 // wxTreeItemId and wxDataViewItem use a pointer to void, this is dangerous and
 // not recommended for the new item id classes.
-template <typename T>
+template <typename T >
 class wxItemId
 {
 public:
@@ -55,12 +55,12 @@ public:
 //private:
   Type m_pItem;
 };
-template <typename T>
+template <typename T >
 bool operator==(const wxItemId<T>& left, const wxItemId<T>& right)
 {
   return left.GetID() == right.GetID();
 }
-template <typename T>
+template <typename T >
 bool operator!=(const wxItemId<T>& left, const wxItemId<T>& right)
 {
   return !(left == right);

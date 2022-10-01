@@ -247,7 +247,7 @@ public:
 
         @since 3.1.0
      */
-  template <typename T>
+  template <typename T >
   int Append(const std::vector<T>& items);
     /**
         Appends several items at once into the control.
@@ -505,7 +505,7 @@ public:
 
         @since 3.1.0
      */
-  template <typename T>
+  template <typename T >
   int Insert(const std::vector<T>& items);
     /**
         Inserts several items at once into the control.
@@ -620,7 +620,7 @@ public:
 
         @since 3.1.0
      */
-  template <typename T>
+  template <typename T >
   void Set(const std::vector<T>& items);
     /**
         Replaces the current control contents with the given items.

@@ -101,7 +101,7 @@ public:
     }
     return nullptr;
   }
-  template <typename FindPredicate>
+  template <class FindPredicate >
   T* find(const Key& key, const FindPredicate f)
   {
     ValueList* list = fHash.find(key);
@@ -115,7 +115,7 @@ public:
     }
     return nullptr;
   }
-  template <typename FindPredicate>
+  template <class FindPredicate >
   T* findAndRemove(const Key& key, const FindPredicate f)
   {
     ValueList* list = fHash.find(key);

@@ -522,7 +522,7 @@ public:
 
          @since 3.0
      */
-  template <typename T>
+  template <typename T >
   void CallAfter(const T& functor);
     /**
         Processes an event, searching event tables and calling zero or more suitable
@@ -864,7 +864,7 @@ public:
 
         @since 2.9.0
     */
-  template <typename EventTag, typename Functor>
+  template <typename EventTag, typename Functor >
   void Bind(const EventTag& eventType, Functor functor, int id = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL);
     /**
         See the Bind<>(const EventTag&, Functor, int, int, wxObject*) overload for
@@ -898,7 +898,7 @@ public:
 
         @since 2.9.0
     */
-  template <typename EventTag, typename Class, typename EventArg, typename EventHandler>
+  template <typename EventTag, typename Class, typename EventArg, typename EventHandler >
   void Bind(const EventTag& eventType, void (*method) (EventArg&), EventHandler* handler, int id = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL);
     /**
         Unbinds the given function, functor or method dynamically from the
@@ -933,7 +933,7 @@ public:
 
         @since 2.9.0
     */
-  template <typename EventTag, typename Functor>
+  template <typename EventTag, typename Functor >
   bool Unbind(const EventTag& eventType, Functor functor, int id = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL);
     /**
         See the Unbind<>(const EventTag&, Functor, int, int, wxObject*)
@@ -960,7 +960,7 @@ public:
 
         @since 2.9.0
     */
-  template <typename EventTag, typename Class, typename EventArg, typename EventHandler>
+  template <typename EventTag, typename Class, typename EventArg, typename EventHandler >
   bool Unbind(const EventTag& eventType, void (*method) (EventArg&), EventHandler* handler, int id = wxID_ANY, int lastId = wxID_ANY, wxObject* userData = NULL);
     //@}
     /**
@@ -3120,7 +3120,7 @@ public:
 
         @see GetPayload(), wxAny
      */
-  template <typename T>
+  template <typename T >
   void SetPayload(const T& payload);
     /**
         Get custom data payload.
@@ -3133,7 +3133,7 @@ public:
 
         @see SetPayload(), wxAny
      */
-  template <typename T>
+  template <typename T >
   T GetPayload() const;
     /**
         Returns extra information integer value.

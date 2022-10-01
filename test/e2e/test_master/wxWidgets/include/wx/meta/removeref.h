@@ -10,12 +10,12 @@
 #  define _WX_META_REMOVEREF_H_
 // wxRemoveRef<> is similar to C++11 std::remove_reference<> but works with all
 // compilers (but, to compensate for this, doesn't work with rvalue references).
-template <typename T>
+template <typename T >
 struct wxRemoveRef
 {
   typedef T type;
 };
-template <typename T>
+template <typename T >
 struct wxRemoveRef<T&>
 {
   typedef T type;

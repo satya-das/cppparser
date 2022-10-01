@@ -109,9 +109,9 @@ public:
   sk_sp<SkSurface> onNewSurface(const SkImageInfo&, const SkSurfaceProps&) override;
   void flushMiniRecorder();
 private:
-  template <typename T>
+  template <typename T >
   T* copy(const T*);
-  template <typename T>
+  template <typename T >
   T* copy(const T[], size_t count);
   template <typename T, typename... Args>
   void append(Args&&...);

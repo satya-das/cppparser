@@ -10,7 +10,7 @@
 // If you would ordinarily want to inherit from Base (eg SkCanvas, SkNWayCanvas), instead
 // inherit from SkCanvasVirtualEnforcer<Base>, which will make the build fail if you forget
 // to override one of SkCanvas' key virtual hooks.
-template <typename Base>
+template <typename Base >
 class SkCanvasVirtualEnforcer : public Base
 {
 public:

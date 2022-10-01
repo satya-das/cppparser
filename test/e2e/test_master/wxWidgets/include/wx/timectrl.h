@@ -24,7 +24,7 @@ enum
 
 // The template argument must be a class deriving from wxDateTimePickerCtrlBase
 // (i.e. in practice either this class itself or wxDateTimePickerCtrl).
-template <typename Base>
+template <typename Base >
 class wxTimePickerCtrlCommonBase : public Base
 {
 public:

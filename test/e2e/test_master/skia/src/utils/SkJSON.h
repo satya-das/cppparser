@@ -66,7 +66,7 @@ namespace skjson
     /**
      * @return    True if the record matches the facade type T.
      */
-    template <typename T>
+    template <typename T >
     bool is() const
     {
       return this->getType() == T::kType;
@@ -76,7 +76,7 @@ namespace skjson
      *
      * @return    The record cast as facade type T&.
      */
-    template <typename T>
+    template <typename T >
     const T& as() const
     {
       SkASSERT(this->is<T>());
@@ -87,7 +87,7 @@ namespace skjson
      *
      * @return    The record cast as facade type T*.
      */
-    template <typename T>
+    template <typename T >
     operator const T*() const
     {
       return this->is<T>() ? &this->as<T>() : nullptr;
@@ -157,20 +157,20 @@ namespace skjson
     //   |                        T* (kTypeShift bits)                      |TYPE|
     //    -----------------------------------------------------------------------
     //
-    template <typename T>
+    template <typename T >
     const T* cast() const
     {
       static_assert(sizeof(T) <= sizeof(Value), "");
       static_assert(alignof(T) <= alignof(Value), "");
       return reinterpret_cast<const T*>(this);
     }
-    template <typename T>
+    template <typename T >
     T* cast()
     {
       return const_cast<T*>(const_cast<const Value*>(this)->cast<T>());
     }
     // Access the pointer payload.
-    template <typename T>
+    template <typename T >
     const T* ptr() const
     {
       static_assert(sizeof(uintptr_t) == sizeof(Value) || sizeof(uintptr_t) * 2 == sizeof(Value), "");

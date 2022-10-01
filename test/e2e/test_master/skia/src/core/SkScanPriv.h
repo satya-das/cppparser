@@ -36,13 +36,13 @@ void sk_fill_path(const SkPath& path, const SkIRect& clipRect, SkBlitter* blitte
 // blit the rects above and below avoid, clipped to clip
 void sk_blit_above(SkBlitter*, const SkIRect& avoid, const SkRegion& clip);
 void sk_blit_below(SkBlitter*, const SkIRect& avoid, const SkRegion& clip);
-template <typename EdgeType>
+template <class EdgeType >
 static void remove_edge(EdgeType* edge)
 {
   edge->fPrev->fNext = edge->fNext;
   edge->fNext->fPrev = edge->fPrev;
 }
-template <typename EdgeType>
+template <class EdgeType >
 static void insert_edge_after(EdgeType* edge, EdgeType* afterMe)
 {
   edge->fPrev = afterMe;
@@ -50,7 +50,7 @@ static void insert_edge_after(EdgeType* edge, EdgeType* afterMe)
   afterMe->fNext->fPrev = edge;
   afterMe->fNext = edge;
 }
-template <typename EdgeType>
+template <class EdgeType >
 static void backward_insert_edge_based_on_x(EdgeType* edge)
 {
   SkFixed x = edge->fX;
@@ -69,7 +69,7 @@ static void backward_insert_edge_based_on_x(EdgeType* edge)
 // insertion, marching forwards from here. The implementation could have started from the left
 // of the prior insertion, and search to the right, or with some additional caching, binary
 // search the starting point. More work could be done to determine optimal new edge insertion.
-template <typename EdgeType>
+template <class EdgeType >
 static EdgeType* backward_insert_start(EdgeType* prev, SkFixed x)
 {
   while (prev->fPrev && prev->fX > x)

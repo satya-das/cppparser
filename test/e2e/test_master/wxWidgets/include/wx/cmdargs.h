@@ -30,7 +30,7 @@ public:
     m_argsA = NULL;
     m_argsW = NULL;
   }
-  template <typename T>
+  template <typename T >
   void Init(int argc, T** argv)
   {
     FreeArgs();
@@ -107,7 +107,7 @@ public:
     FreeArgs();
   }
 private:
-  template <typename T>
+  template <typename T >
   void Free(T**& args)
   {
     if (!args)

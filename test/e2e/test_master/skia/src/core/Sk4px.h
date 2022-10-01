@@ -141,7 +141,7 @@ namespace
     }
     // A generic driver that maps fn over a src array into a dst array.
     // fn should take an Sk4px (4 src pixels) and return an Sk4px (4 dst pixels).
-    template <typename Fn>
+    template <typename Fn >
     static void MapSrc(int n, SkPMColor* dst, const SkPMColor* src, const Fn& fn)
     {
       SkASSERT(dst);
@@ -183,7 +183,7 @@ namespace
       }
     }
     // As above, but with dst4' = fn(dst4, src4).
-    template <typename Fn>
+    template <typename Fn >
     static void MapDstSrc(int n, SkPMColor* dst, const SkPMColor* src, const Fn& fn)
     {
       SkASSERT(dst);
@@ -223,7 +223,7 @@ namespace
       }
     }
     // As above, but with dst4' = fn(dst4, alpha4).
-    template <typename Fn>
+    template <typename Fn >
     static void MapDstAlpha(int n, SkPMColor* dst, const SkAlpha* a, const Fn& fn)
     {
       SkASSERT(dst);
@@ -263,7 +263,7 @@ namespace
       }
     }
     // As above, but with dst4' = fn(dst4, src4, alpha4).
-    template <typename Fn>
+    template <typename Fn >
     static void MapDstSrcAlpha(int n, SkPMColor* dst, const SkPMColor* src, const SkAlpha* a, const Fn& fn)
     {
       SkASSERT(dst);

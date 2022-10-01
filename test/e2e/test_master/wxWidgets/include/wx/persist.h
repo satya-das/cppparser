@@ -63,7 +63,7 @@ public:
     // with the second one the persistent adapter is created by the caller
     //
     // the object shouldn't be already registered with us
-  template <typename T>
+  template <class T >
   wxPersistentObject* Register(T* obj)
   {
     return Register(obj, wxCreatePersistentObject(obj));
@@ -91,7 +91,7 @@ public:
     Unregister(obj);
   }
     // combines both Register() and Restore() calls
-  template <typename T>
+  template <class T >
   bool RegisterAndRestore(T* obj)
   {
     return Register(obj) && Restore(obj);
@@ -182,12 +182,12 @@ public:
 protected:
     // wrappers for wxPersistenceManager methods which don't require passing
     // "this" as the first parameter all the time
-  template <typename T>
+  template <typename T >
   bool SaveValue(const wxString& name, T value) const
   {
     return wxPersistenceManager::Get().SaveValue(*this, name, value);
   }
-  template <typename T>
+  template <typename T >
   bool RestoreValue(const wxString& name, T* value)
   {
     return wxPersistenceManager::Get().RestoreValue(*this, name, value);
@@ -198,7 +198,7 @@ private:
 };
 // Helper function calling RegisterAndRestore() on the global persistence
 // manager object.
-template <typename T>
+template <typename T >
 inline bool wxPersistentRegisterAndRestore(T* obj)
 {
   wxPersistentObject* const pers = wxCreatePersistentObject(obj);
@@ -206,7 +206,7 @@ inline bool wxPersistentRegisterAndRestore(T* obj)
 }
 // A helper function which also sets the name for the (wxWindow-derived) object
 // before registering and restoring it.
-template <typename T>
+template <typename T >
 inline bool wxPersistentRegisterAndRestore(T* obj, const wxString& name)
 {
   obj->SetName(name);

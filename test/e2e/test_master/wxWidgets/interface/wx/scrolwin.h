@@ -158,7 +158,7 @@ enum wxScrollbarVisibility {
     @see wxScrollBar, wxClientDC, wxPaintDC,
          wxVScrolledWindow, wxHScrolledWindow, wxHVScrolledWindow,
 */
-template <typename T>
+template <class T >
 class wxScrolled : public T
 {
 public:

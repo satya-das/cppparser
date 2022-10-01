@@ -108,7 +108,7 @@ protected:
 private:
   int m_count;
 };
-template <typename T>
+template <typename T >
 class wxVariantDataT : public wxVariantData
 {
 public:
@@ -165,7 +165,7 @@ public:
   wxVariantBase();
   wxVariantBase(const wxVariantBase& variant);
   wxVariantBase(wxVariantData* data, const wxString& name = wxEmptyString);
-  template <typename T>
+  template <typename T >
   wxVariantBase(const T& data, const wxString& name = wxEmptyString)
     : m_data(new wxVariantDataT<T>(data))
     , m_name(name)
@@ -229,7 +229,7 @@ public:
     return m_data->GetTypeInfo();
   }
     // get a ref to the stored data
-  template <typename T>
+  template <typename T >
   T& Get()
   {
     wxVariantDataT<T>* dataptr = wx_dynamic_cast(wxVariantDataT<T>*, m_data);
@@ -238,7 +238,7 @@ public:
     return dataptr->Get();
   }
     // get a const ref to the stored data
-  template <typename T>
+  template <typename T >
   const T& Get() const
   {
     const wxVariantDataT<T>* dataptr = wx_dynamic_cast(const wxVariantDataT<T>*, m_data);
@@ -246,7 +246,7 @@ public:
             wxString::Format(wxT("Cast to %s not possible"), typeid(T).name()) );
     return dataptr->Get();
   }
-  template <typename T>
+  template <typename T >
   bool HasData() const
   {
     const wxVariantDataT<T>* dataptr = wx_dynamic_cast(const wxVariantDataT<T>*, m_data);
@@ -264,16 +264,16 @@ protected:
 #    include "wx/dynarray.h"
 WX_DECLARE_OBJARRAY_WITH_DECL(wxVariantBase, wxVariantBaseArray, class WXDLLIMPEXP_BASE);
 // templated streaming, every type must have their specialization for these methods
-template <typename T>
+template <typename T >
 void wxStringReadValue(const wxString& s, T& data);
-template <typename T>
+template <typename T >
 void wxStringWriteValue(wxString& s, const T& data);
-template <typename T>
+template <typename T >
 void wxToStringConverter(const wxVariantBase& v, wxString& s)
 {
   wxStringWriteValue(s, v.Get<T>());
 }
-template <typename T>
+template <typename T >
 void wxFromStringConverter(const wxString& s, wxVariantBase& v)
 {
   T d;

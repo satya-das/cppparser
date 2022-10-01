@@ -25,9 +25,9 @@ public:
     : super_type(d)
   {
   }
-  template <typename V>
+  template <typename V >
   bool GetValue(V* ptr) const;
-  template <typename V>
+  template <typename V >
   bool GetValue(V* ptr, V defaultValue) const
   {
     bool hasKey = GetValue(ptr);
@@ -37,12 +37,12 @@ public:
     }
     return hasKey;
   }
-  template <typename V>
+  template <typename V >
   bool GetValue(V& ref) const
   {
     return GetValue(&ref);
   }
-  template <typename V>
+  template <typename V >
   bool GetValue(V& ref, V defaultValue) const
   {
     bool hasKey = GetValue(ref);

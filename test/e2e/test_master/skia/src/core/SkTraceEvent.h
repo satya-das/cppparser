@@ -284,7 +284,7 @@ namespace skia
     {
       return TRACE_EVENT_API_ADD_TRACE_EVENT(phase, category_group_enabled, name, id, kZeroNumArgs, nullptr, nullptr, nullptr, flags);
     }
-    template <typename ARG1_TYPE>
+    template <class ARG1_TYPE >
     static SkEventTracer::Handle AddTraceEvent(char phase, const uint8_t* category_group_enabled, const char* name, uint64_t id, unsigned char flags, const char* arg1_name, const ARG1_TYPE& arg1_val)
     {
       const int num_args = 1;
@@ -293,7 +293,7 @@ namespace skia
       SetTraceValue(arg1_val, &arg_types[0], &arg_values[0]);
       return TRACE_EVENT_API_ADD_TRACE_EVENT(phase, category_group_enabled, name, id, num_args, &arg1_name, arg_types, arg_values, flags);
     }
-    template <typename ARG1_TYPE, typename ARG2_TYPE>
+    template <typename ARG1_TYPE, class ARG2_TYPE >
     static SkEventTracer::Handle AddTraceEvent(char phase, const uint8_t* category_group_enabled, const char* name, uint64_t id, unsigned char flags, const char* arg1_name, const ARG1_TYPE& arg1_val, const char* arg2_name, const ARG2_TYPE& arg2_val)
     {
       const int num_args = 2;

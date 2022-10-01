@@ -55,7 +55,7 @@ enum wxPenCap {
 // ----------------------------------------------------------------------------
 
 // This class uses CRTP, the template parameter is the derived class itself.
-template <typename T>
+template <class T >
 class wxPenInfoBase
 {
 public:

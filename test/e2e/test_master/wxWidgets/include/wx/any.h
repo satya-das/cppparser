@@ -91,7 +91,7 @@ public:
 
         @see wxAny::CheckType()
     */
-  template <typename T>
+  template <typename T >
   bool CheckType() const;
 #    if  wxUSE_EXTENDED_RTTI
   virtual const wxTypeInfo* GetTypeInfo() const = 0;
@@ -171,7 +171,7 @@ wxAnyValueTypeScopedPtr CLS::sm_instance(new CLS());
 */
 namespace wxPrivate
 {
-  template <typename T>
+  template <typename T >
   class wxAnyValueTypeOpsInplace
   {
   public:
@@ -199,11 +199,11 @@ namespace wxPrivate
       return *u.ptr;
     }
   };
-  template <typename T>
+  template <typename T >
   class wxAnyValueTypeOpsGeneric
   {
   public:
-    template <typename T2>
+    template <typename T2 >
     class DataHolder
     {
     public:
@@ -234,7 +234,7 @@ namespace wxPrivate
       return holder->m_value;
     }
   };
-  template <typename T>
+  template <typename T >
   struct wxAnyAsImpl;
 }
 /**
@@ -244,7 +244,7 @@ namespace wxPrivate
     integer types), and also easily implement specialized templates
     with specific dynamic type conversion.
 */
-template <typename T>
+template <typename T >
 class wxAnyValueTypeImplBase : public wxAnyValueType
 {
   typedef typename wxIf< sizeof(T) <= WX_ANY_VALUE_BUFFER_SIZE, wxPrivate::wxAnyValueTypeOpsInplace<T>, wxPrivate::wxAnyValueTypeOpsGeneric<T> >::value Ops;
@@ -291,7 +291,7 @@ public:
     Generic value type template. Note that bulk of the implementation
     resides in wxAnyValueTypeImplBase.
 */
-template <typename T>
+template <typename T >
 class wxAnyValueTypeImpl : public wxAnyValueTypeImplBase<T>
 {
   WX_DECLARE_ANY_VALUE_TYPE(wxAnyValueTypeImpl<T>)
@@ -311,7 +311,7 @@ public:
     return false;
   }
 };
-template <typename T>
+template <typename T >
 wxAnyValueTypeScopedPtr wxAnyValueTypeImpl<T>::sm_instance = new wxAnyValueTypeImpl<T>();
 //
 // Helper macro for using same base value type implementation for multiple
@@ -647,7 +647,7 @@ public:
     /**
         Various constructors.
     */
-  template <typename T>
+  template <typename T >
   wxAny(const T& value)
   {
     m_type = wxAnyValueTypeImpl<T>::sm_instance.get();
@@ -686,7 +686,7 @@ public:
 
         @see wxAnyValueType::CheckType()
     */
-  template <typename T>
+  template <typename T >
   bool CheckType() const
   {
     return m_type->CheckType<T>();
@@ -731,7 +731,7 @@ public:
     /**
         Assignment operators.
     */
-  template <typename T>
+  template <typename T >
   wxAny& operator=(const T& value)
   {
     m_type->DeleteValue(m_buffer);
@@ -830,7 +830,7 @@ public:
     /**
         Inequality operators (implement as template).
     */
-  template <typename T>
+  template <typename T >
   bool operator!=(const T& value) const
   {
     return !((*this) == value);
@@ -846,13 +846,13 @@ public:
                  is useful when a string literal (which are treated as
                  const char* and const wchar_t*) has been assigned to wxAny.
     */
-  template <typename T>
+  template <typename T >
   T As(T* = NULL) const
   {
     return wxPrivate::wxAnyAsImpl<T>::DoAs(*this);
   }
     // Semi private helper: get the value without coercion, for all types.
-  template <typename T>
+  template <typename T >
   T RawAs() const
   {
     if (!wxAnyValueTypeImpl<T>::IsSameClass(m_type))
@@ -873,7 +873,7 @@ public:
 
         @return Returns @true if conversion was successful.
     */
-  template <typename T>
+  template <typename T >
   bool GetAs(T* value) const
   {
     if (!wxAnyValueTypeImpl<T>::IsSameClass(m_type))
@@ -939,7 +939,7 @@ private:
     }
   }
 #    endif
-  template <typename T>
+  template <typename T >
   void Assign(const T& value)
   {
     m_type->DeleteValue(m_buffer);
@@ -955,7 +955,7 @@ namespace wxPrivate
 // Dispatcher for template wxAny::As() implementation which is different for
 // wxString and all the other types: the generic implementation check if the
 // value is of the right type and returns it.
-  template <typename T>
+  template <typename T >
   struct wxAnyAsImpl
   {
     static T DoAs(const wxAny& any)
@@ -985,7 +985,7 @@ namespace wxPrivate
 // wxANY_VALUE_TYPE_CHECK_TYPE(), just call As() directly.
 #    define wxANY_AS(any, T)	 \
     (any).As(static_cast<T*>(NULL))
-template <typename T>
+template <typename T >
 inline bool wxAnyValueType::CheckType() const
 {
   return wxAnyValueTypeImpl<T>::IsSameClass(this);

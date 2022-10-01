@@ -85,7 +85,7 @@ private:
   bool fScheduledUpload;
   bool fWaited;
 };
-template <typename T>
+template <typename T >
 class GrTDeferredProxyUploader : public GrDeferredProxyUploader
 {
 public:

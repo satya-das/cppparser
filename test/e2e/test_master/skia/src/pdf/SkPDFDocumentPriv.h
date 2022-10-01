@@ -74,7 +74,7 @@ public:
   {
     return this->emit(o, this->reserveRef());
   }
-  template <typename T>
+  template <typename T >
   void emitStream(const SkPDFDict& dict, T writeStream, SkPDFIndirectReference ref)
   {
     SkAutoMutexExclusive lock(fMutex);

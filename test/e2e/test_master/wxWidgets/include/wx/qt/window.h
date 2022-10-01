@@ -8,7 +8,7 @@
 #ifndef _WX_QT_WINDOW_H_
 #  define _WX_QT_WINDOW_H_
 class QShortcut;
-template <typename T>
+template <class T >
 class QList;
 class QWidget;
 class QScrollArea;

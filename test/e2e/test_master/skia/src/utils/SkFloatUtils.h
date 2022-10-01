@@ -28,7 +28,7 @@ class SkTypeWithSize<64>
 public:
   typedef uint64_t UInt;
 };
-template <typename RawType>
+template <typename RawType >
 struct SkNumericLimits
 {
   static const int digits = 0;

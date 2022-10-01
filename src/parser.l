@@ -38,6 +38,8 @@ For this very reason this file does not use any class that are defined in cppast
 #include "cppvarinit.h"
 #include "parser.l.h"
 #include "lexer-helper.h"
+#include "angle-bracket-match-finder.h"
+
 #include <iostream>
 
 /// @{ Global data
@@ -55,6 +57,8 @@ extern std::set<std::string>        gUndefinedNames;
 extern std::set<std::string>        gIgnorableMacroNames;
 extern std::map<std::string, int>   gRenamedKeywords;
 /// @}
+
+extern const char* getTokenName(int tokenVal);
 
 const char* contextNameFromState(int ctx);
 
@@ -77,8 +81,8 @@ static int LogAndReturn(int ret, int codelinenum, int srclinenum)
 {
   if (g.mLexLog)
   {
-    printf("parser.l line#%4d: returning token %d with value '%s' found @input-line#%d\n",
-      codelinenum, ret, yytext, srclinenum);
+    printf("parser.l line#%4d: returning token %s(%d) with value '%s' found @input-line#%d\n",
+      codelinenum, getTokenName(ret), ret, yytext, srclinenum);
   }
   return ret;
 }
@@ -209,7 +213,7 @@ static const char* findMatchedClosingBracket(const char* start, char openingBrac
 
   // Since '(' / '{' should be used in trailing context, it's location will contain '\0'
   assert(*start == '\0');
-  auto end = g.mInputBuffer + g.mInputBufferSize;
+  auto end = g.mInputBufferBegin;
   int openBracket = 1;
   for (auto p = start+1; p != end; ++p)
   {
@@ -584,6 +588,16 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   setupToken();
   RETURN(tknPrivate);
+}
+
+<ctxGeneral>{ID2}{WSNL}*/"<" {
+  LOG();
+  const auto matchedClosingAngleBracket = findMatchedClosingAngleBracket(yytext + yyleng, g.mInputBufferEnd);
+  if (matchedClosingAngleBracket) {
+    g.expectedTemplateStartAngleBracket = yytext + yyleng;
+    g.matchedClosingTemplateAngleBracket.push(matchedClosingAngleBracket);
+  }
+  REJECT;
 }
 
 <ctxGeneral>template/{TS} {
@@ -1799,15 +1813,32 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(yytext[0]);
 }
 
-<ctxGeneral>">" {
+<ctxGeneral>">"+ {
   LOG();
   setupToken();
-  RETURN(tknGT);
+  if (g.matchedClosingTemplateAngleBracket.top() == yytext) {
+    g.matchedClosingTemplateAngleBracket.pop();
+    if (yyleng > 1) {
+      yyless(1);
+    }
+    RETURN(tknTGT);
+  } else if (yyleng > 1) {
+    yyless(2);
+    RETURN(tknRShift);
+  } else {
+    if (yyleng > 1) {
+      yyless(1);
+    }
+    RETURN(tknGT);
+  }
 }
 
 <ctxGeneral>"<" {
   LOG();
   setupToken();
+  if (g.expectedTemplateStartAngleBracket == yytext) {
+    RETURN(tknTLT);
+  }
   RETURN(tknLT);
 }
 
@@ -1889,8 +1920,8 @@ void setupScanBuffer(char* buf, size_t bufsize)
 {
   gParseBuffer = yy_scan_buffer(buf, bufsize);
   g = LexerData();
-  g.mInputBuffer = buf;
-  g.mInputBufferSize = bufsize;
+  g.mInputBufferBegin = buf;
+  g.mInputBufferEnd = buf + bufsize;
   BEGIN(ctxGeneral);
 }
 
@@ -1898,8 +1929,5 @@ void cleanupScanBuffer()
 {
   yy_delete_buffer(gParseBuffer);
   gParseBuffer = nullptr;
-  g.mInputBuffer = nullptr;
-  g.mInputBufferSize = 0;
-
   g = LexerData();
 }

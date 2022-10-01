@@ -35,7 +35,7 @@ public:
     //   template <typename T>
     //   R operator()(const T& record) { ... }
     // This operator() must be defined for at least all SkRecords::*.
-  template <typename F>
+  template <typename F >
   auto visit(int i, F&& f) const -> decltype(f(SkRecords::NoOp()))
   {
     return fRecords[i].visit(f);
@@ -44,14 +44,14 @@ public:
     //   template <typename T>
     //   R operator()(T* record) { ... }
     // This operator() must be defined for at least all SkRecords::*.
-  template <typename F>
+  template <typename F >
   auto mutate(int i, F&& f) -> decltype(f((SkRecords::NoOp*)nullptr))
   {
     return fRecords[i].mutate(f);
   }
     // Allocate contiguous space for count Ts, to be freed when the SkRecord is destroyed.
     // Here T can be any class, not just those from SkRecords.  Throws on failure.
-  template <typename T>
+  template <typename T >
   T* alloc(size_t count = 1)
   {
     struct RawBytes
@@ -63,7 +63,7 @@ public:
   }
     // Add a new command of type T to the end of this SkRecord.
     // You are expected to placement new an object of type T onto this pointer.
-  template <typename T>
+  template <typename T >
   T* append()
   {
     if (fCount == fReserved)
@@ -75,7 +75,7 @@ public:
     // Replace the i-th command with a new command of type T.
     // You are expected to placement new an object of type T onto this pointer.
     // References to the original command are invalidated.
-  template <typename T>
+  template <typename T >
   T* replace(int i)
   {
     SkASSERT(i < this->count());
@@ -86,7 +86,7 @@ public:
     // Replace the i-th command with a new command of type T.
     // You are expected to placement new an object of type T onto this pointer.
     // You must show proof that you've already adopted the existing command.
-  template <typename T, typename Existing>
+  template <typename T, typename Existing >
   T* replace(int i, const SkRecords::Adopted<Existing>& proofOfAdoption)
   {
     SkASSERT(i < this->count());
@@ -119,19 +119,19 @@ private:
     // A mutator that can be used with replace to destroy canvas commands.
   struct Destroyer
   {
-    template <typename T>
+    template <typename T >
     void operator()(T* record)
     {
       record->~T();
     }
   };
-  template <typename T>
+  template <typename T >
   SK_WHEN(std::is_empty<T>::value, T*) allocCommand()
   {
     static T singleton = {};
     return &singleton;
   }
-  template <typename T>
+  template <typename T >
   SK_WHEN(!std::is_empty<T>::value, T*) allocCommand()
   {
     return this->alloc<T>();
@@ -143,7 +143,7 @@ private:
     SkRecords::Type fType;
     void* fPtr;
         // Point this record to its data in fAlloc.  Returns ptr for convenience.
-    template <typename T>
+    template <typename T >
     T* set(T* ptr)
     {
       fType = T::kType;
@@ -160,7 +160,7 @@ private:
       return fPtr;
     }
         // Visit this record with functor F (see public API above).
-    template <typename F>
+    template <typename F >
     auto visit(F&& f) const -> decltype(f(SkRecords::NoOp()))
     {
 #  define CASE(T)	 case SkRecords::T##_Type: return f(*(const SkRecords::T*)this->ptr());
@@ -171,7 +171,7 @@ private:
       return f(noop);
     }
         // Mutate this record with functor F (see public API above).
-    template <typename F>
+    template <typename F >
     auto mutate(F&& f) -> decltype(f((SkRecords::NoOp*)nullptr))
     {
 #  define CASE(T)	 case SkRecords::T##_Type: return f((SkRecords::T*)this->ptr());

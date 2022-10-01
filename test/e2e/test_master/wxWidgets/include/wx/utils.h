@@ -45,7 +45,7 @@ class WXDLLIMPEXP_FWD_CORE wxEventLoop;
 // ----------------------------------------------------------------------------
 // Arithmetic functions
 // ----------------------------------------------------------------------------
-template <typename T1, typename T2>
+template <typename T1, typename T2 >
 inline typename wxImplicitConversionType<T1,T2>::value wxMax(T1 a, T2 b)
 {
   typedef typename wxImplicitConversionType<T1,T2>::value ResultType;
@@ -53,13 +53,13 @@ inline typename wxImplicitConversionType<T1,T2>::value wxMax(T1 a, T2 b)
     // warnings about signed/unsigned comparisons from some compilers:
   return static_cast<ResultType>(a) > static_cast<ResultType>(b) ? a : b;
 }
-template <typename T1, typename T2>
+template <typename T1, typename T2 >
 inline typename wxImplicitConversionType<T1,T2>::value wxMin(T1 a, T2 b)
 {
   typedef typename wxImplicitConversionType<T1,T2>::value ResultType;
   return static_cast<ResultType>(a) < static_cast<ResultType>(b) ? a : b;
 }
-template <typename T1, typename T2, typename T3>
+template <typename T1, typename T2, typename T3 >
 inline typename wxImplicitConversionType3<T1,T2,T3>::value wxClip(T1 a, T2 b, T3 c)
 {
   typedef typename wxImplicitConversionType3<T1,T2,T3>::value ResultType;

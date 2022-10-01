@@ -1,5 +1,5 @@
 typedef std::vector<int> IntArray;
-template <typename _T>
+template <typename _T >
 class A
 {
 public:

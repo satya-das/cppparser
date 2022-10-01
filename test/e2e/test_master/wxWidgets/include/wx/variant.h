@@ -239,7 +239,7 @@ public:
   {
     return *this = value.AsString();
   }
-  template <typename T>
+  template <typename T >
   wxVariant& operator=(const wxScopedCharTypeBuffer<T>& value)
   {
     return *this = value.data();
@@ -489,7 +489,7 @@ public:
 private:
   wxVariantDataFactory m_factory;
 };
-template <typename T>
+template <typename T >
 class wxAnyToVariantRegistrationImpl : public wxAnyToVariantRegistration
 {
 public:

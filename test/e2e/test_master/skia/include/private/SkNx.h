@@ -17,7 +17,7 @@
 namespace 
 {
 // The default SkNx<N,T> just proxies down to a pair of SkNx<N/2, T>.
-  template <int N, typename T>
+  template <int N, typename T >
   struct SkNx
   {
     typedef SkNx<N/2, T> Half;
@@ -251,7 +251,7 @@ namespace
     }
   };
 // The N -> N/2 recursion bottoms out at N == 1, a scalar value.
-  template <typename T>
+  template <typename T >
   struct SkNx<1,T>
   {
     T fVal;
@@ -481,7 +481,7 @@ namespace
       return ::floor(val);
     }
     // Helper functions for working with floats/doubles as bit patterns.
-    template <typename U>
+    template <typename U >
     AI static U ToBits(U v)
     {
       return v;
@@ -498,7 +498,7 @@ namespace
       memcpy(&bits, &v, sizeof(v));
       return bits;
     }
-    template <typename Bits>
+    template <typename Bits >
     AI static T FromBits(Bits bits)
     {
       static_assert(std::is_pod<T   >::value && std::is_pod<Bits>::value && sizeof(T) <= sizeof(Bits), "");
@@ -679,14 +679,14 @@ namespace
   }
 #  undef V
 // SkNx<N,T> ~~> SkNx<N/2,T> + SkNx<N/2,T>
-  template <int N, typename T>
+  template <int N, typename T >
   AI static void SkNx_split(const SkNx<N,T>& v, SkNx<N/2,T>* lo, SkNx<N/2,T>* hi)
   {
     *lo = v.fLo;
     *hi = v.fHi;
   }
 // SkNx<N/2,T> + SkNx<N/2,T> ~~> SkNx<N,T>
-  template <int N, typename T>
+  template <int N, typename T >
   AI static SkNx<N*2,T> SkNx_join(const SkNx<N,T>& lo, const SkNx<N,T>& hi)
   {
     return {lo, hi};
@@ -697,7 +697,7 @@ namespace
 //    SkNx_shuffle<2,1>(v)             ~~> {B,G}
 //    SkNx_shuffle<2,1,2,1,2,1,2,1>(v) ~~> {B,G,B,G,B,G,B,G}
 //    SkNx_shuffle<3,3,3,3>(v)         ~~> {A,A,A,A}
-  template <int... Ix, int N, typename T>
+  template <int... Ix, int N, typename T >
   AI static SkNx<sizeof...(Ix),T> SkNx_shuffle(const SkNx<N,T>& v)
   {
     return {v[Ix]...};
@@ -708,12 +708,12 @@ namespace
   {
     return {SkNx_cast<Dst>(v.fLo), SkNx_cast<Dst>(v.fHi)};
   }
-  template <typename Dst, typename Src>
+  template <typename Dst, typename Src >
   AI static SkNx<1,Dst> SkNx_cast(const SkNx<1,Src>& v)
   {
     return static_cast<Dst>(v.fVal);
   }
-  template <int N, typename T>
+  template <int N, typename T >
   AI static SkNx<N,T> SkNx_fma(const SkNx<N,T>& f, const SkNx<N,T>& m, const SkNx<N,T>& a)
   {
     return f * m + a;

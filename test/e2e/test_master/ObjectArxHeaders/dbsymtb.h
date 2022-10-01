@@ -670,7 +670,7 @@ public:
   Acad::ErrorStatus add(AcDbSymbolTableRecord* pRecord);
   Acad::ErrorStatus add(AcDbObjectId& recordId, AcDbSymbolTableRecord* pRecord);
 protected:
-  template <typename RecordType>
+  template <class RecordType >
   Acad::ErrorStatus openAt(const ACHAR* entryName, RecordType*& pRec, AcDb::OpenMode nMode, bool bOpenErased) const
   {
     pRec = nullptr;
@@ -999,7 +999,7 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus seek(AcDbObjectId id);
   ACDBCORE2D_PORT Acad::ErrorStatus seek(const AcDbSymbolTableRecord* pRecord);
 protected:
-  template <typename RecordType>
+  template <class RecordType >
   Acad::ErrorStatus openRecord(RecordType*& pRec, AcDb::OpenMode nMode, bool bOpenErased) const
   {
     pRec = nullptr;

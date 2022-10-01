@@ -85,7 +85,7 @@ private:
 };
 // This class uses a weak version of CRTP, i.e. it's a template class taking
 // the base class that the class deriving from it would normally derive from.
-template <typename T>
+template <class T >
 class wxMSWOwnerDrawnButton : public T, private wxMSWOwnerDrawnButtonBase
 {
 private:

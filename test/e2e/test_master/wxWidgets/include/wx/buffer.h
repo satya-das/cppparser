@@ -53,7 +53,7 @@ namespace wxPrivate
 // Reference-counted character buffer for storing string data. The buffer
 // is only valid for as long as the "parent" object that provided the data
 // is valid; see wxCharTypeBuffer<T> for persistent variant.
-template <typename T>
+template <typename T >
 class wxScopedCharTypeBuffer
 {
 public:
@@ -236,7 +236,7 @@ protected:
 typedef wxScopedCharTypeBuffer<char> wxScopedCharBuffer;
 typedef wxScopedCharTypeBuffer<wchar_t> wxScopedWCharBuffer;
 // this buffer class always stores data in "owned" (persistent) manner
-template <typename T>
+template <typename T >
 class wxCharTypeBuffer : public wxScopedCharTypeBuffer<T>
 {
 protected:
@@ -382,7 +382,7 @@ public:
   wxWCharBuffer(const wxCStrData& cstr);
 };
 // wxCharTypeBuffer<T> implicitly convertible to T*
-template <typename T>
+template <typename T >
 class wxWritableCharTypeBuffer : public wxCharTypeBuffer<T>
 {
 public:

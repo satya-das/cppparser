@@ -262,7 +262,7 @@ typedef short int WXTYPE;
    as it results in warnings when using some compilers (SGI mipspro for example)
  */
 #  if  defined(__INTELC__)
-template <typename T, typename X>
+template <typename T, typename X >
 inline T wx_truncate_cast_impl(X x)
 {
 #    pragma  warning(push)
@@ -279,7 +279,7 @@ inline T wx_truncate_cast_impl(X x)
 #  elif  defined(__clang__)
 #    define wx_truncate_cast(t, x)	 static_cast<t>(x)
 #  elif  defined(__VISUALC__) && __VISUALC__ >= 1310
-template <typename T, typename X>
+template <typename T, typename X >
 inline T wx_truncate_cast_impl(X x)
 {
 #    pragma  warning(push)
@@ -724,7 +724,7 @@ inline T wx_truncate_cast_impl(X x)
 #  endif
 /*  sometimes the value of a variable is *really* not used, to suppress  the */
 /*  resulting warning you may pass it to this function */
-template <typename T>
+template <class T >
 inline void wxUnusedVar(const T&)
 {
 }
@@ -742,7 +742,7 @@ inline void wxUnusedVar(const T&)
 // everybody gets the assert and other debug macros
 #  include "wx/debug.h"
     // delete pointer if it is not NULL and NULL it afterwards
-template <typename T>
+template <typename T >
 inline void wxDELETE(T*& ptr)
 {
   typedef char TypeIsCompleteCheck[sizeof(T)];
@@ -753,7 +753,7 @@ inline void wxDELETE(T*& ptr)
   }
 }
     // delete an array and NULL it (see comments above)
-template <typename T>
+template <typename T >
 inline void wxDELETEA(T*& ptr)
 {
   typedef char TypeIsCompleteCheck[sizeof(T)];
@@ -764,7 +764,7 @@ inline void wxDELETEA(T*& ptr)
   }
 }
     // trivial implementation of std::swap() for primitive types
-template <typename T>
+template <typename T >
 inline void wxSwap(T& first, T& second)
 {
   T tmp(first);

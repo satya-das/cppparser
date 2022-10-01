@@ -72,7 +72,7 @@ enum wxNumValidatorStyle {
 
     @since 2.9.2
  */
-template <typename T>
+template <typename T >
 class wxNumValidator : public wxValidator
 {
 public:
@@ -185,7 +185,7 @@ public:
 
     @since 2.9.2
 */
-template <typename T>
+template <typename T >
 class wxIntegerValidator : public wxNumValidator<T>
 {
 public:
@@ -220,7 +220,7 @@ public:
 
     @since 2.9.2
  */
-template <typename T>
+template <typename T >
 wxIntegerValidator<T> wxMakeIntegerValidator(T* value, int style = wxNUM_VAL_DEFAULT);
 /**
     Validator for text entries used for floating point numbers entry.
@@ -281,7 +281,7 @@ wxIntegerValidator<T> wxMakeIntegerValidator(T* value, int style = wxNUM_VAL_DEF
 
     @since 2.9.2
 */
-template <typename T>
+template <typename T >
 class wxFloatingPointValidator : public wxNumValidator<T>
 {
 public:
@@ -333,8 +333,8 @@ public:
     @since 2.9.2
  */
 //@{
-template <typename T>
+template <typename T >
 inline wxFloatingPointValidator<T> wxMakeFloatingPointValidator(T* value, int style = wxNUM_VAL_DEFAULT);
-template <typename T>
+template <typename T >
 inline wxFloatingPointValidator<T> wxMakeFloatingPointValidator(int precision, T* value, int style = wxNUM_VAL_DEFAULT);
 //@}

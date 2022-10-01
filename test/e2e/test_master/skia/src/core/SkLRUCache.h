@@ -72,7 +72,7 @@ public:
   {
     return fMap.count();
   }
-  template <typename Fn>
+  template <typename Fn >
   void foreach(Fn&& fn)
   {
     typename SkTInternalLList<Entry>::Iter iter;

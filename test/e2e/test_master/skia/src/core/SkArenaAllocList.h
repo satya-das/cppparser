@@ -12,7 +12,7 @@
  * A singly linked list of Ts stored in a SkArenaAlloc. The arena rather than the list owns
  * the elements. This supports forward iteration and range based for loops.
  */
-template <typename T>
+template <typename T >
 class SkArenaAllocList
 {
 private:
@@ -80,7 +80,7 @@ private:
   Node* fHead = nullptr;
   Node* fTail = nullptr;
 };
-template <typename T>
+template <typename T >
 T& SkArenaAllocList<T>::append(SkArenaAlloc* arena, Args... args)
 {
   SkASSERT(!fHead == !fTail);
@@ -95,7 +95,7 @@ T& SkArenaAllocList<T>::append(SkArenaAlloc* arena, Args... args)
   }
   return fTail->fT;
 }
-template <typename T>
+template <typename T >
 typename SkArenaAllocList<T>::Iter& SkArenaAllocList<T>::Iter::operator++()
 {
   fCurr = fCurr->fNext;

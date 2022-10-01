@@ -678,7 +678,7 @@ private:
 
 // Note that we intentionally do not use WXDLLIMPEXP_CORE for this class as it
 // has only inline methods.
-template <typename ChildFrame, typename ParentFrame>
+template <typename ChildFrame, class ParentFrame >
 class wxDocChildFrameAny : public ChildFrame, public wxDocChildFrameAnyBase
 {
 public:
@@ -790,7 +790,7 @@ protected:
 };
 // This is similar to wxDocChildFrameAny and is used to provide common
 // implementation for both wxDocParentFrame and wxDocMDIParentFrame
-template <typename BaseFrame>
+template <class BaseFrame >
 class wxDocParentFrameAny : public BaseFrame, public wxDocParentFrameAnyBase
 {
 public:

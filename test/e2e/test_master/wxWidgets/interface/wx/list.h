@@ -92,7 +92,7 @@
 
     @see wxArray<T>, wxVector<T>, wxNode<T>
 */
-template <typename T>
+template <typename T >
 class wxList<T>
 {
 public:
@@ -366,7 +366,7 @@ public:
 
     @see wxList<T>, wxHashTable
 */
-template <typename T>
+template <typename T >
 class wxNode<T>
 {
 public:

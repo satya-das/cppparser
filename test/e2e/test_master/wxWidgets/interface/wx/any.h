@@ -67,7 +67,7 @@ public:
     /**
         Constructs wxAny from data.
     */
-  template <typename T>
+  template <typename T >
   wxAny(const T& value);
     /**
         Constructs wxAny from another wxAny.
@@ -96,7 +96,7 @@ public:
                  is useful when a string literal (which are treated as
                  const char* and const wchar_t*) has been assigned to wxAny.
     */
-  template <typename T>
+  template <typename T >
   T As() const;
     /**
         Use this template function for checking if this wxAny holds
@@ -104,7 +104,7 @@ public:
 
         @see wxAnyValueType::CheckType()
     */
-  template <typename T>
+  template <typename T >
   bool CheckType() const;
     /**
         Template function that retrieves and converts the value of this
@@ -112,7 +112,7 @@ public:
 
         @return Returns @true if conversion was successful.
     */
-  template <typename T>
+  template <typename T >
   bool GetAs(T* value) const;
     /**
         Specialization of GetAs() that allows conversion of wxAny into
@@ -150,7 +150,7 @@ public:
     /**
         @name Assignment operators
     */
-  template <typename T>
+  template <typename T >
   wxAny& operator=(const T& value);
   wxAny& operator=(const wxAny& any);
   wxAny& operator=(const wxVariant& variant);
@@ -359,7 +359,7 @@ public:
 
         @see wxAny::CheckType()
     */
-  template <typename T>
+  template <typename T >
   bool CheckType() const;
     /**
         Convert value into buffer of different type. Return false if

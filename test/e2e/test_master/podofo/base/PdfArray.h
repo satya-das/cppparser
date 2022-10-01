@@ -200,7 +200,7 @@ namespace PoDoFo
 #  if  defined(_MSC_VER)  &&  _MSC_VER <= 1200    // workaround template-error in Visualstudio 6
     inline void insert(iterator __position, iterator __first, iterator __last);
 #  else 
-    template <typename _InputIterator>
+    template <typename _InputIterator >
     void insert(const iterator& __position, const _InputIterator& __first, const _InputIterator& __last);
 #  endif
     iterator insert(const iterator& pos, const PdfObject& val);
@@ -379,7 +379,7 @@ namespace PoDoFo
 // -----------------------------------------------------
 // 
 // -----------------------------------------------------
-  template <typename _InputIterator>
+  template <typename _InputIterator >
   void PdfArray::insert(const PdfArray::iterator& __position, const _InputIterator& __first, const _InputIterator& __last)
   {
     AssertMutable();

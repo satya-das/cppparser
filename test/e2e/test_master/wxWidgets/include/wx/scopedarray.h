@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------------
 // wxScopedArray: A scoped array
 // ----------------------------------------------------------------------------
-template <typename T>
+template <class T >
 class wxScopedArray
 {
 public:

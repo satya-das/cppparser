@@ -10,7 +10,7 @@
 #  include "include/core/SkDeque.h"
 #  include "src/core/SkRasterClip.h"
 #  include <new>
-template <typename T>
+template <typename T >
 class SkTStack
 {
 public:

@@ -17,7 +17,7 @@
 class SkMatrix;
 class SkPDFArray;
 struct SkRect;
-template <typename T>
+template <typename T >
 bool SkPackedArrayEqual(T* u, T* v, size_t n)
 {
   SkASSERT(u);

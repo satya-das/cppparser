@@ -24,7 +24,7 @@
 // involved e.g. in arithmetic expressions.
 namespace wxPrivate
 {
-  template <typename T>
+  template <typename T >
   struct TypeHierarchy
   {
     // consider unknown types (e.g. objects, pointers) to be of highest
@@ -74,12 +74,12 @@ namespace wxPrivate
 }
 // Helper to determine resulting type of implicit conversion in
 // an expression with two arithmetic types.
-template <typename T1, typename T2>
+template <typename T1, typename T2 >
 struct wxImplicitConversionType
 {
   typedef typename wxIf < // if T2 is "higher" type, convert to it (int)(wxPrivate::TypeHierarchy<T1>::level) < (int)(wxPrivate::TypeHierarchy<T2>::level), T2, // otherwise use T1 T1 >::value value;
 };
-template <typename T1, typename T2, typename T3>
+template <typename T1, typename T2, typename T3 >
 struct wxImplicitConversionType3 : public wxImplicitConversionType<
                         T1,
                         typename wxImplicitConversionType<T2,T3>::value>

@@ -155,7 +155,7 @@ protected:
 // a template to make initializing Windows structs less painful: it zeros all
 // the struct fields and also sets cbSize member to the correct value (and so
 // can be only used with structures which have this member...)
-template <typename T>
+template <class T >
 struct WinStruct : public T
 {
   WinStruct()

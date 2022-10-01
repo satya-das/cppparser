@@ -25,7 +25,7 @@
 namespace SK_OPTS_NS
 {
 // This same basic packing scheme is used throughout the file.
-  template <typename U32, typename Out>
+  template <typename U32, typename Out >
   static void decode_packed_coordinates_and_weight(U32 packed, Out* v0, Out* v1, Out* w)
   {
     *v0 = (packed >> 18);

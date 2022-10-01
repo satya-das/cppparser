@@ -27,7 +27,7 @@ static int SkClampPos(int value)
 /**
  * Stores numer/denom and numer%denom into div and mod respectively.
  */
-template <typename In, typename Out>
+template <typename In, typename Out >
 inline void SkTDivMod(In numer, In denom, Out* div, Out* mod)
 {
 #  ifdef SK_CPU_ARM32
@@ -254,7 +254,7 @@ static size_t GrNextSizePow2(size_t n)
   return n + 1;
 }
 // conservative check. will return false for very large values that "could" fit
-template <typename T>
+template <typename T >
 static bool SkFitsInFixed(T x)
 {
   return SkTAbs(x) <= 32767.0f;

@@ -18,7 +18,7 @@
 #include "acdocman.h"
 #include <map>
 //-----------------------------------------------------------------------------
-template <typename T>
+template <class T >
 class AcApDataManager : public AcApDocManagerReactor
 {
 public:

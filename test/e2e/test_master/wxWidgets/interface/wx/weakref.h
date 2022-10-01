@@ -31,7 +31,7 @@
     @nolibrary
     @category{smartpointers}
 */
-template <typename T>
+template <typename T >
 class wxWeakRefDynamic<T>
 {
 };
@@ -92,7 +92,7 @@ class wxWeakRefDynamic<T>
 
     @see wxSharedPtr<T>, wxScopedPtr<T>
 */
-template <typename T>
+template <typename T >
 class wxWeakRef<T> : public wxTrackerNode
 {
 public:

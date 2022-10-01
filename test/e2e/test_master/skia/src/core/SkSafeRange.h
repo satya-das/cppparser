@@ -25,7 +25,7 @@ public:
     // checks 0 <= value <= max.
     // On success, returns value
     // On failure, returns 0 and sets ok() to false
-  template <typename T>
+  template <typename T >
   T checkLE(uint64_t value, T max)
   {
     SkASSERT(static_cast<int64_t>(max) >= 0);

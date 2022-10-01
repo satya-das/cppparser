@@ -37,7 +37,7 @@ public:
   {
     return fBitSet.has(this->toCode(gid));
   }
-  template <typename FN>
+  template <typename FN >
   void getSetValues(FN f) const
   {
     if (fFirstNonZero == 1)

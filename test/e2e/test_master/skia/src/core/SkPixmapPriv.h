@@ -28,7 +28,7 @@ public:
      *  @param decode Function for decoding into a pixmap without
      *      applying the origin.
      */
-  template <typename Fn>
+  template <typename Fn >
   static bool Orient(const SkPixmap& dst, SkEncodedOrigin origin, Fn&& decode)
   {
     SkAutoPixmapStorage storage;

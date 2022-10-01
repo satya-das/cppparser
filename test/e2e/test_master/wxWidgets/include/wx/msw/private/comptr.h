@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------------------
 // wxCOMPtr: A minimalistic smart pointer for use with COM interfaces.
 // ----------------------------------------------------------------------------
-template <typename T>
+template <class T >
 class wxCOMPtr
 {
 public:

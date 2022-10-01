@@ -460,17 +460,17 @@ public:
       : m_value(value)
     {
     }
-    template <typename T>
+    template <typename T >
     operator T()
     {
       return static_cast<T>(m_value);
     }
-    template <typename T>
+    template <typename T >
     bool operator==(T right) const
     {
       return static_cast<int>(right) == m_value;
     }
-    template <typename T>
+    template <typename T >
     bool operator!=(T right) const
     {
       return !(*this == right);
@@ -543,12 +543,12 @@ inline AcGiVariant* AcGiVariant::getElemAt(int nIndex, ACHAR*& pStr) const
   ::acutNewString(sElem.constPtr(), pStr);
   return pVar;
 }
-template <typename T>
+template <typename T >
 inline bool operator==(T left, const AcGiVariant::EnumType right)
 {
   return (right == left);
 }
-template <typename T>
+template <typename T >
 inline bool operator!=(T left, const AcGiVariant::EnumType right)
 {
   return (right != left);

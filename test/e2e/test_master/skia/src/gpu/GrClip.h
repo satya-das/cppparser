@@ -64,7 +64,7 @@ public:
      * @param innerClipBounds   device-space rect contained by the clip (SkRect or SkIRect).
      * @param queryBounds       device-space bounds of the query region.
      */
-  template <typename TRect>
+  template <typename TRect >
   static constexpr bool IsInsideClip(const TRect& innerClipBounds, const SkRect& queryBounds)
   {
     return innerClipBounds.fRight > innerClipBounds.fLeft + kBoundsTolerance && innerClipBounds.fBottom > innerClipBounds.fTop + kBoundsTolerance && innerClipBounds.fLeft < queryBounds.fLeft + kBoundsTolerance && innerClipBounds.fTop < queryBounds.fTop + kBoundsTolerance && innerClipBounds.fRight > queryBounds.fRight - kBoundsTolerance && innerClipBounds.fBottom > queryBounds.fBottom - kBoundsTolerance;
@@ -75,7 +75,7 @@ public:
      * @param outerClipBounds   device-space rect that contains the clip (SkRect or SkIRect).
      * @param queryBounds       device-space bounds of the query region.
      */
-  template <typename TRect>
+  template <typename TRect >
   static constexpr bool IsOutsideClip(const TRect& outerClipBounds, const SkRect& queryBounds)
   {
     return outerClipBounds.fRight - outerClipBounds.fLeft <= kBoundsTolerance || outerClipBounds.fBottom - outerClipBounds.fTop <= kBoundsTolerance || outerClipBounds.fLeft >= queryBounds.fRight - kBoundsTolerance || outerClipBounds.fTop >= queryBounds.fBottom - kBoundsTolerance || outerClipBounds.fRight <= queryBounds.fLeft + kBoundsTolerance || outerClipBounds.fBottom <= queryBounds.fTop + kBoundsTolerance;
