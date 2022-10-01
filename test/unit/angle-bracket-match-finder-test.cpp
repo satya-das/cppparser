@@ -69,12 +69,13 @@ TEST_CASE_METHOD(AngleBracketMatchFinderTest, "template <typename T>", "[templat
   EnsureInputBufferUnchanged ensureInputBufferUnchanged(testSnippet);
   const auto                 matchedClosedBracket =
     findMatchedClosingAngleBracket(startAngleBracket, testSnippet.data() + testSnippet.size());
+  REQUIRE(matchedClosedBracket != nullptr);
   CHECK(*matchedClosedBracket == '>');
 }
 
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
 #  if EVADE_COMPILER
-TT<Ta1, TT2<Ta2> > var;
+TT<Ta1, TT2<Ta2>> var;
 #  endif
 #endif
 TEST_CASE_METHOD(AngleBracketMatchFinderTest, "TT<Ta1, TT2<Ta2> >", "[template-parse-helper]")
@@ -85,12 +86,14 @@ TEST_CASE_METHOD(AngleBracketMatchFinderTest, "TT<Ta1, TT2<Ta2> >", "[template-p
   EnsureInputBufferUnchanged ensureInputBufferUnchanged(testSnippet);
   const auto                 matchedClosedBracket1 =
     findMatchedClosingAngleBracket(startAngleBracket1, testSnippet.data() + testSnippet.size());
+  REQUIRE(matchedClosedBracket1 != nullptr);
   CHECK(*matchedClosedBracket1 == '>');
 
   const auto startAngleBracket2 = startAngleBracket1 + 9;
   REQUIRE(*startAngleBracket2 == '<');
   const auto matchedClosedBracket2 =
     findMatchedClosingAngleBracket(startAngleBracket2, testSnippet.data() + testSnippet.size());
+  REQUIRE(matchedClosedBracket2 != nullptr);
   CHECK(*matchedClosedBracket2 == '>');
   CHECK(matchedClosedBracket1 > matchedClosedBracket2);
 }
@@ -112,4 +115,22 @@ TEST_CASE_METHOD(AngleBracketMatchFinderTest, "operator<(){}", "[template-parse-
   const auto                 matchedClosedBracket =
     findMatchedClosingAngleBracket(startAngleBracket, testSnippet.data() + testSnippet.size());
   CHECK(matchedClosedBracket == nullptr);
+}
+
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+#  if EVADE_COMPILER
+[](std::vector<int>) {};
+#  endif
+#endif
+TEST_CASE_METHOD(AngleBracketMatchFinderTest, "[](std::vector<int>) {}", "[template-parse-helper]")
+{
+  auto       testSnippet       = getTestSnippetParseStream(__LINE__ - 4);
+  const auto startAngleBracket = testSnippet.data() + 21 + 14;
+  REQUIRE(*startAngleBracket == '<');
+  EnsureInputBufferUnchanged ensureInputBufferUnchanged(testSnippet);
+  const auto                 matchedClosedBracket =
+    findMatchedClosingAngleBracket(startAngleBracket, testSnippet.data() + testSnippet.size());
+  REQUIRE(matchedClosedBracket != nullptr);
+  CHECK(*matchedClosedBracket == '>');
+  CHECK(matchedClosedBracket == startAngleBracket + 4);
 }
