@@ -151,3 +151,34 @@ TEST_CASE_METHOD(AngleBracketMatchFinderTest, "if (i < 0 || i > 100)", "[templat
     findMatchedClosingAngleBracket(startAngleBracket, testSnippet.data() + testSnippet.size());
   CHECK(matchedClosedBracket == nullptr);
 }
+
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+#  if EVADE_COMPILER
+template <typename C, typename Iter = decltype(std::begin(std::declval<C>()))>
+inline constexpr SkEnumerate<Iter> f(C& c)
+{
+  return 5;
+}
+#  endif
+#endif
+TEST_CASE_METHOD(AngleBracketMatchFinderTest,
+                 "template <typename C, typename Iter = decltype(std::begin(std::declval<C>()))>",
+                 "[template-parse-helper]")
+{
+  auto       testSnippet        = getTestSnippetParseStream(__LINE__ - 4);
+  const auto startAngleBracket1 = testSnippet.data() + 21 + 9;
+  REQUIRE(*startAngleBracket1 == '<');
+  EnsureInputBufferUnchanged ensureInputBufferUnchanged(testSnippet);
+  const auto                 matchedClosedBracket1 =
+    findMatchedClosingAngleBracket(startAngleBracket1, testSnippet.data() + testSnippet.size());
+  REQUIRE(matchedClosedBracket1 != nullptr);
+  CHECK(*matchedClosedBracket1 == '>');
+
+  const auto startAngleBracket2 = startAngleBracket1 + 61;
+  REQUIRE(*startAngleBracket2 == '<');
+  const auto matchedClosedBracket2 =
+    findMatchedClosingAngleBracket(startAngleBracket2, testSnippet.data() + testSnippet.size());
+  REQUIRE(matchedClosedBracket2 != nullptr);
+  CHECK(*matchedClosedBracket2 == '>');
+  CHECK(matchedClosedBracket2 + 5 == matchedClosedBracket1);
+}

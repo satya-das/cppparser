@@ -129,7 +129,10 @@ NL	 (\r\n|\r|\n)
 }
 
 <ctxGeneral>"<" {
-  g.nestedAngleBracket++;
+  if ((g.nestedRoundBracket == 0) &&
+      (g.nestedCurlyBracket == 0)) {
+    g.nestedAngleBracket++;
+  }
 }
 
 <ctxGeneral>"(" {

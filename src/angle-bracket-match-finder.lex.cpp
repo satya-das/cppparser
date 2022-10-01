@@ -1169,26 +1169,29 @@ case 8:
 YY_RULE_SETUP
 #line 131 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
-  g.nestedAngleBracket++;
+  if ((g.nestedRoundBracket == 0) &&
+      (g.nestedCurlyBracket == 0)) {
+    g.nestedAngleBracket++;
+  }
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 135 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 138 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
   g.nestedRoundBracket++;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 139 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 142 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
   g.nestedCurlyBracket++;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 143 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 146 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
   g.nestedRoundBracket--;
   if (g.nestedRoundBracket < 0) {
@@ -1198,7 +1201,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 150 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 153 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
   g.nestedCurlyBracket--;
   if (g.nestedCurlyBracket < 0) {
@@ -1208,29 +1211,29 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 157 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 160 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
 }
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 160 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 163 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
 }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 163 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 166 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
 }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 166 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 169 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 ECHO;
 	YY_BREAK
-#line 1234 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
+#line 1237 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(ctxGeneral):
 case YY_STATE_EOF(ctxCStyleComment):
@@ -2279,7 +2282,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 166 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 169 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 
 
 #include <cassert>
