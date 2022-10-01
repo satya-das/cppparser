@@ -626,8 +626,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 14
-#define YY_END_OF_BUFFER 15
+#define YY_NUM_RULES 16
+#define YY_END_OF_BUFFER 17
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -635,12 +635,13 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[39] =
+static const flex_int16_t yy_accept[44] =
     {   0,
-        0,    0,    0,    0,    0,    0,   15,   14,   14,   12,
-       13,   12,    8,   10,   12,    6,    7,    5,    9,   11,
-        2,    2,    2,    2,    2,    1,   13,    0,    0,    0,
-        2,    3,    1,    0,    4,    4,    4,    0
+        0,    0,    0,    0,    0,    0,   17,   16,   16,   13,
+       14,   13,   13,    9,   11,   13,   13,    6,    8,    5,
+       10,   13,   12,    2,    2,    2,    2,    2,    1,   14,
+        7,   15,    0,    0,    0,    2,    3,    1,    0,    4,
+        4,    4,    0
     } ;
 
 static const YY_CHAR yy_ec[256] =
@@ -648,17 +649,17 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    2,
         1,    1,    3,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    4,
-        5,    6,    1,    1,    1,    1,    7,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    8,    9,
-        1,   10,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    4,    1,    5,
+        6,    7,    1,    1,    8,    1,    9,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,   10,   11,
+        1,   12,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
 
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,   11,    1,   12,    1,    1,    1,    1,    1,
+        1,    1,   13,   14,   15,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -675,48 +676,52 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static const YY_CHAR yy_meta[13] =
+static const YY_CHAR yy_meta[16] =
     {   0,
         1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1
+        1,    1,    1,    1,    1
     } ;
 
-static const flex_int16_t yy_base[43] =
+static const flex_int16_t yy_base[48] =
     {   0,
-       40,   39,    0,    0,   11,   17,   30,   48,   23,   48,
-       48,   26,   48,   48,   19,   48,   48,   48,   48,   48,
-       16,   48,   25,   26,   15,   48,   48,   32,   10,    0,
-       48,   48,    0,   34,   48,   36,   48,   48,   39,   41,
-       14,   43
+       48,   47,    0,    0,   14,   22,   55,   58,   47,   58,
+       58,   51,   48,   58,   58,   39,   11,   58,   58,   58,
+       58,   36,   58,   42,   58,   20,   19,   41,   58,   58,
+       58,   58,   30,   23,   27,   58,   58,   28,   36,   58,
+       38,   58,   58,   41,   43,   18,   45
     } ;
 
-static const flex_int16_t yy_def[43] =
+static const flex_int16_t yy_def[48] =
     {   0,
-       39,   39,   38,    3,   40,   40,   38,   38,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38,
-       41,   38,   41,   38,   41,   38,   38,   42,   41,   24,
-       38,   38,   24,   42,   38,   42,   38,    0,   38,   38,
-       38,   38
+       44,   44,   43,    3,   45,   45,   43,   43,   43,   43,
+       43,   43,   43,   43,   43,   43,   43,   43,   43,   43,
+       43,   43,   43,   46,   43,   46,   43,   46,   43,   43,
+       43,   43,   47,   46,   43,   43,   43,   43,   47,   43,
+       47,   43,    0,   43,   43,   43,   43
     } ;
 
-static const flex_int16_t yy_nxt[61] =
+static const flex_int16_t yy_nxt[74] =
     {   0,
-       10,   11,   12,   13,   14,   10,   15,   16,   17,   18,
-       19,   20,   22,   23,   29,   30,   24,   25,   22,   23,
-       33,   30,   24,   25,   26,   28,   31,   27,   26,   38,
-       30,   30,   32,   35,   36,   35,   36,   37,   36,    8,
-        8,   21,   21,   34,   34,    9,    9,    7,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38
+       10,   11,   12,   13,   14,   15,   10,   16,   17,   18,
+       19,   20,   21,   22,   23,   25,   26,   29,   34,   33,
+       27,   36,   28,   25,   26,   35,   35,   37,   27,   35,
+       28,   40,   41,   35,   35,   37,   37,   40,   41,   42,
+       41,    8,    8,   24,   24,   39,   39,   38,   35,   31,
+       32,   31,   30,   29,   43,    9,    9,    7,   43,   43,
+       43,   43,   43,   43,   43,   43,   43,   43,   43,   43,
+       43,   43,   43
     } ;
 
-static const flex_int16_t yy_chk[61] =
+static const flex_int16_t yy_chk[74] =
     {   0,
         3,    3,    3,    3,    3,    3,    3,    3,    3,    3,
-        3,    3,    5,    5,   41,   29,    5,    5,    6,    6,
-       25,   21,    6,    6,   15,   15,   23,   12,    9,    7,
-       23,   24,   24,   28,   28,   34,   34,   36,   36,   39,
-       39,   40,   40,   42,   42,    2,    1,   38,   38,   38,
-       38,   38,   38,   38,   38,   38,   38,   38,   38,   38
+        3,    3,    3,    3,    3,    5,    5,   17,   46,   17,
+        5,   26,    5,    6,    6,   27,   26,   27,    6,   34,
+        6,   33,   33,   35,   38,   35,   38,   39,   39,   41,
+       41,   44,   44,   45,   45,   47,   47,   28,   24,   22,
+       16,   13,   12,    9,    7,    2,    1,   43,   43,   43,
+       43,   43,   43,   43,   43,   43,   43,   43,   43,   43,
+       43,   43,   43
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -794,13 +799,13 @@ using YYSTYPE = const char*;
 
 }
 
-#line 798 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
+#line 803 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
 /************************************************************************/
 /*@ { Comonly used regular expressions. */
 /* New line */
 /*@}*/
 
-#line 804 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
+#line 809 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
 
 #define INITIAL 0
 #define ctxGeneral 1
@@ -1040,7 +1045,7 @@ YY_DECL
 #line 85 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 
 
-#line 1044 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
+#line 1049 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1067,13 +1072,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 39 )
+				if ( yy_current_state >= 44 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_current_state != 38 );
+		while ( yy_current_state != 43 );
 		yy_cp = (yy_last_accepting_cpos);
 		yy_current_state = (yy_last_accepting_state);
 
@@ -1154,39 +1159,39 @@ case 7:
 YY_RULE_SETUP
 #line 124 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
-  g.nestedAngleBracket++;
+  if ((g.nestedRoundBracket == 0) &&
+      (g.nestedCurlyBracket == 0)) {
+    return 1;
+  }
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 128 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 131 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
-  g.nestedRoundBracket++;
+  g.nestedAngleBracket++;
 }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 132 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 135 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
-  g.nestedCurlyBracket++;
+  g.nestedRoundBracket++;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 136 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 139 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
-  g.nestedRoundBracket--;
-  if (g.nestedRoundBracket < 0) {
-    return 1;
-  }
+  g.nestedCurlyBracket++;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 143 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
-  g.nestedCurlyBracket--;
-  if (g.nestedCurlyBracket < 0) {
+  g.nestedRoundBracket--;
+  if (g.nestedRoundBracket < 0) {
     return 1;
   }
 }
@@ -1195,21 +1200,37 @@ case 12:
 YY_RULE_SETUP
 #line 150 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
+  g.nestedCurlyBracket--;
+  if (g.nestedCurlyBracket < 0) {
+    return 1;
+  }
 }
 	YY_BREAK
 case 13:
-/* rule 13 can match eol */
 YY_RULE_SETUP
-#line 153 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 157 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 {
 }
 	YY_BREAK
 case 14:
+/* rule 14 can match eol */
 YY_RULE_SETUP
-#line 156 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 160 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+{
+}
+	YY_BREAK
+case 15:
+YY_RULE_SETUP
+#line 163 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+{
+}
+	YY_BREAK
+case 16:
+YY_RULE_SETUP
+#line 166 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 ECHO;
 	YY_BREAK
-#line 1213 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
+#line 1234 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.lex.cpp"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(ctxGeneral):
 case YY_STATE_EOF(ctxCStyleComment):
@@ -1509,7 +1530,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 39 )
+			if ( yy_current_state >= 44 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1537,11 +1558,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 39 )
+		if ( yy_current_state >= 44 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 38);
+	yy_is_jam = (yy_current_state == 43);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2258,7 +2279,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 156 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
+#line 166 "/home/dassat/github/cppparser/src/angle-bracket-match-finder.l"
 
 
 #include <cassert>

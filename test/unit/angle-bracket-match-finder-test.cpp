@@ -134,3 +134,20 @@ TEST_CASE_METHOD(AngleBracketMatchFinderTest, "[](std::vector<int>) {}", "[templ
   CHECK(*matchedClosedBracket == '>');
   CHECK(matchedClosedBracket == startAngleBracket + 4);
 }
+
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+#  if EVADE_COMPILER
+if (i < 0 || i > 100)
+  return false;
+#  endif
+#endif
+TEST_CASE_METHOD(AngleBracketMatchFinderTest, "if (i < 0 || i > 100)", "[template-parse-helper]")
+{
+  auto       testSnippet       = getTestSnippetParseStream(__LINE__ - 4);
+  const auto startAngleBracket = testSnippet.data() + 21 + 6;
+  REQUIRE(*startAngleBracket == '<');
+  EnsureInputBufferUnchanged ensureInputBufferUnchanged(testSnippet);
+  const auto                 matchedClosedBracket =
+    findMatchedClosingAngleBracket(startAngleBracket, testSnippet.data() + testSnippet.size());
+  CHECK(matchedClosedBracket == nullptr);
+}
