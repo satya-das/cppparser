@@ -94,3 +94,22 @@ TEST_CASE_METHOD(AngleBracketMatchFinderTest, "TT<Ta1, TT2<Ta2> >", "[template-p
   CHECK(*matchedClosedBracket2 == '>');
   CHECK(matchedClosedBracket1 > matchedClosedBracket2);
 }
+
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+#  if EVADE_COMPILER
+inline bool operator<(char c) const
+{
+  return c > 0;
+}
+#  endif
+#endif
+TEST_CASE_METHOD(AngleBracketMatchFinderTest, "operator<(){}", "[template-parse-helper]")
+{
+  auto       testSnippet       = getTestSnippetParseStream(__LINE__ - 4);
+  const auto startAngleBracket = testSnippet.data() + 41;
+  REQUIRE(*startAngleBracket == '<');
+  EnsureInputBufferUnchanged ensureInputBufferUnchanged(testSnippet);
+  const auto                 matchedClosedBracket =
+    findMatchedClosingAngleBracket(startAngleBracket, testSnippet.data() + testSnippet.size());
+  CHECK(matchedClosedBracket == nullptr);
+}

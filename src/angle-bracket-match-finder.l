@@ -51,13 +51,11 @@
 
 namespace {
 
-struct {
+struct Data {
   int nestedRoundBracket = 0;
   int nestedAngleBracket = 0;
   int nestedCurlyBracket = 0;
 } g;
-
-const char* gStartBuffer = nullptr;
 
 using YYSTYPE = const char*;
 
@@ -152,13 +150,16 @@ NL	 (\r\n|\r|\n)
 <ctxGeneral>. {
 }
 
+<ctxGeneral>{NL} {
+}
+
 %%
 
 #include <cassert>
 
 const char* findMatchedClosingAngleBracket(char* s, const char* end)
 {
-  gStartBuffer = s;
+  g = Data{};
   assert((s[0] == '<') || (s[0] == '\0'));
   const auto scanBuffer = yy_scan_buffer(s+1, end - s-1);
   const char* result = nullptr;

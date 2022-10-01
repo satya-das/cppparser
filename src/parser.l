@@ -590,7 +590,12 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknPrivate);
 }
 
-<ctxGeneral>{ID2}{WSNL}*/"<" {
+<ctxGeneral>"operator"{WSNL}*/"<" {
+  LOG();
+  RETURN(tknOperator);
+}
+
+<ctxGeneral>{ID}{WSNL}*/"<" {
   LOG();
   const auto matchedClosingAngleBracket = findMatchedClosingAngleBracket(yytext + yyleng, g.mInputBufferEnd);
   if (matchedClosingAngleBracket) {
