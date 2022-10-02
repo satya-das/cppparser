@@ -121,11 +121,7 @@ NL	 (\r\n|\r|\n)
   }
 }
 
-<ctxGeneral>"||"|"&&" {
-  if ((g.nestedRoundBracket == 0) &&
-      (g.nestedCurlyBracket == 0)) {
-    return 1;
-  }
+<ctxGeneral>">=" {
 }
 
 <ctxGeneral>"<" {
