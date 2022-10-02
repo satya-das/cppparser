@@ -416,7 +416,7 @@ public:
     /** Returns a stream with a bare pointer reference to the input data. */
   static std::unique_ptr<SkMemoryStream> MakeDirect(const void* data, size_t length);
     /** Returns a stream with a shared reference to the input data. */
-  static std::unique_ptr<SkMemoryStream> Make(sk_sp < SkData > data);
+  static std::unique_ptr<SkMemoryStream> Make(sk_sp<SkData> data);
     /** Resets the stream to the specified data and length,
         just like the constructor.
         if copyData is true, the stream makes a private copy of the data

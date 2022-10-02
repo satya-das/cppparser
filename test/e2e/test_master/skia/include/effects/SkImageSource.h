@@ -12,7 +12,7 @@
 class SK_API SkImageSource
 {
 public:
-  static sk_sp<SkImageFilter> Make(sk_sp < SkImage > image);
+  static sk_sp<SkImageFilter> Make(sk_sp<SkImage> image);
   static sk_sp<SkImageFilter> Make(sk_sp<SkImage> image, const SkRect& srcRect, const SkRect& dstRect, SkFilterQuality filterQuality);
   static void RegisterFlattenables();
 private:

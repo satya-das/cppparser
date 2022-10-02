@@ -15,7 +15,7 @@ public:
     /**
      *  Refs the passed-in picture.
      */
-  static sk_sp<SkImageFilter> Make(sk_sp < SkPicture > picture);
+  static sk_sp<SkImageFilter> Make(sk_sp<SkPicture> picture);
     /**
      *  Refs the passed-in picture. cropRect can be used to crop or expand the destination rect when
      *  the picture is drawn. (No scaling is implied by the dest rect; only the CTM is applied.)

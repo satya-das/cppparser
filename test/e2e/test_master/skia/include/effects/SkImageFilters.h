@@ -78,7 +78,7 @@ public:
      *  @param outer The outer filter that evaluates the results of inner.
      *  @param inner The inner filter that produces the input to outer.
      */
-  static sk_sp<SkImageFilter> Compose(sk_sp < SkImageFilter > outer, sk_sp < SkImageFilter > inner);
+  static sk_sp<SkImageFilter> Compose(sk_sp<SkImageFilter> outer, sk_sp<SkImageFilter> inner);
     /**
      *  Create a filter that moves each pixel in its color input based on an (x,y) vector encoded
      *  in its displacement input filter. Two color components of the displacement image are

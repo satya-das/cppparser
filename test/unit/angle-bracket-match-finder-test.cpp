@@ -154,6 +154,25 @@ TEST_CASE_METHOD(AngleBracketMatchFinderTest, "if (i < 0 || i > 100)", "[templat
 
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
 #  if EVADE_COMPILER
+if (index < 0 || index > len)
+{
+  ;
+}
+#  endif
+#endif
+TEST_CASE_METHOD(AngleBracketMatchFinderTest, "if (index < 0 || index > len)", "[template-parse-helper]")
+{
+  auto       testSnippet        = getTestSnippetParseStream(__LINE__ - 4);
+  const auto startAngleBracket1 = testSnippet.data() + 21 + 10;
+  REQUIRE(*startAngleBracket1 == '<');
+  EnsureInputBufferUnchanged ensureInputBufferUnchanged(testSnippet);
+  const auto                 matchedClosedBracket =
+    findMatchedClosingAngleBracket(startAngleBracket1, testSnippet.data() + testSnippet.size());
+  CHECK(matchedClosedBracket == nullptr);
+}
+
+#if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+#  if EVADE_COMPILER
 template <typename C, typename Iter = decltype(std::begin(std::declval<C>()))>
 inline constexpr SkEnumerate<Iter> f(C& c)
 {

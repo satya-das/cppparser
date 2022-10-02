@@ -55,6 +55,7 @@ struct Data {
   int nestedRoundBracket = 0;
   int nestedAngleBracket = 0;
   int nestedCurlyBracket = 0;
+  bool requiresEndWithSemiColon = false;
 } g;
 
 using YYSTYPE = const char*;
@@ -74,8 +75,26 @@ using YYSTYPE = const char*;
 
 /*@ { Comonly used regular expressions. */
 
+/* White space. It doesn't account for new line which is tracked seperately
+     so that we can count line number for reporting error precisely */
+WS	 [ \t]
+
 /* New line */
 NL	 (\r\n|\r|\n)
+
+/* White space or new line chars. Should only be used in trainling context so that
+  new lines are always get tracked. */
+WSNL " "|\r\n|\r|\n|\t
+
+/* C/C++ identifier */
+ID	 [_a-zA-Z]+[_0-9a-zA-Z]*
+
+/* Number */
+NUM  ([0-9]+((l|L|u|U)*|(\.[0-9]*)?))|\.[0-9]+|(0(b|B)[01']*)|(0(x|X)[0-9a-fA-F]*)|0(x|X)[0-9a-zA-Z]+
+
+DECNUMLIT  (([0-9]+(\.[0-9]*)?)|([0-9]*(\.[0-9]+)))(f|F)?
+
+ANYNUM ({NUM}|{DECNUMLIT})
 
 /*@}*/
 
@@ -105,10 +124,13 @@ NL	 (\r\n|\r|\n)
 <ctxGeneral>">" {
   if ((g.nestedRoundBracket == 0) &&
       (g.nestedCurlyBracket == 0)) {
-    *yylval = yytext;
     if (g.nestedAngleBracket == 0) {
+      *yylval = yytext;
       return 1;
     } else {
+      if (*yylval == nullptr) {
+        *yylval = yytext;
+      }
       g.nestedAngleBracket--;
     }
   }
@@ -122,6 +144,38 @@ NL	 (\r\n|\r|\n)
 }
 
 <ctxGeneral>">=" {
+}
+
+<ctxGeneral>">"{WSNL}*{ANYNUM} {
+}
+
+<ctxGeneral>">"{WSNL}*{ID} {
+  if ((g.nestedRoundBracket == 0) &&
+      (g.nestedCurlyBracket == 0)) {
+    if (g.nestedAngleBracket == 0) {
+      g.requiresEndWithSemiColon = true;
+      *yylval = yytext;
+    } else {
+      if (*yylval == nullptr) {
+        *yylval = yytext;
+      }
+      g.nestedAngleBracket--;
+    }
+  }
+}
+
+<ctxGeneral>">"{WSNL}*{ID}{WSNL}*[,=;] {
+  if ((g.nestedRoundBracket == 0) &&
+      (g.nestedCurlyBracket == 0)) {
+    if (g.nestedAngleBracket == 0) {
+      *yylval = yytext;
+    } else {
+      if (*yylval == nullptr) {
+        *yylval = yytext;
+      }
+      g.nestedAngleBracket--;
+    }
+  }
 }
 
 <ctxGeneral>"<" {
@@ -142,6 +196,9 @@ NL	 (\r\n|\r|\n)
 <ctxGeneral>")" {
   g.nestedRoundBracket--;
   if (g.nestedRoundBracket < 0) {
+    if (g.requiresEndWithSemiColon) {
+      *yylval = nullptr;
+    }
     return 1;
   }
 }
@@ -149,6 +206,9 @@ NL	 (\r\n|\r|\n)
 <ctxGeneral>"}" {
   g.nestedCurlyBracket--;
   if (g.nestedCurlyBracket < 0) {
+    if (g.requiresEndWithSemiColon) {
+      *yylval = nullptr;
+    }
     return 1;
   }
 }

@@ -11,9 +11,9 @@
       "program": "${workspaceFolder}/build/cppparsertest",
       "args": [
         "-p",
-        "/home/dassat/github/cppparser/test/e2e/test_input/template.h"
+        "/home/dassat/github/cppparser/test/e2e/test_input/skia/src/core/SkEnumerate.h"
       ],
-      "stopAtEntry": false,
+      "stopAtEntry": true,
       "cwd": "${workspaceFolder}/build/",
       "environment": [
         {

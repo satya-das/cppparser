@@ -73,7 +73,7 @@ static void decode_packed_coordinates_and_weight(U32 packed, Out* v0, Out* v1, O
                 // Portable version... sometimes I don't trust vpgatherdd.
                 return skvx::Vec<8,uint32_t>{
                     ptr[ix[0]], ptr[ix[1]], ptr[ix[2]], ptr[ix[3]],
-                    ptr[ix[4]], ptr[ix[5]], ptr[ix[6]], ptr[ix[7]],
+                    ptr[ix[4]], ptr[ix[5]], ptr[ix[6]], ptr[ix[7]]
                 };
             #endif
             };

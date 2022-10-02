@@ -11,7 +11,7 @@ class SkShader;
 class SK_API SkShaderMaskFilter
 {
 public:
-  static sk_sp<SkMaskFilter> Make(sk_sp < SkShader > shader);
+  static sk_sp<SkMaskFilter> Make(sk_sp<SkShader> shader);
 private:
   static void RegisterFlattenables();
   friend class SkFlattenable;

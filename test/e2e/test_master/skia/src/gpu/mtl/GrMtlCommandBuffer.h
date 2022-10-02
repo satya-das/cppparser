@@ -14,7 +14,7 @@ class GrMtlOpsRenderPass;
 class GrMtlCommandBuffer
 {
 public:
-  static GrMtlCommandBuffer* Create(id < MTLCommandQueue > queue);
+  static GrMtlCommandBuffer* Create(id<MTLCommandQueue> queue);
   ~GrMtlCommandBuffer();
   void commit(bool waitUntilCompleted);
   id<MTLBlitCommandEncoder> getBlitCommandEncoder();

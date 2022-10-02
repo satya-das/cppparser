@@ -247,7 +247,7 @@ public:
      * repopulated with approximately the same number of verbs and points. A new path ref is created
      * only if necessary.
      */
-  static void Rewind(sk_sp < SkPathRef > *pathRef);
+  static void Rewind(sk_sp<SkPathRef>* pathRef);
   ~SkPathRef();
   int countPoints() const
   {

@@ -30,14 +30,14 @@ public:
      *  result = first(path) + second(path)
      *
      */
-  static sk_sp<SkPathEffect> MakeSum(sk_sp < SkPathEffect > first, sk_sp < SkPathEffect > second);
+  static sk_sp<SkPathEffect> MakeSum(sk_sp<SkPathEffect> first, sk_sp<SkPathEffect> second);
     /**
      *  Returns a patheffect that applies the inner effect to the path, and then applies the
      *  outer effect to the result of the inner's.
      *
      *  result = outer(inner(path))
      */
-  static sk_sp<SkPathEffect> MakeCompose(sk_sp < SkPathEffect > outer, sk_sp < SkPathEffect > inner);
+  static sk_sp<SkPathEffect> MakeCompose(sk_sp<SkPathEffect> outer, sk_sp<SkPathEffect> inner);
     /**
      *  Given a src path (input) and a stroke-rec (input and output), apply
      *  this effect to the src path, returning the new path in dst, and return

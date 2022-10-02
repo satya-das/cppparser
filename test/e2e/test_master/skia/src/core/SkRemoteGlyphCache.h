@@ -172,7 +172,7 @@ public:
   SK_API bool readStrikeData(const volatile void* memory, size_t memorySize);
 private:
   class DiscardableStrikePinner;
-  static bool ReadGlyph(SkTLazy < SkGlyph > &glyph, Deserializer * deserializer);
+  static bool ReadGlyph(SkTLazy<SkGlyph>& glyph, Deserializer* deserializer);
   sk_sp<SkTypeface> addTypeface(const WireTypeface& wire);
   SkTHashMap<SkFontID, sk_sp<SkTypeface>> fRemoteFontIdToTypeface;
   sk_sp<DiscardableHandleManager> fDiscardableHandleManager;

@@ -32,7 +32,7 @@ public:
      *  Construct a maskfilter whose effect is to first apply the inner filter and then apply
      *  the outer filter to the result of the inner's. Returns nullptr on failure.
      */
-  static sk_sp<SkMaskFilter> MakeCompose(sk_sp < SkMaskFilter > outer, sk_sp < SkMaskFilter > inner);
+  static sk_sp<SkMaskFilter> MakeCompose(sk_sp<SkMaskFilter> outer, sk_sp<SkMaskFilter> inner);
     /**
      *  Compose two maskfilters together using a coverage mode. Returns nullptr on failure.
      */
