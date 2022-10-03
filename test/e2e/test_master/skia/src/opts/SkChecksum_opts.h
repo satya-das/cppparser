@@ -28,7 +28,7 @@ namespace SK_OPTS_NS
             // We'll create 3 independent hashes, each using _mm_crc32_u64()
             // to hash 8 bytes per step.  Both 3 and independent are important:
             // we can execute 3 of these instructions in parallel on a single core.
-      uint64_t a = hash, b, c;
+      uint64_t a = hash, b = hash, c = hash;
       size_t steps = bytes / 24;
       while (steps-- > 0)
       {
@@ -82,7 +82,7 @@ namespace SK_OPTS_NS
             // We'll create 3 independent hashes, each using _mm_crc32_u32()
             // to hash 4 bytes per step.  Both 3 and independent are important:
             // we can execute 3 of these instructions in parallel on a single core.
-      uint32_t a = hash, b, c;
+      uint32_t a = hash, b = hash, c = hash;
       size_t steps = bytes / 12;
       while (steps-- > 0)
       {
@@ -124,7 +124,7 @@ namespace SK_OPTS_NS
     auto data = (const uint8_t*) vdata;
     if (bytes >= 24)
     {
-      uint32_t a = hash, b, c;
+      uint32_t a = hash, b = hash, c = hash;
       size_t steps = bytes / 24;
       while (steps-- > 0)
       {

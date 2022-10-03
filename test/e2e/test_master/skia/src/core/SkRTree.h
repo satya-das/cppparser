@@ -50,7 +50,7 @@ public:
     // Get the root bound.
   SkRect getRootBound() const override;
     // These values were empirically determined to produce reasonable performance in most cases.
-  static const int kMinChildren = 6, kMaxChildren;
+  static const int kMinChildren = 6, kMaxChildren = 11;
 private:
   struct Node;
   struct Branch

@@ -150,7 +150,7 @@ public:
   {
     if (bFromEnd)
     {
-      const const_reverse_iterator b = this->rbegin(), e;
+      const const_reverse_iterator b = this->rbegin(), e = this->rend();
       for (const_reverse_iterator i = b; i != e; ++i)
       {
         if (*i == item)
@@ -161,7 +161,7 @@ public:
     }
     else 
     {
-      const const_iterator b = this->begin(), e;
+      const const_iterator b = this->begin(), e = this->end();
       for (const_iterator i = b; i != e; ++i)
       {
         if (*i == item)

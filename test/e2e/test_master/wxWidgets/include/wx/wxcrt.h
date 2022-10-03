@@ -83,7 +83,7 @@ inline int wxTmemcmp(const wxChar* sz1, const wxChar* sz2, size_t len)
   }
   if (len)
   {
-    return *sz1 < *sz2 ? -1 : *sz1 > * sz2;
+    return *sz1 < *sz2 ? -1 : *sz1 > *sz2;
   }
   else 
   {

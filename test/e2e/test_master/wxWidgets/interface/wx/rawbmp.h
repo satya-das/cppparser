@@ -73,7 +73,7 @@
 
     @see wxBitmap, wxImage
 */
-template <typename Image, class PixelFormat  = wxPixelFormatFor<Image>>
+template <typename Image, typename PixelFormat = wxPixelFormatFor<Image>>
 class wxPixelData : public wxPixelDataOut<Image>::template wxPixelDataIn<PixelFormat>
 {
 public:

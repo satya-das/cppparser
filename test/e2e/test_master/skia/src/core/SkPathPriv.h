@@ -374,7 +374,7 @@ public:
           break;
 default:
                     // Actual edge.
-        const int pts_count = (v + 2) / 2, cws_count;
+        const int pts_count = (v + 2) / 2, cws_count = (v & (v - 1)) / 2;
         SkASSERT(pts_count == SkPathPriv::PtsInIter(v) - 1);
         fNeedsCloseLine = true;
         fPts += pts_count;

@@ -1298,13 +1298,13 @@ public:
         // wxPoint interface to do the same thing
   wxPoint ClientToScreen(const wxPoint& pt) const
   {
-    int x = pt.x, y;
+    int x = pt.x, y = pt.y;
     DoClientToScreen(&x, &y);
     return wxPoint(x, y);
   }
   wxPoint ScreenToClient(const wxPoint& pt) const
   {
-    int x = pt.x, y;
+    int x = pt.x, y = pt.y;
     DoScreenToClient(&x, &y);
     return wxPoint(x, y);
   }

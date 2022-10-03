@@ -126,7 +126,7 @@ namespace SK_OPTS_NS
     while (len >= 32)
     {
         // Load 32 source pixels.
-      auto s0 = _mm256_loadu_si256((const __m256i*) (src) 0), s1, s2, s3;
+      auto s0 = _mm256_loadu_si256((const __m256i*) (src) 0), s1 = _mm256_loadu_si256((const __m256i*) (src) 1), s2 = _mm256_loadu_si256((const __m256i*) (src) 2), s3 = _mm256_loadu_si256((const __m256i*) (src) 3);
       const auto alphaMask = _mm256_set1_epi32(0xFF000000);
       auto ORed = _mm256_or_si256(s3, _mm256_or_si256(s2, _mm256_or_si256(s1, s0)));
       if (_mm256_testz_si256(ORed, alphaMask))
@@ -137,7 +137,7 @@ namespace SK_OPTS_NS
         len -= 32;
         continue;
       }
-      auto d0 = (__m256i*) (dst) 0, d1, d2, d3;
+      auto d0 = (__m256i*) (dst) 0, d1 = (__m256i*) (dst) 1, d2 = (__m256i*) (dst) 2, d3 = (__m256i*) (dst) 3;
       auto ANDed = _mm256_and_si256(s3, _mm256_and_si256(s2, _mm256_and_si256(s1, s0)));
       if (_mm256_testc_si256(ANDed, alphaMask))
       {
@@ -165,7 +165,7 @@ namespace SK_OPTS_NS
     while (len >= 16)
     {
         // Load 16 source pixels.
-      auto s0 = _mm_loadu_si128((const __m128i*) (src) 0), s1, s2, s3;
+      auto s0 = _mm_loadu_si128((const __m128i*) (src) 0), s1 = _mm_loadu_si128((const __m128i*) (src) 1), s2 = _mm_loadu_si128((const __m128i*) (src) 2), s3 = _mm_loadu_si128((const __m128i*) (src) 3);
       const auto alphaMask = _mm_set1_epi32(0xFF000000);
       auto ORed = _mm_or_si128(s3, _mm_or_si128(s2, _mm_or_si128(s1, s0)));
       if (_mm_testz_si128(ORed, alphaMask))
@@ -176,7 +176,7 @@ namespace SK_OPTS_NS
         len -= 16;
         continue;
       }
-      auto d0 = (__m128i*) (dst) 0, d1, d2, d3;
+      auto d0 = (__m128i*) (dst) 0, d1 = (__m128i*) (dst) 1, d2 = (__m128i*) (dst) 2, d3 = (__m128i*) (dst) 3;
       auto ANDed = _mm_and_si128(s3, _mm_and_si128(s2, _mm_and_si128(s1, s0)));
       if (_mm_testc_si128(ANDed, alphaMask))
       {
@@ -204,7 +204,7 @@ namespace SK_OPTS_NS
     while (len >= 16)
     {
         // Load 16 source pixels.
-      auto s0 = _mm_loadu_si128((const __m128i*) (src) 0), s1, s2, s3;
+      auto s0 = _mm_loadu_si128((const __m128i*) (src) 0), s1 = _mm_loadu_si128((const __m128i*) (src) 1), s2 = _mm_loadu_si128((const __m128i*) (src) 2), s3 = _mm_loadu_si128((const __m128i*) (src) 3);
       const auto alphaMask = _mm_set1_epi32(0xFF000000);
       auto ORed = _mm_or_si128(s3, _mm_or_si128(s2, _mm_or_si128(s1, s0)));
       if (0xffff == _mm_movemask_epi8(_mm_cmpeq_epi8(_mm_and_si128(ORed, alphaMask), _mm_setzero_si128())))
@@ -215,7 +215,7 @@ namespace SK_OPTS_NS
         len -= 16;
         continue;
       }
-      auto d0 = (__m128i*) (dst) 0, d1, d2, d3;
+      auto d0 = (__m128i*) (dst) 0, d1 = (__m128i*) (dst) 1, d2 = (__m128i*) (dst) 2, d3 = (__m128i*) (dst) 3;
       auto ANDed = _mm_and_si128(s3, _mm_and_si128(s2, _mm_and_si128(s1, s0)));
       if (0xffff == _mm_movemask_epi8(_mm_cmpeq_epi8(_mm_and_si128(ANDed, alphaMask), alphaMask)))
       {

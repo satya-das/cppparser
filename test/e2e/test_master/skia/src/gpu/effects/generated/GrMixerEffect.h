@@ -27,7 +27,7 @@ public:
   }
   SkPMColor4f constantOutputForConstantInput(const SkPMColor4f& input) const override
   {
-    const auto c0 = ConstantOutputForConstantInput(this->childProcessor(0), input), c1;
+    const auto c0 = ConstantOutputForConstantInput(this->childProcessor(0), input), c1 = (this->numChildProcessors() > 1) ? ConstantOutputForConstantInput(this->childProcessor(1), input) : input;
     return {c0.fR + (c1.fR - c0.fR) * weight, c0.fG + (c1.fG - c0.fG) * weight, c0.fB + (c1.fB - c0.fB) * weight, c0.fA + (c1.fA - c0.fA) * weight};
   }
   static std::unique_ptr<GrFragmentProcessor> Make(std::unique_ptr<GrFragmentProcessor> fp0, std::unique_ptr<GrFragmentProcessor> fp1, float weight)

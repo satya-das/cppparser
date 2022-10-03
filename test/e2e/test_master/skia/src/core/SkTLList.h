@@ -198,7 +198,7 @@ public:
     {
       return false;
     }
-    for (Iter a(*this, Iter::kHead_IterStart), b;
+    for (Iter a(*this, Iter::kHead_IterStart), b(list, Iter::kHead_IterStart);
 ; a.get(); a.next(), b.next())
     {
       SkASSERT(b.get());

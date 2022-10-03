@@ -575,7 +575,7 @@ int wxPrintfConvSpec<CharType>::Process(CharType* buf, size_t lenMax, wxPrintfAr
     // note that this buffer is used only to hold results of number formatting,
     // %s directly writes user's string in buf, without using szScratch
   char szScratch[wxMAX_SVNPRINTF_SCRATCHBUFFER_LEN];
-  size_t lenScratch = 0, lenCur;
+  size_t lenScratch = 0, lenCur = 0;
 #  define APPEND_CH(ch)	 \
                 { \
                     if ( lenCur == lenMax ) \

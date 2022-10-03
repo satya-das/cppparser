@@ -19,7 +19,7 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t a = (src[i] >> 24) & 0xFF, b, g, r;
+      uint8_t a = (src[i] >> 24) & 0xFF, b = (src[i] >> 16) & 0xFF, g = (src[i] >> 8) & 0xFF, r = (src[i] >> 0) & 0xFF;
       b = (b * a + 127) / 255;
       g = (g * a + 127) / 255;
       r = (r * a + 127) / 255;
@@ -30,7 +30,7 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t a = (src[i] >> 24) & 0xFF, b, g, r;
+      uint8_t a = (src[i] >> 24) & 0xFF, b = (src[i] >> 16) & 0xFF, g = (src[i] >> 8) & 0xFF, r = (src[i] >> 0) & 0xFF;
       b = (b * a + 127) / 255;
       g = (g * a + 127) / 255;
       r = (r * a + 127) / 255;
@@ -41,7 +41,7 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t a = (src[i] >> 24) & 0xFF, b, g, r;
+      uint8_t a = (src[i] >> 24) & 0xFF, b = (src[i] >> 16) & 0xFF, g = (src[i] >> 8) & 0xFF, r = (src[i] >> 0) & 0xFF;
       dst[i] = (uint32_t) a << 24 | (uint32_t) r << 16 | (uint32_t) g << 8 | (uint32_t) b << 0;
     }
   }
@@ -49,7 +49,7 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t r = src[0], g, b;
+      uint8_t r = src[0], g = src[1], b = src[2];
       src += 3;
       dst[i] = (uint32_t) 0xFF << 24 | (uint32_t) b << 16 | (uint32_t) g << 8 | (uint32_t) r << 0;
     }
@@ -58,7 +58,7 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t r = src[0], g, b;
+      uint8_t r = src[0], g = src[1], b = src[2];
       src += 3;
       dst[i] = (uint32_t) 0xFF << 24 | (uint32_t) r << 16 | (uint32_t) g << 8 | (uint32_t) b << 0;
     }
@@ -74,7 +74,7 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t g = src[0], a;
+      uint8_t g = src[0], a = src[1];
       src += 2;
       dst[i] = (uint32_t) a << 24 | (uint32_t) g << 16 | (uint32_t) g << 8 | (uint32_t) g << 0;
     }
@@ -83,7 +83,7 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t g = src[0], a;
+      uint8_t g = src[0], a = src[1];
       src += 2;
       g = (g * a + 127) / 255;
       dst[i] = (uint32_t) a << 24 | (uint32_t) g << 16 | (uint32_t) g << 8 | (uint32_t) g << 0;
@@ -93,9 +93,9 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t k = (src[i] >> 24) & 0xFF, y, m, c;
+      uint8_t k = (src[i] >> 24) & 0xFF, y = (src[i] >> 16) & 0xFF, m = (src[i] >> 8) & 0xFF, c = (src[i] >> 0) & 0xFF;
         // See comments in SkSwizzler.cpp for details on the conversion formula.
-      uint8_t b = (y * k + 127) / 255, g, r;
+      uint8_t b = (y * k + 127) / 255, g = (m * k + 127) / 255, r = (c * k + 127) / 255;
       dst[i] = (uint32_t) 0xFF << 24 | (uint32_t) b << 16 | (uint32_t) g << 8 | (uint32_t) r << 0;
     }
   }
@@ -103,8 +103,8 @@ namespace SK_OPTS_NS
   {
     for (int i = 0; i < count; i++)
     {
-      uint8_t k = (src[i] >> 24) & 0xFF, y, m, c;
-      uint8_t b = (y * k + 127) / 255, g, r;
+      uint8_t k = (src[i] >> 24) & 0xFF, y = (src[i] >> 16) & 0xFF, m = (src[i] >> 8) & 0xFF, c = (src[i] >> 0) & 0xFF;
+      uint8_t b = (y * k + 127) / 255, g = (m * k + 127) / 255, r = (c * k + 127) / 255;
       dst[i] = (uint32_t) 0xFF << 24 | (uint32_t) r << 16 | (uint32_t) g << 8 | (uint32_t) b << 0;
     }
   }
@@ -145,7 +145,7 @@ namespace SK_OPTS_NS
     {
         // Load 8 pixels.
       uint8x8x4_t rgba = vld4_u8((const uint8_t*) src);
-      uint8x8_t a = rgba.val[3], b, g, r;
+      uint8x8_t a = rgba.val[3], b = rgba.val[2], g = rgba.val[1], r = rgba.val[0];
         // Premultiply.
       b = scale(b, a);
       g = scale(g, a);
@@ -374,7 +374,7 @@ namespace SK_OPTS_NS
     {
         // Load 8 cmyk pixels.
       uint8x8x4_t pixels = vld4_u8((const uint8_t*) src);
-      uint8x8_t k = pixels.val[3], y, m, c;
+      uint8x8_t k = pixels.val[3], y = pixels.val[2], m = pixels.val[1], c = pixels.val[0];
         // Scale to r, g, b.
       uint8x8_t b = scale(y, k);
       uint8x8_t g = scale(m, k);
@@ -426,7 +426,7 @@ namespace SK_OPTS_NS
     auto premul8 = ;
     while (count >= 8)
     {
-      __m128i lo = _mm_loadu_si128((const __m128i*) (src + 0)), hi;
+      __m128i lo = _mm_loadu_si128((const __m128i*) (src + 0)), hi = _mm_loadu_si128((const __m128i*) (src + 4));
       premul8(&lo, &hi);
       _mm_storeu_si128((__m128i*) (dst + 0), lo);
       _mm_storeu_si128((__m128i*) (dst + 4), hi);
@@ -436,7 +436,7 @@ namespace SK_OPTS_NS
     }
     if (count >= 4)
     {
-      __m128i lo = _mm_loadu_si128((const __m128i*) src), hi;
+      __m128i lo = _mm_loadu_si128((const __m128i*) src), hi = _mm_setzero_si128();
       premul8(&lo, &hi);
       _mm_storeu_si128((__m128i*) dst, lo);
       src += 4;
@@ -579,7 +579,7 @@ namespace SK_OPTS_NS
     auto convert8 = ;
     while (count >= 8)
     {
-      __m128i lo = _mm_loadu_si128((const __m128i*) (src + 0)), hi;
+      __m128i lo = _mm_loadu_si128((const __m128i*) (src + 0)), hi = _mm_loadu_si128((const __m128i*) (src + 4));
       convert8(&lo, &hi);
       _mm_storeu_si128((__m128i*) (dst + 0), lo);
       _mm_storeu_si128((__m128i*) (dst + 4), hi);
@@ -589,7 +589,7 @@ namespace SK_OPTS_NS
     }
     if (count >= 4)
     {
-      __m128i lo = _mm_loadu_si128((const __m128i*) src), hi;
+      __m128i lo = _mm_loadu_si128((const __m128i*) src), hi = _mm_setzero_si128();
       convert8(&lo, &hi);
       _mm_storeu_si128((__m128i*) dst, lo);
       src += 4;

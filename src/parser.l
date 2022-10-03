@@ -1421,6 +1421,13 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknOperator);
 }
 
+<ctxGeneral>operator{WSNL}*/">>" {
+  LOG();
+  setupToken();
+  g.mExpectedRShiftOperator = yytext + yyleng;
+  RETURN(tknOperator);
+}
+
 <ctxGeneral>void/{TS} {
   LOG();
   setupToken();
@@ -1491,6 +1498,19 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   LOG();
   setupToken();
   RETURN(tknLShiftEq);
+}
+
+<ctxGeneral>">>" {
+  LOG();
+  if (g.mExpectedRShiftOperator == yytext) {
+    g.mExpectedRShiftOperator = nullptr;
+    setupToken();
+    RETURN(tknRShift);
+  } else {
+    yyless(1);
+    setupToken();
+    RETURN(tknGT);
+  }
 }
 
 <ctxGeneral>">>=" {

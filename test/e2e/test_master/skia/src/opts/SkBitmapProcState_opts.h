@@ -54,7 +54,7 @@ namespace SK_OPTS_NS
     }
     if (count > 0)
     {
-      __m256i active = skvx::bit_pun<__m256i>(count > skvx::Vec<8,int>{0, 1, 2, 3, 4, 5, 6, 7}), coords, pixels;
+      __m256i active = skvx::bit_pun<__m256i>(count > skvx::Vec<8,int>{0, 1, 2, 3, 4, 5, 6, 7}), coords = _mm256_maskload_epi32((const int*) xy, active), pixels;
       bilerp(skvx::bit_pun<skvx::Vec<8,uint32_t>>(coords)).store(&pixels);
       _mm256_maskstore_epi32((int*) colors, active, pixels);
       sk_msan_mark_initialized(colors, colors + count, "MSAN still doesn't understand AVX2 mask loads and stores.");
@@ -78,7 +78,7 @@ namespace SK_OPTS_NS
         // All the other entries in xy will be pairs of X coordinates and the X weight.
     int y0, y1, wy;
     decode_packed_coordinates_and_weight(*xy++, &y0, &y1, &wy);
-    auto row0 = (const uint32_t*) ((const uint8_t*) s.fPixmap.addr() + y0 * s.fPixmap.rowBytes()), row1;
+    auto row0 = (const uint32_t*) ((const uint8_t*) s.fPixmap.addr() + y0 * s.fPixmap.rowBytes()), row1 = (const uint32_t*) ((const uint8_t*) s.fPixmap.addr() + y1 * s.fPixmap.rowBytes());
     while (count >= 4)
     {
             // We can really get going, loading 4 X-pairs at a time to produce 4 output pixels.
@@ -92,9 +92,9 @@ namespace SK_OPTS_NS
       wx = _mm_and_si128(_mm_srli_epi32(packed, 14), _mm_set1_epi32(0xf));
             // Splat each x weight 4x (for each color channel) as wr for pixels on the right at x1,
             // and sixteen minus that as wl for pixels on the left at x0.
-      __m128i wr = _mm_shuffle_epi8(wx, _mm_setr_epi8(0, 0, 0, 0, 4, 4, 4, 4, 8, 8, 8, 8, 12, 12, 12, 12)), wl;
+      __m128i wr = _mm_shuffle_epi8(wx, _mm_setr_epi8(0, 0, 0, 0, 4, 4, 4, 4, 8, 8, 8, 8, 12, 12, 12, 12)), wl = _mm_sub_epi8(_mm_set1_epi8(16), wr);
             // We need to interlace wl and wr for _mm_maddubs_epi16().
-      __m128i interlaced_x_weights_AB = _mm_unpacklo_epi8(wl, wr), interlaced_x_weights_CD;
+      __m128i interlaced_x_weights_AB = _mm_unpacklo_epi8(wl, wr), interlaced_x_weights_CD = _mm_unpackhi_epi8(wl, wr);
       enum {
  A,B,C,D
       };
@@ -115,7 +115,7 @@ namespace SK_OPTS_NS
       int x0, x1, wx;
       decode_packed_coordinates_and_weight(*xy++, &x0, &x1, &wx);
             // As above, splat out wx four times as wr, and sixteen minus that as wl.
-      __m128i wr = _mm_set1_epi8(wx), wl;
+      __m128i wr = _mm_set1_epi8(wx), wl = _mm_sub_epi8(_mm_set1_epi8(16), wr);
       __m128i interlaced_x_weights = _mm_unpacklo_epi8(wl, wr);
       __m128i A = interpolate_in_x_and_y(row0[x0], row0[x1], row1[x0], row1[x1], 0, 0, 0, 0, interlaced_x_weights, wy);
       *colors++ = _mm_cvtsi128_si32(_mm_packus_epi16(A, _mm_setzero_si128()));
@@ -130,7 +130,7 @@ namespace SK_OPTS_NS
     SkASSERT(s.fAlphaScale <= 256);
     int y0, y1, wy;
     decode_packed_coordinates_and_weight(*xy++, &y0, &y1, &wy);
-    auto row0 = (const uint32_t*) ((const char*) s.fPixmap.addr() + y0 * s.fPixmap.rowBytes()), row1;
+    auto row0 = (const uint32_t*) ((const char*) s.fPixmap.addr() + y0 * s.fPixmap.rowBytes()), row1 = (const uint32_t*) ((const char*) s.fPixmap.addr() + y1 * s.fPixmap.rowBytes());
         // We'll put one pixel in the low 4 16-bit lanes to line up with wy,
         // and another in the upper 4 16-bit lanes to line up with 16 - wy.
     const __m128i allY = _mm_unpacklo_epi64(_mm_set1_epi16(wy), _mm_set1_epi16(16 - wy));
@@ -141,7 +141,7 @@ namespace SK_OPTS_NS
             // Load the 4 pixels we're interpolating, in this grid:
             //    | tl  tr |
             //    | bl  br |
-      const __m128i tl = _mm_cvtsi32_si128(row0[x0]), tr, bl, br;
+      const __m128i tl = _mm_cvtsi32_si128(row0[x0]), tr = _mm_cvtsi32_si128(row0[x1]), bl = _mm_cvtsi32_si128(row1[x0]), br = _mm_cvtsi32_si128(row1[x1]);
             // We want to calculate a sum of 4 pixels weighted in two directions:
             //
             //  sum = tl * (16-wy) * (16-wx)
@@ -165,7 +165,7 @@ namespace SK_OPTS_NS
             //   sum = horizontalSum( allY * (16*L + (R-L)*wx) )
             //
             // That's how we'll actually do this math.
-      __m128i L = _mm_unpacklo_epi8(_mm_unpacklo_epi32(bl, tl), _mm_setzero_si128()), R;
+      __m128i L = _mm_unpacklo_epi8(_mm_unpacklo_epi32(bl, tl), _mm_setzero_si128()), R = _mm_unpacklo_epi8(_mm_unpacklo_epi32(br, tr), _mm_setzero_si128());
       __m128i inner = _mm_add_epi16(_mm_slli_epi16(L, 4), _mm_mullo_epi16(_mm_sub_epi16(R, L), _mm_set1_epi16(wx)));
       __m128i sum_in_x = _mm_mullo_epi16(inner, allY);
             // sum = horizontalSum( ... )
@@ -252,7 +252,7 @@ namespace SK_OPTS_NS
     SkASSERT(s.fAlphaScale <= 256);
     int y0, y1, wy;
     decode_packed_coordinates_and_weight(*xy++, &y0, &y1, &wy);
-    auto row0 = (const uint32_t*) ((const char*) s.fPixmap.addr() + y0 * s.fPixmap.rowBytes()), row1;
+    auto row0 = (const uint32_t*) ((const char*) s.fPixmap.addr() + y0 * s.fPixmap.rowBytes()), row1 = (const uint32_t*) ((const char*) s.fPixmap.addr() + y1 * s.fPixmap.rowBytes());
     while (count-- > 0)
     {
       int x0, x1, wx;

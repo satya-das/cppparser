@@ -257,7 +257,7 @@ extern int yylex();
 %token  <str>   tknConstCast tknStaticCast tknDynamicCast tknReinterpretCast
 %token  <str>   tknTry tknCatch tknThrow tknSizeOf
 %token  <str>   tknOperator tknPlusEq tknMinusEq tknMulEq tknDivEq tknPerEq tknXorEq tknAndEq tknOrEq
-%token  <str>   tknLShift /*tknRShift*/ tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
+%token  <str>   tknLShift tknRShift tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
 %token  <str>   tknLT tknGT // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';'
@@ -365,9 +365,9 @@ extern int yylex();
 %left '&'
 %left tknCmpEq tknNotEq // ==, !=
 // tknLT and tknGT are used instead of '<', and '>' because otherwise parsing template and template args is very difficult.
-%left tknLT /*tknGT*/ tknLessEq tknGreaterEq GTPREC
+%left tknLT tknGT tknLessEq tknGreaterEq
 %left tkn3WayCmp       // <=>
-%left  tknLShift RSHIFT
+%left  tknLShift tknRShift RSHIFT
 
 %left   '+' '-'
 %left   '*' '/' '%'
@@ -713,10 +713,18 @@ typeidentifier    : identifier                            [ZZLOG;] { $$ = $1; }
                   | tknDecltype '(' expr ')'              [ZZLOG;] { $$ = mergeCppToken($1, $4); delete $3; }
                   ;
 
-templidentifier   : identifier tknLT templatearglist tknGT  [ZZLOG; $$ = mergeCppToken($1, $4); ] {}
+templidentifier   : identifier tknLT templatearglist tknGT    [ZZLOG; $$ = mergeCppToken($1, $4); ] {}
+// The following rule is needed to parse an ambiguous input as template identifier,
+// see the test "vardecl-or-expr-ambiguity".
+                  | identifier tknLT expr tknNotEq expr tknGT [ZZLOG; $$ = mergeCppToken($1, $6); ] {}
+// The following rule is needed to parse a template identifier which otherwise fails to parse
+// because of higher precedence of tknLT and tknGT,
+// see the test "C<Class, v != 0> x;".
+                  | identifier tknLT templatearglist ',' expr tknNotEq expr tknGT
+                                                              [ZZLOG; $$ = mergeCppToken($1, $8); ] {}
                   ;
 
-templqualifiedid  : tknTemplate templidentifier             [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
+templqualifiedid  : tknTemplate templidentifier               [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
                   ;
 
 name              : tknName  [ZZLOG; $$ = $1;] {}
@@ -856,13 +864,11 @@ vardeclstmt       : vardecl ';'                   [ZZVALID;] { $$ = $1; }
 
 vardecllist       : optfunctype varinit ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $2->addAttr($1);
-                    $$ = new CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));
-                    /* TODO: Use optvarassign as well */
+                    $$ = new CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5, $6.assignValue_, $6.assignType_}));
                   }
                   | optfunctype vardecl ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $2->addAttr($1);
-                    $$ = new CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));
-                    /* TODO: Use optvarassign as well */
+                    $$ = new CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5, $6.assignValue_, $6.assignType_}));
                   }
                   | optfunctype vardecl ',' opttypemodifier name '[' expr ']' [ZZLOG;] {
                     $2->addAttr($1);
@@ -878,8 +884,7 @@ vardecllist       : optfunctype varinit ',' opttypemodifier name optvarassign [Z
                   }
                   | vardecllist ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $$ = $1;
-                    $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4}));
-                    /* TODO: Use optvarassign as well */
+                    $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4, $5.assignValue_, $5.assignType_}));
                   }
                   | vardecllist ',' opttypemodifier name optvarassign ':' expr [ZZLOG;] {
                     $$ = $1;
@@ -1266,7 +1271,7 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
                   | tknOperator tknAndEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknOrEq           [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknLShift         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator rshift            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+                  | tknOperator tknRShift         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknLShiftEq       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknRShiftEq       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | tknOperator tknCmpEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
@@ -1343,10 +1348,10 @@ param             : varinit                        [ZZLOG;] { $$ = $1; $1->addAt
 templatearg       :                 [ZZLOG; $$ = nullptr;] { /*$$ = makeCppToken(nullptr, nullptr);*/ }
                   | vartype         [ZZLOG; $$ = nullptr;] { /*$$ = mergeCppToken($1, $2);*/ }
                   | funcobjstr      [ZZLOG; $$ = nullptr;] { /*$$ = $1;*/ }
-                  | expr            [ZZLOG; $$ = nullptr; ] {}
+                  | expr           [ZZLOG; $$ = nullptr;] {}
                   ;
 
-templatearglist   : templatearg                       [ZZLOG; $$ = $1; ] {}
+templatearglist   : templatearg                      [ZZLOG; $$ = $1; ] {}
                   | templatearglist ',' templatearg   [ZZLOG; $$ = $1;] { /*$$ = mergeCppToken($1, $3);*/ }
                   | templatearglist ',' doccomment templatearg   [ZZLOG; $$ = $1;] { /*$$ = mergeCppToken($1, $3);*/ }
                   ;
@@ -1756,14 +1761,14 @@ templateparam     : tknTypename optname             [ZZLOG;] {
                   | vartype name                    [ZZLOG;] {
                     $$ = new CppTemplateParam($1, $2);
                   }
-                  | vartype name '=' expr           [ZZLOG;] {
+                  | vartype name '=' expr  %prec TEMPLATE          [ZZLOG;] {
                     $$ = new CppTemplateParam($1, $2);
                     $$->defaultArg($4);
                   }
                   | functionpointer               [ZZLOG;] {
                     $$ = new CppTemplateParam($1, std::string());
                   }
-                  | functionpointer '=' expr        [ZZLOG;] {
+                  | functionpointer '=' expr  %prec TEMPLATE         [ZZLOG;] {
                     $$ = new CppTemplateParam($1, std::string());
                     $$->defaultArg($3);
                   }
@@ -1884,7 +1889,7 @@ expr              : strlit                                                [ZZLOG
                   | expr '^' expr                                         [ZZLOG;] { $$ = new CppExpr($1, kXor, $3);                     }
                   | expr '=' expr                                         [ZZLOG;] { $$ = new CppExpr($1, kEqual, $3);                   }
                   | expr tknLT expr                                       [ZZLOG;] { $$ = new CppExpr($1, kLess, $3);                    }
-                  | expr tknGT expr %prec GTPREC                          [ZZLOG;] { $$ = new CppExpr($1, kGreater, $3);                 }
+                  | expr tknGT expr                                       [ZZLOG;] { $$ = new CppExpr($1, kGreater, $3);                 }
                   | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = new CppExpr($1, $3, $5);                       }
                   | expr tknPlusEq expr                                   [ZZLOG;] { $$ = new CppExpr($1, kPlusEqual, $3);               }
                   | expr tknMinusEq expr                                  [ZZLOG;] { $$ = new CppExpr($1, kMinusEqual, $3);              }
@@ -2079,8 +2084,8 @@ void yyerror_detailed  (  char* text,
 
 enum {
   kNoLog    = 0x000,
-  kParseLog = 0x001,
-  kLexLog   = 0x002,
+  kLexLog   = 0x001,
+  kParseLog = 0x002,
   kYaccLog  = 0x004
 };
 

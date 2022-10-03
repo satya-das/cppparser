@@ -95,7 +95,7 @@ class wxExpectModal;
     specialization anyhow but also if you don't use neither Optional() nor
     Describe() methods, as the derived class type is only needed for them.
  */
-template <typename T, class E  = wxExpectModal<T>>
+template <typename T, typename E = wxExpectModal<T>>
 class wxExpectModalBase : public wxModalExpectation
 {
 public:

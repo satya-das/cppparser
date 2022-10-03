@@ -55,7 +55,7 @@ namespace SK_OPTS_NS
       while (w >= 8)
       {
         uint8x8_t vmask = vld1_u8(mask);
-        uint16x8_t vscale, vmask256;
+        uint16x8_t vscale, vmask256 = SkAlpha255To256_neon8(vmask);
         if (isColor)
         {
           vscale = vsubw_u8(vdupq_n_u16(256), SkAlphaMul_neon8(vpmc.val[NEON_A], vmask256));

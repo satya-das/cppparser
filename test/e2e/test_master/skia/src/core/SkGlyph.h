@@ -302,9 +302,9 @@ private:
     // path == nullptr indicates that there is no path.
   void installPath(SkArenaAlloc* alloc, const SkPath* path);
     // The width and height of the glyph mask.
-  uint16_t fWidth = 0, fHeight;
+  uint16_t fWidth = 0, fHeight = 0;
     // The offset from the glyphs origin on the baseline to the top left of the glyph mask.
-  int16_t fTop = 0, fLeft;
+  int16_t fTop = 0, fLeft = 0;
     // fImage must remain null if the glyph is empty or if width > kMaxGlyphWidth.
   void* fImage = nullptr;
     // Path data has tricky state. If the glyph isEmpty, then fPathData should always be nullptr,
@@ -312,7 +312,7 @@ private:
     // may still be null after the request meaning that there is no path for this glyph.
   PathData* fPathData = nullptr;
     // The advance for this glyph.
-  float fAdvanceX = 0, fAdvanceY;
+  float fAdvanceX = 0, fAdvanceY = 0;
     // This is a combination of SkMask::Format and SkGlyph state. The SkGlyph can be in one of two
     // states, just the advances have been calculated, and all the metrics are available. The
     // illegal mask format is used to signal that only the advances are available.
@@ -324,11 +324,11 @@ private:
 struct SkGlyphPrototype
 {
   SkPackedGlyphID id;
-  float advanceX = 0, advanceY;
+  float advanceX = 0, advanceY = 0;
     // The width and height of the glyph mask.
-  uint16_t width = 0, height;
+  uint16_t width = 0, height = 0;
     // The offset from the glyphs origin on the baseline to the top left of the glyph mask.
-  int16_t left = 0, top;
+  int16_t left = 0, top = 0;
   SkMask::Format maskFormat = SkMask::kBW_Format;
   bool forceBW = false;
 };

@@ -184,7 +184,7 @@ private:
   };
     // fRecords needs to be a data structure that can append fixed length data, and need to
     // support efficient random access and forward iteration.  (It doesn't need to be contiguous.)
-  int fCount{0}, fReserved;
+  int fCount{0}, fReserved{0};
   SkAutoTMalloc<Record> fRecords;
     // fAlloc needs to be a data structure which can append variable length data in contiguous
     // chunks, returning a stable handle to that data for later retrieval.

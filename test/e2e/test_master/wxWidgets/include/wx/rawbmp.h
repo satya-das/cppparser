@@ -103,7 +103,7 @@
         - index of the alpha component or -1 if none
         - type which can contain the full pixel value (all channels)
  */
-template <typename Channel, size_t Bpp, int R, int G, int B, int A = -1, class Pixel  = wxUint32>
+template <typename Channel, size_t Bpp, int R, int G, int B, int A = -1, typename Pixel = wxUint32>
 struct wxPixelFormat
 {
     // iterator over pixels is usually of type "ChannelType *"
@@ -914,7 +914,7 @@ typedef wxPixelData<wxBitmap, wxMonoPixelFormat> wxMonoPixelData;
     parameters, and this can't be done because we'd need compiler support for
     partial template specialization then and VC7 doesn't provide it.
  */
-template <typename Image, class PixelFormat  = wxPixelFormatFor<Image>>
+template <typename Image, typename PixelFormat = wxPixelFormatFor<Image>>
 struct wxPixelIterator : public wxPixelData<Image, PixelFormat>::Iterator
 {
 };

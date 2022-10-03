@@ -87,7 +87,7 @@ enum wxBitness {
     wxBITNESS_MAX
 };
 typedef wxBitness wxArchitecture;
-const wxArchitecture wxARCH_INVALID = wxBITNESS_INVALID, wxARCH_32, wxARCH_64, wxARCH_MAX;
+const wxArchitecture wxARCH_INVALID = wxBITNESS_INVALID, wxARCH_32 = wxBITNESS_32, wxARCH_64 = wxBITNESS_64, wxARCH_MAX = wxBITNESS_MAX;
 // endian-ness of the machine
 enum wxEndianness {
     wxENDIAN_INVALID = -1,      // returned on error

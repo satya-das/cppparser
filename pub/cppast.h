@@ -373,7 +373,7 @@ struct CppVarDecl
   {
   }
 
-  CppVarDecl(std::string name, CppExpr* assign);
+  CppVarDecl(std::string name, CppExpr* assign, AssignType assignType = AssignType::kNone);
 
   const std::string& name() const
   {
@@ -607,7 +607,8 @@ struct CppTypedefName : public CppObj
 
 using CppTypedefNameEPtr = CppEasyPtr<CppTypedefName>;
 
-using CppVarListPtr = std::unique_ptr<CppVarList>;
+using CppVarListPtr  = std::unique_ptr<CppVarList>;
+using CppVarListEPtr = CppEasyPtr<CppVarList>;
 
 struct CppTypedefList : public CppObj
 {
@@ -1765,10 +1766,11 @@ struct CppLabel : public CppObj
 
 using CppLabelEPtr = CppEasyPtr<CppLabel>;
 
-inline CppVarDecl::CppVarDecl(std::string name, CppExpr* assign)
+inline CppVarDecl::CppVarDecl(std::string name, CppExpr* assign, AssignType assignType)
   : name_(std::move(name))
+  , assignValue_(assign)
+  , assignType_(assignType)
 {
-  assignValue_.reset(assign);
 }
 
 inline CppVarType::CppVarType(std::string baseType, CppTypeModifier modifier)

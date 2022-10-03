@@ -200,7 +200,7 @@ private:
     if (fCount < kLarge * kLarge)
     {
             // Are fCount and fDeleted correct, and are all elements findable?
-      int count = 0, deleted;
+      int count = 0, deleted = 0;
       for (int i = 0; i < fCapacity; i++)
       {
         if (Deleted() == fArray[i])

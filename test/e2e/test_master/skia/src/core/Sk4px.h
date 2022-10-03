@@ -152,7 +152,7 @@ namespace
       {
         if (n >= 8)
         {
-          Sk4px dst0 = fn(Load4(src + 0)), dst4;
+          Sk4px dst0 = fn(Load4(src + 0)), dst4 = fn(Load4(src + 4));
           dst0.store4(dst + 0);
           dst4.store4(dst + 4);
           dst += 8;
@@ -192,7 +192,7 @@ namespace
       {
         if (n >= 8)
         {
-          Sk4px dst0 = fn(Load4(dst + 0), Load4(src + 0)), dst4;
+          Sk4px dst0 = fn(Load4(dst + 0), Load4(src + 0)), dst4 = fn(Load4(dst + 4), Load4(src + 4));
           dst0.store4(dst + 0);
           dst4.store4(dst + 4);
           dst += 8;
@@ -232,7 +232,7 @@ namespace
       {
         if (n >= 8)
         {
-          Sk4px dst0 = fn(Load4(dst + 0), Load4Alphas(a + 0)), dst4;
+          Sk4px dst0 = fn(Load4(dst + 0), Load4Alphas(a + 0)), dst4 = fn(Load4(dst + 4), Load4Alphas(a + 4));
           dst0.store4(dst + 0);
           dst4.store4(dst + 4);
           dst += 8;
@@ -273,7 +273,7 @@ namespace
       {
         if (n >= 8)
         {
-          Sk4px dst0 = fn(Load4(dst + 0), Load4(src + 0), Load4Alphas(a + 0)), dst4;
+          Sk4px dst0 = fn(Load4(dst + 0), Load4(src + 0), Load4Alphas(a + 0)), dst4 = fn(Load4(dst + 4), Load4(src + 4), Load4Alphas(a + 4));
           dst0.store4(dst + 0);
           dst4.store4(dst + 4);
           dst += 8;

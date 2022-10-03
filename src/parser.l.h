@@ -104,6 +104,8 @@ struct LexerData
   const char* mPossibleFuncImplStartBracePosition = nullptr;
   //@}
 
+  const char* mExpectedRShiftOperator = nullptr;
+
   /**
    * Comments can appear anywhere in a C/C++ program and unfortunately not all coments can be preserved.
    *
