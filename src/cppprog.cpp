@@ -1,25 +1,5 @@
-/*
-   The MIT License (MIT)
-
-   Copyright (c) 2018 Satya Das
-
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
 #include "cppprog.h"
 #include "cpputil.h"
@@ -52,7 +32,7 @@ CppProgram::CppProgram(const std::string& folder, CppParser parser, const CppPro
 {
 }
 
-void CppProgram::addCppAst(CppCompoundPtr cppAst)
+void CppProgram::addCppAst(std::unique_ptr<CppCompound> cppAst)
 {
   if (!isCppFile(cppAst.get()))
     return;
@@ -87,7 +67,7 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
     cppObjToTypeNode_[cppCompound] = typeNode;
     typeNode->cppObjSet.insert(cppCompound);
   }
-  forEachMember(cppCompound, [&](const CppObj* mem) {
+  forEachMember(cppCompound, [&](const CppEntity* mem) {
     if (isCompound(mem))
     {
       addCompound((CppCompound*) mem, typeNode);
@@ -124,10 +104,10 @@ void CppProgram::loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeN
     }
     else if (isFwdClsDecl(mem))
     {
-      auto* fwdCls = static_cast<const CppFwdClsDecl*>(mem);
+      auto* fwdCls = static_cast<const CppForwardClassDecl*>(mem);
       if (!(fwdCls->attr() & kFriend))
       {
-        CppTypeTreeNode& childNode = typeNode->children[((CppFwdClsDecl*) mem)->name_];
+        CppTypeTreeNode& childNode = typeNode->children[((CppForwardClassDecl*) mem)->name_];
         childNode.cppObjSet.insert(mem);
         childNode.parent       = typeNode;
         cppObjToTypeNode_[mem] = &childNode;

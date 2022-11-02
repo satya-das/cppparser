@@ -3,7 +3,7 @@
     {
       "type": "shell",
       "label": "BuildAll",
-      "command": "ninja",
+      "command": "ninja cppwriter",
       "args": [],
       "options": {
         "cwd": "${workspaceFolder}/build"
@@ -18,7 +18,28 @@
       "problemMatcher": [
         "$gcc",
       ]
-    }
+    },
+    {
+      "type": "shell",
+      "label": "BuildFile",
+      "command": "ninja `grep '${relativeFile}' build.ninja | head -1 | cut -d':' -f1 | cut -d' ' -f2-`",
+      "options": {
+        "cwd": "${workspaceFolder}/build",
+      },
+      "problemMatcher": [
+        "$gcc"
+      ],
+      "group": "build",
+      "presentation": {
+        "echo": true,
+        // "reveal": "never",
+        "revealProblems": "never",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true,
+      },
+    },
   ],
   "version": "2.0.0"
 }

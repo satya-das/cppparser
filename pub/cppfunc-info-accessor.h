@@ -1,69 +1,52 @@
-/*
-   The MIT License (MIT)
-
-   Copyright (c) 2018 Satya Das
-
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
 /***************************************************************************************/
 
-#pragma once
+#ifndef B62AFC2E_FA06_4E70_8FA6_A27299D11596
+#define B62AFC2E_FA06_4E70_8FA6_A27299D11596
 
-#include "cppast.h"
+#include "cppast/cppast.h"
 #include "cppconst.h"
 
 #include "cppobj-info-accessor.h"
 
-inline bool isConst(const CppFunctionBase* func)
+inline bool isConst(const CppFunctionBase& func)
 {
-  return (func->attr() & kConst) == kConst;
+  return (func.attr() & kConst) == kConst;
 }
-inline bool isVirtual(const CppFunctionBase* func)
+inline bool isVirtual(const CppFunctionBase& func)
 {
-  return (func->attr() & (kVirtual | kOverride)) == kVirtual;
+  return (func.attr() & (kVirtual | kOverride)) == kVirtual;
 }
-inline bool isPureVirtual(const CppFunctionBase* func)
+inline bool isPureVirtual(const CppFunctionBase& func)
 {
-  return (func->attr() & kPureVirtual) == kPureVirtual;
+  return (func.attr() & kPureVirtual) == kPureVirtual;
 }
-inline bool isStatic(const CppFunctionBase* func)
+inline bool isStatic(const CppFunctionBase& func)
 {
-  return (func->attr() & kStatic) == kStatic;
+  return (func.attr() & kStatic) == kStatic;
 }
-inline bool isInline(const CppFunctionBase* func)
+inline bool isInline(const CppFunctionBase& func)
 {
-  return (func->attr() & kInline) == kInline;
+  return (func.attr() & kInline) == kInline;
 }
-inline bool isOverride(const CppFunctionBase* func)
+inline bool isOverride(const CppFunctionBase& func)
 {
-  return (func->attr() & kOverride) == kOverride;
+  return (func.attr() & kOverride) == kOverride;
 }
-inline bool isDeleted(const CppFunctionBase* func)
+inline bool isDeleted(const CppFunctionBase& func)
 {
-  return (func->attr() & kDelete) == kDelete;
+  return (func.attr() & kDelete) == kDelete;
 }
-inline bool isFinal(const CppFunctionBase* func)
+inline bool isFinal(const CppFunctionBase& func)
 {
-  return (func->attr() & kFinal) == kFinal;
+  return (func.attr() & kFinal) == kFinal;
 }
 
 inline bool isMethod(CppConstFunctionEPtr func)
 {
-  return func->owner() && isClassLike(func->owner());
+  return func.owner() && isClassLike(func.owner());
 }
+
+#endif /* B62AFC2E_FA06_4E70_8FA6_A27299D11596 */

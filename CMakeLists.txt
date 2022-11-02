@@ -7,11 +7,15 @@ enable_testing()
 include("../common/cmake/conf.cmake")
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 if(MSVC)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd\"4996\"")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd\"4996\"")
 endif()
+
+add_subdirectory(cppast)
+add_subdirectory(cppwriter)
 
 add_subdirectory(third_party/btyacc_tp)
 
@@ -59,9 +63,7 @@ add_custom_command(
 
 set(CPPPARSER_SOURCES
 	src/cppparser.cpp
-	src/cppast.cpp
 	src/cppprog.cpp
-	src/cppwriter.cpp
 	src/cppobjfactory.cpp
 	src/lexer-helper.cpp
 	src/parser.l
@@ -75,6 +77,7 @@ add_library(cppparser STATIC ${CPPPARSER_SOURCES})
 add_dependencies(cppparser btyacc boost_filesystem boost_program_options)
 target_link_libraries(cppparser
 	PUBLIC
+		cppast
 		boost_filesystem
 		boost_program_options
 		boost_system
@@ -83,6 +86,7 @@ target_include_directories(
 	cppparser
 	PUBLIC
 		pub
+		./
 		../common/third_party/boost_tp
 	PRIVATE
 		hack

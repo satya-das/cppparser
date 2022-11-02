@@ -1,36 +1,17 @@
-/*
-   The MIT License (MIT)
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
-   Copyright (c) 2018 Satya Das
+#ifndef BEBA8047_52F7_451B_A20B_5C9717491FDD
+#define BEBA8047_52F7_451B_A20B_5C9717491FDD
 
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-#pragma once
-
-#include "cppast.h"
+#include "cppast/cppast.h"
 
 #include <map>
 #include <set>
 
 struct CppTypeTreeNode;
 /**
- * \brief Represents the tree of types in a C++ program.
+ * @brief Represents the tree of types in a C++ program.
  *
  * All C++ types of a program can be arranged in form of a tree.
  * The root of the tree is the global namespace which contains other compound objects like namespace, class, struct,
@@ -42,7 +23,7 @@ using CppTypeTree = std::map<std::string, CppTypeTreeNode>;
 
 struct CppObjSetCmp
 {
-  bool operator()(const CppObj* lhs, const CppObj* rhs) const
+  bool operator()(const CppEntity* lhs, const CppEntity* rhs) const
   {
     if (lhs->objType_ < rhs->objType_)
       return true;
@@ -52,9 +33,9 @@ struct CppObjSetCmp
   }
 };
 
-using CppObjSet = std::set<const CppObj*, CppObjSetCmp>;
+using CppObjSet = std::set<const CppEntity*, CppObjSetCmp>;
 /**
- * \brief A node in a CppTypeTree.
+ * @brief A node in a CppTypeTree.
  */
 struct CppTypeTreeNode
 {
@@ -72,19 +53,19 @@ struct CppTypeTreeNode
   {
   }
 
-  bool has(const CppObj* cppObj) const
+  bool has(const CppEntity* cppEntity) const
   {
-    if (cppObjSet.count(cppObj))
+    if (cppObjSet.count(cppEntity))
       return true;
     for (const auto child : children)
     {
-      if (child.second.has(cppObj))
+      if (child.second.has(cppEntity))
         return true;
     }
     return false;
   }
 
-  const CppObj* getObjInSet(CppObjType objType) const
+  const CppEntity* getObjInSet(CppEntityType objType) const
   {
     for (const auto obj : cppObjSet)
     {
@@ -95,3 +76,5 @@ struct CppTypeTreeNode
     return nullptr;
   }
 };
+
+#endif /* BEBA8047_52F7_451B_A20B_5C9717491FDD */

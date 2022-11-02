@@ -1,25 +1,6 @@
-/*
-   The MIT License (MIT)
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
-   Copyright (c) 2018 Satya Das
-
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
 
 /* clang-format off */
 
@@ -27,7 +8,7 @@
 IMPORTANT: This file contains code to tokenify the input using flex
 For simplicity and ease of tracking error in input lexer's output is always a string (represented by CppToken).
 Responsiblity of token synthesis is solely on parser.
-For this very reason this file does not use any class that are defined in cppast.h
+For this very reason this file does not use any class that are defined in cppast/cppast.h
 */
 
 %{
@@ -257,6 +238,7 @@ static void updateMacroDependence()
 %option stack
 %option noyy_top_state
 %option noyywrap
+%option nounistd
 
 /************************************************************************/
 
@@ -1848,6 +1830,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
 <*>__attribute__{WS}*\(\(.*\)\) {
   /* Ignore as of now */
+  /* FIXME: Use this as api decoration */
 }
 
 <ctxGeneral>^"@interface" {

@@ -134,79 +134,80 @@
 #define DTORDECL 387
 #define YYERRCODE 256
 
-#line 166 "/home/dassat/github/cppparser/src/parser.y"
-typedef union {
-  CppToken                str;
-  CppNtFuncDeclData       funcDeclData;
-  CppNtMemInit            memInit;
+#line 168 "/home/dassat/github/cppparser/src/parser.y"
+typedef union
+{
+  CppToken          str;
+  CppNtFuncDeclData funcDeclData;
+  CppNtMemInit      memInit;
 
-  CppObj*                 cppObj;
-  CppTypeModifier         typeModifier;
-  CppVarType*             cppVarType;
-  CppVar*                 cppVarObj;
-  CppEnum*                cppEnum;
-  CppEnumItem*            enumItem;
-  CppEnumItemList*        enumItemList;
-  CppTypedefName*         typedefName;
-  CppTypedefList*         typedefList;
-  CppUsingDecl*           usingDecl;
-  CppUsingNamespaceDecl*  usingNamespaceDecl;
-  CppNamespaceAlias*      namespaceAlias;
-  CppCompound*            cppCompundObj;
-  CppTemplateParam*       templateParam;
-  CppTemplateParamList*   templateParamList;
-  CppDocComment*          docCommentObj;
-  CppFwdClsDecl*          fwdDeclObj;
-  CppVarList*             cppVarObjList;
-  CppVarAssign            cppVarAssign;
-  CppUnRecogPrePro*       unRecogPreProObj;
-  CppExpr*                cppExprObj;
-  CppLambda*              cppLambda;
-  CppFunction*            cppFuncObj;
-  CppFunctionPointer*     cppFuncPointerObj;
-  CppObj*                 varOrFuncPtr;
-  CppParamVector*         paramList;
-  CppConstructor*         cppCtorObj;
-  CppDestructor*          cppDtorObj;
-  CppTypeConverter*       cppTypeConverter;
-  CppMemInits             memInitList;
-  CppInheritanceList*     inheritList;
-  bool                    inheritType;
-  CppIdentifierList*      identifierList;
-  CppFuncThrowSpec*       funcThrowSpec;
-  CppTemplateArg*         templateArg;
-  CppAsmBlock*            asmBlock;
-  CppCompoundType         compoundType;
-  unsigned short          ptrLevel;
-  CppRefType              refType;
-  unsigned int            attr;
-  CppAccessType           objAccessType;
+  CppAst::CppEntity*                       cppEntity;
+  CppAst::CppTypeModifier                  typeModifier;
+  CppAst::CppVarType*                      cppVarType;
+  CppAst::CppVar*                          cppVarObj;
+  CppAst::CppEnum*                         cppEnum;
+  CppAst::CppEnumItem*                     enumItem;
+  std::list<CppEnumItem>*                  enumItemList;
+  CppAst::CppTypedefName*                  typedefName;
+  CppAst::CppTypedefList*                  typedefList;
+  CppAst::CppUsingDecl*                    usingDecl;
+  CppAst::CppUsingNamespaceDecl*           usingNamespaceDecl;
+  CppAst::CppNamespaceAlias*               namespaceAlias;
+  CppAst::CppCompound*                     cppCompundObj;
+  CppAst::CppTemplateParam*                templateParam;
+  CppAst::CppTemplateParams*               templateParamList;
+  CppAst::CppDocumentationComment*         docCommentObj;
+  CppAst::CppForwardClassDecl*             fwdDeclObj;
+  CppAst::CppVarList*                      cppVarObjList;
+  CppAst::CppVarAssign                     cppVarAssign;
+  CppAst::CppUnRecogPrePro*                unRecogPreProObj;
+  CppAst::CppExpr*                         cppExprObj;
+  CppAst::CppLambda*                       cppLambda;
+  CppAst::CppFunction*                     cppFuncObj;
+  CppAst::CppFunctionPointer*              cppFuncPointerObj;
+  CppAst::CppEntity*                       varOrFuncPtr;
+  std::vector<std::unique_ptr<CppEntity>>* paramList;
+  CppAst::CppConstructor*                  cppCtorObj;
+  CppAst::CppDestructor*                   cppDtorObj;
+  CppAst::CppTypeConverter*                cppTypeConverter;
+  CppAst::CppMemInits                      memInitList;
+  std::list<CppInheritanceInfo>*           inheritList;
+  bool                                     inheritType;
+  std::vector<std::string>*                identifierList;
+  std::vector<std::string>*                funcThrowSpec;
+  CppAst::CppTemplateArg*                  templateArg;
+  CppAst::CppAsmBlock*                     asmBlock;
+  CppAst::CppCompoundType                  compoundType;
+  unsigned short                           ptrLevel;
+  CppAst::CppRefType                       refType;
+  unsigned int                             attr;
+  CppAst::CppAccessType                    objAccessType;
 
-  CppExpr*                attribSpecifier;
-  AttribSpecifierArray*   attribSpecifiers;
+  CppAst::CppExpr*              attribSpecifier;
+  CppAst::AttribSpecifierArray* attribSpecifiers;
 
-  CppIfBlock*             ifBlock;
-  CppWhileBlock*          whileBlock;
-  CppDoWhileBlock*        doWhileBlock;
-  CppForBlock*            forBlock;
-  CppRangeForBlock*       forRangeBlock;
-  CppSwitchBlock*         switchBlock;
-  CppSwitchBody*          switchBody;
-  CppTryBlock*            tryBlock;
-  CppCatchBlock*          catchBlock;
+  CppAst::CppIfBlock*       ifBlock;
+  CppAst::CppWhileBlock*    whileBlock;
+  CppAst::CppDoWhileBlock*  doWhileBlock;
+  CppAst::CppForBlock*      forBlock;
+  CppAst::CppRangeForBlock* forRangeBlock;
+  CppAst::CppSwitchBlock*   switchBlock;
+  CppAst::CppSwitchBody*    switchBody;
+  CppAst::CppTryBlock*      tryBlock;
+  CppAst::CppCatchBlock*    catchBlock;
 
-  CppDefine*              hashDefine;
-  CppUndef*               hashUndef;
-  CppInclude*             hashInclude;
-  CppImport*              hashImport;
-  CppHashIf*              hashIf;
-  CppHashError*           hashError;
-  CppHashWarning*         hashWarning;
-  CppPragma*              hashPragma;
+  CppAst::CppMacroDefinition*         hashDefine;
+  CppAst::CppPreprocessorUndef*       hashUndef;
+  CppAst::CppPreprocessorInclude*     hashInclude;
+  CppAst::CppPreprocessorImport*      hashImport;
+  CppAst::CppPreprocessorConditional* hashIf;
+  CppAst::CppPreprocessorError*       hashError;
+  CppAst::CppPreprocessorWarning*     hashWarning;
+  CppAst::CppPreprocessorPragma*      hashPragma;
 
-  CppBlob*                blob;
+  CppAst::CppBlob* blob;
 
-  CppLabel*               label;
+  CppAst::CppLabel* label;
 } YYSTYPE;
 #define YYSTYPE YYSTYPE
 extern YYSTYPE yylval;

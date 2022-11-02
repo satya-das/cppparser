@@ -1,31 +1,12 @@
-/*
-   The MIT License (MIT)
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
-   Copyright (c) 2018 Satya Das
-
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-#pragma once
+#ifndef FF2B85CA_C19B_482E_9B0F_5F098BF974A1
+#define FF2B85CA_C19B_482E_9B0F_5F098BF974A1
 
 #include <boost/filesystem.hpp>
 
-#include "cppast.h"
+#include "cppast/cppast.h"
 #include "cppconst.h"
 
 namespace fs = boost::filesystem;
@@ -42,17 +23,19 @@ inline std::vector<std::string> collectFiles(const std::string& folder, const Cp
   return files;
 }
 
-inline CppAccessType defaultAccessType(CppCompoundType type)
+inline CppAst::CppAccessType defaultAccessType(CppAst::CppCompoundType type)
 {
-  return (type == CppCompoundType::kClass) ? CppAccessType::kPrivate : CppAccessType::kPublic;
+  return (type == CppAst::CppCompoundType::CLASS) ? CppAst::CppAccessType::PRIVATE : CppAst::CppAccessType::PUBLIC;
 }
 
-inline CppAccessType effectiveAccessType(CppAccessType objAccessType, CppCompoundType ownerType)
+inline CppAst::CppAccessType effectiveAccessType(CppAst::CppAccessType objAccessType, CppAst::CppCompoundType ownerType)
 {
-  return (objAccessType != CppAccessType::kUnknown) ? objAccessType : defaultAccessType(ownerType);
+  return (objAccessType != CppAst::CppAccessType::UNSPECIFIED) ? objAccessType : defaultAccessType(ownerType);
 }
 
-inline CppAccessType resolveInheritanceType(CppAccessType inheritanceType, CppCompoundType type)
+inline CppAst::CppAccessType resolveInheritanceType(CppAst::CppAccessType inheritanceType, CppAst::CppCompoundType type)
 {
-  return (inheritanceType != CppAccessType::kUnknown) ? inheritanceType : defaultAccessType(type);
+  return (inheritanceType != CppAst::CppAccessType::UNSPECIFIED) ? inheritanceType : defaultAccessType(type);
 }
+
+#endif /* FF2B85CA_C19B_482E_9B0F_5F098BF974A1 */

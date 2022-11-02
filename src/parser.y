@@ -1,25 +1,6 @@
-/*
-   The MIT License (MIT)
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
-   Copyright (c) 2018 Satya Das
-
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
 
 // clang-format off
 
@@ -36,7 +17,7 @@
 
 %{
 #include "cpptoken.h"
-#include "cppast.h"
+#include "cppast/cppast.h"
 #include "cppvarinit.h"
 #include "parser.tab.h"
 #include "parser.l.h"
@@ -161,6 +142,8 @@ extern int yylex();
 # pragma GCC diagnostic ignored "-Wwrite-strings"
 #endif
 
+using namespace CppAst;
+
 %}
 
 %union {
@@ -168,73 +151,73 @@ extern int yylex();
   CppNtFuncDeclData       funcDeclData;
   CppNtMemInit            memInit;
 
-  CppObj*                 cppObj;
-  CppTypeModifier         typeModifier;
-  CppVarType*             cppVarType;
-  CppVar*                 cppVarObj;
-  CppEnum*                cppEnum;
-  CppEnumItem*            enumItem;
-  CppEnumItemList*        enumItemList;
-  CppTypedefName*         typedefName;
-  CppTypedefList*         typedefList;
-  CppUsingDecl*           usingDecl;
-  CppUsingNamespaceDecl*  usingNamespaceDecl;
-  CppNamespaceAlias*      namespaceAlias;
-  CppCompound*            cppCompundObj;
-  CppTemplateParam*       templateParam;
-  CppTemplateParamList*   templateParamList;
-  CppDocComment*          docCommentObj;
-  CppFwdClsDecl*          fwdDeclObj;
-  CppVarList*             cppVarObjList;
-  CppVarAssign            cppVarAssign;
-  CppUnRecogPrePro*       unRecogPreProObj;
-  CppExpr*                cppExprObj;
-  CppLambda*              cppLambda;
-  CppFunction*            cppFuncObj;
-  CppFunctionPointer*     cppFuncPointerObj;
-  CppObj*                 varOrFuncPtr;
-  CppParamVector*         paramList;
-  CppConstructor*         cppCtorObj;
-  CppDestructor*          cppDtorObj;
-  CppTypeConverter*       cppTypeConverter;
-  CppMemInits             memInitList;
-  CppInheritanceList*     inheritList;
-  bool                    inheritType;
-  CppIdentifierList*      identifierList;
-  CppFuncThrowSpec*       funcThrowSpec;
-  CppTemplateArg*         templateArg;
-  CppAsmBlock*            asmBlock;
-  CppCompoundType         compoundType;
-  unsigned short          ptrLevel;
-  CppRefType              refType;
-  unsigned int            attr;
-  CppAccessType           objAccessType;
+  CppAst::CppEntity*                cppEntity;
+  CppAst::CppTypeModifier           typeModifier;
+  CppAst::CppVarType*               cppVarType;
+  CppAst::CppVar*                   cppVarObj;
+  CppAst::CppEnum*                  cppEnum;
+  CppAst::CppEnumItem*              enumItem;
+  std::list<CppEnumItem>*          enumItemList;
+  CppAst::CppTypedefName*           typedefName;
+  CppAst::CppTypedefList*           typedefList;
+  CppAst::CppUsingDecl*             usingDecl;
+  CppAst::CppUsingNamespaceDecl*    usingNamespaceDecl;
+  CppAst::CppNamespaceAlias*        namespaceAlias;
+  CppAst::CppCompound*              cppCompundObj;
+  CppAst::CppTemplateParam*         templateParam;
+  CppAst::CppTemplateParams*     templateParamList;
+  CppAst::CppDocumentationComment*  docCommentObj;
+  CppAst::CppForwardClassDecl*      fwdDeclObj;
+  CppAst::CppVarList*               cppVarObjList;
+  CppAst::CppVarAssign              cppVarAssign;
+  CppAst::CppUnRecogPrePro*         unRecogPreProObj;
+  CppAst::CppExpr*                  cppExprObj;
+  CppAst::CppLambda*                cppLambda;
+  CppAst::CppFunction*              cppFuncObj;
+  CppAst::CppFunctionPointer*       cppFuncPointerObj;
+  CppAst::CppEntity*                varOrFuncPtr;
+  std::vector<std::unique_ptr<CppEntity>>*           paramList;
+  CppAst::CppConstructor*           cppCtorObj;
+  CppAst::CppDestructor*            cppDtorObj;
+  CppAst::CppTypeConverter*         cppTypeConverter;
+  CppAst::CppMemInits               memInitList;
+  std::list<CppInheritanceInfo>*       inheritList;
+  bool                              inheritType;
+  std::vector<std::string>*        identifierList;
+  std::vector<std::string>*         funcThrowSpec;
+  CppAst::CppTemplateArg*           templateArg;
+  CppAst::CppAsmBlock*              asmBlock;
+  CppAst::CppCompoundType           compoundType;
+  unsigned short                    ptrLevel;
+  CppAst::CppRefType                refType;
+  unsigned int                      attr;
+  CppAst::CppAccessType             objAccessType;
 
-  CppExpr*                attribSpecifier;
-  AttribSpecifierArray*   attribSpecifiers;
+  CppAst::CppExpr*                  attribSpecifier;
+  CppAst::AttribSpecifierArray*     attribSpecifiers;
 
-  CppIfBlock*             ifBlock;
-  CppWhileBlock*          whileBlock;
-  CppDoWhileBlock*        doWhileBlock;
-  CppForBlock*            forBlock;
-  CppRangeForBlock*       forRangeBlock;
-  CppSwitchBlock*         switchBlock;
-  CppSwitchBody*          switchBody;
-  CppTryBlock*            tryBlock;
-  CppCatchBlock*          catchBlock;
+  CppAst::CppIfBlock*               ifBlock;
+  CppAst::CppWhileBlock*            whileBlock;
+  CppAst::CppDoWhileBlock*          doWhileBlock;
+  CppAst::CppForBlock*              forBlock;
+  CppAst::CppRangeForBlock*         forRangeBlock;
+  CppAst::CppSwitchBlock*           switchBlock;
+  CppAst::CppSwitchBody*            switchBody;
+  CppAst::CppTryBlock*              tryBlock;
+  CppAst::CppCatchBlock*            catchBlock;
 
-  CppDefine*              hashDefine;
-  CppUndef*               hashUndef;
-  CppInclude*             hashInclude;
-  CppImport*              hashImport;
-  CppHashIf*              hashIf;
-  CppHashError*           hashError;
-  CppHashWarning*         hashWarning;
-  CppPragma*              hashPragma;
+  CppAst::CppMacroDefinition*         hashDefine;
+  CppAst::CppPreprocessorUndef*       hashUndef;
+  CppAst::CppPreprocessorInclude*     hashInclude;
+  CppAst::CppPreprocessorImport*      hashImport;
+  CppAst::CppPreprocessorConditional* hashIf;
+  CppAst::CppPreprocessorError*       hashError;
+  CppAst::CppPreprocessorWarning*     hashWarning;
+  CppAst::CppPreprocessorPragma*      hashPragma;
 
-  CppBlob*                blob;
+  CppAst::CppBlob*                  blob;
 
-  CppLabel*               label;
+  CppAst::CppLabel*                 label;
 }
 
 %token  <str>   tknName tknID tknStrLit tknCharLit tknNumber tknMacro tknApiDecor
@@ -287,7 +270,7 @@ extern int yylex();
 %type  <str>                doccommentstr
 %type  <str>                rshift
 %type  <str>                macrocall
-%type  <cppObj>             stmt
+%type  <cppEntity>             stmt
 %type  <typeModifier>       opttypemodifier typemodifier
 %type  <cppEnum>            enumdefn enumfwddecl enumdefnstmt
 %type  <enumItem>           enumitem
@@ -348,7 +331,7 @@ extern int yylex();
 %type  <hashError>          hasherror
 %type  <hashWarning>        hashwarning
 %type  <hashPragma>         pragma
-%type  <cppObj>             preprocessor
+%type  <cppEntity>             preprocessor
 
 %type  <blob>               blob
 
@@ -421,7 +404,7 @@ CTORDECL and DTORDECL solve this problem by giving constructor and destructor de
 progunit          : optstmtlist [ZZLOG;] {
                     gProgUnit = $$ = $1;
                     if (gProgUnit)
-                      gProgUnit->compoundType(CppCompoundType::kCppFile);
+                      gProgUnit->compoundType(CppCompoundType::FILE);
                   }
                   ;
 
@@ -540,9 +523,9 @@ caselist          : [ZZLOG;] {
 block             : '{' optstmtlist '}' [ZZLOG;] {
                     $$ = $2;
                     if ($$ == nullptr)
-                      $$ = newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock);
+                      $$ = newCompound(CppAccessType::kUnknown, CppCompoundType::BLOCK);
                     else
-                      $$->compoundType(CppCompoundType::kBlock);
+                      $$->compoundType(CppCompoundType::BLOCK);
                   }
                   | doccomment block [ZZLOG;] {
                     $$ = $2;
@@ -552,12 +535,14 @@ block             : '{' optstmtlist '}' [ZZLOG;] {
 ifblock           : tknIf '(' expr ')' stmt [ZZLOG;] {
                     $$ = new CppIfBlock($3, $5);
                   }
+                  | tknIf '(' expr ')' stmt tknElse stmt [ZZLOG;] {
+                    $$ = new CppIfBlock($3, $5, $7);
+                  }
                   | tknIf '(' varinit ')' stmt [ZZLOG;] {
                     $$ = new CppIfBlock($3, $5);
                   }
-                  | ifblock tknElse stmt [ZZLOG;] {
-                    $$ = $1;
-                    $$->elsePart($3);
+                  | tknIf '(' varinit ')' stmt tknElse stmt [ZZLOG;] {
+                    $$ = new CppIfBlock($3, $5, $7);
                   }
                   ;
 
@@ -600,7 +585,7 @@ tryblock          : tknTry block catchblock [ZZLOG;] {
                   ;
 
 catchblock        : tknCatch '(' vartype optname ')' block [ZZLOG;] {
-                    $$ = new CppCatchBlock{CppVarTypePtr($3), $4, CppCompoundPtr($6)};
+                    $$ = new CppCatchBlock{std::unique_ptr<CppVarType>($3), $4, std::unique_ptr<CppCompound>($6)};
                   }
                   ;
 
@@ -616,43 +601,43 @@ optexpr           : {
                   ;
 
 define            : tknPreProHash tknDefine name name          [ZZLOG;] {
-                    $$ = new CppDefine(CppDefine::kRename, $3, $4);
+                    $$ = new CppMacroDefinition(CppMacroDefinition::kRename, $3, $4);
                   }
                   | tknPreProHash tknDefine name               [ZZLOG;] {
-                    $$ = new CppDefine(CppDefine::kRename, $3);
+                    $$ = new CppMacroDefinition(CppMacroDefinition::kRename, $3);
                   }
                   | tknPreProHash tknDefine name tknNumber     [ZZLOG;] {
-                    $$ = new CppDefine(CppDefine::kConstNumDef, $3, $4);
+                    $$ = new CppMacroDefinition(CppMacroDefinition::kConstNumDef, $3, $4);
                   }
                   | tknPreProHash tknDefine name tknStrLit     [ZZLOG;] {
-                    $$ = new CppDefine(CppDefine::kConstStrDef, $3, $4);
+                    $$ = new CppMacroDefinition(CppMacroDefinition::kConstStrDef, $3, $4);
                   }
                   | tknPreProHash tknDefine name tknCharLit    [ZZLOG;] {
-                    $$ = new CppDefine(CppDefine::kConstCharDef, $3, $4);
+                    $$ = new CppMacroDefinition(CppMacroDefinition::kConstCharDef, $3, $4);
                   }
                   | tknPreProHash tknDefine name tknPreProDef  [ZZLOG;] {
-                    $$ = new CppDefine(CppDefine::kComplexMacro, $3, $4);
+                    $$ = new CppMacroDefinition(CppMacroDefinition::kComplexMacro, $3, $4);
                   }
                   ;
 
-undef             : tknPreProHash tknUndef name                 [ZZLOG;]  { $$ = new CppUndef($3); }
+undef             : tknPreProHash tknUndef name                 [ZZLOG;]  { $$ = new CppPreprocessorUndef($3); }
                   ;
 
-include           : tknPreProHash tknInclude tknStrLit          [ZZLOG;]  { $$ = new CppInclude((std::string) $3); }
-                  | tknPreProHash tknInclude tknStdHdrInclude   [ZZLOG;]  { $$ = new CppInclude((std::string) $3); }
+include           : tknPreProHash tknInclude tknStrLit          [ZZLOG;]  { $$ = new CppPreprocessorInclude((std::string) $3); }
+                  | tknPreProHash tknInclude tknStdHdrInclude   [ZZLOG;]  { $$ = new CppPreprocessorInclude((std::string) $3); }
                   ;
 
 import            : tknPreProHash tknImport tknStrLit           [ZZLOG;]  { $$ = new CppImport((std::string) $3); }
                   | tknPreProHash tknImport tknStdHdrInclude    [ZZLOG;]  { $$ = new CppImport((std::string) $3); }
                   ;
 
-hashif            : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIf,      $3); }
-                  | tknPreProHash tknIfDef name                 [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfDef,   $3); }
-                  | tknPreProHash tknIfNDef name                [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
-                  | tknPreProHash tknIfNDef tknApiDecor         [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kIfNDef,  $3); }
-                  | tknPreProHash tknElse                       [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kElse       ); }
-                  | tknPreProHash tknElIf  tknPreProDef         [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kElIf,    $3); }
-                  | tknPreProHash tknEndIf                      [ZZLOG;]  { $$ = new CppHashIf(CppHashIf::kEndIf      ); }
+hashif            : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ = new CppPreprocessorConditional(CppPreprocessorConditional::IF,      $3); }
+                  | tknPreProHash tknIfDef name                 [ZZLOG;]  { $$ = new CppPreprocessorConditional(CppPreprocessorConditional::IFDEF,   $3); }
+                  | tknPreProHash tknIfNDef name                [ZZLOG;]  { $$ = new CppPreprocessorConditional(CppPreprocessorConditional::IFNDEF,  $3); }
+                  | tknPreProHash tknIfNDef tknApiDecor         [ZZLOG;]  { $$ = new CppPreprocessorConditional(CppPreprocessorConditional::IFNDEF,  $3); }
+                  | tknPreProHash tknElse                       [ZZLOG;]  { $$ = new CppPreprocessorConditional(CppPreprocessorConditional::ELSE       ); }
+                  | tknPreProHash tknElIf  tknPreProDef         [ZZLOG;]  { $$ = new CppPreprocessorConditional(CppPreprocessorConditional::ELIF,    $3); }
+                  | tknPreProHash tknEndIf                      [ZZLOG;]  { $$ = new CppPreprocessorConditional(CppPreprocessorConditional::ENDIF      ); }
                   ;
 
 hasherror         : tknPreProHash tknHashError                  [ZZLOG;]  { $$ = new CppHashError($2); }
@@ -663,10 +648,10 @@ hashwarning       : tknPreProHash tknHashWarning                [ZZLOG;]  { $$ =
                   | tknPreProHash tknHashWarning strlit         [ZZLOG;]  { $$ = new CppHashWarning(mergeCppToken($2, $3)); }
                   ;
 
-pragma            : tknPreProHash tknPragma tknPreProDef        [ZZLOG;]  { $$ = new CppPragma($3); }
+pragma            : tknPreProHash tknPragma tknPreProDef        [ZZLOG;]  { $$ = new CppPreprocessorPragma($3); }
                   ;
 
-doccomment        : doccommentstr                               [ZZLOG;]  { $$ = new CppDocComment((std::string) $1, gCurAccessType); }
+doccomment        : doccommentstr                               [ZZLOG;]  { $$ = new CppDocumentationComment((std::string) $1, gCurAccessType); }
                   ;
 
 doccommentstr     : tknFreeStandingBlockComment                          [ZZLOG;]  { $$ = $1; }
@@ -753,11 +738,11 @@ blob              : tknBlob      [ZZLOG;]   { $$ = new CppBlob($1);         }
 
 enumitemlist      :                           [ZZLOG;] { $$ = 0; }
                   | enumitemlist enumitem     [ZZLOG;] {
-                    $$ = $1 ? $1 : new CppEnumItemList;
+                    $$ = $1 ? $1 : new std::list<CppEnumItem>;
                     $$->push_back($2);
                   }
                   | enumitemlist ',' enumitem [ZZLOG;] {
-                    $$ = $1 ? $1 : new CppEnumItemList;
+                    $$ = $1 ? $1 : new std::list<CppEnumItem>;
                     $$->push_back($3);
                   }
                   | enumitemlist ','          [ZZLOG;] {
@@ -911,13 +896,13 @@ varinit           : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.
                   ;
 
 varassign         : '=' expr            [ZZLOG;] {
-                    $$ = CppVarAssign{$2, AssignType::kUsingEqual};
+                    $$ = CppVarAssign{$2, AssignType::USING_EQUAL};
                   }
                   | '(' exprorlist ')'  [ZZLOG;] {
-                    $$ = CppVarAssign{$2, AssignType::kUsingBracket};
+                    $$ = CppVarAssign{$2, AssignType::USING_PARENTHESES};
                   }
                   | '{' funcargs '}'    [ZZLOG;] {
-                    $$ = CppVarAssign{$2, AssignType::kUsingBraces};
+                    $$ = CppVarAssign{$2, AssignType::USING_BRACES};
                   }
                   ;
 
@@ -1033,11 +1018,11 @@ typemodifier      : tknConst                              [ZZLOG;] {
                   }
                   | '&' %prec REFDECL                     [ZZLOG;] {
                     $$ = CppTypeModifier();
-                    $$.refType_ = CppRefType::kByRef;
+                    $$.refType_ = CppRefType::BY_REF;
                   }
                   | tknAnd %prec REFDECL                  [ZZLOG;] {
                     $$ = CppTypeModifier();
-                    $$.refType_ = CppRefType::kRValRef;
+                    $$.refType_ = CppRefType::RVAL_REF;
                   }
                   | typemodifier tknConst                 [ZZLOG;] {
                     $$ = $1;
@@ -1049,11 +1034,11 @@ typemodifier      : tknConst                              [ZZLOG;] {
                   }
                   | typemodifier '&' %prec REFDECL        [ZZLOG;] {
                     $$ = $1;
-                    $$.refType_ = CppRefType::kByRef;
+                    $$.refType_ = CppRefType::BY_REF;
                   }
                   | typemodifier tknAnd %prec REFDECL     [ZZLOG;] {
                     $$ = $1;
-                    $$.refType_ = CppRefType::kRValRef;
+                    $$.refType_ = CppRefType::RVAL_REF;
                   }
 
                   ;
@@ -1107,7 +1092,7 @@ funcdeclstmt      : funcdecl ';' [ZZVALID;] { $$ = $1; }
 
 funcdefn          : funcdecl block [ZZVALID;] {
                     $$ = $1;
-                    $$->defn($2 ? $2 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
+                    $$->defn($2 ? $2 : newCompound(CppAccessType::kUnknown, CppCompoundType::BLOCK));
                   }
                   ;
 
@@ -1307,7 +1292,7 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
 
 paramlist         :                     [ZZLOG;] { $$ = nullptr; }
                   | param {
-                    $$ = new CppParamVector;
+                    $$ = new std::vector<std::unique_ptr<CppEntity>>;
                     $$->emplace_back($1);
                   }
                   | paramlist ',' param [ZZLOG;] {
@@ -1320,7 +1305,7 @@ param             : varinit                        [ZZLOG;] { $$ = $1; $1->addAt
                   | vartype '=' expr               [ZZLOG;] {
                     auto var = new CppVar($1, std::string());
                     var->addAttr(kFuncParam);
-                    var->assign($3, AssignType::kUsingEqual);
+                    var->assign($3, AssignType::USING_EQUAL);
                     $$ = var;
                   }
                   | vardecl                         [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam);  }
@@ -1388,13 +1373,13 @@ optfuncthrowspec  :               [ZZLOG;] { $$ = nullptr; }
                   ;
 
 functhrowspec     : tknThrow '(' identifierlist ')' [ZZLOG;] {
-                    $$ = $3 ? $3 : new CppFuncThrowSpec;
+                    $$ = $3 ? $3 : new std::vector<std::string>;
                   }
                   ;
 
 identifierlist    :                               [ZZLOG;] { $$ = nullptr; }
                   | identifier                    [ZZLOG;] {
-                    $$ = new CppIdentifierList;
+                    $$ = new std::vector<std::string>;
                     $$->push_back($1);
                   }
                   | identifierlist ',' identifier [ZZLOG;] {
@@ -1510,25 +1495,25 @@ dtordeclstmt      : dtordecl ';'    [ZZVALID;]     { $$ = $1; }
 dtordefn          : dtordecl block  [ZZVALID;]
                   {
                     $$ = $1;
-                    $$->defn($2 ? $2 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
+                    $$->defn($2 ? $2 : newCompound(CppAccessType::kUnknown, CppCompoundType::BLOCK));
                   }
                   | name tknScopeResOp '~' name [if($1 != $4) ZZERROR; else ZZVALID;]
                     '(' ')' block
                   {
                     $$ = newDestructor(gCurAccessType, mergeCppToken($1, $4), 0);
-                    $$->defn($8 ? $8 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
+                    $$->defn($8 ? $8 : newCompound(CppAccessType::kUnknown, CppCompoundType::BLOCK));
                   }
                   | identifier tknScopeResOp name tknScopeResOp '~' name [if($3 != $6) ZZERROR; else ZZVALID;]
                     '(' ')' block
                   {
                     $$ = newDestructor(gCurAccessType, mergeCppToken($1, $6), 0);
-                    $$->defn($10 ? $10 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
+                    $$->defn($10 ? $10 : newCompound(CppAccessType::kUnknown, CppCompoundType::BLOCK));
                   }
                   | name tknLT templatearglist tknGT tknScopeResOp '~' name [if($1 != $7) ZZERROR; else ZZVALID;]
                     '(' ')' block
                   {
                     $$ = newDestructor(gCurAccessType, mergeCppToken($1, $7), 0);
-                    $$->defn($11 ? $11 : newCompound(CppAccessType::kUnknown, CppCompoundType::kBlock));
+                    $$->defn($11 ? $11 : newCompound(CppAccessType::kUnknown, CppCompoundType::BLOCK));
                   }
                   | templatespecifier dtordefn  [ZZLOG;] {
                     $$ = $2;
@@ -1675,7 +1660,7 @@ namespacedefn     : tknNamespace optidentifier '{'
                   ]
                   {
                     $$ = $5 ? $5 : newCompound(gCurAccessType);
-                    $$->compoundType(CppCompoundType::kNamespace);
+                    $$->compoundType(CppCompoundType::NAMESPACE);
                     $$->name($2);
                   }
                   ;
@@ -1686,42 +1671,42 @@ optfinal          :          [ZZLOG;] { $$ = 0; }
 
 optinheritlist    :                                                         [ZZLOG;] { $$ = 0; }
                   | ':' protlevel optinherittype typeidentifier                 [ZZVALID;] {
-                    $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $4, $2, $3));
+                    $$ = new std::list<CppInheritanceInfo>; $$->push_back(CppInheritanceInfo((std::string) $4, $2, $3));
                   }
                   | optinheritlist ',' protlevel optinherittype typeidentifier  [ZZVALID;] {
-                    $$ = $1; $$->push_back(CppInheritInfo((std::string) $5, $3, $4));
+                    $$ = $1; $$->push_back(CppInheritanceInfo((std::string) $5, $3, $4));
                   }
                   | ':' optinherittype protlevel typeidentifier                 [ZZVALID;] {
-                    $$ = new CppInheritanceList; $$->push_back(CppInheritInfo((std::string) $4, $3, $2));
+                    $$ = new std::list<CppInheritanceInfo>; $$->push_back(CppInheritanceInfo((std::string) $4, $3, $2));
                   }
                   | optinheritlist ',' optinherittype protlevel typeidentifier  [ZZVALID;] {
-                    $$ = $1; $$->push_back(CppInheritInfo((std::string) $5, $4, $3));
+                    $$ = $1; $$->push_back(CppInheritanceInfo((std::string) $5, $4, $3));
                   }
                   ;
 
 protlevel         :               [ZZLOG;] { $$ = CppAccessType::kUnknown;    }
-                  | tknPublic     [ZZLOG;] { $$ = CppAccessType::kPublic;     }
-                  | tknProtected  [ZZLOG;] { $$ = CppAccessType::kProtected;  }
-                  | tknPrivate    [ZZLOG;] { $$ = CppAccessType::kPrivate;    }
+                  | tknPublic     [ZZLOG;] { $$ = CppAccessType::PUBLIC;     }
+                  | tknProtected  [ZZLOG;] { $$ = CppAccessType::PROTECTED;  }
+                  | tknPrivate    [ZZLOG;] { $$ = CppAccessType::PRIVATE;    }
                   ;
 
 optinherittype    :             [ZZLOG;] { $$ = false; }
                   | tknVirtual  [ZZLOG;] { $$ = true; }
                   ;
 
-fwddecl           : classspecifier typeidentifier ';'              [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $2, $1); }
-                  | classspecifier optapidecor identifier ';'  [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $3, $2, $1); }
+fwddecl           : classspecifier typeidentifier ';'          [ZZVALID;] { $$ = new CppForwardClassDecl(gCurAccessType, $2, $1); }
+                  | classspecifier optapidecor identifier ';'  [ZZVALID;] { $$ = new CppForwardClassDecl(gCurAccessType, $3, $2, $1); }
                   | templatespecifier fwddecl [ZZLOG;] {
                     $$ = $2;
                     $$->templateParamList($1);
                   }
-                  | tknFriend typeidentifier ';'  [ZZVALID;] { $$ = new CppFwdClsDecl(gCurAccessType, $2); $$->addAttr(kFriend); }
+                  | tknFriend typeidentifier ';'  [ZZVALID;] { $$ = new CppForwardClassDecl(gCurAccessType, $2); $$->addAttr(kFriend); }
                   | tknFriend fwddecl             [ZZVALID;] { $$ = $2; $$->addAttr(kFriend); }
                   ;
 
-classspecifier    : tknClass      [ZZLOG;] { $$ = CppCompoundType::kClass;     }
-                  | tknStruct     [ZZLOG;] { $$ = CppCompoundType::kStruct;    }
-                  | tknUnion      [ZZLOG;] { $$ = CppCompoundType::kUnion;     }
+classspecifier    : tknClass      [ZZLOG;] { $$ = CppCompoundType::CLASS;     }
+                  | tknStruct     [ZZLOG;] { $$ = CppCompoundType::STRUCT;    }
+                  | tknUnion      [ZZLOG;] { $$ = CppCompoundType::UNION;     }
                   ;
 
 templatespecifier : tknTemplate tknLT       [gInTemplateSpec = true;  ZZLOG;   ]
@@ -1732,10 +1717,10 @@ templatespecifier : tknTemplate tknLT       [gInTemplateSpec = true;  ZZLOG;   ]
                   ;
 
 templateparamlist :                                       [ZZLOG;] {
-                    $$ = new CppTemplateParamList;
+                    $$ = new CppTemplateParams;
                   }
                   | templateparam                         [ZZLOG;] {
-                    $$ = new CppTemplateParamList;
+                    $$ = new CppTemplateParams;
                     $$->emplace_back($1);
                   }
                   | templateparamlist ',' templateparam   [ZZLOG;] {
@@ -1823,9 +1808,9 @@ apidecortokensq   : tknApiDecor                  [ZZLOG;] { $$ = $1; }
                   | tknApiDecor '(' strlit ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   ;
 
-changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = CppAccessType::kPublic;     }
-                  | tknProtected  ':'  [ZZVALID;] { $$ = CppAccessType::kProtected;  }
-                  | tknPrivate    ':'  [ZZVALID;] { $$ = CppAccessType::kPrivate;    }
+changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = CppAccessType::PUBLIC;     }
+                  | tknProtected  ':'  [ZZVALID;] { $$ = CppAccessType::PROTECTED;  }
+                  | tknPrivate    ':'  [ZZVALID;] { $$ = CppAccessType::PRIVATE;    }
                   ;
 
 externcblock      : tknExternC block   [ZZVALID;] {$$ = $2; $$->compoundType(CppCompoundType::kExternCBlock); }
@@ -2113,7 +2098,7 @@ void resetErrorHandler()
   gErrorHandler = defaultErrorHandler;
 }
 
-CppCompoundPtr parseStream(char* stm, size_t stmSize)
+std::unique_ptr<CppCompound> parseStream(char* stm, size_t stmSize)
 {
   gProgUnit = nullptr;
   gCurAccessType = CppAccessType::kUnknown;
@@ -2132,7 +2117,7 @@ CppCompoundPtr parseStream(char* stm, size_t stmSize)
   CppCompoundStack tmpStack;
   gCompoundStack.swap(tmpStack);
 
-  CppCompoundPtr ret(gProgUnit);
+  std::unique_ptr<CppCompound> ret(gProgUnit);
   gProgUnit = nullptr;
 
   // TODO: Make better error  handling

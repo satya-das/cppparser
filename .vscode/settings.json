@@ -1,6 +1,8 @@
 {
   "files.associations": {
     "*.mdpp": "markdown",
+    "*.i": "Swig interface",
+    "*.cmake": "cmake",
     "array": "cpp",
     "atomic": "cpp",
     "hash_map": "cpp",
@@ -64,7 +66,11 @@
     "bitset": "cpp",
     "regex": "cpp",
     "iomanip": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "strstream": "cpp",
+    "cfenv": "cpp",
+    "complex": "cpp",
+    "typeindex": "cpp"
   },
   "git.ignoreLimitWarning": true
 }

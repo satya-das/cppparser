@@ -1,30 +1,14 @@
-/*
-   The MIT License (MIT)
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
-   Copyright (c) 2018 Satya Das
+// TODO: Get rid of this whole file
 
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-#pragma once
+#ifndef B151CBFF_0671_4D68_BB20_9910FD995AC2
+#define B151CBFF_0671_4D68_BB20_9910FD995AC2
 
 #include <cstdint>
 
+// TODO: Get rid of this
 enum class TriStateBool : std::int8_t
 {
   Unknown = -1,
@@ -32,79 +16,12 @@ enum class TriStateBool : std::int8_t
   True    = 1
 };
 
-enum class CppObjType : std::uint8_t
-{
-  kUnknown = 0x0000,
-  kDocComment,
-
-  kCPreProcessorTypeStarts, // Any preprocessor type must come after this
-  kHashIf,                  // #if, #ifdef, #ifndef, #else, #elif.
-  kHashInclude,             // #include
-  kHashImport,              // #import
-  kHashDefine,              // #define
-  kHashUndef,               // #undef
-  kHashPragma,              // #pragma
-  kHashError,
-  kHashWarning,
-  kUnRecogPrePro, // Any unrecognized pre-processor.
-  kCPreProcessorTypeEnds,
-
-  kCppStatementObjectTypeStarts,
-  kVarType, // Just the type of variable.
-  kVar,     // A variable declaration.
-  kVarList, // List of variables declared as comma separated identifiers.
-  kTypedefName,
-  kTypedefNameList,
-  kNamespaceAlias,
-  kUsingNamespaceDecl,
-  kUsingDecl,
-  kEnum,
-  kCompound,   // file, namespace, class, struct, union, block.
-  kFwdClsDecl, // Forward declaration of compound type.
-  kFunction,
-  kLambda,
-  kConstructor,
-  kDestructor,
-  kTypeConverter,
-  kFunctionPtr, // Function proc declaration using typedef. e.g. typedef void (*fp) (void);
-  kExpression,  // A C++ expression
-  kExpressionList,
-  kMacroCall,
-  kAsmBlock,
-  kBlob, // Some unparsed/unrecognized part of C++ source code.
-  kLabel,
-  kCppStatementObjectTypeEnds,
-
-  kCppControlStatementStarts,
-  kIfBlock,
-  kForBlock,
-  kRangeForBlock,
-  kWhileBlock,
-  kDoWhileBlock,
-  kSwitchBlock,
-  kTryBlock,
-  kCppControlStatementEnds,
-};
-
-enum /*class*/ CppCompoundType : std::uint8_t
-{
-  kUnknownCompound = 0x00,
-  kNoCompound      = 0x00,
-  kCppFile         = 0x01,
-  kNamespace       = 0x02,
-  kClass           = 0x04 | kNamespace,
-  kStruct          = 0x08 | kClass,
-  kUnion           = 0x10 | kClass,
-  kBlock           = 0x20,
-  kExternCBlock    = 0x40,
-};
-
 enum class CppAccessType : std::uint8_t
 {
   kUnknown,
-  kPublic,
-  kPrivate,
-  kProtected
+  PUBLIC,
+  PRIVATE,
+  PROTECTED
 };
 
 enum /*class*/ CppOperator : std::uint8_t
@@ -213,15 +130,9 @@ enum /*class*/ CppIdentifierAttrib : std::uint32_t
  */
 enum class CppRefType : std::uint8_t
 {
-  kNoRef,  // No reference.
-  kByRef,  // Simple reference, e.g. int& x.
-  kRValRef // R-value reference, e.g. in move constructor.
+  NONE,    // No reference.
+  BY_REF,  // Simple reference, e.g. int& x.
+  RVAL_REF // R-value reference, e.g. in move constructor.
 };
 
-enum class AssignType
-{
-  kNone,
-  kUsingEqual,
-  kUsingBracket,
-  kUsingBraces
-};
+#endif /* B151CBFF_0671_4D68_BB20_9910FD995AC2 */

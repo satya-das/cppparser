@@ -1,4 +1,8 @@
-#pragma once
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
+
+#ifndef BDBCC362_A51C_4ECA_BEFF_299AE5927F2F
+#define BDBCC362_A51C_4ECA_BEFF_299AE5927F2F
 
 #include "utils.h"
 
@@ -58,3 +62,5 @@ protected:
     return getTestSnippet(lastSnippetBeforeLineNum).append(3, '\0');
   }
 };
+
+#endif /* BDBCC362_A51C_4ECA_BEFF_299AE5927F2F */

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef EF4ACF9B_9D2E_4947_A8CD_17D2F1A6B363
+#define EF4ACF9B_9D2E_4947_A8CD_17D2F1A6B363
 
 #include <cassert>
 #include <optional>
@@ -25,3 +26,5 @@ inline MacroDependentCodeEnablement invert(MacroDependentCodeEnablement enabledC
 MacroDefineInfo getMacroDefineInfo(const std::string& id);
 
 std::optional<int> getIdValue(const std::string& id);
+
+#endif /* EF4ACF9B_9D2E_4947_A8CD_17D2F1A6B363 */

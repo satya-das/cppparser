@@ -1,29 +1,10 @@
-/*
-   The MIT License (MIT)
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
-   Copyright (c) 2018 Satya Das
+#ifndef D8B20A09_BD42_492D_8308_D43A463BD5C2
+#define D8B20A09_BD42_492D_8308_D43A463BD5C2
 
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-#pragma once
-
-#include "cppast.h"
+#include "cppast/cppast.h"
 #include "cppparser.h"
 #include "cpptypetree.h"
 
@@ -49,11 +30,11 @@ inline bool selectHeadersOnly(const std::string& file)
   return file[dotPos + 1] == 'h';
 }
 
-using CppCompoundArray    = std::vector<CppCompoundPtr>;
+using CppCompoundArray    = std::vector<std::unique_ptr<CppCompound>>;
 using CppProgFileSelecter = std::function<bool(const std::string&)>;
 
 /**
- * \brief Represents an entire C++ program.
+ * @brief Represents an entire C++ program.
  */
 class CppProgram
 {
@@ -90,10 +71,10 @@ public:
    */
   const CppTypeTreeNode* searchTypeNode(const std::string& name, const CppTypeTreeNode* parentNode = nullptr) const;
   /**
-   * @return CppTypeTreeNode for CppObj.
-   * \note Return value may be nullptr if CppObj does not represent a valid type.
+   * @return CppTypeTreeNode for CppEntity.
+   * \note Return value may be nullptr if CppEntity does not represent a valid type.
    */
-  const CppTypeTreeNode* typeTreeNodeFromCppObj(const CppObj* cppObj) const;
+  const CppTypeTreeNode* typeTreeNodeFromCppObj(const CppEntity* cppEntity) const;
   /**
    * @return An array of CppCompound each element of which represents AST of a C++ file.
    */
@@ -102,9 +83,9 @@ public:
 public:
   /**
    * Adds a new file AST to this program.
-   * \warning It is a no-op if \a cppAst is not of CppCompoundType::kCppFile type.
+   * \warning It is a no-op if \a cppAst is not of CppCompoundType::FILE type.
    */
-  void addCppAst(CppCompoundPtr cppAst);
+  void addCppAst(std::unique_ptr<CppCompound> cppAst);
   void addCompound(const CppCompound* compound, const CppCompound* parent);
   void addCompound(const CppCompound* compound, CppTypeTreeNode* parentTypeNode);
 
@@ -112,7 +93,7 @@ private:
   void loadType(const CppCompound* cppCompound, CppTypeTreeNode* typeNode);
 
 private:
-  using CppObjToTypeNodeMap = std::map<const CppObj*, CppTypeTreeNode*>;
+  using CppObjToTypeNodeMap = std::map<const CppEntity*, CppTypeTreeNode*>;
 
   CppCompoundArray    fileAsts_;        ///< Array of all top level ASTs corresponding to files.
   CppTypeTreeNode     cppTypeTreeRoot_; ///< Repository of all compound objects arranged as type-tree.
@@ -124,8 +105,10 @@ inline const CppCompoundArray& CppProgram::getFileAsts() const
   return fileAsts_;
 }
 
-inline const CppTypeTreeNode* CppProgram::typeTreeNodeFromCppObj(const CppObj* cppObj) const
+inline const CppTypeTreeNode* CppProgram::typeTreeNodeFromCppObj(const CppEntity* cppEntity) const
 {
-  CppObjToTypeNodeMap::const_iterator itr = cppObjToTypeNode_.find(cppObj);
+  CppObjToTypeNodeMap::const_iterator itr = cppObjToTypeNode_.find(cppEntity);
   return itr == cppObjToTypeNode_.end() ? nullptr : itr->second;
 }
+
+#endif /* D8B20A09_BD42_492D_8308_D43A463BD5C2 */

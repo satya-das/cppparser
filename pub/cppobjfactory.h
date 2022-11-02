@@ -1,59 +1,40 @@
-/*
-   The MIT License (MIT)
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
 
-   Copyright (c) 2018 Satya Das
+#ifndef FD4A67B1_0F80_450C_810E_38D081BF552B
+#define FD4A67B1_0F80_450C_810E_38D081BF552B
 
-   Permission is hereby granted, free of charge, to any person obtaining a copy of
-   this software and associated documentation files (the "Software"), to deal in
-   the Software without restriction, including without limitation the rights to
-   use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-   the Software, and to permit persons to whom the Software is furnished to do so,
-   subject to the following conditions:
-
-   The above copyright notice and this permission notice shall be included in all
-   copies or substantial portions of the Software.
-
-   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
-   FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-   COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
-   IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
-   CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
-#pragma once
-
-#include "cppast.h"
+#include "cppast/cppast.h"
 #include "cppconst.h"
 
+#include <cstdint>
+
+// TODO: Get rid of this file.
+
 /*!
- * \brief Factory class to create various CppObj instances.
+ * @brief Factory class to create various CppEntity instances.
  *
- * Ideally this factory class should be used to create any CppObj object so that clients of CppParser can supply its own
- * type.
- * At present creation of only few are added as per the requirement of CIB, https://github.com/satya-das/cib.
+ * Ideally this factory class should be used to create any CppEntity object so that clients of CppParser can supply its
+ * own type. At present creation of only few are added as per the requirement of CIB, https://github.com/satya-das/cib.
  */
 class CppObjFactory
 {
 public:
-  virtual CppCompound* CreateCompound(std::string name, CppAccessType accessType, CppCompoundType type) const;
-  virtual CppCompound* CreateCompound(CppAccessType   accessType,
-                                      CppCompoundType type = CppCompoundType::kUnknownCompound) const;
-  virtual CppCompound* CreateCompound(std::string name, CppCompoundType type) const;
-  virtual CppCompound* CreateCompound(CppCompoundType type) const;
+  virtual CppAst::CppCompound* CreateCompound(std::string name, CppAst::CppCompoundType type) const;
+  virtual CppAst::CppCompound* CreateCompound(CppAst::CppCompoundType type = CppAst::CppCompoundType::UNKNOWN) const;
 
-  virtual CppConstructor*   CreateConstructor(CppAccessType   accessType,
-                                              std::string     name,
-                                              CppParamVector* params,
-                                              CppMemInits     memInits,
-                                              unsigned int    attr) const;
-  virtual CppDestructor*    CreateDestructor(CppAccessType accessType, std::string name, unsigned int attr) const;
-  virtual CppFunction*      CreateFunction(CppAccessType   accessType,
-                                           std::string     name,
-                                           CppVarType*     retType,
-                                           CppParamVector* params,
-                                           unsigned int    attr) const;
-  virtual CppTypeConverter* CreateTypeConverter(CppVarType* type, std::string name) const;
+  virtual CppAst::CppConstructor*   CreateConstructor(std::string                              name,
+                                                      std::vector<std::unique_ptr<CppEntity>>* params,
+                                                      CppAst::CppMemInits                      memInits,
+                                                      unsigned int                             attr) const;
+  virtual CppAst::CppDestructor*    CreateDestructor(std::string name, std::uint32_t attr) const;
+  virtual CppAst::CppFunction*      CreateFunction(std::string                              name,
+                                                   CppAst::CppVarType*                      retType,
+                                                   std::vector<std::unique_ptr<CppEntity>>* params,
+                                                   unsigned int                             attr) const;
+  virtual CppAst::CppTypeConverter* CreateTypeConverter(CppAst::CppVarType* type, std::string name) const;
 };
 
 using CppObjFactoryPtr = std::unique_ptr<CppObjFactory>;
+
+#endif /* FD4A67B1_0F80_450C_810E_38D081BF552B */
