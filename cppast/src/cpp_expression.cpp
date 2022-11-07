@@ -3,7 +3,7 @@
 
 #include "cppast/cpp_expression.h"
 
-namespace CppAst {
+namespace cppast {
 
 void CppExprAtom::destroy() const
 {
@@ -47,4 +47,4 @@ bool operator!=(const CppExprAtom& exprAtom1, const CppExprAtom& exprAtom2)
   return !(exprAtom1 == exprAtom2);
 }
 
-} // namespace CppAst
+} // namespace cppast

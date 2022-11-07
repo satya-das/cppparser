@@ -8,7 +8,7 @@
 #include "cppast/cppast.h"
 #include "cppast/cppconst.h"
 
-namespace CppAst {
+namespace cppast {
 
 inline bool isConst(const CppFunctionBase& func)
 {
@@ -43,6 +43,6 @@ inline bool isFinal(const CppFunctionBase& func)
   return (func.attr() & kFinal) == kFinal;
 }
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* F6CF90DD_DA23_4671_A270_BA9BB35B3EAE */

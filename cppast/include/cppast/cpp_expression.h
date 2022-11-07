@@ -10,7 +10,7 @@
 
 // TODO: Remodel C++ expressions and improve this file.
 
-namespace CppAst {
+namespace cppast {
 
 class CppExpr;
 class CppLambda;
@@ -194,6 +194,6 @@ inline bool operator!=(const CppExpr& expr1, const CppExpr& expr2)
   return !(expr1 == expr2);
 }
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* BE6CEA53_1EF6_4B14_AA5B_A7FAA7AE5512 */

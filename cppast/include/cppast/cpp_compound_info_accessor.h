@@ -14,7 +14,7 @@
 
 #include <functional>
 
-namespace CppAst {
+namespace cppast {
 
 // inline bool forEachMember(const CppCompound& compound, std::function<bool(const CppEntity&)> visitor)
 // {
@@ -104,6 +104,6 @@ inline std::string fullName(const CppCompound& compound)
 //   return false;
 // }
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* EB6246DE_3216_42BA_AF41_B260CA71C4EE */

@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppPreprocessorUndef : public CppEntity
 {
@@ -16,12 +16,14 @@ public:
     return CppEntityType::PREPROCESSOR_UNDEF;
   }
 
+public:
   CppPreprocessorUndef(std::string name)
     : CppEntity(EntityType())
     , name_(std::move(name))
   {
   }
 
+public:
   const std::string& name() const
   {
     return name_;
@@ -31,6 +33,6 @@ private:
   const std::string name_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* E208389D_3833_42AC_97DA_384BF200EE7F */

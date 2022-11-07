@@ -4,7 +4,7 @@
 #ifndef C9EFCA65_C9EF_406A_8025_AFF92923890D
 #define C9EFCA65_C9EF_406A_8025_AFF92923890D
 
-namespace CppAst {
+namespace cppast {
 
 enum class CppEntityType
 {

@@ -8,7 +8,7 @@
 #include "cppast/cpp_expression.h"
 #include "cppast/cpp_var.h"
 
-namespace CppAst {
+namespace cppast {
 
 /// Some blocks have common structure like if, while, and do-while.
 /// They all contain a body and an expression of condition.
@@ -65,8 +65,23 @@ private:
   const std::unique_ptr<CppEntity> else_;
 };
 
-using CppWhileBlock   = CppControlBlockBase<CppEntityType::WHILE_BLOCK>;
-using CppDoWhileBlock = CppControlBlockBase<CppEntityType::DO_WHILE_BLOCK>;
+class CppWhileBlock : public CppControlBlockBase<CppEntityType::WHILE_BLOCK>
+{
+public:
+  CppWhileBlock(std::unique_ptr<CppEntity> cond, std::unique_ptr<CppEntity> body)
+    : CppControlBlockBase(std::move(cond), std::move(body))
+  {
+  }
+};
+
+class CppDoWhileBlock : public CppControlBlockBase<CppEntityType::DO_WHILE_BLOCK>
+{
+public:
+  CppDoWhileBlock(std::unique_ptr<CppEntity> cond, std::unique_ptr<CppEntity> body)
+    : CppControlBlockBase(std::move(cond), std::move(body))
+  {
+  }
+};
 
 class CppForBlock : public CppEntity
 {
@@ -176,8 +191,8 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppExpr>     case_;
-  const std::unique_ptr<CppCompound> body_;
+  std::unique_ptr<CppExpr>     case_;
+  std::unique_ptr<CppCompound> body_;
 };
 
 class CppSwitchBlock : public CppEntity
@@ -212,6 +227,6 @@ private:
   const std::vector<CppCase>     body_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* C18A3DB4_37B0_4AC7_BAB2_C9D9735913DC */

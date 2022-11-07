@@ -6,17 +6,18 @@
 
 #include <cstdint>
 
-namespace CppAst {
+namespace cppast {
+
 /**
  * Type of references a variable can have in a C++ program.
  */
 enum class CppRefType : std::uint8_t
 {
-  NONE,    // No reference.
+  NO_REF,  // No reference.
   BY_REF,  // Simple reference, e.g. int& x.
   RVAL_REF // R-value reference, e.g. in move constructor.
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* E17B1CB3_AE84_40A6_840A_3ACF197478E9 */

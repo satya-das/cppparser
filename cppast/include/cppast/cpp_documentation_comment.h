@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 /**
  * @brief A documentation comment is any comment that stands all alone in one or multiple lines.
@@ -36,6 +36,6 @@ private:
   const std::string doc_; ///< Entire comment text
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* E6097D4F_30B2_4DBB_BD3D_0FAE0F8AD156 */

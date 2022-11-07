@@ -9,7 +9,7 @@
 #include <memory>
 #include <string>
 
-namespace CppAst {
+namespace cppast {
 
 class CppEntity;
 class CppVarType;
@@ -21,13 +21,15 @@ class CppFunctionPointer;
 class CppTemplateParam
 {
 public:
-  CppTemplateParam(std::string paramName);
+  CppTemplateParam(std::string paramName, std::unique_ptr<const CppEntity> defArg = nullptr);
   CppTemplateParam(std::unique_ptr<const CppVarType> paramType,
                    std::string                       paramName,
                    std::unique_ptr<const CppEntity>  defArg = nullptr);
   CppTemplateParam(std::unique_ptr<const CppFunctionPointer> paramType,
                    std::string                               paramName,
                    std::unique_ptr<const CppEntity>          defArg = nullptr);
+
+  CppTemplateParam(CppTemplateParam&& rval) = default;
 
   ~CppTemplateParam();
 
@@ -49,11 +51,11 @@ public:
 
 private:
   // If not nullptr then template param is not of type typename/class
-  const std::unique_ptr<const CppEntity> paramType_;
-  const std::string                      paramName_;
-  const std::unique_ptr<const CppEntity> defaultArg_; //< Can be CppVarType or CppExpr
+  std::unique_ptr<const CppEntity> paramType_;
+  std::string                      paramName_;
+  std::unique_ptr<const CppEntity> defaultArg_; //< Can be CppVarType or CppExpr
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* A6947342_A917_4B84_B327_5878ACC690B3 */

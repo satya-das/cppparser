@@ -11,7 +11,7 @@
 #include <functional>
 #include <memory>
 
-namespace CppAst {
+namespace cppast {
 
 class CppCompound;
 
@@ -76,6 +76,6 @@ private:
   std::unique_ptr<UserData> userData_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* D9FB86B4_AD61_4312_A3C5_A8286A3480F0 */

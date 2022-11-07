@@ -8,7 +8,7 @@
 #include "cppast/cpp_templatable_entity.h"
 #include "cppast/cpp_var_decl.h"
 
-namespace CppAst {
+namespace cppast {
 
 /**
  * Class to represent C++ variable definition.
@@ -120,6 +120,6 @@ private:
   std::string                 apidecor_; // It holds things like WINAPI, __declspec(dllexport), etc.
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* C3CE34A1_F1C2_4151_A68B_02D7B83E467E */

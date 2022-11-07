@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppNamespaceAlias : public CppEntity
 {
@@ -17,17 +17,29 @@ public:
   }
 
 public:
-  const std::string name_;
-  const std::string alias_;
-
   CppNamespaceAlias(std::string name, std::string alias)
     : CppEntity(EntityType())
     , name_(std::move(name))
     , alias_(std::move(alias))
   {
   }
+
+public:
+  const std::string& name() const
+  {
+    return name_;
+  }
+
+  const std::string& alias() const
+  {
+    return alias_;
+  }
+
+private:
+  const std::string name_;
+  const std::string alias_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* EF5889FE_0030_44BB_9ED0_BA3CAC9467FB */

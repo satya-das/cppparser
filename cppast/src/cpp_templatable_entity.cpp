@@ -3,7 +3,7 @@
 
 #include "cppast/cpp_templatable_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 const std::optional<CppTemplateParams>& CppTemplatableEntity::templateSpecification() const
 {
@@ -15,4 +15,4 @@ void CppTemplatableEntity::templateSpecification(CppTemplateParams templateSpec)
   templateSpec_ = std::move(templateSpec);
 }
 
-} // namespace CppAst
+} // namespace cppast

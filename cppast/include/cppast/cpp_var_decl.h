@@ -9,7 +9,7 @@
 #include <cassert>
 #include <vector>
 
-namespace CppAst {
+namespace cppast {
 
 enum class AssignType
 {
@@ -91,6 +91,6 @@ inline CppVarDecl::CppVarDecl(std::string name, CppExpr* assign, AssignType assi
 {
 }
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* FD128B15_4F2F_4742_A4B5_D3C91033195C */

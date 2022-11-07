@@ -10,7 +10,7 @@
 #include "cppast/cppconst.h"
 #include "cppast/cpputil.h"
 
-namespace CppAst {
+namespace cppast {
 
 inline bool isFunction(const CppEntity& cppEntity)
 {
@@ -187,6 +187,6 @@ inline CppCompound* root(const CppEntity& cppEntity)
   return root(*cppEntity.owner());
 }
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* E1C8E022_9208_4EA2_BF0E_482C7ABD2C72 */

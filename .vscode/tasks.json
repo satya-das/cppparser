@@ -3,7 +3,7 @@
     {
       "type": "shell",
       "label": "BuildAll",
-      "command": "ninja cppwriter",
+      "command": "ninja cppparser",
       "args": [],
       "options": {
         "cwd": "${workspaceFolder}/build"

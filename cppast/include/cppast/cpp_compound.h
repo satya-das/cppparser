@@ -11,15 +11,16 @@
 #include "cppast/defs.h"
 
 #include <cassert>
+#include <cstdint>
 #include <functional>
 #include <list>
 #include <memory>
 #include <type_traits>
 #include <vector>
 
-namespace CppAst {
+namespace cppast {
 
-enum class CppCompoundType
+enum class CppCompoundType : std::uint8_t
 {
   UNKNOWN,
   FILE,
@@ -55,7 +56,7 @@ struct CppInheritanceInfo
  *  - A block of statements inside { }.
  *  - body of function definition.
  *
- * FIXME: Separate out different class for File, Namespace, Class-like, and the rest.
+ * FIXME: Separate out different classes for File, Namespace, Class-like, and the rest.
  */
 class CppCompound : public CppEntity, public CppTemplatableEntity
 {
@@ -152,6 +153,6 @@ private:
   std::uint32_t                           attr_ {0}; // e.g. final
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* CAFF3DFE_BB8D_47DB_A353_C7D49275CEC6 */

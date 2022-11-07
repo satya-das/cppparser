@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppVarDeclInList : public CppTypeModifier, public CppVarDecl
 {
@@ -57,6 +57,6 @@ private:
   CppVarDeclList varDeclList_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* E9679E26_EB4E_4C8F_952F_FEDCCFB07380 */

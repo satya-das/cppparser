@@ -8,7 +8,7 @@
 #include "cppast/cpp_templatable_entity.h"
 #include "cppast/cpp_var_list.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppTypedefName : public CppEntity
 {
@@ -112,6 +112,6 @@ private:
   const std::unique_ptr<CppEntity> cppEntity_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* AB11A5E0_FDCE_4B20_B3D4_8B8B91501356 */

@@ -8,7 +8,7 @@
 
 #include <string>
 
-namespace CppAst {
+namespace cppast {
 
 class CppAsmBlock : public CppEntity
 {
@@ -40,6 +40,6 @@ private:
   const std::string asm_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* EFE82EA4_B16D_4385_B226_FC106C3F2839 */

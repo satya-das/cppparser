@@ -10,7 +10,7 @@
 
 #include <string>
 
-namespace CppAst {
+namespace cppast {
 
 struct CppCatchBlock
 {
@@ -20,8 +20,7 @@ struct CppCatchBlock
 };
 
 using CppCatchBlockPtr = std::unique_ptr<CppCatchBlock>;
-
-using CppCatchBlocks = std::vector<CppCatchBlockPtr>;
+using CppCatchBlocks   = std::vector<CppCatchBlockPtr>;
 
 class CppTryBlock : public CppEntity
 {
@@ -31,25 +30,25 @@ public:
     return CppEntityType::TRY_BLOCK;
   }
 
-  const std::unique_ptr<CppCompound> tryStmt_;
-
 public:
-  CppTryBlock(CppCompound* tryStmt, CppCatchBlock* firstCatchBlock)
+  CppTryBlock(std::unique_ptr<CppCompound> tryStmt, std::unique_ptr<CppCatchBlock> firstCatchBlock)
     : CppEntity(EntityType())
-    , tryStmt_(tryStmt)
+    , tryStmt_(std::move(tryStmt))
   {
-    catchBlocks_.emplace_back(firstCatchBlock);
+    catchBlocks_.push_back(std::move(firstCatchBlock));
   }
 
-  void addCatchBlock(CppCatchBlock* catchBlock)
+public:
+  void addCatchBlock(std::unique_ptr<CppCatchBlock> catchBlock)
   {
-    catchBlocks_.emplace_back(catchBlock);
+    catchBlocks_.emplace_back(std::move(catchBlock));
   }
 
 private:
-  CppCatchBlocks catchBlocks_;
+  const std::unique_ptr<CppCompound> tryStmt_;
+  CppCatchBlocks                     catchBlocks_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* BFF3C538_E8C8_40D9_8ADF_948EC6671390 */

@@ -22,17 +22,6 @@ I am using it to develop [cib](https://github.com/satya-das/cib/) which implemen
 ## Example
 
 To begin with we will see an example of parsing a hello-world program and see what is the AST that `CppParser` creates:
-```c++
-#include <iostream>
-
-int main()
-{
-  std::cout << "Hello World!\n";
-
-  return 0;
-}
-
-```
 
 For the above hello-world program we can expect that when it is parsed the generated AST should look like following:
 ![AST for Hello World program](https://github.com/satya-das/cppparser/blob/master/src/readme-assets/HelloWorldAST.svg "AST for Hello World program")
@@ -40,43 +29,6 @@ For the above hello-world program we can expect that when it is parsed the gener
 So, how we are going to access these elements of AST using `CppParser`?
 Below is the program written as unit-test for validating the correctness of generated AST:
 
-```c++
-#include <catch/catch.hpp>
-
-#include "cppparser.h"
-
-#include <boost/filesystem.hpp>
-
-namespace fs = boost::filesystem;
-
-TEST_CASE("Parsing hello world program")
-{
-  CppParser  parser;
-  const auto testFilePath = fs::path(__FILE__).parent_path() / "test-files/hello-world.cpp";
-  const auto ast          = parser.parseFile(testFilePath.string());
-  REQUIRE(ast != nullptr);
-
-  const auto& members = ast->members();
-  REQUIRE(members.size() == 2);
-
-  CppIncludeEPtr hashInclude = members[0];
-  REQUIRE(hashInclude);
-  CHECK(hashInclude->name_ == "<iostream>");
-
-  CppFunctionEPtr func = members[1];
-  REQUIRE(func);
-  CHECK(func->name_ == "main");
-
-  REQUIRE(func->defn());
-  const auto& mainBodyMembers = func->defn()->members();
-  REQUIRE(mainBodyMembers.size() == 2);
-
-  CppExprEPtr coutHelloWorld = mainBodyMembers[0];
-  REQUIRE(coutHelloWorld);
-  CHECK(coutHelloWorld->oper_ == CppOperator::kInsertion);
-}
-
-```
 
 **This example is a real one and is part of actual unit test of CppParser**.
 

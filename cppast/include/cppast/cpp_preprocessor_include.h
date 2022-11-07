@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppPreprocessorInclude : public CppEntity
 {
@@ -33,6 +33,6 @@ private:
   const std::string name_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* BC97BFFF_ABE6_4D65_BB85_0BFE81A98146 */

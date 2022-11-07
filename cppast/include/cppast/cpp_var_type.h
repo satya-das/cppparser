@@ -12,7 +12,7 @@
 
 #include <string>
 
-namespace CppAst {
+namespace cppast {
 
 class CppFunctionPointer;
 class CppEnum;
@@ -70,7 +70,12 @@ public:
     return typeModifier_;
   }
 
-  bool ParameterPack() const
+  void parameterPack(bool paramPack)
+  {
+    paramPack_ = paramPack;
+  }
+
+  bool parameterPack() const
   {
     return paramPack_;
   }
@@ -86,6 +91,6 @@ private:
   bool                       paramPack_ {false};
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* DEE52E89_9A5C_4A01_B51A_D0D4786BC7EF */

@@ -3,7 +3,7 @@
 
 #include "cppast/cpp_entity_info_accessor.h"
 
-namespace CppAst {
+namespace cppast {
 
 bool isClassLike(const CppEntity& cppEntity)
 {
@@ -13,4 +13,4 @@ bool isClassLike(const CppEntity& cppEntity)
   return (compound.compoundType() >= CppCompoundType::CLASS) && (compound.compoundType() <= CppCompoundType::UNION);
 }
 
-} // namespace CppAst
+} // namespace cppast

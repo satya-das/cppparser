@@ -5,7 +5,7 @@
 #include "cppast/cpp_compound_info_accessor.h"
 #include "cppast/cpp_function.h"
 
-namespace CppAst {
+namespace cppast {
 
 CppCompound::CppCompound(std::string name, CppCompoundType type)
   : CppEntity(EntityType())
@@ -32,4 +32,4 @@ bool CppCompound::visitAll(const Visitor<const CppEntity&>& callback) const
   return true;
 }
 
-} // namespace CppAst
+} // namespace cppast

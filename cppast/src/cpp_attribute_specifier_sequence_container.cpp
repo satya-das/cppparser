@@ -4,7 +4,7 @@
 #include "cppast/cpp_attribute_specifier_sequence_container.h"
 #include "cppast/cpp_expression.h"
 
-namespace CppAst {
+namespace cppast {
 
 void CppAttributeSpecifierSequenceContainer::attribSpecifierSequence(
   CppAttributeSpecifierSequence attribSpecifierSequence)
@@ -17,4 +17,4 @@ const CppAttributeSpecifierSequence& CppAttributeSpecifierSequenceContainer::att
   return attribSpecifierSequence_;
 }
 
-} // namespace CppAst
+} // namespace cppast

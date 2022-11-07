@@ -8,12 +8,12 @@
 
 #include <cstdint>
 
-namespace CppAst {
+namespace cppast {
 
 struct CppTypeModifier
 {
-  CppRefType   refType_ {CppRefType::NONE};
-  std::uint8_t ptrLevel_ {0}; // Pointer level. e.g. int** ppi has pointer level of 2.
+  CppRefType   refType_;
+  std::uint8_t ptrLevel_; // Pointer level. e.g. int** ppi has pointer level of 2.
 
   // Stores bits as per location of const in a var definition.
   // Below table clarifies the value of const-bits:
@@ -28,9 +28,9 @@ struct CppTypeModifier
   // | int const * const * const ppi          | 0b111 |
   // | ------------------------------------------------
   //
-  std::uint32_t constBits_ {0};
+  std::uint16_t constBits_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* A61F2B78_EEC4_4755_98E4_AE767CD5DBC5 */

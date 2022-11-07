@@ -5,10 +5,11 @@
 #include "cppast/cpp_function.h"
 #include "cppast/cpp_var_type.h"
 
-namespace CppAst {
+namespace cppast {
 
-CppTemplateParam::CppTemplateParam(std::string paramName)
+CppTemplateParam::CppTemplateParam(std::string paramName, std::unique_ptr<const CppEntity> defArg)
   : paramName_(std::move(paramName))
+  , defaultArg_(std::move(defArg))
 {
 }
 
@@ -32,4 +33,4 @@ CppTemplateParam::CppTemplateParam(std::unique_ptr<const CppFunctionPointer> par
 
 CppTemplateParam::~CppTemplateParam() = default;
 
-} // namespace CppAst
+} // namespace cppast

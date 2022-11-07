@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppPreprocessorWarning : public CppEntity
 {
@@ -17,15 +17,22 @@ public:
   }
 
 public:
-  const std::string err_;
-
-  CppPreprocessorWarning(std::string err)
+  CppPreprocessorWarning(std::string warningStr)
     : CppEntity(EntityType())
-    , err_(std::move(err))
+    , warning_(std::move(warningStr))
   {
   }
+
+public:
+  const std::string& warning() const
+  {
+    return warning_;
+  }
+
+private:
+  const std::string warning_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* DB1B2C8A_BCA8_4701_A6B5_A7E02B37D32C */

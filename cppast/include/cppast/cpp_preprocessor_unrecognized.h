@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 /**
  * Any other C/C++ preprocessor for which there is no
@@ -28,12 +28,13 @@ public:
   {
   }
 
+public:
   const std::string& name() const
   {
     return name_;
   }
 
-  const std::string& Definition() const
+  const std::string& definition() const
   {
     return defn_;
   }
@@ -43,6 +44,6 @@ private:
   const std::string defn_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* B53E618A_F2E7_4C5F_A58E_4C1065A96113 */

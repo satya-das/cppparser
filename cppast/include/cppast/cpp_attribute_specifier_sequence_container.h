@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-namespace CppAst {
+namespace cppast {
 
 class CppExpr;
 
@@ -32,6 +32,6 @@ private:
   CppAttributeSpecifierSequence attribSpecifierSequence_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* AE601D96_EAA0_4A9D_BE7C_7370B42C091B */

@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppLabel : public CppEntity
 {
@@ -33,6 +33,6 @@ private:
   const std::string label_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* E30E46D8_977F_4095_AFE4_B7D72CFA8703 */

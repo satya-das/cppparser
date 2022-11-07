@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppPreprocessorPragma : public CppEntity
 {
@@ -23,7 +23,8 @@ public:
   {
   }
 
-  const std::string& Definition() const
+public:
+  const std::string& definition() const
   {
     return defn_;
   }
@@ -32,6 +33,6 @@ private:
   const std::string defn_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* C10B82DE_558A_4D4C_B66A_2881DCFFCD3F */

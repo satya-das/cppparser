@@ -8,7 +8,7 @@
 
 #include <optional>
 
-namespace CppAst {
+namespace cppast {
 
 class CppTemplateParam;
 using CppTemplateParams = std::vector<CppTemplateParam>;
@@ -31,6 +31,6 @@ private:
   std::optional<CppTemplateParams> templateSpec_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* D94591D6_2473_4804_A403_3EF86D03DD28 */

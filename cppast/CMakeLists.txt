@@ -1,12 +1,3 @@
-cmake_minimum_required(VERSION 3.4)
-
-project(CppAst)
-
-set(CMAKE_CXX_STANDARD 17)
-
-#############################################
-## cppast
-
 set(CPP_AST_SOURCES
   src/cppast.cpp
   src/cpp_attribute_specifier_sequence_container.cpp

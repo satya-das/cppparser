@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppPreprocessorError : public CppEntity
 {
@@ -23,7 +23,8 @@ public:
   {
   }
 
-  const std::string& Error() const
+public:
+  const std::string& error() const
   {
     return err_;
   }
@@ -32,6 +33,6 @@ private:
   const std::string err_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* DC791634_A5B8_43D9_AEAB_43092F1830EE */

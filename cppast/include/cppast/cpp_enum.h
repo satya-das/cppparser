@@ -11,7 +11,7 @@
 #include <memory>
 #include <string>
 
-namespace CppAst {
+namespace cppast {
 
 class CppEntity;
 class CppExpr;
@@ -46,8 +46,8 @@ public:
   }
 
 private:
-  const std::string                name_;
-  const std::unique_ptr<CppEntity> val_;
+  std::string                name_;
+  std::unique_ptr<CppEntity> val_;
 };
 
 class CppEnum : public CppEntity
@@ -99,6 +99,6 @@ private:
   const std::string            underlyingType_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* F8BEE2E4_A22C_446D_9225_A5B383798075 */

@@ -6,7 +6,7 @@
 
 #include <cstdint>
 
-namespace CppAst {
+namespace cppast {
 
 // TODO: adhere to new coding style
 enum /*class*/ CppOperator : std::uint8_t
@@ -82,6 +82,6 @@ enum /*class*/ CppOperator : std::uint8_t
   kTertiaryOperator,
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* E96F855A_0EF2_4779_9DE7_52A363D667ED */

@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 /**
  * @brief A stream of text that represents some content in a C++ program.
@@ -32,6 +32,6 @@ private:
   std::string blob_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* C5550546_B6DB_4E84_BDAF_2F464ECB56A2 */

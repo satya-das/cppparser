@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 enum class CppMacroDefinitionType
 {
@@ -37,7 +37,7 @@ public:
   {
   }
 
-  CppMacroDefinitionType DefinitionType() const
+  CppMacroDefinitionType definitionType() const
   {
     return defType_;
   }
@@ -47,7 +47,7 @@ public:
     return name_;
   }
 
-  const std::string& Definition() const
+  const std::string& definition() const
   {
     return defn_;
   }
@@ -58,6 +58,6 @@ private:
   const std::string            defn_; ///< This will contain everything after name.
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* BE744AC2_52B3_46C4_A40D_9DB23E75A1F2 */

@@ -9,7 +9,7 @@
 #include "cppast/cppast.h"
 #include "cppast/cppconst.h"
 
-namespace CppAst {
+namespace cppast {
 
 inline CppAccessType defaultAccessType(CppCompoundType type)
 {
@@ -26,6 +26,6 @@ inline CppAccessType resolveInheritanceType(CppAccessType inheritanceType, CppCo
   return (inheritanceType != CppAccessType::UNSPECIFIED) ? inheritanceType : defaultAccessType(type);
 }
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* C1DD4A12_AE7D_412D_BB5C_D180EAABE992 */

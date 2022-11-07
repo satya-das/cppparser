@@ -12,9 +12,7 @@
 
 #include <list>
 
-// TODO: Tidy up files from this one and below in sorted list.
-
-namespace CppAst {
+namespace cppast {
 
 class CppExpr;
 class CppBlob;
@@ -176,7 +174,7 @@ private:
   const std::unique_ptr<CppVarType> retType_;
 };
 
-class CppLambda
+class CppLambda : public CppEntity
 {
 public:
   static constexpr auto EntityType()
@@ -256,43 +254,23 @@ private:
  * Class data member initialization as part of
  * class constructor.
  */
-using CppMemInit = std::pair<std::string, CppExpr*>;
+struct CppMemberInit
+{
+  std::string              memberName;
+  std::unique_ptr<CppExpr> memberInitExpr;
+};
 
 /**
  * Entire member initialization list.
+ *
+ * @note only one field is used at a time.
  */
-class CppMemInits
+struct CppMemberInits
 {
-public:
-  bool memInitListIsABlob_;
-  union
-  {
-    std::list<CppMemInit>* memInitList;
-    CppBlob*               blob;
-  };
+  std::list<CppMemberInit> memInitList;
+  /// If not null then the entire member initialization part of constructor is just a blob of code.
+  std::unique_ptr<CppBlob> blob;
 };
-
-inline CppMemInits makeEmptyCppMemInitList()
-{
-  return CppMemInits {false, {nullptr}};
-}
-
-inline CppMemInits makeCppMemInitList(std::list<CppMemInit>* memInitList)
-{
-  CppMemInits memInits = makeEmptyCppMemInitList();
-  memInits.memInitList = memInitList;
-
-  return memInits;
-}
-
-inline CppMemInits makeCppMemInitList(CppBlob* blob)
-{
-  CppMemInits memInits         = makeEmptyCppMemInitList();
-  memInits.memInitListIsABlob_ = true;
-  memInits.blob                = blob;
-
-  return memInits;
-}
 
 class CppConstructor : public CppFuncCtorBase
 {
@@ -303,13 +281,30 @@ public:
   }
 
 public:
-  CppMemInits memInits_;
-
-  CppConstructor(std::string                              name,
-                 std::vector<std::unique_ptr<CppEntity>>* params,
-                 CppMemInits                              memInitList,
-                 std::uint32_t                            attr);
+  CppConstructor(std::string                             name,
+                 std::vector<std::unique_ptr<CppEntity>> params,
+                 CppMemberInits                          memInitList,
+                 std::uint32_t                           attr);
   ~CppConstructor() override;
+
+public:
+  bool hasMemberInitList() const
+  {
+    return !memInits_.memInitList.empty() || memInits_.blob.get();
+  }
+
+  void memberInits(CppMemberInits memInits)
+  {
+    memInits_ = std::move(memInits);
+  }
+
+  const CppMemberInits& memberInits() const
+  {
+    return memInits_;
+  }
+
+private:
+  CppMemberInits memInits_;
 };
 
 class CppDestructor : public CppFunctionBase
@@ -336,15 +331,22 @@ public:
   }
 
 public:
-  const std::unique_ptr<CppVarType> to_;
-
   CppTypeConverter(CppVarType* type, std::string name)
     : CppFunctionBase(EntityType(), std::move(name), 0)
-    , to_(type)
+    , targetType_(type)
   {
   }
+
+public:
+  const CppVarType* targetType() const
+  {
+    return targetType_.get();
+  }
+
+private:
+  const std::unique_ptr<CppVarType> targetType_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* D6B4396A_776A_46E6_97BD_3EA2B04625F9 */

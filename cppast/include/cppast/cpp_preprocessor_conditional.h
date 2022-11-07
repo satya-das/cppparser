@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 enum class PreprocessorConditionalType
 {
@@ -33,14 +33,15 @@ public:
   }
 
 public:
-  CppPreprocessorConditional(PreprocessorConditionalType condType, std::string cond)
+  CppPreprocessorConditional(PreprocessorConditionalType condType, std::string cond = std::string())
     : CppEntity(EntityType())
     , condType_(condType)
     , cond_(std::move(cond))
   {
   }
 
-  PreprocessorConditionalType ConditionalType() const
+public:
+  PreprocessorConditionalType conditionalType() const
   {
     return condType_;
   }
@@ -55,6 +56,6 @@ private:
   const std::string                 cond_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* A21B28DB_1536_49E8_B573_458C95560210 */

@@ -8,7 +8,7 @@
 #include "cppast/cpp_entity.h"
 #include "cppast/cpp_templatable_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppForwardClassDecl : public CppEntity, public CppTemplatableEntity
 {
@@ -65,6 +65,6 @@ private:
   std::uint32_t         attr_ {0};
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* A69CD04B_3287_4606_9871_35F46730C08F */

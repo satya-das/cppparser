@@ -3,7 +3,7 @@
 
 #include "cppast/cpp_enum.h"
 
-namespace CppAst {
+namespace cppast {
 
 CppEnumItem::CppEnumItem(std::string name, std::unique_ptr<CppExpr> val)
   : name_(std::move(name))
@@ -16,4 +16,4 @@ CppEnumItem::CppEnumItem(std::unique_ptr<CppEntity> anyItem)
 {
 }
 
-} // namespace CppAst
+} // namespace cppast

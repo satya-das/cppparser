@@ -7,6 +7,8 @@
 #include <cstdint>
 #include <ostream>
 
+namespace cpp_codegen {
+
 /**
  * @brief Helper class to manage indentation while writing C++ file from AST.
  */
@@ -93,5 +95,7 @@ public:
     return newIndent;
   }
 };
+
+} // namespace cpp_codegen
 
 #endif /* B9B4B822_F222_4FB9_98EC_C3C7C3B922EA */

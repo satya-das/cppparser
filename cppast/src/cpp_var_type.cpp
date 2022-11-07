@@ -3,9 +3,8 @@
 
 #include "cppast/cpp_var_type.h"
 #include "cppast/cpp_compound.h"
-#include "string_utils.h"
 
-namespace CppAst {
+namespace cppast {
 
 CppVarType::CppVarType(std::string baseType, CppTypeModifier modifier)
   : CppVarType(std::move(baseType), 0, modifier)
@@ -41,10 +40,10 @@ CppVarType::CppVarType(const CppVarType& varType)
 
 CppVarType::CppVarType(std::string baseType, std::uint32_t typeAttr, CppTypeModifier modifier)
   : CppEntity(EntityType())
-  , baseType_(cleanseIdentifier(baseType))
+  , baseType_(std::move(baseType))
   , typeModifier_(modifier)
   , typeAttr_(typeAttr)
 {
 }
 
-} // namespace CppAst
+} // namespace cppast

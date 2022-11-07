@@ -9,7 +9,7 @@
 
 #include <cstring>
 
-namespace CppAst {
+namespace cppast {
 
 inline std::uint8_t ptrLevel(const CppVarType& varType)
 {
@@ -39,7 +39,7 @@ inline std::uint8_t effectivePtrLevel(const CppVarType& varType)
       case CppRefType::BY_REF:
       case CppRefType::RVAL_REF:
         return 1;
-      case CppRefType::NONE:
+      case CppRefType::NO_REF:
         break;
     }
     return 0;
@@ -63,7 +63,7 @@ inline bool usesTemplateType(const std::string& varTypeName)
 
 inline bool isVoid(const CppVarType& varType)
 {
-  if (varType.typeModifier().ptrLevel_ != 0 || varType.typeModifier().refType_ != CppRefType::NONE)
+  if (varType.typeModifier().ptrLevel_ != 0 || varType.typeModifier().refType_ != CppRefType::NO_REF)
     return false;
   // return (varType.baseType().compare("void") == 0);
   // Above simple check fails to detect cases like usage of GrGLvoid
@@ -109,7 +109,7 @@ inline bool isConst(const std::unique_ptr<CppVarType>& varType)
 
 inline bool isByValue(const CppVarType& varType)
 {
-  return !isVoid(varType) && (varType.typeModifier().refType_ == CppRefType::NONE)
+  return !isVoid(varType) && (varType.typeModifier().refType_ == CppRefType::NO_REF)
          && (varType.typeModifier().ptrLevel_ == 0);
 }
 
@@ -198,6 +198,6 @@ inline bool isByValue(const std::unique_ptr<CppVar>& var)
   return isByValue(*var);
 }
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* CDAA666A_2ABB_4001_A29C_52422A76A808 */

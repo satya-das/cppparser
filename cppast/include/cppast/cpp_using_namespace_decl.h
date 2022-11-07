@@ -6,7 +6,7 @@
 
 #include "cppast/cpp_entity.h"
 
-namespace CppAst {
+namespace cppast {
 
 class CppUsingNamespaceDecl : public CppEntity
 {
@@ -17,15 +17,22 @@ public:
   }
 
 public:
-  const std::string name_;
-
   CppUsingNamespaceDecl(std::string name)
     : CppEntity(EntityType())
     , name_(std::move(name))
   {
   }
+
+public:
+  const std::string& name() const
+  {
+    return name_;
+  }
+
+private:
+  const std::string name_;
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* C71015A9_4DC2_457C_9322_CB5C71E71649 */

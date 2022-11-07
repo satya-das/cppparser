@@ -3,7 +3,7 @@
 
 #include "cppast/cpp_blob.h"
 
-namespace CppAst {
+namespace cppast {
 
 namespace {
 
@@ -43,4 +43,4 @@ CppBlob::CppBlob(std::string blob)
 {
 }
 
-} // namespace CppAst
+} // namespace cppast

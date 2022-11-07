@@ -7,7 +7,7 @@
 #include "cppast/cpp_compound.h"
 #include "defs.h"
 
-namespace CppAst {
+namespace cppast {
 
 /**
  * @brief Get the vector of specific type of owned entities.
@@ -43,6 +43,6 @@ inline std::vector<const CppEntity*> GetAllOwnedEntities(const CppCompound& owne
   return result;
 }
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* A00E589B_6B8A_49DC_8718_C511FCDE46CB */

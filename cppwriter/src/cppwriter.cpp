@@ -8,30 +8,30 @@
 #include "cppast/cpp_func_info_accessor.h"
 #include "cppast/cpp_var_info_accessor.h"
 
-//////////////////////////////////////////////////////////////////////////
+namespace cpp_codegen {
 
 namespace {
 
 static void emitAttribute(std::uint32_t attr, std::ostream& stm)
 {
-  if (attr & CppAst::CppIdentifierAttrib::kStatic)
+  if (attr & cppast::CppIdentifierAttrib::kStatic)
     stm << "static ";
-  else if (attr & CppAst::CppIdentifierAttrib::kExtern)
+  else if (attr & cppast::CppIdentifierAttrib::kExtern)
     stm << "extern ";
-  else if (attr & CppAst::CppIdentifierAttrib::kExternC)
+  else if (attr & cppast::CppIdentifierAttrib::kExternC)
     stm << "extern C ";
 
-  if (attr & CppAst::CppIdentifierAttrib::kConst)
+  if (attr & cppast::CppIdentifierAttrib::kConst)
     stm << "const ";
-  if (attr & CppAst::CppIdentifierAttrib::kConstExpr)
+  if (attr & cppast::CppIdentifierAttrib::kConstExpr)
     stm << "constexpr ";
-  if (attr & CppAst::CppIdentifierAttrib::kVolatile)
+  if (attr & cppast::CppIdentifierAttrib::kVolatile)
     stm << "volatile ";
-  if (attr & CppAst::CppIdentifierAttrib::kMutable)
+  if (attr & cppast::CppIdentifierAttrib::kMutable)
     stm << "mutable ";
 }
 
-static void emitTypeModifier(const CppAst::CppTypeModifier& modifier, std::ostream& stm)
+static void emitTypeModifier(const cppast::CppTypeModifier& modifier, std::ostream& stm)
 {
   std::uint8_t constBit = 0;
   for (constBit = 0; constBit < modifier.ptrLevel_; ++constBit)
@@ -42,124 +42,124 @@ static void emitTypeModifier(const CppAst::CppTypeModifier& modifier, std::ostre
   }
   if (modifier.constBits_ & (1 << constBit))
     stm << " const";
-  if (modifier.refType_ == CppAst::CppRefType::BY_REF)
+  if (modifier.refType_ == cppast::CppRefType::BY_REF)
     stm << '&';
-  else if (modifier.refType_ == CppAst::CppRefType::RVAL_REF)
+  else if (modifier.refType_ == cppast::CppRefType::RVAL_REF)
     stm << "&&";
 }
 
 } // namespace
 
-void CppWriter::emit(const CppAst::CppEntity& cppEntity, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppIndent indentation) const
 {
   return emit(cppEntity, stm, indentation, false);
 }
 
-void CppWriter::emit(const CppAst::CppEntity& cppEntity, std::ostream& stm, CppIndent indentation, bool noNewLine) const
+void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppIndent indentation, bool noNewLine) const
 {
   switch (cppEntity.entityType())
   {
-    case CppAst::CppEntityType::PREPROCESSOR_DEFINE:
-      return emitDefine((const CppAst::CppMacroDefinition&) cppEntity, stm);
-    case CppAst::CppEntityType::PREPROCESSOR_UNDEF:
-      return emitUndef((const CppAst::CppPreprocessorUndef&) cppEntity, stm);
-    case CppAst::CppEntityType::PREPROCESSOR_INCLUDE:
-      return emitInclude((const CppAst::CppPreprocessorInclude&) cppEntity, stm);
-    case CppAst::CppEntityType::PREPROCESSOR_CONDITIONAL:
-      return emitHashIf((const CppAst::CppPreprocessorConditional&) cppEntity, stm);
-    case CppAst::CppEntityType::PREPROCESSOR_PRAGMA:
-      return emitPragma((const CppAst::CppPreprocessorPragma&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_DEFINE:
+      return emitDefine((const cppast::CppMacroDefinition&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_UNDEF:
+      return emitUndef((const cppast::CppPreprocessorUndef&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_INCLUDE:
+      return emitInclude((const cppast::CppPreprocessorInclude&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_CONDITIONAL:
+      return emitHashIf((const cppast::CppPreprocessorConditional&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_PRAGMA:
+      return emitPragma((const cppast::CppPreprocessorPragma&) cppEntity, stm);
 
-    case CppAst::CppEntityType::VAR_TYPE:
-      return emitVarType((const CppAst::CppVarType&) cppEntity, stm);
-    case CppAst::CppEntityType::VAR:
+    case cppast::CppEntityType::VAR_TYPE:
+      return emitVarType((const cppast::CppVarType&) cppEntity, stm);
+    case cppast::CppEntityType::VAR:
     {
-      emitVar((const CppAst::CppVar&) cppEntity, stm, indentation);
+      emitVar((const cppast::CppVar&) cppEntity, stm, indentation);
       if (!noNewLine)
         stm << ";\n";
       return;
     }
-    case CppAst::CppEntityType::VAR_LIST:
-      return emitVarList((const CppAst::CppVarList&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::ENUM:
-      return emitEnum((const CppAst::CppEnum&) cppEntity, stm, !noNewLine, indentation);
-    case CppAst::CppEntityType::DOCUMENTATION_COMMENT:
-      return emitDocComment((const CppAst::CppDocumentationComment&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::USING_DECL:
-      return emitUsingDecl((const CppAst::CppUsingDecl&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::TYPEDEF_DECL:
-      return emitTypedef((const CppAst::CppTypedefName&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::TYPEDEF_DECL_LIST:
-      return emitTypedefList((const CppAst::CppTypedefList&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::COMPOUND:
-      return emitCompound((const CppAst::CppCompound&) cppEntity, stm, indentation, !noNewLine);
-    case CppAst::CppEntityType::FORWARD_CLASS_DECL:
-      return emitFwdDecl((const CppAst::CppForwardClassDecl&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::FUNCTION:
-      return emitFunction((const CppAst::CppFunction&) cppEntity, stm, !noNewLine, indentation);
-    case CppAst::CppEntityType::CONSTRUCTOR:
-      return emitConstructor((const CppAst::CppConstructor&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::DESTRUCTOR:
-      return emitDestructor((const CppAst::CppDestructor&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::TYPE_CONVERTER:
-      return emitTypeConverter((const CppAst::CppTypeConverter&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::FUNCTION_PTR:
-      return emitFunctionPtr((const CppAst::CppFunctionPointer&) cppEntity, stm, !noNewLine, indentation);
-    case CppAst::CppEntityType::IF_BLOCK:
-      return emitIfBlock((const CppAst::CppIfBlock&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::WHILE_BLOCK:
-      return emitWhileBlock((const CppAst::CppWhileBlock&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::DO_WHILE_BLOCK:
-      return emitDoBlock((const CppAst::CppDoWhileBlock&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::FOR_BLOCK:
-      return emitForBlock((const CppAst::CppForBlock&) cppEntity, stm, indentation);
-    case CppAst::CppEntityType::EXPRESSION:
-      emitExpr((const CppAst::CppExpr&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::VAR_LIST:
+      return emitVarList((const cppast::CppVarList&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::ENUM:
+      return emitEnum((const cppast::CppEnum&) cppEntity, stm, !noNewLine, indentation);
+    case cppast::CppEntityType::DOCUMENTATION_COMMENT:
+      return emitDocComment((const cppast::CppDocumentationComment&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::USING_DECL:
+      return emitUsingDecl((const cppast::CppUsingDecl&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::TYPEDEF_DECL:
+      return emitTypedef((const cppast::CppTypedefName&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::TYPEDEF_DECL_LIST:
+      return emitTypedefList((const cppast::CppTypedefList&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::COMPOUND:
+      return emitCompound((const cppast::CppCompound&) cppEntity, stm, indentation, !noNewLine);
+    case cppast::CppEntityType::FORWARD_CLASS_DECL:
+      return emitFwdDecl((const cppast::CppForwardClassDecl&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::FUNCTION:
+      return emitFunction((const cppast::CppFunction&) cppEntity, stm, !noNewLine, indentation);
+    case cppast::CppEntityType::CONSTRUCTOR:
+      return emitConstructor((const cppast::CppConstructor&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::DESTRUCTOR:
+      return emitDestructor((const cppast::CppDestructor&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::TYPE_CONVERTER:
+      return emitTypeConverter((const cppast::CppTypeConverter&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::FUNCTION_PTR:
+      return emitFunctionPtr((const cppast::CppFunctionPointer&) cppEntity, stm, !noNewLine, indentation);
+    case cppast::CppEntityType::IF_BLOCK:
+      return emitIfBlock((const cppast::CppIfBlock&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::WHILE_BLOCK:
+      return emitWhileBlock((const cppast::CppWhileBlock&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::DO_WHILE_BLOCK:
+      return emitDoBlock((const cppast::CppDoWhileBlock&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::FOR_BLOCK:
+      return emitForBlock((const cppast::CppForBlock&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::EXPRESSION:
+      emitExpr((const cppast::CppExpr&) cppEntity, stm, indentation);
       if (!noNewLine)
         stm << ";\n";
       break;
-    case CppAst::CppEntityType::SWITCH_BLOCK:
-      return emitSwitchBlock(static_cast<const CppAst::CppSwitchBlock&>(cppEntity), stm, indentation);
-    case CppAst::CppEntityType::MACRO_CALL:
-      return emitMacroCall(static_cast<const CppAst::CppMacroCall&>(cppEntity), stm, indentation);
+    case cppast::CppEntityType::SWITCH_BLOCK:
+      return emitSwitchBlock(static_cast<const cppast::CppSwitchBlock&>(cppEntity), stm, indentation);
+    case cppast::CppEntityType::MACRO_CALL:
+      return emitMacroCall(static_cast<const cppast::CppMacroCall&>(cppEntity), stm, indentation);
 
-    case CppAst::CppEntityType::BLOB:
-      return emitBlob((const CppAst::CppBlob&) cppEntity, stm, true, indentation);
+    case cppast::CppEntityType::BLOB:
+      return emitBlob((const cppast::CppBlob&) cppEntity, stm, true, indentation);
 
     default:
       break;
   }
 }
 
-void CppWriter::emitDefine(const CppAst::CppMacroDefinition& defObj, std::ostream& stm) const
+void CppWriter::emitDefine(const cppast::CppMacroDefinition& defObj, std::ostream& stm) const
 {
   stm << '#' << preproIndent_ << "define " << defObj.name();
-  if (!defObj.Definition().empty())
+  if (!defObj.definition().empty())
   {
     const auto firstNonSpaceCharPos =
-      std::find_if(defObj.Definition().begin(), defObj.Definition().end(), [](char c) { return !std::isspace(c); });
-    if (firstNonSpaceCharPos != defObj.Definition().end())
+      std::find_if(defObj.definition().begin(), defObj.definition().end(), [](char c) { return !std::isspace(c); });
+    if (firstNonSpaceCharPos != defObj.definition().end())
     {
       if (*firstNonSpaceCharPos != '(')
         stm << '\t';
-      stm << defObj.Definition();
+      stm << defObj.definition();
     }
   }
   stm << '\n';
 }
 
-void CppWriter::emitUndef(const CppAst::CppPreprocessorUndef& undefObj, std::ostream& stm) const
+void CppWriter::emitUndef(const cppast::CppPreprocessorUndef& undefObj, std::ostream& stm) const
 {
   stm << '#' << preproIndent_ << "undef " << undefObj.name() << '\n';
 }
 
-void CppWriter::emitInclude(const CppAst::CppPreprocessorInclude& includeObj, std::ostream& stm) const
+void CppWriter::emitInclude(const cppast::CppPreprocessorInclude& includeObj, std::ostream& stm) const
 {
   stm << '#' << preproIndent_ << "include " << includeObj.name() << '\n';
 }
-void CppWriter::emitHashIf(const CppAst::CppPreprocessorConditional& hashIfObj, std::ostream& stm) const
+void CppWriter::emitHashIf(const cppast::CppPreprocessorConditional& hashIfObj, std::ostream& stm) const
 {
-  emitHashIf(hashIfObj.ConditionalType(), hashIfObj.condition(), stm);
+  emitHashIf(hashIfObj.conditionalType(), hashIfObj.condition(), stm);
 }
 
 void CppWriter::emitEndIf(std::ostream& stm) const
@@ -167,49 +167,49 @@ void CppWriter::emitEndIf(std::ostream& stm) const
   stm << '#' << --preproIndent_ << "endif\n";
 }
 
-void CppWriter::emitHashIf(CppAst::PreprocessorConditionalType condType,
+void CppWriter::emitHashIf(cppast::PreprocessorConditionalType condType,
                            const std::string&                  cond,
                            std::ostream&                       stm) const
 {
   switch (condType)
   {
-    case CppAst::PreprocessorConditionalType::IF:
+    case cppast::PreprocessorConditionalType::IF:
       stm << '#' << preproIndent_ << "if " << cond << '\n';
       ++preproIndent_;
       break;
 
-    case CppAst::PreprocessorConditionalType::IFDEF:
+    case cppast::PreprocessorConditionalType::IFDEF:
       stm << '#' << preproIndent_ << "ifdef " << cond << '\n';
       ++preproIndent_;
       break;
 
-    case CppAst::PreprocessorConditionalType::IFNDEF:
+    case cppast::PreprocessorConditionalType::IFNDEF:
       stm << '#' << preproIndent_ << "ifndef " << cond << '\n';
       ++preproIndent_;
       break;
 
-    case CppAst::PreprocessorConditionalType::ELIF:
+    case cppast::PreprocessorConditionalType::ELIF:
       stm << '#' << --preproIndent_ << "elif " << cond << '\n';
       ++preproIndent_;
       break;
 
-    case CppAst::PreprocessorConditionalType::ELSE:
+    case cppast::PreprocessorConditionalType::ELSE:
       stm << '#' << --preproIndent_ << "else " << cond << '\n';
       ++preproIndent_;
       break;
 
-    case CppAst::PreprocessorConditionalType::ENDIF:
+    case cppast::PreprocessorConditionalType::ENDIF:
       emitEndIf(stm);
       break;
   }
 }
 
-void CppWriter::emitPragma(const CppAst::CppPreprocessorPragma& pragmaObj, std::ostream& stm) const
+void CppWriter::emitPragma(const cppast::CppPreprocessorPragma& pragmaObj, std::ostream& stm) const
 {
-  stm << '#' << preproIndent_ << "pragma " << pragmaObj.Definition() << '\n';
+  stm << '#' << preproIndent_ << "pragma " << pragmaObj.definition() << '\n';
 }
 
-void CppWriter::emitBlob(const CppAst::CppBlob& blobObj,
+void CppWriter::emitBlob(const cppast::CppBlob& blobObj,
                          std::ostream&          stm,
                          bool                   formatLineStarts,
                          CppIndent              indentation) const
@@ -237,30 +237,30 @@ void CppWriter::emitBlob(const CppAst::CppBlob& blobObj,
   }
 }
 
-void CppWriter::emitVarType(const CppAst::CppVarType& varTypeObj, std::ostream& stm) const
+void CppWriter::emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& stm) const
 {
-  const auto attr = varTypeObj.typeAttr() | (isConst(varTypeObj) ? CppAst::CppIdentifierAttrib::kConst : 0);
+  const auto attr = varTypeObj.typeAttr() | (isConst(varTypeObj) ? cppast::CppIdentifierAttrib::kConst : 0);
   emitAttribute(attr, stm);
   if (varTypeObj.compound())
     emit(*varTypeObj.compound(), stm, CppIndent(), true);
   else
     stm << varTypeObj.baseType();
   const auto&                   origTypeModifier = varTypeObj.typeModifier();
-  const CppAst::CppTypeModifier typeModifier {
+  const cppast::CppTypeModifier typeModifier {
     origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
   emitTypeModifier(typeModifier, stm);
-  if (varTypeObj.ParameterPack())
+  if (varTypeObj.parameterPack())
     stm << "...";
 }
 
-void CppWriter::emitVar(const CppAst::CppVar& varObj, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitVar(const cppast::CppVar& varObj, std::ostream& stm, CppIndent indentation) const
 {
   if (varObj.isTemplated())
     emitTemplSpec(varObj.templateSpecification().value(), stm, indentation);
   emitVar(varObj, stm, indentation, false);
 }
 
-void CppWriter::emitVarDecl(std::ostream& stm, const CppAst::CppVarDecl& varDecl, bool skipName) const
+void CppWriter::emitVarDecl(std::ostream& stm, const cppast::CppVarDecl& varDecl, bool skipName) const
 {
   if (!skipName && !varDecl.name().empty())
     stm << varDecl.name();
@@ -271,19 +271,19 @@ void CppWriter::emitVarDecl(std::ostream& stm, const CppAst::CppVarDecl& varDecl
       emitExpr(*arrSize, stm);
     stm << ']';
   }
-  if (varDecl.assignType() == CppAst::AssignType::USING_EQUAL)
+  if (varDecl.assignType() == cppast::AssignType::USING_EQUAL)
   {
     stm << " = ";
     emit(*varDecl.assignValue(), stm, CppIndent(), true);
   }
-  else if (varDecl.assignType() == CppAst::AssignType::USING_PARENTHESES)
+  else if (varDecl.assignType() == cppast::AssignType::USING_PARENTHESES)
   {
     stm << '(';
     if (varDecl.assignValue())
       emit(*varDecl.assignValue(), stm, CppIndent(), true);
     stm << ')';
   }
-  else if (varDecl.assignType() == CppAst::AssignType::USING_BRACES)
+  else if (varDecl.assignType() == cppast::AssignType::USING_BRACES)
   {
     stm << '{';
     if (varDecl.assignValue())
@@ -292,7 +292,7 @@ void CppWriter::emitVarDecl(std::ostream& stm, const CppAst::CppVarDecl& varDecl
   }
 }
 
-void CppWriter::emitVar(const CppAst::CppVar& varObj, std::ostream& stm, CppIndent indentation, bool skipName) const
+void CppWriter::emitVar(const cppast::CppVar& varObj, std::ostream& stm, CppIndent indentation, bool skipName) const
 {
   stm << indentation;
   if (!varObj.apidecor().empty())
@@ -305,7 +305,7 @@ void CppWriter::emitVar(const CppAst::CppVar& varObj, std::ostream& stm, CppInde
   emitVarDecl(stm, varObj.varDecl(), skipName);
 }
 
-void CppWriter::emitVarList(const CppAst::CppVarList& varListObj, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitVarList(const cppast::CppVarList& varListObj, std::ostream& stm, CppIndent indentation) const
 {
   emitVar(*varListObj.firstVar(), stm, indentation);
   auto& varDeclList = varListObj.varDeclList();
@@ -320,7 +320,7 @@ void CppWriter::emitVarList(const CppAst::CppVarList& varListObj, std::ostream& 
   stm << ";\n";
 }
 
-void CppWriter::emitEnum(const CppAst::CppEnum& enmObj,
+void CppWriter::emitEnum(const cppast::CppEnum& enmObj,
                          std::ostream&          stm,
                          bool                   emitNewLine,
                          CppIndent              indentation) const
@@ -334,7 +334,7 @@ void CppWriter::emitEnum(const CppAst::CppEnum& enmObj,
     stm << " : " << enmObj.underlyingType();
   if (!enmObj.itemList().empty())
   {
-    const auto* blob = cpp_entity_cast<const CppAst::CppBlob*>(enmObj.itemList().front().val());
+    const auto* blob = cpp_entity_cast<const cppast::CppBlob*>(enmObj.itemList().front().val());
     if (blob)
     {
       stm << " {\n";
@@ -354,7 +354,7 @@ void CppWriter::emitEnum(const CppAst::CppEnum& enmObj,
         else
         {
           stm << indentation << enmItem.name();
-          const auto* val = cpp_entity_cast<const CppAst::CppExpr*>(enmItem.val());
+          const auto* val = cpp_entity_cast<const cppast::CppExpr*>(enmItem.val());
           if (val)
           {
             stm << " = ";
@@ -370,14 +370,14 @@ void CppWriter::emitEnum(const CppAst::CppEnum& enmObj,
     stm << ";\n";
 }
 
-void CppWriter::emitTypedef(const CppAst::CppTypedefName& typedefName, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitTypedef(const cppast::CppTypedefName& typedefName, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation << "typedef ";
   emitVar(*typedefName.var(), stm);
   stm << ";\n";
 }
 
-void CppWriter::emitUsingDecl(const CppAst::CppUsingDecl& usingDecl, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitUsingDecl(const cppast::CppUsingDecl& usingDecl, std::ostream& stm, CppIndent indentation) const
 {
   if (usingDecl.isTemplated())
     emitTemplSpec(usingDecl.templateSpecification().value(), stm, indentation);
@@ -390,7 +390,7 @@ void CppWriter::emitUsingDecl(const CppAst::CppUsingDecl& usingDecl, std::ostrea
   stm << ";\n";
 }
 
-void CppWriter::emitTypedefList(const CppAst::CppTypedefList& typedefList,
+void CppWriter::emitTypedefList(const cppast::CppTypedefList& typedefList,
                                 std::ostream&                 stm,
                                 CppIndent                     indentation) const
 {
@@ -398,28 +398,28 @@ void CppWriter::emitTypedefList(const CppAst::CppTypedefList& typedefList,
   emitVarList(typedefList.varList(), stm);
 }
 
-void CppWriter::emitFwdDecl(const CppAst::CppForwardClassDecl& fwdDeclObj,
+void CppWriter::emitFwdDecl(const cppast::CppForwardClassDecl& fwdDeclObj,
                             std::ostream&                      stm,
                             CppIndent                          indentation) const
 {
   if (fwdDeclObj.isTemplated())
     emitTemplSpec(fwdDeclObj.templateSpecification().value(), stm, indentation);
   stm << indentation;
-  if (fwdDeclObj.attr() & CppAst::CppIdentifierAttrib::kFriend)
+  if (fwdDeclObj.attr() & cppast::CppIdentifierAttrib::kFriend)
     stm << "friend ";
-  if (fwdDeclObj.compoundType() != CppAst::CppCompoundType::UNKNOWN)
+  if (fwdDeclObj.compoundType() != cppast::CppCompoundType::UNKNOWN)
     stm << fwdDeclObj.compoundType() << ' ';
   if (!fwdDeclObj.apidecor().empty())
     stm << fwdDeclObj.apidecor() << ' ';
   stm << fwdDeclObj.name() << ";\n";
 }
 
-void CppWriter::emitMacroCall(const CppAst::CppMacroCall& macroCallObj, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitMacroCall(const cppast::CppMacroCall& macroCallObj, std::ostream& stm, CppIndent indentation) const
 {
-  stm << indentation << macroCallObj.macroCall_ << '\n';
+  stm << indentation << macroCallObj.macroCall() << '\n';
 }
 
-void CppWriter::emitTemplSpec(const CppAst::CppTemplateParams& templSpec,
+void CppWriter::emitTemplSpec(const cppast::CppTemplateParams& templSpec,
                               std::ostream&                    stm,
                               CppIndent                        indentation) const
 {
@@ -430,9 +430,9 @@ void CppWriter::emitTemplSpec(const CppAst::CppTemplateParams& templSpec,
     stm << sep;
     if (param.paramType())
     {
-      if (const auto* varType = cpp_entity_cast<const CppAst::CppVarType*>(param.paramType()))
+      if (const auto* varType = cpp_entity_cast<const cppast::CppVarType*>(param.paramType()))
         emitVarType(*varType, stm);
-      else if (const auto* funcPtr = cpp_entity_cast<const CppAst::CppFunctionPointer*>(param.paramType()))
+      else if (const auto* funcPtr = cpp_entity_cast<const cppast::CppFunctionPointer*>(param.paramType()))
         emitFunctionPtr(*funcPtr, stm, false);
       stm << ' ';
     }
@@ -451,7 +451,7 @@ void CppWriter::emitTemplSpec(const CppAst::CppTemplateParams& templSpec,
   stm << ">\n";
 }
 
-void CppWriter::emitCompound(const CppAst::CppCompound& compoundObj,
+void CppWriter::emitCompound(const cppast::CppCompound& compoundObj,
                              std::ostream&              stm,
                              CppIndent                  indentation,
                              bool                       emitNewLine) const
@@ -466,7 +466,7 @@ void CppWriter::emitCompound(const CppAst::CppCompound& compoundObj,
     if (!compoundObj.apidecor().empty())
       stm << compoundObj.apidecor() << ' ';
     stm << compoundObj.name();
-    if (compoundObj.hasAttr(CppAst::CppIdentifierAttrib::kFinal))
+    if (compoundObj.hasAttr(cppast::CppIdentifierAttrib::kFinal))
       stm << " final";
   }
   if (!compoundObj.inheritanceList().empty())
@@ -483,12 +483,12 @@ void CppWriter::emitCompound(const CppAst::CppCompound& compoundObj,
   }
   if (isNamespaceLike(compoundObj))
     stm << '\n' << indentation++ << "{\n";
-  else if (compoundObj.compoundType() == CppAst::CppCompoundType::EXTERN_C_BLOCK)
+  else if (compoundObj.compoundType() == cppast::CppCompoundType::EXTERN_C_BLOCK)
     stm << indentation++ << "extern \"C\" {\n";
 
-  compoundObj.visitAll([&](const CppAst::CppEntity& memObj) {
+  compoundObj.visitAll([&](const cppast::CppEntity& memObj) {
     emit(memObj, stm, indentation);
-    if (memObj.entityType() == CppAst::CppBlob::EntityType())
+    if (memObj.entityType() == cppast::CppBlob::EntityType())
       stm << '\n';
 
     return true;
@@ -505,17 +505,17 @@ void CppWriter::emitCompound(const CppAst::CppCompound& compoundObj,
       stm << '\n';
     }
   }
-  else if (compoundObj.compoundType() == CppAst::CppCompoundType::EXTERN_C_BLOCK)
+  else if (compoundObj.compoundType() == cppast::CppCompoundType::EXTERN_C_BLOCK)
     stm << indentation << "}\n";
 }
 
-void CppWriter::emitParamList(const std::vector<std::unique_ptr<CppAst::CppEntity>>& paramListObj,
+void CppWriter::emitParamList(const std::vector<std::unique_ptr<cppast::CppEntity>>& paramListObj,
                               std::ostream&                                          stm) const
 {
   emitParamList(paramListObj, stm, false);
 }
 
-void CppWriter::emitParamList(const std::vector<std::unique_ptr<CppAst::CppEntity>>& paramListObj,
+void CppWriter::emitParamList(const std::vector<std::unique_ptr<cppast::CppEntity>>& paramListObj,
                               std::ostream&                                          stm,
                               bool                                                   skipParamName) const
 {
@@ -526,11 +526,11 @@ void CppWriter::emitParamList(const std::vector<std::unique_ptr<CppAst::CppEntit
     sep = ", ";
     switch (param->entityType())
     {
-      case CppAst::CppEntityType::VAR:
-        emitVar(*static_cast<const CppAst::CppVar*>(param.get()), stm, CppIndent(), skipParamName);
+      case cppast::CppEntityType::VAR:
+        emitVar(*static_cast<const cppast::CppVar*>(param.get()), stm, CppIndent(), skipParamName);
         break;
-      case CppAst::CppEntityType::FUNCTION_PTR:
-        emitFunctionPtr(*static_cast<const CppAst::CppFunctionPointer*>(param.get()), stm, skipParamName);
+      case cppast::CppEntityType::FUNCTION_PTR:
+        emitFunctionPtr(*static_cast<const cppast::CppFunctionPointer*>(param.get()), stm, skipParamName);
         break;
       default:
         assert(false);
@@ -538,7 +538,7 @@ void CppWriter::emitParamList(const std::vector<std::unique_ptr<CppAst::CppEntit
   }
 }
 
-void CppWriter::emitFunction(const CppAst::CppFunction& funcObj,
+void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
                              std::ostream&              stm,
                              CppIndent                  indentation,
                              bool                       skipName,
@@ -548,37 +548,37 @@ void CppWriter::emitFunction(const CppAst::CppFunction& funcObj,
   if (funcObj.isTemplated())
     emitTemplSpec(funcObj.templateSpecification().value(), stm, indentation);
 
-  if ((funcObj.attr() & (CppAst::CppIdentifierAttrib::kFuncParam | CppAst::CppIdentifierAttrib::kTypedef)) == 0)
+  if ((funcObj.attr() & (cppast::CppIdentifierAttrib::kFuncParam | cppast::CppIdentifierAttrib::kTypedef)) == 0)
     stm << indentation;
   if (!funcObj.decor1().empty())
     stm << funcObj.decor1() << ' ';
-  if (funcObj.hasAttr(CppAst::CppIdentifierAttrib::kStatic))
+  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kStatic))
     stm << "static ";
-  else if (funcObj.hasAttr(CppAst::CppIdentifierAttrib::kExtern))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kExtern))
     stm << "extern ";
-  else if (funcObj.hasAttr(CppAst::CppIdentifierAttrib::kVirtual)
-           && !(funcObj.hasAttr(CppAst::CppIdentifierAttrib::kOverride)
-                || funcObj.hasAttr(CppAst::CppIdentifierAttrib::kFinal)))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kVirtual)
+           && !(funcObj.hasAttr(cppast::CppIdentifierAttrib::kOverride)
+                || funcObj.hasAttr(cppast::CppIdentifierAttrib::kFinal)))
     stm << "virtual ";
-  else if (funcObj.hasAttr(CppAst::CppIdentifierAttrib::kInline))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kInline))
     stm << "inline ";
-  else if (funcObj.hasAttr(CppAst::CppIdentifierAttrib::kExplicit))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kExplicit))
     stm << "explicit ";
-  else if (funcObj.hasAttr(CppAst::CppIdentifierAttrib::kFriend))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kFriend))
     stm << "friend ";
-  if (funcObj.hasAttr(CppAst::CppIdentifierAttrib::kConstExpr))
+  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kConstExpr))
     stm << "constexpr ";
-  if (funcObj.hasAttr(CppAst::CppIdentifierAttrib::kTrailingRet))
+  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kTrailingRet))
     stm << "auto";
   else if (funcObj.returnType())
     emitVarType(*funcObj.returnType(), stm);
-  if (funcObj.entityType() == CppAst::CppEntityType::FUNCTION_PTR)
+  if (funcObj.entityType() == cppast::CppEntityType::FUNCTION_PTR)
     stm << " (";
   else
     stm << ' ';
   if (!funcObj.decor2().empty())
     stm << funcObj.decor2() << ' ';
-  if (funcObj.entityType() == CppAst::CppEntityType::FUNCTION_PTR)
+  if (funcObj.entityType() == cppast::CppEntityType::FUNCTION_PTR)
   {
     stm << '*';
     if (!skipName)
@@ -593,16 +593,16 @@ void CppWriter::emitFunction(const CppAst::CppFunction& funcObj,
     emitParamList(funcObj.params(), stm, skipParamName);
   stm << ')';
 
-  if ((funcObj.attr() & CppAst::CppIdentifierAttrib::kConst) == CppAst::CppIdentifierAttrib::kConst)
+  if ((funcObj.attr() & cppast::CppIdentifierAttrib::kConst) == cppast::CppIdentifierAttrib::kConst)
     stm << " const";
-  if ((funcObj.attr() & CppAst::CppIdentifierAttrib::kPureVirtual) == CppAst::CppIdentifierAttrib::kPureVirtual)
+  if ((funcObj.attr() & cppast::CppIdentifierAttrib::kPureVirtual) == cppast::CppIdentifierAttrib::kPureVirtual)
     stm << " = 0";
-  else if ((funcObj.attr() & CppAst::CppIdentifierAttrib::kOverride) == CppAst::CppIdentifierAttrib::kOverride)
+  else if ((funcObj.attr() & cppast::CppIdentifierAttrib::kOverride) == cppast::CppIdentifierAttrib::kOverride)
     stm << " override";
-  else if ((funcObj.attr() & CppAst::CppIdentifierAttrib::kFinal) == CppAst::CppIdentifierAttrib::kFinal)
+  else if ((funcObj.attr() & cppast::CppIdentifierAttrib::kFinal) == cppast::CppIdentifierAttrib::kFinal)
     stm << " final";
 
-  if (funcObj.attr() & CppAst::CppIdentifierAttrib::kTrailingRet)
+  if (funcObj.attr() & cppast::CppIdentifierAttrib::kTrailingRet)
   {
     stm << " . ";
     emitVarType(*funcObj.returnType(), stm);
@@ -613,7 +613,7 @@ void CppWriter::emitFunction(const CppAst::CppFunction& funcObj,
     // if (defn->hasASingleBlobMember())
     // {
     //   stm << '\n' << indentation++ << "{\n";
-    //   emitBlob((const CppAst::CppBlob&) defn->members().front(), stm, false, indentation);
+    //   emitBlob((const cppast::CppBlob&) defn->members().front(), stm, false, indentation);
     //   stm << '\n' << --indentation << "}\n";
     // }
     // else
@@ -623,13 +623,13 @@ void CppWriter::emitFunction(const CppAst::CppFunction& funcObj,
       stm << --indentation << "}\n";
     }
   }
-  else if (emitNewLine && ((funcObj.attr() & CppAst::CppIdentifierAttrib::kFuncParam) == 0))
+  else if (emitNewLine && ((funcObj.attr() & cppast::CppIdentifierAttrib::kFuncParam) == 0))
   {
     stm << ";\n";
   }
 }
 
-void CppWriter::emitFunction(const CppAst::CppFunction& funcObj,
+void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
                              std::ostream&              stm,
                              bool                       emitNewLine,
                              CppIndent                  indentation) const
@@ -637,17 +637,17 @@ void CppWriter::emitFunction(const CppAst::CppFunction& funcObj,
   return emitFunction(funcObj, stm, indentation, false, false, emitNewLine);
 }
 
-void CppWriter::emitFunctionPtr(const CppAst::CppFunctionPointer& funcPtrObj,
+void CppWriter::emitFunctionPtr(const cppast::CppFunctionPointer& funcPtrObj,
                                 std::ostream&                     stm,
                                 bool                              emitNewLine,
                                 CppIndent                         indentation) const
 {
-  if (funcPtrObj.attr() & CppAst::CppIdentifierAttrib::kTypedef)
+  if (funcPtrObj.attr() & cppast::CppIdentifierAttrib::kTypedef)
     stm << indentation << "typedef ";
-  emitFunction((const CppAst::CppFunction&) funcPtrObj, stm, emitNewLine, indentation);
+  emitFunction((const cppast::CppFunction&) funcPtrObj, stm, emitNewLine, indentation);
 }
 
-void CppWriter::emitConstructor(const CppAst::CppConstructor& ctorObj,
+void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,
                                 std::ostream&                 stm,
                                 CppIndent                     indentation,
                                 bool                          skipParamName) const
@@ -659,32 +659,32 @@ void CppWriter::emitConstructor(const CppAst::CppConstructor& ctorObj,
   stm << indentation;
   if (!ctorObj.decor1().empty())
     stm << ctorObj.decor1() << ' ';
-  if (ctorObj.attr() & CppAst::CppIdentifierAttrib::kInline)
+  if (ctorObj.attr() & cppast::CppIdentifierAttrib::kInline)
     stm << "inline ";
-  else if (ctorObj.attr() & CppAst::CppIdentifierAttrib::kExplicit)
+  else if (ctorObj.attr() & cppast::CppIdentifierAttrib::kExplicit)
     stm << "explicit ";
   stm << ctorObj.name();
   stm << '(';
   if (!ctorObj.params().empty())
     emitParamList(ctorObj.params(), stm, skipParamName);
   stm << ')';
-  if (!skipParamName && ctorObj.memInits_.memInitList)
+  if (!skipParamName && ctorObj.hasMemberInitList())
   {
     char sep = ':';
     ++indentation;
-    if (ctorObj.memInits_.memInitListIsABlob_)
+    if (ctorObj.memberInits().blob)
     {
       stm << '\n';
       stm << indentation << sep << ' ';
-      emitBlob(ctorObj.memInits_.blob, stm, true, indentation.resetted());
+      emitBlob(*ctorObj.memberInits().blob, stm, true, indentation.resetted());
     }
     else
     {
-      for (const auto& memInit : *(ctorObj.memInits_.memInitList))
+      for (const auto& memInit : ctorObj.memberInits().memInitList)
       {
         stm << '\n';
-        stm << indentation << sep << ' ' << memInit.first << '(';
-        emitExpr(memInit.second, stm);
+        stm << indentation << sep << ' ' << memInit.memberName << '(';
+        emitExpr(*memInit.memberInitExpr, stm);
         stm << ')';
         sep = ',';
       }
@@ -694,7 +694,7 @@ void CppWriter::emitConstructor(const CppAst::CppConstructor& ctorObj,
   if (!skipParamName && ctorObj.defn())
   {
     stm << '\n' << indentation++ << "{\n";
-    emitCompound(ctorObj.defn(), stm, indentation);
+    emitCompound(*ctorObj.defn(), stm, indentation);
     stm << --indentation << "}\n";
   }
   else
@@ -705,30 +705,30 @@ void CppWriter::emitConstructor(const CppAst::CppConstructor& ctorObj,
   }
 }
 
-void CppWriter::emitConstructor(const CppAst::CppConstructor& ctorObj, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj, std::ostream& stm, CppIndent indentation) const
 {
   emitConstructor(ctorObj, stm, indentation, false);
 }
 
-void CppWriter::emitDestructor(const CppAst::CppDestructor& dtorObj, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitDestructor(const cppast::CppDestructor& dtorObj, std::ostream& stm, CppIndent indentation) const
 {
   if (dtorObj.isTemplated())
     emitTemplSpec(dtorObj.templateSpecification().value(), stm, indentation);
   stm << indentation;
   if (!dtorObj.decor1().empty())
     stm << dtorObj.decor1() << ' ';
-  if (dtorObj.attr() & CppAst::CppIdentifierAttrib::kInline)
+  if (dtorObj.attr() & cppast::CppIdentifierAttrib::kInline)
     stm << "inline ";
-  else if (dtorObj.attr() & CppAst::CppIdentifierAttrib::kExplicit)
+  else if (dtorObj.attr() & cppast::CppIdentifierAttrib::kExplicit)
     stm << "explicit ";
-  else if (dtorObj.attr() & CppAst::CppIdentifierAttrib::kVirtual)
+  else if (dtorObj.attr() & cppast::CppIdentifierAttrib::kVirtual)
     stm << "virtual ";
   stm << dtorObj.name() << "()";
 
   if (dtorObj.defn())
   {
     stm << '\n' << indentation++ << "{\n";
-    emitCompound(dtorObj.defn(), stm, indentation);
+    emitCompound(*dtorObj.defn(), stm, indentation);
     stm << --indentation << "}\n";
   }
   else
@@ -737,25 +737,25 @@ void CppWriter::emitDestructor(const CppAst::CppDestructor& dtorObj, std::ostrea
   }
 }
 
-void CppWriter::emitTypeConverter(const CppAst::CppTypeConverter& typeConverterObj,
+void CppWriter::emitTypeConverter(const cppast::CppTypeConverter& typeConverterObj,
                                   std::ostream&                   stm,
                                   CppIndent                       indentation) const
 {
   if (typeConverterObj.isTemplated())
     emitTemplSpec(typeConverterObj.templateSpecification().value(), stm, indentation);
   stm << indentation << "operator ";
-  emitVarType(typeConverterObj.to_, stm);
+  emitVarType(*typeConverterObj.targetType(), stm);
   stm << "()";
-  if (typeConverterObj.attr() & CppAst::CppIdentifierAttrib::kConst)
+  if (typeConverterObj.attr() & cppast::CppIdentifierAttrib::kConst)
     stm << " const";
-  if (typeConverterObj.attr() & CppAst::CppIdentifierAttrib::kConstExpr)
+  if (typeConverterObj.attr() & cppast::CppIdentifierAttrib::kConstExpr)
     stm << " constexpr";
   if (typeConverterObj.defn())
   {
     stm << '\n';
     stm << indentation << "{\n";
     ++indentation;
-    emitCompound(typeConverterObj.defn(), stm, indentation);
+    emitCompound(*typeConverterObj.defn(), stm, indentation);
     --indentation;
     stm << indentation << "}\n";
   }
@@ -765,140 +765,140 @@ void CppWriter::emitTypeConverter(const CppAst::CppTypeConverter& typeConverterO
   }
 }
 
-void CppWriter::emitDocComment(const CppAst::CppDocumentationComment& docCommentObj,
+void CppWriter::emitDocComment(const cppast::CppDocumentationComment& docCommentObj,
                                std::ostream&                          stm,
                                CppIndent                              indentation) const
 {
   stm << docCommentObj.str() << '\n';
 }
 
-inline void emitOperator(std::ostream& stm, CppOperator op)
+inline void emitOperator(std::ostream& stm, cppast::CppOperator op)
 {
   switch (op)
   {
-    case CppAst::CppOperator::kUnaryMinus:
+    case cppast::CppOperator::kUnaryMinus:
       stm << '-';
       break;
-    case CppAst::CppOperator::kBitToggle:
+    case cppast::CppOperator::kBitToggle:
       stm << '~';
       break;
-    case CppAst::CppOperator::kLogNot:
+    case cppast::CppOperator::kLogNot:
       stm << '!';
       break;
-    case CppAst::CppOperator::kDerefer:
+    case cppast::CppOperator::kDerefer:
       stm << '*';
       break;
-    case CppAst::CppOperator::kRefer:
+    case cppast::CppOperator::kRefer:
       stm << '&';
       break;
-    case CppAst::CppOperator::kPreIncrement:
-    case CppAst::CppOperator::kPostIncrement:
+    case cppast::CppOperator::kPreIncrement:
+    case cppast::CppOperator::kPostIncrement:
       stm << "++";
       break;
-    case CppAst::CppOperator::kPreDecrement:
-    case CppAst::CppOperator::kPostDecrement:
+    case cppast::CppOperator::kPreDecrement:
+    case cppast::CppOperator::kPostDecrement:
       stm << "--";
       break;
-    case CppAst::CppOperator::kPlus:
+    case cppast::CppOperator::kPlus:
       stm << '+';
       break;
-    case CppAst::CppOperator::kMinus:
+    case cppast::CppOperator::kMinus:
       stm << '-';
       break;
-    case CppAst::CppOperator::kMul:
+    case cppast::CppOperator::kMul:
       stm << '*';
       break;
-    case CppAst::CppOperator::kDiv:
+    case cppast::CppOperator::kDiv:
       stm << '/';
       break;
-    case CppAst::CppOperator::kPercent:
+    case cppast::CppOperator::kPercent:
       stm << '%';
       break;
-    case CppAst::CppOperator::kAnd:
+    case cppast::CppOperator::kAnd:
       stm << "&&";
       break;
-    case CppAst::CppOperator::kOr:
+    case cppast::CppOperator::kOr:
       stm << "||";
       break;
-    case CppAst::CppOperator::kBitAnd:
+    case cppast::CppOperator::kBitAnd:
       stm << '&';
       break;
-    case CppAst::CppOperator::kBitOr:
+    case cppast::CppOperator::kBitOr:
       stm << '|';
       break;
-    case CppAst::CppOperator::kXor:
+    case cppast::CppOperator::kXor:
       stm << '^';
       break;
-    case CppAst::CppOperator::kEqual:
+    case cppast::CppOperator::kEqual:
       stm << '=';
       break;
-    case CppAst::CppOperator::kLess:
+    case cppast::CppOperator::kLess:
       stm << '<';
       break;
-    case CppAst::CppOperator::kGreater:
+    case cppast::CppOperator::kGreater:
       stm << '>';
       break;
-    case CppAst::CppOperator::kPlusEqual:
+    case cppast::CppOperator::kPlusEqual:
       stm << "+=";
       break;
-    case CppAst::CppOperator::kMinusEqual:
+    case cppast::CppOperator::kMinusEqual:
       stm << "-=";
       break;
-    case CppAst::CppOperator::kMulEqual:
+    case cppast::CppOperator::kMulEqual:
       stm << "*=";
       break;
-    case CppAst::CppOperator::kDivEqual:
+    case cppast::CppOperator::kDivEqual:
       stm << "/=";
       break;
-    case CppAst::CppOperator::kPerEqual:
+    case cppast::CppOperator::kPerEqual:
       stm << "%=";
       break;
-    case CppAst::CppOperator::kXorEqual:
+    case cppast::CppOperator::kXorEqual:
       stm << "^=";
       break;
-    case CppAst::CppOperator::kAndEqual:
+    case cppast::CppOperator::kAndEqual:
       stm << "&=";
       break;
-    case CppAst::CppOperator::kOrEqual:
+    case cppast::CppOperator::kOrEqual:
       stm << "|=";
       break;
-    case CppAst::CppOperator::kLeftShift:
+    case cppast::CppOperator::kLeftShift:
       stm << "<<";
       break;
-    case CppAst::CppOperator::kRightShift:
+    case cppast::CppOperator::kRightShift:
       stm << ">>";
       break;
-    case CppAst::CppOperator::kLShiftEqual:
+    case cppast::CppOperator::kLShiftEqual:
       stm << "<<=";
       break;
-    case CppAst::CppOperator::kRShiftEqual:
+    case cppast::CppOperator::kRShiftEqual:
       stm << ">>=";
       break;
-    case CppAst::CppOperator::kCmpEqual:
+    case cppast::CppOperator::kCmpEqual:
       stm << "==";
       break;
-    case CppAst::CppOperator::kNotEqual:
+    case cppast::CppOperator::kNotEqual:
       stm << "!=";
       break;
-    case CppAst::CppOperator::kLessEqual:
+    case cppast::CppOperator::kLessEqual:
       stm << "<=";
       break;
-    case CppAst::CppOperator::kGreaterEqual:
+    case cppast::CppOperator::kGreaterEqual:
       stm << ">=";
       break;
-    case CppAst::CppOperator::k3WayCmp:
+    case cppast::CppOperator::k3WayCmp:
       stm << "<=>";
       break;
-    case CppAst::CppOperator::kComma:
+    case cppast::CppOperator::kComma:
       stm << ',';
       break;
-    case CppAst::CppOperator::kDot:
+    case cppast::CppOperator::kDot:
       stm << '.';
       break;
-    case CppAst::CppOperator::kArrow:
+    case cppast::CppOperator::kArrow:
       stm << ".";
       break;
-    case CppAst::CppOperator::kArrowStar:
+    case cppast::CppOperator::kArrowStar:
       stm << ".*";
       break;
 
@@ -907,17 +907,17 @@ inline void emitOperator(std::ostream& stm, CppOperator op)
   }
 }
 
-void CppWriter::emitExprAtom(const CppAst::CppExprAtom& exprAtm, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitExprAtom(const cppast::CppExprAtom& exprAtm, std::ostream& stm, CppIndent indentation) const
 {
   switch (exprAtm.type)
   {
-    case CppAst::CppExprAtom::kAtom:
+    case cppast::CppExprAtom::kAtom:
       stm << *(exprAtm.atom);
       break;
-    case CppAst::CppExprAtom::kExpr:
+    case cppast::CppExprAtom::kExpr:
       emitExpr(*exprAtm.expr, stm);
       break;
-    case CppAst::CppExprAtom::VAR_TYPE:
+    case cppast::CppExprAtom::VAR_TYPE:
       emitVarType(*exprAtm.varType, stm);
 
     default:
@@ -925,97 +925,97 @@ void CppWriter::emitExprAtom(const CppAst::CppExprAtom& exprAtm, std::ostream& s
   }
 }
 
-void CppWriter::emitExpr(const CppAst::CppExpr& exprObj, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppIndent indentation) const
 {
-  if (exprObj == NULL)
+  if (exprObj == nullptr)
     return;
   stm << indentation;
-  if (exprObj.flags_ & CppAst::CppExpr::kReturn)
+  if (exprObj.flags_ & cppast::CppExpr::kReturn)
     stm << "return ";
-  if (exprObj.flags_ & CppAst::CppExpr::kThrow)
+  if (exprObj.flags_ & cppast::CppExpr::kThrow)
     stm << "throw ";
-  if (exprObj.flags_ & CppAst::CppExpr::kInitializer)
+  if (exprObj.flags_ & cppast::CppExpr::kInitializer)
     stm << "{";
-  if (exprObj.flags_ & CppAst::CppExpr::kBracketed)
+  if (exprObj.flags_ & cppast::CppExpr::kBracketed)
     stm << '(';
-  if (exprObj.flags_ & CppAst::CppExpr::kNew)
+  if (exprObj.flags_ & cppast::CppExpr::kNew)
     stm << "new ";
-  if (exprObj.flags_ & CppAst::CppExpr::kSizeOf)
+  if (exprObj.flags_ & cppast::CppExpr::kSizeOf)
     stm << "sizeof(";
-  else if (exprObj.flags_ & CppAst::CppExpr::kDelete)
+  else if (exprObj.flags_ & cppast::CppExpr::kDelete)
     stm << "delete ";
-  else if (exprObj.flags_ & CppAst::CppExpr::kDeleteArray)
+  else if (exprObj.flags_ & cppast::CppExpr::kDeleteArray)
     stm << "delete[] ";
-  if (exprObj.oper_ == CppAst::CppOperator::kNone)
+  if (exprObj.oper_ == cppast::CppOperator::kNone)
   {
     emitExprAtom(exprObj.expr1_, stm);
   }
-  else if (exprObj.oper_ > CppAst::CppOperator::kUnariPrefixOperatorStart
-           && exprObj.oper_ < CppAst::CppOperator::kUnariSufixOperatorStart)
+  else if (exprObj.oper_ > cppast::CppOperator::kUnariPrefixOperatorStart
+           && exprObj.oper_ < cppast::CppOperator::kUnariSufixOperatorStart)
   {
     emitOperator(stm, exprObj.oper_);
     emitExprAtom(exprObj.expr1_, stm);
   }
-  else if (exprObj.oper_ > CppAst::CppOperator::kUnariSufixOperatorStart
-           && exprObj.oper_ < CppAst::CppOperator::kBinaryOperatorStart)
+  else if (exprObj.oper_ > cppast::CppOperator::kUnariSufixOperatorStart
+           && exprObj.oper_ < cppast::CppOperator::kBinaryOperatorStart)
   {
     emitExprAtom(exprObj.expr1_, stm);
     emitOperator(stm, exprObj.oper_);
   }
-  else if (exprObj.oper_ > CppAst::CppOperator::kBinaryOperatorStart
-           && exprObj.oper_ < CppAst::CppOperator::kDerefOperatorStart)
+  else if (exprObj.oper_ > cppast::CppOperator::kBinaryOperatorStart
+           && exprObj.oper_ < cppast::CppOperator::kDerefOperatorStart)
   {
     emitExprAtom(exprObj.expr1_, stm);
-    if (exprObj.oper_ != CppAst::CppOperator::kComma)
+    if (exprObj.oper_ != cppast::CppOperator::kComma)
       stm << ' ';
     emitOperator(stm, exprObj.oper_);
     stm << ' ';
     emitExprAtom(exprObj.expr2_, stm);
   }
-  else if (exprObj.oper_ > CppAst::CppOperator::kDerefOperatorStart
-           && exprObj.oper_ < CppAst::CppOperator::kSpecialOperations)
+  else if (exprObj.oper_ > cppast::CppOperator::kDerefOperatorStart
+           && exprObj.oper_ < cppast::CppOperator::kSpecialOperations)
   {
     emitExprAtom(exprObj.expr1_, stm);
     emitOperator(stm, exprObj.oper_);
     emitExprAtom(exprObj.expr2_, stm);
   }
-  else if (exprObj.oper_ == CppAst::CppOperator::kFunctionCall)
+  else if (exprObj.oper_ == cppast::CppOperator::kFunctionCall)
   {
     emitExprAtom(exprObj.expr1_, stm);
     stm << '(';
     emitExprAtom(exprObj.expr2_, stm);
     stm << ')';
   }
-  else if (exprObj.oper_ == CppAst::CppOperator::kUniformInitCall)
+  else if (exprObj.oper_ == cppast::CppOperator::kUniformInitCall)
   {
     emitExprAtom(exprObj.expr1_, stm);
     stm << '{';
     emitExprAtom(exprObj.expr2_, stm);
     stm << '}';
   }
-  else if (exprObj.oper_ == CppAst::CppOperator::kArrayElem)
+  else if (exprObj.oper_ == cppast::CppOperator::kArrayElem)
   {
     emitExprAtom(exprObj.expr1_, stm);
     stm << '[';
     emitExprAtom(exprObj.expr2_, stm);
     stm << ']';
   }
-  else if (exprObj.oper_ == CppAst::CppOperator::kCStyleCast)
+  else if (exprObj.oper_ == cppast::CppOperator::kCStyleCast)
   {
     stm << '(';
     emitExprAtom(exprObj.expr1_, stm);
     stm << ") ";
     emitExprAtom(exprObj.expr2_, stm);
   }
-  else if (exprObj.oper_ >= CppAst::CppOperator::kConstCast && exprObj.oper_ <= CppAst::CppOperator::kReinterpretCast)
+  else if (exprObj.oper_ >= cppast::CppOperator::kConstCast && exprObj.oper_ <= cppast::CppOperator::kReinterpretCast)
   {
-    if (exprObj.oper_ == CppAst::CppOperator::kConstCast)
+    if (exprObj.oper_ == cppast::CppOperator::kConstCast)
       stm << "const_cast";
-    else if (exprObj.oper_ == CppAst::CppOperator::kStaticCast)
+    else if (exprObj.oper_ == cppast::CppOperator::kStaticCast)
       stm << "static_cast";
-    else if (exprObj.oper_ == CppAst::CppOperator::kDynamicCast)
+    else if (exprObj.oper_ == cppast::CppOperator::kDynamicCast)
       stm << "dynamic_cast";
-    else if (exprObj.oper_ == CppAst::CppOperator::kReinterpretCast)
+    else if (exprObj.oper_ == cppast::CppOperator::kReinterpretCast)
       stm << "reinterpret_cast";
     stm << '<';
     emitExprAtom(exprObj.expr1_, stm);
@@ -1023,7 +1023,7 @@ void CppWriter::emitExpr(const CppAst::CppExpr& exprObj, std::ostream& stm, CppI
     emitExprAtom(exprObj.expr2_, stm);
     stm << ')';
   }
-  else if (exprObj.oper_ == CppAst::CppOperator::kTertiaryOperator)
+  else if (exprObj.oper_ == cppast::CppOperator::kTertiaryOperator)
   {
     emitExprAtom(exprObj.expr1_, stm);
     stm << " ? ";
@@ -1031,7 +1031,7 @@ void CppWriter::emitExpr(const CppAst::CppExpr& exprObj, std::ostream& stm, CppI
     stm << " : ";
     emitExprAtom(exprObj.expr3_, stm);
   }
-  else if (exprObj.oper_ == CppAst::CppOperator::kPlacementNew)
+  else if (exprObj.oper_ == cppast::CppOperator::kPlacementNew)
   {
     stm << "new (";
     emitExprAtom(exprObj.expr1_, stm);
@@ -1039,18 +1039,18 @@ void CppWriter::emitExpr(const CppAst::CppExpr& exprObj, std::ostream& stm, CppI
     emitExprAtom(exprObj.expr2_, stm);
   }
 
-  if (exprObj.flags_ & CppAst::CppExpr::kBracketed)
+  if (exprObj.flags_ & cppast::CppExpr::kBracketed)
     stm << ')';
-  if (exprObj.flags_ & CppAst::CppExpr::kInitializer)
+  if (exprObj.flags_ & cppast::CppExpr::kInitializer)
     stm << "}";
-  if (exprObj.flags_ & CppAst::CppExpr::kSizeOf)
+  if (exprObj.flags_ & cppast::CppExpr::kSizeOf)
     stm << ')';
 
-  if (exprObj.flags_ & CppAst::CppExpr::kVariadicPack)
+  if (exprObj.flags_ & cppast::CppExpr::kVariadicPack)
     stm << "...";
 }
 
-void CppWriter::emitIfBlock(const CppAst::CppIfBlock& ifBlock, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitIfBlock(const cppast::CppIfBlock& ifBlock, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation;
   stm << "if (";
@@ -1073,7 +1073,7 @@ void CppWriter::emitIfBlock(const CppAst::CppIfBlock& ifBlock, std::ostream& stm
   }
 }
 
-void CppWriter::emitWhileBlock(const CppAst::CppWhileBlock& whileBlock, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitWhileBlock(const cppast::CppWhileBlock& whileBlock, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation;
   stm << "while (";
@@ -1087,7 +1087,7 @@ void CppWriter::emitWhileBlock(const CppAst::CppWhileBlock& whileBlock, std::ost
   stm << indentation << "}\n";
 }
 
-void CppWriter::emitDoBlock(const CppAst::CppDoWhileBlock& doBlock, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitDoBlock(const cppast::CppDoWhileBlock& doBlock, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation << "do\n";
   stm << indentation << "{\n";
@@ -1100,7 +1100,7 @@ void CppWriter::emitDoBlock(const CppAst::CppDoWhileBlock& doBlock, std::ostream
   stm << ");\n";
 }
 
-void CppWriter::emitForBlock(const CppAst::CppForBlock& forBlock, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitForBlock(const cppast::CppForBlock& forBlock, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation << "for (";
   if (forBlock.start())
@@ -1126,7 +1126,7 @@ void CppWriter::emitForBlock(const CppAst::CppForBlock& forBlock, std::ostream& 
   stm << indentation << "}\n";
 }
 
-void CppWriter::emitSwitchBlock(const CppAst::CppSwitchBlock& switchBlock,
+void CppWriter::emitSwitchBlock(const cppast::CppSwitchBlock& switchBlock,
                                 std::ostream&                 stm,
                                 CppIndent                     indentation) const
 {
@@ -1134,12 +1134,12 @@ void CppWriter::emitSwitchBlock(const CppAst::CppSwitchBlock& switchBlock,
   emitExpr(*switchBlock.condition(), stm);
   stm << ")\n";
   stm << indentation++ << "{\n";
-  for (const auto& caseStmt : *(switchBlock.body()))
+  for (const auto& caseStmt : switchBlock.body())
   {
-    if (caseStmt.case_)
+    if (caseStmt.caseExpr())
     {
       stm << indentation++ << "case ";
-      emitExpr(caseStmt.case_, stm);
+      emitExpr(*caseStmt.caseExpr(), stm);
       stm << ":\n";
     }
     else
@@ -1147,8 +1147,10 @@ void CppWriter::emitSwitchBlock(const CppAst::CppSwitchBlock& switchBlock,
       stm << "default:\n";
     }
     if (caseStmt.body())
-      emitCompound(caseStmt.body(), stm, indentation);
+      emitCompound(*caseStmt.body(), stm, indentation);
     --indentation;
   }
   stm << --indentation << "}\n";
 }
+
+} // namespace cpp_codegen

@@ -8,15 +8,7 @@
 
 #include <cstdint>
 
-namespace CppAst {
-
-// TODO: Get rid of this
-enum class TriStateBool : std::int8_t
-{
-  Unknown = -1,
-  False   = 0,
-  True    = 1
-};
+namespace cppast {
 
 /**
  * State of variable or function.
@@ -46,6 +38,6 @@ enum /*class*/ CppIdentifierAttrib : std::uint32_t
   kNoExceptFalse = 0x200000,
 };
 
-} // namespace CppAst
+} // namespace cppast
 
 #endif /* B4E3E2F0_32A5_4467_9B89_34E1B7EE51AD */
