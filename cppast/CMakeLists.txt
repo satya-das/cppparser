@@ -1,5 +1,4 @@
 set(CPP_AST_SOURCES
-  src/cppast.cpp
   src/cpp_attribute_specifier_sequence_container.cpp
   src/cpp_blob.cpp
   src/cpp_compound.cpp
@@ -12,6 +11,7 @@ set(CPP_AST_SOURCES
   src/cpp_templatable_entity.cpp
   src/cpp_template_param.cpp
   src/cpp_var_type.cpp
+  src/cppast.cpp
 )
 
 add_library(cppast STATIC ${CPP_AST_SOURCES})

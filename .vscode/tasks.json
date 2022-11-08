@@ -3,7 +3,7 @@
     {
       "type": "shell",
       "label": "BuildAll",
-      "command": "ninja cppparser",
+      "command": "ninja cppparsertest",
       "args": [],
       "options": {
         "cwd": "${workspaceFolder}/build"

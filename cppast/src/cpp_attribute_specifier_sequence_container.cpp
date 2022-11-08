@@ -6,6 +6,9 @@
 
 namespace cppast {
 
+CppAttributeSpecifierSequenceContainer::CppAttributeSpecifierSequenceContainer()  = default;
+CppAttributeSpecifierSequenceContainer::~CppAttributeSpecifierSequenceContainer() = default;
+
 void CppAttributeSpecifierSequenceContainer::attribSpecifierSequence(
   CppAttributeSpecifierSequence attribSpecifierSequence)
 {

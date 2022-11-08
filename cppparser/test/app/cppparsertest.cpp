@@ -1,4 +1,4 @@
-// Copyright (C) 2022 Satya Das and CppParser contributors
+// Copyright (C) 2022 Satya Das and cppparser::CppParser contributors
 // SPDX-License-Identifier: MIT
 
 #include "cppparser/cppparser.h"
@@ -20,10 +20,10 @@ namespace bpo = boost::program_options;
 
 //////////////////////////////////////////////////////////////////////////
 
-static bool parseAndEmitFormatted(CppParser&       parser,
-                                  const bfs::path& inputFilePath,
-                                  const bfs::path& outputFilePath,
-                                  const CppWriter& cppWriter)
+static bool parseAndEmitFormatted(cppparser::CppParser&        parser,
+                                  const bfs::path&             inputFilePath,
+                                  const bfs::path&             outputFilePath,
+                                  const cppcodegen::CppWriter& cppWriter)
 {
   auto progUnit = parser.parseFile(inputFilePath.string().c_str());
   if (!progUnit)
@@ -35,7 +35,7 @@ static bool parseAndEmitFormatted(CppParser&       parser,
   return true;
 }
 
-static bool performParsing(CppParser& parser, const std::string& inputPath)
+static bool performParsing(cppparser::CppParser& parser, const std::string& inputPath)
 {
   auto progUnit = parser.parseFile(inputPath.c_str());
   if (!progUnit)
@@ -44,7 +44,7 @@ static bool performParsing(CppParser& parser, const std::string& inputPath)
   return true;
 }
 
-static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam& params)
+static std::pair<size_t, size_t> performTest(cppparser::CppParser& parser, const TestParam& params)
 {
   size_t numInputFiles = 0;
   size_t numFailed     = 0;
@@ -57,8 +57,8 @@ static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam&
   for (bfs::recursive_directory_iterator dirItr(params.inputPath); dirItr != bfs::recursive_directory_iterator();
        ++dirItr)
   {
-    CppWriter cppWriter;
-    bfs::path file = *dirItr;
+    cppcodegen::CppWriter cppWriter;
+    bfs::path             file = *dirItr;
     if (bfs::is_regular_file(file))
     {
       ++numInputFiles;
@@ -109,7 +109,7 @@ static std::pair<size_t, size_t> performTest(CppParser& parser, const TestParam&
   return std::make_pair(numInputFiles, numFailed);
 }
 
-CppParser constructCppParserForTest()
+cppparser::CppParser constructCppParserForTest()
 {
   cppparser::CppParser parser;
   parser.addKnownApiDecors({"EXPIMP",

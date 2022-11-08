@@ -9,7 +9,7 @@
 
 #include <string>
 
-namespace cpp_codegen {
+namespace cppcodegen {
 
 /**
  * Responsible for emitting C/C++ source from cppast data structure.
@@ -255,6 +255,6 @@ inline std::ostream& operator<<(std::ostream& stm, cppast::CppCompoundType cmpnd
   return stm;
 }
 
-} // namespace cpp_codegen
+} // namespace cppcodegen
 
 #endif /* BF0AACF9_1254_4444_8198_D0A5232233C3 */

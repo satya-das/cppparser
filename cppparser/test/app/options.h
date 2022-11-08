@@ -67,7 +67,7 @@ public:
       "master-files-folder,m",
       bpo::value<std::string>(),
       "Folder where master files are kept that are used to compare with actuals.")(
-      "parse-single-file,p", bpo::value<std::string>(), "To test parsing of single file.");
+      "parse-file,p", bpo::value<std::string>(), "To test parsing of single file.");
   }
 
   ParseResult parse(int argc, char** argv)
@@ -81,7 +81,7 @@ public:
       return kHelpSought;
     }
 
-    if (vm_.count("parse-single-file") != 0)
+    if (vm_.count("parse-file") != 0)
       return kParseSingleFile;
     if ((vm_.count("input-folder") == 0) && (vm_.count("output-folder") == 0)
         && (vm_.count("master-files-folder") == 0))

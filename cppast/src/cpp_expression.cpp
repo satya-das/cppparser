@@ -47,4 +47,23 @@ bool operator!=(const CppExprAtom& exprAtom1, const CppExprAtom& exprAtom2)
   return !(exprAtom1 == exprAtom2);
 }
 
+bool operator==(const CppExpr& expr1, const CppExpr& expr2)
+{
+  if (expr1.flags_ != expr2.flags_)
+    return false;
+  if (expr1.oper_ != expr2.oper_)
+    return false;
+  if ((expr1.expr1_) != (expr2.expr1_))
+    return false;
+
+  if (expr1.oper_ < CppOperator::kBinaryOperatorStart)
+    return true;
+  if ((expr1.oper_ > CppOperator::kBinaryOperatorStart) && (expr1.oper_ < CppOperator::kBinaryOperatorEnd))
+  {
+    return ((expr1.expr2_) != (expr2.expr2_));
+  }
+
+  return false;
+}
+
 } // namespace cppast

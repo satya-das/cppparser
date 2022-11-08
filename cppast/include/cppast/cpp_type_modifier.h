@@ -28,7 +28,7 @@ struct CppTypeModifier
   // | int const * const * const ppi          | 0b111 |
   // | ------------------------------------------------
   //
-  std::uint16_t constBits_;
+  std::uint32_t constBits_;
 };
 
 } // namespace cppast

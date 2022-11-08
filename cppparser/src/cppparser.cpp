@@ -26,6 +26,8 @@ std::map<std::string, int> gRenamedKeywords;
 bool gParseEnumBodyAsBlob     = false;
 bool gParseFunctionBodyAsBlob = false;
 
+extern int GetKeywordId(const std::string& keyword);
+
 namespace cppparser {
 
 void CppParser::addKnownMacro(std::string knownMacro)
@@ -79,8 +81,7 @@ void CppParser::addKnownApiDecors(const std::vector<std::string>& knownApiDecor)
 
 bool CppParser::addRenamedKeyword(const std::string& keyword, std::string renamedKeyword)
 {
-  extern int GetKeywordId(const std::string& keyword);
-  auto       id = GetKeywordId(keyword);
+  auto id = GetKeywordId(keyword);
   if (id == -1)
     return false;
   gRenamedKeywords.emplace(std::make_pair(std::move(renamedKeyword), id));

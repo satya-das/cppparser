@@ -8,7 +8,7 @@
 #include "cppast/cpp_func_info_accessor.h"
 #include "cppast/cpp_var_info_accessor.h"
 
-namespace cpp_codegen {
+namespace cppcodegen {
 
 namespace {
 
@@ -1153,4 +1153,4 @@ void CppWriter::emitSwitchBlock(const cppast::CppSwitchBlock& switchBlock,
   stm << --indentation << "}\n";
 }
 
-} // namespace cpp_codegen
+} // namespace cppcodegen
