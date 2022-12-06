@@ -32,9 +32,9 @@ TEST_CASE_METHOD(TemplateParsingTest, "template <int kGrowPercent = 75>", "[temp
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
-  CppCompoundEPtr compound = members[0];
+  cppast::CppConstCompoundEPtr compound = members[0];
   REQUIRE(compound);
 }
 
@@ -60,9 +60,9 @@ TEST_CASE_METHOD(TemplateParsingTest, "vardecl-or-expr-ambiguity", "[template-pa
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 3);
-  CppVarEPtr var = members[1];
+  cppast::CppConstVarEPtr var = members[1];
   REQUIRE(var);
 }
 
@@ -79,8 +79,8 @@ TEST_CASE_METHOD(TemplateParsingTest, "C<Class, v != 0> x;", "[template-parsing]
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 3);
-  CppVarEPtr var = members[1];
+  cppast::CppConstVarEPtr var = members[1];
   REQUIRE(var);
 }

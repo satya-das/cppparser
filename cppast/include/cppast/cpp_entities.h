@@ -1,0 +1,33 @@
+#ifndef BDE00DE7_2D3B_4046_99CF_A17C7E9ADD88
+#define BDE00DE7_2D3B_4046_99CF_A17C7E9ADD88
+
+#include "cppast/cpp_asm_block.h"
+#include "cppast/cpp_blob.h"
+#include "cppast/cpp_compound.h"
+#include "cppast/cpp_control_blocks.h"
+#include "cppast/cpp_documentation_comment.h"
+#include "cppast/cpp_enum.h"
+#include "cppast/cpp_expression.h"
+#include "cppast/cpp_forward_class_decl.h"
+#include "cppast/cpp_function.h"
+#include "cppast/cpp_label.h"
+#include "cppast/cpp_macro_call.h"
+#include "cppast/cpp_macro_definition.h"
+#include "cppast/cpp_namespace_alias.h"
+#include "cppast/cpp_preprocessor_conditional.h"
+#include "cppast/cpp_preprocessor_error.h"
+#include "cppast/cpp_preprocessor_import.h"
+#include "cppast/cpp_preprocessor_include.h"
+#include "cppast/cpp_preprocessor_pragma.h"
+#include "cppast/cpp_preprocessor_undef.h"
+#include "cppast/cpp_preprocessor_unrecognized.h"
+#include "cppast/cpp_preprocessor_warning.h"
+#include "cppast/cpp_template_arg.h"
+#include "cppast/cpp_try_block.h"
+#include "cppast/cpp_type_alias.h"
+#include "cppast/cpp_using_namespace_decl.h"
+#include "cppast/cpp_var.h"
+#include "cppast/cpp_var_list.h"
+#include "cppast/cpp_var_type.h"
+
+#endif /* BDE00DE7_2D3B_4046_99CF_A17C7E9ADD88 */

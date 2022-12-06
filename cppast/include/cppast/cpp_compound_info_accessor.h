@@ -16,30 +16,6 @@
 
 namespace cppast {
 
-// inline bool forEachMember(const CppCompound& compound, std::function<bool(const CppEntity&)> visitor)
-// {
-//   for (const auto& mem : compound.members())
-//   {
-//     if (visitor(mem.get()))
-//       return true;
-//   }
-
-//   return false;
-// }
-
-// inline bool forEachMember(const CppCompound&                  compound,
-//                           CppAccessType                         memAccessType,
-//                           std::function<bool(const CppEntity*)> visitor)
-// {
-//   for (const auto& mem : compound.members())
-//   {
-//     if ((accessType(mem.get()) == memAccessType) && visitor(mem.get()))
-//       return true;
-//   }
-
-//   return false;
-// }
-
 inline bool isNamespace(const CppCompound& compound)
 {
   return compound.compoundType() == CppCompoundType::NAMESPACE;

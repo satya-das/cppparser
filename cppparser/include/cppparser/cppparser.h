@@ -4,7 +4,7 @@
 #ifndef A06AFF15_7A57_4160_9AB3_EE13CF751B6F
 #define A06AFF15_7A57_4160_9AB3_EE13CF751B6F
 
-#include <cppast/cpp_compound.h>
+#include <cppast/cppast.h>
 
 #include <functional>
 #include <memory>

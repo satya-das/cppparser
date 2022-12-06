@@ -6,7 +6,6 @@
 
 // TODO: Do we need this file?
 
-#include "cppast/cppast.h"
 #include "cppast/cppconst.h"
 
 namespace cppast {

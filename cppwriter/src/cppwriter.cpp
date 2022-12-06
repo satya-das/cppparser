@@ -3,10 +3,7 @@
 
 #include "cppwriter/cppwriter.h"
 
-#include "cppast/cpp_compound_info_accessor.h"
-#include "cppast/cpp_entity_info_accessor.h"
-#include "cppast/cpp_func_info_accessor.h"
-#include "cppast/cpp_var_info_accessor.h"
+#include "cppast/cppast.h"
 
 namespace cppcodegen {
 
@@ -334,7 +331,7 @@ void CppWriter::emitEnum(const cppast::CppEnum& enmObj,
     stm << " : " << enmObj.underlyingType();
   if (!enmObj.itemList().empty())
   {
-    const auto* blob = cpp_entity_cast<const cppast::CppBlob*>(enmObj.itemList().front().val());
+    const auto blob = cppast::CppConstBlobEPtr(enmObj.itemList().front().val());
     if (blob)
     {
       stm << " {\n";
@@ -354,7 +351,7 @@ void CppWriter::emitEnum(const cppast::CppEnum& enmObj,
         else
         {
           stm << indentation << enmItem.name();
-          const auto* val = cpp_entity_cast<const cppast::CppExpr*>(enmItem.val());
+          const auto val = cppast::CppConstExprEPtr(enmItem.val());
           if (val)
           {
             stm << " = ";
@@ -430,9 +427,9 @@ void CppWriter::emitTemplSpec(const cppast::CppTemplateParams& templSpec,
     stm << sep;
     if (param.paramType())
     {
-      if (const auto* varType = cpp_entity_cast<const cppast::CppVarType*>(param.paramType()))
+      if (const auto varType = cppast::CppConstVarTypeEPtr(param.paramType()))
         emitVarType(*varType, stm);
-      else if (const auto* funcPtr = cpp_entity_cast<const cppast::CppFunctionPointer*>(param.paramType()))
+      else if (const auto funcPtr = cppast::CppConstFunctionPointerEPtr(param.paramType()))
         emitFunctionPtr(*funcPtr, stm, false);
       stm << ' ';
     }
@@ -509,15 +506,14 @@ void CppWriter::emitCompound(const cppast::CppCompound& compoundObj,
     stm << indentation << "}\n";
 }
 
-void CppWriter::emitParamList(const std::vector<std::unique_ptr<cppast::CppEntity>>& paramListObj,
-                              std::ostream&                                          stm) const
+void CppWriter::emitParamList(const std::vector<const cppast::CppEntity*>& paramListObj, std::ostream& stm) const
 {
   emitParamList(paramListObj, stm, false);
 }
 
-void CppWriter::emitParamList(const std::vector<std::unique_ptr<cppast::CppEntity>>& paramListObj,
-                              std::ostream&                                          stm,
-                              bool                                                   skipParamName) const
+void CppWriter::emitParamList(const std::vector<const cppast::CppEntity*>& paramListObj,
+                              std::ostream&                                stm,
+                              bool                                         skipParamName) const
 {
   const char* sep = "";
   for (const auto& param : paramListObj)
@@ -527,10 +523,10 @@ void CppWriter::emitParamList(const std::vector<std::unique_ptr<cppast::CppEntit
     switch (param->entityType())
     {
       case cppast::CppEntityType::VAR:
-        emitVar(*static_cast<const cppast::CppVar*>(param.get()), stm, CppIndent(), skipParamName);
+        emitVar(*static_cast<const cppast::CppVar*>(param), stm, CppIndent(), skipParamName);
         break;
       case cppast::CppEntityType::FUNCTION_PTR:
-        emitFunctionPtr(*static_cast<const cppast::CppFunctionPointer*>(param.get()), stm, skipParamName);
+        emitFunctionPtr(*static_cast<const cppast::CppFunctionPointer*>(param), stm, skipParamName);
         break;
       default:
         assert(false);
@@ -589,8 +585,9 @@ void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
     stm << funcObj.name();
   }
   stm << '(';
-  if (!funcObj.params().empty())
-    emitParamList(funcObj.params(), stm, skipParamName);
+  const auto params = GetAllParams(funcObj);
+  if (!params.empty())
+    emitParamList(params, stm, skipParamName);
   stm << ')';
 
   if ((funcObj.attr() & cppast::CppIdentifierAttrib::kConst) == cppast::CppIdentifierAttrib::kConst)
@@ -665,8 +662,9 @@ void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,
     stm << "explicit ";
   stm << ctorObj.name();
   stm << '(';
-  if (!ctorObj.params().empty())
-    emitParamList(ctorObj.params(), stm, skipParamName);
+  const auto params = GetAllParams(ctorObj);
+  if (!params.empty())
+    emitParamList(params, stm, skipParamName);
   stm << ')';
   if (!skipParamName && ctorObj.hasMemberInitList())
   {

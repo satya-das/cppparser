@@ -29,10 +29,10 @@ TEST_CASE_METHOD(ExpressionTest, "new char* []")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppVarEPtr var = members[0];
+  cppast::CppConstVarEPtr var = members[0];
   REQUIRE(var);
 
   CHECK(var->assignValue() != nullptr);
@@ -56,16 +56,16 @@ cleanup:
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 4);
 
-  CppExprEPtr gotoStmt = members[1];
+  cppast::CppConstExprEPtr gotoStmt = members[1];
   REQUIRE(gotoStmt);
-  CHECK(gotoStmt->flags_ == CppExpr::kGoto);
+  CHECK(gotoStmt->flags_ == cppast::CppExpr::kGoto);
 
-  CppLabelEPtr labelStmt = members[2];
+  cppast::CppConstLabelEPtr labelStmt = members[2];
   REQUIRE(labelStmt);
-  CHECK(labelStmt->label_ == "cleanup");
+  CHECK(labelStmt->label() == "cleanup");
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a == b ? c : d")
@@ -80,16 +80,16 @@ TEST_CASE_METHOD(ExpressionTest, "a == b ? c : d")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  CppExprEPtr topLevelOp = members[1];
+  cppast::CppConstExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == kTertiaryOperator);
+  CHECK(topLevelOp->oper_ == cppast::CppOperator::kTertiaryOperator);
 
   const auto cond = topLevelOp->expr1_.expr;
   REQUIRE(cond);
-  CHECK(cond->oper_ == kCmpEqual);
+  CHECK(cond->oper_ == cppast::CppOperator::kCmpEqual);
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a * b < c")
@@ -104,16 +104,16 @@ TEST_CASE_METHOD(ExpressionTest, "a * b < c")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  CppExprEPtr topLevelOp = members[1];
+  cppast::CppConstExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == kLess);
+  CHECK(topLevelOp->oper_ == cppast::CppOperator::kLess);
 
   const auto left = topLevelOp->expr1_.expr;
   REQUIRE(left);
-  CHECK(left->oper_ == kMul);
+  CHECK(left->oper_ == cppast::CppOperator::kMul);
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a * b > c")
@@ -128,16 +128,16 @@ TEST_CASE_METHOD(ExpressionTest, "a * b > c")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  CppExprEPtr topLevelOp = members[1];
+  cppast::CppConstExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == kGreater);
+  CHECK(topLevelOp->oper_ == cppast::CppOperator::kGreater);
 
   const auto left = topLevelOp->expr1_.expr;
   REQUIRE(left);
-  CHECK(left->oper_ == kMul);
+  CHECK(left->oper_ == cppast::CppOperator::kMul);
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a * b + c")
@@ -152,16 +152,16 @@ TEST_CASE_METHOD(ExpressionTest, "a * b + c")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  CppExprEPtr topLevelOp = members[1];
+  cppast::CppConstExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == kPlus);
+  CHECK(topLevelOp->oper_ == cppast::CppOperator::kPlus);
 
   const auto left = topLevelOp->expr1_.expr;
   REQUIRE(left);
-  CHECK(left->oper_ == kMul);
+  CHECK(left->oper_ == cppast::CppOperator::kMul);
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a + b * c")
@@ -176,16 +176,16 @@ TEST_CASE_METHOD(ExpressionTest, "a + b * c")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  CppExprEPtr topLevelOp = members[1];
+  cppast::CppConstExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == kPlus);
+  CHECK(topLevelOp->oper_ == cppast::CppOperator::kPlus);
 
   const auto right = topLevelOp->expr2_.expr;
   REQUIRE(right);
-  CHECK(right->oper_ == kMul);
+  CHECK(right->oper_ == cppast::CppOperator::kMul);
 }
 
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
@@ -201,8 +201,8 @@ TEST_CASE_METHOD(ExpressionTest, "b = x > y")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 3);
-  CppExprEPtr expr = members[1];
+  cppast::CppConstExprEPtr expr = members[1];
   REQUIRE(expr);
 }

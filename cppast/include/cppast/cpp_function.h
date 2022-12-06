@@ -10,6 +10,7 @@
 #include "cppast/cpp_template_param.h"
 #include "cppast/cpp_var_type.h"
 
+#include <functional>
 #include <list>
 
 namespace cppast {
@@ -114,9 +115,25 @@ public:
     return !params_.empty();
   }
 
-  const std::vector<std::unique_ptr<CppEntity>>& params() const
+  bool visitParams(const std::function<bool(const CppEntity& param)>& callback) const
   {
-    return params_;
+    for (const auto& param : params_)
+    {
+      if (!callback(*param))
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  void visitAllParams(const std::function<void(const CppEntity& param)>& callback) const
+  {
+    visitParams([&callback](auto& param) {
+      callback(param);
+      return true;
+    });
   }
 
 protected:
@@ -130,6 +147,7 @@ protected:
   }
 
 protected:
+  // FIXME: Not all CppEntity objects can be function parameters. Chose a more suitable type.
   const std::vector<std::unique_ptr<CppEntity>> params_;
 };
 
@@ -199,7 +217,7 @@ public:
     return params_;
   }
 
-  const CppVarType* retType() const
+  const CppVarType* returnType() const
   {
     return retType_.get();
   }

@@ -1,4 +1,4 @@
-set(CPP_AST_SOURCES
+add_library(cppast STATIC
   src/cpp_attribute_specifier_sequence_container.cpp
   src/cpp_blob.cpp
   src/cpp_compound.cpp
@@ -13,9 +13,9 @@ set(CPP_AST_SOURCES
   src/cpp_var_type.cpp
   src/cppast.cpp
 )
-
-add_library(cppast STATIC ${CPP_AST_SOURCES})
 target_include_directories(cppast
 	PUBLIC
 		include
 )
+
+add_subdirectory(test)

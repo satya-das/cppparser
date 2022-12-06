@@ -29,16 +29,16 @@ TEST_CASE_METHOD(NamespaceTest, "C++17 style nested namespace")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 3);
 
-  CppCompoundEPtr ns = members[1];
+  cppast::CppConstCompoundEPtr ns = members[1];
   REQUIRE(ns);
   CHECK(ns->name() == "my::ns1");
-  const auto& nsMembers = ns->members();
+  const auto& nsMembers = GetAllOwnedEntities(*ns);
   REQUIRE(nsMembers.size() == 1);
 
-  CppVarEPtr var = nsMembers[0];
+  cppast::CppConstVarEPtr var = nsMembers[0];
   REQUIRE(var);
 
   CHECK(var->assignValue() != nullptr);

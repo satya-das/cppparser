@@ -15,9 +15,27 @@ void CppAttributeSpecifierSequenceContainer::attribSpecifierSequence(
   attribSpecifierSequence_ = std::move(attribSpecifierSequence);
 }
 
-const CppAttributeSpecifierSequence& CppAttributeSpecifierSequenceContainer::attribSpecifierSequence() const
+void CppAttributeSpecifierSequenceContainer::visitAll(
+  const std::function<void(const CppExpr& attributeSpecifier)>& callback) const
 {
-  return attribSpecifierSequence_;
+  visit([&callback](const auto& attributeSpecifier) {
+    callback(attributeSpecifier);
+    return true;
+  });
+}
+
+bool CppAttributeSpecifierSequenceContainer::visit(
+  const std::function<bool(const CppExpr& attributeSpecifier)>& callback) const
+{
+  for (const auto& specifier : attribSpecifierSequence_)
+  {
+    if (!callback(*specifier))
+    {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 } // namespace cppast

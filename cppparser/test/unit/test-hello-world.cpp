@@ -11,24 +11,24 @@ TEST_CASE("Parsing hello world program")
   cppparser::CppParser parser;
   const auto           testFilePath = fs::path(__FILE__).parent_path() / "test-files/hello-world.cpp";
   const auto           ast          = parser.parseFile(testFilePath.string());
-  REQUIRE(ast != nullptr);
+  REQUIRE(ast);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  CppIncludeEPtr hashInclude = members[0];
+  const cppast::CppConstPreprocessorIncludeEPtr hashInclude = members[0];
   REQUIRE(hashInclude);
-  CHECK(hashInclude->name_ == "<iostream>");
+  CHECK(hashInclude->name() == "<iostream>");
 
-  CppFunctionEPtr func = members[1];
+  cppast::CppConstFunctionEPtr func = members[1];
   REQUIRE(func);
-  CHECK(func->name_ == "main");
+  CHECK(func->name() == "main");
 
   REQUIRE(func->defn());
-  const auto& mainBodyMembers = func->defn()->members();
+  const auto mainBodyMembers = GetAllOwnedEntities(*func->defn());
   REQUIRE(mainBodyMembers.size() == 2);
 
-  CppExprEPtr coutHelloWorld = mainBodyMembers[0];
+  cppast::CppConstExprEPtr coutHelloWorld = mainBodyMembers[0];
   REQUIRE(coutHelloWorld);
-  CHECK(coutHelloWorld->oper_ == CppOperator::kInsertion);
+  CHECK(coutHelloWorld->oper_ == cppast::CppOperator::kInsertion);
 }

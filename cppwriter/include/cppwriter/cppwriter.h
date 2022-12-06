@@ -99,8 +99,7 @@ public:
                         CppIndent              indentation) const;
 
   virtual void emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& stm) const;
-  virtual void emitParamList(const std::vector<std::unique_ptr<cppast::CppEntity>>& paramListObj,
-                             std::ostream&                                          stm) const;
+  virtual void emitParamList(const std::vector<const cppast::CppEntity*>& paramListObj, std::ostream& stm) const;
   virtual void emitExprAtom(const cppast::CppExprAtom& exprObj,
                             std::ostream&              stm,
                             CppIndent                  indentation = CppIndent()) const;
@@ -123,9 +122,7 @@ public:
 
 public:
   void emitVar(const cppast::CppVar& varObj, std::ostream& stm, bool skipName) const;
-  void emitParamList(const std::vector<std::unique_ptr<cppast::CppEntity>>& paramListObj,
-                     std::ostream&                                          stm,
-                     bool                                                   skipName) const;
+  void emitParamList(const std::vector<const cppast::CppEntity*>& paramListObj, std::ostream& stm, bool skipName) const;
   void emitFunctionPtr(const cppast::CppFunctionPointer& funcPtrObj,
                        std::ostream&                     stm,
                        bool                              skipName,

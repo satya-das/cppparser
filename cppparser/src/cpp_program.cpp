@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MIT
 
 #include "cppparser/cpp_program.h"
-#include "cppast/cpp_compound_info_accessor.h"
 #include "cppast/cppconst.h"
 
 #include "utils.h"

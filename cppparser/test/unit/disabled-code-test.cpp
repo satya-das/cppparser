@@ -32,15 +32,14 @@ TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #if")
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppFunctionEPtr func = members[0];
+  cppast::CppConstFunctionEPtr func = members[0];
   REQUIRE(func);
 
-  const auto* params = func->params();
-  REQUIRE(params != nullptr);
-  CHECK(params->size() == 1);
+  const auto params = GetAllParams(*func);
+  CHECK(params.size() == 1);
 }
 
 TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #if !")
@@ -60,15 +59,14 @@ TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #if !")
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppFunctionEPtr func = members[0];
+  cppast::CppConstFunctionEPtr func = members[0];
   REQUIRE(func);
 
-  const auto* params = func->params();
-  REQUIRE(params != nullptr);
-  CHECK(params->size() == 2);
+  const auto params = GetAllParams(*func);
+  CHECK(params.size() == 2);
 }
 
 TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #if")
@@ -90,15 +88,14 @@ TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #if")
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppFunctionEPtr func = members[0];
+  cppast::CppConstFunctionEPtr func = members[0];
   REQUIRE(func);
 
-  const auto* params = func->params();
-  REQUIRE(params != nullptr);
-  CHECK(params->size() == 2);
+  const auto params = GetAllParams(*func);
+  CHECK(params.size() == 2);
 }
 
 TEST_CASE_METHOD(DisabledCodeTest, "Code enabled using #if {ID} >= {NUM}")
@@ -118,15 +115,14 @@ TEST_CASE_METHOD(DisabledCodeTest, "Code enabled using #if {ID} >= {NUM}")
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppFunctionEPtr func = members[0];
+  cppast::CppConstFunctionEPtr func = members[0];
   REQUIRE(func);
 
-  const auto* params = func->params();
-  REQUIRE(params != nullptr);
-  CHECK(params->size() == 2);
+  const auto params = GetAllParams(*func);
+  CHECK(params.size() == 2);
 }
 
 TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #ifdef")
@@ -146,15 +142,14 @@ TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #ifdef")
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppFunctionEPtr func = members[0];
+  cppast::CppConstFunctionEPtr func = members[0];
   REQUIRE(func);
 
-  const auto* params = func->params();
-  REQUIRE(params != nullptr);
-  CHECK(params->size() == 1);
+  const auto params = GetAllParams(*func);
+  CHECK(params.size() == 1);
 }
 
 TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #ifdef")
@@ -176,15 +171,14 @@ TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #ifdef")
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppFunctionEPtr func = members[0];
+  cppast::CppConstFunctionEPtr func = members[0];
   REQUIRE(func);
 
-  const auto* params = func->params();
-  REQUIRE(params != nullptr);
-  CHECK(params->size() == 2);
+  const auto params = GetAllParams(*func);
+  CHECK(params.size() == 2);
 }
 
 TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #ifndef")
@@ -205,15 +199,14 @@ TEST_CASE_METHOD(DisabledCodeTest, "Code disabled using #ifndef")
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppFunctionEPtr func = members[0];
+  cppast::CppConstFunctionEPtr func = members[0];
   REQUIRE(func);
 
-  const auto* params = func->params();
-  REQUIRE(params != nullptr);
-  CHECK(params->size() == 1);
+  const auto params = GetAllParams(*func);
+  CHECK(params.size() == 1);
 }
 
 TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #ifndef")
@@ -235,15 +228,14 @@ TEST_CASE_METHOD(DisabledCodeTest, "Code enabled in #else part of #ifndef")
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppFunctionEPtr func = members[0];
+  cppast::CppConstFunctionEPtr func = members[0];
   REQUIRE(func);
 
-  const auto* params = func->params();
-  REQUIRE(params != nullptr);
-  CHECK(params->size() == 2);
+  const auto params = GetAllParams(*func);
+  CHECK(params.size() == 2);
 }
 
 TEST_CASE_METHOD(DisabledCodeTest, "Enabled code section has disabled subsection")
@@ -264,9 +256,9 @@ TEST_CASE_METHOD(DisabledCodeTest, "Enabled code section has disabled subsection
   const auto ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  const CppVarEPtr var = members[0];
+  const cppast::CppConstVarEPtr var = members[0];
   REQUIRE(var);
 }

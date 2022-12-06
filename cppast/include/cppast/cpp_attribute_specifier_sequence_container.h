@@ -4,6 +4,7 @@
 #ifndef AE601D96_EAA0_4A9D_BE7C_7370B42C091B
 #define AE601D96_EAA0_4A9D_BE7C_7370B42C091B
 
+#include <functional>
 #include <memory>
 #include <utility>
 #include <vector>
@@ -25,8 +26,22 @@ public:
   ~CppAttributeSpecifierSequenceContainer();
 
 public:
-  void                                 attribSpecifierSequence(CppAttributeSpecifierSequence attribSpecifierSequence);
-  const CppAttributeSpecifierSequence& attribSpecifierSequence() const;
+  void attribSpecifierSequence(CppAttributeSpecifierSequence attribSpecifierSequence);
+  /**
+   * @brief Visits all attribute specifiers.
+   *
+   * @param callback The callback that is invoked once for each attribute specifier.
+   */
+  void visitAll(const std::function<void(const CppExpr& attributeSpecifier)>& callback) const;
+
+  /**
+   * @brief Similar to visitAll() but interuptible.
+   *
+   * @param callback If the \a callback returns false then the visit is interrupted.
+   * @return true If all attribute specifiers were visited without interruption.
+   * @return false If the visit was interrupted.
+   */
+  bool visit(const std::function<bool(const CppExpr& attributeSpecifier)>& callback) const;
 
 private:
   CppAttributeSpecifierSequence attribSpecifierSequence_;

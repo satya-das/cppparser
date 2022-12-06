@@ -24,7 +24,7 @@ public:
   }
 
 public:
-  const std::string& Label() const
+  const std::string& label() const
   {
     return label_;
   }

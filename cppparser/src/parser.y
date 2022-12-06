@@ -899,13 +899,13 @@ varinit           : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.
                   ;
 
 varassign         : '=' expr            [ZZLOG;] {
-                    $$ = CppVarAssign{$2, AssignType::USING_EQUAL};
+                    $$ = CppVarAssign{$2, cppast::AssignType::USING_EQUAL};
                   }
                   | '(' exprorlist ')'  [ZZLOG;] {
-                    $$ = CppVarAssign{$2, AssignType::USING_PARENTHESES};
+                    $$ = CppVarAssign{$2, cppast::AssignType::USING_PARENTHESES};
                   }
                   | '{' funcargs '}'    [ZZLOG;] {
-                    $$ = CppVarAssign{$2, AssignType::USING_BRACES};
+                    $$ = CppVarAssign{$2, cppast::AssignType::USING_BRACES};
                   }
                   ;
 
@@ -1308,7 +1308,7 @@ param             : varinit                        [ZZLOG;] { $$ = $1; $1->addAt
                   | vartype '=' expr               [ZZLOG;] {
                     auto var = new cppast::CppVar($1, std::string());
                     var->addAttr(kFuncParam);
-                    var->assign($3, AssignType::USING_EQUAL);
+                    var->assign($3, cppast::AssignType::USING_EQUAL);
                     $$ = var;
                   }
                   | vardecl                         [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam);  }

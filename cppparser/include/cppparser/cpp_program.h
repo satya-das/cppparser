@@ -7,9 +7,6 @@
 #include "cppparser/cpp_type_tree.h"
 #include "cppparser/cppparser.h"
 
-#include "cppast/cpp_compound.h"
-#include "cppast/cpp_entity.h"
-
 #include <functional>
 #include <map>
 #include <set>

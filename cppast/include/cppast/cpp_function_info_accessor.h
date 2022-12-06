@@ -8,6 +8,8 @@
 #include "cppast/cppast.h"
 #include "cppast/cppconst.h"
 
+#include <vector>
+
 namespace cppast {
 
 inline bool isConst(const CppFunctionBase& func)
@@ -41,6 +43,14 @@ inline bool isDeleted(const CppFunctionBase& func)
 inline bool isFinal(const CppFunctionBase& func)
 {
   return (func.attr() & kFinal) == kFinal;
+}
+
+inline std::vector<const CppEntity*> GetAllParams(const CppFuncCtorBase& func)
+{
+  std::vector<const CppEntity*> result;
+  func.visitAllParams([&result](const auto& param) { result.push_back(&param); });
+
+  return result;
 }
 
 } // namespace cppast

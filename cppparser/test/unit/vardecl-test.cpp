@@ -29,13 +29,13 @@ TEST_CASE_METHOD(VarDeclTest, "int x = 5, y = 10;", "[vardecllist]")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
-  CppVarListEPtr varlist = members[0];
+  cppast::CppConstVarListEPtr varlist = members[0];
   REQUIRE(varlist);
   REQUIRE(varlist->firstVar()->assignValue() != nullptr);
-  CHECK(varlist->firstVar()->assignType() == AssignType::USING_EQUAL);
+  CHECK(varlist->firstVar()->assignType() == cppast::AssignType::USING_EQUAL);
   REQUIRE(varlist->varDeclList().size() == 1);
   REQUIRE(varlist->varDeclList()[0].assignValue() != nullptr);
-  CHECK(varlist->varDeclList()[0].assignType() == AssignType::USING_EQUAL);
+  CHECK(varlist->varDeclList()[0].assignType() == cppast::AssignType::USING_EQUAL);
 }

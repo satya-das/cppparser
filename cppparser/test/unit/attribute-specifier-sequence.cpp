@@ -40,67 +40,64 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  CppCompoundEPtr structDefn = members[0];
+  cppast::CppConstCompoundEPtr structDefn = members[0];
   REQUIRE(structDefn);
-  const auto& structAttribSeq = structDefn->attribSpecifierSequence();
-  REQUIRE(structAttribSeq);
-  REQUIRE(structAttribSeq->size() == 1);
+  const auto structAttribSeq = GetAllAttributeSpecifiers(*structDefn);
+  REQUIRE(structAttribSeq.size() == 1);
 
-  CppExprEPtr structAttrib = structAttribSeq->at(0);
+  cppast::CppConstExprEPtr structAttrib = structAttribSeq.at(0);
   REQUIRE(structAttrib);
-  CHECK((*structAttrib) == CppExpr("xnet::ValidateData"));
+  CHECK((*structAttrib) == cppast::CppExpr("xnet::ValidateData"));
 
-  const auto& structMembers = structDefn->members();
+  const auto structMembers = GetAllOwnedEntities(*structDefn);
   REQUIRE(structMembers.size() == 1);
 
-  CppCompoundEPtr classDefn = members[1];
+  cppast::CppConstCompoundEPtr classDefn = members[1];
   REQUIRE(classDefn);
-  const auto& classAttribSeq = classDefn->attribSpecifierSequence();
-  REQUIRE(classAttribSeq);
-  REQUIRE(classAttribSeq->size() == 2);
+  const auto classAttribSeq = GetAllAttributeSpecifiers(*classDefn);
+  REQUIRE(classAttribSeq.size() == 2);
 
-  CppExprEPtr classAttrib0 = classAttribSeq->at(0);
+  cppast::CppConstExprEPtr classAttrib0 = classAttribSeq.at(0);
   REQUIRE(classAttrib0);
-  CHECK((*classAttrib0) == CppExpr("xnet::HttpController"));
+  CHECK((*classAttrib0) == cppast::CppExpr("xnet::HttpController"));
 
-  CppExprEPtr classAttrib1 = classAttribSeq->at(1);
+  cppast::CppConstExprEPtr classAttrib1 = classAttribSeq.at(1);
   REQUIRE(classAttrib1);
   REQUIRE(classAttrib1->expr1_.atom);
   CHECK(*(classAttrib1->expr1_.atom) == "xnet::Route");
-  CHECK(classAttrib1->oper_ == CppOperator::kFunctionCall);
+  CHECK(classAttrib1->oper_ == cppast::CppOperator::kFunctionCall);
   const auto funcArgs = classAttrib1->expr2_.expr;
   REQUIRE(funcArgs);
-  CHECK(funcArgs->expr1_.type == CppExprAtom::kAtom);
+  CHECK(funcArgs->expr1_.type == cppast::CppExprAtom::kAtom);
   REQUIRE(funcArgs->expr1_.atom);
   CHECK(*(funcArgs->expr1_.atom) == "\"/plakmp\"");
 
-  const auto& classMembers = classDefn->members();
+  const auto classMembers = GetAllOwnedEntities(*classDefn);
   REQUIRE(classMembers.size() == 3);
 
-  const CppFunctionEPtr methodGetPlakMpPlayers = classMembers[0];
+  const cppast::CppConstFunctionEPtr methodGetPlakMpPlayers = classMembers[0];
   REQUIRE(methodGetPlakMpPlayers);
-  const auto& returnTypeGetPlakMpPlayers = methodGetPlakMpPlayers->retType_;
+  const auto* returnTypeGetPlakMpPlayers = methodGetPlakMpPlayers->returnType();
   REQUIRE(returnTypeGetPlakMpPlayers);
 
-  const auto& attribSeqGetPlakMpPlayers = returnTypeGetPlakMpPlayers->attribSpecifierSequence();
-  REQUIRE(attribSeqGetPlakMpPlayers);
-  REQUIRE(attribSeqGetPlakMpPlayers->size() == 2);
+  const auto attribSeqGetPlakMpPlayers = GetAllAttributeSpecifiers(*returnTypeGetPlakMpPlayers);
+  REQUIRE(attribSeqGetPlakMpPlayers.size() == 2);
 
-  CppExprEPtr methodAttrib0 = attribSeqGetPlakMpPlayers->at(0);
+  cppast::CppConstExprEPtr methodAttrib0 = attribSeqGetPlakMpPlayers.at(0);
   REQUIRE(methodAttrib0);
-  CHECK((*methodAttrib0) == CppExpr("xnet::HttpGet"));
+  CHECK((*methodAttrib0) == cppast::CppExpr("xnet::HttpGet"));
 
-  CppExprEPtr methodAttrib1 = attribSeqGetPlakMpPlayers->at(1);
+  cppast::CppConstExprEPtr methodAttrib1 = attribSeqGetPlakMpPlayers.at(1);
   REQUIRE(methodAttrib1);
   REQUIRE(methodAttrib1->expr1_.atom);
   CHECK(*(methodAttrib1->expr1_.atom) == "xnet::Route");
-  CHECK(methodAttrib1->oper_ == CppOperator::kFunctionCall);
+  CHECK(methodAttrib1->oper_ == cppast::CppOperator::kFunctionCall);
   const auto funcArgs2 = methodAttrib1->expr2_.expr;
   REQUIRE(funcArgs2);
-  CHECK(funcArgs2->expr1_.type == CppExprAtom::kAtom);
+  CHECK(funcArgs2->expr1_.type == cppast::CppExprAtom::kAtom);
   REQUIRE(funcArgs2->expr1_.atom);
   CHECK(*(funcArgs2->expr1_.atom) == "\"/players\"");
 }

@@ -5,10 +5,9 @@
 #define E1C8E022_9208_4EA2_BF0E_482C7ABD2C72
 
 #include "cppast/cpp_compound.h"
-#include "cppast/cpp_entity_utility.h"
-#include "cppast/cppast.h"
 #include "cppast/cppconst.h"
 #include "cppast/cpputil.h"
+#include "cppast/helper/cpp_entity_ptr.h"
 
 namespace cppast {
 
@@ -106,7 +105,7 @@ inline bool isFwdClsDecl(const std::unique_ptr<CppEntity>& cppEntity)
 
 inline bool isNamespaceLike(const CppEntity& cppEntity)
 {
-  const auto compound = cpp_entity_cast<const CppCompound*>(&cppEntity);
+  const helper::CppEntityPtr<const CppCompound> compound = &cppEntity;
   if (!compound)
   {
     return false;

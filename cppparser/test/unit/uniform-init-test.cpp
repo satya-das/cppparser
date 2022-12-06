@@ -24,13 +24,13 @@ TEST_CASE_METHOD(UniformInitTest, "uniform init test")
   const auto           ast = parser.parseStream(testSnippet.data(), testSnippet.size());
   REQUIRE(ast != nullptr);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 1);
 
-  CppVarEPtr var = members[0];
+  cppast::CppConstVarEPtr var = members[0];
   REQUIRE(var);
 
-  CppConstExprEPtr assignExpr = var->assignValue();
+  cppast::CppConstExprEPtr assignExpr = var->assignValue();
   REQUIRE(assignExpr);
-  CHECK(assignExpr->oper_ == kUniformInitCall);
+  CHECK(assignExpr->oper_ == cppast::CppOperator::kUniformInitCall);
 }
