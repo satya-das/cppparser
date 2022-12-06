@@ -1293,8 +1293,10 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
                   | operfuncname tknLT templatearglist tknGT [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   ;
 
-paramlist         :                     [ZZLOG;] { $$ = nullptr; }
-                  | param {
+paramlist         :                     [ZZLOG;] {
+                    $$ = new std::vector<std::unique_ptr<cppast::CppEntity>>;
+                  }
+                  | param               [ZZLOG;] {
                     $$ = new std::vector<std::unique_ptr<cppast::CppEntity>>;
                     $$->emplace_back($1);
                   }
@@ -1591,7 +1593,9 @@ attribspecifier   : '[' '[' expr ']' ']' {
                   }
                   ;
 
-optattribspecifiers : { $$ = nullptr; }
+optattribspecifiers : {
+                    $$ = new std::vector<std::unique_ptr<cppast::CppExpr>>;
+                  }
                   | attribspecifiers { $$ = $1; }
                   ;
 
@@ -1662,7 +1666,9 @@ optfinal          :          [ZZLOG;] { $$ = 0; }
                   | tknFinal [ZZLOG;] { $$ = kFinal; }
                   ;
 
-optinheritlist    :                                                             [ZZLOG;] { $$ = 0; }
+optinheritlist    :                                                             [ZZLOG;] {
+                    $$ = new std::list<CppInheritanceInfo>;
+                  }
                   | ':' protlevel optinherittype typeidentifier                 [ZZVALID;] {
                     $$ = new std::list<CppInheritanceInfo>; $$->push_back(CppInheritanceInfo((std::string) $4, $2, $3));
                   }

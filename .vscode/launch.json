@@ -8,13 +8,13 @@
       "name": "Run parser test for",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/cppparserunittest",
+      "program": "${workspaceFolder}/build/cppparser/test/cppparsertest",
       // "args": [
       //   "-p",
       //   "/home/dassat/github/cppparser/test/e2e/test_input/wxWidgets/include/wx/generic/private/grid.h"
       // ],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/build/",
+      "cwd": "${workspaceFolder}/build/cppparser/test/",
       "environment": [
         {
           "name": "ZZDEBUG",
@@ -36,12 +36,12 @@
       "name": "Run unit test",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/build/cppparserunittest",
+      "program": "${workspaceFolder}/build/cppparser/test/cppparserunittest",
       "args": [
-        "vardecl-or-expr-ambiguity"
+        // "vardecl-or-expr-ambiguity"
       ],
       "stopAtEntry": false,
-      "cwd": "${workspaceFolder}/build/",
+      "cwd": "${workspaceFolder}/build/cppparser/test/",
       "preLaunchTask": "BuildAll",
       "externalConsole": false,
       "MIMode": "gdb",
