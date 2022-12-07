@@ -13,7 +13,7 @@ namespace cppast {
  */
 enum class CppAccessType : std::uint8_t
 {
-  UNSPECIFIED,
+  UNSPECIFIED, // TODO: Remove this
   PUBLIC,
   PRIVATE,
   PROTECTED
