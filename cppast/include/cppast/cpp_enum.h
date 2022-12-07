@@ -16,15 +16,17 @@ namespace cppast {
 class CppEntity;
 class CppExpr;
 
-// TODO: make it private nested
 /**
  * @brief Anything that appears inside enum declaration.
+ *
+ * Inside an enum definition there can also be enitities other than constant definitions, e.g. comments, and
+ * proprocessors.
  */
 class CppEnumItem
 {
 public:
   CppEnumItem(std::string name, std::unique_ptr<CppExpr> val = nullptr);
-  CppEnumItem(std::unique_ptr<CppEntity> anyItem);
+  CppEnumItem(std::unique_ptr<CppEntity> nonConstEntity);
 
 public:
   const std::string& name() const
@@ -32,22 +34,38 @@ public:
     return name_;
   }
 
-  const CppEntity* val() const
+  /**
+   * @brief Value of the enum constant.
+   *
+   * @return nullptr iff the value of the constant is not set.
+   */
+  const CppExpr* val() const
   {
     return val_.get();
   }
 
   /**
+   * @brief Non const enum item entity.
+   *
+   * @return nullptr iff the enum item is a constant definition.
+   */
+  const CppEntity* nonConstEntity() const
+  {
+    return nonConstEntity_.get();
+  }
+
+  /**
    * @return true iif the enum item is the definition of a constant.
    */
-  bool isConstEnumItem() const
+  bool isNonConstEntity() const
   {
-    return !name().empty();
+    return nonConstEntity_ != nullptr;
   }
 
 private:
   std::string                name_;
-  std::unique_ptr<CppEntity> val_;
+  std::unique_ptr<CppExpr>   val_;
+  std::unique_ptr<CppEntity> nonConstEntity_;
 };
 
 class CppEnum : public CppEntity

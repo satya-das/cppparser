@@ -11,8 +11,8 @@ CppEnumItem::CppEnumItem(std::string name, std::unique_ptr<CppExpr> val)
 {
 }
 
-CppEnumItem::CppEnumItem(std::unique_ptr<CppEntity> anyItem)
-  : val_(std::move(anyItem))
+CppEnumItem::CppEnumItem(std::unique_ptr<CppEntity> nonConstEntity)
+  : nonConstEntity_(std::move(nonConstEntity))
 {
 }
 

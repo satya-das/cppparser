@@ -334,7 +334,7 @@ void CppWriter::emitEnum(const cppast::CppEnum& enmObj,
     stm << " : " << enmObj.underlyingType();
   if (!enmObj.itemList().empty())
   {
-    const auto blob = cppast::CppConstBlobEPtr(enmObj.itemList().front().val());
+    const auto blob = cppast::CppConstBlobEPtr(enmObj.itemList().front().nonConstEntity());
     if (blob)
     {
       stm << " {\n";
@@ -347,14 +347,14 @@ void CppWriter::emitEnum(const cppast::CppEnum& enmObj,
       stm << indentation++ << "{\n";
       for (const auto& enmItem : enmObj.itemList())
       {
-        if (!enmItem.isConstEnumItem())
+        if (enmItem.isNonConstEntity())
         {
-          emit(*enmItem.val(), stm, indentation);
+          emit(*enmItem.nonConstEntity(), stm, indentation);
         }
         else
         {
           stm << indentation << enmItem.name();
-          const auto val = cppast::CppConstExprEPtr(enmItem.val());
+          const auto val = enmItem.val();
           if (val)
           {
             stm << " = ";
