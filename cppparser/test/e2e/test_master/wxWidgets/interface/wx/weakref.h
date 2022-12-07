@@ -34,6 +34,7 @@
 template <typename T>
 class wxWeakRefDynamic<T>
 {
+public:
 };
 /**
     wxWeakRef<T> is a template class for weak references to wxWidgets objects,

@@ -156,8 +156,8 @@ public:
   {
     return m_mime;
   }
-#    if  wxUSE_STREAMS
 protected:
+#    if  wxUSE_STREAMS
     // NOTE: this function is allowed to change the current stream position
     //       since GetImageCount() will take care of restoring it later
   virtual int DoGetImageCount(wxInputStream&)
@@ -448,7 +448,7 @@ public:
     // either globally or for a particular image object.
   enum
   {
-    Load_Verbose = 1
+    Load_Verbose = 1,
   };
   static void SetDefaultLoadFlags(int flags);
   static int GetDefaultLoadFlags();
@@ -572,7 +572,7 @@ private:
     Clone_SameOrientation = 0,
         // Create an image with the same height as this image width and the
         // same width as this image height.
-    Clone_SwapOrientation = 1
+    Clone_SwapOrientation = 1,
   };
     // Returns a new blank image with the same dimensions (or with width and
     // height swapped if Clone_SwapOrientation flag is given), alpha, and mask

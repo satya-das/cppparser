@@ -105,6 +105,7 @@ private:
       this->DoAddRef((wxDfbWrapperBase*) m_ptr);
     }
   }
+private:
   T* m_ptr;
 };
 #endif

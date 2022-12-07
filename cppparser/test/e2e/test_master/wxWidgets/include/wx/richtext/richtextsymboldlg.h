@@ -301,7 +301,7 @@ protected:
   {
     ItemClick_Shift = 1,
     ItemClick_Ctrl = 2,
-    ItemClick_Kbd = 4
+    ItemClick_Kbd = 4,
   };
     // common part of keyboard and mouse handling processing code
   void DoHandleItemClick(int item, int flags);

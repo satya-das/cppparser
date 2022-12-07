@@ -86,6 +86,8 @@ public:
   void rotateDegrees(SkScalar, SkScalar, SkScalar)
   {
   }
+private:
+public:
   SkVector3D fU, fV;
   SkPoint3D fOrigin;
   friend class SkCamera3D;

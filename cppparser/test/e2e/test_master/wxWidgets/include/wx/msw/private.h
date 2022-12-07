@@ -508,6 +508,7 @@ public:
 // a class for temporary fonts
 class AutoHFONT : private AutoGDIObject
 {
+private:
 public:
   AutoHFONT()
     : AutoGDIObject()

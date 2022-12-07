@@ -41,8 +41,8 @@ protected:
   void FreeData() override;
   bool InitFromColour(const wxBitmap& bitmap, const wxColour& colour) override;
   bool InitFromMonoBitmap(const wxBitmap& bitmap) override;
-#  ifdef __WXGTK3__
 private:
+#  ifdef __WXGTK3__
   cairo_surface_t* m_bitmap;
 #  else 
   GdkPixmap* m_bitmap;
@@ -129,16 +129,16 @@ public:
   void* GetRawData(wxPixelDataBase& data, int bpp);
   void UngetRawData(wxPixelDataBase& data);
   bool HasAlpha() const;
+protected:
 #  ifndef __WXGTK3__
 #    if  wxUSE_IMAGE
-protected:
   bool CreateFromImage(const wxImage& image, int depth);
 #    endif
 #  endif
   wxGDIRefData* CreateGDIRefData() const override;
   wxGDIRefData* CloneGDIRefData(const wxGDIRefData* data) const override;
-#  ifndef __WXGTK3__
 private:
+#  ifndef __WXGTK3__
   void SetPixmap(GdkPixmap* pixmap);
 #    if  wxUSE_IMAGE
     // to be called from CreateFromImage only!

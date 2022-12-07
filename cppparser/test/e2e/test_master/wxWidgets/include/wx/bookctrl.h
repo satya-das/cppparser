@@ -30,7 +30,7 @@ enum
   wxBK_HITTEST_ONICON = 2,
   wxBK_HITTEST_ONLABEL = 4,
   wxBK_HITTEST_ONITEM = 16,
-  wxBK_HITTEST_ONPAGE = 8
+  wxBK_HITTEST_ONPAGE = 8,
 };
 // wxBookCtrl flags (common for wxNotebook, wxListbook, wxChoicebook, wxTreebook)
 #    define wxBK_DEFAULT	0x0000
@@ -206,7 +206,7 @@ protected:
     // flags for DoSetSelection()
   enum
   {
-    SetSelection_SendEvent = 1
+    SetSelection_SendEvent = 1,
   };
     // choose the default border for this window
   wxBorder GetDefaultBorder() const override

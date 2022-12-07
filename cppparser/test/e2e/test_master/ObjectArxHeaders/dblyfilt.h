@@ -18,8 +18,8 @@
 #  pragma  pack (push, 8)
 class AcDbLayerFilter : public AcDbFilter
 {
-  ACDB_DECLARE_MEMBERS(AcDbLayerFilter);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLayerFilter);
   AcDbLayerFilter();
   virtual ~AcDbLayerFilter();
   AcRxClass* indexClass() const override;

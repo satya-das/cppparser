@@ -37,6 +37,7 @@ public:
   CAcTcUiToolPalette();
   virtual ~CAcTcUiToolPalette();
   CAcTcUiPaletteView* GetView(void);
+public:
     // Base class overrides
   virtual BOOL Create(CAdUiPaletteSet* pParent);
   BOOL Create(DWORD dwStyle, LPCTSTR pszName, CAdUiPaletteSet* pParent, DWORD dwPaletteStyle = 0);
@@ -56,6 +57,7 @@ public:
 protected:
     //{{AFX_VIRTUAL(CAcTcUiToolPalette)
     //}}AFX_VIRTUAL
+protected:
     //{{AFX_MSG(CAcTcUiToolPalette)
   afx_msg void OnSize(UINT nType, int cx, int cy);
   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
@@ -70,6 +72,7 @@ protected:
   afx_msg LRESULT OnUpdate(WPARAM wParam, LPARAM lParam);
   afx_msg LRESULT OnEndNameEdit(WPARAM, LPARAM);
   DECLARE_MESSAGE_MAP()
+protected:
   void* mpImpObj;
 private:
   friend class AcTcUiSystemInternals;

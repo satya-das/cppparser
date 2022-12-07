@@ -154,6 +154,7 @@ namespace PoDoFo
      */
     void ParseFileComplete(bool bIsTrailer);
     void ReadObjectNumber();
+  private:
     PdfEncrypt* m_pEncrypt;
     bool m_bIsTrailer;
     // Should the object try to defer loading of its contents until needed?

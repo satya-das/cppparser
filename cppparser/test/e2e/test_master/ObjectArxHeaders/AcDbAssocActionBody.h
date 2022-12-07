@@ -347,6 +347,7 @@ public:
     /// </summary>
     ///
   static Acad::ErrorStatus getActionBodiesOnObject(const AcDbObject* pObject, bool ignoreInternalActions, bool ignoreSuppressedActions, AcDbObjectId* pWriteOnlyActionBodyId, AcDbObjectIdArray* pReadWriteActionBodyIds, AcDbObjectIdArray* pReadOnlyActionBodyIds = NULL);
+public:
     // Virtual methods that can be overridden by the derived classes
 
     /// <summary>

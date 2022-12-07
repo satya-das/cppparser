@@ -14,7 +14,7 @@ enum
     // right clicking the header
   wxHD_ALLOW_HIDE = 0x0002,
     // style used by default when creating the control
-  wxHD_DEFAULT_STYLE = wxHD_ALLOW_REORDER
+  wxHD_DEFAULT_STYLE = wxHD_ALLOW_REORDER,
 };
 /**
     @class wxHeaderCtrl

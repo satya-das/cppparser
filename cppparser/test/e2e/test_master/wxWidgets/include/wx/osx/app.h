@@ -79,12 +79,13 @@ public:
     // TODO change semantics to be in line with cocoa (make autrelease NOT increase the count)
   void MacAddToAutorelease(void* cfrefobj);
   void MacReleaseAutoreleasePool();
+public:
   static wxWindow* s_captureWindow;
   static long s_lastModifiers;
   int m_nCmdShow;
     // mac specifics
-#  if  wxOSX_USE_COCOA
 protected:
+#  if  wxOSX_USE_COCOA
     // override for support of custom app controllers
   virtual WX_NSObject OSXCreateAppController();
 #  endif

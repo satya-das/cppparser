@@ -20,7 +20,7 @@ enum
         @note On OS X, this style is only implemented in the Cocoa build on
               OS X >= 10.5; it behaves identically to wxCOL_WIDTH_DEFAULT otherwise.
      */
-  wxCOL_WIDTH_AUTOSIZE = -2
+  wxCOL_WIDTH_AUTOSIZE = -2,
 };
 /**
     Bit flags used as wxHeaderColumn flags.
@@ -36,7 +36,7 @@ enum
     /// Column is not shown at all.
   wxCOL_HIDDEN = 8,
     /// Default flags for wxHeaderColumn ctor.
-  wxCOL_DEFAULT_FLAGS = wxCOL_RESIZABLE | wxCOL_REORDERABLE
+  wxCOL_DEFAULT_FLAGS = wxCOL_RESIZABLE | wxCOL_REORDERABLE,
 };
 /**
     @class wxHeaderColumn

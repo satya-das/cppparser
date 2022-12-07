@@ -49,6 +49,7 @@ public:
   virtual void ChangeForegroundColour();
 protected:
   void DoSetBitmap();
+protected:
   wxBitmap m_messageBitmap;
   wxBitmap m_messageBitmapOriginal;
   wxBitmapCache m_bitmapCache;

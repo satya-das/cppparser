@@ -39,8 +39,8 @@ public:
     // implementation only
   void OnOK(wxCommandEvent& event);
   void OnCancel(wxCommandEvent& event);
-#    if  wxUSE_SPINCTRL
 protected:
+#    if  wxUSE_SPINCTRL
   wxSpinCtrl* m_spinctrl;
 #    else 
   wxTextCtrl* m_spinctrl;

@@ -15,8 +15,8 @@
 #  pragma  pack (push, 8)
 class AcDbPlaceHolder : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbPlaceHolder);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbPlaceHolder);
   AcDbPlaceHolder();
   virtual ~AcDbPlaceHolder();
   Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;

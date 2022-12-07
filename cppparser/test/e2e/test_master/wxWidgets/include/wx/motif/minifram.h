@@ -27,6 +27,7 @@ public:
   virtual ~wxMiniFrame()
   {
   }
+protected:
 };
 #endif
 // _WX_MINIFRAM_H_

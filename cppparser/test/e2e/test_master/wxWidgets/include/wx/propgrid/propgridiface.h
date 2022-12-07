@@ -93,7 +93,7 @@ private:
     IsWxString = 0x01,
     IsCharPtr = 0x02,
     IsWCharPtr = 0x04,
-    OwnsWxString = 0x10
+    OwnsWxString = 0x10,
   };
   union 
 {

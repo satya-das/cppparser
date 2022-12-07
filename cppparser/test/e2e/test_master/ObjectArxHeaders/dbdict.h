@@ -75,8 +75,8 @@ protected:
 };
 class AcDbDictionary : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbDictionary);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDictionary);
   AcDbDictionary();
   virtual ~AcDbDictionary();
   AcDbDictionary(const AcDbDictionary&) = delete;

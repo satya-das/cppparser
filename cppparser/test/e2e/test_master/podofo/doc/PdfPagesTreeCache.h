@@ -107,6 +107,7 @@ namespace PoDoFo
     PdfPagesTreeCache()
     {
     }
+  private:
     PdfPageList m_deqPageObjs;
   };
 }

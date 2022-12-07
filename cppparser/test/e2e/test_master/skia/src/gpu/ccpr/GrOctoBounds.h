@@ -138,7 +138,8 @@ public:
   }
 #  if  defined(SK_DEBUG) || defined(GR_TEST_UTILS)
   void validateBoundsAreTight() const;
-  void validateBoundsAreTight(const std::function<void( bool cond, const char* file, int line, const char* code)>& validateFn) const;
+  void validateBoundsAreTight(const std::function<void(
+            bool cond, const char* file, int line, const char* code)>& validateFn) const;
 #  endif
 private:
   SkRect fBounds;

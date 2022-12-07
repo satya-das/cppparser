@@ -105,8 +105,8 @@ public:
   {
     return this;
   }
-#    if  wxUSE_TOOLTIPS
 protected:
+#    if  wxUSE_TOOLTIPS
   void DoSetToolTip(wxToolTip* tip) override;
 #    endif
   wxSize DoGetSizeFromTextSize(int xlen, int ylen = -1) const override;

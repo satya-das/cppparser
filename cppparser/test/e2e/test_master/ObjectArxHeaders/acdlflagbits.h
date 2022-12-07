@@ -156,5 +156,5 @@ enum AcFileSelectFlags : unsigned int
     /// <summary>
     /// Control display on the right side of dialog.
     /// </summary>
-  kDLFCloudControls = 0x80000000
+  kDLFCloudControls = 0x80000000,
 };

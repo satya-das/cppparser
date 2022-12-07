@@ -40,6 +40,7 @@ protected:
   bool DoCanRead(wxInputStream& stream) override;
   bool DoSaveFile(const wxImage&, wxOutputStream*, bool verbose, bool first, int delayMilliSecs, bool loop, const wxRGB* pal, int palCount, int mask_index);
 #    endif
+protected:
     // Declarations for saving
   unsigned long m_crntShiftDWord;
   int m_pixelCount;

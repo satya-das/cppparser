@@ -148,11 +148,12 @@ protected:
     ///
   ACBASE_PORT virtual Acad::ErrorStatus subChildren(AcArray<const AcRxMember*>& children) const;
 #ifndef __GNUC__
+protected:
 #else 
+public:
 #endif
 #pragma  push_macro("delete")
 #undef delete
-public:
     //protected delete operators so that client code is forced to delete AcRxMember objects
     //using deleteMember above.
   ACBASE_PORT static void operator delete(void* p);
@@ -160,9 +161,9 @@ public:
   ACBASE_PORT static void operator delete[](void* p);
   ACBASE_PORT static void operator delete[](void* p, const char* pFName, int nLine);
 #pragma  pop_macro("delete")    
+private:
 #pragma  push_macro("new")
 #undef new
-private:
     //made private so that arrays cannot be created.
   static void* operator new[](size_t size);
   static void* operator new[](size_t size, const char* pFName, int nLine);

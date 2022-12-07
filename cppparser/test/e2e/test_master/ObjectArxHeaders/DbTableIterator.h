@@ -40,5 +40,6 @@ public:
   int getColumn(void) const;
 protected:
   AcDbTableIterator(void);
+protected:
   void* mpImpObj;
 };

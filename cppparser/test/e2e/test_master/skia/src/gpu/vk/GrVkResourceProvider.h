@@ -123,10 +123,10 @@ public:
     fPipelineStateCache->release();
   }
 #  endif
+private:
 #  ifdef SK_DEBUG
 #    define GR_PIPELINE_STATE_CACHE_STATS
 #  endif
-private:
   class PipelineStateCache : public ::SkNoncopyable
   {
   public:

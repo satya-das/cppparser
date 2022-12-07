@@ -233,6 +233,7 @@ private:
   static value_type FromHi8bit(char c);
   static char ToHi8bit(value_type v);
   static bool GetAsHi8bit(value_type v, char* c);
+private:
   value_type m_value;
 };
 // Writeable reference to a character in wxString.
@@ -381,8 +382,8 @@ public:
   {
     return UniChar() - c;
   }
-#  if  wxUSE_UNICODE_UTF8
 private:
+#  if  wxUSE_UNICODE_UTF8
   wxUniChar UniChar() const;
 #  else 
   wxUniChar UniChar() const
@@ -391,6 +392,7 @@ private:
   }
 #  endif
   friend class WXDLLIMPEXP_FWD_BASE wxUniChar;
+private:
     // reference to the string and pointer to the character in string
 #  if  wxUSE_UNICODE_UTF8
   wxString& m_str;

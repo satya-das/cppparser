@@ -44,6 +44,7 @@ public:
     // wxRegionBase methods
   virtual void Clear();
   virtual bool IsEmpty() const;
+public:
   WXRegion* GetX11Region() const;
 protected:
   virtual wxGDIRefData* CreateGDIRefData() const;
@@ -97,6 +98,7 @@ public:
 private:
   size_t m_current;
   wxRegion m_region;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRegionIterator);
 };
 #endif

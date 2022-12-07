@@ -27,8 +27,8 @@ class AcUnderlayLayer;
 /// </summary>
 class ADESK_NO_VTABLE AcDbUnderlayReference : public AcDbEntity
 {
-  ACDB_DECLARE_MEMBERS(AcDbUnderlayReference);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbUnderlayReference);
     /// <summary>
     /// Destroys the reference.
     /// </summary>
@@ -273,8 +273,8 @@ public:
 /// </summary>
 class AcDbDwfReference : public AcDbUnderlayReference
 {
-  ACDB_DECLARE_MEMBERS(AcDbDwfReference);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDwfReference);
     /// <summary>
     /// Default constructor.
     /// </summary>
@@ -297,8 +297,8 @@ protected:
 /// </summary>
 class AcDbDgnReference : public AcDbUnderlayReference
 {
-  ACDB_DECLARE_MEMBERS(AcDbDgnReference);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDgnReference);
     /// <summary>
     /// Default constructor.
     /// </summary>
@@ -318,8 +318,8 @@ protected:
 };
 class AcDbPdfReference : public AcDbUnderlayReference
 {
-  ACDB_DECLARE_MEMBERS(AcDbPdfReference);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbPdfReference);
     /// <summary>
     /// Default constructor.
     /// </summary>

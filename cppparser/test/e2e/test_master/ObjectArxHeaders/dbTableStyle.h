@@ -29,8 +29,8 @@
 class AcDbTableTemplate;
 class AcDbTableStyle : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbTableStyle);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbTableStyle);
   AcDbTableStyle();
   virtual ~AcDbTableStyle();
     // AcDbTableStyle protocol

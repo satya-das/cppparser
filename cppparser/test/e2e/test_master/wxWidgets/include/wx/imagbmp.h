@@ -26,7 +26,7 @@ enum
   wxBMP_8BPP_PALETTE = 11,
   wxBMP_4BPP = 4,
   wxBMP_1BPP = 1,
-  wxBMP_1BPP_BW = 2
+  wxBMP_1BPP_BW = 2,
 };
 // ----------------------------------------------------------------------------
 // wxBMPHandler
@@ -94,8 +94,8 @@ public:
     // VS: This handler's meat is implemented inside wxICOHandler (the two
     //     formats are almost identical), but we hide this fact at
     //     the API level, since it is a mere implementation detail.
-#    if  wxUSE_STREAMS
 protected:
+#    if  wxUSE_STREAMS
   bool DoCanRead(wxInputStream& stream) override;
 #    endif
 private:

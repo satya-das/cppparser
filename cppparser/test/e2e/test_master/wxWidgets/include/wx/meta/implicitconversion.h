@@ -77,7 +77,14 @@ namespace wxPrivate
 template <typename T1, typename T2>
 struct wxImplicitConversionType
 {
-  typedef typename wxIf < // if T2 is "higher" type, convert to it (int)(wxPrivate::TypeHierarchy<T1>::level) < (int)(wxPrivate::TypeHierarchy<T2>::level), T2, // otherwise use T1 T1 >::value value;
+  typedef typename wxIf
+            <
+                // if T2 is "higher" type, convert to it
+                (int)(wxPrivate::TypeHierarchy<T1>::level) < (int)(wxPrivate::TypeHierarchy<T2>::level),
+                T2,
+                // otherwise use T1
+                T1
+            >::value value;
 };
 template <typename T1, typename T2, typename T3>
 struct wxImplicitConversionType3 : public wxImplicitConversionType<

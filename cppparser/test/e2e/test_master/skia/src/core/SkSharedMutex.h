@@ -40,8 +40,8 @@ public:
   void releaseShared();
     // Fail if shared lock not held.
   void assertHeldShared() const;
-#  ifdef SK_DEBUG
 private:
+#  ifdef SK_DEBUG
   class ThreadIDSet;
   std::unique_ptr<ThreadIDSet> fCurrentShared;
   std::unique_ptr<ThreadIDSet> fWaitingExclusive;

@@ -25,8 +25,8 @@ struct GrCCPerOpsTaskPaths;
  */
 class SkDeferredDisplayList
 {
-#  if  SK_SUPPORT_GPU
 public:
+#  if  SK_SUPPORT_GPU
     // This object is the source from which the lazy proxy backing the DDL will pull its backing
     // texture when the DDL is replayed. It has to be separately ref counted bc the lazy proxy
     // can outlive the DDL.

@@ -114,6 +114,7 @@ public:
   enum FilingOption {
         kSkipFilingResult   = (0x1 << 0),       // Don't file field value
   };
+public:
   ACDB_DECLARE_MEMBERS(AcDbField);
   ACDBCORE2D_PORT AcDbField(void);
   ACDBCORE2D_PORT AcDbField(const ACHAR* pszFieldCode, bool bTextField = false);
@@ -161,6 +162,7 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus getData(const ACHAR* pszKey, AcValue* pData) const;
   ACDBCORE2D_PORT Acad::ErrorStatus setData(const ACHAR* pszKey, const AcValue* pData);
   ACDBCORE2D_PORT Acad::ErrorStatus setData(const ACHAR* pszKey, const AcValue* pData, bool bRecursive);
+public:
     // Base class overrides
   ACDBCORE2D_PORT Acad::ErrorStatus dwgInFields(AcDbDwgFiler* pFiler) override;
   ACDBCORE2D_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;

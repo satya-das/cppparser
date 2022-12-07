@@ -41,6 +41,7 @@ public:
 
     // Processes an X event.
   virtual bool ProcessXEvent(WXEvent* event);
+public:
     // Implementation
   virtual bool Initialize(int& argc, wxChar** argv);
   virtual void CleanUp();
@@ -79,6 +80,7 @@ public:
   {
     return NULL;
   }
+public:
   static long sm_lastMessageTime;
   bool m_showIconic;
   wxSize m_initialSize;

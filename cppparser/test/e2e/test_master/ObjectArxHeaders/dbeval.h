@@ -69,7 +69,8 @@ typedef Adesk::UInt32 AcDbEvalNodeId;
 typedef AcArray<AcDbEvalNodeId> AcDbEvalNodeIdArray;
 typedef AcArray<AcDbEvalEdgeInfo*> AcDbEvalEdgeInfoArray;
 typedef AcArray<AcDbEvalExpr*> AcDbEvalExprPtrArray;
-typedef AcArray<AcDbEvalVariant, AcArrayObjectCopyReallocator<AcDbEvalVariant> > AcDbEvalVariantArray;
+typedef AcArray<AcDbEvalVariant,
+        AcArrayObjectCopyReallocator<AcDbEvalVariant> > AcDbEvalVariantArray;
 ////////////////////////////////////////////////////////////////////////
 // class AcDbEvalVariant 
 ////////////////////////////////////////////////////////////////////////
@@ -1412,8 +1413,8 @@ private:
 /// </summary>
 class AcDbEvalExpr : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbEvalExpr);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbEvalExpr);
     /// <summary>
     /// Default constructor.
     /// </summary>
@@ -1796,8 +1797,8 @@ protected:
 ///
 class AcDbEvalConnectable : public AcDbEvalExpr
 {
-  ACDB_DECLARE_MEMBERS(AcDbEvalConnectable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbEvalConnectable);
     /// <summary>
     /// Destructor.
     /// </summary>

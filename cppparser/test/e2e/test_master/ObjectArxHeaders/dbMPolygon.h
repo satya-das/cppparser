@@ -218,6 +218,7 @@ class AcDbMPolygonNode
 public:
     // Constructor
   AcDbMPolygonNode();
+public:
   AcDbMPolygonNode* mParent;
   AcArray<AcDbMPolygonNode*> mChildren;
   int mLoopIndex;

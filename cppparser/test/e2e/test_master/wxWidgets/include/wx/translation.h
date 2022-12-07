@@ -143,6 +143,7 @@ private:
     // same as Set(), without taking ownership; only for wxLocale
   static void SetNonOwned(wxTranslations* t);
   friend class wxLocale;
+private:
   wxString m_lang;
   wxTranslationsLoader* m_loader;
   wxMsgCatalog* m_pMsgCat;

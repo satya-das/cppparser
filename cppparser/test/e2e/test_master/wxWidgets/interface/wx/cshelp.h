@@ -261,4 +261,5 @@ public:
 */
 class wxSimpleHelpProvider : public wxHelpProvider
 {
+public:
 };

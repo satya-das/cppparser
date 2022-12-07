@@ -14,8 +14,8 @@
 // ----------------------------------------------------------------------------
 class WXDLLIMPEXP_BASE wxConsoleAppTraits : public wxConsoleAppTraitsBase
 {
-#  if  wxUSE_CONSOLE_EVENTLOOP
 public:
+#  if  wxUSE_CONSOLE_EVENTLOOP
   wxEventLoopBase* CreateEventLoop() override;
 #  endif
 #  if  wxUSE_TIMER

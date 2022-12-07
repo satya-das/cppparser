@@ -45,6 +45,7 @@ protected:
   Adesk::Boolean subWorldDraw(AcGiWorldDraw* pWd) override;
   void subViewportDraw(AcGiViewportDraw* pVd) override;
   Adesk::UInt32 subViewportDrawLogicalFlags(AcGiViewportDraw* pVd) override;
+protected:
   AcGiDrawStreamImp* m_pImp;
 };
 #pragma  pack(pop)

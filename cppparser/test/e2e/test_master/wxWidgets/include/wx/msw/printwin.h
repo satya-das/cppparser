@@ -36,8 +36,8 @@ public:
   virtual ~wxWindowsPrintPreview();
   bool Print(bool interactive) override;
   void DetermineScaling() override;
-#  if  wxUSE_ENH_METAFILE
 protected:
+#  if  wxUSE_ENH_METAFILE
   bool RenderPageIntoBitmap(wxBitmap& bmp, int pageNum) override;
 #  endif
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxWindowsPrintPreview);

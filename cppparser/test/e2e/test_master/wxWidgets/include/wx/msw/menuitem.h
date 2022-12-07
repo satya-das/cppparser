@@ -99,6 +99,7 @@ private:
   WXHBITMAP GetHBitmapForMenu(BitmapKind kind) const;
     // helper function to set/change the bitmap
   void DoSetBitmap(const wxBitmap& bmp, bool bChecked);
+private:
     // common part of all ctors
   void Init();
     // Return the item position in the menu containing it.

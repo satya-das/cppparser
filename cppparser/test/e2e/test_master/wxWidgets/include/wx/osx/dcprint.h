@@ -15,8 +15,8 @@
 class wxNativePrinterDC;
 class WXDLLIMPEXP_CORE wxPrinterDCImpl : public wxGCDCImpl
 {
-#  if  wxUSE_PRINTING_ARCHITECTURE
 public:
+#  if  wxUSE_PRINTING_ARCHITECTURE
   wxPrinterDCImpl(wxPrinterDC* owner, const wxPrintData& printdata);
   virtual ~wxPrinterDCImpl();
   bool StartDoc(const wxString&) override;

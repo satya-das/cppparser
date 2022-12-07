@@ -2345,6 +2345,7 @@ protected:
 #      endif
 #    endif
 // Overrides
+protected:
     /**
         Currently this simply returns @c wxSize(10, 10).
     */
@@ -2352,6 +2353,7 @@ protected:
   void DoSetValue(const wxString& value, int flags = 0) override;
   void DoThaw() override;
 // Data members
+protected:
 #    if  wxRICHTEXT_BUFFERED_PAINTING
     /// Buffer bitmap
   wxBitmap m_bufferBitmap;

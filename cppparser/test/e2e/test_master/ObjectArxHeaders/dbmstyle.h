@@ -36,8 +36,8 @@
 #  define MSTYLE_DXF_JUST_BOT(0x4000)
 class AcDbMlineStyle : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbMlineStyle);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbMlineStyle);
   AcDbMlineStyle();
   virtual ~AcDbMlineStyle();
   void initMlineStyle();

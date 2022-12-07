@@ -29,6 +29,7 @@ public:
         kPlotToFileAllowed  = 1,
         kMustPlotToFile     = 2
   };
+public:
   ACPL_PORT virtual ~AcPlPlotConfig();
   ACPL_PORT virtual Acad::ErrorStatus copyFrom(const AcRxObject* pSrc);
     // returns the description field information - driver name

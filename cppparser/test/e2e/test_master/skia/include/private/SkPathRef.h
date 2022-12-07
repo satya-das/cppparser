@@ -142,6 +142,7 @@ public:
     const uint8_t* fVerbStop;
     const SkScalar* fConicWeights;
   };
+public:
     /**
      * Gets a path ref with no verbs or points.
      */

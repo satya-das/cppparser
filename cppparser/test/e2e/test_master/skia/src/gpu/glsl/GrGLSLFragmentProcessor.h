@@ -49,12 +49,12 @@ private:
     }
     const T& operator[](int i) const
     {
-      SkASSERT(i >= 0 && i < (fFP->*COUNT)());
+      SkASSERT(i >= 0 && i < (fFP.*COUNT)());
       return fTs[i];
     }
     int count() const
     {
-      return (fFP->*COUNT)();
+      return (fFP.*COUNT)();
     }
     BuilderInputProvider childInputs(int childIdx) const
     {
@@ -68,7 +68,7 @@ private:
         {
           return BuilderInputProvider(child, fTs + numToSkip);
         }
-        numToSkip += (fp->*COUNT)();
+        numToSkip += (fp.*COUNT)();
       }
     }
   private:
@@ -76,7 +76,8 @@ private:
     const T* fTs;
   };
 public:
-  using TransformedCoordVars = BuilderInputProvider<GrGLSLPrimitiveProcessor::TransformVar, &GrFragmentProcessor::numCoordTransforms>;
+  using TransformedCoordVars = BuilderInputProvider<GrGLSLPrimitiveProcessor::TransformVar,
+                                                      &GrFragmentProcessor::numCoordTransforms>;
   using TextureSamplers = BuilderInputProvider<SamplerHandle, &GrFragmentProcessor::numTextureSamplers>;
     /** Called when the program stage should insert its code into the shaders. The code in each
         shader will be in its own block ({}) and so locally scoped names will not collide across

@@ -124,8 +124,10 @@ namespace PoDoFo
     void AddToDictionary(PdfDictionary& dictionary) const;
   private:
     PdfAction(const PdfAction& rhs);
+  private:
     static const long s_lNumActions;
     static const char* s_names[];
+  private:
     EPdfAction m_eType;
   };
 // -----------------------------------------------------

@@ -217,7 +217,7 @@ protected:
   {
     SetValue_NoEvent = 0,
     SetValue_SendEvent = 1,
-    SetValue_SelectionOnly = 2
+    SetValue_SelectionOnly = 2,
   };
   virtual void DoSetValue(const wxString& value, int flags);
   virtual wxString DoGetValue() const = 0;

@@ -719,22 +719,22 @@ namespace
     return f * m + a;
   }
 }
-typedef SkNx<2, float> Sk2f;
-typedef SkNx<4, float> Sk4f;
-typedef SkNx<8, float> Sk8f;
-typedef SkNx<16, float> Sk16f;
-typedef SkNx<2, SkScalar> Sk2s;
-typedef SkNx<4, SkScalar> Sk4s;
-typedef SkNx<8, SkScalar> Sk8s;
+typedef SkNx<2,     float> Sk2f;
+typedef SkNx<4,     float> Sk4f;
+typedef SkNx<8,     float> Sk8f;
+typedef SkNx<16,    float> Sk16f;
+typedef SkNx<2,  SkScalar> Sk2s;
+typedef SkNx<4,  SkScalar> Sk4s;
+typedef SkNx<8,  SkScalar> Sk8s;
 typedef SkNx<16, SkScalar> Sk16s;
-typedef SkNx<4, uint8_t> Sk4b;
-typedef SkNx<8, uint8_t> Sk8b;
-typedef SkNx<16, uint8_t> Sk16b;
-typedef SkNx<4, uint16_t> Sk4h;
-typedef SkNx<8, uint16_t> Sk8h;
+typedef SkNx<4,   uint8_t> Sk4b;
+typedef SkNx<8,   uint8_t> Sk8b;
+typedef SkNx<16,  uint8_t> Sk16b;
+typedef SkNx<4,  uint16_t> Sk4h;
+typedef SkNx<8,  uint16_t> Sk8h;
 typedef SkNx<16, uint16_t> Sk16h;
-typedef SkNx<4, int32_t> Sk4i;
-typedef SkNx<8, int32_t> Sk8i;
+typedef SkNx<4,  int32_t> Sk4i;
+typedef SkNx<8,  int32_t> Sk8i;
 typedef SkNx<4, uint32_t> Sk4u;
 // Include platform specific specializations if available.
 #  if  !defined(SKNX_NO_SIMD) && SK_CPU_SSE_LEVEL >= SK_CPU_SSE_LEVEL_SSE2

@@ -22,8 +22,8 @@
 #  pragma  pack (push, 8)
 class AcDbBody : public AcDbEntity
 {
-  ACDB_DECLARE_MEMBERS(AcDbBody);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbBody);
   AcDbBody();
   virtual ~AcDbBody();
   virtual Adesk::Boolean isNull() const;

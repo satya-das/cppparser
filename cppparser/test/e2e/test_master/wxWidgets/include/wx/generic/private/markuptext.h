@@ -51,7 +51,7 @@ public:
   enum
   {
     Render_Default = 0,
-    Render_ShowAccels = 1
+    Render_ShowAccels = 1,
   };
     // Initialize with the given string containing markup (which is supposed to
     // be valid, the caller must check for it before constructing this object).

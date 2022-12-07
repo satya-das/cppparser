@@ -145,6 +145,7 @@ namespace PoDoFo
     PdfXObject(const char* pszSubType, PdfDocument* pParent, const char* pszPrefix = NULL);
     PdfXObject(const char* pszSubType, PdfVecObjects* pParent, const char* pszPrefix = NULL);
     PdfXObject(const char* pszSubType, PdfObject* pObject);
+  protected:
     PdfRect m_rRect;
   private:
     PdfArray m_matrix;

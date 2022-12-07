@@ -38,14 +38,14 @@ class wxDocChildFrameAnyBase;
 enum
 {
   wxDOC_NEW = 1,
-  wxDOC_SILENT = 2
+  wxDOC_SILENT = 2,
 };
 // Document template flags
 enum
 {
   wxTEMPLATE_VISIBLE = 1,
   wxTEMPLATE_INVISIBLE = 2,
-  wxDEFAULT_TEMPLATE_FLAGS = wxTEMPLATE_VISIBLE
+  wxDEFAULT_TEMPLATE_FLAGS = wxTEMPLATE_VISIBLE,
 };
 #    define wxMAX_FILE_HISTORY	9
 typedef wxVector<wxDocument*> wxDocVector;

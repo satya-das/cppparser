@@ -105,12 +105,12 @@ enum
   wxTOUCH_ZOOM_GESTURE = 0x0004,
   wxTOUCH_ROTATE_GESTURE = 0x0008,
   wxTOUCH_PRESS_GESTURES = 0x0010,
-  wxTOUCH_ALL_GESTURES = 0x001f
+  wxTOUCH_ALL_GESTURES = 0x001f,
 };
 // flags for SendSizeEvent()
 enum
 {
-  wxSEND_EVENT_POST = 1
+  wxSEND_EVENT_POST = 1,
 };
 // ----------------------------------------------------------------------------
 // (pseudo)template list classes

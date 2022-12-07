@@ -43,6 +43,7 @@ public:
   {
     return NULL;
   }
+public:
     // implementation
   wxCoord XDEV2LOG(wxCoord x) const
   {

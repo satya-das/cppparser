@@ -219,9 +219,12 @@ protected:
   virtual void OnEndDrag(DROPEFFECT dropEffect);
   virtual LONG OnBeginAcadDrop(BOOL* pCancelDrop);
   virtual LONG OnEndAcadDrop(BOOL bSuccess);
+protected:
     //{{AFX_VIRTUAL(CAcTcUiCatalogView)
     //}}AFX_VIRTUAL
+protected:
   BOOL OnToolTipGetDispInfo(UINT id, NMHDR* pNMHDR, LRESULT* pResult);
+protected:
     //{{AFX_MSG(CAcTcUiCatalogView)
   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg void OnPaint();
@@ -293,8 +296,10 @@ protected:
   afx_msg LRESULT OnGetItemTextLen(WPARAM wParam, LPARAM lParam);
   afx_msg LRESULT OnGetItemRect(WPARAM wParam, LPARAM lParam);
   DECLARE_MESSAGE_MAP()
+protected:
     // Protected constructor
   CAcTcUiCatalogView(AcTcUiSystemInternals*);
+protected:
   void* mpImpObj;
 private:
   friend class AcTcUiSystemInternals;

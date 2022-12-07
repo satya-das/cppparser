@@ -205,8 +205,8 @@ public:
 // ----------------------------------------------------------------------------
 class WXDLLIMPEXP_CORE wxSystemSettings : public wxSystemSettingsNative
 {
-#  ifdef __WXUNIVERSAL__
 public:
+#  ifdef __WXUNIVERSAL__
     // in wxUniversal we want to use the theme standard colours instead of the
     // system ones, otherwise wxSystemSettings is just the same as
     // wxSystemSettingsNative

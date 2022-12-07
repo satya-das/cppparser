@@ -11,5 +11,6 @@
 #  define _WX_UNIX_APP_H_
 class WXDLLIMPEXP_CORE wxUniversalApp : public wxApp
 {
+public:
 };
 #endif

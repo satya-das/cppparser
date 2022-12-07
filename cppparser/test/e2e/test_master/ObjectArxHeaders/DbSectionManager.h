@@ -25,8 +25,8 @@ class AcDbImpSectionManager;
 //*************************************************************************
 class AcDbSectionManager : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbSectionManager);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbSectionManager);
   ACDB_PORT Acad::ErrorStatus getSection(const ACHAR* pszName, AcDbObjectId& id) const;
   ACDB_PORT Acad::ErrorStatus getSection(const ACHAR* pszName, AcDbSection*& pSecPlane, AcDb::OpenMode mode) const;
   ACDB_PORT Acad::ErrorStatus getLiveSection(AcDbObjectId& id) const;
@@ -40,6 +40,7 @@ public:
   ACDB_PORT Acad::ErrorStatus dwgOutFields(AcDbDwgFiler* pFiler) const override;
   ACDB_PORT Acad::ErrorStatus dxfInFields(AcDbDxfFiler* pFiler) override;
   ACDB_PORT Acad::ErrorStatus dxfOutFields(AcDbDxfFiler* pFiler) const override;
+public:
     // TODO: These should be protected
   ACDB_PORT AcDbSectionManager(void);
   ACDB_PORT ~AcDbSectionManager();
@@ -66,6 +67,7 @@ public:
   ACDB_PORT Acad::ErrorStatus getSection(AcDbSection*& pSecPlane, AcDb::OpenMode openMode) const;
 protected:
   ACDB_PORT AcDbSectionManagerIterator(AcDbSectionManager* pMgr);
+protected:
   void* mpImpObj = nullptr;
   friend class AcDbImpSectionManager;
 };

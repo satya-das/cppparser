@@ -15,8 +15,8 @@
 #  include "src/gpu/GrFragmentProcessor.h"
 class GrLumaColorFilterEffect : public GrFragmentProcessor
 {
-#  include "include/private/SkColorData.h"
 public:
+#  include "include/private/SkColorData.h"
   SkPMColor4f constantOutputForConstantInput(const SkPMColor4f& input) const override
   {
     float luma = SK_ITU_BT709_LUM_COEFF_R * input.fR + SK_ITU_BT709_LUM_COEFF_G * input.fG + SK_ITU_BT709_LUM_COEFF_B * input.fB;

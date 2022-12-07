@@ -260,6 +260,7 @@ namespace PoDoFo
      *  \param bRewriteXRefTable whether will rewrite whole XRef table (used only if GetIncrementalUpdate() returns true)
      */
     void Write(PdfOutputDevice* pDevice, bool bRewriteXRefTable);
+  protected:
     /** Writes a linearized PDF file
      *  \param pDevice write to this output device
      */
@@ -299,6 +300,7 @@ namespace PoDoFo
      *  \param pVecXRefOffset xref table entries for previous entry
      */
     // void FillLinearizationDictionary( PdfObject* pLinearize, PdfOutputDevice* pDevice, PdfPage* pPage, PdfObject* pLast, NonPublic::PdfHintStream* pHint, TVecXRefOffset* pVecXRefOffset ) PODOFO_LOCAL;
+  protected:
     PdfVecObjects* m_vecObjects;
     PdfObject* m_pTrailer;
     bool m_bXRefStream;

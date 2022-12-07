@@ -266,6 +266,7 @@ namespace PoDoFo
   private:
     void EncodeTuple(unsigned long tuple, int bytes);
     void WidePut(unsigned long tuple, int bytes) const;
+  private:
     int m_count;
     unsigned long m_tuple;
   };
@@ -381,6 +382,7 @@ namespace PoDoFo
     virtual EPdfFilter GetType() const;
   private:
     void EncodeBlockInternal(const char* pBuffer, pdf_long lLen, int nMode);
+  private:
     unsigned char m_buffer[PODOFO_FILTER_INTERNAL_BUFFER_SIZE];
     z_stream m_stream;
     PdfPredictorDecoder* m_pPredictor;
@@ -599,6 +601,7 @@ namespace PoDoFo
     /** Initialize an lzw table.
      */
     void InitTable();
+  private:
     static const unsigned short s_masks[4];
     static const unsigned short s_clear;
     static const unsigned short s_eod;

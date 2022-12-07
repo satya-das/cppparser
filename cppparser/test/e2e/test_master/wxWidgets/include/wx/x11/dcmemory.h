@@ -28,6 +28,7 @@ protected:
   virtual void DoSelect(const wxBitmap& bitmap);
 private:
   void Init();
+private:
   wxDECLARE_CLASS(wxMemoryDCImpl);
 };
 #endif

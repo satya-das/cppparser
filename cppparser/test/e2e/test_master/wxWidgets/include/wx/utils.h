@@ -383,7 +383,7 @@ enum
     // if its IO is not redirected
   wxEXEC_HIDE_CONSOLE = 32,
     // convenient synonym for flags given system()-like behaviour
-  wxEXEC_BLOCK = wxEXEC_SYNC | wxEXEC_NOEVENTS
+  wxEXEC_BLOCK = wxEXEC_SYNC | wxEXEC_NOEVENTS,
 };
 // Map storing environment variables.
 typedef wxStringToStringHashMap wxEnvVariableHashMap;
@@ -555,7 +555,7 @@ WXDLLIMPEXP_BASE void wxQsort(void* pbase, size_t total_elems, size_t size, wxSo
 enum
 {
   wxBROWSER_NEW_WINDOW = 0x01,
-  wxBROWSER_NOBUSYCURSOR = 0x02
+  wxBROWSER_NOBUSYCURSOR = 0x02,
 };
 // Launch url in the user's default internet browser
 WXDLLIMPEXP_CORE bool wxLaunchDefaultBrowser(const wxString& url, int flags = 0);
@@ -581,7 +581,7 @@ enum
     // strip everything including CJK mnemonics, suitable for menu items labels
     // only (despite its name, wxStripMenuCodes() is currently used for control
     // labels too)
-  wxStrip_Menu = wxStrip_All | wxStrip_CJKMnemonics
+  wxStrip_Menu = wxStrip_All | wxStrip_CJKMnemonics,
 };
 // strip mnemonics and/or accelerators from the label
 WXDLLIMPEXP_CORE wxString wxStripMenuCodes(const wxString& str, int flags = wxStrip_All);

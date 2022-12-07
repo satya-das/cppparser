@@ -105,8 +105,8 @@ class AcRxArxApp : public AcRxDbxApp
 protected:
   AcRxDynPropManager* m_pDynPropManager;
 #endif
-#ifdef __ATLCOM_H__
 public:
+#ifdef __ATLCOM_H__
   AcRxArxApp()
     : AcRxDbxApp()
     , m_pDynPropManager(NULL)

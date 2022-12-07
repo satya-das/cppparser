@@ -40,7 +40,7 @@ struct wxMarkupSpanAttributes
   Size_Unspecified,
   Size_Relative,
   Size_Symbolic,
-  Size_PointParts
+  Size_PointParts,
 } m_sizeKind;
   int m_fontSize;
     // If the value is Unspecified, the attribute wasn't given.

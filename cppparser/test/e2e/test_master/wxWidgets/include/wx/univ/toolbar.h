@@ -83,6 +83,7 @@ private:
   wxCoord m_widthSeparator;
     // the total size of all toolbar elements
   wxCoord m_maxWidth, m_maxHeight;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxToolBar);
 };
 #endif

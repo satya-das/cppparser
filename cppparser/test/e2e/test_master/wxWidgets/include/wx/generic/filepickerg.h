@@ -33,6 +33,7 @@ public:
   {
     return this;
   }
+public:
   virtual wxDialog* CreateDialog() = 0;
   virtual wxWindow* GetDialogParent()
   {
@@ -40,6 +41,7 @@ public:
   }
   virtual wxEventType GetEventType() const = 0;
   void SetInitialDirectory(const wxString& dir) override;
+public:
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label = wxASCII_STR(wxFilePickerWidgetLabel), const wxString& path = wxEmptyString, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& wildcard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFilePickerWidgetNameStr));
     // event handler for the click
   void OnButtonClick(wxCommandEvent&);
@@ -72,6 +74,7 @@ public:
   {
     Create(parent, id, label, path, message, wildcard, pos, size, style, validator, name);
   }
+public:
   virtual long GetDialogStyle() const
   {
         // the derived class must initialize it if it doesn't use the
@@ -132,6 +135,7 @@ public:
   {
     Create(parent, id, label, path, message, wxEmptyString, pos, size, style, validator, name);
   }
+public:
   virtual long GetDialogStyle() const
   {
     long dirdlgstyle = wxDD_DEFAULT_STYLE;

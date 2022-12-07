@@ -32,8 +32,8 @@ class AcDbTableTemplate;
 typedef AcDbFullSubentPathArray AcSubentPathArray;
 class AcDbTable : public AcDbBlockReference
 {
-  ACDB_DECLARE_MEMBERS(AcDbTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbTable);
   enum TableStyleOverrides {
         //table
         kTitleSuppressed             = 1,

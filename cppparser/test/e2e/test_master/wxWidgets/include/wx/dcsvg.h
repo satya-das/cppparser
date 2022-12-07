@@ -182,6 +182,7 @@ private:
   wxSize GetPPI() const override;
   void Init(const wxString& filename, int width, int height, double dpi, const wxString& title);
   void write(const wxString& s);
+private:
     // If m_graphics_changed is true, close the current <g> element and start a
     // new one for the last pen/brush change.
   void NewGraphicsIfNeeded();

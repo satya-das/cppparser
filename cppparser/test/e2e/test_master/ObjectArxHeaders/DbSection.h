@@ -71,6 +71,7 @@ public:
         kHeightAboveSectionLine = 0x1,
         kHeightBelowSectionLine = 0x2,
   };
+public:
   ACDB_DECLARE_MEMBERS(AcDbSection);
     /// <summary>
     /// Default constructor. Constructs a section plane with the type initialized to AcDbSection::kPlane. Since a section plane should have at least two vertices, the section plane constructed by this constructor is invalid until vertices are added. Invalid section planes should not be posted to the database. If they are posted they will remain invisible in the database. 
@@ -305,6 +306,7 @@ public:
     /// <param name="value">  Input the bottom plane. </param>
     /// </summary>
   ACDB_PORT Acad::ErrorStatus setBottomPlane(double);
+public:
     // Base class overrides
 
     /// <summary>
@@ -546,6 +548,7 @@ public:
         kDestinationReplaceBlock    = (0x1 << 5),       // Replace existing block
         kDestinationFile            = (0x1 << 6),       // Export to a file
   };
+public:
   ACDB_DECLARE_MEMBERS(AcDbSectionSettings);
     /// <summary>
     /// Default constructor. 

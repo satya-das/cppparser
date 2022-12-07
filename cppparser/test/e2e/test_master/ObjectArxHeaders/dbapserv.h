@@ -386,6 +386,7 @@ protected:
     //
   Acad::ErrorStatus mapInetStatusToAcadStatus(const AcadInet::Status status) const;
     // END: Internet-related services
+protected:
   void* mp_sessionVars = nullptr;
   void acadInternalSetvar(const ACHAR* name, void* var);
 private:

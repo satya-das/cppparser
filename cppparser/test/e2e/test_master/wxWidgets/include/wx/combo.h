@@ -50,7 +50,7 @@ enum
     // In wxOwnerDrawnComboBox, for instance, it cycles item.
   wxCC_SPECIAL_DCLICK = 0x0100,
     // Dropbutton acts like standard push button.
-  wxCC_STD_BUTTON = 0x0200
+  wxCC_STD_BUTTON = 0x0200,
 };
 // wxComboCtrl internal flags
 enum
@@ -85,13 +85,13 @@ enum
     // Internal use: Drop-button is a bitmap button or has non-default size
     // (but can still be on either side of the control), regardless whether
     // specified by the platform or the application.
-  wxCC_IFLAG_HAS_NONSTANDARD_BUTTON = 0x4000
+  wxCC_IFLAG_HAS_NONSTANDARD_BUTTON = 0x4000,
 };
 // Flags used by PreprocessMouseEvent and HandleButtonMouseEvent
 enum
 {
   wxCC_MF_ON_BUTTON = 0x0001,
-  wxCC_MF_ON_CLICK_AREA = 0x0002
+  wxCC_MF_ON_CLICK_AREA = 0x0002,
 };
 // Namespace for wxComboCtrl feature flags
 struct wxComboCtrlFeatures
@@ -112,7 +112,7 @@ struct wxComboCtrlFeatures
         // There are no feature flags for...
         // PushButtonBitmapBackground - if its in wxRendererNative, then it should be
         //   not an issue to have it automatically under the bitmap.
-    All = MovableButton | BitmapButton | ButtonSpacing | TextIndent | PaintControl | PaintWritable | Borderless
+    All = MovableButton | BitmapButton | ButtonSpacing | TextIndent | PaintControl | PaintWritable | Borderless,
   };
 };
 class WXDLLIMPEXP_CORE wxComboCtrlBase : public wxControl, public wxTextEntry
@@ -419,7 +419,7 @@ public:
     Hidden = 0,
     Closing = 1,
     Animating = 2,
-    Visible = 3
+    Visible = 3,
   };
   bool IsPopupWindowState(int state) const
   {
@@ -471,7 +471,7 @@ protected:
   enum
   {
     Button_PaintBackground = 0x0001,
-    Button_BitmapOnly = 0x0002
+    Button_BitmapOnly = 0x0002,
   };
     // Draws dropbutton. Using wxRenderer or bitmaps, as appropriate.
     // Flags are defined above.
@@ -528,7 +528,7 @@ protected:
   {
     ShowBelow = 0x0000,
     ShowAbove = 0x0001,
-    CanDeferShow = 0x0002
+    CanDeferShow = 0x0002,
   };
     // Shows and positions the popup.
   virtual void DoShowPopup(const wxRect& rect, int flags);
@@ -644,7 +644,7 @@ private:
 // wxComboPopup internal flags
 enum
 {
-  wxCP_IFLAG_CREATED = 0x0001
+  wxCP_IFLAG_CREATED = 0x0001,
 };
 class WXDLLIMPEXP_FWD_CORE wxComboCtrl;
 class WXDLLIMPEXP_CORE wxComboPopup

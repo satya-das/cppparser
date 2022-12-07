@@ -115,6 +115,7 @@ namespace PoDoFo
      *  \param ret parsed number
      */
     bool ParseFixLenNumber(const char*& in, unsigned int length, int min, int max, int& ret);
+  private:
     time_t m_time;
     char m_szDate[PDF_DATE_BUFFER_SIZE + 1];
     bool m_bValid;

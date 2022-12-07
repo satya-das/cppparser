@@ -446,6 +446,7 @@ public:
         /// </value>
         kHorz                       = 12
   };
+public:
     /// <summary>
     /// Default constructor.
     /// </summary>

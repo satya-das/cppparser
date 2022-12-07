@@ -265,6 +265,7 @@ namespace PoDoFo
     {
       return this->GetObject();
     }
+  private:
     PdfPagesTreeCache m_cache;
   };
 // -----------------------------------------------------

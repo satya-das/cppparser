@@ -62,6 +62,7 @@ namespace PoDoFo
     void Parse(const ObjectIdList&);
   private:
     void ReadObjectsFromStream(char* pBuffer, pdf_long lBufferLen, pdf_int64 lNum, pdf_int64 lFirst, const ObjectIdList&);
+  private:
     PdfParserObject* m_pParser;
     PdfVecObjects* m_vecObjects;
     PdfRefCountedBuffer m_buffer;

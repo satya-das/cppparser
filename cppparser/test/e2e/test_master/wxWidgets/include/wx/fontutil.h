@@ -63,8 +63,8 @@ enum wxXLFDField {
 // ToString() and restore them using FromString())
 class WXDLLIMPEXP_CORE wxNativeFontInfo
 {
-#  if  wxUSE_PANGO
 public:
+#  if  wxUSE_PANGO
   PangoFontDescription* description;
     // Pango font description doesn't have these attributes, so we store them
     // separately and handle them ourselves in {To,From}String() methods.
@@ -117,6 +117,7 @@ public:
     // as we can't losslessly recover it from LOGFONT later.
   double pointSize;
 #  elif  defined(__WXOSX__)
+public:
   wxNativeFontInfo(const wxNativeFontInfo& info)
   {
     Init(info);
@@ -165,8 +166,8 @@ private:
   bool m_underlined;
   bool m_strikethrough;
   wxFontEncoding m_encoding;
-#  elif  defined(__WXQT__)
 public:
+#  elif  defined(__WXQT__)
   QFont m_qtFont;
 #  else 
     //

@@ -77,6 +77,7 @@ protected:
     // created by CAcTcUiCatalogView.
   CAcTcUiCatalogViewItem(CAcTcUiCatalogView* pCatalogView);
   CAcTcUiCatalogViewItem(CAcTcUiCatalogView* pCatalogView, AcTcCatalogItem* pCatalogItem, const CSize& sizeImage, DWORD dwStyle = ACTCUI_CVISTYLE_PUSHBUTTON);
+protected:
   void* mpImpObj;
 private:
   friend class AcTcUiSystemInternals;

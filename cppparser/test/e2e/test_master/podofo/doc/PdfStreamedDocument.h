@@ -216,6 +216,7 @@ namespace PoDoFo
      *  \param eWriteMode additional options for writing the pdf
      */
     void Init(PdfOutputDevice* pDevice, EPdfVersion eVersion = ePdfVersion_Default, PdfEncrypt* pEncrypt = NULL, EPdfWriteMode eWriteMode = ePdfWriteMode_Default);
+  private:
     PdfImmediateWriter* m_pWriter;
     PdfOutputDevice* m_pDevice;
     PdfEncrypt* m_pEncrypt;

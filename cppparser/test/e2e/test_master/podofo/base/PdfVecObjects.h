@@ -53,7 +53,7 @@ namespace PoDoFo
   typedef std::list<PdfReference*> TReferencePointerList;
   typedef TReferencePointerList::iterator TIReferencePointerList;
   typedef TReferencePointerList::const_iterator TCIReferencePointerList;
-  typedef std::vector<TReferencePointerList > TVecReferencePointerList;
+  typedef std::vector<TReferencePointerList  > TVecReferencePointerList;
   typedef TVecReferencePointerList::iterator TIVecReferencePointerList;
   typedef TVecReferencePointerList::const_iterator TCIVecReferencePointerList;
 /*
@@ -421,6 +421,7 @@ typedef TVecObjects::const_iterator  TCIVecObjects;
      *  \see BuildReferenceCountVector
      */
     void GarbageCollection(TVecReferencePointerList* pList, PdfObject* pTrailer, TPdfReferenceSet* pNotDelete = NULL);
+  private:
     bool m_bAutoDelete;
     bool m_bCanReuseObjectNumbers;
     size_t m_nObjectCount;

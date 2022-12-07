@@ -52,6 +52,7 @@ public:
   {
     return m_pixel;
   }
+public:
   WXCOLORREF m_pixel;
 protected:
     // Helper function
@@ -63,6 +64,7 @@ private:
   unsigned char m_blue;
   unsigned char m_green;
   unsigned char m_alpha;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxColour);
 };
 #endif

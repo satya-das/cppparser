@@ -78,6 +78,7 @@ public:
         ///</summary>
         kCursorAtEnd = 1 << 2,
   };
+public:
     ///<summary> 
     /// Get the editing flags you specified.
     ///</summary>
@@ -226,6 +227,7 @@ public:
     /// it returns the Acad::eInvalidInput.
     /// </returns>
   ACCORE_PORT static Acad::ErrorStatus invoke(AcDbText* pText, AcDbObjectIdArray* appendedEntities);
+public:
     // Enums for text editor operation undo type.
     /// <summary>
     /// Describes the undo type for each kind of operation.
@@ -1052,6 +1054,7 @@ protected:
   ~AcEdInplaceTextEditor();
   AcEdInplaceTextEditor(const AcEdInplaceTextEditor&);
   AcEdInplaceTextEditor& operator=(const AcEdInplaceTextEditor&);
+protected:
   friend class AcEdInplaceTextEditorImp;
   AcEdInplaceTextEditorImp* m_pEditorImp;
   IPE_Editor* m_pIPEEditorImp;

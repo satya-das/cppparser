@@ -26,8 +26,8 @@ typedef struct tagBITMAPINFO BITMAPINFO;
 // Class definition for paperspace layout object
 class AcDbLayout : public AcDbPlotSettings
 {
-  ACDB_DECLARE_MEMBERS(AcDbLayout);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLayout);
   AcDbLayout();
   virtual ~AcDbLayout();
   AcDbObjectId getBlockTableRecordId() const;

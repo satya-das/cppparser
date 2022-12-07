@@ -355,6 +355,7 @@ namespace PoDoFo
      */
     static const long s_lNumActions;
     static const char* s_names[];
+  private:
     EPdfAnnotation m_eAnnotation;
     PdfAction* m_pAction;
     PdfFileSpec* m_pFileSpec;

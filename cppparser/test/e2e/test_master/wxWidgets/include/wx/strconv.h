@@ -386,7 +386,7 @@ public:
   {
     MAP_INVALID_UTF8_NOT = 0,
     MAP_INVALID_UTF8_TO_PUA = 1,
-    MAP_INVALID_UTF8_TO_OCTAL = 2
+    MAP_INVALID_UTF8_TO_OCTAL = 2,
   };
   wxMBConvUTF8(int options = MAP_INVALID_UTF8_NOT)
     : m_options(options)

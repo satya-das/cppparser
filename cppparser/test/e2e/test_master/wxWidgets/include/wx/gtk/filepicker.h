@@ -51,6 +51,7 @@ public:
     Create(parent, id, label, path, message, wildcard, pos, size, style, validator, name);
   }
   virtual ~wxFileButton();
+public:
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label = wxASCII_STR(wxFilePickerWidgetLabel), const wxString& path = wxEmptyString, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& wildcard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFilePickerWidgetNameStr));
     // event handler for the click
   void OnDialogOK(wxCommandEvent&);
@@ -85,6 +86,7 @@ public:
     Create(parent, id, label, path, message, wxEmptyString, pos, size, style, validator, name);
   }
   virtual ~wxDirButton();
+public:
   bool Create(wxWindow* parent, wxWindowID id, const wxString& label = wxASCII_STR(wxFilePickerWidgetLabel), const wxString& path = wxEmptyString, const wxString& message = wxASCII_STR(wxFileSelectorPromptStr), const wxString& wildcard = wxASCII_STR(wxFileSelectorDefaultWildcardStr), const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFilePickerWidgetNameStr));
     // GtkFileChooserButton does not support GTK_FILE_CHOOSER_CREATE_FOLDER
     // thus we must ensure that the wxDD_DIR_MUST_EXIST style was given

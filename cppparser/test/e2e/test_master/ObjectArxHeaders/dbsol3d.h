@@ -26,8 +26,8 @@
 #  pragma  pack(push, 8)
 class AcDb3dSolid : public AcDbEntity
 {
-  ACDB_DECLARE_MEMBERS(AcDb3dSolid);
 public:
+  ACDB_DECLARE_MEMBERS(AcDb3dSolid);
   AcDb3dSolid();
   virtual ~AcDb3dSolid();
   virtual Acad::ErrorStatus createBox(double xLen, double yLen, double zLen);

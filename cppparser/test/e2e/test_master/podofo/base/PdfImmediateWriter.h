@@ -107,6 +107,7 @@ namespace PoDoFo
      *  to disk
      */
     void FinishLastObject();
+  private:
     PdfVecObjects* m_pParent;
     PdfOutputDevice* m_pDevice;
     PdfXRef* m_pXRef;

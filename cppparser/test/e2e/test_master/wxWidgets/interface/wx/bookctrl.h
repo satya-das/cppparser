@@ -25,7 +25,7 @@ enum
     /// The point if over a tab item but not over its icon or label.
   wxBK_HITTEST_ONITEM = 16,
     /// The point is over the page area.
-  wxBK_HITTEST_ONPAGE = 8
+  wxBK_HITTEST_ONPAGE = 8,
 };
 /**
    wxBookCtrl flags (common for wxNotebook, wxListbook, wxChoicebook, wxTreebook)
@@ -63,7 +63,7 @@ public:
   enum
   {
         /// Symbolic constant indicating that no image should be used.
-    NO_IMAGE = -1
+    NO_IMAGE = -1,
   };
     /**
         Default ctor.

@@ -83,7 +83,7 @@ inline Acad::ErrorStatus AcDbDatabaseSummaryInfo::getACharString(GetPropAcString
 {
   rpBuf = nullptr;
   AcString sTemp;
-  const Acad::ErrorStatus es = (this->*pMeth)(sTemp);
+  const Acad::ErrorStatus es = (this.*pMeth)(sTemp);
   if (es == Acad::eOk)
   {
     ::acutNewString(sTemp.constPtr(), rpBuf);

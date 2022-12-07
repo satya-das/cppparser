@@ -94,8 +94,8 @@ protected:
     // AcGiDrawable protocol
     //
   virtual Adesk::UInt32 subSetAttributes(AcGiDrawableTraits* pTraits);
-#ifndef _ADESK_MAC_
 private:
+#ifndef _ADESK_MAC_
   friend class AcDbPointPath;
 #endif
 };

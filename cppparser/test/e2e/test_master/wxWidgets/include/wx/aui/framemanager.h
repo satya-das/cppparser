@@ -515,6 +515,7 @@ public:
   {
     return (state & flag) != 0;
   }
+public:
     // NOTE: You can add and subtract flags from this list,
     // but do not change the values of the flags, because
     // they are stored in a binary integer format in the
@@ -553,6 +554,7 @@ public:
         savedHiddenState      = 1 << 30, // used internally
         actionPane            = 1u << 31  // used internally
   };
+public:
   wxString name;
   wxString caption;
   wxBitmap icon;
@@ -608,6 +610,7 @@ public:
   void MaximizePane(wxAuiPaneInfo& paneInfo);
   void RestorePane(wxAuiPaneInfo& paneInfo);
   void RestoreMaximizedPane();
+public:
   virtual wxAuiFloatingFrame* CreateFloatingFrame(wxWindow* parent, const wxAuiPaneInfo& p);
   virtual bool CanDockPanel(const wxAuiPaneInfo& p);
   void StartPaneDrag(wxWindow* paneWindow, const wxPoint& offset);
@@ -616,6 +619,7 @@ public:
   virtual void ShowHint(const wxRect& rect);
   virtual void HideHint();
   void OnHintActivate(wxActivateEvent& event);
+public:
     // deprecated -- please use SetManagedWindow() and
     // and GetManagedWindow() instead
 protected:
@@ -663,6 +667,7 @@ protected:
   void OnHintFadeTimer(wxTimerEvent& evt);
   void OnFindManager(wxAuiManagerEvent& evt);
   void OnSysColourChanged(wxSysColourChangedEvent& event);
+protected:
   enum
   {
     actionNone = 0,
@@ -670,8 +675,9 @@ protected:
     actionClickButton,
     actionClickCaption,
     actionDragToolbarPane,
-    actionDragFloatingPane
+    actionDragFloatingPane,
   };
+protected:
   wxWindow* m_frame;
   wxAuiDockArt* m_art;
   unsigned int m_flags;
@@ -767,6 +773,7 @@ public:
   {
     return canveto_flag && veto_flag;
   }
+public:
   wxAuiManager* manager;
   wxAuiPaneInfo* pane;
   int button;
@@ -803,6 +810,7 @@ public:
   {
     return dock_direction == wxAUI_DOCK_LEFT || dock_direction == wxAUI_DOCK_RIGHT || dock_direction == wxAUI_DOCK_CENTER;
   }
+public:
   wxAuiPaneInfoPtrArray panes;
   wxRect rect;
   int dock_direction;
@@ -829,7 +837,7 @@ public:
     typePaneSizer,
     typeBackground,
     typePaneBorder,
-    typePaneButton
+    typePaneButton,
   };
   int type;
   int orientation;

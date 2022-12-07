@@ -228,6 +228,7 @@ private:
   void AddProperty(const wxString& name, const wxString& value);
   bool DeleteProperty(const wxString& name);
   void AddProperty(wxXmlAttribute* attr);
+private:
   wxXmlNodeType m_type;
   wxString m_name;
   wxString m_content;

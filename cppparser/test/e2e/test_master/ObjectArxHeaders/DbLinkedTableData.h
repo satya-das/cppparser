@@ -23,8 +23,8 @@
 //*************************************************************************
 class AcDbLinkedTableData : public AcDbLinkedData
 {
-  ACDB_DECLARE_MEMBERS(AcDbLinkedTableData);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLinkedTableData);
   ACDB_PORT AcDbLinkedTableData(void);
   ACDB_PORT virtual ~AcDbLinkedTableData();
   ACDB_PORT Acad::ErrorStatus clear(void) override;

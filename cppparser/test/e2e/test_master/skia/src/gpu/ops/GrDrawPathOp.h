@@ -31,6 +31,7 @@ protected:
   {
     fProcessorSet.visitProxies(func);
   }
+protected:
   const SkMatrix& viewMatrix() const
   {
     return fViewMatrix;

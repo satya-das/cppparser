@@ -39,7 +39,7 @@ public:
   {
     AppInfo_None = 0,
     AppInfo_AppName = 1,
-    AppInfo_VendorName = 2
+    AppInfo_VendorName = 2,
   };
   enum Dir {
         Dir_Cache,

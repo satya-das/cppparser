@@ -19,7 +19,7 @@
 // Size of the wxAny value buffer.
 enum
 {
-  WX_ANY_VALUE_BUFFER_SIZE = 16
+  WX_ANY_VALUE_BUFFER_SIZE = 16,
 };
 union wxAnyValueBuffer
 {
@@ -96,6 +96,7 @@ public:
 #    if  wxUSE_EXTENDED_RTTI
   virtual const wxTypeInfo* GetTypeInfo() const = 0;
 #    endif
+private:
 };
 //
 // We need to allocate wxAnyValueType instances in heap, and need to use
@@ -247,7 +248,9 @@ namespace wxPrivate
 template <typename T>
 class wxAnyValueTypeImplBase : public wxAnyValueType
 {
-  typedef typename wxIf< sizeof(T) <= WX_ANY_VALUE_BUFFER_SIZE, wxPrivate::wxAnyValueTypeOpsInplace<T>, wxPrivate::wxAnyValueTypeOpsGeneric<T> >::value Ops;
+  typedef typename wxIf< sizeof(T) <= WX_ANY_VALUE_BUFFER_SIZE,
+                           wxPrivate::wxAnyValueTypeOpsInplace<T>,
+                           wxPrivate::wxAnyValueTypeOpsGeneric<T> >::value Ops;
 public:
   wxAnyValueTypeImplBase()
     : wxAnyValueType()
@@ -898,8 +901,8 @@ public:
     return wxConvertAnyToVariant(*this, value);
   }
 #    endif
-#    ifdef wxNO_IMPLICIT_WXSTRING_ENCODING
 private:
+#    ifdef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxAny(const char*);
   wxAny& operator=(const char*& value);
   wxAny& operator=(const char value[]);

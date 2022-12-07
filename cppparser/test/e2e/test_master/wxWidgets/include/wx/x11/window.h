@@ -131,6 +131,7 @@ protected:
     // For double-click detection
   long m_lastTS;
   int m_lastButton;
+protected:
   WXWindow m_mainWindow;
   WXWindow m_clientWindow;
   bool m_insertIntoMain;

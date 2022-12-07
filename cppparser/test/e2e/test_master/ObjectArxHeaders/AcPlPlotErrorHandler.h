@@ -34,6 +34,7 @@ public:
   ACPL_PORT AcPlPlotErrorHandler();
   ACPL_PORT ~AcPlPlotErrorHandler();
   ACPL_DECLARE_MEMBERS(AcPlPlotErrorHandler);
+public:
     // Start of functions which may delegate to the application handler.
   ACPL_PORT virtual void infoMessage(const ACHAR* pMessage);
   ACPL_PORT virtual int messageBox(const ACHAR* pText, const ACHAR* pCaption, unsigned int uType, int defaultReturn);

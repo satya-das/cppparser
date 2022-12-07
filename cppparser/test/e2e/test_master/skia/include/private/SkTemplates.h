@@ -52,7 +52,7 @@ template <typename T, T* P>
 struct SkFunctionWrapper
 {
   template <typename... Args>
-  auto operator()(Args&&... args) const -> decltype(P(std::forward<Args>(args)...))
+  auto operator()(Args&&... args) const . decltype(P(std::forward<Args>(args)...))
   {
     return P(std::forward<Args>(args)...);
   }
@@ -234,8 +234,8 @@ public:
     SkASSERT(index < fCount);
     return fArray[index];
   }
-#  if  defined(SK_BUILD_FOR_GOOGLE3)
 private:
+#  if  defined(SK_BUILD_FOR_GOOGLE3)
     // Stack frame size is limited for SK_BUILD_FOR_GOOGLE3. 4k is less than the actual max, but some functions
     // have multiple large stack allocations.
   static const int kMaxBytes = 4 * 1024;
@@ -539,12 +539,12 @@ private:
 };
 using SkAutoFree = std::unique_ptr<void, SkFunctionWrapper<void(void*), sk_free>>;
 template <typename C, std::size_t... Is>
-constexpr auto SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>) -> std::array<skstd::result_of_t<C(std::size_t)>, sizeof...(Is)>
+constexpr auto SkMakeArrayFromIndexSequence(C c, skstd::index_sequence<Is...>) . std::array<skstd::result_of_t<C(std::size_t)>, sizeof...(Is)>
 {
   return {{c(Is)...}};
 }
 template <size_t N, typename C>
-constexpr auto SkMakeArray(C c) -> std::array<skstd::result_of_t<C(std::size_t)>, N>
+constexpr auto SkMakeArray(C c) . std::array<skstd::result_of_t<C(std::size_t)>, N>
 {
   return SkMakeArrayFromIndexSequence(c, skstd::make_index_sequence<N>{});
 }

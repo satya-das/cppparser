@@ -24,6 +24,7 @@ class ANAV_PORT CNavListCtrl : public CAdUiListCtrl
 public:
   CNavListCtrl();
 // ClassWizard-controlled
+public:
     //{{AFX_VIRTUAL(CNavListCtrl)
     //}}AFX_VIRTUAL
 protected:

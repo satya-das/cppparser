@@ -69,8 +69,8 @@ namespace PoDoFo
      *  \returns a unique id for this encoding!
      */
     virtual const PdfName& GetID() const = 0;
-#  if  defined(_MSC_VER)  &&  _MSC_VER <= 1200			// ab Visualstudio 6
   public:
+#  if  defined(_MSC_VER)  &&  _MSC_VER <= 1200			// ab Visualstudio 6
     using const_iterator_base = std::iterator<std::forward_iterator_tag, int, ptrdiff_t>;
 #  else 
     using const_iterator_base = std::iterator<std::forward_iterator_tag, int, std::ptrdiff_t, const int *, const int &>;
@@ -380,6 +380,7 @@ namespace PoDoFo
      *  \returns an array of 256 big endian unicode code points
      */
     virtual const pdf_utf16be* GetToUnicodeTable() const = 0;
+  protected:
     Util::PdfMutex* m_mutex;
   private:
     PdfName m_name;

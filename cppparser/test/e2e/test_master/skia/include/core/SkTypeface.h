@@ -395,6 +395,7 @@ private:
   friend class SkFontPriv;
   friend class SkPaintPriv;
   friend class SkFont;
+private:
   SkFontID fUniqueID;
   SkFontStyle fStyle;
   mutable SkRect fBounds;

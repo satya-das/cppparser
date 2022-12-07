@@ -35,7 +35,7 @@ namespace wxMSWButton
   enum
   {
     Size_AuthNeeded = 1,
-    Size_ExactFit = 2
+    Size_ExactFit = 2,
   };
 // NB: All the functions below are implemented in src/msw/button.cpp
 

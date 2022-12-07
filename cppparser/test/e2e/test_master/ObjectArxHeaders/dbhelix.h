@@ -58,6 +58,7 @@ public:
         /// 
         kHeight     = 2
   };
+public:
   ACDB_DECLARE_MEMBERS(AcDbHelix);
     /// <summary>
     /// Default constructor.

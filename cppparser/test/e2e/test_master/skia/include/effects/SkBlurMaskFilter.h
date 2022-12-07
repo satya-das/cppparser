@@ -14,8 +14,8 @@
 class SkRRect;
 class SK_API SkBlurMaskFilter
 {
-#  ifdef SK_SUPPORT_LEGACY_EMBOSSMASKFILTER
 public:
+#  ifdef SK_SUPPORT_LEGACY_EMBOSSMASKFILTER
     /** Create an emboss maskfilter
         @param blurSigma    standard deviation of the Gaussian blur to apply
                             before applying lighting (e.g. 3)

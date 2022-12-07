@@ -21,8 +21,8 @@
 #  pragma  pack(push, 8)
 class AcDbFcf : public AcDbEntity
 {
-  ACDB_DECLARE_MEMBERS(AcDbFcf);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbFcf);
   AcDbFcf();
   AcDbFcf(const ACHAR*, const AcGePoint3d&, const AcGeVector3d&, const AcGeVector3d&);
   virtual ~AcDbFcf();

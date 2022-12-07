@@ -63,8 +63,8 @@ public:
 #  endif
   bool MacRender() override;
   void OSXOnCellChanged(NSObject* value, const wxDataViewItem& item, unsigned col) override;
-#  if  wxUSE_MARKUP && wxOSX_USE_COCOA
 private:
+#  if  wxUSE_MARKUP && wxOSX_USE_COCOA
     // True if we should interpret markup in our text.
   bool m_useMarkup;
 #  endif

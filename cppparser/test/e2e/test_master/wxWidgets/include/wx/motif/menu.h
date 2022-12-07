@@ -101,6 +101,7 @@ public:
     return (m_style & wxMENU_TEAROFF) != 0;
   }
   void DestroyWidgetAndDetach();
+public:
     // Motif-specific data
   int m_numColumns;
   WXWidget m_menuWidget;
@@ -183,6 +184,7 @@ public:
   virtual bool SetForegroundColour(const wxColour& colour);
   virtual bool SetFont(const wxFont& colour);
   void ChangeFont(bool keepOriginalSize = false);
+public:
     // common part of all ctors
   void Init();
   wxArrayString m_titles;

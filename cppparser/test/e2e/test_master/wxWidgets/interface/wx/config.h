@@ -13,7 +13,7 @@ enum
   wxCONFIG_USE_GLOBAL_FILE = 2,
   wxCONFIG_USE_RELATIVE_PATH = 4,
   wxCONFIG_USE_NO_ESCAPE_CHARACTERS = 8,
-  wxCONFIG_USE_SUBDIR = 16
+  wxCONFIG_USE_SUBDIR = 16,
 };
 /**
     @class wxConfigBase

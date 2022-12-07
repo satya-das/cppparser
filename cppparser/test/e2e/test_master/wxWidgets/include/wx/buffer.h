@@ -231,6 +231,7 @@ protected:
     }
     return dst;
   }
+protected:
   Data* m_data;
 };
 typedef wxScopedCharTypeBuffer<char> wxScopedCharBuffer;

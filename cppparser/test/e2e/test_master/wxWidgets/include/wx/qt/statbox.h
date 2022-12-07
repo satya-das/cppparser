@@ -17,6 +17,7 @@ public:
   QWidget* GetHandle() const override;
   void SetLabel(const wxString& label) override;
   wxString GetLabel() const override;
+protected:
 private:
   QGroupBox* m_qtGroupBox;
   wxDECLARE_DYNAMIC_CLASS( wxStaticBox );

@@ -166,6 +166,7 @@ private:
   ACDB_CLASS* mpObject;
   AcDbObject* mpSubstituteObject;
   Acad::ErrorStatus mSubstituteObjectErrorStatus;
+private:
     /// <summary> set up the associated object. </summary>
     ///
   void setup(AcDbAssocAction* pActionBeingEvaluated, AcDb::OpenMode openMode, bool openErased, bool openOnLockedLayer);

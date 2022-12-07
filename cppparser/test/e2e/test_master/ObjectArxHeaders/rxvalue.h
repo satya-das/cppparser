@@ -429,8 +429,8 @@ public:
     /// Returns the number of bytes serialized in. 
     /// </returns>
   ACBASE_PORT size_t serializeIn(const void* pBytes, size_t maxBytesToRead);
-#pragma  region Implementation
 private:
+#pragma  region Implementation
   bool isInlined() const
   {
     return type().size() <= sizeof(m_value);

@@ -22,8 +22,8 @@ class IAcReadStream;
 // Class definition for paperspace PlotSettings object
 class AcDbPlotSettings : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbPlotSettings);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbPlotSettings);
   AcDbPlotSettings();
   AcDbPlotSettings(bool ModelType);
   virtual ~AcDbPlotSettings();

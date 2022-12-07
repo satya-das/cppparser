@@ -26,7 +26,7 @@ enum
   wxID_FONT_WEIGHT,
   wxID_FONT_FAMILY,
   wxID_FONT_COLOUR,
-  wxID_FONT_SIZE
+  wxID_FONT_SIZE,
 };
 class WXDLLIMPEXP_CORE wxGenericFontDialog : public wxFontDialogBase
 {

@@ -28,4 +28,5 @@
 */
 class wxTrackable
 {
+public:
 };

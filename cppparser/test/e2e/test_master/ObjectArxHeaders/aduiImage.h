@@ -531,6 +531,7 @@ private:
   bool isPredefinedResourceType(LPCTSTR pType);
   bool isValidPredefinedResourceType(LPCTSTR pType);
   void saveType(LPCTSTR pType);
+private:
   void clear();
     // not allowed
   CAdUiImageResource(const CAdUiImageResource& image);

@@ -56,6 +56,7 @@ public:
         /// </summary>
         kCircular
   };
+public:
     /// <summary>
     /// Default constructor
     /// </summary>
@@ -243,6 +244,7 @@ public:
     /// </summary>
     /// <returns>Returns a reference to the internal array.</returns>
   const AcGePoint3dArray& get();
+public:
     /// <summary>
     /// Sets the DXF handler for a rectangular crop. The previous handler will be released.
     /// The handler will be used to read dxf item data and deal with some errors.

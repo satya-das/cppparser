@@ -123,6 +123,7 @@ public:
         Iterate to the previous property.
     */
   void Prev();
+protected:
 };
 // -----------------------------------------------------------------------
 

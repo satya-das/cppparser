@@ -55,8 +55,8 @@ const ACHAR kszVSEdgeColorOff[] = ACRX_T("EdgeColorOff");
 /// </summary>
 class AcDbVisualStyle : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbVisualStyle);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbVisualStyle);
     /// <summary>
     /// Default constructor.  Initializes members to reasonable default values.
     /// </summary>
@@ -464,5 +464,6 @@ public:
     /// </returns>
   Acad::ErrorStatus decomposeForSave(AcDb::AcDbDwgVersion ver, AcDbObject*& replaceObj, AcDbObjectId& replaceId, Adesk::Boolean& exchangeXData) override;
   ACDBCORE2D_PORT Acad::ErrorStatus name(AcString& value) const;
+protected:
 };
 #pragma  pack (pop)

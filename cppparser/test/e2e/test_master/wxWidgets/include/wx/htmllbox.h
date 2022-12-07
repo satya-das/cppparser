@@ -125,6 +125,7 @@ private:
     // The opposite of PhysicalCoordsToCell: converts coordinates relative to
     // given cell to physical coordinates in the window
   wxPoint CellCoordsToPhysical(const wxPoint& pos, wxHtmlCell* cell) const;
+private:
     // this class caches the pre-parsed HTML to speed up display
   wxHtmlListBoxCache* m_cache;
     // HTML parser we use

@@ -181,6 +181,7 @@ protected:
         @return true if a link was clicked, false otherwise.
      */
   virtual bool OnCellClicked(wxHtmlCell* cell, wxCoord x, wxCoord y, const wxMouseEvent& event);
+protected:
     // this flag indicates if the mouse moved (used by HandleIdle)
   bool m_tmpMouseMoved;
     // contains last link name

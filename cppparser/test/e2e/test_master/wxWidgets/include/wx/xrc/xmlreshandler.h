@@ -28,7 +28,7 @@ class WXDLLIMPEXP_FWD_CORE wxXmlResourceHandler;
 enum
 {
   wxXRC_TEXT_NO_TRANSLATE = 1,
-  wxXRC_TEXT_NO_ESCAPE = 2
+  wxXRC_TEXT_NO_ESCAPE = 2,
 };
 // Abstract base class for the implementation object used by
 // wxXmlResourceHandlerImpl. The real implementation is in

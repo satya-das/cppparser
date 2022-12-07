@@ -22,6 +22,7 @@ public:
   bool CanRead() const override;
 protected:
   size_t OnSysRead(void* buffer, size_t len) override;
+protected:
   HANDLE m_hInput;
   wxDECLARE_NO_COPY_CLASS(wxPipeInputStream);
 };
@@ -36,6 +37,7 @@ public:
   bool Close() override;
 protected:
   size_t OnSysWrite(const void* buffer, size_t len) override;
+protected:
   HANDLE m_hOutput;
   wxDECLARE_NO_COPY_CLASS(wxPipeOutputStream);
 };

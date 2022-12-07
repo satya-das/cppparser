@@ -66,6 +66,7 @@ protected:
   void SetAttr(const wxDataViewItemAttr& attr) override;
   void SetEnabled(bool enabled) override;
 #  else 
+protected:
   void SetAttr(const wxDataViewItemAttr&) override
   {
   }

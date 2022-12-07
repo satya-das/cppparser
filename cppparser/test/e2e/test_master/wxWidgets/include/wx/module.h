@@ -94,7 +94,7 @@ private:
 {
   State_Registered,
   State_Initializing,
-  State_Initialized
+  State_Initialized,
 } m_state;
   wxDECLARE_CLASS(wxModule);
 };

@@ -253,6 +253,7 @@ namespace PoDoFo
     void SetOwner(PdfObject* pOwner);
   private:
     PdfObject* findAt(size_type idx) const;
+  private:
     bool m_bDirty;
     std::vector<PdfObject> m_objects;
   };

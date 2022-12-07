@@ -30,8 +30,8 @@ protected:
   void DoSetSizeHints(int minW, int minH, int maxW, int maxH, int incW, int incH) override;
   void DoGetClientSize(int* width, int* height) const override;
  // implementation
-#  ifndef __WXGTK4__
 public:
+#  ifndef __WXGTK4__
   bool m_isDragMove;
   wxSize m_dragOffset;
 #  endif

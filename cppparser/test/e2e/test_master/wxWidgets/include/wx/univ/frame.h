@@ -48,6 +48,7 @@ protected:
     // override to update statusbar position when the frame size changes
   void PositionStatusBar() override;
 #  endif
+protected:
 #  if  wxUSE_TOOLBAR
   void PositionToolBar() override;
 #  endif

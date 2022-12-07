@@ -107,7 +107,7 @@ enum
   wxBMP_8BPP_PALETTE = 11,
   wxBMP_4BPP = 4,
   wxBMP_1BPP = 1,
-  wxBMP_1BPP_BW = 2
+  wxBMP_1BPP_BW = 2,
 };
 /**
     @class wxImageHandler

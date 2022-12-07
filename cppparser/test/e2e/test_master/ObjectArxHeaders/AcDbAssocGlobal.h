@@ -548,7 +548,7 @@ enum AcDbAssocCreateImpObject
     /// <summary> The API class should create the corresponding imp object. </summary> 
   kAcDbAssocCreateImpObject = 0,
     /// <summary> The API class should not create the corresponding imp object. </summary> 
-  kAcDbAssocDoNotCreateImpObject = 1
+  kAcDbAssocDoNotCreateImpObject = 1,
 };
 // The following typedefs are ids used by AcDbAssocPersSubentManager
 //

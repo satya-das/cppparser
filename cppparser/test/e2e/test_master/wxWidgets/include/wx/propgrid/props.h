@@ -82,6 +82,7 @@ public:
   bool DoSetAttribute(const wxString& name, wxVariant& value) override;
     // This is updated so "<composed>" special value can be handled.
   void OnSetValue() override;
+protected:
 };
 // -----------------------------------------------------------------------
 
@@ -322,6 +323,7 @@ public:
   void OnSetValue() override;
   bool StringToValue(wxVariant& variant, const wxString& text, int argFlags = 0) const override;
   bool ValidateValue(wxVariant& value, wxPGValidationInfo& validationInfo) const override;
+protected:
 };
 // -----------------------------------------------------------------------
 

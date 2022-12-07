@@ -40,7 +40,7 @@ enum
     /** lay out toolbar at the right edge of the window */
   wxTB_RIGHT,
     /** flags that are closest to the native look*/
-  wxTB_DEFAULT_STYLE = wxTB_HORIZONTAL
+  wxTB_DEFAULT_STYLE = wxTB_HORIZONTAL,
 };
 /**
     @class wxToolBarToolBase

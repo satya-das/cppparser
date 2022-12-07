@@ -67,6 +67,7 @@ protected:
   wxMenu* m_pWindowMenu;
   wxMenuBar* m_pMyMenuBar;
 #    endif
+protected:
   void Init();
 #    if  wxUSE_MENUS
   void RemoveWindowMenu(wxMenuBar* pMenuBar);

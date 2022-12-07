@@ -27,6 +27,7 @@ public:
   {
     return m_metafile != 0;
   }
+public:
   WXHANDLE m_metafile;
   int m_windowsMappingMode;
   int m_width, m_height;

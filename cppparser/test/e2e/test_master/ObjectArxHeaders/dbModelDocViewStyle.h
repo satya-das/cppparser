@@ -31,8 +31,8 @@ protected:
     /// </remarks>
     ///
   AcDbModelDocViewStyle();
-  ACDB_DECLARE_MEMBERS(AcDbModelDocViewStyle);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbModelDocViewStyle);
     /// <summary>
     /// Enumeration defining attachment point for label
     /// </summary>

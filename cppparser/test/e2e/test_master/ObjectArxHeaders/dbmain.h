@@ -118,7 +118,8 @@ struct _GUID;
 typedef struct _GUID CLSID;
 class AcDbGripData;
 typedef AcArray<AcDbGripData*, AcArrayMemCopyReallocator<AcDbGripData*> > AcDbGripDataPtrArray;
-typedef AcArray<AcDbFullSubentPath, AcArrayObjectCopyReallocator<AcDbFullSubentPath> > AcDbFullSubentPathArray;
+typedef AcArray<AcDbFullSubentPath,
+        AcArrayObjectCopyReallocator<AcDbFullSubentPath> > AcDbFullSubentPathArray;
 extern const AcDbFullSubentPath kNullSubent;
 // Global Variables: API exports as functions.
 //
@@ -1043,7 +1044,7 @@ template <typename ObjType>
 inline Acad::ErrorStatus acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const, ACHAR*& pOutput)
 {
   AcString sOutput;
-  const Acad::ErrorStatus es = (pObj->*pFunc)(sOutput);
+  const Acad::ErrorStatus es = (pObj.*pFunc)(sOutput);
   if (es != Acad::eOk)
   {
     pOutput = nullptr;
@@ -1055,7 +1056,7 @@ template <typename ObjType>
 inline ACHAR* acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const)
 {
   AcString sOutput;
-  const Acad::ErrorStatus es = (pObj->*pFunc)(sOutput);
+  const Acad::ErrorStatus es = (pObj.*pFunc)(sOutput);
   ACHAR* pRet = nullptr;
   if (es == Acad::eOk)
   {
@@ -1172,8 +1173,8 @@ private:
 };
 class ADESK_NO_VTABLE AcDbObject : public AcGiDrawable, public AcHeapOperators
 {
-  ACDB_DECLARE_MEMBERS(AcDbObject);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbObject);
   virtual ~AcDbObject();
     // Associated Objects
     //
@@ -1607,8 +1608,8 @@ Acad::ErrorStatus accmGetColorFromColorBookName(AcCmColor& clr, const ACHAR* pBo
 void accmGetLocalizedColorNames(const ACHAR* colors[9]);
 class AcDbColor : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbColor);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbColor);
   AcDbColor();
   virtual ~AcDbColor();
   void getColor(AcCmColor& color) const;
@@ -1629,8 +1630,8 @@ protected:
 };
 class ADESK_NO_VTABLE AcDbEntity : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbEntity);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbEntity);
   virtual ~AcDbEntity();
   AcDbObjectId blockId() const;
   AcCmColor color() const;

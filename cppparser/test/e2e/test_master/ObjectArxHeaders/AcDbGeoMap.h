@@ -37,6 +37,7 @@ public:
 	/// <summary> Destructor. </summary>
 	///
   virtual ~AcDbGeoMap();
+public:
 	// AcDbGeoMap protocol
 
 	/// <summary> Returns the bottom left corner point of the image frame. </summary>
@@ -197,6 +198,7 @@ private:
     return (void*) 0;
   }
 #ifdef _ADESK_MAC_
+private:
   typedef AcDbRasterImage __super;
 #endif
 };

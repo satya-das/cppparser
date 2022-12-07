@@ -162,6 +162,7 @@ public:
     // Write the properties
   virtual bool WriteProperties(wxXmlNode* node, const wxRichTextProperties& properties);
 #    endif
+public:
 #    if  wxRICHTEXT_HAVE_DIRECT_OUTPUT
     // Used during saving
   wxMBConv* m_convMem;
@@ -237,8 +238,8 @@ public:
   {
     sm_nodeNameToClassMap.clear();
   }
-#    if  wxUSE_STREAMS
 protected:
+#    if  wxUSE_STREAMS
   bool DoLoadFile(wxRichTextBuffer* buffer, wxInputStream& stream) override;
   bool DoSaveFile(wxRichTextBuffer* buffer, wxOutputStream& stream) override;
 #    endif

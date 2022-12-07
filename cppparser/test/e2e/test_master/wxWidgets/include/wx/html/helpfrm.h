@@ -114,6 +114,7 @@ protected:
         IMG_Folder,
         IMG_Page
   };
+protected:
   wxHtmlHelpData* m_Data;
   bool m_DataCreated;
   wxString m_TitleFormat;

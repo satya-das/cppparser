@@ -22,8 +22,8 @@
 //*************************************************************************
 class AcDbLinkedData : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbLinkedData);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLinkedData);
   ACDB_PORT AcDbLinkedData(void);
   ACDB_PORT virtual ~AcDbLinkedData();
   ACDB_PORT virtual Acad::ErrorStatus clear(void);

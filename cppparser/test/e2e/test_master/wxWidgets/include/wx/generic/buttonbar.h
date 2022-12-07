@@ -70,6 +70,7 @@ private:
   int m_labelHeight;
     // the space above the label
   int m_labelMargin;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxButtonToolBar);
   wxDECLARE_EVENT_TABLE();
 };

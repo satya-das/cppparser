@@ -122,7 +122,9 @@ struct GrUserStencilSettings
     return Init<Ref, Test, TestMask, PassOp, FailOp, WriteMask>();
   }
   template <uint16_t FtRef, uint16_t BkRef, GrUserStencilTest FtTest, GrUserStencilTest BkTest, uint16_t FtTestMask, uint16_t BkTestMask, GrUserStencilOp FtPassOp, GrUserStencilOp BkPassOp, GrUserStencilOp FtFailOp, GrUserStencilOp BkFailOp, uint16_t FtWriteMask, uint16_t BkWriteMask>
-  static constexpr InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask, FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask, BkWriteMask> StaticInitSeparate()
+  static constexpr InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask,
+                                  FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask,
+                                  BkWriteMask> StaticInitSeparate()
   {
     return InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask,
                             FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask, BkWriteMask>();
@@ -138,7 +140,8 @@ struct GrUserStencilSettings
   {
   }
   template <uint16_t FtRef, uint16_t BkRef, GrUserStencilTest FtTest, GrUserStencilTest BkTest, uint16_t FtTestMask, uint16_t BkTestMask, GrUserStencilOp FtPassOp, GrUserStencilOp BkPassOp, GrUserStencilOp FtFailOp, GrUserStencilOp BkFailOp, uint16_t FtWriteMask, uint16_t BkWriteMask, typename FtAttrs = Attrs<FtTest, FtPassOp, FtFailOp>, typename BkAttrs = Attrs<BkTest, BkPassOp, BkFailOp>>
-  explicit GrUserStencilSettings(const InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask, FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask, BkWriteMask>&)
+  explicit GrUserStencilSettings(const InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask,
+                               FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask, BkWriteMask>&)
     : fFrontFlags(FtAttrs::Flags(false), FtAttrs::Flags(true))
     , fFront(FtRef, FtTest, FtAttrs::EffectiveTestMask(FtTestMask), FtPassOp, FtFailOp, FtAttrs::EffectiveWriteMask(FtWriteMask))
     , fBackFlags(BkAttrs::Flags(false), BkAttrs::Flags(true))

@@ -25,6 +25,7 @@ public:
   bool operator !=(const AcPointCloudExtractedCylinder& o) const;
   AcPointCloudExtractedCylinder& operator =(const AcPointCloudExtractedCylinder& o);
   static const AcPointCloudExtractedCylinder kInvalid;
+public:
     /// <summary>
     /// Checks if the current extracted cylinder object is valid
     /// </summary>

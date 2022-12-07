@@ -68,6 +68,7 @@ public:
     /// MFC window close button and private value change after this window is added to document window manager.</remarks>
   ACAD_PORT void setCanClose(bool bCanClose);
 // Operations
+public:
     /// <summary>Closes the window. </summary>
   ACAD_PORT void close();
     /// <summary>Activates the window. </summary>
@@ -89,6 +90,7 @@ protected:
     /// overloaded version of <code>onLoad()</code>.</remarks>
   ACAD_PORT virtual void setDocument(AcRxObject* document);
 // Events
+protected:
     /// <summary>Called when the document window is being created.</summary>
     /// <param name="hWnd">The native handle of the newly created window.</param>
     /// <remarks>Derived types should override this function to initialize the content
@@ -112,6 +114,7 @@ public:
     /// <summary>Initializes an instance of AcApDocWindow.</summary>
   ACAD_PORT virtual ~AcApDocWindow();
 // IAdHostWindow memebers
+public:
     /// <summary>Obtains the native window handle.</summary>
   ACAD_PORT HWND windowHandle() override;
 private:

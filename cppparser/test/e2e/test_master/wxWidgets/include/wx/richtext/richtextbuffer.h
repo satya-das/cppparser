@@ -2081,6 +2081,7 @@ public:
   {
     m_shadow = shadow;
   }
+public:
   int m_flags;
   wxTextAttrDimensions m_margins;
   wxTextAttrDimensions m_padding;
@@ -4336,6 +4337,7 @@ public:
     return new wxRichTextBox(*this);
   }
   void Copy(const wxRichTextBox& obj);
+protected:
 };
 /**
     @class wxRichTextField
@@ -4444,6 +4446,7 @@ public:
     return new wxRichTextField(*this);
   }
   void Copy(const wxRichTextField& obj);
+protected:
 };
 /**
     @class wxRichTextFieldType
@@ -6523,6 +6526,7 @@ public:
     return new wxRichTextCell(*this);
   }
   void Copy(const wxRichTextCell& obj);
+protected:
 };
 /**
     @class wxRichTextTable
@@ -7355,8 +7359,8 @@ public:
   {
     return m_encoding;
   }
-#    if  wxUSE_STREAMS
 protected:
+#    if  wxUSE_STREAMS
     /**
         Override to load content from @a stream into @a buffer.
     */
@@ -7401,8 +7405,8 @@ public:
   {
     return true;
   }
-#    if  wxUSE_STREAMS
 protected:
+#    if  wxUSE_STREAMS
   bool DoLoadFile(wxRichTextBuffer* buffer, wxInputStream& stream) override;
   bool DoSaveFile(wxRichTextBuffer* buffer, wxOutputStream& stream) override;
 #    endif

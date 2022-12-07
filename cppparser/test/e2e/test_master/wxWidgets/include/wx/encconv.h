@@ -18,14 +18,14 @@
 enum
 {
   wxCONVERT_STRICT,
-  wxCONVERT_SUBSTITUTE
+  wxCONVERT_SUBSTITUTE,
 };
 enum
 {
   wxPLATFORM_CURRENT = -1,
   wxPLATFORM_UNIX = 0,
   wxPLATFORM_WINDOWS,
-  wxPLATFORM_MAC
+  wxPLATFORM_MAC,
 };
 // ----------------------------------------------------------------------------
 // types

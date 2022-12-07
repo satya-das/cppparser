@@ -23,8 +23,8 @@ class AcDbTable;
 //*************************************************************************
 class AcDbTableTemplate : public AcDbTableContent
 {
-  ACDB_DECLARE_MEMBERS(AcDbTableTemplate);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbTableTemplate);
   AcDbTableTemplate(void);
   AcDbTableTemplate(const AcDbTable* pTable, AcDb::TableCopyOption nCopyOption);
   virtual ~AcDbTableTemplate();

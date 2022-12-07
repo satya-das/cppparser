@@ -19,8 +19,8 @@
 #  pragma  pack(push, 8)
 class AcDbXrecord : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbXrecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbXrecord);
   AcDbXrecord();
   virtual ~AcDbXrecord();
     // auxDb parameter only useded when working with

@@ -109,6 +109,7 @@ protected:
     /// <returns> Returns Acad::eOk if successful; otherwise, returns an AutoCAD error status. </returns>
     ///
   virtual Acad::ErrorStatus subIsExecutable(const AcRxObject* pO, const AcRxValue& param) const;
+protected:
   friend class AcRxMethodImp;
   ACBASE_PORT AcRxMethod(AcRxMethodImp*);
 };

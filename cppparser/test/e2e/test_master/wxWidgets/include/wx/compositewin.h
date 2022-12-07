@@ -132,7 +132,7 @@ private:
             // simpler and it doesn't cost us much here.
       if (child)
       {
-        (child->*func)(arg);
+        (child.*func)(arg);
       }
     }
   }

@@ -43,6 +43,7 @@ private:
   wxDC* m_printerDC;
   bool m_destroyDC;
   wxWindow* m_dialogParent;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPrintDialog);
 };
 /*
@@ -60,6 +61,7 @@ public:
 private:
   wxPageSetupDialogData m_pageSetupData;
   wxWindow* m_dialogParent;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxMacPageSetupDialog);
 };
 class WXDLLIMPEXP_FWD_CORE wxTextCtrl;
@@ -88,6 +90,7 @@ private:
   wxTextCtrl* m_BottomMargin;
   void GetMinMargins();
   bool CheckValue(wxTextCtrl* textCtrl, int* value, int minValue, const wxString& name);
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxMacPageMarginsDialog);
 };
 #endif

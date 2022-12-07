@@ -101,6 +101,7 @@ private:
   wxPoint m_clickPt;
   wxRect m_rect;
   int m_toolId;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxAuiToolBarEvent);
 };
 class WXDLLIMPEXP_AUI wxAuiToolBarItem
@@ -514,6 +515,7 @@ protected:
   virtual void OnCustomRender(wxDC&, const wxAuiToolBarItem&, const wxRect&)
   {
   }
+protected:
   void DoIdleUpdate();
   void SetOrientation(int orientation);
   void SetHoverItem(wxAuiToolBarItem* item);
@@ -523,6 +525,7 @@ protected:
   wxRect GetOverflowRect() const;
   wxSize GetLabelSize(const wxString& label);
   wxAuiToolBarItem* FindToolByPositionWithPacking(wxCoord x, wxCoord y) const;
+protected:
   void OnSize(wxSizeEvent& evt);
   void OnIdle(wxIdleEvent& evt);
   void OnPaint(wxPaintEvent& evt);
@@ -538,6 +541,7 @@ protected:
   void OnCaptureLost(wxMouseCaptureLostEvent& evt);
   void OnSetCursor(wxSetCursorEvent& evt);
   void OnSysColourChanged(wxSysColourChangedEvent& event);
+protected:
   wxAuiToolBarItemArray m_items;
   wxAuiToolBarArt* m_art;
   wxBoxSizer* m_sizer;

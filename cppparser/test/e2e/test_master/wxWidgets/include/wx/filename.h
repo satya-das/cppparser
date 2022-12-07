@@ -68,18 +68,18 @@ enum
 {
   wxPATH_NO_SEPARATOR = 0x0000,
   wxPATH_GET_VOLUME = 0x0001,
-  wxPATH_GET_SEPARATOR = 0x0002
+  wxPATH_GET_SEPARATOR = 0x0002,
 };
 // Mkdir flags
 enum
 {
-  wxPATH_MKDIR_FULL = 0x0001
+  wxPATH_MKDIR_FULL = 0x0001,
 };
 // Rmdir flags
 enum
 {
   wxPATH_RMDIR_FULL = 0x0001,
-  wxPATH_RMDIR_RECURSIVE = 0x0002
+  wxPATH_RMDIR_RECURSIVE = 0x0002,
 };
 // FileExists flags
 enum
@@ -94,7 +94,7 @@ enum
   wxFILE_EXISTS_SOCKET = 0x0020,
                                        // gap for future types
   wxFILE_EXISTS_NO_FOLLOW = 0x1000,
-  wxFILE_EXISTS_ANY = 0x1FFF
+  wxFILE_EXISTS_ANY = 0x1FFF,
 };
 #  if  wxUSE_LONGLONG
 // error code of wxFileName::GetSize()

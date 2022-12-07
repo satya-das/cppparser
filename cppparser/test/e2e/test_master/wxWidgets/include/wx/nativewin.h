@@ -191,8 +191,8 @@ public:
     // principle be overridden to something else (knowing that the window
     // handle of this object and all of its children is invalid any more)
   virtual void OnNativeDestroyed();
-#    ifdef __WXMSW__
 protected:
+#    ifdef __WXMSW__
   WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
 #    endif
 private:

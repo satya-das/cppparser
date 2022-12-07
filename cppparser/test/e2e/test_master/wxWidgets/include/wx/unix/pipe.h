@@ -26,7 +26,7 @@ public:
   };
   enum
   {
-    INVALID_FD = -1
+    INVALID_FD = -1,
   };
     // default ctor doesn't do anything
   wxPipe()

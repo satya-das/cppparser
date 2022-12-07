@@ -99,6 +99,7 @@ protected:
     m_lastResult = result;
     return wxDfbCheckReturn(result);
   }
+protected:
     /// Reference count
   unsigned m_refCnt;
     /// Result of the last DirectFB call
@@ -143,6 +144,7 @@ protected:
       m_ptr->Release(m_ptr);
     }
   }
+protected:
     // pointer to DirectFB object
   T* m_ptr;
 };

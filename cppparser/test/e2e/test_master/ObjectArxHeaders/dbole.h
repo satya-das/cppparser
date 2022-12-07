@@ -41,8 +41,8 @@ bool operator==(const CRectangle3d& l, const CRectangle3d& r);
 class COleClientItem;
 class AcDbOleFrame : public AcDbFrame
 {
-  ACDB_DECLARE_MEMBERS(AcDbOleFrame);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbOleFrame);
   AcDbOleFrame();
   virtual ~AcDbOleFrame();
     // --- AcDbObject Protocol
@@ -53,11 +53,12 @@ public:
     // OLE Specific Methods
   virtual void* getOleObject(void) const;
   virtual void setOleObject(const void* pItem);
+protected:
 };
 class AcDbOle2Frame : public AcDbOleFrame
 {
-  ACDB_DECLARE_MEMBERS(AcDbOle2Frame);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbOle2Frame);
   AcDbOle2Frame();
   virtual ~AcDbOle2Frame();
     // --- AcDbObject Protocol

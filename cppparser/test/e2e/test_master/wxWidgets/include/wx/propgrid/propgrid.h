@@ -1457,6 +1457,7 @@ protected:
   int m_cvUnspecified;
     // Used to skip excess text editor events
   wxString m_prevTcValue;
+protected:
     // Sets some members to defaults (called constructors).
   void Init1();
     // Initializes some members (called by Create and complex constructor).
@@ -1494,6 +1495,7 @@ protected:
   void OnSysColourChanged(wxSysColourChangedEvent& event);
   void OnDPIChanged(wxDPIChangedEvent& event);
   void OnTLPClose(wxCloseEvent& event);
+protected:
   bool AddToSelectionFromInputEvent(wxPGProperty* prop, unsigned int colIndex, wxMouseEvent* event = NULL, int selFlags = 0);
     // Adjust the centering of the bitmap icons (collapse / expand) when the
     // caption font changes.

@@ -21,8 +21,8 @@ class GrVkUniformHandler;
  */
 class GrVkDescriptorSetManager
 {
-  GR_DEFINE_RESOURCE_HANDLE_CLASS(Handle);
 public:
+  GR_DEFINE_RESOURCE_HANDLE_CLASS(Handle);
   static GrVkDescriptorSetManager* CreateUniformManager(GrVkGpu* gpu);
   static GrVkDescriptorSetManager* CreateSamplerManager(GrVkGpu* gpu, VkDescriptorType type, const GrVkUniformHandler&);
   static GrVkDescriptorSetManager* CreateSamplerManager(GrVkGpu* gpu, VkDescriptorType type, const SkTArray<uint32_t>& visibilities);

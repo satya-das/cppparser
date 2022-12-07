@@ -704,6 +704,7 @@ namespace PoDoFo
      *                  of the resulting points will be stored
      */
     void ConvertRectToBezier(double dX, double dY, double dWidth, double dHeight, double pdPointX[], double pdPointY[]);
+  protected:
     /** Register an object in the resource dictionary of this page
      *  so that it can be used for any following drawing operations.
      *  
@@ -735,6 +736,7 @@ namespace PoDoFo
     template <typename C>
     PdfString ExpandTabsPrivate(const C* pszText, pdf_long lStringLen, int nTabCnt, const C cTab, const C cSpace) const;
 #  endif
+  protected:
     /** All drawing operations work on this stream.
      *  This object may not be NULL. If it is NULL any function accessing it should
      *  return ERROR_PDF_INVALID_HANDLE

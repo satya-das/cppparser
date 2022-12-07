@@ -88,6 +88,7 @@ protected:
   bool m_usingDefaultAttrs;
     // the item currently being rendered
   wxDataViewItem m_itemBeingRendered;
+protected:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewRenderer);
 };
 #endif

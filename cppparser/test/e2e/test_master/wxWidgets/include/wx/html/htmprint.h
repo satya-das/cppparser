@@ -148,6 +148,7 @@ private:
             // substitute @PAGENUM@ and @PAGESCNT@ by real values
   void CountPages();
             // fills m_PageBreaks, which indirectly gives the number of pages
+private:
   wxVector<int> m_PageBreaks;
   wxString m_Document, m_BasePath;
   bool m_BasePathIsDir;

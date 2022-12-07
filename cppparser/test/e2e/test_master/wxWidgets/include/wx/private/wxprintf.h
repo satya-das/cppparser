@@ -141,6 +141,7 @@ public:
     // a little buffer where formatting flags like #+\.hlqLz are stored by Parse()
     // for use in Process()
   char m_szFlags[wxMAX_SVNPRINTF_FLAGBUFFER_LEN];
+public:
     // we don't declare this as a constructor otherwise it would be called
     // automatically and we don't want this: to be optimized, wxCRT_VsnprintfW
     // calls this function only on really-used instances of this class.

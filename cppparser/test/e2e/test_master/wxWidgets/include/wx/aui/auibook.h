@@ -65,6 +65,7 @@ public:
   }
 private:
   wxAuiNotebook* m_dragSource;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxAuiNotebookEvent);
 };
 class WXDLLIMPEXP_AUI wxAuiNotebookPage
@@ -132,6 +133,7 @@ public:
   void MakeTabVisible(int tabPage, wxWindow* win);
 protected:
   virtual void Render(wxDC* dc, wxWindow* wnd);
+protected:
   wxAuiTabArt* m_art;
   wxAuiNotebookPageArray m_pages;
   wxAuiTabContainerButtonArray m_buttons;
@@ -173,6 +175,7 @@ protected:
   void OnChar(wxKeyEvent& event);
   void OnCaptureLost(wxMouseCaptureLostEvent& evt);
   void OnSysColourChanged(wxSysColourChangedEvent& event);
+protected:
   wxPoint m_clickPt;
   wxWindow* m_clickTab;
   bool m_isDragging;
@@ -280,11 +283,13 @@ protected:
   }
     //A general selection function
   virtual int DoModifySelection(size_t n, bool events);
+protected:
   void DoSizing();
   void InitNotebook(long style);
   wxWindow* GetTabFrameFromTabCtrl(wxWindow* tabCtrl);
   void RemoveEmptyTabFrames();
   void UpdateHintWindowSize();
+protected:
   void OnChildFocusNotebook(wxChildFocusEvent& evt);
   void OnRender(wxAuiManagerEvent& evt);
   void OnSize(wxSizeEvent& evt);
@@ -308,6 +313,7 @@ protected:
   {
     SetSelectionToWindow(page.window);
   }
+protected:
   wxAuiManager m_mgr;
   wxAuiTabContainer m_tabs;
   int m_curPage;

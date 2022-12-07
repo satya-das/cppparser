@@ -30,7 +30,7 @@ enum
     // force putting column images on right
   wxHD_BITMAP_ON_RIGHT = 0x0004,
     // style used by default when creating the control
-  wxHD_DEFAULT_STYLE = wxHD_ALLOW_REORDER
+  wxHD_DEFAULT_STYLE = wxHD_ALLOW_REORDER,
 };
 WXDLLIMPEXP_CORE extern const char wxHeaderCtrlNameStr[];
 // ----------------------------------------------------------------------------
@@ -184,6 +184,7 @@ protected:
     // helper function for the derived classes: update the array of column
     // indices after the number of columns changed
   void DoResizeColumnIndices(wxArrayInt& colIndices, unsigned int count);
+protected:
     // this window doesn't look nice with the border so don't use it by default
   wxBorder GetDefaultBorder() const override
   {

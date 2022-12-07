@@ -91,8 +91,8 @@ private:
     }
   }
   class AutoMutexWritable;
-#  ifdef SK_DEBUG
 public:
+#  ifdef SK_DEBUG
   void validate() const;
 #  else 
   void validate() const

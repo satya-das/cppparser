@@ -99,6 +99,7 @@ public:
     Create(parent, id, col, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxColour& col = *wxBLACK, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCLRP_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxColourPickerCtrlNameStr));
+public:
     // get the colour chosen
   wxColour GetColour() const
   {
@@ -109,6 +110,7 @@ public:
     // set colour using RGB(r,g,b) syntax or considering given text as a colour name;
     // returns true if the given text was successfully recognized.
   bool SetColour(const wxString& text);
+public:
     // update the button colour to match the text control contents
   void UpdatePickerFromTextCtrl() override;
     // update the text control to match the button's colour

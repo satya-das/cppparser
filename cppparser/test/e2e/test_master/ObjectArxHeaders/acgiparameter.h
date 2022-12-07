@@ -18,8 +18,8 @@ class AcGiParameterImp;
 class ACDBCORE2D_PORT AcGiParameter : public AcRxCopyOnWriteObject
 {
   friend class AcGiParameterImp;
-  ACRX_DECLARE_MEMBERS_READWRITE(AcGiParameter, AcGiParameterImp);
 public:
+  ACRX_DECLARE_MEMBERS_READWRITE(AcGiParameter, AcGiParameterImp);
   AcGiParameter(AcGiParameterImp* pImp);
   AcGiParameter(const AcGiParameter& other);
   const AcGiParameter& operator=(const AcGiParameter& other);

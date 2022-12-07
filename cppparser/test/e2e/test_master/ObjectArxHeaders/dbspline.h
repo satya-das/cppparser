@@ -24,8 +24,8 @@ kFitPoints = 0, kControlPoints = 1
 };
 class AcDbSpline : public AcDbCurve
 {
-  ACDB_DECLARE_MEMBERS(AcDbSpline);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbSpline);
   AcDbSpline();
   virtual ~AcDbSpline();
     // the following four constructors take in fit points.

@@ -63,6 +63,7 @@ namespace PoDoFo
     private:
     //void CreatePageHintTable( TVecXRefTable* pXRef );
       void CreateSharedObjectHintTable();
+    private:
       PdfPagesTree* m_pPagesTree;
     };
   }

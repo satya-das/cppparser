@@ -1336,8 +1336,8 @@ public:
 };
 class ACDBCORE2D_PORT AcGiPolyline : public AcGiParameter
 {
-  ACRX_DECLARE_MEMBERS_READWRITE(AcGiPolyline, AcGiImpPolyline);
 public:
+  ACRX_DECLARE_MEMBERS_READWRITE(AcGiPolyline, AcGiImpPolyline);
   AcGiPolyline();
   AcGiPolyline(Adesk::UInt32 nbPoints, AcGePoint3d* pVertexList, AcGeVector3d* pNormal = NULL, Adesk::LongPtr lBaseSubEntMarker = -1);
   ~AcGiPolyline();
@@ -1495,8 +1495,8 @@ public:
 #  pragma  warning (pop)   // disabled 4100 - unreferenced formal parameter
 class ACDBCORE2D_PORT AcGiEdgeData : public AcGiParameter
 {
-  ACRX_DECLARE_MEMBERS_READWRITE(AcGiEdgeData, AcGiImpEdgeData);
 public:
+  ACRX_DECLARE_MEMBERS_READWRITE(AcGiEdgeData, AcGiImpEdgeData);
   ~AcGiEdgeData();
   AcGiEdgeData();
   virtual void setColors(const short* colors);
@@ -1514,8 +1514,8 @@ public:
 };
 class ACDBCORE2D_PORT AcGiFaceData : public AcGiParameter
 {
-  ACRX_DECLARE_MEMBERS_READWRITE(AcGiFaceData, AcGiImpFaceData);
 public:
+  ACRX_DECLARE_MEMBERS_READWRITE(AcGiFaceData, AcGiImpFaceData);
   ~AcGiFaceData();
   AcGiFaceData();
   virtual void setColors(const short* colors);
@@ -1558,8 +1558,8 @@ public:
 };
 class AcGiTextStyle : public AcGiParameter
 {
-  ACRX_DECLARE_MEMBERS_READWRITE(AcGiTextStyle, AcGiImpTextStyle);
 public:
+  ACRX_DECLARE_MEMBERS_READWRITE(AcGiTextStyle, AcGiImpTextStyle);
   ~AcGiTextStyle();
   AcGiTextStyle(AcDbDatabase* pDb = NULL);
   AcGiTextStyle(const ACHAR* fontName, const ACHAR* bigFontName, const double textSize, const double xScale, const double obliqueAngle, const double trPercent, const Adesk::Boolean isBackward, const Adesk::Boolean isUpsideDown, const Adesk::Boolean isVertical, const Adesk::Boolean isOverlined, const Adesk::Boolean isUnderlined, const Adesk::Boolean isStrikethrough = false, const ACHAR* styleName = NULL);

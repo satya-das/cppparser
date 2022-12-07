@@ -74,8 +74,8 @@ public:
   {
     return m_id;
   }
-#  if  wxUSE_AUTOID_MANAGEMENT
 private:
+#  if  wxUSE_AUTOID_MANAGEMENT
     // common part of all ctors: call Assign() for our new id
   void Init(wxWindowID id)
   {

@@ -18,6 +18,7 @@ public:
   ACPL_PORT AcPlPlotLoggingErrorHandler(AcPlPlotLogger*);
   ACPL_PORT virtual ~AcPlPlotLoggingErrorHandler();
   ACPL_DECLARE_MEMBERS(AcPlPlotLoggingErrorHandler);
+public:
   ACPL_PORT virtual void infoMessage(const ACHAR* pMessage);
   ACPL_PORT virtual int messageBox(const ACHAR* pText, const ACHAR* pCaption, unsigned int uType, int defaultReturn);
     //info error handler.

@@ -32,6 +32,7 @@ protected:
   IPointCloudFilter* mpRightFilter;
 private:
   bool mbIsInverted;
+private:
     // outlawed
   PointCloudBinaryOperatorFilter& operator =(const PointCloudBinaryOperatorFilter&);
 };

@@ -51,7 +51,7 @@ protected:
   enum
   {
     SetSel_NoScroll = 0,
-    SetSel_Scroll = 1
+    SetSel_Scroll = 1,
   };
   virtual void DoSetSelection(long from, long to, int flags = SetSel_Scroll);
     // margins functions

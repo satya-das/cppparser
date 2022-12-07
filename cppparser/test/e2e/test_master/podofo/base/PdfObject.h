@@ -294,6 +294,7 @@ namespace PoDoFo
       *  \param pVecObjects a vector of pdf objects
       */
     void SetOwner(PdfVecObjects* pVecObjects);
+  private:
     /* See PdfVariant.h for a detailed explanation of this member, which is
      * here to prevent accidental construction of a PdfObject of integer type
      * when passing a pointer. */

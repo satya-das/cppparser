@@ -315,8 +315,8 @@ public:
     // Debugging and Stats
   class Stats
   {
-#  if  GR_GPU_STATS
   public:
+#  if  GR_GPU_STATS
     Stats();
     void reset()
     {

@@ -94,6 +94,7 @@ namespace PoDoFo
      */
     void Init(EPdfTilingPatternType eTilingType, double strokeR, double strokeG, double strokeB, bool doFill, double fillR, double fillG, double fillB, double offsetX, double offsetY, PdfImage* pImage);
     void AddToResources(const PdfName& rIdentifier, const PdfReference& rRef, const PdfName& rName);
+  private:
     PdfName m_Identifier;
   };
 // -----------------------------------------------------

@@ -87,6 +87,7 @@ public:
   typedef typename base_vec::const_reverse_iterator const_reverse_iterator;
   typedef typename base_vec::difference_type difference_type;
   typedef typename base_vec::size_type size_type;
+public:
   typedef T base_type;
   wxBaseArray()
     : base_vec()

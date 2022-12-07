@@ -650,7 +650,7 @@ enum
 
         @since 3.1.0
     */
-  WX_GL_RELEASE_NONE
+  WX_GL_RELEASE_NONE,
 };
 /**
     @class wxGLCanvas

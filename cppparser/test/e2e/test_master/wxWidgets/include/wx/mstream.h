@@ -76,6 +76,7 @@ public:
   }
 protected:
   wxStreamBuffer* m_o_streambuf;
+protected:
   size_t OnSysWrite(const void* buffer, size_t nbytes) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;
   wxFileOffset OnSysTell() const override;

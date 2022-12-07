@@ -99,6 +99,7 @@ public:
     Create(parent, id, initial, pos, size, style, validator, name);
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxFont& initial = wxNullFont, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxFNTP_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFontPickerCtrlNameStr));
+public:
     // get the font chosen
   wxFont GetSelectedFont() const
   {
@@ -128,6 +129,7 @@ public:
   {
     return m_nMaxPointSize;
   }
+public:
   void UpdatePickerFromTextCtrl() override;
   void UpdateTextCtrlFromPicker() override;
     // event handler for our picker

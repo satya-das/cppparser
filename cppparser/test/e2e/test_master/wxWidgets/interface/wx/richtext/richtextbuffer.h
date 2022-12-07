@@ -1919,6 +1919,7 @@ public:
   {
     return m_shadow;
   }
+public:
   int m_flags;
   wxTextAttrDimensions m_margins;
   wxTextAttrDimensions m_padding;
@@ -3939,6 +3940,7 @@ public:
     return new wxRichTextBox(*this);
   }
   void Copy(const wxRichTextBox& obj);
+protected:
 };
 /**
     @class wxRichTextField
@@ -4046,6 +4048,7 @@ public:
     return new wxRichTextField(*this);
   }
   void Copy(const wxRichTextField& obj);
+protected:
 };
 /**
     @class wxRichTextFieldType
@@ -6088,6 +6091,7 @@ public:
     return new wxRichTextCell(*this);
   }
   void Copy(const wxRichTextCell& obj);
+protected:
 };
 /**
     @class wxRichTextTable

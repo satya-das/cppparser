@@ -17,8 +17,8 @@
 class AcDbImpDictionaryWithDefault;
 class AcDbDictionaryWithDefault : public AcDbDictionary
 {
-  ACDB_DECLARE_MEMBERS(AcDbDictionaryWithDefault);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDictionaryWithDefault);
   AcDbDictionaryWithDefault();
   virtual ~AcDbDictionaryWithDefault();
   Acad::ErrorStatus setDefaultId(const AcDbObjectId& newId);

@@ -81,6 +81,7 @@ public:
   {
     return this->m_pobj;
   }
+public:
   void Release()
   {
         // Release old object if any

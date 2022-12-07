@@ -46,6 +46,7 @@ private:
   void OnIdle(wxIdleEvent& event);
   void OnActivate(wxActivateEvent& event);
   static bool isMouseDown();
+private:
   wxWindow* m_paneWindow;
   bool m_solidDrag;
   bool m_moving;

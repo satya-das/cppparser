@@ -1,3 +1,4 @@
+# TODO: make sure "ninja test" runs all tests
 enable_testing()
 
 if(MSVC)

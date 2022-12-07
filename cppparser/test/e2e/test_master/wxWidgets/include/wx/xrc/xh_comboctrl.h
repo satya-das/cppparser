@@ -17,6 +17,7 @@ public:
   wxComboCtrlXmlHandler();
   wxObject* DoCreateResource() override;
   bool CanHandle(wxXmlNode* node) override;
+private:
 };
 #  endif
 #endif

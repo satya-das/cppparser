@@ -56,6 +56,7 @@ private:
   WXPixmap m_bitmap;
   WXDisplay* m_display;
   wxSize m_size;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxMask);
 };
 //-----------------------------------------------------------------------------

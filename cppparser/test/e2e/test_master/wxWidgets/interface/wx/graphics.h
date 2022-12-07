@@ -1062,6 +1062,7 @@ public:
 */
 class wxGraphicsBrush : public wxGraphicsObject
 {
+public:
 };
 /**
     @class wxGraphicsFont
@@ -1077,6 +1078,7 @@ class wxGraphicsBrush : public wxGraphicsObject
 */
 class wxGraphicsFont : public wxGraphicsObject
 {
+public:
 };
 /**
     @class wxGraphicsPen
@@ -1092,6 +1094,7 @@ class wxGraphicsFont : public wxGraphicsObject
 */
 class wxGraphicsPen : public wxGraphicsObject
 {
+public:
 };
 /**
     @class wxGraphicsMatrix

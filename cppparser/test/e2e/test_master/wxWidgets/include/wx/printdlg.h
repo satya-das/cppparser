@@ -47,6 +47,7 @@ public:
   virtual wxDC* GetPrintDC();
 private:
   wxPrintDialogBase* m_pimpl;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPrintDialog);
   wxDECLARE_NO_COPY_CLASS(wxPrintDialog);
 };
@@ -79,6 +80,7 @@ public:
   wxPageSetupDialogData& GetPageSetupData();
 private:
   wxPageSetupDialogBase* m_pimpl;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPageSetupDialog);
   wxDECLARE_NO_COPY_CLASS(wxPageSetupDialog);
 };

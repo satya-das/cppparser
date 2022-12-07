@@ -19,6 +19,7 @@ public:
   ACPL_PORT AcPlPlotInfo();
   ACPL_PORT virtual ~AcPlPlotInfo();
   ACPL_DECLARE_MEMBERS(AcPlPlotInfo);
+public:
   enum MergeStatus {
         kNoChanges              = 0x00000000,
         kPlotCfgName            = 0x00000001,

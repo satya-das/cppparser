@@ -24,6 +24,8 @@ public:
   wxPrintDialogData& GetPrintDialogData() override;
   wxPrintData& GetPrintData() override;
   wxDC* GetPrintDC() override;
+protected:
+private:
 };
 class WXDLLIMPEXP_CORE wxQtPageSetupDialog : public wxPageSetupDialogBase
 {
@@ -32,5 +34,6 @@ public:
   wxQtPageSetupDialog(wxWindow* parent, wxPageSetupDialogData* data = NULL);
   bool Create(wxWindow* parent, wxPageSetupDialogData* data = NULL);
   wxPageSetupDialogData& GetPageSetupDialogData() override;
+private:
 };
 #endif

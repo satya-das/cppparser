@@ -20,7 +20,7 @@ enum
     // no redirection
   wxPROCESS_DEFAULT = 0,
     // redirect the IO of the child process
-  wxPROCESS_REDIRECT = 1
+  wxPROCESS_REDIRECT = 1,
 };
 // ----------------------------------------------------------------------------
 // A wxProcess object should be passed to wxExecute - than its OnTerminate()
@@ -174,6 +174,7 @@ public:
   {
     return new wxProcessEvent(*this);
   }
+public:
   int m_pid, m_exitcode;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxProcessEvent);
 };

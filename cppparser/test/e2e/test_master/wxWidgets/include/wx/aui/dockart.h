@@ -82,6 +82,7 @@ protected:
   void DrawCaptionBackground(wxDC& dc, const wxRect& rect, bool active);
   void DrawIcon(wxDC& dc, wxWindow* window, const wxRect& rect, wxAuiPaneInfo& pane);
   void InitBitmaps();
+protected:
   wxPen m_borderPen;
   wxBrush m_sashBrush;
   wxBrush m_backgroundBrush;

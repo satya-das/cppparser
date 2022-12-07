@@ -335,6 +335,7 @@ private:
   int m_PPIPrinterX;
   int m_PPIPrinterY;
   wxRect m_paperRectPixels;
+private:
   wxDECLARE_ABSTRACT_CLASS(wxPrintout);
   wxDECLARE_NO_COPY_CLASS(wxPrintout);
 };
@@ -358,8 +359,8 @@ public:
   void OnChar(wxKeyEvent& event);
     // Responds to colour changes
   void OnSysColourChanged(wxSysColourChangedEvent& event);
-#    if  wxUSE_MOUSEWHEEL
 private:
+#    if  wxUSE_MOUSEWHEEL
   void OnMouseWheel(wxMouseEvent& event);
 #    endif
   void OnIdle(wxIdleEvent& event);
@@ -609,6 +610,7 @@ protected:
     // renders preview into m_previewBitmap
   virtual bool RenderPageIntoBitmap(wxBitmap& bmp, int pageNum);
   void InvalidatePreviewBitmap();
+protected:
   wxPrintDialogData m_printDialogData;
   wxPreviewCanvas* m_previewCanvas;
   wxFrame* m_previewFrame;
@@ -671,6 +673,7 @@ public:
   void SetOk(bool ok) override;
 private:
   wxPrintPreviewBase* m_pimpl;
+private:
   wxDECLARE_CLASS(wxPrintPreview);
   wxDECLARE_NO_COPY_CLASS(wxPrintPreview);
 };

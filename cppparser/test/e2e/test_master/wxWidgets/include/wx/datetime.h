@@ -246,7 +246,7 @@ public:
     // places using DST_OFFSET and update them.
   enum
   {
-    DST_OFFSET = 3600
+    DST_OFFSET = 3600,
   };
     // helper classes
     // ------------------------------------------------------------------------

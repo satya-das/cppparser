@@ -131,8 +131,8 @@ private:
 /////////////////////////////////////// AcDbDataTable /////////////////////////
 class AcDbDataTable : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbDataTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDataTable);
   AcDbDataTable();
   virtual ~AcDbDataTable();
   virtual AcDbDataTable& operator =(const AcDbDataTable& table);

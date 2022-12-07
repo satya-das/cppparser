@@ -169,8 +169,8 @@ private:
   sk_sp<GrGpuBuffer> fStencilResolveBuffer;
   GrStencilAtlasOp::ResolveRectInstance* fStencilResolveInstanceData = nullptr;
   int fNextStencilResolveInstanceIdx = 0;
-#  ifdef SK_DEBUG
 public:
+#  ifdef SK_DEBUG
   void debugOnly_didReuseRenderedPath()
   {
     if (GrCCAtlas::CoverageType::kA8_Multisample == this->renderedPathCoverageType())

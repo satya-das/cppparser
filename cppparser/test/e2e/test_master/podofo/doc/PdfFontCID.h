@@ -100,6 +100,7 @@ namespace PoDoFo
      */
     void EmbedFont(PdfObject* pDescriptor);
     PdfObject* m_pDescendantFonts;
+  protected:
     // Peter Petrov 24 September 2008
     PdfObject* m_pDescriptor;
     std::set<pdf_utf16be> m_setUsed;

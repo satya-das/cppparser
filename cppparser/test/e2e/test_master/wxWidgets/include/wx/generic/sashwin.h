@@ -184,6 +184,7 @@ private:
   wxColour m_faceColour;
   bool m_mouseCaptured;
   wxCursor* m_currentCursor;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxSashWindow);
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_NO_COPY_CLASS(wxSashWindow);
@@ -245,6 +246,7 @@ private:
   wxSashEdgePosition m_edge;
   wxRect m_dragRect;
   wxSashDragStatus m_dragStatus;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxSashEvent);
 };
 typedef void (*wxSashEventFunction) (wxSashEvent&);

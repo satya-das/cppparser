@@ -122,7 +122,7 @@ enum
 {
   wxHTML_FIND_EXACT = 1,
   wxHTML_FIND_NEAREST_BEFORE = 2,
-  wxHTML_FIND_NEAREST_AFTER = 4
+  wxHTML_FIND_NEAREST_AFTER = 4,
 };
 // Superscript/subscript/normal script mode of a cell
 enum wxHtmlScriptMode {

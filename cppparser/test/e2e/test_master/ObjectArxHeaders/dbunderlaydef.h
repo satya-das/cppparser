@@ -29,8 +29,8 @@ class IAcReadStream;
 /// </summary>
 class ADESK_NO_VTABLE AcDbUnderlayDefinition : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbUnderlayDefinition);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbUnderlayDefinition);
     ///<summary>Default constructor.</summary>
   AcDbUnderlayDefinition();
     ///<summary>Destructor.</summary>
@@ -128,8 +128,8 @@ private:
 /// </summary>
 class AcDbDwfDefinition : public AcDbUnderlayDefinition
 {
-  ACDB_DECLARE_MEMBERS(AcDbDwfDefinition);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDwfDefinition);
     ///<summary>Default constructor.</summary>
   AcDbDwfDefinition();
     ///<summary>Destructor.</summary>
@@ -145,8 +145,8 @@ private:
 /// </summary>
 class AcDbDgnDefinition : public AcDbUnderlayDefinition
 {
-  ACDB_DECLARE_MEMBERS(AcDbDgnDefinition);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDgnDefinition);
     ///<summary>Default constructor.</summary>
   AcDbDgnDefinition();
     ///<summary>Destructor.</summary>
@@ -213,8 +213,8 @@ private:
 };
 class AcDbPdfDefinition : public AcDbUnderlayDefinition
 {
-  ACDB_DECLARE_MEMBERS(AcDbPdfDefinition);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbPdfDefinition);
     ///<summary>Default constructor.</summary>
   ACDBCORE2D_PORT AcDbPdfDefinition();
     ///<summary>Destructor.</summary>

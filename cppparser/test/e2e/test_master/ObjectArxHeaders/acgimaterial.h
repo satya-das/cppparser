@@ -157,6 +157,7 @@ class AcGiMaterialTexture : public AcRxObject
 public:
   ACRX_DECLARE_MEMBERS(AcGiMaterialTexture);
   virtual bool operator==(const AcGiMaterialTexture& texture) const;
+protected:
 };
 inline bool AcGiMaterialTexture::operator==(const AcGiMaterialTexture& texture) const
 {
@@ -336,8 +337,8 @@ protected:
 class AcGiImpMapper;
 class AcGiMapper : public AcGiParameter
 {
-  ACRX_DECLARE_MEMBERS_READWRITE(AcGiMapper, AcGiImpMapper);
 public:
+  ACRX_DECLARE_MEMBERS_READWRITE(AcGiMapper, AcGiImpMapper);
   enum Projection {
         kInheritProjection = 0,
         kPlanar,

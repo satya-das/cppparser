@@ -50,6 +50,7 @@ public:
   ACDBCORE2D_PORT Acad::ErrorStatus format(AcDbField* pField, ACHAR*& pszValue) final;
 protected:
   AcFdFieldEvaluator(void*);
+protected:
   void* mpImpObj;
 private:
   friend class AcFdSystemInternals;

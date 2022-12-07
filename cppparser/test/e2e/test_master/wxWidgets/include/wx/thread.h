@@ -73,7 +73,7 @@ enum
 {
   WXTHREAD_MIN_PRIORITY = wxPRIORITY_MIN,
   WXTHREAD_DEFAULT_PRIORITY = wxPRIORITY_DEFAULT,
-  WXTHREAD_MAX_PRIORITY = wxPRIORITY_MAX
+  WXTHREAD_MAX_PRIORITY = wxPRIORITY_MAX,
 };
 // There are 2 types of mutexes: normal mutexes and recursive ones. The attempt
 // to lock a normal mutex by a thread which already owns it results in
@@ -220,8 +220,8 @@ public:
   wxCRITSECT_INLINE bool TryEnter();
     // leave the critical section (same as unlocking a mutex)
   wxCRITSECT_INLINE void Leave();
-#    if  wxCRITSECT_IS_MUTEX
 private:
+#    if  wxCRITSECT_IS_MUTEX
   wxMutex m_mutex;
 #    elif  defined(__WINDOWS__)
     // we can't allocate any memory in the ctor, so use placement new -

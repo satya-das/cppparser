@@ -15,6 +15,8 @@ public:
   void QtAddDataTo(QMimeData& mimeData) const override;
     // Overridden to retrieve image data from any format that Qt can read from clipboard
   bool QtSetDataFrom(const QMimeData& mimeData) override;
+protected:
+private:
 };
 class WXDLLIMPEXP_CORE wxFileDataObject : public wxFileDataObjectBase
 {

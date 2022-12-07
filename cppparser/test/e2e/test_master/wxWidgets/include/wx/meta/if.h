@@ -42,6 +42,7 @@ namespace wxPrivate
 template <bool Cond, typename TTrue, typename TFalse>
 struct wxIf
 {
-  typedef typename wxPrivate::wxIfImpl<Cond> ::template Result<TTrue, TFalse>::value value;
+  typedef typename wxPrivate::wxIfImpl<Cond>
+                     ::template Result<TTrue, TFalse>::value value;
 };
 #endif

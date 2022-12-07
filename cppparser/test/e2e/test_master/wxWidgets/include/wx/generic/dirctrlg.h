@@ -40,7 +40,7 @@ enum
   wxDIRCTRL_EDIT_LABELS = 0x0100,
     // Allow multiple selection
   wxDIRCTRL_MULTIPLE = 0x0200,
-  wxDIRCTRL_DEFAULT_STYLE = wxDIRCTRL_3D_INTERNAL
+  wxDIRCTRL_DEFAULT_STYLE = wxDIRCTRL_3D_INTERNAL,
 };
 //-----------------------------------------------------------------------------
 // wxDirItemData
@@ -172,6 +172,7 @@ private:
   wxString m_currentFilterStr;
   wxTreeCtrl* m_treeCtrl;
   wxDirFilterListCtrl* m_filterListCtrl;
+private:
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxGenericDirCtrl);
   wxDECLARE_NO_COPY_CLASS(wxGenericDirCtrl);

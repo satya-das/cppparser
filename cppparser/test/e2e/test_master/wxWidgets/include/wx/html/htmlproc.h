@@ -15,7 +15,7 @@ enum
 {
   wxHTML_PRIORITY_DONTCARE = 128,
                                     // priority
-  wxHTML_PRIORITY_SYSTEM = 256
+  wxHTML_PRIORITY_SYSTEM = 256,
 };
 // Classes derived from this class serve as simple text processors for
 // wxHtmlWindow. wxHtmlWindow runs HTML markup through all registered

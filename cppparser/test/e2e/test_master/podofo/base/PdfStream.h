@@ -277,6 +277,7 @@ namespace PoDoFo
     /** Finish appending data to the stream
      */
     virtual void EndAppendImpl() = 0;
+  protected:
     PdfObject* m_pParent;
     bool m_bAppend;
   };

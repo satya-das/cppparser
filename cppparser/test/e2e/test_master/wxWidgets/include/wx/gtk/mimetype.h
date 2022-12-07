@@ -17,8 +17,8 @@
 #  if  wxUSE_MIMETYPE
 class WXDLLIMPEXP_CORE wxGTKMimeTypesManagerImpl : public wxMimeTypesManagerImpl
 {
-#    if  defined(__UNIX__)
 protected:
+#    if  defined(__UNIX__)
   wxString GetIconFromMimeType(const wxString& mime) override;
 #    endif
 };

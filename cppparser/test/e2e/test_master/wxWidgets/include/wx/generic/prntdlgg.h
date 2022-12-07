@@ -42,14 +42,14 @@ enum
   wxPRINTID_TO,
   wxPRINTID_COPIES,
   wxPRINTID_PRINTTOFILE,
-  wxPRINTID_SETUP
+  wxPRINTID_SETUP,
 };
 enum
 {
   wxPRINTID_LEFTMARGIN = 30,
   wxPRINTID_RIGHTMARGIN,
   wxPRINTID_TOPMARGIN,
-  wxPRINTID_BOTTOMMARGIN
+  wxPRINTID_BOTTOMMARGIN,
 };
 enum
 {
@@ -58,7 +58,7 @@ enum
   wxPRINTID_COMMAND,
   wxPRINTID_OPTIONS,
   wxPRINTID_PAPERSIZE,
-  wxPRINTID_PRINTER
+  wxPRINTID_PRINTER,
 };
 #    if  wxUSE_POSTSCRIPT
 //----------------------------------------------------------------------------
@@ -175,6 +175,7 @@ private:
 #      if  wxUSE_STREAMS
   wxOutputStream* m_outputStream;
 #      endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPostScriptPrintNativeData);
 };
 // ----------------------------------------------------------------------------
@@ -202,6 +203,7 @@ public:
     return m_printDialogData;
   }
   wxDC* GetPrintDC() override;
+public:
 //    wxStaticText*       m_printerMessage;
   wxButton* m_setupButton;
 //    wxButton*           m_helpButton;
@@ -230,6 +232,7 @@ public:
   bool TransferDataFromWindow() override;
   bool TransferDataToWindow() override;
   virtual wxComboBox* CreatePaperTypeChoice();
+public:
   wxListCtrl* m_printerListCtrl;
   wxRadioBox* m_orientationRadioBox;
   wxTextCtrl* m_printerCommandText;
@@ -259,6 +262,7 @@ public:
   wxPageSetupDialogData& GetPageSetupDialogData() override;
   void OnPrinter(wxCommandEvent& event);
   wxComboBox* CreatePaperTypeChoice(int* x, int* y);
+public:
   wxButton* m_printerButton;
   wxRadioBox* m_orientationRadioBox;
   wxTextCtrl* m_marginLeftText;

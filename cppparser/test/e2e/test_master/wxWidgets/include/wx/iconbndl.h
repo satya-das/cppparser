@@ -31,7 +31,7 @@ public:
     FALLBACK_SYSTEM = 1,
         // Return the icon of closest larger size or, if there is no icon of
         // larger size in the bundle, the closest icon of smaller size.
-    FALLBACK_NEAREST_LARGER = 2
+    FALLBACK_NEAREST_LARGER = 2,
   };
     // default constructor
   wxIconBundle();

@@ -26,6 +26,7 @@ public:
         kOutLine,
         kAllLine,
   };
+public:
     /// <summary>
     /// Extract type, out line or floorplan.
     /// </summary>

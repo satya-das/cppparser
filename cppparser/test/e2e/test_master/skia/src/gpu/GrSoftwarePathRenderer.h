@@ -35,6 +35,7 @@ private:
   }
   CanDrawPath onCanDrawPath(const CanDrawPathArgs&) const override;
   bool onDrawPath(const DrawPathArgs&) override;
+private:
   GrProxyProvider* fProxyProvider;
   bool fAllowCaching;
   typedef GrPathRenderer INHERITED;

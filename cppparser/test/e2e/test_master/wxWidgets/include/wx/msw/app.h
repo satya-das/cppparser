@@ -63,7 +63,7 @@ public:
         // never created with wxFULL_REPAINT_ON_RESIZE flag.
         //
         // Notice that this implies RegClass_ReturnNR.
-    RegClass_OnlyNR = 3
+    RegClass_OnlyNR = 3,
   };
     // get the name of the registered Win32 class with the given (unique) base
     // name: this function constructs the unique class name using this name as

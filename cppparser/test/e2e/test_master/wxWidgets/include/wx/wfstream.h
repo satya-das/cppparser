@@ -46,6 +46,7 @@ protected:
   size_t OnSysRead(void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;
   wxFileOffset OnSysTell() const override;
+protected:
   wxFile* m_file;
   bool m_file_destroy;
   wxDECLARE_NO_COPY_CLASS(wxFileInputStream);
@@ -81,6 +82,7 @@ protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;
   wxFileOffset OnSysTell() const override;
+protected:
   wxFile* m_file;
   bool m_file_destroy;
   wxDECLARE_NO_COPY_CLASS(wxFileOutputStream);
@@ -222,6 +224,7 @@ protected:
   size_t OnSysRead(void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;
   wxFileOffset OnSysTell() const override;
+protected:
   wxFFile* m_file;
   bool m_file_destroy;
   wxDECLARE_NO_COPY_CLASS(wxFFileInputStream);
@@ -257,6 +260,7 @@ protected:
   size_t OnSysWrite(const void* buffer, size_t size) override;
   wxFileOffset OnSysSeek(wxFileOffset pos, wxSeekMode mode) override;
   wxFileOffset OnSysTell() const override;
+protected:
   wxFFile* m_file;
   bool m_file_destroy;
   wxDECLARE_NO_COPY_CLASS(wxFFileOutputStream);

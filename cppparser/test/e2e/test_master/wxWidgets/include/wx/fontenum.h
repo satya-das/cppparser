@@ -62,8 +62,8 @@ public:
     // This should be called if the list of the fonts available on the system
     // changes, for whatever reason.
   static void InvalidateCache();
-#    ifdef wxHAS_UTF8_FONTS
 private:
+#    ifdef wxHAS_UTF8_FONTS
     // helper for ports that only use UTF-8 encoding natively
   bool EnumerateEncodingsUTF8(const wxString& facename);
 #    endif

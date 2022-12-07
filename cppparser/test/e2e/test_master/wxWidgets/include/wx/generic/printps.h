@@ -40,6 +40,7 @@ public:
   void DetermineScaling() override;
 private:
   void Init(wxPrintout* printout, wxPrintout* printoutForPrinting);
+private:
   wxDECLARE_CLASS(wxPostScriptPrintPreview);
 };
 #  endif

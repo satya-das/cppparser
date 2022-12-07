@@ -69,6 +69,7 @@ public:
 protected:
   void Init(wxHtmlHelpData* data = NULL);
   void OnCloseWindow(wxCloseEvent& event);
+protected:
     // Temporary pointer to pass to window
   wxHtmlHelpData* m_Data;
   wxString m_TitleFormat;

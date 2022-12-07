@@ -282,7 +282,7 @@ public:
       kViewName = 3,
       kLayoutHandle = 4,
       kViewHandle = 5,
-      kViewWorldCoords = 6
+      kViewWorldCoords = 6,
     };
     InitialViewType mnInitialViewType;
     enum {

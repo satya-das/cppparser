@@ -555,7 +555,8 @@ public:
     // Returns a pointer to an HMENU value.
   virtual void* getMenuContext(const AcRxClass*, const AcDbObjectIdArray&) = 0;
     // Returns a pointer to an HMENU value.
-  virtual void* getMenuContext(const AcRxClass*, const AcDbObjectIdArray&, const AcArray<AcDbFullSubentPathArray, AcArrayObjectCopyReallocator<AcDbFullSubentPathArray> >& subentIds);
+  virtual void* getMenuContext(const AcRxClass*, const AcDbObjectIdArray&, const AcArray<AcDbFullSubentPathArray, 
+                                               AcArrayObjectCopyReallocator<AcDbFullSubentPathArray> >& subentIds);
   virtual void onCommand(Adesk::UInt32) = 0;
   virtual void OnUpdateMenu();
 };

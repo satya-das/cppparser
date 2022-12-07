@@ -269,6 +269,7 @@ namespace PoDoFo
      *  \returns a base encoding
      */
     const PdfEncoding* GetBaseEncoding() const;
+  private:
     PdfEncodingDifference m_differences;
     bool m_bAutoDelete;
     PdfName m_id;

@@ -72,8 +72,8 @@ class WXDLLIMPEXP_FWD_BASE wxString;
 // Note that this class can _only_ be used for function arguments!
 class WXDLLIMPEXP_BASE wxFormatString
 {
-#  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
 public:
+#  ifndef wxNO_IMPLICIT_WXSTRING_ENCODING
   wxFormatString(const char* str)
     : m_char(wxScopedCharBuffer::CreateNonOwned(str))
     , m_str(NULL)
@@ -187,6 +187,7 @@ private:
   const wchar_t* AsWChar();
   wxScopedWCharBuffer m_convertedWChar;
 #  endif
+private:
   wxScopedCharBuffer m_char;
   wxScopedWCharBuffer m_wchar;
     // NB: we can use a pointer here, because wxFormatString is only used

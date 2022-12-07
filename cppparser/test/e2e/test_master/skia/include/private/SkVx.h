@@ -824,13 +824,15 @@ namespace skvx
     return to_vec<8,uint16_t>(vmull_u8(to_vext(x), to_vext(y)));
   }
   template <int N>
-  static typename std::enable_if<(N < 8), Vec<N,uint16_t>>::type mull(const Vec<N,uint8_t>& x, const Vec<N,uint8_t>& y)
+  static typename std::enable_if<(N < 8),
+    Vec<N,uint16_t>>::type mull(const Vec<N,uint8_t>& x, const Vec<N,uint8_t>& y)
   {
         // N < 8 --> double up data until N == 8, returning the part we need.
     return mull(join(x, x), join(y, y)).lo;
   }
   template <int N>
-  static typename std::enable_if<(N > 8), Vec<N,uint16_t>>::type mull(const Vec<N,uint8_t>& x, const Vec<N,uint8_t>& y)
+  static typename std::enable_if<(N > 8),
+    Vec<N,uint16_t>>::type mull(const Vec<N,uint8_t>& x, const Vec<N,uint8_t>& y)
   {
         // N > 8 --> usual join(lo,hi) strategy to recurse down to N == 8.
     return join(mull(x.lo, y.lo), mull(x.hi, y.hi));
@@ -872,17 +874,17 @@ namespace skvx
   }
 #    endif
 #    if  defined(__SSE4_1__)
-  static Vec<4,float> if_then_else(const Vec<4,int >& c, const Vec<4,float>& t, const Vec<4,float>& e)
+  static Vec<4,float> if_then_else(const Vec<4,int  >& c, const Vec<4,float>& t, const Vec<4,float>& e)
   {
     return bit_pun<Vec<4,float>>(_mm_blendv_ps(bit_pun<__m128>(e), bit_pun<__m128>(t), bit_pun<__m128>(c)));
   }
 #    elif  defined(__SSE__)
-  static Vec<4,float> if_then_else(const Vec<4,int >& c, const Vec<4,float>& t, const Vec<4,float>& e)
+  static Vec<4,float> if_then_else(const Vec<4,int  >& c, const Vec<4,float>& t, const Vec<4,float>& e)
   {
     return bit_pun<Vec<4,float>>(_mm_or_ps(_mm_and_ps(bit_pun<__m128>(c), bit_pun<__m128>(t)), _mm_andnot_ps(bit_pun<__m128>(c), bit_pun<__m128>(e))));
   }
 #    elif  defined(__ARM_NEON)
-  static Vec<4,float> if_then_else(const Vec<4,int >& c, const Vec<4,float>& t, const Vec<4,float>& e)
+  static Vec<4,float> if_then_else(const Vec<4,int  >& c, const Vec<4,float>& t, const Vec<4,float>& e)
   {
     return bit_pun<Vec<4,float>>(vbslq_f32(bit_pun<uint32x4_t>(c), bit_pun<float32x4_t>(t), bit_pun<float32x4_t>(e)));
   }

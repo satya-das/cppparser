@@ -226,6 +226,7 @@ protected:
   wxHtmlBookRecArray m_bookRecords;
   wxHtmlHelpDataItems m_contents;
   wxHtmlHelpDataItems m_index;
+protected:
     // Imports .hhp files (MS HTML Help Workshop)
   bool LoadMSProject(wxHtmlBookRecord* book, wxFileSystem& fsys, const wxString& indexfile, const wxString& contentsfile);
     // Reads binary book

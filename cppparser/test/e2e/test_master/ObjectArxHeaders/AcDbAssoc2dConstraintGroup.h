@@ -730,6 +730,7 @@ private:
   /// the callback for constraint added event.</summary>
   /// <param name="pNewCons">Pointer to the constraint that has been added.</param>
   void constraintAdded(AcGeomConstraint* pNewCons);
+private:
   AcArray<AcGeomConstraint*> mConstraints;
 };
 #pragma  pack (pop)

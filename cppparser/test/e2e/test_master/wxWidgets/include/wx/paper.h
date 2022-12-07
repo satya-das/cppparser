@@ -63,6 +63,7 @@ public:
   }
     // Get width and height in device units (1/72th of an inch)
   wxSize GetSizeDeviceUnits() const;
+public:
   wxPaperSize m_paperId;
   int m_platformId;
   int m_width;

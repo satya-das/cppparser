@@ -17,8 +17,8 @@ class SkMatrix44;
  */
 class GrGLSLProgramDataManager :  SkNoncopyable
 {
-  GR_DEFINE_RESOURCE_HANDLE_CLASS(UniformHandle);
 public:
+  GR_DEFINE_RESOURCE_HANDLE_CLASS(UniformHandle);
   virtual ~GrGLSLProgramDataManager()
   {
   }

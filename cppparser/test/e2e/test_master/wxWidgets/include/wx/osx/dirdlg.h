@@ -36,8 +36,8 @@ public:
   void ShowWindowModal() override;
   void ModalFinishedCallback(void* panel, int returnCode) override;
 #  endif
-#  if  wxOSX_USE_COCOA
 private:
+#  if  wxOSX_USE_COCOA
     // Create and initialize NSOpenPanel that we use in both ShowModal() and
     // ShowWindowModal().
   WX_NSOpenPanel OSXCreatePanel() const;

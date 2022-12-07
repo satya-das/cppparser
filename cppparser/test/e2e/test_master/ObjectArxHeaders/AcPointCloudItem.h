@@ -108,6 +108,7 @@ public:
     /// </param>
     /// <returns>new created point cloud item</returns>
   static AcPointCloudItem* CreateFromCmdString(const ACHAR* cmd);
+public:
     /// <summary>
     /// Sets the name of item.
     /// </summary>
@@ -231,6 +232,7 @@ public:
   AcPointCloudItemType itemType() const;
 private:
   void copyItem(const AcPointCloudItem& other);
+private:
     // data fields
   AcString m_name;
   AcString m_projectName;

@@ -158,6 +158,7 @@ private:
   void RenderPage(wxDC* dc, int page);
     /// Substitute keywords
   static bool SubstituteKeywords(wxString& str, const wxString& title, int pageNum, int pageCount);
+private:
   wxRichTextBuffer* m_richTextBuffer;
   int m_numPages;
   wxArrayInt m_pageBreaksStart;

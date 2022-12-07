@@ -126,6 +126,7 @@ namespace PoDoFo
      *  \returns the character code (i.e. glyph id)
      */
     pdf_utf16be GetCIDValue(pdf_utf16be lUnicodeValue) const;
+  private:
     bool m_bAutoDelete;
     PdfName m_id;
   };

@@ -87,6 +87,7 @@ protected:
     // by the public wrappers
   bool InitFromColour(const wxBitmap& bitmap, const wxColour& colour) override;
   bool InitFromMonoBitmap(const wxBitmap& bitmap) override;
+protected:
   wxDECLARE_DYNAMIC_CLASS(wxMask);
 private:
   QBitmap* m_qtBitmap;

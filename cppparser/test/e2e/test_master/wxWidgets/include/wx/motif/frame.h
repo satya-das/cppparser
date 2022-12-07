@@ -94,6 +94,7 @@ private:
   virtual void DoGetSize(int* width, int* height) const;
   virtual void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO);
   virtual void DoSetClientSize(int width, int height);
+private:
   virtual bool XmDoCreateTLW(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style, const wxString& name);
   wxDECLARE_EVENT_TABLE();
   wxDECLARE_DYNAMIC_CLASS(wxFrame);

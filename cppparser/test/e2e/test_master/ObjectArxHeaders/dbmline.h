@@ -32,8 +32,8 @@ struct Mline
 class AcGePlane;
 class AcDbMline : public AcDbEntity
 {
-  ACDB_DECLARE_MEMBERS(AcDbMline);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbMline);
   AcDbMline();
   virtual ~AcDbMline();
   Acad::ErrorStatus setStyle(const AcDbObjectId& newStyleId);

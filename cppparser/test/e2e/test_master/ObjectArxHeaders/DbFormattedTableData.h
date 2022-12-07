@@ -35,8 +35,8 @@ struct AcGridProperty
 //*************************************************************************
 class AcDbFormattedTableData : public AcDbLinkedTableData
 {
-  ACDB_DECLARE_MEMBERS(AcDbFormattedTableData);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbFormattedTableData);
   ACDB_PORT AcDbFormattedTableData(void);
   ACDB_PORT ~AcDbFormattedTableData();
   ACDB_PORT virtual int insertRowAndInherit(int nIndex, int nInheritFrom, int nNumRows);

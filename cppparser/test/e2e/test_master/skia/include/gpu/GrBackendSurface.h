@@ -247,8 +247,8 @@ public:
 #    if  GR_TEST_UTILS
   static bool TestingOnly_Equals(const GrBackendTexture&, const GrBackendTexture&);
 #    endif
-#    ifdef SK_GL
 private:
+#    ifdef SK_GL
   friend class GrGLTexture;
   friend class GrGLGpu;
   GrBackendTexture(int width, int height, GrMipMapped, const GrGLTextureInfo, sk_sp<GrGLTextureParameters>);

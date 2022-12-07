@@ -197,8 +197,8 @@ public:
  */
 class GrCCPathCacheEntry : public GrNonAtomicRef<GrCCPathCacheEntry>
 {
-  SK_DECLARE_INTERNAL_LLIST_INTERFACE(GrCCPathCacheEntry);
 public:
+  SK_DECLARE_INTERNAL_LLIST_INTERFACE(GrCCPathCacheEntry);
   ~GrCCPathCacheEntry()
   {
     SkASSERT(this->hasBeenEvicted());

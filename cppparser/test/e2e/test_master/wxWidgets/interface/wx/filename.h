@@ -78,7 +78,7 @@ enum
       This flag is obviously @b dangerous and should be used with care and
       after asking the user for confirmation.
      */
-  wxPATH_RMDIR_RECURSIVE = 2
+  wxPATH_RMDIR_RECURSIVE = 2,
 };
 /**
     Flags for wxFileName::Exists().
@@ -100,7 +100,7 @@ enum
   wxFILE_EXISTS_DEVICE = 0x0008,
   wxFILE_EXISTS_FIFO = 0x0016,
   wxFILE_EXISTS_SOCKET = 0x0032,
-  wxFILE_EXISTS_NO_FOLLOW = 0x1000 = 0x1FFF
+  wxFILE_EXISTS_NO_FOLLOW = 0x1000 = 0x1FFF,
 };
 /**
     The return value of wxFileName::GetSize() in case of error.

@@ -137,7 +137,9 @@ private:
     // This cryptic expression means "typedef Ops to wxVectorMemOpsMovable if
     // type T is movable type, otherwise to wxVectorMemOpsGeneric".
     //
-  typedef typename wxIf< wxIsMovable<T>::value, wxPrivate::wxVectorMemOpsMovable<T>, wxPrivate::wxVectorMemOpsGeneric<T> >::value Ops;
+  typedef typename wxIf< wxIsMovable<T>::value,
+                           wxPrivate::wxVectorMemOpsMovable<T>,
+                           wxPrivate::wxVectorMemOpsGeneric<T> >::value Ops;
 public:
   typedef size_t size_type;
   typedef ptrdiff_t difference_type;
@@ -150,8 +152,8 @@ public:
   typedef const value_type& const_reference;
   class reverse_iterator
   {
-#  if  wxUSE_STD_CONTAINERS_COMPATIBLY
   public:
+#  if  wxUSE_STD_CONTAINERS_COMPATIBLY
     typedef std::random_access_iterator_tag iterator_category;
 #  endif
     typedef ptrdiff_t difference_type;
@@ -256,8 +258,8 @@ public:
   };
   class const_reverse_iterator
   {
-#  if  wxUSE_STD_CONTAINERS_COMPATIBLY
   public:
+#  if  wxUSE_STD_CONTAINERS_COMPATIBLY
     typedef std::random_access_iterator_tag iterator_category;
 #  endif
     typedef ptrdiff_t difference_type;
@@ -690,6 +692,7 @@ private:
       push_back (*i);
     }
   }
+private:
   void Shrink(size_type n)
   {
     for (size_type i = n; i < m_size; i++)

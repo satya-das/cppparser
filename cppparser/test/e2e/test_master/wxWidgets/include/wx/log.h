@@ -545,8 +545,8 @@ protected:
     // repeated if previous repetition counter is strictly positive, does
     // nothing otherwise; return the old value of repetition counter
   unsigned LogLastRepeatIfNeeded();
-#    if  wxUSE_THREADS
 private:
+#    if  wxUSE_THREADS
     // called from FlushActive() to really log any buffered messages logged
     // from the other threads
   void FlushThreadMessages();
@@ -851,8 +851,8 @@ public:
         2, (const wxString&, const wxFormatString&),
         DoLogTrace, DoLogTraceUtf8
     )
-#    if  !wxUSE_UTF8_LOCALE_ONLY
 private:
+#    if  !wxUSE_UTF8_LOCALE_ONLY
   void DoLog(const wxChar* format, ...)
   {
     va_list argptr;

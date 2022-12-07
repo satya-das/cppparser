@@ -43,7 +43,7 @@ enum
   wxSOCKET_INPUT_FLAG = 1 << wxSOCKET_INPUT,
   wxSOCKET_OUTPUT_FLAG = 1 << wxSOCKET_OUTPUT,
   wxSOCKET_CONNECTION_FLAG = 1 << wxSOCKET_CONNECTION,
-  wxSOCKET_LOST_FLAG = 1 << wxSOCKET_LOST
+  wxSOCKET_LOST_FLAG = 1 << wxSOCKET_LOST,
 };
 // this is a combination of the bit masks defined above
 typedef int wxSocketEventFlags;
@@ -73,7 +73,7 @@ enum
   wxSOCKET_BLOCK = 0x0010,
   wxSOCKET_REUSEADDR = 0x0020,
   wxSOCKET_BROADCAST = 0x0040,
-  wxSOCKET_NOBIND = 0x0080
+  wxSOCKET_NOBIND = 0x0080,
 };
 typedef int wxSocketFlags;
 // socket kind values (badly defined, don't use)
@@ -282,6 +282,7 @@ private:
   wxUint32 GetPushback(void* buffer, wxUint32 size, bool peek);
     // store the given error as the LastError()
   void SetError(wxSocketError error);
+private:
     // socket
   wxSocketImpl* m_impl;
   wxSocketType m_type;
@@ -404,6 +405,7 @@ public:
   {
     return wxEVT_CATEGORY_SOCKET;
   }
+public:
   wxSocketNotify m_event;
   void* m_clientData;
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxSocketEvent);

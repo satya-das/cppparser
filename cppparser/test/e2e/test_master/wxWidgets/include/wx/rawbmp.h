@@ -120,7 +120,7 @@ struct wxPixelFormat
     RED = R,
     GREEN = G,
     BLUE = B,
-    ALPHA = A
+    ALPHA = A,
   };
     // true if we have an alpha channel (together with the other channels, this
     // doesn't cover the case of wxImage which stores alpha separately)
@@ -173,7 +173,11 @@ typedef wxPixelFormat<unsigned char, 24, 0, 1, 2> wxNativePixelFormat;
 #    endif
 // the (most common) native format for bitmaps with alpha channel
 #    ifdef wxPIXEL_FORMAT_ALPHA
-typedef wxPixelFormat<unsigned char, 32, wxNativePixelFormat::RED, wxNativePixelFormat::GREEN, wxNativePixelFormat::BLUE, wxPIXEL_FORMAT_ALPHA> wxAlphaPixelFormat;
+typedef wxPixelFormat<unsigned char, 32,
+                          wxNativePixelFormat::RED,
+                          wxNativePixelFormat::GREEN,
+                          wxNativePixelFormat::BLUE,
+                          wxPIXEL_FORMAT_ALPHA> wxAlphaPixelFormat;
 #    endif
 // we also define the (default/best) pixel format for the given class: this is
 // used as default value for the pixel format in wxPixelIterator template

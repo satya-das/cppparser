@@ -30,7 +30,7 @@ enum
      */
   wxTL_NO_HEADER = 0x0010,
   wxTL_DEFAULT_STYLE = wxTL_SINGLE,
-  wxTL_STYLE_MASK = wxTL_SINGLE | wxTL_MULTIPLE | wxTL_CHECKBOX | wxTL_3STATE | wxTL_USER_3STATE
+  wxTL_STYLE_MASK = wxTL_SINGLE | wxTL_MULTIPLE | wxTL_CHECKBOX | wxTL_3STATE | wxTL_USER_3STATE,
 };
 /**
     @class wxTreeListItem

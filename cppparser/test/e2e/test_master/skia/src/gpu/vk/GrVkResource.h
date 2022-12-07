@@ -161,8 +161,8 @@ public:
      */
   virtual void dumpInfo() const = 0;
 #  endif
-#  ifdef SK_TRACE_VK_RESOURCES
 private:
+#  ifdef SK_TRACE_VK_RESOURCES
   static Trace* GetTrace()
   {
     static Trace kTrace;

@@ -112,6 +112,7 @@ private:
     //
   void closeOpenedObjects(AcDbObjectIdArray& openedObjectIds, AcArray<AcDb::OpenMode>& openModes, AcArray<int>& openCounts);
   void reopenClosedObjects(const AcDbObjectIdArray& openedObjectIds, const AcArray<AcDb::OpenMode>& openModes, const AcArray<int>& openCounts);
+private:
   AcDbDatabase* mpXrefDatabase;
   AcEdXrefFileLock mXrefFileLock;
   Acad::ErrorStatus mStatus;

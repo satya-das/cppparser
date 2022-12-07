@@ -114,6 +114,7 @@ namespace PoDoFo
      */
     void SetCurrentContentsStream(const PdfObject* pObject);
     bool ReadInlineImgData(EPdfContentsType& reType, const char*& rpszKeyword, PoDoFo::PdfVariant& rVariant);
+  private:
     std::list<PdfObject*> m_lstContents;
     bool m_readingInlineImgData;
   };

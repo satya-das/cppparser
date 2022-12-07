@@ -491,7 +491,7 @@ private:
   enum
   {
     MARGIN_CHECK_ICON = 3,
-    MARGIN_ICON_TEXT = 4
+    MARGIN_ICON_TEXT = 4,
   };
   wxDataViewCheckIconText m_value;
   bool m_allow3rdStateForUser;

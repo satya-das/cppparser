@@ -101,6 +101,7 @@ namespace PoDoFo
     /** Detach from the reference counted file
      */
     void Detach();
+  private:
     typedef struct 
 {
   PdfInputDevice* m_pDevice;

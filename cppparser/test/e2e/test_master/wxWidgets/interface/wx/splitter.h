@@ -22,7 +22,7 @@ enum
 {
   wxSPLIT_DRAG_NONE,
   wxSPLIT_DRAG_DRAGGING,
-  wxSPLIT_DRAG_LEFT_DOWN
+  wxSPLIT_DRAG_LEFT_DOWN,
 };
 /**
     @class wxSplitterWindow

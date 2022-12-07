@@ -33,6 +33,7 @@ public:
   virtual void GetBordersForSizer(int* borderTop, int* borderOther) const;
 private:
   WXWidget m_labelWidget;
+private:
   wxDECLARE_EVENT_TABLE();
 };
 #endif

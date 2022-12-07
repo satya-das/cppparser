@@ -30,8 +30,8 @@ class AcDbVertexRef;
 ///
 class ACDB_PORT AcDbAssocArrayModifyActionBody : public AcDbAssocArrayActionBody
 {
-  ACDB_DECLARE_MEMBERS(AcDbAssocArrayModifyActionBody);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbAssocArrayModifyActionBody);
     /// <summary> Default constructor. </summary>
     /// <param name="createImpObject"> See AcDbAssocCreateImpObject. </param>
     ///

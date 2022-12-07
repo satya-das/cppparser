@@ -610,8 +610,8 @@ public:
   }
     // static helpers
   static void DrawBitmap(wxDC& dc, const wxBitmap& bitmap, const wxRect& rect, int alignment = wxALIGN_CENTRE | wxALIGN_CENTRE_VERTICAL, wxStretch stretch = wxSTRETCH_NOT);
-#  if  wxUSE_LISTBOX
 private:
+#  if  wxUSE_LISTBOX
     // common part of DrawItems() and DrawCheckItems()
   void DoDrawItems(const wxListBox* listbox, size_t itemFirst, size_t itemLast, bool isCheckLbox = false);
 #  endif

@@ -58,6 +58,10 @@ public:
   virtual void emitMacroCall(const cppast::CppMacroCall& macroCallObj,
                              std::ostream&               stm,
                              CppIndent                   indentation = CppIndent()) const;
+  virtual void emitEntityAccessSpecifier(const cppast::CppEntityAccessSpecifier& entityAccessSpecifier,
+                                         std::ostream&                           stm,
+                                         CppIndent                               indentation = CppIndent(),
+                                         bool                                    emitNewLine = true) const;
   virtual void emitCompound(const cppast::CppCompound& compoundObj,
                             std::ostream&              stm,
                             CppIndent                  indentation = CppIndent(),

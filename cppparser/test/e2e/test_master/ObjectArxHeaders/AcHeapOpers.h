@@ -19,9 +19,9 @@
 #include "acheapmanager.h"
 class AcHeapOperators
 {
+public:
 #undef new
 #undef delete
-public:
   static void* operator new(size_t size)
   {
     void* p = ::acHeapAlloc(nullptr, size);

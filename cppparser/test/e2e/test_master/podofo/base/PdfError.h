@@ -442,6 +442,7 @@ namespace PoDoFo
     static void LogErrorMessage(ELogSeverity eLogSeverity, const wchar_t* pszMsg, ...);
     static void LogMessageInternal(ELogSeverity eLogSeverity, const char* pszMsg, va_list& args);
     static void LogMessageInternal(ELogSeverity eLogSeverity, const wchar_t* pszMsg, va_list& args);
+  private:
     EPdfError m_error;
     TDequeErrorInfo m_callStack;
     static bool s_DgbEnabled;

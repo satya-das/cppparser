@@ -64,7 +64,7 @@ namespace SK_OPTS_NS
   inline void blit_row_color32(SkPMColor* dst, const SkPMColor* src, int count, SkPMColor color)
   {
     constexpr int N = 4;
-    using U32 = skvx::Vec< N, uint32_t>;
+    using U32 = skvx::Vec<  N, uint32_t>;
     using U16 = skvx::Vec<4*N, uint16_t>;
     using U8 = skvx::Vec<4*N, uint8_t>;
     auto kernel = ;

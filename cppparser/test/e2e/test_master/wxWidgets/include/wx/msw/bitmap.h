@@ -186,6 +186,7 @@ public:
   void MSWUpdateAlpha();
     // Blend mask with alpha channel and remove the mask
   void MSWBlendMaskWithAlpha();
+public:
   WXHBITMAP GetHBITMAP() const
   {
     return (WXHBITMAP) GetHandle();

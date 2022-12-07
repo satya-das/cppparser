@@ -56,6 +56,7 @@ protected:
   void DoTimerEvent();
   bool AnimateShow(const wxRect& rect, int flags) override;
 #    endif
+protected:
     // Dummy method - we override all functions that call this
   WXHWND GetEditHWND() const override
   {

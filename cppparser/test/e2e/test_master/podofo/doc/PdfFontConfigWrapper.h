@@ -86,6 +86,7 @@ namespace PoDoFo
      * Do the lazy initialization of fontconfig
      */
     void InitializeFontConfig();
+  private:
 #  if  defined(PODOFO_HAVE_FONTCONFIG)
     static Util::PdfMutex m_FcMutex;
 #  endif

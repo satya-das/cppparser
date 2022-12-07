@@ -332,6 +332,7 @@ namespace PoDoFo
      *  \param eFontType fonttype
      */
     inline void SetFontType(EPdfFontType eFontType);
+  protected:
     std::string m_sFilename;
     float m_fFontSize;
     float m_fFontScale;

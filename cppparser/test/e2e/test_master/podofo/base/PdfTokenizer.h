@@ -222,6 +222,7 @@ namespace PoDoFo
      *  \see GetNextToken
      */
     void QuequeToken(const char* pszToken, EPdfTokenType eType);
+  protected:
     PdfRefCountedInputDevice m_device;
     PdfRefCountedBuffer m_buffer;
   private:

@@ -93,6 +93,7 @@ public:
 protected:
     // Append/change extension if necessary.
   wxString GetValidFilename(const wxString& file) const;
+protected:
   enum HelpControllerType {
  wxUseNone, wxUseHtmlHelp, wxUseChmHelp
   };

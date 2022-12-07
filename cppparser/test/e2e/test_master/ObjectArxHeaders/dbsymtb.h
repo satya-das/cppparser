@@ -42,8 +42,8 @@ namespace Atil
 }
 class ADESK_NO_VTABLE AcDbSymbolTableRecord : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbSymbolTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbSymbolTableRecord);
   AcDbSymbolTableRecord();
   virtual ~AcDbSymbolTableRecord();
   typedef AcDbSymbolTable TableType;
@@ -61,8 +61,8 @@ class AcDbBlockTableRecordIterator;
 class AcDbBlockReferenceIdIterator;
 class AcDbBlockTableRecord : public AcDbSymbolTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbBlockTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbBlockTableRecord);
   AcDbBlockTableRecord();
   virtual ~AcDbBlockTableRecord();
   typedef AcDbBlockTable TableType;
@@ -151,8 +151,8 @@ protected:
 class AcDbLayerTable;
 class AcDbLayerTableRecord : public AcDbSymbolTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbLayerTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLayerTableRecord);
   AcDbLayerTableRecord();
   virtual ~AcDbLayerTableRecord();
   typedef AcDbLayerTable TableType;
@@ -232,8 +232,8 @@ Acad::ErrorStatus applyCurDwgLayerTableChanges();
 class AcDbTextStyleTable;
 class AcDbTextStyleTableRecord : public AcDbSymbolTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbTextStyleTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbTextStyleTableRecord);
   AcDbTextStyleTableRecord();
   virtual ~AcDbTextStyleTableRecord();
   typedef AcDbTextStyleTable TableType;
@@ -301,8 +301,8 @@ protected:
 class AcDbLinetypeTable;
 class AcDbLinetypeTableRecord : public AcDbSymbolTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbLinetypeTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLinetypeTableRecord);
   AcDbLinetypeTableRecord();
   virtual ~AcDbLinetypeTableRecord();
   typedef AcDbLinetypeTable TableType;
@@ -357,8 +357,8 @@ protected:
 };
 class ADESK_NO_VTABLE AcDbAbstractViewTableRecord : public AcDbSymbolTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbAbstractViewTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbAbstractViewTableRecord);
   AcDbAbstractViewTableRecord();
   virtual ~AcDbAbstractViewTableRecord();
   AcGePoint2d centerPoint() const;
@@ -437,8 +437,8 @@ typedef struct tagBITMAPINFO BITMAPINFO;
 class AcDbViewTable;
 class AcDbViewTableRecord : public AcDbAbstractViewTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbViewTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbViewTableRecord);
   AcDbViewTableRecord();
   virtual ~AcDbViewTableRecord();
   typedef AcDbViewTable TableType;
@@ -510,8 +510,8 @@ protected:
 class AcDbUCSTable;
 class AcDbUCSTableRecord : public AcDbSymbolTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbUCSTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbUCSTableRecord);
   AcDbUCSTableRecord();
   virtual ~AcDbUCSTableRecord();
   typedef AcDbUCSTable TableType;
@@ -529,8 +529,8 @@ protected:
 class AcDbViewportTable;
 class AcDbViewportTableRecord : public AcDbAbstractViewTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbViewportTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbViewportTableRecord);
   AcDbViewportTableRecord();
   virtual ~AcDbViewportTableRecord();
   typedef AcDbViewportTable TableType;
@@ -601,8 +601,8 @@ protected:
 class AcDbRegAppTable;
 class AcDbRegAppTableRecord : public AcDbSymbolTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbRegAppTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbRegAppTableRecord);
   AcDbRegAppTableRecord();
   virtual ~AcDbRegAppTableRecord();
   typedef AcDbRegAppTable TableType;
@@ -612,8 +612,8 @@ protected:
 class AcDbDimStyleTable;
 class AcDbDimStyleTableRecord : public AcDbSymbolTableRecord
 {
-  ACDB_DECLARE_MEMBERS(AcDbDimStyleTableRecord);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDimStyleTableRecord);
   AcDbDimStyleTableRecord();
   virtual ~AcDbDimStyleTableRecord();
   typedef AcDbDimStyleTable TableType;
@@ -645,8 +645,8 @@ protected:
 };
 class ADESK_NO_VTABLE AcDbSymbolTable : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbSymbolTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbSymbolTable);
   AcDbSymbolTable();
   virtual ~AcDbSymbolTable();
   typedef AcDbSymbolTableRecord RecordType;
@@ -685,8 +685,8 @@ protected:
 };
 class AcDbBlockTable : public AcDbSymbolTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbBlockTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbBlockTable);
   AcDbBlockTable();
   virtual ~AcDbBlockTable();
   typedef AcDbBlockTableRecord RecordType;
@@ -714,8 +714,8 @@ class AcDbLayerTableRecord;
 class AcDbLayerTableIterator;
 class AcDbLayerTable : public AcDbSymbolTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbLayerTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLayerTable);
   AcDbLayerTable();
   virtual ~AcDbLayerTable();
   typedef AcDbLayerTableRecord RecordType;
@@ -746,8 +746,8 @@ class AcDbTextStyleTableRecord;
 class AcDbTextStyleTableIterator;
 class AcDbTextStyleTable : public AcDbSymbolTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbTextStyleTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbTextStyleTable);
   AcDbTextStyleTable();
   virtual ~AcDbTextStyleTable();
   typedef AcDbTextStyleTableRecord RecordType;
@@ -775,8 +775,8 @@ class AcDbLinetypeTableRecord;
 class AcDbLinetypeTableIterator;
 class AcDbLinetypeTable : public AcDbSymbolTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbLinetypeTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLinetypeTable);
   AcDbLinetypeTable();
   virtual ~AcDbLinetypeTable();
   typedef AcDbLinetypeTableRecord RecordType;
@@ -804,8 +804,8 @@ class AcDbAbstractViewTableRecord;
 class AcDbAbstractViewTableIterator;
 class ADESK_NO_VTABLE AcDbAbstractViewTable : public AcDbSymbolTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbAbstractViewTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbAbstractViewTable);
   AcDbAbstractViewTable();
   virtual ~AcDbAbstractViewTable();
   Acad::ErrorStatus getAt(const ACHAR* entryName, AcDbAbstractViewTableRecord*& pRec, AcDb::OpenMode openMode = AcDb::kForRead, bool openErasedRec = false) const
@@ -830,8 +830,8 @@ class AcDbViewTableRecord;
 class AcDbViewTableIterator;
 class AcDbViewTable : public AcDbAbstractViewTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbViewTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbViewTable);
   AcDbViewTable();
   virtual ~AcDbViewTable();
   typedef AcDbViewTableRecord RecordType;
@@ -859,8 +859,8 @@ class AcDbUCSTableRecord;
 class AcDbUCSTableIterator;
 class AcDbUCSTable : public AcDbSymbolTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbUCSTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbUCSTable);
   AcDbUCSTable();
   virtual ~AcDbUCSTable();
   typedef AcDbUCSTableRecord RecordType;
@@ -888,8 +888,8 @@ class AcDbViewportTableRecord;
 class AcDbViewportTableIterator;
 class AcDbViewportTable : public AcDbAbstractViewTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbViewportTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbViewportTable);
   AcDbViewportTable();
   virtual ~AcDbViewportTable();
   typedef AcDbViewportTableRecord RecordType;
@@ -917,8 +917,8 @@ class AcDbRegAppTableRecord;
 class AcDbRegAppTableIterator;
 class AcDbRegAppTable : public AcDbSymbolTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbRegAppTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbRegAppTable);
   AcDbRegAppTable();
   virtual ~AcDbRegAppTable();
   typedef AcDbRegAppTableRecord RecordType;
@@ -946,8 +946,8 @@ class AcDbDimStyleTableRecord;
 class AcDbDimStyleTableIterator;
 class AcDbDimStyleTable : public AcDbSymbolTable
 {
-  ACDB_DECLARE_MEMBERS(AcDbDimStyleTable);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDimStyleTable);
   AcDbDimStyleTable();
   virtual ~AcDbDimStyleTable();
   typedef AcDbDimStyleTableRecord RecordType;

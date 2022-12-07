@@ -606,8 +606,8 @@ class ODRX_ABSTRACT FIRSTDLL_EXPORT OdRxClass : public OdRxObject
 {
 protected:
   OdRxClass();
-  ODRX_DECLARE_MEMBERS(OdRxClass);
 public:
+  ODRX_DECLARE_MEMBERS(OdRxClass);
   /** Description: 
     Creates the Protocol Extension for the specified OdRxClass. 
  

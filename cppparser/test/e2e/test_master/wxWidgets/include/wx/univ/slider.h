@@ -106,7 +106,7 @@ public:
 protected:
   enum
   {
-    INVALID_THUMB_VALUE = -0xffff
+    INVALID_THUMB_VALUE = -0xffff,
   };
     // Platform-specific implementation of SetTickFreq
   void DoSetTickFreq(int freq) override;

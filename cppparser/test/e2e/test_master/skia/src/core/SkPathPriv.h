@@ -9,8 +9,8 @@
 #  include "include/core/SkPath.h"
 class SkPathPriv
 {
-#  ifdef SK_BUILD_FOR_ANDROID_FRAMEWORK
 public:
+#  ifdef SK_BUILD_FOR_ANDROID_FRAMEWORK
   static const int kPathRefGenIDBitCnt = 30;
 #  else 
   static const int kPathRefGenIDBitCnt = 32;

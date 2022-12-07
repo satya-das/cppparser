@@ -51,7 +51,7 @@ private:
     Read,
     Write,
     Except,
-    Max
+    Max,
   };
     // the sets used with select()
   fd_set m_fds[Max];

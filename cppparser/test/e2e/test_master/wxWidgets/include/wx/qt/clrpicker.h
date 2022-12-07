@@ -23,5 +23,6 @@ public:
   bool Create(wxWindow* parent, wxWindowID id, const wxColour& initial = *wxBLACK, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCLRBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxColourPickerWidgetNameStr));
 protected:
   void UpdateColour() override;
+private:
 };
 #endif

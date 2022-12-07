@@ -61,7 +61,7 @@ public:
   enum
   {
     Timeout_Auto = -1,
-    Timeout_Never = 0
+    Timeout_Never = 0,
   };
     /**
         Default constructor, use SetParent(), SetTitle() and SetMessage() to

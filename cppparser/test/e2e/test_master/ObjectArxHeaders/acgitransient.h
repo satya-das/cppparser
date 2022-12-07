@@ -22,7 +22,7 @@ typedef enum
   kAcGiHighlight,
   kAcGiDirectTopmost,
   kAcGiContrast,
-  kAcGiDrawingModeCount
+  kAcGiDrawingModeCount,
 } AcGiTransientDrawingMode;
 class AcGiDrawable;
 class AcGiTransientManager

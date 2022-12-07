@@ -1102,8 +1102,8 @@ WX_DECLARE_LIST_2(wxObject, wxObjectList, wxObjectListNode,
                         class WXDLLIMPEXP_BASE);
 class WXDLLIMPEXP_BASE wxList : public wxObjectList
 {
-#    if  defined(wxWARN_COMPAT_LIST_USE) && !wxUSE_STD_CONTAINERS
 public:
+#    if  defined(wxWARN_COMPAT_LIST_USE) && !wxUSE_STD_CONTAINERS
   wxList()
   {
   }

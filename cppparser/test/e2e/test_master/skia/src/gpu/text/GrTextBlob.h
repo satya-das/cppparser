@@ -46,8 +46,8 @@ class SkTextBlobRunIterator;
 class GrTextBlob : public SkNVRefCnt<GrTextBlob>, public SkGlyphRunPainterInterface
 {
   struct Run;
-  SK_DECLARE_INTERNAL_LLIST_INTERFACE(GrTextBlob);
 public:
+  SK_DECLARE_INTERNAL_LLIST_INTERFACE(GrTextBlob);
   class VertexRegenerator;
   void generateFromGlyphRunList(const GrShaderCaps& shaderCaps, const GrTextContext::Options& options, const SkPaint& paint, SkScalerContextFlags scalerContextFlags, const SkMatrix& viewMatrix, const SkSurfaceProps& props, const SkGlyphRunList& glyphRunList, SkGlyphRunListPainter* glyphPainter);
   static sk_sp<GrTextBlob> Make(int glyphCount, int runCount, GrColor color, GrStrikeCache* strikeCache);

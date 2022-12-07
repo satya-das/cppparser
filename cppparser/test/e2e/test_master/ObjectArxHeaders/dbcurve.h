@@ -22,8 +22,8 @@ class AcDbSpline;
 #  pragma  pack(push, 8)
 class ADESK_NO_VTABLE AcDbCurve : public AcDbEntity
 {
-  ACDB_DECLARE_MEMBERS(AcDbCurve);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbCurve);
   virtual ~AcDbCurve();
     // Curve property tests.
     //

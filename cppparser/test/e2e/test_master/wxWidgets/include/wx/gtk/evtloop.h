@@ -11,7 +11,7 @@
 // ----------------------------------------------------------------------------
 // wxGUIEventLoop for wxGTK
 // ----------------------------------------------------------------------------
-typedef union _GdkEvent GdkEvent;
+typedef union  _GdkEvent GdkEvent;
 class WXDLLIMPEXP_CORE wxGUIEventLoop : public wxEventLoopBase
 {
 public:

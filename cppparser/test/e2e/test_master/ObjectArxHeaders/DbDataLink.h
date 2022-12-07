@@ -32,8 +32,8 @@ class AcTableSystemInternals;
 //*************************************************************************
 class AcDbDataLink : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbDataLink);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDataLink);
   ACDB_PORT AcDbDataLink(void);
   ACDB_PORT virtual ~AcDbDataLink();
   ACDB_PORT AcString name(void) const;

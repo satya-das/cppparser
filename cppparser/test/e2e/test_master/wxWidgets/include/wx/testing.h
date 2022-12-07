@@ -329,6 +329,7 @@ protected:
     ReportFailure(wxString::Format(wxASCII_STR("%s was shown unexpectedly."), DescribeUnexpectedDialog(dlg)));
     return wxID_NONE;
   }
+protected:
     // This method may be overridden to provide a better description of
     // (unexpected) dialogs, e.g. add knowledge of custom dialogs used by the
     // program here.

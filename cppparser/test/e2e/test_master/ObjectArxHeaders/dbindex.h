@@ -31,8 +31,8 @@ class AcDbBlockChangeIterator;
 class AcDbIndexUpdateData;
 class AcDbIndex : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbIndex);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbIndex);
   AcDbIndex();
   virtual ~AcDbIndex();
   virtual AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const;

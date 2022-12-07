@@ -19,7 +19,7 @@
  */
 enum
 {
-  wxTP_DEFAULT = 0
+  wxTP_DEFAULT = 0,
 };
 /**
     @class wxTimePickerCtrl

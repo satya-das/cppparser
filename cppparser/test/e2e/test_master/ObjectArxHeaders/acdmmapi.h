@@ -839,6 +839,7 @@ public:
     /// </returns>
     ///
   virtual Ac3dDwfNavTreeNode* get3dDwfNavigationTreeNode() = 0;
+public:
     /// <summary>
     /// destructor
     /// </summary>
@@ -1231,6 +1232,7 @@ public:
     /// returns the block ref path for the current entity
     /// </returns>
   virtual const AcDbObjectIdArray& getEntityBlockRefPath() = 0;
+public:
     /// <summary>
     /// destructor
     /// </summary>

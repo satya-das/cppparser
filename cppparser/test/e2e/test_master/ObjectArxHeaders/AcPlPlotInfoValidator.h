@@ -26,6 +26,7 @@ public:
   ACPL_PORT AcPlPlotInfoValidator();
   ACPL_PORT virtual ~AcPlPlotInfoValidator();
   ACPL_DECLARE_MEMBERS(AcPlPlotInfoValidator);
+public:
     // Supported media matching policies
   enum MatchingPolicy {
         kMatchDisabled = 1,    // no media matching (default)

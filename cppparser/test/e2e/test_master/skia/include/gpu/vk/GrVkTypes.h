@@ -180,7 +180,11 @@ struct GrVkImageInfo
     return fImage == that.fImage && fAlloc == that.fAlloc && fImageTiling == that.fImageTiling && fImageLayout == that.fImageLayout && fFormat == that.fFormat && fLevelCount == that.fLevelCount && fCurrentQueueFamily == that.fCurrentQueueFamily && fProtected == that.fProtected && fYcbcrConversionInfo == that.fYcbcrConversionInfo;
   }
 };
-using GrVkGetProc = std::function<PFN_vkVoidFunction( const char*, // function name VkInstance, // instance or VK_NULL_HANDLE VkDevice // device or VK_NULL_HANDLE )>;
+using GrVkGetProc = std::function<PFN_vkVoidFunction(
+        const char*, // function name
+        VkInstance,  // instance or VK_NULL_HANDLE
+        VkDevice     // device or VK_NULL_HANDLE
+        )>;
 /**
  * This object is wrapped in a GrBackendDrawableInfo and passed in as an argument to
  * drawBackendGpu() calls on an SkDrawable. The drawable will use this info to inject direct

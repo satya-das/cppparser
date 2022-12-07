@@ -101,6 +101,7 @@ class WXDLLIMPEXP_BASE wxMemStruct
 {
   friend class WXDLLIMPEXP_FWD_BASE wxDebugContext;
 public:
+public:
   int AssertList();
   size_t RequestSize()
   {
@@ -133,6 +134,7 @@ public:
     return m_actualData;
   }
   void Dump(void);
+public:
     // Check for underwriting. There are 2 of these checks. This one
     // inside the struct and another right after the struct.
   wxMarkerType m_firstMarker;

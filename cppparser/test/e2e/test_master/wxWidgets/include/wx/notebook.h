@@ -27,7 +27,7 @@ enum
   wxNB_HITTEST_ONICON = wxBK_HITTEST_ONICON,
   wxNB_HITTEST_ONLABEL = wxBK_HITTEST_ONLABEL,
   wxNB_HITTEST_ONITEM = wxBK_HITTEST_ONITEM,
-  wxNB_HITTEST_ONPAGE = wxBK_HITTEST_ONPAGE
+  wxNB_HITTEST_ONPAGE = wxBK_HITTEST_ONPAGE,
 };
 // wxNotebook flags
 
@@ -134,8 +134,8 @@ public:
   virtual void AddPageInfo(wxNotebookPageInfo* info);
   virtual const wxNotebookPageInfoList& GetPageInfos() const;
 #    endif
-#    if  wxUSE_EXTENDED_RTTI
 protected:
+#    if  wxUSE_EXTENDED_RTTI
   wxNotebookPageInfoList m_pageInfos;
 #    endif
   wxDECLARE_NO_COPY_CLASS(wxNotebookBase);

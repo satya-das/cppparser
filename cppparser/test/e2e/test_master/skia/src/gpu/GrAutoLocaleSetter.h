@@ -84,8 +84,8 @@ public:
     }
 #  endif
   }
-#  if  defined(SK_BUILD_FOR_WIN)
 private:
+#  if  defined(SK_BUILD_FOR_WIN)
   int fOldPerThreadLocale;
   bool fShouldRestoreLocale;
   SkString fOldLocale;

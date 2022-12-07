@@ -29,6 +29,7 @@ public:
   virtual ~wxGenericColourButton()
   {
   }
+public:
     // user can override this to init colour data in a different way
   virtual void InitColourData();
     // returns the colour data shown in wxColourDialog
@@ -36,6 +37,7 @@ public:
   {
     return &ms_data;
   }
+public:
   bool Create(wxWindow* parent, wxWindowID id, const wxColour& col = *wxBLACK, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxCLRBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxColourPickerWidgetNameStr));
   void OnButtonClick(wxCommandEvent&);
 protected:

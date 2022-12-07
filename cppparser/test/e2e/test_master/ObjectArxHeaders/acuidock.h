@@ -22,6 +22,7 @@ public:
   CAcUiDockFrame();
   virtual ~CAcUiDockFrame();
 // ClassWizard-controlled
+public:
 	//{{AFX_VIRTUAL(CAcUiDockFrame)
 	//}}AFX_VIRTUAL
 protected:
@@ -52,6 +53,7 @@ public:
   CAcUiPaletteSetDockFrame();
   virtual ~CAcUiPaletteSetDockFrame();
 // ClassWizard-controlled
+public:
 	//{{AFX_VIRTUAL(CAcUiPaletteSetDockFrame)
 	//}}AFX_VIRTUAL
 protected:

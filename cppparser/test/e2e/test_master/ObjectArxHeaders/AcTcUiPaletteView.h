@@ -31,10 +31,13 @@ protected:
   virtual void DragLeave(ADUI_DRAGDATA* pDragData);
   virtual DROPEFFECT Drop(ADUI_DRAGDATA* pDragData);
   virtual DROPEFFECT DropEx(ADUI_DRAGDATA* pDragData);
+protected:
     //{{AFX_VIRTUAL(CAcTcUiPaletteView)
     //}}AFX_VIRTUAL
+protected:
     // Protected constructor
   CAcTcUiPaletteView(AcTcUiSystemInternals*);
+protected:
     //{{AFX_MSG(CAcTcUiPaletteView)
   afx_msg void OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);
   afx_msg void OnSysKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags);

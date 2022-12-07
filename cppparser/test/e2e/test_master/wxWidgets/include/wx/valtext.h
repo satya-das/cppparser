@@ -134,6 +134,7 @@ protected:
     // These two functions (undocumented now) are kept for compatibility reasons.
   bool ContainsOnlyIncludedCharacters(const wxString& val) const;
   bool ContainsExcludedCharacters(const wxString& val) const;
+protected:
   long m_validatorStyle;
   wxString* m_stringValue;
   wxString m_charIncludes;

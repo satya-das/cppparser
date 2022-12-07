@@ -53,6 +53,7 @@ protected:
   void OnRightDown(wxMouseEvent& event);
     // Responds to colour changes
   void OnSysColourChanged(wxSysColourChangedEvent& event);
+protected:
   virtual void DrawFieldText(wxDC& dc, const wxRect& rc, int i, int textHeight);
   virtual void DrawField(wxDC& dc, int i, int textHeight);
   void SetBorderX(int x);

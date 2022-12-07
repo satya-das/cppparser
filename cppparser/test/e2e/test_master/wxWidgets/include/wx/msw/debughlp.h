@@ -287,8 +287,10 @@ public:
         wxDO_FOR_ALL_SYM_FUNCS_OPTIONAL(what)
 #    define wxDECLARE_SYM_FUNCTION(func, name)	 static func ## _t func
   wxDO_FOR_ALL_SYM_FUNCS_REQUIRED_PUBLIC(wxDECLARE_SYM_FUNCTION);
+private:
   wxDO_FOR_ALL_SYM_FUNCS_REQUIRED_PRIVATE(wxDECLARE_SYM_FUNCTION);
   wxDO_FOR_ALL_SYM_FUNCS_OPTIONAL(wxDECLARE_SYM_FUNCTION);
+public:
 #    undef wxDECLARE_SYM_FUNCTION
     // load all functions from DLL, return true if ok
   static bool Init();

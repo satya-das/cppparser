@@ -72,8 +72,8 @@ public:
   bool WXIsInsideChildHandler(wxGenericMDIChildFrame* child) const;
     // return the book control used by the client window to manage the pages
   wxBookCtrlBase* GetBookCtrl() const;
-#  if  wxUSE_MENUS
 protected:
+#  if  wxUSE_MENUS
   wxMenuBar* m_pMyMenuBar;
 #  endif
     // advance the activation forward or backwards
@@ -143,9 +143,10 @@ protected:
 #  if  !wxUSE_GENERIC_MDI_AS_NATIVE
   wxGenericMDIParentFrame* m_mdiParentGeneric;
 #  endif
+protected:
   void Init();
-#  if  wxUSE_MENUS
 private:
+#  if  wxUSE_MENUS
   void OnMenuHighlight(wxMenuEvent& event);
 #  endif
   void OnClose(wxCloseEvent& event);

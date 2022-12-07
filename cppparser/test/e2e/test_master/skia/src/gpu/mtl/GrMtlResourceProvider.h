@@ -27,10 +27,10 @@ public:
   void addBufferCompletionHandler(GrMtlCommandBuffer* cmdBuffer);
     // Destroy any cached resources. To be called before releasing the MtlDevice.
   void destroyResources();
+private:
 #  ifdef SK_DEBUG
 #    define GR_PIPELINE_STATE_CACHE_STATS
 #  endif
-private:
   class PipelineStateCache : public ::SkNoncopyable
   {
   public:

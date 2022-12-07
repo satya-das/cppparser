@@ -31,8 +31,8 @@ public:
   virtual ~wxDateTimeWidgetImpl()
   {
   }
-#    if  wxOSX_USE_COCOA
 protected:
+#    if  wxOSX_USE_COCOA
   wxDateTimeWidgetImpl(wxDateTimePickerCtrl* wxpeer, WXWidget view)
     : wxWidgetCocoaImpl(wxpeer, view)
   {

@@ -154,6 +154,7 @@ using namespace cppast;
   struct CppMemberInitBuilder                      memInit;
 
   cppast::CppEntity*                          cppEntity;
+  cppast::CppEntityAccessSpecifier*           accessSpecifier;
   cppast::CppTypeModifier                     typeModifier;
   cppast::CppVarType*                         cppVarType;
   cppast::CppVar*                             cppVarObj;
@@ -321,7 +322,8 @@ using namespace cppast;
 %type  <attr>               varattrib exptype optfuncattrib functype optfunctype optfinal
 %type  <inheritList>        optinheritlist
 %type  <inheritType>        optinherittype
-%type  <objAccessType>      protlevel changeprotlevel
+%type  <objAccessType>      protlevel
+%type  <accessSpecifier>    entityaccessspecifier
 %type  <identifierList>     identifierlist
 %type  <funcThrowSpec>      functhrowspec optfuncthrowspec
 %type  <attribSpecifier>    attribspecifier
@@ -433,7 +435,6 @@ stmtlist          : stmt [ZZLOG;] {
                       $$->add(Ptr($2));
                     } // Avoid 'comment-btyacc-constructs.sh' to act on this
                   }
-                  | optstmtlist changeprotlevel [ZZLOG;] { $$ = $1; } // TODO: handle it differently now. Change of protection level is not a statement but this way it is easier to implement.
                   ;
 
 stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
@@ -476,6 +477,7 @@ stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
                   | asmblock            [ZZLOG;] { $$ = $1; }
                   | blob                [ZZLOG;] { $$ = $1; }
                   | label               [ZZLOG;] { $$ = $1; }
+                  | entityaccessspecifier     [ZZLOG;] { $$ = $1; }
                   ;
 
 label             : name ':'            [ZZLOG;] { $$ = new cppast::CppLabel($1); }
@@ -1804,9 +1806,9 @@ apidecortokensq   : tknApiDecor                  [ZZLOG;] { $$ = $1; }
                   | tknApiDecor '(' strlit ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
                   ;
 
-changeprotlevel   : tknPublic     ':'  [ZZVALID;] { $$ = CppAccessType::PUBLIC;     }
-                  | tknProtected  ':'  [ZZVALID;] { $$ = CppAccessType::PROTECTED;  }
-                  | tknPrivate    ':'  [ZZVALID;] { $$ = CppAccessType::PRIVATE;    }
+entityaccessspecifier   : tknPublic     ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PUBLIC);     }
+                  | tknProtected  ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PROTECTED);  }
+                  | tknPrivate    ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PRIVATE);    }
                   ;
 
 externcblock      : tknExternC block   [ZZVALID;] {$$ = $2; $$->compoundType(CppCompoundType::EXTERN_C_BLOCK); }

@@ -41,7 +41,7 @@ enum
   wxEVENT_SOURCE_INPUT = 0x01,
   wxEVENT_SOURCE_OUTPUT = 0x02,
   wxEVENT_SOURCE_EXCEPTION = 0x04,
-  wxEVENT_SOURCE_ALL = wxEVENT_SOURCE_INPUT | wxEVENT_SOURCE_OUTPUT | wxEVENT_SOURCE_EXCEPTION
+  wxEVENT_SOURCE_ALL = wxEVENT_SOURCE_INPUT | wxEVENT_SOURCE_OUTPUT | wxEVENT_SOURCE_EXCEPTION,
 };
 // wxEventLoopSource itself is an ABC and can't be created directly, currently
 // the only way to create it is by using wxEventLoop::AddSourceForFD().

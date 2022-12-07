@@ -50,6 +50,7 @@ public:
   virtual void ChangeFont(bool keepOriginalSize = true);
   virtual void ChangeBackgroundColour();
   virtual void ChangeForegroundColour();
+public:
     // implementation detail
   void Increment(int delta);
 private:

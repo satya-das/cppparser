@@ -68,6 +68,7 @@ private:
   void AddFontsFromDir(const wxString& indexFile);
   void AddFont(const wxString& dir, const wxString& name, wxFileConfig& cfg);
   void SetDefaultFonts(wxFileConfig& cfg);
+private:
     // default facenames
   wxString m_defaultFacenames[wxFONTFAMILY_MAX];
 };

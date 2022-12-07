@@ -18,6 +18,7 @@ public:
   wxBitmap GetBitmap() const override;
   wxIcon GetIcon() const override;
   QWidget* GetHandle() const override;
+protected:
 private:
   QLabel* m_qtLabel;
   wxDECLARE_DYNAMIC_CLASS(wxStaticBitmap);

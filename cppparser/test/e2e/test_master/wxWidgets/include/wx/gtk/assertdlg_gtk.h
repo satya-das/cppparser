@@ -36,7 +36,7 @@ typedef enum
 {
   GTK_ASSERT_DIALOG_STOP,
   GTK_ASSERT_DIALOG_CONTINUE,
-  GTK_ASSERT_DIALOG_CONTINUE_SUPPRESSING
+  GTK_ASSERT_DIALOG_CONTINUE_SUPPRESSING,
 } GtkAssertDialogResponseID;
 GType gtk_assert_dialog_get_type(void);
 GtkWidget* gtk_assert_dialog_new(void);

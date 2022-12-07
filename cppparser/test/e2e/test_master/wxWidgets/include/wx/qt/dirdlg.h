@@ -15,6 +15,7 @@ public:
   }
   wxDirDialog(wxWindow* parent, const wxString& message = wxASCII_STR(wxDirSelectorPromptStr), const wxString& defaultPath = wxEmptyString, long style = wxDD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, const wxString& name = wxASCII_STR(wxDirDialogNameStr));
   bool Create(wxWindow* parent, const wxString& message = wxASCII_STR(wxDirSelectorPromptStr), const wxString& defaultPath = wxEmptyString, long style = wxDD_DEFAULT_STYLE, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, const wxString& name = wxASCII_STR(wxDirDialogNameStr));
+public:
   wxString GetPath() const override;
   void SetPath(const wxString& path) override;
 private:

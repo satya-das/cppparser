@@ -237,7 +237,7 @@ enum
 {
   wxHTML_FIND_EXACT = 1,
   wxHTML_FIND_NEAREST_BEFORE = 2,
-  wxHTML_FIND_NEAREST_AFTER = 4
+  wxHTML_FIND_NEAREST_AFTER = 4,
 };
 // Superscript/subscript/normal script mode of a cell
 enum wxHtmlScriptMode {
@@ -646,6 +646,7 @@ public:
 protected:
   void UpdateRenderingStatePre(wxHtmlRenderingInfo& info, wxHtmlCell* cell) const;
   void UpdateRenderingStatePost(wxHtmlRenderingInfo& info, wxHtmlCell* cell) const;
+protected:
   int m_IndentLeft, m_IndentRight, m_IndentTop, m_IndentBottom;
             // indentation of subcells. There is always m_Indent pixels
             // big space between given border of the container and the subcells

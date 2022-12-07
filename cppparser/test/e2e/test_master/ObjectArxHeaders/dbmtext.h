@@ -84,8 +84,8 @@ typedef int (*AcDbMTextEnum) (AcDbMTextFragment*, void*);
 class AcDbText;
 class AcDbMText : public AcDbEntity
 {
-  ACDB_DECLARE_MEMBERS(AcDbMText);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbMText);
   AcDbMText();
   ~AcDbMText();
     //  Insertion point

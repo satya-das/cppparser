@@ -124,8 +124,8 @@ public:
     wxUnusedVar(desc);
     return wxEmptyString;
   }
-#  if  wxUSE_STACKWALKER
 protected:
+#  if  wxUSE_STACKWALKER
     // utility function: returns the stack frame as a plain wxString
   virtual wxString GetAssertStackTrace();
 #  endif
@@ -158,8 +158,8 @@ class WXDLLIMPEXP_BASE wxAppTraits : public wxAppTraitsBase
 // ----------------------------------------------------------------------------
 class WXDLLIMPEXP_BASE wxConsoleAppTraitsBase : public wxAppTraits
 {
-#  if  !wxUSE_CONSOLE_EVENTLOOP
 public:
+#  if  !wxUSE_CONSOLE_EVENTLOOP
   wxEventLoopBase* CreateEventLoop() override
   {
     return NULL;
@@ -210,8 +210,8 @@ public:
 #  if  wxUSE_GUI
 class WXDLLIMPEXP_CORE wxGUIAppTraitsBase : public wxAppTraits
 {
-#    if  wxUSE_LOG
 public:
+#    if  wxUSE_LOG
   wxLog* CreateLogTarget() override;
 #    endif
   wxMessageOutput* CreateMessageOutput() override;

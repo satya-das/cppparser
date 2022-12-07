@@ -137,8 +137,8 @@ protected:
     // menu is opened, 2 when its submenu is opened and so on.
   int m_menuDepth;
 #  endif
-#  if  wxUSE_TOOLTIPS
 private:
+#  if  wxUSE_TOOLTIPS
   WXHWND m_hwndToolTip;
 #  endif
     // used by IconizeChildFrames(), see comments there

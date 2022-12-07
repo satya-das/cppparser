@@ -230,7 +230,7 @@ public:
       {
         return nullptr;
       }
-      while (fCTIdx == (fCurrFP->*COUNT)())
+      while (fCTIdx == (fCurrFP.*COUNT)())
       {
         fCTIdx = 0;
         fCurrFP = fFPIter.next();
@@ -239,15 +239,19 @@ public:
           return nullptr;
         }
       }
-      return &(fCurrFP->*GET)(fCTIdx++);
+      return &(fCurrFP.*GET)(fCTIdx++);
     }
   private:
     const GrFragmentProcessor* fCurrFP;
     int fCTIdx;
     GrFragmentProcessor::Iter fFPIter;
   };
-  using CoordTransformIter = FPItemIter<GrCoordTransform, &GrFragmentProcessor::numCoordTransforms, &GrFragmentProcessor::coordTransform>;
-  using TextureAccessIter = FPItemIter<TextureSampler, &GrFragmentProcessor::numTextureSamplers, &GrFragmentProcessor::textureSampler>;
+  using CoordTransformIter = FPItemIter<GrCoordTransform,
+                                          &GrFragmentProcessor::numCoordTransforms,
+                                          &GrFragmentProcessor::coordTransform>;
+  using TextureAccessIter = FPItemIter<TextureSampler,
+                                         &GrFragmentProcessor::numTextureSamplers,
+                                         &GrFragmentProcessor::textureSampler>;
   void visitProxies(const GrOp::VisitProxyFunc& func);
 protected:
   enum OptimizationFlags : uint32_t {

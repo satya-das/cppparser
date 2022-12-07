@@ -25,8 +25,8 @@
 class AcDbExtents;
 class AcDbSpatialFilter : public AcDbFilter
 {
-  ACDB_DECLARE_MEMBERS(AcDbSpatialFilter);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbSpatialFilter);
   AcDbSpatialFilter();
   virtual ~AcDbSpatialFilter();
   AcRxClass* indexClass() const override;

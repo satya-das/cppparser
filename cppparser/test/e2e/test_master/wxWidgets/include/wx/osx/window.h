@@ -58,6 +58,7 @@ public:
   bool IsTransparentBackgroundSupported(wxString* reason = NULL) const override;
   int GetCharHeight() const override;
   int GetCharWidth() const override;
+public:
   void SetScrollbar(int orient, int pos, int thumbVisible, int range, bool refresh = true) override;
   void SetScrollPos(int orient, int pos, bool refresh = true) override;
   int GetScrollPos(int orient) const override;
@@ -102,7 +103,9 @@ public:
   {
     return true;
   }
+public:
   static long MacRemoveBordersFromStyle(long style);
+public:
     // For implementation purposes:
     // sometimes decorations make the client area smaller
   wxPoint GetClientAreaOrigin() const override;

@@ -61,7 +61,7 @@ public:
   enum
   {
     Timeout_Auto = -1,
-    Timeout_Never = 0
+    Timeout_Never = 0,
   };
     // show the notification to the user and hides it after timeout seconds
     // pass (special values Timeout_Auto and Timeout_Never can be used)

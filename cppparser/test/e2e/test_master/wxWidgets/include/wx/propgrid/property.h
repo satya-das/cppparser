@@ -66,7 +66,7 @@ public:
         // overriding any cell values.
     DontUseCellFgCol = 0x00100000,
     DontUseCellBgCol = 0x00200000,
-    DontUseCellColours = DontUseCellFgCol | DontUseCellBgCol
+    DontUseCellColours = DontUseCellFgCol | DontUseCellBgCol,
   };
     // Returns true if rendered something in the foreground
     // (text or bitmap).
@@ -99,6 +99,7 @@ class WXDLLIMPEXP_PROPGRID wxPGDefaultRenderer : public wxPGCellRenderer
 public:
   bool Render(wxDC& dc, const wxRect& rect, const wxPropertyGrid* propertyGrid, wxPGProperty* property, int column, int item, int flags) const override;
   wxSize GetImageSize(const wxPGProperty* property, int column, int item) const override;
+protected:
 };
 class WXDLLIMPEXP_PROPGRID wxPGCellData : public wxObjectRefData
 {
@@ -1779,6 +1780,7 @@ class WXDLLIMPEXP_PROPGRID wxPGRootProperty : public wxPGProperty
 {
 public:
   WX_PG_DECLARE_PROPERTY_CLASS(wxPGRootProperty)
+public:
     // Constructor.
   wxPGRootProperty(const wxString& name = wxS("<Root>"));
   virtual ~wxPGRootProperty();
@@ -1786,6 +1788,7 @@ public:
   {
     return false;
   }
+protected:
 };
 // -----------------------------------------------------------------------
 

@@ -35,8 +35,8 @@ public:
   WX_DEFINE_VARARG_FUNC_VOID(Printf, 1, (const wxFormatString&),
                                DoPrintfWchar, DoPrintfUtf8)
   virtual void Output(const wxString& str) = 0;
-#  if  !wxUSE_UTF8_LOCALE_ONLY
 protected:
+#  if  !wxUSE_UTF8_LOCALE_ONLY
   void DoPrintfWchar(const wxChar* format, ...);
 #  endif
 #  if  wxUSE_UNICODE_UTF8

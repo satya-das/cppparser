@@ -285,6 +285,7 @@ namespace PoDoFo
      *  \returns the annotations array or NULL if none exists.
      */
     PdfObject* GetAnnotationsArray(bool bCreate = false) const;
+  private:
     PdfContents* m_pContents;
     PdfObject* m_pResources;
     TMapAnnotation m_mapAnnotations;

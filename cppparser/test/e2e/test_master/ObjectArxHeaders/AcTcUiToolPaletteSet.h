@@ -63,6 +63,7 @@ public:
 protected:
     // Protected constructor
   CAcTcUiToolPaletteSet();
+protected:
   virtual BOOL AddContextMenuItems(CMenu* pMenu, int nHitFlag, int nRightClkTab = 0);
     /// <summary>
     /// Virtual method that receives the theme modification event.
@@ -83,6 +84,7 @@ protected:
   virtual BOOL OnRenderData(LPFORMATETC lpFormatEtc, LPSTGMEDIUM lpStgMedium);
   virtual void OnTearOff(CAdUiPaletteSet* pSet);
   virtual void DestroyStackedPaletteSet(void);
+protected:
     //{{AFX_VIRTUAL(CAcTcUiToolPaletteSet)
   afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
   afx_msg void OnDestroy();
@@ -107,6 +109,7 @@ protected:
   afx_msg void OnInvokeCommand(UINT nID);
   afx_msg void OnTimer(UINT_PTR nIDEvent);
     //}}AFX_VIRTUAL
+protected:
     //{{AFX_MSG(CAcTcUiToolPaletteSet)
     //}}AFX_MSG
   afx_msg LRESULT OnDragEnter(WPARAM wParam, LPARAM lParam);
@@ -117,6 +120,7 @@ protected:
   afx_msg LRESULT OnUpdate(WPARAM wParam, LPARAM lParam);
   afx_msg LRESULT OnRenderData(WPARAM wParam, LPARAM lParam);
   DECLARE_MESSAGE_MAP()
+protected:
   void* mpImpObj;
 private:
   friend class AcTcUiSystemInternals;

@@ -20,7 +20,7 @@ class wxFSWatchEntryMSW : public wxFSWatchInfo
 public:
   enum
   {
-    BUFFER_SIZE = 4096
+    BUFFER_SIZE = 4096,
   };
   wxFSWatchEntryMSW(const wxFSWatchInfo& winfo)
     : wxFSWatchInfo(winfo)

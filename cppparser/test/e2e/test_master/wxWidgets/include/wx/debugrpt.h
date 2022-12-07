@@ -102,8 +102,8 @@ public:
     // allow the user to remove files potentially containing private
     // information from the report
   void RemoveFile(const wxString& name);
-#    if  wxUSE_STACKWALKER
 protected:
+#    if  wxUSE_STACKWALKER
     // used by AddContext()
   virtual bool DoAddSystemInfo(wxXmlNode* nodeSystemInfo);
   virtual bool DoAddLoadedModules(wxXmlNode* nodeModules);

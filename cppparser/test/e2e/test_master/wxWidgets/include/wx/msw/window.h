@@ -155,6 +155,7 @@ public:
     // event handlers
     // --------------
   void OnPaint(wxPaintEvent& event);
+public:
     // Windows subclassing
   void SubclassWin(WXHWND hWnd);
   void UnsubclassWin();

@@ -20,8 +20,8 @@
 #  pragma  pack (push, 8)
 class AcDbLayerIndex : public AcDbIndex
 {
-  ACDB_DECLARE_MEMBERS(AcDbLayerIndex);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbLayerIndex);
   AcDbLayerIndex();
   virtual ~AcDbLayerIndex();
   AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const override;

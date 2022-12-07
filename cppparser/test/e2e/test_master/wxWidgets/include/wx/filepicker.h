@@ -147,6 +147,7 @@ public:
   {
     m_pickerIface->SetInitialDirectory(dir);
   }
+public:
   void UpdatePickerFromTextCtrl() override;
   void UpdateTextCtrlFromPicker() override;
     // event handler for our picker
@@ -161,6 +162,7 @@ public:
 protected:
     // creates the picker control
   virtual wxFileDirPickerWidgetBase* CreatePicker(wxWindow* parent, const wxString& path, const wxString& message, const wxString& wildcard) = 0;
+protected:
     // m_picker object as wxFileDirPickerWidgetBase interface
   wxFileDirPickerWidgetBase* m_pickerIface;
 };
@@ -197,6 +199,7 @@ public:
   {
     return wxFileName(GetPath());
   }
+public:
     // return the text control value in canonical form
   wxString GetTextCtrlValue() const override;
   bool IsCwdToUpdate() const override
@@ -257,6 +260,7 @@ public:
   {
     return wxFileName::DirName(GetPath());
   }
+public:
   wxString GetTextCtrlValue() const override;
   bool IsCwdToUpdate() const override
   {

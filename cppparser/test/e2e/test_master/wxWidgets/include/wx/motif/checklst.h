@@ -31,6 +31,7 @@ public:
   virtual wxString GetString(unsigned int n) const;
 private:
   void DoToggleItem(int item, int x);
+private:
   wxDECLARE_EVENT_TABLE();
 };
 #endif

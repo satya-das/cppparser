@@ -46,4 +46,5 @@ enum wxIPCFormat {
 */
 class wxConnectionBase : public wxObject
 {
+public:
 };

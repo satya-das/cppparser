@@ -217,6 +217,7 @@ class ADUI_PORT CAdUiDrawTipText
 {
 public:
   CAdUiDrawTipText(CDC& dc, CRect& rect, CString& text);
+public:
   CDC& m_dc;
   CRect& m_rect;
   CString& m_text;

@@ -70,6 +70,7 @@ kACIbyBlock    = 0,
     // overlap with colorMethod!
     //
     // Also note that RGBM is public because it's used by AcDbEntity
+public:
   union RGBM
   {
     Adesk::UInt32 whole;
@@ -81,6 +82,7 @@ kACIbyBlock    = 0,
     Adesk::Int32 mnIndirect32;
     Adesk::Int32 indirect24() const;
   };
+public:
   AcCmEntityColor();
   AcCmEntityColor(const AcCmEntityColor& color);
   AcCmEntityColor(ColorMethod eColorMethod);

@@ -18,7 +18,7 @@ enum
     // special value for column width meaning unspecified/default
   wxCOL_WIDTH_DEFAULT = -1,
     // size the column automatically to fit all values
-  wxCOL_WIDTH_AUTOSIZE = -2
+  wxCOL_WIDTH_AUTOSIZE = -2,
 };
 // bit masks for the various column attributes
 enum
@@ -32,7 +32,7 @@ enum
     // column is not shown at all
   wxCOL_HIDDEN = 8,
     // default flags for wxHeaderColumn ctor
-  wxCOL_DEFAULT_FLAGS = wxCOL_RESIZABLE | wxCOL_REORDERABLE
+  wxCOL_DEFAULT_FLAGS = wxCOL_RESIZABLE | wxCOL_REORDERABLE,
 };
 // ----------------------------------------------------------------------------
 // wxHeaderColumn: interface for a column in a header of controls such as

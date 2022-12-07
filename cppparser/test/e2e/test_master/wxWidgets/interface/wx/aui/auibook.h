@@ -413,6 +413,7 @@ public:
   void MakeTabVisible(int tabPage, wxWindow* win);
 protected:
   virtual void Render(wxDC* dc, wxWindow* wnd);
+protected:
   wxAuiTabArt* m_art;
   wxAuiNotebookPageArray m_pages;
   wxAuiTabContainerButtonArray m_buttons;

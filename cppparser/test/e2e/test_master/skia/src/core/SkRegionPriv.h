@@ -50,6 +50,7 @@ static int compute_intervalcount(const SkRegionPriv::RunType runs[])
 #  endif
 struct SkRegion::RunHead
 {
+private:
 public:
   std::atomic<int32_t> fRefCnt;
   int32_t fRunCount;

@@ -389,6 +389,7 @@ public:
      */
   void dump() const;
 #  endif
+public:
   class Iter
   {
   public:

@@ -102,8 +102,8 @@ public:
   {
     return true;
   }
-#    if  wxUSE_CONFIG && wxUSE_FILECONFIG
 protected:
+#    if  wxUSE_CONFIG && wxUSE_FILECONFIG
     // get the config object we're using -- either the global config object
     // or a wxMemoryConfig object created by this class otherwise
   wxConfigBase* GetConfig();

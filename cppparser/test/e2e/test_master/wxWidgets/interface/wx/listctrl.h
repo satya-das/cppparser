@@ -59,7 +59,7 @@ enum
   wxLIST_NEXT_ALL,
   wxLIST_NEXT_BELOW,
   wxLIST_NEXT_LEFT,
-  wxLIST_NEXT_RIGHT
+  wxLIST_NEXT_RIGHT,
 };
 /// Alignment flags for Arrange (MSW only except wxLIST_ALIGN_LEFT)
 enum
@@ -67,7 +67,7 @@ enum
   wxLIST_ALIGN_DEFAULT,
   wxLIST_ALIGN_LEFT,
   wxLIST_ALIGN_TOP,
-  wxLIST_ALIGN_SNAP_TO_GRID
+  wxLIST_ALIGN_SNAP_TO_GRID,
 };
 /// Column format (MSW only except wxLIST_FORMAT_LEFT)
 enum wxListColumnFormat {
@@ -80,14 +80,14 @@ enum wxListColumnFormat {
 enum
 {
   wxLIST_AUTOSIZE = -1,
-  wxLIST_AUTOSIZE_USEHEADER = -2
+  wxLIST_AUTOSIZE_USEHEADER = -2,
 };
 /// Flag values for GetItemRect
 enum
 {
   wxLIST_RECT_BOUNDS,
   wxLIST_RECT_ICON,
-  wxLIST_RECT_LABEL
+  wxLIST_RECT_LABEL,
 };
 /// Flag values for FindItem (MSW only)
 enum
@@ -95,7 +95,7 @@ enum
   wxLIST_FIND_UP,
   wxLIST_FIND_DOWN,
   wxLIST_FIND_LEFT,
-  wxLIST_FIND_RIGHT
+  wxLIST_FIND_RIGHT,
 };
 /**
     @class wxListCtrl

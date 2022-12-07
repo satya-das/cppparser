@@ -219,8 +219,8 @@ public:
     // override MSWWindowProc() to process WM_NCHITTEST
   WXLRESULT MSWWindowProc(WXUINT message, WXWPARAM wParam, WXLPARAM lParam);
 #  endif
-#  if  wxUSE_SCROLLBAR
 private:
+#  if  wxUSE_SCROLLBAR
     // the window scrollbars
   wxScrollBar* m_scrollbarHorz, *m_scrollbarVert;
 #  endif

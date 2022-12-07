@@ -31,7 +31,9 @@ public:
   }
   bool Create(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr));
   ~wxAnimationCtrl();
+public:
   void OnTimer(wxTimerEvent&);
+public:
   bool LoadFile(const wxString& filename, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
   bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
   void SetAnimation(const wxAnimation& anim) override;
@@ -52,6 +54,7 @@ protected:
     // specific to the gtk implementation
   GdkPixbufAnimation* AnimationImplGetPixbuf() const;
   void AnimationImplSetPixbuf(GdkPixbufAnimation* p);
+protected:
   GdkPixbufAnimation* m_anim;
   GdkPixbufAnimationIter* m_iter;
   wxTimer m_timer;

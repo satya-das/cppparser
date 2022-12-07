@@ -345,7 +345,8 @@ private:
 // Iterators
 #    if  wxUSE_STL || defined WX_TEST_ARCHIVE_ITERATOR
 typedef wxArchiveIterator<wxTarInputStream> wxTarIter;
-typedef wxArchiveIterator<wxTarInputStream, std::pair<wxString, wxTarEntry*> > wxTarPairIter;
+typedef wxArchiveIterator<wxTarInputStream,
+         std::pair<wxString, wxTarEntry*> > wxTarPairIter;
 #    endif
 /////////////////////////////////////////////////////////////////////////////
 // wxTarClassFactory

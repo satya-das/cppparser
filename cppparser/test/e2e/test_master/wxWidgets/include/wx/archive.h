@@ -295,7 +295,8 @@ public:
 }* m_rep;
 };
 typedef wxArchiveIterator<wxArchiveInputStream> wxArchiveIter;
-typedef wxArchiveIterator<wxArchiveInputStream, std::pair<wxString, wxArchiveEntry*> > wxArchivePairIter;
+typedef wxArchiveIterator<wxArchiveInputStream,
+        std::pair<wxString, wxArchiveEntry*> > wxArchivePairIter;
 #    endif
 /////////////////////////////////////////////////////////////////////////////
 // wxArchiveClassFactory

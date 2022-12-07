@@ -56,6 +56,7 @@ public:
 #  endif
     // they need to be accessed from wxIDataObject, so made them public,
     // or wxIDataObject friend
+public:
   virtual const void* GetSizeFromBuffer(const void* buffer, size_t* size, const wxDataFormat& format);
   virtual void* SetSizeInBuffer(void* buffer, size_t size, const wxDataFormat& format);
   virtual size_t GetBufferOffset(const wxDataFormat& format);

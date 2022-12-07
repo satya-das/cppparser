@@ -229,8 +229,8 @@ public:
     return m_container.SetLastFocus(win);
   }
 #  endif
-#  ifndef wxHAS_NATIVE_TAB_TRAVERSAL
 protected:
+#  ifndef wxHAS_NATIVE_TAB_TRAVERSAL
   void OnNavigationKey(wxNavigationKeyEvent& event)
   {
     m_container.HandleOnNavigationKey(event);

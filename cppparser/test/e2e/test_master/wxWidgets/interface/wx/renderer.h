@@ -47,7 +47,7 @@ enum
     /** (Menu) item can be checked. */
   wxCONTROL_CHECKABLE = 0x00000080,
     /** (Check) undetermined state. */
-  wxCONTROL_UNDETERMINED = wxCONTROL_CHECKABLE
+  wxCONTROL_UNDETERMINED = wxCONTROL_CHECKABLE,
 };
 /**
     Title bar buttons supported by wxRendererNative::DrawTitleBarBitmap().

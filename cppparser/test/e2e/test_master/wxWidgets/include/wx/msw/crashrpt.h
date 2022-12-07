@@ -40,7 +40,7 @@ enum
     // still much smaller than wxCRASH_REPORT_LOCALS one
   wxCRASH_REPORT_GLOBALS = 4,
     // default is to create the smallest possible crash report
-  wxCRASH_REPORT_DEFAULT = wxCRASH_REPORT_LOCATION | wxCRASH_REPORT_STACK
+  wxCRASH_REPORT_DEFAULT = wxCRASH_REPORT_LOCATION | wxCRASH_REPORT_STACK,
 };
 // ----------------------------------------------------------------------------
 // wxCrashContext: information about the crash context

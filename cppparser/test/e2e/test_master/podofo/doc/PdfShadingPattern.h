@@ -86,6 +86,7 @@ namespace PoDoFo
      *  \param eShadingType the type of this shading pattern
      */
     void Init(EPdfShadingPatternType eShadingType);
+  private:
     PdfName m_Identifier;
   };
 // -----------------------------------------------------

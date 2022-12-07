@@ -28,8 +28,8 @@ public:
   }
     // Override MSW-specific functions used during control creation.
   WXDWORD MSWGetStyle(long style, WXDWORD* exstyle) const override;
-#  if  wxUSE_INTL
 protected:
+#  if  wxUSE_INTL
   wxLocaleInfo MSWGetFormat() const override;
 #  endif
   bool MSWAllowsNone() const override

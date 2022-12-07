@@ -310,6 +310,7 @@ public:
         @since 2.9.2
     */
   bool SetLabelMarkup(const wxString& markup);
+public:
     /**
         Returns the given @a label string without mnemonics ("&" characters).
     */

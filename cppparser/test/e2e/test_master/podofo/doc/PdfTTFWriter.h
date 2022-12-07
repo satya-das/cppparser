@@ -234,6 +234,7 @@ namespace PoDoFo
         {
           return m_pInstructions;
         }
+      public:
         int m_nPosition;
         PdfRefCountedBuffer m_buffer;
         // common
@@ -581,6 +582,7 @@ namespace PoDoFo
      *
      */
       void LoadGlyph(int nIndex, long lOffset, PdfInputDevice* pDevice);
+    private:
       long m_lGlyphDataOffset;
       long m_lCMapOffset;
       std::vector<int> m_vecGlyphIndeces;

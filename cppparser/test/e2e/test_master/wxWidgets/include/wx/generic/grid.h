@@ -1000,8 +1000,8 @@ class wxGridBlocks
 public:
   class iterator
   {
-#    if  wxUSE_STD_CONTAINERS_COMPATIBLY
   public:
+#    if  wxUSE_STD_CONTAINERS_COMPATIBLY
     typedef std::forward_iterator_tag iterator_category;
 #    endif
     typedef ptrdiff_t difference_type;

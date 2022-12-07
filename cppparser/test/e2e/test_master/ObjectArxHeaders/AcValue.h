@@ -71,7 +71,9 @@ public:
         kUseMaximumPrecision    = (0x1 << 2),
         kIgnoreMtextFormat      = (0x1 << 3),
   };
+public:
   ACDB_PORT static bool isValidDataType(const VARIANT& var);
+public:
   ACRX_DECLARE_MEMBERS(AcValue);
   ACDBCORE2D_PORT AcValue(void);
   ACDBCORE2D_PORT AcValue(AcValue::DataType nDataType);

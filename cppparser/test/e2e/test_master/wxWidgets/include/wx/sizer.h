@@ -210,8 +210,8 @@ public:
   {
     return m_borderInPixels;
   }
-#  ifdef wxNEEDS_BORDER_IN_PX
 private:
+#  ifdef wxNEEDS_BORDER_IN_PX
   static float DoGetDefaultBorderInPx();
 #  endif
   int m_proportion;
@@ -474,7 +474,7 @@ protected:
   Item_Window,
   Item_Sizer,
   Item_Spacer,
-  Item_Max
+  Item_Max,
 } m_kind;
   union 
   {

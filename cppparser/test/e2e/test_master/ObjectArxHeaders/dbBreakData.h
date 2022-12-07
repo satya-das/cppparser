@@ -15,8 +15,8 @@
 class AcDbBreakPointRef;
 class AcDbBreakData : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbBreakData);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbBreakData);
   AcDbBreakData();
   virtual ~AcDbBreakData();
   AcDbObjectId dimObjId() const;
@@ -45,8 +45,8 @@ public:
 };
 class AcDbBreakPointRef : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbBreakPointRef);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbBreakPointRef);
   enum BreakPointType {
         kDynamic           = 0,
         kStatic            = 1,

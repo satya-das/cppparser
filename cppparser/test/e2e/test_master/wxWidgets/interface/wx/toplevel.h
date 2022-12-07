@@ -11,7 +11,7 @@
 enum
 {
   wxUSER_ATTENTION_INFO = 1,
-  wxUSER_ATTENTION_ERROR = 2
+  wxUSER_ATTENTION_ERROR = 2,
 };
 /**
     Styles used with wxTopLevelWindow::ShowFullScreen().
@@ -26,7 +26,7 @@ enum
     /**
         Combination of all above, will display the least possible.
     */
-  wxFULLSCREEN_ALL = wxFULLSCREEN_NOMENUBAR | wxFULLSCREEN_NOTOOLBAR | wxFULLSCREEN_NOSTATUSBAR | wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION
+  wxFULLSCREEN_ALL = wxFULLSCREEN_NOMENUBAR | wxFULLSCREEN_NOTOOLBAR | wxFULLSCREEN_NOSTATUSBAR | wxFULLSCREEN_NOBORDER | wxFULLSCREEN_NOCAPTION,
 };
 #define wxDEFAULT_FRAME_STYLE(wxSYSTEM_MENU |          \
                                wxRESIZE_BORDER |        \

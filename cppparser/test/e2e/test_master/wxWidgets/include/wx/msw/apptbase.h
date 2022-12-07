@@ -47,8 +47,8 @@ public:
   virtual bool CanUseStderr() = 0;
     // write text to the console, return true if ok or false on error
   virtual bool WriteToStderr(const wxString& text) = 0;
-#  if  wxUSE_THREADS
 protected:
+#  if  wxUSE_THREADS
     // implementation of WaitForThread() for the console applications which is
     // also used by the GUI code if it doesn't [yet|already] dispatch events
   WXDWORD DoSimpleWaitForThread(WXHANDLE hThread);

@@ -59,6 +59,7 @@ protected:
   {
     return m_next;
   }
+protected:
     // next node in the chain
   wxHashTableBase_Node* m_next;
     // key
@@ -170,6 +171,7 @@ class WXDLLIMPEXP_BASE wxHashTable : public wxHashTableBase
 public:
   typedef wxHashTable_Node Node;
   typedef wxHashTable_Node* compatibility_iterator;
+public:
   wxHashTable(wxKeyType keyType = wxKEY_INTEGER, size_t size = wxHASH_SIZE_DEFAULT)
     : wxHashTableBase()
   {

@@ -135,7 +135,7 @@ protected:
     wxMOVE_X = 1,
     wxMOVE_Y = 2,
     wxMOVE_WIDTH = 4,
-    wxMOVE_HEIGHT = 8
+    wxMOVE_HEIGHT = 8,
   };
   void DoMoveWindowIntr(int x, int y, int width, int height, int flags);
     // helper function, to remove duplicate code, used in wxScrollBar
@@ -226,6 +226,7 @@ protected:
     // For double-click detection
   long m_lastTS;
   unsigned m_lastButton;
+protected:
   WXWidget m_mainWidget;
   WXWidget m_hScrollBar;
   WXWidget m_vScrollBar;

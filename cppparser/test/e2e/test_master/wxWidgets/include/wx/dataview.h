@@ -1013,6 +1013,7 @@ public:
   wxString GetColumnType(unsigned int col) const override;
   void GetValueByRow(wxVariant& value, unsigned int row, unsigned int col) const override;
   bool SetValueByRow(const wxVariant& value, unsigned int row, unsigned int col) override;
+public:
   wxVector<wxDataViewListStoreLine*> m_data;
   wxArrayString m_cols;
 };
@@ -1278,6 +1279,7 @@ public:
   {
     return m_root;
   }
+public:
   wxDataViewTreeStoreNode* m_root;
 };
 //-----------------------------------------------------------------------------

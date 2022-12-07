@@ -12,7 +12,7 @@ class wxWithImages
 public:
   enum
   {
-    NO_IMAGE = -1
+    NO_IMAGE = -1,
   };
   wxWithImages();
   virtual ~wxWithImages();

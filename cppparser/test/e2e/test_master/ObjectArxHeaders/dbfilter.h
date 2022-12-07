@@ -22,8 +22,8 @@
 class AcDbFilteredBlockIterator;
 class AcDbFilter : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbFilter);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbFilter);
   AcDbFilter();
   virtual ~AcDbFilter();
   virtual AcRxClass* indexClass() const;

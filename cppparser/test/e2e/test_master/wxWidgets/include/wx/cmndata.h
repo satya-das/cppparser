@@ -201,6 +201,7 @@ private:
   char* m_privData;
   int m_privDataLen;
   wxPrintNativeDataBase* m_nativeData;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPrintData);
 };
 /*
@@ -354,6 +355,7 @@ private:
   bool m_printEnableHelp;
   bool m_printEnablePrintToFile;
   wxPrintData m_printData;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPrintDialogData);
 };
 /*
@@ -513,6 +515,7 @@ private:
   bool m_getDefaultInfo;
   bool m_enableHelp;
   wxPrintData m_printData;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxPageSetupDialogData);
 };
 #  endif

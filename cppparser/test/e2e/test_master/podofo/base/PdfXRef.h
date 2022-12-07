@@ -185,6 +185,7 @@ namespace PoDoFo
      *  for other applications.
      */
     void MergeBlocks();
+  private:
     pdf_uint64 m_offset;
   protected:
     TVecXRefBlock m_vecBlocks;

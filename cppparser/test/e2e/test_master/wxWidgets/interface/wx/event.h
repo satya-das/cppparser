@@ -1562,7 +1562,7 @@ public:
 enum
 {
   wxJOYSTICK1,
-  wxJOYSTICK2
+  wxJOYSTICK2,
 };
 // Which button is down?
 enum
@@ -1571,7 +1571,7 @@ enum
   wxJOY_BUTTON1 = 1,
   wxJOY_BUTTON2 = 2,
   wxJOY_BUTTON3 = 4,
-  wxJOY_BUTTON4 = 8
+  wxJOY_BUTTON4 = 8,
 };
 /**
     @class wxJoystickEvent

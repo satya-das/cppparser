@@ -1069,6 +1069,7 @@ public:
   {
     return CentreIn(r, dir);
   }
+public:
   int x, y, width, height;
 };
 // compare rectangles

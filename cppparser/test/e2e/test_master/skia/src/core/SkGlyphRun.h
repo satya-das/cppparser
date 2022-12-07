@@ -109,31 +109,31 @@ public:
   {
     return fOriginalTextBlob;
   }
-  auto begin() -> decltype(fGlyphRuns.begin())
+  auto begin() . decltype(fGlyphRuns.begin())
   {
     return fGlyphRuns.begin();
   }
-  auto end() -> decltype(fGlyphRuns.end())
+  auto end() . decltype(fGlyphRuns.end())
   {
     return fGlyphRuns.end();
   }
-  auto begin() const -> decltype(fGlyphRuns.cbegin())
+  auto begin() const . decltype(fGlyphRuns.cbegin())
   {
     return fGlyphRuns.cbegin();
   }
-  auto end() const -> decltype(fGlyphRuns.cend())
+  auto end() const . decltype(fGlyphRuns.cend())
   {
     return fGlyphRuns.cend();
   }
-  auto size() const -> decltype(fGlyphRuns.size())
+  auto size() const . decltype(fGlyphRuns.size())
   {
     return fGlyphRuns.size();
   }
-  auto empty() const -> decltype(fGlyphRuns.empty())
+  auto empty() const . decltype(fGlyphRuns.empty())
   {
     return fGlyphRuns.empty();
   }
-  auto operator [](size_t i) const -> decltype(fGlyphRuns[i])
+  auto operator [](size_t i) const . decltype(fGlyphRuns[i])
   {
     return fGlyphRuns[i];
   }

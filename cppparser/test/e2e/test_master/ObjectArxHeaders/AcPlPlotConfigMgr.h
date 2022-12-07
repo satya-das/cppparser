@@ -97,7 +97,8 @@ public:
   };
     // Returns the list of system printer, pc3 file installed on the current
     // system. Also includes the None device as the first element of the array
-  virtual bool getDevicesList(AcArray<AcPlPlotConfigInfo, AcArrayObjectCopyReallocator <AcPlPlotConfigInfo> >& deviceList);
+  virtual bool getDevicesList(AcArray<AcPlPlotConfigInfo, 
+        AcArrayObjectCopyReallocator <AcPlPlotConfigInfo> >& deviceList);
     // Returns a list of plot style table based on the styType flag specified
     // currently installed on a system
   virtual bool getStyleList(AcArray<ACHAR *>& list, long styType = kAllTypes);

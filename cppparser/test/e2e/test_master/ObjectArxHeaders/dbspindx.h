@@ -18,8 +18,8 @@
 #  pragma  pack (push, 8)
 class AcDbSpatialIndex : public AcDbIndex
 {
-  ACDB_DECLARE_MEMBERS(AcDbSpatialIndex);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbSpatialIndex);
   AcDbSpatialIndex();
   virtual ~AcDbSpatialIndex();
   AcDbFilteredBlockIterator* newIterator(const AcDbFilter* pFilter) const override;

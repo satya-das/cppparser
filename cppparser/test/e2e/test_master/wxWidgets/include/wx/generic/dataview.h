@@ -302,6 +302,7 @@ private:
   wxVector<int> m_sortingColumnIdxs;
     // if true, allow sorting by more than one column
   bool m_allowMultiColumnSort;
+private:
   void OnSize(wxSizeEvent& event);
   wxSize GetSizeAvailableForScrollTarget(const wxSize& size) override;
     // we need to return a special WM_GETDLGCODE value to process just the
@@ -310,6 +311,7 @@ private:
   WXLRESULT MSWWindowProc(WXUINT nMsg, WXWPARAM wParam, WXLPARAM lParam) override;
 #  endif
   WX_FORWARD_TO_SCROLL_HELPER()
+private:
   wxDECLARE_DYNAMIC_CLASS(wxDataViewCtrl);
   wxDECLARE_NO_COPY_CLASS(wxDataViewCtrl);
   wxDECLARE_EVENT_TABLE();

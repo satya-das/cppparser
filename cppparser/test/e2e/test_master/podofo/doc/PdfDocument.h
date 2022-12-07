@@ -577,6 +577,7 @@ namespace PoDoFo
      *  and reset PdfDocument to an intial state.
      */
     void Clear();
+  protected:
     PdfFontCache m_fontCache;
     PdfObject* m_pTrailer;
     PdfObject* m_pCatalog;

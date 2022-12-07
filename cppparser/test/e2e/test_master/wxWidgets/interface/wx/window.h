@@ -54,7 +54,7 @@ enum wxShowEffect {
 */
 enum
 {
-  wxSEND_EVENT_POST = 1
+  wxSEND_EVENT_POST = 1,
 };
 /**
     Struct containing all the visual attributes of a control.

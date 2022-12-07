@@ -36,7 +36,7 @@ enum
     // after/before it regardless of the setting of wxRE_NOT[BE]OL
   wxRE_NEWLINE = 16,
     // default flags
-  wxRE_DEFAULT = wxRE_EXTENDED
+  wxRE_DEFAULT = wxRE_EXTENDED,
 };
 // flags for regex matching: these can be used with Matches()
 //
@@ -47,7 +47,7 @@ enum
     // '^' doesn't match at the start of line
   wxRE_NOTBOL = 32,
     // '$' doesn't match at the end of line
-  wxRE_NOTEOL = 64
+  wxRE_NOTEOL = 64,
 };
 // ----------------------------------------------------------------------------
 // wxRegEx: a regular expression

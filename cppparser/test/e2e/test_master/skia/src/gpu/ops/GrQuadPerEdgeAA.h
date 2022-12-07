@@ -92,9 +92,9 @@ namespace GrQuadPerEdgeAA
     {
       return fUsesCoverageAA ? 8 : 4;
     }
+  private:
     static_assert(GrQuad::kTypeCount <= 4, "GrQuad::Type doesn't fit in 2 bits");
     static_assert(kColorTypeCount <= 4, "Color doesn't fit in 2 bits");
-  private:
     unsigned fDeviceQuadType;
     unsigned fLocalQuadType;
     unsigned fHasLocalCoords;

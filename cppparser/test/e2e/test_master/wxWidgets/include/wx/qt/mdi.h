@@ -20,6 +20,7 @@ public:
   }
   void ActivateNext() override;
   void ActivatePrevious() override;
+protected:
 private:
   wxDECLARE_DYNAMIC_CLASS(wxMDIParentFrame);
 };

@@ -21,6 +21,7 @@
 */
 class wxRecursionGuardFlag
 {
+public:
 };
 /**
     @class wxRecursionGuard

@@ -37,6 +37,7 @@ public:
   {
     return m_surface;
   }
+public:
     // window the overlay is associated with
   wxWindow* m_window;
     // rectangle covered by the overlay, in m_window's window coordinates

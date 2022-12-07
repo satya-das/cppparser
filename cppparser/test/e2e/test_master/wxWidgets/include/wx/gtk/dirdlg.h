@@ -21,6 +21,7 @@ public:
   virtual ~wxDirDialog()
   {
   }
+public:
   void SetPath(const wxString& path) override;
     // Implementation only.
   void GTKOnAccept();

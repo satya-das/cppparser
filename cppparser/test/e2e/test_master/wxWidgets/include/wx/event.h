@@ -381,7 +381,7 @@ public:
         // the real (run-time) type of event is EventClass and we checked in
         // the ctor that EventClass can be converted to EventArg, so this cast
         // is always valid
-    (realHandler->*m_method)(static_cast<EventArg&>(event));
+    (realHandler.*m_method)(static_cast<EventArg&>(event));
   }
   bool IsMatching(const wxEventFunctor& functor) const override
   {
@@ -409,7 +409,8 @@ private:
   wxEventFunctorMethod()
   {
   }
-  typedef wxEventFunctorMethod<EventTag, Class, EventArg, EventHandler> thisClass;
+  typedef wxEventFunctorMethod<EventTag, Class,
+                                 EventArg, EventHandler> thisClass;
   WX_DECLARE_TYPEINFO_INLINE(thisClass)
 };
 // functor forwarding the event to function (function, static method)
@@ -1017,6 +1018,7 @@ protected:
     // the event will be passed to another handler if it's not processed in
     // this one.
   bool m_willBeProcessedAgain;
+protected:
   wxEvent(const wxEvent&);
   wxEvent& operator=(const wxEvent&);
 private:
@@ -1292,7 +1294,7 @@ public:
   }
   void Execute() override
   {
-    (m_object->*m_method)();
+    (m_object.*m_method)();
   }
 private:
   ObjectType* const m_object;
@@ -1326,7 +1328,7 @@ public:
   }
   void Execute() override
   {
-    (m_object->*m_method)(m_param1);
+    (m_object.*m_method)(m_param1);
   }
 private:
   ObjectType* const m_object;
@@ -1364,7 +1366,7 @@ public:
   }
   void Execute() override
   {
-    (m_object->*m_method)(m_param1, m_param2);
+    (m_object.*m_method)(m_param1, m_param2);
   }
 private:
   ObjectType* const m_object;
@@ -1530,6 +1532,7 @@ public:
   }
 private:
   bool m_bAllow;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxNotifyEvent);
 };
 // Scroll event class, derived form wxCommandEvent. wxScrollEvents are
@@ -1825,6 +1828,7 @@ public:
     }
     return *this;
   }
+public:
   int m_clickCount;
   wxMouseWheelAxis m_wheelAxis;
   int m_wheelRotation;
@@ -1887,6 +1891,7 @@ public:
 private:
   wxCoord m_x, m_y;
   wxCursor m_cursor;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxSetCursorEvent);
 };
  // Gesture Event
@@ -2231,6 +2236,7 @@ public:
     // we do need to copy wxKeyEvent sometimes (in wxTreeCtrl code, for
     // example)
   wxKeyEvent& operator=(const wxKeyEvent& evt);
+public:
     // Do not use these fields directly, they are initialized on demand, so
     // call GetX() and GetY() or GetPosition() instead.
   wxCoord m_x, m_y;
@@ -2326,6 +2332,7 @@ public:
   {
     return new wxSizeEvent(*this);
   }
+public:
     // For internal usage only. Will be converted to protected members.
   wxSize m_size;
   wxRect m_rect;
@@ -2484,6 +2491,7 @@ public:
   }
 private:
   wxWindow* m_win;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxFocusEvent);
 };
 // wxChildFocusEvent notifies the parent that a child has got the focus: unlike
@@ -2545,6 +2553,7 @@ public:
 private:
   bool m_active;
   Reason m_activationReason;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_ASSIGN(wxActivateEvent);
 };
 // InitDialog event class
@@ -2765,7 +2774,7 @@ private:
 enum
 {
   wxJOYSTICK1,
-  wxJOYSTICK2
+  wxJOYSTICK2,
 };
 // Which button is down?
 enum
@@ -2774,7 +2783,7 @@ enum
   wxJOY_BUTTON1 = 1,
   wxJOY_BUTTON2 = 2,
   wxJOY_BUTTON3 = 4,
-  wxJOY_BUTTON4 = 8
+  wxJOY_BUTTON4 = 8,
 };
 class WXDLLIMPEXP_CORE wxJoystickEvent : public wxEvent
 {
@@ -3694,6 +3703,7 @@ protected:
     // Grow the hash table in size and transfer all items currently
     // in the table to the correct location in the new table.
   void GrowEventTypeTable();
+protected:
   const wxEventTable& m_table;
   bool m_rebuildHash;
   size_t m_size;
@@ -4057,7 +4067,7 @@ WX_DEFINE_ARRAY_WITH_DECL_PTR(wxEvtHandler *, wxEvtHandlerArray, class WXDLLIMPE
 inline void wxObjectEventFunctor::operator()(wxEvtHandler* handler, wxEvent& event)
 {
   wxEvtHandler* const realHandler = m_handler ? m_handler : handler;
-  (realHandler->*m_method)(event);
+  (realHandler.*m_method)(event);
 }
 // ----------------------------------------------------------------------------
 // wxEventConnectionRef represents all connections between two event handlers

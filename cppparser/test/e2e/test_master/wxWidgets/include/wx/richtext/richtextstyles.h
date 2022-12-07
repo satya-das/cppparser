@@ -163,6 +163,7 @@ public:
   {
     return new wxRichTextCharacterStyleDefinition(*this);
   }
+protected:
 };
 /*!
  * wxRichTextParagraphStyleDefinition class declaration
@@ -315,6 +316,7 @@ public:
   {
     return new wxRichTextBoxStyleDefinition(*this);
   }
+protected:
 };
 /*!
  * The style sheet

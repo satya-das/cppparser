@@ -1843,7 +1843,7 @@ enum
   wxTOOL_TOP = 1,
   wxTOOL_BOTTOM,
   wxTOOL_LEFT,
-  wxTOOL_RIGHT
+  wxTOOL_RIGHT,
 };
 /*  the values of the format constants should be the same as corresponding */
 /*  CF_XXX constants in Windows API */
@@ -2686,7 +2686,7 @@ enum
 {
   wxPRIORITY_MIN = 0u,
   wxPRIORITY_DEFAULT = 50u,
-  wxPRIORITY_MAX = 100u
+  wxPRIORITY_MAX = 100u,
 };
 #endif
     /*  _WX_DEFS_H_ */

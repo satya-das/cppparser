@@ -6,6 +6,7 @@
 #include "cppast/cpp_compound.h"
 #include "cppast/cpp_control_blocks.h"
 #include "cppast/cpp_documentation_comment.h"
+#include "cppast/cpp_entity_access_speciifier.h"
 #include "cppast/cpp_enum.h"
 #include "cppast/cpp_expression.h"
 #include "cppast/cpp_forward_class_decl.h"

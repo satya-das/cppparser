@@ -97,6 +97,7 @@ public:
 */
 class wxTarClassFactory : public wxArchiveClassFactory
 {
+public:
 };
 /**
     @class wxTarOutputStream

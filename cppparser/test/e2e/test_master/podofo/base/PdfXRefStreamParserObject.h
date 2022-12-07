@@ -89,6 +89,7 @@ namespace PoDoFo
      */
     void ParseStream(const pdf_int64 nW[W_ARRAY_SIZE], const std::vector<pdf_int64>& rvecIndeces);
     void ReadXRefStreamEntry(char* pBuffer, pdf_long, const pdf_int64 lW[W_ARRAY_SIZE], int nObjNo);
+  private:
     pdf_long m_lNextOffset;
     PdfParser::TVecOffsets* m_pOffsets;
   };

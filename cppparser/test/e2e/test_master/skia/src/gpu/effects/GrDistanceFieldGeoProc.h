@@ -102,8 +102,8 @@ public:
   void addNewProxies(const sk_sp<GrTextureProxy>* proxies, int numProxies, const GrSamplerState&);
   void getGLSLProcessorKey(const GrShaderCaps& caps, GrProcessorKeyBuilder* b) const override;
   GrGLSLPrimitiveProcessor* createGLSLInstance(const GrShaderCaps&) const override;
-#  ifdef SK_GAMMA_APPLY_TO_A8
 private:
+#  ifdef SK_GAMMA_APPLY_TO_A8
   GrDistanceFieldA8TextGeoProc(const GrShaderCaps& caps, const sk_sp<GrTextureProxy>* proxies, int numActiveProxies, const GrSamplerState& params, float distanceAdjust, uint32_t flags, const SkMatrix& localMatrix);
 #  else 
   GrDistanceFieldA8TextGeoProc(const GrShaderCaps& caps, const sk_sp<GrTextureProxy>* proxies, int numActiveProxies, const GrSamplerState& params, uint32_t flags, const SkMatrix& localMatrix);

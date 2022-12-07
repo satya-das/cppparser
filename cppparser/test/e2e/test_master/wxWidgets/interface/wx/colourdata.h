@@ -21,7 +21,7 @@ public:
     /// number of custom colours we store
   enum
   {
-    NUM_CUSTOM = 16
+    NUM_CUSTOM = 16,
   };
     /**
         Constructor. Initializes the custom colours to @c wxNullColour, the

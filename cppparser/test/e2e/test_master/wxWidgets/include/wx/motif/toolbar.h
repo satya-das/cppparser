@@ -43,6 +43,7 @@ private:
   virtual wxToolBarToolBase* CreateTool(int id, const wxString& label, const wxBitmap& bmpNormal, const wxBitmap& bmpDisabled, wxItemKind kind, wxObject* clientData, const wxString& shortHelp, const wxString& longHelp);
   virtual wxToolBarToolBase* CreateTool(wxControl* control, const wxString& label);
   virtual void DoSetSize(int x, int y, int width, int height, int sizeFlags = wxSIZE_AUTO);
+private:
   wxDECLARE_DYNAMIC_CLASS(wxToolBar);
 };
 #endif

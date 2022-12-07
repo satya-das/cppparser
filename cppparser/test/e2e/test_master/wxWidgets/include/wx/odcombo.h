@@ -25,7 +25,7 @@ enum
     // If used, control itself is not custom paint using callback.
     // Even if this is not used, writable combo is never custom paint
     // until SetCustomPaintWidth is called
-  wxODCB_STD_CONTROL_PAINT = 0x1000
+  wxODCB_STD_CONTROL_PAINT = 0x1000,
 };
 //
 // Callback flags (see wxOwnerDrawnComboBox::OnDrawItem)

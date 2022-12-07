@@ -57,7 +57,7 @@ enum
   WX_GL_LOSE_ON_RESET,
   WX_GL_RESET_ISOLATION,
   WX_GL_RELEASE_FLUSH,
-  WX_GL_RELEASE_NONE
+  WX_GL_RELEASE_NONE,
 };
 #    define wxGLCanvasName	wxT("GLCanvas")
 // ----------------------------------------------------------------------------

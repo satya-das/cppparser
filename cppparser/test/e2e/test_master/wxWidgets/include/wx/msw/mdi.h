@@ -86,8 +86,8 @@ public:
   wxMenuItem* FindItemInMenuBar(int menuId) const override;
   wxMenu* MSWFindMenuFromHMENU(WXHMENU hMenu) override;
 #  endif
-#  if  wxUSE_MENUS_NATIVE
 protected:
+#  if  wxUSE_MENUS_NATIVE
   void InternalSetMenuBar() override;
 #  endif
   WXHICON GetDefaultIcon() const override;

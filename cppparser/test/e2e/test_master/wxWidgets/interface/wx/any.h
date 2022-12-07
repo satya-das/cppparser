@@ -217,7 +217,7 @@ public:
 */
 enum
 {
-  WX_ANY_VALUE_BUFFER_SIZE = 16
+  WX_ANY_VALUE_BUFFER_SIZE = 16,
 };
 /**
     Type for buffer within wxAny for holding data.

@@ -12,7 +12,7 @@ enum
 {
   wxDrag_CopyOnly = 0,
   wxDrag_AllowMove = 1,
-  wxDrag_DefaultMove = 3
+  wxDrag_DefaultMove = 3,
 };
 /**
     Result returned from a wxDropSource::DoDragDrop() call.

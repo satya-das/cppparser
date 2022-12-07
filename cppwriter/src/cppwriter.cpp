@@ -88,6 +88,9 @@ void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppI
       return emitTypedef((const cppast::CppTypedefName&) cppEntity, stm, indentation);
     case cppast::CppEntityType::TYPEDEF_DECL_LIST:
       return emitTypedefList((const cppast::CppTypedefList&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::ENTITY_ACCESS_SPECIFIER:
+      return emitEntityAccessSpecifier(
+        (const cppast::CppEntityAccessSpecifier&) cppEntity, stm, indentation, !noNewLine);
     case cppast::CppEntityType::COMPOUND:
       return emitCompound((const cppast::CppCompound&) cppEntity, stm, indentation, !noNewLine);
     case cppast::CppEntityType::FORWARD_CLASS_DECL:
@@ -446,6 +449,14 @@ void CppWriter::emitTemplSpec(const cppast::CppTemplateParams& templSpec,
     sep = ", ";
   }
   stm << ">\n";
+}
+
+void CppWriter::emitEntityAccessSpecifier(const cppast::CppEntityAccessSpecifier& entityAccessSpecifier,
+                                          std::ostream&                           stm,
+                                          CppIndent                               indentation,
+                                          bool                                    emitNewLine) const
+{
+  stm << --indentation << entityAccessSpecifier.type() << ":\n";
 }
 
 void CppWriter::emitCompound(const cppast::CppCompound& compoundObj,
@@ -897,7 +908,7 @@ inline void emitOperator(std::ostream& stm, cppast::CppOperator op)
       stm << '.';
       break;
     case cppast::CppOperator::kArrow:
-      stm << ".";
+      stm << "->";
       break;
     case cppast::CppOperator::kArrowStar:
       stm << ".*";

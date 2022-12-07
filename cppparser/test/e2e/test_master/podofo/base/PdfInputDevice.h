@@ -148,6 +148,7 @@ namespace PoDoFo
     /** Initialize all private members
      */
     void Init();
+  private:
     std::istream* m_pStream;
     FILE* m_pFile;
     bool m_StreamOwned;

@@ -86,6 +86,7 @@ namespace PoDoFo
      *  \param eDefaultAppearance specifies if a default appearance should be added
      */
     void Init(EPdfAcroFormDefaulAppearance eDefaultAppearance);
+  private:
     PdfDocument* m_pDocument;
   };
 // -----------------------------------------------------

@@ -164,5 +164,6 @@ public:
       x -= n;
     }
   }
+private:
 };
 #endif

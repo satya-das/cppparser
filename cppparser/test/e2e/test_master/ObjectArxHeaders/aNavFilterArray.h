@@ -22,6 +22,7 @@ public:
   CNavFilterArray();
   virtual ~CNavFilterArray();
 // Filter management
+public:
   void SetFrom(LPCTSTR str, BOOL bUseFullDescrition = FALSE);
   int Find(LPCTSTR str);
   int FindExact(LPCTSTR str);

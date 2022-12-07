@@ -412,6 +412,7 @@ public:
     return NULL;
   }
     /* STL interface */
+public:
   typedef size_t size_type;
   typedef int difference_type;
   typedef T* value_type;
@@ -427,6 +428,7 @@ public:
     typedef value_type& reference;
     Node* m_node;
     Node* m_init;
+  public:
     typedef reference reference_type;
     typedef ptr_type pointer_type;
     iterator(Node* node, Node* init)
@@ -485,6 +487,7 @@ public:
     typedef value_type* ptr_type;
     Node* m_node;
     Node* m_init;
+  public:
     typedef const_reference reference_type;
     typedef const ptr_type pointer_type;
     const_iterator(Node* node, Node* init)
@@ -548,6 +551,7 @@ public:
     typedef value_type& reference;
     Node* m_node;
     Node* m_init;
+  public:
     typedef reference reference_type;
     typedef ptr_type pointer_type;
     reverse_iterator(Node* node, Node* init)
@@ -606,6 +610,7 @@ public:
     typedef const value_type& const_reference;
     Node* m_node;
     Node* m_init;
+  public:
     typedef const_reference reference_type;
     typedef const ptr_type pointer_type;
     const_reverse_iterator(Node* node, Node* init)

@@ -4040,8 +4040,8 @@ leading = 0x1, trailing = 0x2, both = 0x3
   {
     return *this += wxUniChar(ch);
   }
-#  if  !wxUSE_STL_BASED_WXSTRING
 private:
+#  if  !wxUSE_STL_BASED_WXSTRING
   // helpers for wxStringBuffer and wxStringBufferLength
   wxStringCharType* DoGetWriteBuf(size_t nLen)
   {
@@ -4073,6 +4073,7 @@ private:
     return m_impl.GetStringData()->IsValid();
   }
 #  endif
+private:
   wxStringImpl m_impl;
   // buffers for compatibility conversion from (char*)c_str() and
   // (wchar_t*)c_str(): the pointers returned by these functions should remain

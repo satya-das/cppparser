@@ -65,7 +65,7 @@ enum
   wxCONTROL_FLAGS_MASK = 0x000000ff,
     // this is a pseudo flag not used directly by wxRenderer but rather by some
     // controls internally
-  wxCONTROL_DIRTY = 0x80000000
+  wxCONTROL_DIRTY = 0x80000000,
 };
 // title bar buttons supported by DrawTitleBarBitmap()
 //
@@ -139,7 +139,7 @@ struct WXDLLIMPEXP_CORE wxRendererVersion
   enum
   {
     Current_Version = 1,
-    Current_Age = 5
+    Current_Age = 5,
   };
     // check if the given version is compatible with the current one
   static bool IsCompatible(const wxRendererVersion& ver)

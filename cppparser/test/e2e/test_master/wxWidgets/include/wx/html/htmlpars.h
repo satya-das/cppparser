@@ -147,6 +147,7 @@ protected:
     // ignored if no handler is found.
     // Derived class is *responsible* for filling in m_Handlers table.
   virtual void AddTag(const wxHtmlTag& tag);
+protected:
     // DOM tree:
   wxHtmlTag* m_CurTag;
   wxHtmlTag* m_Tags;

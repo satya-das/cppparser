@@ -394,10 +394,12 @@ namespace PoDoFo
      *  This is only done once and only if necessary.
      */
     void InitUtf8();
+  private:
     static const char s_pszUnicodeMarker[];
     static const char* s_pszUnicodeMarkerHex;
     static const pdf_utf16be s_cPdfDocEncoding[256];
     static const char* const m_escMap;
+  private:
     PdfRefCountedBuffer m_buffer;
     bool m_bHex;
     bool m_bUnicode;

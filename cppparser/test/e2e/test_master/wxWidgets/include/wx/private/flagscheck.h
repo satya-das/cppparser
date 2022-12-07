@@ -61,7 +61,9 @@ namespace wxPrivate
     // FlagsHaveConflictingValues<add>. The next statement will try to use
     // AddedValue::value, but there's no such thing in
     // FlagsHaveConflictingValues<> and so compilation will fail.
-    typedef typename wxIf<(all & add) == 0, FlagValue<add>, FlagsHaveConflictingValues<add> >::value AddedValue;
+    typedef typename wxIf<(all & add) == 0,
+                          FlagValue<add>,
+                          FlagsHaveConflictingValues<add> >::value AddedValue;
     enum {
  value = all | AddedValue::value
     };

@@ -1356,6 +1356,7 @@ const wxDateTime wxDefaultDateTime;
 */
 class wxDateTimeWorkDays
 {
+public:
 };
 /**
     @class wxDateSpan
@@ -1832,4 +1833,5 @@ public:
 */
 class wxDateTimeHolidayAuthority
 {
+public:
 };

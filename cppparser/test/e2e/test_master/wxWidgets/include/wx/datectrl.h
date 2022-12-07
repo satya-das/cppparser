@@ -27,7 +27,7 @@ enum
   wxDP_SHOWCENTURY = 4,
     // allow not having any valid date in the control (by default it always has
     // some date, today initially if no valid date specified in ctor)
-  wxDP_ALLOWNONE = 8
+  wxDP_ALLOWNONE = 8,
 };
 // ----------------------------------------------------------------------------
 // wxDatePickerCtrl: allow the user to enter the date

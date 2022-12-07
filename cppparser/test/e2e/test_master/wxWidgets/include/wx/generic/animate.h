@@ -28,6 +28,7 @@ public:
   void Init();
   bool Create(wxWindow* parent, wxWindowID id, const wxAnimation& anim = wxNullAnimation, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxAC_DEFAULT_STYLE, const wxString& name = wxASCII_STR(wxAnimationCtrlNameStr));
   ~wxGenericAnimationCtrl();
+public:
   bool LoadFile(const wxString& filename, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
   bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
   void Stop() override;
@@ -44,9 +45,11 @@ public:
     // override base class method
   bool SetBackgroundColour(const wxColour& col) override;
   static wxAnimation CreateCompatibleAnimation();
+public:
   void OnPaint(wxPaintEvent& event);
   void OnTimer(wxTimerEvent& event);
   void OnSize(wxSizeEvent& event);
+public:
     // Specify whether the animation's background colour is to be shown (the default),
     // or whether the window background should show through
   void SetUseWindowBackgroundColour(bool useWinBackground = true)
@@ -87,6 +90,7 @@ protected:
   wxAnimationDisposal AnimationImplGetDisposalMethod(unsigned int frame) const;
   wxColour AnimationImplGetTransparentColour(unsigned int frame) const;
   wxColour AnimationImplGetBackgroundColour() const;
+protected:
   unsigned int m_currentFrame;
   bool m_looped;
   wxTimer m_timer;

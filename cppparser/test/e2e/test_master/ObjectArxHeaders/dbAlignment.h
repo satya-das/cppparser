@@ -65,7 +65,8 @@ public:
     /// Returns an alignment point and vector.
     /// </remarks>
     /// 
-  virtual Acad::ErrorStatus getAlignment(AcDbEntity* pEnt, const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedPickedEntities, const AcGePoint3d& pickPoint, const AcGeVector3d& normal, AcGePoint3d& closestPoint, AcGeVector3d& direction) = 0;
+  virtual Acad::ErrorStatus getAlignment(AcDbEntity* pEnt, const AcArray< AcDbObjectIdArray,
+            AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedPickedEntities, const AcGePoint3d& pickPoint, const AcGeVector3d& normal, AcGePoint3d& closestPoint, AcGeVector3d& direction) = 0;
 };
 #  pragma  pack (pop)
 #endif

@@ -54,6 +54,7 @@ public:
     /// Destructor.
     /// </summary>
   virtual ~AcDbPointCloudEx();
+public:
     // AcDbObject Overrides
     //
     // erase
@@ -139,6 +140,7 @@ public:
     /// Returns Acad::eOk if successful.
     /// </returns>
   virtual Acad::ErrorStatus copyFrom(const AcRxObject* pObj);
+public:
     // AcDbEntity Overrides
     //
     /// <summary>

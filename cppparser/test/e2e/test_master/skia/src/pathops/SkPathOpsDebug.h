@@ -236,8 +236,8 @@ extern int gDumpTSectNum;
         } while (false)
 class SkPathOpsDebug
 {
-#  if  DEBUG_COIN
 public:
+#  if  DEBUG_COIN
   struct GlitchLog;
   enum GlitchType {
         kUninitialized_Glitch,

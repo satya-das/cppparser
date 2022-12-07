@@ -317,6 +317,7 @@ public:
 protected:
     // Protected constructor
   AcTcCatalogSet(DWORD dwCatalogType);
+protected:
   void* mpImpObj;
 private:
   friend class AcTcSystemInternals;
@@ -328,6 +329,7 @@ class ACTC_PORT AcTcCatalogItem
 public:
   static AcTcCatalogItem* FromFile(LPCTSTR pszFile, BOOL bLoad = FALSE, DWORD dwLoadOption = kLoadLinks);
   static CatalogItemType GetType(LPCTSTR pszFile);
+public:
   virtual ~AcTcCatalogItem();
   BOOL Load(LPCTSTR pszUrl, DWORD dwLoadOption = kLoadLinks);
   BOOL LoadLink(void);
@@ -432,6 +434,7 @@ public:
   BOOL GetFileRevision(long& lMajorVersion, long& lMinorVersion) const;
   BOOL GetRevision(long& lMajorVersion, long& lMinorVersion, long& lUserVersion) const;
   BOOL IsUserModified(void) const;
+public:
     // Overridables
   virtual AcTcCatalogItem& operator=(const AcTcCatalogItem& srcItem);
   virtual BOOL Reset(void);
@@ -448,8 +451,10 @@ public:
 protected:
     // Overridables
   virtual AcTcCatalogItem* CreateObject(void) const;
+protected:
     // Protected constructor
   AcTcCatalogItem(AcTcSystemInternals*);
+protected:
   void* mpImpObj;
 private:
   friend class AcTcSystemInternals;
@@ -557,6 +562,7 @@ public:
   virtual void ChildDetached(AcTcCatalogItem* pChild);
 protected:
   void* mpImpObj;
+protected:
     // Protected constructor
   AcTcCatalogItemReactor();
 private:

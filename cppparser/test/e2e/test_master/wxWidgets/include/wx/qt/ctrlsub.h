@@ -10,6 +10,7 @@ class WXDLLIMPEXP_CORE wxControlWithItems : public wxControlWithItemsBase
 {
 public:
   wxControlWithItems();
+protected:
 private:
   wxDECLARE_ABSTRACT_CLASS(wxControlWithItems);
 };

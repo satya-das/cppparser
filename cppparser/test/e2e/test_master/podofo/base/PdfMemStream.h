@@ -158,6 +158,7 @@ namespace PoDoFo
      *  Expects that all filters are setup correctly.
      */
     void FlateCompressStreamData();
+  private:
     PdfRefCountedBuffer m_buffer;
     PdfOutputStream* m_pStream;
     PdfBufferOutputStream* m_pBufferStream;

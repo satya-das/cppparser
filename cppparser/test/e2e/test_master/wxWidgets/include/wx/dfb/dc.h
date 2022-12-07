@@ -128,6 +128,7 @@ protected:
   virtual void DoDrawLines(int n, const wxPoint points[], wxCoord xoffset, wxCoord yoffset);
   virtual void DoDrawPolygon(int n, const wxPoint points[], wxCoord xoffset, wxCoord yoffset, wxPolygonFillMode fillStyle = wxODDEVEN_RULE);
     // implementation from now on:
+protected:
   wxIDirectFBFontPtr GetCurrentFont() const;
 private:
     // Unified implementation of DrawIcon, DrawBitmap and Blit:

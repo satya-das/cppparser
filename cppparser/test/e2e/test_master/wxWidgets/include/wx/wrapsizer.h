@@ -15,7 +15,7 @@ enum
   wxEXTEND_LAST_ON_EACH_LINE = 1,
     // don't leave spacers in the beginning of a new row
   wxREMOVE_LEADING_SPACES = 2,
-  wxWRAPSIZER_DEFAULT_FLAGS = wxEXTEND_LAST_ON_EACH_LINE | wxREMOVE_LEADING_SPACES
+  wxWRAPSIZER_DEFAULT_FLAGS = wxEXTEND_LAST_ON_EACH_LINE | wxREMOVE_LEADING_SPACES,
 };
 // ----------------------------------------------------------------------------
 // A box sizer that can wrap items on several lines when sum of widths exceed

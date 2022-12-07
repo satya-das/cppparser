@@ -34,8 +34,8 @@ class AcDbRotatedDimension;
 //
 class AcDbDimAssoc : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbDimAssoc);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbDimAssoc);
     //ACRX_DECLARE_MEMBERS(AcDbDimAssoc);
   enum {
  kMaxPointRefs = 4

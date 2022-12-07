@@ -13,7 +13,7 @@ public:
     // number of custom colours we store
   enum
   {
-    NUM_CUSTOM = 16
+    NUM_CUSTOM = 16,
   };
   wxColourData();
   wxColourData(const wxColourData& data);

@@ -52,6 +52,7 @@ private:
   void* m_devMode;
   void* m_devNames;
   short m_customWindowsPaperId;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxWindowsPrintNativeData);
 };
 // ---------------------------------------------------------------------------
@@ -79,10 +80,12 @@ private:
   wxPrinterDC* m_printerDC;
   bool m_destroyDC;
   wxWindow* m_dialogParent;
+private:
   bool ConvertToNative(wxPrintDialogData& data);
   bool ConvertFromNative(wxPrintDialogData& data);
     // holds MSW handle
   void* m_printDlg;
+private:
   wxDECLARE_CLASS(wxWindowsPrintDialog);
   wxDECLARE_NO_COPY_CLASS(wxWindowsPrintDialog);
 };
@@ -108,6 +111,7 @@ private:
   wxWindow* m_dialogParent;
     // holds MSW handle
   void* m_pageDlg;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxWindowsPageSetupDialog);
 };
 #  endif

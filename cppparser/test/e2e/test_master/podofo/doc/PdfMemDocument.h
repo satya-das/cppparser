@@ -605,6 +605,7 @@ namespace PoDoFo
      */
     void SetViewerPreference(const PdfName& whichPref, const PdfObject& valueObj) const;
     void SetViewerPreference(const PdfName& whichPref, bool inValue) const;
+  private:
     // Prevent use of copy constructor and assignment operator.  These methods
     // should never be referenced (given that code referencing them outside
     // PdfMemDocument won't compile), and calling them will result in a link error

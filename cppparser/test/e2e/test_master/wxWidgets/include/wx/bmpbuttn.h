@@ -74,8 +74,8 @@ public:
   {
     return DoGetBitmapMargins().y;
   }
-#    ifndef wxHAS_BUTTON_BITMAP
 protected:
+#    ifndef wxHAS_BUTTON_BITMAP
     // function called when any of the bitmaps changes
   virtual void OnSetBitmap()
   {

@@ -64,6 +64,7 @@ private:
     return false;
 #    endif
   }
+private:
   GtkEntry* GetEntry() const override
   {
     return m_entry;

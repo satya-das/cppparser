@@ -13,6 +13,7 @@
 #    include <CoreFoundation/CoreFoundation.h>
 #    include <memory>
 template <typename CFRef>
-using SkUniqueCFRef = std::unique_ptr<skstd::remove_pointer_t<CFRef>, SkFunctionWrapper<decltype(CFRelease), CFRelease>>;
+using SkUniqueCFRef = std::unique_ptr<skstd::remove_pointer_t<CFRef>,
+                    SkFunctionWrapper<decltype(CFRelease), CFRelease>>;
 #  endif
 #endif

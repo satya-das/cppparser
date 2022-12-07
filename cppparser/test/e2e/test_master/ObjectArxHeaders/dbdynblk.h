@@ -234,7 +234,8 @@ private:
   friend class AcDbImpDynBlockReferenceProperty;
   friend class AcDbImpDynBlockReference;
 };
-typedef AcArray<AcDbDynBlockReferenceProperty, AcArrayObjectCopyReallocator<AcDbDynBlockReferenceProperty> > AcDbDynBlockReferencePropertyArray;
+typedef AcArray<AcDbDynBlockReferenceProperty, 
+        AcArrayObjectCopyReallocator<AcDbDynBlockReferenceProperty> > AcDbDynBlockReferencePropertyArray;
 /// <summary>
 /// A utility class for accessing information about block references to dynamic
 /// blocks.

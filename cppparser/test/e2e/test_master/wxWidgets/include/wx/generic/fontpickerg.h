@@ -36,6 +36,7 @@ public:
   virtual ~wxGenericFontButton()
   {
   }
+public:
     // user can override this to init font data in a different way
   virtual void InitFontData();
     // returns the font data shown in wxFontDialog
@@ -43,6 +44,7 @@ public:
   {
     return &m_data;
   }
+public:
   bool Create(wxWindow* parent, wxWindowID id, const wxFont& initial = *wxNORMAL_FONT, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = wxFONTBTN_DEFAULT_STYLE, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxFontPickerWidgetNameStr));
   void OnButtonClick(wxCommandEvent&);
 protected:

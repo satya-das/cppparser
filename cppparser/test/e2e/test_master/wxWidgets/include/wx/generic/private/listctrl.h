@@ -97,6 +97,7 @@ public:
   {
     return m_attr;
   }
+public:
     // the item image or -1
   int m_image;
     // user data associated with the item
@@ -194,6 +195,7 @@ public:
   bool m_checked;
     // back pointer to the list ctrl
   wxListMainWindow* m_owner;
+public:
   wxListLineData(wxListMainWindow* owner);
   ~wxListLineData()
   {
@@ -726,6 +728,7 @@ protected:
     // Multiple selection extends from the anchor. Not used in single-selection mode.
   size_t m_anchor;
   bool m_hasCheckBoxes;
+protected:
   wxWindow* GetMainWindowOfCompositeControl() override
   {
     return GetParent();

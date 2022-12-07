@@ -19,8 +19,8 @@ public:
   SkEmptyShader()
   {
   }
-#  ifdef SK_ENABLE_LEGACY_SHADERCONTEXT
 protected:
+#  ifdef SK_ENABLE_LEGACY_SHADERCONTEXT
   Context* onMakeContext(const ContextRec&, SkArenaAlloc*) const override
   {
     return nullptr;

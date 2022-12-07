@@ -139,6 +139,7 @@ public:
     /// </summary>
     ///
   AcDbAssocEvaluationCallback* currentEvaluationCallback() const;
+public:
     // Virtual methods that can be overridden by the derived classes
 
     /// <summary>

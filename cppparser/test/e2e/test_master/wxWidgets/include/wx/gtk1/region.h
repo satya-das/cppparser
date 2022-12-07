@@ -42,6 +42,7 @@ public:
     // wxRegionBase methods
   virtual void Clear();
   virtual bool IsEmpty() const;
+public:
     // Init with GdkRegion, set ref count to 2 so that
     // the C++ class will not destroy the region!
   wxRegion(GdkRegion* region);
@@ -101,6 +102,7 @@ public:
 private:
   size_t m_current;
   wxRegion m_region;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxRegionIterator);
 };
 #endif

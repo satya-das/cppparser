@@ -52,8 +52,8 @@ public:
   {
     PositionBars();
   }
-#  if  wxUSE_TOOLBAR
 protected:
+#  if  wxUSE_TOOLBAR
   void PositionToolBar() override;
 #  endif
 #  if  wxUSE_STATUSBAR

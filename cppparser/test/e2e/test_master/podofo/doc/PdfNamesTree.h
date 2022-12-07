@@ -143,6 +143,7 @@ namespace PoDoFo
      *  \param rDict a dictionary
      */
     void AddToDictionary(PdfObject* pObj, PdfDictionary& rDict);
+  private:
     PdfObject* m_pCatalog;
   };
 // -----------------------------------------------------

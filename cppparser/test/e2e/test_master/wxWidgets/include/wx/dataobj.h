@@ -410,8 +410,8 @@ public:
     return SetData(len, buf);
   }
 #    endif
-#    if  defined(__WXQT__)
 private:
+#    if  defined(__WXQT__)
     // Overridden to set text directly instead of extracting byte array
   void QtSetDataSingleFormat(const class QMimeData& mimeData, const wxDataFormat& format) override;
 #    endif

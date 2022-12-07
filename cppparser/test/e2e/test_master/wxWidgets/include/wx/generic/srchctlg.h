@@ -176,6 +176,7 @@ private:
 #    if  wxUSE_MENUS
   wxBitmap m_searchMenuBitmap;
 #    endif
+private:
   wxDECLARE_DYNAMIC_CLASS(wxSearchCtrl);
   wxDECLARE_EVENT_TABLE();
 };

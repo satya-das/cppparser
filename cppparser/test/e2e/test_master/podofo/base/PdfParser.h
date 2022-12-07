@@ -530,6 +530,7 @@ namespace PoDoFo
      *  \param nNewSize new size of the vector
      */
     void ResizeOffsets(pdf_long nNewSize);
+  private:
     EPdfVersion m_ePdfVersion;
     bool m_bLoadOnDemand;
     pdf_long m_nXRefOffset;

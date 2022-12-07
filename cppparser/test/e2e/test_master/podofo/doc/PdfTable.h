@@ -712,6 +712,7 @@ namespace PoDoFo
      *  \returns true if a new page was created, otherwise false
      */
     bool CheckForNewPage(double* pdY, double* pdCurY, double dRowHeight, PdfPainter* pPainter);
+  protected:
     PdfTableModel* m_pModel;
     int m_nCols;
     int m_nRows;

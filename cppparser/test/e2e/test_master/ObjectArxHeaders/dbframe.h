@@ -27,8 +27,8 @@ class ADESK_NO_VTABLE AcDbFrame : public AcDbEntity
 {
 protected:
   AcDbFrame();
-  ACDB_DECLARE_MEMBERS(AcDbFrame);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbFrame);
   virtual ~AcDbFrame();
     // --- AcDbObject Protocol
 

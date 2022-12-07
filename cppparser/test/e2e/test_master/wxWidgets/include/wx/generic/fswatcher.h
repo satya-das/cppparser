@@ -12,6 +12,7 @@
 #  if  wxUSE_FSWATCHER
 class WXDLLIMPEXP_BASE wxPollingFileSystemWatcher : public wxFileSystemWatcherBase
 {
+public:
 };
 #  endif
 #endif

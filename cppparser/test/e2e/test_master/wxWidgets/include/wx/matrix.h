@@ -148,6 +148,7 @@ public:
   double Get_scaleY();
   double GetRotation();
   void SetRotation(double rotation);
+public:
   double m_matrix[3][3];
   bool m_isIdentity;
 };

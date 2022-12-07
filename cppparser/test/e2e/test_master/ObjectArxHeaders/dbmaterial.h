@@ -13,8 +13,8 @@
 #pragma  pack (push, 8)
 class AcDbMaterial : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbMaterial);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbMaterial);
   AcDbMaterial();
   virtual ~AcDbMaterial();
     // AcDbMaterial protocol

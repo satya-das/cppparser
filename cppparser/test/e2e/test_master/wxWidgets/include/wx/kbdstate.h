@@ -109,6 +109,7 @@ public:
     // for backwards compatibility with the existing code accessing these
     // members of wxKeyEvent directly, these variables are public, however you
     // should not use them in any new code, please use the accessors instead
+public:
   bool m_controlDown;
   bool m_shiftDown;
   bool m_altDown;

@@ -14,7 +14,7 @@ enum
 {
   wxFONTRESTRICT_NONE = 0,
   wxFONTRESTRICT_SCALABLE = 1 << 0,
-  wxFONTRESTRICT_FIXEDPITCH = 1 << 1
+  wxFONTRESTRICT_FIXEDPITCH = 1 << 1,
 };
 class WXDLLIMPEXP_CORE wxFontData : public wxObject
 {

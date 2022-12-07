@@ -378,7 +378,7 @@ typedef enum
     /// Use render time as a quit condition
     /// The corresponding target render time needs to be set
     /// </summary>
-  krEQuitByRenderTime
+  krEQuitByRenderTime,
 } AcGiQuitCondition;
 /// <summary>
 /// Lighting Mode.
@@ -401,7 +401,7 @@ typedef enum
     /// Global illumination (indirect diffuse lighting) on.
     /// Glossy reflection and refraction on.
     /// </summary>
-  krEAdvanced
+  krEAdvanced,
 } AcGiLightingMode;
 /// <summary>
 /// Filter Type.
@@ -798,6 +798,7 @@ public:
     /// Acad::eOk if copy is successful
     /// </returns>
   Acad::ErrorStatus copyFrom(const AcRxObject*) override;
+public:
     /// <summary>
     /// Converts EV to a calibrated Brightness value
     /// </summary>

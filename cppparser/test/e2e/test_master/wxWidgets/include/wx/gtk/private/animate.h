@@ -50,6 +50,7 @@ public:
   bool LoadFile(const wxString& name, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
   bool Load(wxInputStream& stream, wxAnimationType type = wxANIMATION_TYPE_ANY) override;
     // Implementation
+public:
   GdkPixbufAnimation* GetPixbuf() const
   {
     return m_pixbuf;

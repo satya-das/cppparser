@@ -16,7 +16,7 @@
 // symbolic constant for the default style for consistency.
 enum
 {
-  wxTP_DEFAULT = 0
+  wxTP_DEFAULT = 0,
 };
 // ----------------------------------------------------------------------------
 // wxTimePickerCtrl: Allow the user to enter the time.

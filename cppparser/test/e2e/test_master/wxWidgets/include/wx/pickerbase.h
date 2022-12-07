@@ -41,6 +41,7 @@ public:
     // if present, intercepts wxPB_USE_TEXTCTRL style and creates the text control
     // The 3rd argument is the initial wxString to display in the text control
   bool CreateBase(wxWindow* parent, wxWindowID id, const wxString& text = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxDefaultSize, long style = 0, const wxValidator& validator = wxDefaultValidator, const wxString& name = wxASCII_STR(wxButtonNameStr));
+public:
     // margin between the text control and the picker
   void SetInternalMargin(int newmargin)
   {
@@ -152,6 +153,7 @@ protected:
     return wxALIGN_CENTER_VERTICAL | wxRIGHT;
   }
   void PostCreation();
+protected:
   wxTextCtrl* m_text;
   wxControl* m_picker;
   wxBoxSizer* m_sizer;

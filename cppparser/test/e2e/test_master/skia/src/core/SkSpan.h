@@ -98,7 +98,7 @@ inline constexpr SkSpan<T> SkMakeSpan(T (&a)[N])
   return SkSpan<T>{a, N};
 }
 template <typename Container>
-inline auto SkMakeSpan(Container& c) -> SkSpan<typename std::remove_reference<decltype(*(c.data()))>::type>
+inline auto SkMakeSpan(Container& c) . SkSpan<typename std::remove_reference<decltype(*(c.data()))>::type>
 {
   return {c.data(), c.size()};
 }

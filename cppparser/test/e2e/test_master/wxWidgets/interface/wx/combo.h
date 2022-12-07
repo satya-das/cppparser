@@ -14,7 +14,7 @@ enum
     // In wxOwnerDrawnComboBox, for instance, it cycles item.
   wxCC_SPECIAL_DCLICK = 0x0100,
     // Dropbutton acts like standard push button.
-  wxCC_STD_BUTTON = 0x0200
+  wxCC_STD_BUTTON = 0x0200,
 };
 /**
     @class wxComboPopup
@@ -185,7 +185,7 @@ struct wxComboCtrlFeatures
                                   ///< combo control's textctrl can be custom
                                   ///< painted.
     Borderless = 0x0040,
-    All = MovableButton | BitmapButton | ButtonSpacing | TextIndent | PaintControl | PaintWritable | Borderless
+    All = MovableButton | BitmapButton | ButtonSpacing | TextIndent | PaintControl | PaintWritable | Borderless,
   };
 };
 /**
@@ -816,7 +816,7 @@ protected:
   {
     ShowBelow = 0x0000,
     ShowAbove = 0x0001,
-    CanDeferShow = 0x0002
+    CanDeferShow = 0x0002,
   };
     /**
         This member function is not normally called in application code.

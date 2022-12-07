@@ -102,6 +102,7 @@ public:
   virtual ~wxComboCtrl()
   {
   }
+protected:
 private:
   wxDECLARE_DYNAMIC_CLASS(wxComboCtrl);
 };

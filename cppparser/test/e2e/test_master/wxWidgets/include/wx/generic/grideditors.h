@@ -101,8 +101,8 @@ public:
   }
     // added GetValue so we can get the value which is in the control
   wxString GetValue() const override;
-#    if  wxUSE_SPINCTRL
 protected:
+#    if  wxUSE_SPINCTRL
   wxSpinCtrl* Spin() const
   {
     return (wxSpinCtrl*) m_control;

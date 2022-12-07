@@ -37,8 +37,8 @@
 class AcDbGroupIterator;
 class AcDbGroup : public AcDbObject
 {
-  ACDB_DECLARE_MEMBERS(AcDbGroup);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbGroup);
   AcDbGroup();
   AcDbGroup(const ACHAR* grpDesc, bool selectable = true);
   virtual ~AcDbGroup();

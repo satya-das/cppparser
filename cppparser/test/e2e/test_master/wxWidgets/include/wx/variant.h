@@ -420,6 +420,7 @@ public:
   bool Delete(size_t item);
     // Clear list
   void ClearList();
+public:
     // Type conversion
   bool Convert(long* value) const;
   bool Convert(bool* value) const;
@@ -501,6 +502,7 @@ public:
   {
     return wxAnyValueTypeImpl<T>::GetInstance();
   }
+private:
 };
 #      define DECLARE_WXANY_CONVERSION()	 \
 virtual bool GetAsAny(wxAny* any) const wxOVERRIDE; \

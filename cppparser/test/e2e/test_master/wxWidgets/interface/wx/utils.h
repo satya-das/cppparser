@@ -597,7 +597,7 @@ enum
     // strip everything after '\t'
   wxStrip_Accel = 2,
     // strip everything (this is the default)
-  wxStrip_All = wxStrip_Mnemonics | wxStrip_Accel
+  wxStrip_All = wxStrip_Mnemonics | wxStrip_Accel,
 };
 /**
     Strips any menu codes from @a str and returns the result.
@@ -955,7 +955,7 @@ enum
     /**
         Convenient synonym for flags given system()-like behaviour.
      */
-  wxEXEC_BLOCK = wxEXEC_SYNC | wxEXEC_NOEVENTS
+  wxEXEC_BLOCK = wxEXEC_SYNC | wxEXEC_NOEVENTS,
 };
 /**
     Executes another program in Unix or Windows.

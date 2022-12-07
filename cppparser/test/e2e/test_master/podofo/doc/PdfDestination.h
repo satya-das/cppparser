@@ -215,6 +215,7 @@ namespace PoDoFo
      *  \param pDoc a PDF document owning this destination, needed to resolve pages
      */
     void Init(PdfObject* pObject, PdfDocument* pDocument);
+  private:
     static const long s_lNumDestinations;
     static const char* s_names[];
     PdfArray m_array;

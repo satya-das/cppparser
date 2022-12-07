@@ -13,6 +13,7 @@ class SkPathMeasure;
 // This class is not exported to java.
 class SK_API Sk1DPathEffect : public SkPathEffect
 {
+public:
 protected:
   bool onFilterPath(SkPath* dst, const SkPath& src, SkStrokeRec*, const SkRect*) const override;
     /** Called at the start of each contour, returns the initial offset

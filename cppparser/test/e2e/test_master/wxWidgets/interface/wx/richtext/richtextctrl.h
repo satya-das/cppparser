@@ -1879,6 +1879,7 @@ protected:
   virtual bool DoSetMargins(const wxPoint& pt);
   virtual wxPoint DoGetMargins() const;
 // Overrides
+protected:
     /**
         Currently this simply returns @c wxSize(10, 10).
     */
@@ -1886,6 +1887,7 @@ protected:
   virtual void DoSetValue(const wxString& value, int flags = 0);
   virtual void DoThaw();
 // Data members
+protected:
 #if  wxRICHTEXT_BUFFERED_PAINTING
     /// Buffer bitmap
   wxBitmap m_bufferBitmap;

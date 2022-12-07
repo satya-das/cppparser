@@ -24,7 +24,7 @@ struct wxConvertibleTo
 {
   enum
   {
-    value = sizeof(wxConvertibleTo_SizeHelper<D,B>::Match(static_cast<D*>(NULL))) == sizeof(char)
+    value = sizeof(wxConvertibleTo_SizeHelper<D,B>::Match(static_cast<D*>(NULL))) == sizeof(char),
   };
 };
 // This is similar to wxConvertibleTo, except that when using a C++11 compiler,

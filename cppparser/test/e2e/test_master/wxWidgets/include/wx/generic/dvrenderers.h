@@ -59,8 +59,8 @@ public:
   bool GetValueFromEditorCtrl(wxWindow* editor, wxVariant& value) override;
 protected:
   wxString m_text;
-#  if  wxUSE_MARKUP
 private:
+#  if  wxUSE_MARKUP
   class wxItemMarkupText* m_markupText;
 #  endif
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxDataViewTextRenderer);

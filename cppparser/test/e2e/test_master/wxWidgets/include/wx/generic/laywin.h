@@ -208,6 +208,7 @@ private:
   wxLayoutAlignment m_alignment;
   wxLayoutOrientation m_orientation;
   wxSize m_defaultSize;
+private:
   wxDECLARE_DYNAMIC_CLASS_NO_COPY(wxSashLayoutWindow);
   wxDECLARE_EVENT_TABLE();
 };

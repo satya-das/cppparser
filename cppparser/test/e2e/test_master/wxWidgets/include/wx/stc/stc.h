@@ -2592,8 +2592,8 @@ class ScintillaWX;
 class WordList;
 struct SCNotification;
 WXDLLIMPEXP_STC extern const char wxSTCNameStr[];
-class WXDLLIMPEXP_FWD_STC wxStyledTextCtrl;
-class WXDLLIMPEXP_FWD_STC wxStyledTextEvent;
+class  WXDLLIMPEXP_FWD_STC wxStyledTextCtrl;
+class  WXDLLIMPEXP_FWD_STC wxStyledTextEvent;
 //----------------------------------------------------------------------
 class WXDLLIMPEXP_STC wxStyledTextCtrl : public wxControl, public wxTextCtrlIface
 {

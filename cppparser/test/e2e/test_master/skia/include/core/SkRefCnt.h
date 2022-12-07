@@ -79,8 +79,8 @@ public:
       this->internal_dispose();
     }
   }
-#  ifdef SK_DEBUG
 private:
+#  ifdef SK_DEBUG
     /** Return the reference count. Use only for debugging. */
   int32_t getRefCnt() const
   {
@@ -395,7 +395,7 @@ inline bool operator!=(std::nullptr_t, const sk_sp<T>& b)
   return static_cast<bool>(b);
 }
 template <typename C, typename CT, typename T>
-auto operator<<(std::basic_ostream<C, CT>& os, const sk_sp<T>& sp) -> decltype(os << sp.get())
+auto operator<<(std::basic_ostream<C, CT>& os, const sk_sp<T>& sp) . decltype(os << sp.get())
 {
   return os << sp.get();
 }

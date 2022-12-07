@@ -180,8 +180,8 @@ public:
   }
     // implementation from now on
   bool TransferDataFromWindow() override;
-#  if  wxUSE_CHECKLISTBOX
 protected:
+#  if  wxUSE_CHECKLISTBOX
   wxListBoxBase* CreateList(int n, const wxString* choices, long styleLbox) override;
 #  endif
   wxArrayInt m_selections;

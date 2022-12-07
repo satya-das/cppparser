@@ -328,6 +328,7 @@ private:
     // common part of LoadObject() and LoadObjectRecursively()
   wxObject* DoLoadObject(wxWindow* parent, const wxString& name, const wxString& classname, bool recursive);
   bool DoLoadObject(wxObject* instance, wxWindow* parent, const wxString& name, const wxString& classname, bool recursive);
+private:
   long m_version;
   int m_flags;
   wxVector<wxXmlResourceHandler*> m_handlers;

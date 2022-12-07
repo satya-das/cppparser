@@ -45,7 +45,7 @@ typedef wxAppConsole* (*wxAppInitializerFunction) ();
 enum
 {
   wxPRINT_WINDOWS = 1,
-  wxPRINT_POSTSCRIPT = 2
+  wxPRINT_POSTSCRIPT = 2,
 };
 // ----------------------------------------------------------------------------
 // global variables
@@ -621,7 +621,7 @@ protected:
 {
   Later = -1,
   No,
-  Yes
+  Yes,
 } m_exitOnFrameDelete;
     // true if the app wants to use the best visual on systems where
     // more than one are available (Sun, SGI, XFree86 4.0 ?)

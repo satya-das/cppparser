@@ -270,6 +270,7 @@ namespace PoDoFo
      *  \see IsDirty
      */
     virtual void SetDirty(bool bDirty);
+  public:
     TCIKeyMap begin() const;
     TCIKeyMap end() const;
   protected:
@@ -278,6 +279,7 @@ namespace PoDoFo
     PdfObject* getKey(const PdfName& key) const;
     PdfObject* findKey(const PdfName& key) const;
     PdfObject* findKeyParent(const PdfName& key) const;
+  private:
     TKeyMap m_mapKeys;
     bool m_bDirty;
   };

@@ -49,6 +49,7 @@ public:
   static wxString AsString(WX_NSString ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
   static wxString AsStringWithNormalizationFormC(WX_NSString ref, wxFontEncoding encoding = wxFONTENCODING_DEFAULT);
 #  endif
+private:
 };
 /*! @function   wxCFStringRefFromGet
     @abstract   Factory function to create wxCFStringRefRef from a CFStringRef obtained from a Get-rule function

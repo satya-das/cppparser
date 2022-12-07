@@ -20,8 +20,8 @@
 //*************************************************************************
 class AcDbTableContent : public AcDbFormattedTableData
 {
-  ACDB_DECLARE_MEMBERS(AcDbTableContent);
 public:
+  ACDB_DECLARE_MEMBERS(AcDbTableContent);
   ACDB_PORT AcDbTableContent(void);
   ACDB_PORT virtual ~AcDbTableContent();
   ACDB_PORT virtual AcDbObjectId tableStyleId(void) const;

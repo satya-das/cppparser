@@ -124,6 +124,7 @@ private:
   bool CreateFromImageAsBitmap(const wxImage& image);
   bool CreateFromImageAsPixmap(const wxImage& image);
   friend class wxBitmapHandler;
+private:
   wxDECLARE_DYNAMIC_CLASS(wxBitmap);
 };
 #endif

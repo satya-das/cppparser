@@ -35,7 +35,7 @@ enum
   wxID_HTML_SEARCHLIST,
   wxID_HTML_SEARCHBUTTON,
   wxID_HTML_SEARCHCHOICE,
-  wxID_HTML_COUNTINFO
+  wxID_HTML_COUNTINFO,
 };
 /**
     @class wxHtmlHelpWindow

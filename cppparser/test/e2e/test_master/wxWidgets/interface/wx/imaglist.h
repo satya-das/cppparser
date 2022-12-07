@@ -12,7 +12,7 @@ enum
 {
   wxIMAGE_LIST_NORMAL,
   wxIMAGE_LIST_SMALL,
-  wxIMAGE_LIST_STATE
+  wxIMAGE_LIST_STATE,
 };
 /**
    Flags for Draw

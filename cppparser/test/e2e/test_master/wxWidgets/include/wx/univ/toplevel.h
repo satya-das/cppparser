@@ -27,7 +27,7 @@ enum
   wxTOPLEVEL_BUTTON_MAXIMIZE = 0x02000000,
   wxTOPLEVEL_BUTTON_ICONIZE = 0x04000000,
   wxTOPLEVEL_BUTTON_RESTORE = 0x08000000,
-  wxTOPLEVEL_BUTTON_HELP = 0x10000000
+  wxTOPLEVEL_BUTTON_HELP = 0x10000000,
 };
 // frame hit test return values:
 enum
@@ -50,7 +50,7 @@ enum
   wxHT_TOPLEVEL_BUTTON_ICONIZE = wxTOPLEVEL_BUTTON_ICONIZE,
   wxHT_TOPLEVEL_BUTTON_RESTORE = wxTOPLEVEL_BUTTON_RESTORE,
   wxHT_TOPLEVEL_BUTTON_HELP = wxTOPLEVEL_BUTTON_HELP,
-  wxHT_TOPLEVEL_ANY_BUTTON = 0x1F000000
+  wxHT_TOPLEVEL_ANY_BUTTON = 0x1F000000,
 };
 // Flags for interactive frame manipulation functions (only in wxUniversal):
 enum
@@ -61,7 +61,7 @@ enum
   wxINTERACTIVE_RESIZE_N = 0x00000020,
   wxINTERACTIVE_RESIZE_W = 0x00000040,
   wxINTERACTIVE_RESIZE_E = 0x00000080,
-  wxINTERACTIVE_WAIT_FOR_INPUT = 0x10000000
+  wxINTERACTIVE_WAIT_FOR_INPUT = 0x10000000,
 };
 // ----------------------------------------------------------------------------
 // the actions supported by this control

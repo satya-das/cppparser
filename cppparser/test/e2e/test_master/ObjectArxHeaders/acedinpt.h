@@ -214,10 +214,10 @@ public:
   const AcDb::OsnapMask osnapOverrides() const;
   const AcArray<AcDbCustomOsnapMode*>& customOsnapOverrides() const;
   const AcArray<AcDbObjectId>& pickedEntities() const;
-  const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedPickedEntities() const;
+  const AcArray< AcDbObjectIdArray,        AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedPickedEntities() const;
   const AcArray<Adesk::GsMarker>& gsSelectionMark() const;
   const AcArray<AcDbObjectId>& keyPointEntities() const;
-  const AcArray< AcDbObjectIdArray, AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedKeyPointEntities() const;
+  const AcArray< AcDbObjectIdArray,        AcArrayObjectCopyReallocator< AcDbObjectIdArray > >& nestedKeyPointEntities() const;
   const AcArray<Adesk::GsMarker>& keyPointGsSelectionMark() const;
   const AcArray<AcGeCurve3d*>& alignmentPaths() const;
   const AcGePoint3d& computedPoint() const;

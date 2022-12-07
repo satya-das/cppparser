@@ -98,6 +98,7 @@ public:
     // Sets the flags used for conversions between wxVariant and OLE VARIANT,
     // see wxOleConvertVariantFlags (default is wxOleConvertVariant_Default.
   void SetConvertVariantFlags(long flags);
+public:
   WXIDISPATCH* m_dispatchPtr;
 private:
   WXLCID m_lcid;

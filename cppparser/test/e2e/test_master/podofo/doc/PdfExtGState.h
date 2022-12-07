@@ -108,6 +108,7 @@ namespace PoDoFo
     /** Initialize the object
      */
     void Init(void);
+  private:
     PdfName m_Identifier;
   };
   const PdfName& PdfExtGState::GetIdentifier() const

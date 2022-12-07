@@ -122,6 +122,7 @@ public:
   Acad::ErrorStatus subentIdToNestedEnts(const AcDbSubentId& subentId, AcDbFullSubentPathArray& nestedEnts) const;
 private:
   AcGeMatrix3d transientXform() const;
+private:
   AcDbImpViewBorder* mpAcDbImpViewBorder;
   static double sViewBoderOffset;
 };

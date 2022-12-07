@@ -406,6 +406,7 @@ public:
 */
 class wxZipClassFactory : public wxArchiveClassFactory
 {
+public:
 };
 /**
     @class wxZipOutputStream

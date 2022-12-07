@@ -28,7 +28,7 @@ public:
         // Don't process the event normally at all.
     Event_Ignore = 0,
         // Event was already handled, don't process it normally.
-    Event_Processed = 1
+    Event_Processed = 1,
   };
   wxEventFilter()
   {

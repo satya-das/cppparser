@@ -163,6 +163,7 @@ namespace PoDoFo
      * \see Resize
      */
     void ReallyResize(size_t lSize);
+  private:
     struct TRefCountedBuffer
     {
       enum {
