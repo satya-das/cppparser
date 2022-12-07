@@ -10,7 +10,7 @@
 #  include "include/private/SkNoncopyable.h"
 class SkReadBuffer;
 class SkWriteBuffer;
-class SkAutoCanvasMatrixPaint :  SkNoncopyable
+class SkAutoCanvasMatrixPaint : SkNoncopyable
 {
 public:
   SkAutoCanvasMatrixPaint(SkCanvas*, const SkMatrix*, const SkPaint*, const SkRect& bounds);

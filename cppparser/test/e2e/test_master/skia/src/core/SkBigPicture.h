@@ -19,7 +19,7 @@ class SkBigPicture final : public SkPicture
 {
 public:
     // An array of refcounted const SkPicture pointers.
-  class SnapshotArray :  ::SkNoncopyable
+  class SnapshotArray : ::SkNoncopyable
   {
   public:
     SnapshotArray(const SkPicture* pics[], int count)

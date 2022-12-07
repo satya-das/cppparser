@@ -15,7 +15,7 @@
 #  include "src/gpu/vk/GrVkResource.h"
 class GrVkGpu;
 class GrVkTexture;
-class GrVkImage :  SkNoncopyable
+class GrVkImage : SkNoncopyable
 {
 private:
   class Resource;

@@ -20,10 +20,10 @@ struct SkOTTableMaximumProfile
   union Version
 {
   SK_OT_Fixed version;
-  struct CFF :  SkOTTableMaximumProfile_CFF
+  struct CFF : SkOTTableMaximumProfile_CFF
 {
 } cff;
-  struct TT :  SkOTTableMaximumProfile_TT
+  struct TT : SkOTTableMaximumProfile_TT
 {
 } tt;
 } version;

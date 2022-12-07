@@ -30,7 +30,7 @@ class GrTextureProxy;
  * The result of this process will be the final mask (on the GPU) in the
  * upper left hand corner of the texture.
  */
-class GrSWMaskHelper :  SkNoncopyable
+class GrSWMaskHelper : SkNoncopyable
 {
 public:
   GrSWMaskHelper(SkAutoPixmapStorage* pixels = nullptr)

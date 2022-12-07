@@ -15,10 +15,10 @@ class SkImage_Base;
 /**
  *  Handles request to scale, filter, and lock a bitmap to be rasterized.
  */
-class SkBitmapController :  ::SkNoncopyable
+class SkBitmapController : ::SkNoncopyable
 {
 public:
-  class State :  ::SkNoncopyable
+  class State : ::SkNoncopyable
   {
   public:
     State(const SkImage_Base*, const SkMatrix& inv, SkFilterQuality);

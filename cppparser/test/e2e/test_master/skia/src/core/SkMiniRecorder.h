@@ -12,7 +12,7 @@
 #  include "src/core/SkRecords.h"
 class SkCanvas;
 // Records small pictures, but only a limited subset of the canvas API, and may fail.
-class SkMiniRecorder :  SkNoncopyable
+class SkMiniRecorder : SkNoncopyable
 {
 public:
   SkMiniRecorder();

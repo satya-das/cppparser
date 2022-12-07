@@ -9,7 +9,7 @@
 #  include "include/core/SkPixmap.h"
 #  include "include/private/SkNoncopyable.h"
 #  include "include/private/SkTemplates.h"
-class SK_API SkEncoder :  SkNoncopyable
+class SK_API SkEncoder : SkNoncopyable
 {
 public:
     /**

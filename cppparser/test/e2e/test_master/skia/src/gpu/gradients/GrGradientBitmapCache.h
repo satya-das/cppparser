@@ -10,7 +10,7 @@
 #  include "include/private/SkColorData.h"
 #  include "include/private/SkMutex.h"
 #  include "include/private/SkNoncopyable.h"
-class GrGradientBitmapCache :  SkNoncopyable
+class GrGradientBitmapCache : SkNoncopyable
 {
 public:
   GrGradientBitmapCache(int maxEntries, int resolution);
@@ -38,7 +38,7 @@ private:
   {
   }
 #  endif
-  class AutoValidate :  SkNoncopyable
+  class AutoValidate : SkNoncopyable
   {
   public:
     AutoValidate(const GrGradientBitmapCache* bc)

@@ -14,7 +14,7 @@
  *  Abstract interface defining image codec functionality that is necessary for
  *  Android.
  */
-class SK_API SkAndroidCodec :  SkNoncopyable
+class SK_API SkAndroidCodec : SkNoncopyable
 {
 public:
   enum class ExifOrientationBehavior {

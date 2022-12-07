@@ -14,7 +14,7 @@
 #  include "src/core/SkRecord.h"
 #  include "src/core/SkRecords.h"
 class SkBBHFactory;
-class SkDrawableList :  SkNoncopyable
+class SkDrawableList : SkNoncopyable
 {
 public:
   SkDrawableList()

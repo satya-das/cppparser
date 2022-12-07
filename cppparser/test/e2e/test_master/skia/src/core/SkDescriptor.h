@@ -10,7 +10,7 @@
 #  include "include/private/SkMacros.h"
 #  include "include/private/SkNoncopyable.h"
 #  include "src/core/SkScalerContext.h"
-class SkDescriptor :  SkNoncopyable
+class SkDescriptor : SkNoncopyable
 {
 public:
   static size_t ComputeOverhead(int entryCount)

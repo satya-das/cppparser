@@ -77,7 +77,7 @@ public:
 #  endif
   };
     // Represents a ref on a GrCCPathCacheEntry that should only be used during the current flush.
-  class OnFlushEntryRef :  SkNoncopyable
+  class OnFlushEntryRef : SkNoncopyable
   {
   public:
     static OnFlushEntryRef OnFlushRef(GrCCPathCacheEntry*);
@@ -134,7 +134,7 @@ private:
     // methods for SkTHash, and can only be moved. This guarantees the hash table holds exactly one
     // reference for each entry. Also, when a HashNode goes out of scope, that means it is exiting
     // the hash table. We take that opportunity to remove it from the LRU list and do some cleanup.
-  class HashNode :  SkNoncopyable
+  class HashNode : SkNoncopyable
   {
   public:
     static const Key& GetKey(const HashNode&);

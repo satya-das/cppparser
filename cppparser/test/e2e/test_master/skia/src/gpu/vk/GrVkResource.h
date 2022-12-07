@@ -28,7 +28,7 @@ class GrVkGpu;
   takes a GrVkGpu, and any derived classes must implement freeGPUData() and
   possibly abandonGPUData().
 */
-class GrVkResource :  SkNoncopyable
+class GrVkResource : SkNoncopyable
 {
 public:
     // Simple refCount tracing, to ensure that everything ref'ed is unref'ed.

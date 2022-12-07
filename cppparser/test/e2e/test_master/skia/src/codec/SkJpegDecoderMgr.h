@@ -13,7 +13,7 @@
 extern "C" {
 #  include "jpeglib.h"
   }
-class JpegDecoderMgr :  SkNoncopyable
+class JpegDecoderMgr : SkNoncopyable
 {
 public:
     /*

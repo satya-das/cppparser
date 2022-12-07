@@ -49,7 +49,7 @@ public:
     /** For SkFontMgrs to make use of our ability to extract
      *  name and style from a stream, using FreeType's API.
      */
-  class Scanner :  ::SkNoncopyable
+  class Scanner : ::SkNoncopyable
   {
   public:
     Scanner();

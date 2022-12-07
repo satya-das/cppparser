@@ -23,7 +23,7 @@ extern "C" {
 /**
  * Multiple line block comment to document code
  */
-class EXPIMP TestClass :  BaseClass1, private BaseClass2
+class EXPIMP TestClass : BaseClass1, private BaseClass2
 {
 public:
   TestClass();

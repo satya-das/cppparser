@@ -15,7 +15,7 @@ class SkMatrix44;
  * The resources are objects the program uses to communicate with the
  * application code.
  */
-class GrGLSLProgramDataManager :  SkNoncopyable
+class GrGLSLProgramDataManager : SkNoncopyable
 {
 public:
   GR_DEFINE_RESOURCE_HANDLE_CLASS(UniformHandle);

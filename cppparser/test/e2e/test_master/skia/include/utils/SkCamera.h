@@ -108,7 +108,7 @@ private:
   mutable bool fNeedToUpdate;
   void doUpdate() const;
 };
-class SK_API Sk3DView :  SkNoncopyable
+class SK_API Sk3DView : SkNoncopyable
 {
 public:
   Sk3DView();

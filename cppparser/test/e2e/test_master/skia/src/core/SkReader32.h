@@ -14,7 +14,7 @@
 #  include "include/core/SkScalar.h"
 #  include "include/private/SkNoncopyable.h"
 class SkString;
-class SkReader32 :  SkNoncopyable
+class SkReader32 : SkNoncopyable
 {
 public:
   SkReader32()

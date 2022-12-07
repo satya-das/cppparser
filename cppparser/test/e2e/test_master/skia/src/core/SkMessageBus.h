@@ -21,7 +21,7 @@
  * sending to all inboxes when the specialization for type 'Message' is not present.
  */
 template <typename Message>
-class SkMessageBus :  SkNoncopyable
+class SkMessageBus : SkNoncopyable
 {
 public:
     // Post a message to be received by Inboxes for this Message type. Checks

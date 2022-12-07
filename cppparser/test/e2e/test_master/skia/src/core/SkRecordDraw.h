@@ -30,7 +30,7 @@ void SkRecordPartialDraw(const SkRecord&, SkCanvas*, const SkPicture* const draw
 namespace SkRecords
 {
 // This is an SkRecord visitor that will draw that SkRecord to an SkCanvas.
-  class Draw :  SkNoncopyable
+  class Draw : SkNoncopyable
   {
   public:
     explicit Draw(SkCanvas* canvas, const SkPicture* const drawablePicts[], SkDrawable* const drawables[], int drawableCount, const SkMatrix* initialCTM = nullptr)

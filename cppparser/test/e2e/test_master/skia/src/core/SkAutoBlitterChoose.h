@@ -13,7 +13,7 @@
 class SkMatrix;
 class SkPaint;
 class SkPixmap;
-class SkAutoBlitterChoose :  SkNoncopyable
+class SkAutoBlitterChoose : SkNoncopyable
 {
 public:
   SkAutoBlitterChoose()

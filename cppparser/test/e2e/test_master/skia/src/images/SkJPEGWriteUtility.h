@@ -18,7 +18,7 @@ void SK_API skjpeg_error_exit(j_common_ptr cinfo);
 /* Our destination struct for directing decompressed pixels to our stream
  * object.
  */
-struct SK_API skjpeg_destination_mgr :  jpeg_destination_mgr
+struct SK_API skjpeg_destination_mgr : jpeg_destination_mgr
 {
   skjpeg_destination_mgr(SkWStream* stream);
   SkWStream* fStream;

@@ -71,7 +71,7 @@ private:
   int fAxisCount;
   SkAutoSTMalloc<4, SkFixed> fAxis;
 };
-class SkFontDescriptor :  SkNoncopyable
+class SkFontDescriptor : SkNoncopyable
 {
 public:
   SkFontDescriptor();

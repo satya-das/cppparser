@@ -16,7 +16,7 @@
  *  the lifetime of the block, so the caller must not call sk_free() or delete
  *  on the block, unless release() was called.
  */
-class SkAutoMalloc :  SkNoncopyable
+class SkAutoMalloc : SkNoncopyable
 {
 public:
   explicit SkAutoMalloc(size_t size = 0)
@@ -94,7 +94,7 @@ private:
  *  the block.
  */
 template <size_t kSizeRequested>
-class SkAutoSMalloc :  SkNoncopyable
+class SkAutoSMalloc : SkNoncopyable
 {
 public:
     /**

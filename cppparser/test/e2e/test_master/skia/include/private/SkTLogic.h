@@ -61,20 +61,20 @@ namespace skstd
   template <typename S1, typename S2>
   struct make_index_sequence_combine;
   template <std::size_t... I1, std::size_t... I2>
-  struct make_index_sequence_combine<skstd::index_sequence<I1...>, skstd::index_sequence<I2...>> :  skstd::index_sequence<I1..., (sizeof...(I1)+I2)...>
+  struct make_index_sequence_combine<skstd::index_sequence<I1...>, skstd::index_sequence<I2...>> : skstd::index_sequence<I1..., (sizeof...(I1)+I2)...>
   {
   };
   template <std::size_t N>
-  struct make_index_sequence :  make_index_sequence_combine<typename skstd::make_index_sequence<    N/2>::type,
+  struct make_index_sequence : make_index_sequence_combine<typename skstd::make_index_sequence<    N/2>::type,
                                   typename skstd::make_index_sequence<N - N/2>::type>
   {
   };
   template <>
-  struct make_index_sequence<0> :  skstd::index_sequence< >
+  struct make_index_sequence<0> : skstd::index_sequence< >
   {
   };
   template <>
-  struct make_index_sequence<1> :  skstd::index_sequence<0>
+  struct make_index_sequence<1> : skstd::index_sequence<0>
   {
   };
   struct monostate

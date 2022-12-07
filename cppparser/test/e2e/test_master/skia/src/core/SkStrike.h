@@ -112,7 +112,7 @@ public:
   {
   }
 #  endif
-  class AutoValidate :  SkNoncopyable
+  class AutoValidate : SkNoncopyable
   {
   public:
     AutoValidate(const SkStrike* cache)

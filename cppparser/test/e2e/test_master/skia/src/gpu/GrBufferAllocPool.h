@@ -26,7 +26,7 @@ class GrGpu;
  * a number of buffers to preallocate can be specified. These will
  * be allocated at the min size and kept around until the pool is destroyed.
  */
-class GrBufferAllocPool :  SkNoncopyable
+class GrBufferAllocPool : SkNoncopyable
 {
 public:
   static constexpr size_t kDefaultBufferSize = 1 << 15;

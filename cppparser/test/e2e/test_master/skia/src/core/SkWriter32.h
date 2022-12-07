@@ -20,7 +20,7 @@
 #  include "include/private/SkNoncopyable.h"
 #  include "include/private/SkTemplates.h"
 #  include "include/private/SkTo.h"
-class SK_API SkWriter32 :  SkNoncopyable
+class SK_API SkWriter32 : SkNoncopyable
 {
 public:
     /**

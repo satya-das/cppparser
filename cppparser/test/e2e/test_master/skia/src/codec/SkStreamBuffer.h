@@ -19,7 +19,7 @@
  *  Buffers up to 256 * 3 bytes (256 colors, with 3 bytes each) to support GIF.
  *  FIXME (scroggo): Make this more general purpose?
  */
-class SkStreamBuffer :  SkNoncopyable
+class SkStreamBuffer : SkNoncopyable
 {
 public:
   SkStreamBuffer(std::unique_ptr<SkStream>);

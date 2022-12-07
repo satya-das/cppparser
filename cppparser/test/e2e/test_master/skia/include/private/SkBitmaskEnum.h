@@ -10,7 +10,7 @@
 namespace skstd
 {
   template <typename T>
-  struct is_bitmask_enum :  std::false_type
+  struct is_bitmask_enum : std::false_type
   {
   };
   template <typename E>

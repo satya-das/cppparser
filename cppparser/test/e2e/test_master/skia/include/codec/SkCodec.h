@@ -33,7 +33,7 @@ namespace DM
 /**
  *  Abstraction layer directly on top of an image codec.
  */
-class SK_API SkCodec :  SkNoncopyable
+class SK_API SkCodec : SkNoncopyable
 {
 public:
     /**

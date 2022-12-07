@@ -10,7 +10,7 @@
 #  include "include/private/SkMutex.h"
 #  include "include/private/SkNoncopyable.h"
 class SkDiscardableMemory;
-class SkCachedData :  ::SkNoncopyable
+class SkCachedData : ::SkNoncopyable
 {
 public:
   SkCachedData(void* mallocData, size_t size);

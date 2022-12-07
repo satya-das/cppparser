@@ -15,7 +15,7 @@
  * its associated allocator to create the first element.
  */
 template <typename T>
-class GrCCSTLList :  SkNoncopyable
+class GrCCSTLList : SkNoncopyable
 {
 public:
   template <typename ... Args>

@@ -13,7 +13,7 @@
 // wxTimer
 //-----------------------------------------------------------------------------
 class QTimerEvent;
-class WXDLLIMPEXP_CORE wxQtTimerImpl : public wxTimerImpl,  QObject
+class WXDLLIMPEXP_CORE wxQtTimerImpl : public wxTimerImpl, QObject
 {
 public:
   wxQtTimerImpl(wxTimer* timer);

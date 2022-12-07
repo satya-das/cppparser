@@ -21,7 +21,7 @@ static constexpr uint8_t kICCSig[] = {'I', 'C', 'C', '_', 'P', 'R', 'O', 'F', 'I
 /*
  * Error handling struct
  */
-struct skjpeg_error_mgr :  jpeg_error_mgr
+struct skjpeg_error_mgr : jpeg_error_mgr
 {
   class AutoPushJmpBuf
   {

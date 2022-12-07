@@ -7,7 +7,7 @@
 
 // Class that can be used in place of GtkImage, to allow drawing of alternate
 // bitmaps, such as HiDPI or disabled.
-class wxGtkImage :  GtkImage
+class wxGtkImage : GtkImage
 {
 public:
   struct BitmapProvider

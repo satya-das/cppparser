@@ -19,6 +19,7 @@
 
 #include "cppast/cppast.h"
 #include "cppvarinit.h"
+#include "optional.h"
 #include "parser.tab.h"
 #include "parser.l.h"
 #include "utils.h"
@@ -193,7 +194,7 @@ using namespace cppast;
   unsigned short                                    ptrLevel;
   cppast::CppRefType                          refType;
   unsigned int                                      attr;
-  cppast::CppAccessType                       objAccessType;
+  Optional<cppast::CppAccessType>                       objAccessType;
 
   cppast::CppExpr*                            attribSpecifier;
   std::vector<std::unique_ptr<cppast::CppExpr>>*               attribSpecifiers;
@@ -1687,10 +1688,10 @@ optinheritlist    :                                                             
                   }
                   ;
 
-protlevel         :               [ZZLOG;] { $$ = CppAccessType::UNSPECIFIED;    }
-                  | tknPublic     [ZZLOG;] { $$ = CppAccessType::PUBLIC;     }
-                  | tknProtected  [ZZLOG;] { $$ = CppAccessType::PROTECTED;  }
-                  | tknPrivate    [ZZLOG;] { $$ = CppAccessType::PRIVATE;    }
+protlevel         : { Init($$); }
+                  | tknPublic     [ZZLOG;] { Init($$, CppAccessType::PUBLIC);     }
+                  | tknProtected  [ZZLOG;] { Init($$, CppAccessType::PROTECTED);  }
+                  | tknPrivate    [ZZLOG;] { Init($$, CppAccessType::PRIVATE);    }
                   ;
 
 optinherittype    :             [ZZLOG;] { $$ = false; }

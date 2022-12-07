@@ -32,7 +32,7 @@
 
     @see @ref overview_events, wxRadioButton, wxCheckBox
 */
-class wxRadioBox : public wxControl,  wxItemContainerImmutable
+class wxRadioBox : public wxControl, wxItemContainerImmutable
 {
 public:
     /**

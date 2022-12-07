@@ -24,7 +24,7 @@
  *  Note that all error checking is in the form of asserts - invalid usage in a non-debug build
  *  will simply produce invalid JSON.
  */
-class SkJSONWriter :  SkNoncopyable
+class SkJSONWriter : SkNoncopyable
 {
 public:
   enum class Mode {

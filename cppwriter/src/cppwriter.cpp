@@ -484,7 +484,12 @@ void CppWriter::emitCompound(const cppast::CppCompound& compoundObj,
     stm << ' ';
     for (const auto& inheritanceInfo : compoundObj.inheritanceList())
     {
-      stm << sep << ' ' << inheritanceInfo.inhType << ' ' << inheritanceInfo.baseName;
+      stm << sep;
+      if (inheritanceInfo.inhType.has_value())
+      {
+        stm << ' ' << inheritanceInfo.inhType.value();
+      }
+      stm << ' ' << inheritanceInfo.baseName;
       sep = ',';
     }
     --indentation;

@@ -22,7 +22,7 @@ void skjpeg_err_exit(j_common_ptr cinfo);
 /*
  * Source handling struct for that allows libjpeg to use our stream object
  */
-struct skjpeg_source_mgr :  jpeg_source_mgr
+struct skjpeg_source_mgr : jpeg_source_mgr
 {
   skjpeg_source_mgr(SkStream* stream);
   SkStream* fStream;

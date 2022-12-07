@@ -11,7 +11,7 @@
 #  include "include/private/SkNoncopyable.h"
 #  include <atomic>
 #  include <functional>
-class SkTaskGroup :  SkNoncopyable
+class SkTaskGroup : SkNoncopyable
 {
 public:
     // Tasks added to this SkTaskGroup will run on its executor.

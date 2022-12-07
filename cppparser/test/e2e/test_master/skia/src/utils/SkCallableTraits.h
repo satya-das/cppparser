@@ -43,7 +43,7 @@ SK_CALLABLE_TRAITS__REF_NE_VARARGS(volatile,) \
 SK_CALLABLE_TRAITS__REF_NE_VARARGS(const volatile,)
 /** Infer the return_type and argument<N> of a callable type T. */
 template <typename T>
-struct SkCallableTraits :  SkCallableTraits<decltype(&T::operator())>
+struct SkCallableTraits : SkCallableTraits<decltype(&T::operator())>
 {
 };
 // function (..., (const, volatile), (&, &&), noexcept)

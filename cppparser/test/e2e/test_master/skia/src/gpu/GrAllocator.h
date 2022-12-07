@@ -12,7 +12,7 @@
 #  include "include/private/SkNoncopyable.h"
 #  include "include/private/SkTArray.h"
 #  include <new>
-class GrAllocator :  SkNoncopyable
+class GrAllocator : SkNoncopyable
 {
 public:
   ~GrAllocator()
@@ -258,7 +258,7 @@ class GrTAllocator;
 template <typename T>
 void* operator new(size_t, GrTAllocator<T>*);
 template <typename T>
-class GrTAllocator :  SkNoncopyable
+class GrTAllocator : SkNoncopyable
 {
 public:
   virtual ~GrTAllocator()

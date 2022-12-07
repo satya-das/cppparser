@@ -111,7 +111,7 @@ namespace wxPrivate
   {
   };
   template <typename T>
-  struct IsInt :  IsNotIntType
+  struct IsInt : IsNotIntType
   {
   };
 #  define WX_DECLARE_TYPE_IS_INT(type)	 \

@@ -71,7 +71,7 @@ private:
   SkDeque fDeque;
   T* fTop;
 };
-class SkRasterClipStack :  SkNoncopyable
+class SkRasterClipStack : SkNoncopyable
 {
   int fCounter = 0;
 public:

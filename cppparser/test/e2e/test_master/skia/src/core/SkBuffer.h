@@ -18,7 +18,7 @@
     or no size (in which case no range checking is performed). It is iillegal
     to attempt to read a value from an empty RBuffer (data == null).
 */
-class SkRBuffer :  SkNoncopyable
+class SkRBuffer : SkNoncopyable
 {
 public:
   SkRBuffer()
@@ -104,7 +104,7 @@ private:
     is legal, in which case no data is ever written, but the relative pos()
     is updated.
 */
-class SkWBuffer :  SkNoncopyable
+class SkWBuffer : SkNoncopyable
 {
 public:
   SkWBuffer()

@@ -8,6 +8,8 @@
 
 #include "cppast/cppconst.h"
 
+#include <optional>
+
 namespace cppast {
 
 inline CppAccessType defaultAccessType(CppCompoundType type)
@@ -15,14 +17,9 @@ inline CppAccessType defaultAccessType(CppCompoundType type)
   return (type == CppCompoundType::CLASS) ? CppAccessType::PRIVATE : CppAccessType::PUBLIC;
 }
 
-inline CppAccessType effectiveAccessType(CppAccessType objAccessType, CppCompoundType ownerType)
+inline CppAccessType resolveInheritanceType(const std::optional<CppAccessType>& inheritanceType, CppCompoundType type)
 {
-  return (objAccessType != CppAccessType::UNSPECIFIED) ? objAccessType : defaultAccessType(ownerType);
-}
-
-inline CppAccessType resolveInheritanceType(CppAccessType inheritanceType, CppCompoundType type)
-{
-  return (inheritanceType != CppAccessType::UNSPECIFIED) ? inheritanceType : defaultAccessType(type);
+  return (inheritanceType.has_value()) ? inheritanceType.value() : defaultAccessType(type);
 }
 
 } // namespace cppast

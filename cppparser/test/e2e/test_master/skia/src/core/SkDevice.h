@@ -450,7 +450,7 @@ protected:
 private:
   typedef SkBaseDevice INHERITED;
 };
-class SkAutoDeviceCTMRestore :  SkNoncopyable
+class SkAutoDeviceCTMRestore : SkNoncopyable
 {
 public:
   SkAutoDeviceCTMRestore(SkBaseDevice* device, const SkMatrix& ctm)

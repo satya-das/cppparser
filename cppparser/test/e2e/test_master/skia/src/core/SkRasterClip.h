@@ -208,7 +208,7 @@ private:
     }
   }
 };
-class SkAutoRasterClipValidate :  SkNoncopyable
+class SkAutoRasterClipValidate : SkNoncopyable
 {
 public:
   SkAutoRasterClipValidate(const SkRasterClip& rc)

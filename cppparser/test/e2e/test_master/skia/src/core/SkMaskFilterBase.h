@@ -143,7 +143,7 @@ protected:
         kTrue_FilterReturn,
         kUnimplemented_FilterReturn
   };
-  class NinePatch :  ::SkNoncopyable
+  class NinePatch : ::SkNoncopyable
   {
   public:
     NinePatch()

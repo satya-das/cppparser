@@ -34,9 +34,9 @@ enum class CppCompoundType : std::uint8_t
 
 struct CppInheritanceInfo
 {
-  const std::string   baseName;
-  const CppAccessType inhType;
-  const bool          isVirtual {false};
+  const std::string                  baseName;
+  const std::optional<CppAccessType> inhType;
+  const bool                         isVirtual {false};
 };
 
 /**
