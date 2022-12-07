@@ -682,7 +682,10 @@ void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,
       {
         stm << '\n';
         stm << indentation << sep << ' ' << memInit.memberName << '(';
-        emitExpr(*memInit.memberInitExpr, stm);
+        if (memInit.memberInitExpr)
+        {
+          emitExpr(*memInit.memberInitExpr, stm);
+        }
         stm << ')';
         sep = ',';
       }
@@ -925,8 +928,6 @@ void CppWriter::emitExprAtom(const cppast::CppExprAtom& exprAtm, std::ostream& s
 
 void CppWriter::emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppIndent indentation) const
 {
-  if (exprObj == nullptr)
-    return;
   stm << indentation;
   if (exprObj.flags_ & cppast::CppExpr::kReturn)
     stm << "return ";
@@ -946,7 +947,10 @@ void CppWriter::emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppI
     stm << "delete[] ";
   if (exprObj.oper_ == cppast::CppOperator::kNone)
   {
-    emitExprAtom(exprObj.expr1_, stm);
+    if (exprObj.expr1_.isValid())
+    {
+      emitExprAtom(exprObj.expr1_, stm);
+    }
   }
   else if (exprObj.oper_ > cppast::CppOperator::kUnariPrefixOperatorStart
            && exprObj.oper_ < cppast::CppOperator::kUnariSufixOperatorStart)
@@ -981,21 +985,30 @@ void CppWriter::emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppI
   {
     emitExprAtom(exprObj.expr1_, stm);
     stm << '(';
-    emitExprAtom(exprObj.expr2_, stm);
+    if (exprObj.expr2_.isValid())
+    {
+      emitExprAtom(exprObj.expr2_, stm);
+    }
     stm << ')';
   }
   else if (exprObj.oper_ == cppast::CppOperator::kUniformInitCall)
   {
     emitExprAtom(exprObj.expr1_, stm);
     stm << '{';
-    emitExprAtom(exprObj.expr2_, stm);
+    if (exprObj.expr2_.isValid())
+    {
+      emitExprAtom(exprObj.expr2_, stm);
+    }
     stm << '}';
   }
   else if (exprObj.oper_ == cppast::CppOperator::kArrayElem)
   {
     emitExprAtom(exprObj.expr1_, stm);
     stm << '[';
-    emitExprAtom(exprObj.expr2_, stm);
+    if (exprObj.expr2_.isValid())
+    {
+      emitExprAtom(exprObj.expr2_, stm);
+    }
     stm << ']';
   }
   else if (exprObj.oper_ == cppast::CppOperator::kCStyleCast)
@@ -1003,7 +1016,10 @@ void CppWriter::emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppI
     stm << '(';
     emitExprAtom(exprObj.expr1_, stm);
     stm << ") ";
-    emitExprAtom(exprObj.expr2_, stm);
+    if (exprObj.expr2_.isValid())
+    {
+      emitExprAtom(exprObj.expr2_, stm);
+    }
   }
   else if (exprObj.oper_ >= cppast::CppOperator::kConstCast && exprObj.oper_ <= cppast::CppOperator::kReinterpretCast)
   {
@@ -1016,9 +1032,15 @@ void CppWriter::emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppI
     else if (exprObj.oper_ == cppast::CppOperator::kReinterpretCast)
       stm << "reinterpret_cast";
     stm << '<';
-    emitExprAtom(exprObj.expr1_, stm);
+    if (exprObj.expr1_.isValid())
+    {
+      emitExprAtom(exprObj.expr1_, stm);
+    }
     stm << ">(";
-    emitExprAtom(exprObj.expr2_, stm);
+    if (exprObj.expr2_.isValid())
+    {
+      emitExprAtom(exprObj.expr2_, stm);
+    }
     stm << ')';
   }
   else if (exprObj.oper_ == cppast::CppOperator::kTertiaryOperator)

@@ -44,6 +44,11 @@ public:
     return (type & kExpr) == kExpr;
   }
 
+  bool isValid() const
+  {
+    return (type != kInvalid) && (expr != nullptr);
+  }
+
   CppExprAtom(const char* sz, size_t l)
     : atom(new std::string(sz, l))
     , type(kAtom)
@@ -166,12 +171,12 @@ public:
   {
   }
 
-  CppExpr(std::string name)
+  explicit CppExpr(std::string name)
     : CppExpr(CppExprAtom(std::move(name)), CppOperator::kNone)
   {
   }
 
-  CppExpr(CppLambda* l)
+  explicit CppExpr(CppLambda* l)
     : CppEntity(EntityType())
     , expr1_(l)
     , oper_(kNone)

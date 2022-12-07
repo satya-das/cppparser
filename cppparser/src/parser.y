@@ -1373,7 +1373,7 @@ optfuncattrib     : tknConst                      [ZZLOG;] { $$ = kConst; }
                   | tknMacro                      [ZZLOG;] { $$ = 0; } /* Ignore macros used as function attributes */
                   ;
 
-optfuncthrowspec  :               [ZZLOG;] { $$ = nullptr; }
+optfuncthrowspec  :               [ZZLOG;] { $$ = new std::vector<std::string>; }
                   | functhrowspec [ZZLOG;] { $$ = $1; }
                   ;
 
@@ -1475,7 +1475,9 @@ ctordecl          : identifier '(' paramlist ')' %prec CTORDECL
                   }
                   ;
 
-meminitlist       :                          [ZZLOG;] { $$ = {}; }
+meminitlist       :                          [ZZLOG;] {
+                    $$ = new cppast::CppMemberInits;
+                  }
                   | ':' meminit              [ZZLOG;] {
                     $$ = new cppast::CppMemberInits;
                     $$->memInitList.push_back(cppast::CppMemberInit{$2.mem, Ptr($2.init)});
