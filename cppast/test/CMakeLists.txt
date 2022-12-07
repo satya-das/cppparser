@@ -1,5 +1,3 @@
-enable_testing()
-
 add_executable(cppasttest
 	main.cpp
 	cpp_entity_cast_test.cpp

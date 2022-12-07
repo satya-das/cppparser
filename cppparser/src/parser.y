@@ -1674,16 +1674,16 @@ optinheritlist    :                                                             
                     $$ = new std::list<CppInheritanceInfo>;
                   }
                   | ':' protlevel optinherittype typeidentifier                 [ZZVALID;] {
-                    $$ = new std::list<CppInheritanceInfo>; $$->push_back(CppInheritanceInfo((std::string) $4, $2, $3));
+                    $$ = new std::list<CppInheritanceInfo>; $$->push_back({(std::string) $4, $2, $3});
                   }
                   | optinheritlist ',' protlevel optinherittype typeidentifier  [ZZVALID;] {
-                    $$ = $1; $$->push_back(CppInheritanceInfo((std::string) $5, $3, $4));
+                    $$ = $1; $$->push_back({(std::string) $5, $3, $4});
                   }
                   | ':' optinherittype protlevel typeidentifier                 [ZZVALID;] {
-                    $$ = new std::list<CppInheritanceInfo>; $$->push_back(CppInheritanceInfo((std::string) $4, $3, $2));
+                    $$ = new std::list<CppInheritanceInfo>; $$->push_back({(std::string) $4, $3, $2});
                   }
                   | optinheritlist ',' optinherittype protlevel typeidentifier  [ZZVALID;] {
-                    $$ = $1; $$->push_back(CppInheritanceInfo((std::string) $5, $4, $3));
+                    $$ = $1; $$->push_back({(std::string) $5, $4, $3});
                   }
                   ;
 

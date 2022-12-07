@@ -76,9 +76,9 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
   CHECK(*(funcArgs->expr1_.atom) == "\"/plakmp\"");
 
   const auto classMembers = GetAllOwnedEntities(*classDefn);
-  REQUIRE(classMembers.size() == 3);
+  REQUIRE(classMembers.size() == 4);
 
-  const cppast::CppConstFunctionEPtr methodGetPlakMpPlayers = classMembers[0];
+  const cppast::CppConstFunctionEPtr methodGetPlakMpPlayers = classMembers[1];
   REQUIRE(methodGetPlakMpPlayers);
   const auto* returnTypeGetPlakMpPlayers = methodGetPlakMpPlayers->returnType();
   REQUIRE(returnTypeGetPlakMpPlayers);

@@ -37,14 +37,6 @@ struct CppInheritanceInfo
   const std::string   baseName;
   const CppAccessType inhType;
   const bool          isVirtual {false};
-
-  // TODO: Maybe we don't need this ctor
-  CppInheritanceInfo(std::string _baseName, CppAccessType _inhType, bool virtualInheritance = false)
-    : baseName(std::move(_baseName))
-    , inhType(_inhType)
-    , isVirtual(virtualInheritance)
-  {
-  }
 };
 
 /**

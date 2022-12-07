@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.4)
+enable_testing()
 
 project(cppparser)
 

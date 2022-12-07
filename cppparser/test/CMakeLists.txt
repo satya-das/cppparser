@@ -1,6 +1,3 @@
-# TODO: make sure "ninja test" runs all tests
-enable_testing()
-
 if(MSVC)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd\"4996\"")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd\"4996\"")
