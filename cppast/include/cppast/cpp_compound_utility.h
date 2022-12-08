@@ -43,6 +43,20 @@ inline std::vector<const CppEntity*> GetAllOwnedEntities(const CppCompound& owne
   return result;
 }
 
+/**
+ * @brief Get full name of a compound.
+ *
+ * @return full name of compound type.
+ */
+{
+  if (!isNamespaceLike(compound))
+    return "";
+  if (compound.owner() && isNamespaceLike(*compound.owner()))
+    return FullName(*compound.owner()) + "::" + compound.name();
+  else
+    return compound.name();
+}
+
 } // namespace cppast
 
 #endif /* A00E589B_6B8A_49DC_8718_C511FCDE46CB */

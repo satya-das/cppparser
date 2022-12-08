@@ -149,80 +149,72 @@ using namespace cppast;
 %}
 
 %union {
-  struct CppToken                                   str;
-
+  struct CppToken                                  str;
   struct CppFunctionBuilder                        funcDeclData;
   struct CppMemberInitBuilder                      memInit;
-
-  cppast::CppEntity*                          cppEntity;
-  cppast::CppEntityAccessSpecifier*           accessSpecifier;
-  cppast::CppTypeModifier                     typeModifier;
-  cppast::CppVarType*                         cppVarType;
-  cppast::CppVar*                             cppVarObj;
-  cppast::CppEnum*                            cppEnum;
-  cppast::CppEnumItem*                        enumItem;
-  std::list<cppast::CppEnumItem>*             enumItemList;
-  cppast::CppTypedefName*                     typedefName;
-  cppast::CppTypedefList*                     typedefList;
-  cppast::CppUsingDecl*                       usingDecl;
-  cppast::CppUsingNamespaceDecl*              usingNamespaceDecl;
-  cppast::CppNamespaceAlias*                  namespaceAlias;
-  cppast::CppCompound*                        cppCompundObj;
-  cppast::CppTemplateParam*                   templateParam;
-  std::vector<cppast::CppTemplateParam>*      templateParamList;
-  cppast::CppDocumentationComment*            docCommentObj;
-  cppast::CppForwardClassDecl*                fwdDeclObj;
-  cppast::CppVarList*                         cppVarObjList;
-  cppast::CppPreprocessorUnrecognized*                   unRecogPreProObj;
-  cppast::CppExpr*                            cppExprObj;
-  cppast::CppLambda*                          cppLambda;
-  cppast::CppFunction*                        cppFuncObj;
-  cppast::CppFunctionPointer*                 cppFuncPointerObj;
-  cppast::CppEntity*                          varOrFuncPtr;
-  std::vector<std::unique_ptr<cppast::CppEntity>>*    paramList;
-  cppast::CppConstructor*                     cppCtorObj;
-  cppast::CppDestructor*                      cppDtorObj;
-  cppast::CppTypeConverter*                   cppTypeConverter;
-  cppast::CppMemberInits*                         memInitList;
-  std::list<cppast::CppInheritanceInfo>*              inheritList;
-  bool                                              inheritType;
-  std::vector<std::string>*                         identifierList;
-  std::vector<std::string>*                         funcThrowSpec;
-  cppast::CppTemplateArg*                     templateArg;
-  cppast::CppAsmBlock*                        asmBlock;
-  cppast::CppCompoundType                     compoundType;
-  unsigned short                                    ptrLevel;
-  cppast::CppRefType                          refType;
-  unsigned int                                      attr;
-  Optional<cppast::CppAccessType>                       objAccessType;
-
-  cppast::CppExpr*                            attribSpecifier;
-  std::vector<std::unique_ptr<cppast::CppExpr>>*               attribSpecifiers;
-
-  cppast::CppIfBlock*                         ifBlock;
-  cppast::CppWhileBlock*                      whileBlock;
-  cppast::CppDoWhileBlock*                    doWhileBlock;
-  cppast::CppForBlock*                        forBlock;
-  cppast::CppRangeForBlock*                   forRangeBlock;
-  cppast::CppSwitchBlock*                     switchBlock;
-  std::vector<cppast::CppCase>*               switchBody;
-  cppast::CppTryBlock*                        tryBlock;
-  cppast::CppCatchBlock*                      catchBlock;
-
-  cppast::CppMacroDefinition*                 hashDefine;
-  cppast::CppPreprocessorUndef*               hashUndef;
-  cppast::CppPreprocessorInclude*             hashInclude;
-  cppast::CppPreprocessorImport*              hashImport;
-  cppast::CppPreprocessorConditional*         hashIf;
-  cppast::CppPreprocessorError*               hashError;
-  cppast::CppPreprocessorWarning*             hashWarning;
-  cppast::CppPreprocessorPragma*              hashPragma;
-
-  cppast::CppBlob*                            blob;
-
-  cppast::CppLabel*                           label;
-
-  CppVarAssign                                cppVarAssign;
+  cppast::CppEntity*                               cppEntity;
+  cppast::CppEntityAccessSpecifier*                accessSpecifier;
+  cppast::CppTypeModifier                          typeModifier;
+  cppast::CppVarType*                              cppVarType;
+  cppast::CppVar*                                  cppVarObj;
+  cppast::CppEnum*                                 cppEnum;
+  cppast::CppEnumItem*                             enumItem;
+  std::list<cppast::CppEnumItem>*                  enumItemList;
+  cppast::CppTypedefName*                          typedefName;
+  cppast::CppTypedefList*                          typedefList;
+  cppast::CppUsingDecl*                            usingDecl;
+  cppast::CppUsingNamespaceDecl*                   usingNamespaceDecl;
+  cppast::CppNamespaceAlias*                       namespaceAlias;
+  cppast::CppCompound*                             cppCompundObj;
+  cppast::CppTemplateParam*                        templateParam;
+  std::vector<cppast::CppTemplateParam>*           templateParamList;
+  cppast::CppDocumentationComment*                 docCommentObj;
+  cppast::CppForwardClassDecl*                     fwdDeclObj;
+  cppast::CppVarList*                              cppVarObjList;
+  cppast::CppPreprocessorUnrecognized*             unRecogPreProObj;
+  cppast::CppExpr*                                 cppExprObj;
+  cppast::CppLambda*                               cppLambda;
+  cppast::CppFunction*                             cppFuncObj;
+  cppast::CppFunctionPointer*                      cppFuncPointerObj;
+  cppast::CppEntity*                               varOrFuncPtr;
+  std::vector<std::unique_ptr<cppast::CppEntity>>* paramList;
+  cppast::CppConstructor*                          cppCtorObj;
+  cppast::CppDestructor*                           cppDtorObj;
+  cppast::CppTypeConverter*                        cppTypeConverter;
+  cppast::CppMemberInits*                          memInitList;
+  std::list<cppast::CppInheritanceInfo>*           inheritList;
+  bool                                             inheritType;
+  std::vector<std::string>*                        identifierList;
+  std::vector<std::string>*                        funcThrowSpec;
+  cppast::CppTemplateArg*                          templateArg;
+  cppast::CppAsmBlock*                             asmBlock;
+  cppast::CppCompoundType                          compoundType;
+  unsigned short                                   ptrLevel;
+  cppast::CppRefType                               refType;
+  unsigned int                                     attr;
+  Optional<cppast::CppAccessType>                  objAccessType;
+  cppast::CppExpr*                                 attribSpecifier;
+  std::vector<std::unique_ptr<cppast::CppExpr>>*   attribSpecifiers;
+  cppast::CppIfBlock*                              ifBlock;
+  cppast::CppWhileBlock*                           whileBlock;
+  cppast::CppDoWhileBlock*                         doWhileBlock;
+  cppast::CppForBlock*                             forBlock;
+  cppast::CppRangeForBlock*                        forRangeBlock;
+  cppast::CppSwitchBlock*                          switchBlock;
+  std::vector<cppast::CppCase>*                    switchBody;
+  cppast::CppTryBlock*                             tryBlock;
+  cppast::CppCatchBlock*                           catchBlock;
+  cppast::CppMacroDefinition*                      hashDefine;
+  cppast::CppPreprocessorUndef*                    hashUndef;
+  cppast::CppPreprocessorInclude*                  hashInclude;
+  cppast::CppPreprocessorImport*                   hashImport;
+  cppast::CppPreprocessorConditional*              hashIf;
+  cppast::CppPreprocessorError*                    hashError;
+  cppast::CppPreprocessorWarning*                  hashWarning;
+  cppast::CppPreprocessorPragma*                   hashPragma;
+  cppast::CppBlob*                                 blob;
+  cppast::CppLabel*                                label;
+  CppVarAssign                                     cppVarAssign;
 }
 
 %token  <str>   tknName tknID tknStrLit tknCharLit tknNumber tknMacro tknApiDecor
@@ -275,7 +267,7 @@ using namespace cppast;
 %type  <str>                doccommentstr
 %type  <str>                rshift
 %type  <str>                macrocall
-%type  <cppEntity>             stmt
+%type  <cppEntity>          stmt
 %type  <typeModifier>       opttypemodifier typemodifier
 %type  <cppEnum>            enumdefn enumfwddecl enumdefnstmt
 %type  <enumItem>           enumitem
@@ -337,7 +329,7 @@ using namespace cppast;
 %type  <hashError>          hasherror
 %type  <hashWarning>        hashwarning
 %type  <hashPragma>         pragma
-%type  <cppEntity>             preprocessor
+%type  <cppEntity>          preprocessor
 
 %type  <blob>               blob
 
