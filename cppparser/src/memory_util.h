@@ -6,7 +6,7 @@
 // TODO: run valgrind to check memory leaks
 
 template <typename T>
-std::unique_ptr<T> Ptr(T* p)
+auto Ptr(T* p)
 {
   return std::unique_ptr<T>(p);
 }

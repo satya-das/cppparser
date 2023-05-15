@@ -53,7 +53,7 @@ private:
   // If not nullptr then template param is not of type typename/class
   std::unique_ptr<const CppEntity> paramType_;
   std::string                      paramName_;
-  std::unique_ptr<const CppEntity> defaultArg_; //< Can be CppVarType or CppExpr
+  std::unique_ptr<const CppEntity> defaultArg_; //< Can be CppVarType or CppExpression
 };
 
 } // namespace cppast

@@ -11,9 +11,9 @@
 
 namespace cppast {
 
-class CppExpr;
+class CppExpression;
 
-using CppAttributeSpecifierSequence = std::vector<std::unique_ptr<CppExpr>>;
+using CppAttributeSpecifierSequence = std::vector<std::unique_ptr<CppExpression>>;
 
 /**
  * @brief A mixin class to allow objects to have attribute specifier sequence
@@ -32,7 +32,7 @@ public:
    *
    * @param callback The callback that is invoked once for each attribute specifier.
    */
-  void visitAll(const std::function<void(const CppExpr& attributeSpecifier)>& callback) const;
+  void visitAll(const std::function<void(const CppExpression& attributeSpecifier)>& callback) const;
 
   /**
    * @brief Similar to visitAll() but interuptible.
@@ -41,7 +41,7 @@ public:
    * @return true If all attribute specifiers were visited without interruption.
    * @return false If the visit was interrupted.
    */
-  bool visit(const std::function<bool(const CppExpr& attributeSpecifier)>& callback) const;
+  bool visit(const std::function<bool(const CppExpression& attributeSpecifier)>& callback) const;
 
 private:
   CppAttributeSpecifierSequence attribSpecifierSequence_;

@@ -74,7 +74,7 @@ public:
     return varDecl_;
   }
 
-  const CppExpr* assignValue() const
+  const CppExpression* assignValue() const
   {
     return varDecl_.assignValue();
   }
@@ -82,16 +82,16 @@ public:
   {
     return varDecl_.assignType();
   }
-  void assign(CppExpr* assignVal, AssignType assignType)
+  void assign(CppExpression* assignVal, AssignType assignType)
   {
     varDecl_.assign(assignVal, assignType);
   }
 
-  const CppExpr* bitField() const
+  const CppExpression* bitField() const
   {
     return varDecl_.bitField();
   }
-  void bitField(CppExpr* _bitField)
+  void bitField(CppExpression* _bitField)
   {
     varDecl_.bitField(_bitField);
   }
@@ -100,7 +100,7 @@ public:
   {
     return varDecl_.arraySizes();
   }
-  void addArraySize(CppExpr* arraySize)
+  void addArraySize(CppExpression* arraySize)
   {
     varDecl_.addArraySize(arraySize);
   }

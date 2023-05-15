@@ -114,7 +114,7 @@ void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppI
     case cppast::CppEntityType::FOR_BLOCK:
       return emitForBlock((const cppast::CppForBlock&) cppEntity, stm, indentation);
     case cppast::CppEntityType::EXPRESSION:
-      emitExpr((const cppast::CppExpr&) cppEntity, stm, indentation);
+      emitExpr((const cppast::CppExpression&) cppEntity, stm, indentation);
       if (!noNewLine)
         stm << ";\n";
       break;
@@ -924,42 +924,24 @@ inline void emitOperator(std::ostream& stm, cppast::CppOperator op)
   }
 }
 
-void CppWriter::emitExprAtom(const cppast::CppExprAtom& exprAtm, std::ostream& stm, CppIndent indentation) const
-{
-  switch (exprAtm.type)
-  {
-    case cppast::CppExprAtom::kAtom:
-      stm << *(exprAtm.atom);
-      break;
-    case cppast::CppExprAtom::kExpr:
-      emitExpr(*exprAtm.expr, stm);
-      break;
-    case cppast::CppExprAtom::VAR_TYPE:
-      emitVarType(*exprAtm.varType, stm);
-
-    default:
-      break;
-  }
-}
-
-void CppWriter::emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppIndent indentation) const
+void CppWriter::emitExpr(const cppast::CppExpression& exprObj, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation;
-  if (exprObj.flags_ & cppast::CppExpr::kReturn)
+  if (exprObj.flags_ & cppast::CppExpression::kReturn)
     stm << "return ";
-  if (exprObj.flags_ & cppast::CppExpr::kThrow)
+  if (exprObj.flags_ & cppast::CppExpression::kThrow)
     stm << "throw ";
-  if (exprObj.flags_ & cppast::CppExpr::kInitializer)
+  if (exprObj.flags_ & cppast::CppExpression::kInitializer)
     stm << "{";
-  if (exprObj.flags_ & cppast::CppExpr::kBracketed)
+  if (exprObj.flags_ & cppast::CppExpression::kBracketed)
     stm << '(';
-  if (exprObj.flags_ & cppast::CppExpr::kNew)
+  if (exprObj.flags_ & cppast::CppExpression::kNew)
     stm << "new ";
-  if (exprObj.flags_ & cppast::CppExpr::kSizeOf)
+  if (exprObj.flags_ & cppast::CppExpression::kSizeOf)
     stm << "sizeof(";
-  else if (exprObj.flags_ & cppast::CppExpr::kDelete)
+  else if (exprObj.flags_ & cppast::CppExpression::kDelete)
     stm << "delete ";
-  else if (exprObj.flags_ & cppast::CppExpr::kDeleteArray)
+  else if (exprObj.flags_ & cppast::CppExpression::kDeleteArray)
     stm << "delete[] ";
   if (exprObj.oper_ == cppast::CppOperator::kNone)
   {
@@ -1075,14 +1057,14 @@ void CppWriter::emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppI
     emitExprAtom(exprObj.expr2_, stm);
   }
 
-  if (exprObj.flags_ & cppast::CppExpr::kBracketed)
+  if (exprObj.flags_ & cppast::CppExpression::kBracketed)
     stm << ')';
-  if (exprObj.flags_ & cppast::CppExpr::kInitializer)
+  if (exprObj.flags_ & cppast::CppExpression::kInitializer)
     stm << "}";
-  if (exprObj.flags_ & cppast::CppExpr::kSizeOf)
+  if (exprObj.flags_ & cppast::CppExpression::kSizeOf)
     stm << ')';
 
-  if (exprObj.flags_ & cppast::CppExpr::kVariadicPack)
+  if (exprObj.flags_ & cppast::CppExpression::kVariadicPack)
     stm << "...";
 }
 

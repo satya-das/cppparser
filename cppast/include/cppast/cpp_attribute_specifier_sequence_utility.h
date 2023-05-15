@@ -10,14 +10,14 @@
 
 namespace cppast {
 
-class CppExpr;
+class CppExpression;
 
-inline std::vector<const CppExpr*> GetAllAttributeSpecifiers(
+inline std::vector<const CppExpression*> GetAllAttributeSpecifiers(
   const CppAttributeSpecifierSequenceContainer& attribSpecifierSequenceContainer)
 {
-  std::vector<const CppExpr*> result;
+  std::vector<const CppExpression*> result;
   attribSpecifierSequenceContainer.visitAll(
-    [&result](const CppExpr& attributeSpecifier) { result.push_back(&attributeSpecifier); });
+    [&result](const CppExpression& attributeSpecifier) { result.push_back(&attributeSpecifier); });
 
   return result;
 }

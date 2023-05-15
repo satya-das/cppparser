@@ -5,6 +5,7 @@
 #define A00E589B_6B8A_49DC_8718_C511FCDE46CB
 
 #include "cppast/cpp_compound.h"
+#include "cppast/cpp_entity_info_accessor.h"
 #include "defs.h"
 
 namespace cppast {
@@ -48,6 +49,7 @@ inline std::vector<const CppEntity*> GetAllOwnedEntities(const CppCompound& owne
  *
  * @return full name of compound type.
  */
+inline std::string FullName(const CppCompound& compound)
 {
   if (!isNamespaceLike(compound))
     return "";

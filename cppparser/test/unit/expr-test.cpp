@@ -61,7 +61,7 @@ cleanup:
 
   cppast::CppConstExprEPtr gotoStmt = members[1];
   REQUIRE(gotoStmt);
-  CHECK(gotoStmt->flags_ == cppast::CppExpr::kGoto);
+  CHECK(gotoStmt->flags_ == cppast::CppExpression::kGoto);
 
   cppast::CppConstLabelEPtr labelStmt = members[2];
   REQUIRE(labelStmt);

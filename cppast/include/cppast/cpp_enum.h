@@ -14,7 +14,7 @@
 namespace cppast {
 
 class CppEntity;
-class CppExpr;
+class CppExpression;
 
 /**
  * @brief Anything that appears inside enum declaration.
@@ -25,7 +25,7 @@ class CppExpr;
 class CppEnumItem
 {
 public:
-  CppEnumItem(std::string name, std::unique_ptr<CppExpr> val = nullptr);
+  CppEnumItem(std::string name, std::unique_ptr<CppExpression> val = nullptr);
   CppEnumItem(std::unique_ptr<CppEntity> nonConstEntity);
 
 public:
@@ -39,7 +39,7 @@ public:
    *
    * @return nullptr iff the value of the constant is not set.
    */
-  const CppExpr* val() const
+  const CppExpression* val() const
   {
     return val_.get();
   }
@@ -64,7 +64,7 @@ public:
 
 private:
   std::string                name_;
-  std::unique_ptr<CppExpr>   val_;
+  std::unique_ptr<CppExpression>   val_;
   std::unique_ptr<CppEntity> nonConstEntity_;
 };
 

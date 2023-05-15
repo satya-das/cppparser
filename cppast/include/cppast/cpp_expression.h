@@ -5,108 +5,24 @@
 #define BE6CEA53_1EF6_4B14_AA5B_A7FAA7AE5512
 
 #include "cppast/cpp_entity.h"
+#include "cppast/cpp_expression_operators.h"
+#include "cppast/cpp_expression_type.h"
 #include "cppast/cpp_operator.h"
+#include "cppast/cpp_typecast_type.h"
 #include "cppast/cpp_var_type.h"
-
-// TODO: Remodel C++ expressions and improve this file.
 
 namespace cppast {
 
-class CppExpr;
+class CppExpression;
 class CppLambda;
 class CppVarType;
 
 /**
- * An individual expression.
- */
-class CppExprAtom
-{
-public:
-  union
-  {
-    std::string* atom;
-    CppExpr*     expr;
-    CppLambda*   lambda;
-    CppVarType*  varType; //!< For type cast, and sizeof expression.
-  };
-
-  enum
-  {
-    kInvalid,
-    kAtom,
-    kExpr,
-    kLambda,
-    VAR_TYPE
-  } type;
-
-  bool isExpr() const
-  {
-    return (type & kExpr) == kExpr;
-  }
-
-  bool isValid() const
-  {
-    return (type != kInvalid) && (expr != nullptr);
-  }
-
-  CppExprAtom(const char* sz, size_t l)
-    : atom(new std::string(sz, l))
-    , type(kAtom)
-  {
-  }
-  CppExprAtom(const char* sz)
-    : atom(new std::string(sz))
-    , type(kAtom)
-  {
-  }
-  CppExprAtom(std::string tok)
-    : atom(new std::string(std::move(tok)))
-    , type(kAtom)
-  {
-  }
-  CppExprAtom(CppExpr* e)
-    : expr(e)
-    , type(kExpr)
-  {
-  }
-  CppExprAtom(CppLambda* l)
-    : lambda(l)
-    , type(kLambda)
-  {
-  }
-  CppExprAtom(CppVarType* vType)
-    : varType(vType)
-    , type(VAR_TYPE)
-  {
-  }
-  CppExprAtom()
-    : atom(nullptr)
-    , type(kInvalid)
-  {
-  }
-  /**
-   * It is expected to be called explicitly to destroy an CppExprAtom object.
-   */
-  void destroy() const;
-};
-
-/**
  * @brief An expression in a C/C++ program.
  *
- * In C/C++ an expression is a complicated beast that needs to be tamed to parse it correctly.
- * An expression can be as simple as a word, e.g. x, 5 are valid expressions.
- * It can be a function call.
- * It can be an initialization list for an array or class. e.g. POINT pt = {100, 500};
- *
- * }
- * It can be a list of expressions used to call a function e.g. gcd(36, 42);
- * new/delete statements are also expressions.
- * It can be any of the arithmetic expression, e.g. a+b.
- * To make things simple we treat a return statement as an expression.
- *
- * structs CppExprAtom, and CppExpr are required to tame this difficult beast called expression in C/C++.
+ * Its a base class for all other specialized expression classes.
  */
-class CppExpr : public CppEntity
+class CppExpression : public CppEntity
 {
 public:
   static constexpr auto EntityType()
@@ -115,89 +31,427 @@ public:
   }
 
 public:
-  enum Flag
+  CppExpressionType expressionType() const
   {
-    kReturn = 0x01,
-    kNew    = 0x02,
-    // kNewArray		= 0x04, // This is not needed.
-    kDelete       = 0x08,
-    kDeleteArray  = 0x10,
-    kBracketed    = 0x20,
-    kInitializer  = 0x40,
-    kThrow        = 0x80,
-    kSizeOf       = 0x100,
-    kVariadicPack = 0x200,
-    kGoto         = 0x400,
-  };
-
-  const CppExprAtom expr1_ {(CppExpr*) (nullptr)};
-
-  const CppExprAtom expr2_ {(CppExpr*) (nullptr)};
-  const CppExprAtom expr3_ {(CppExpr*) (nullptr)};
-  const CppOperator oper_;
-  short             flags_; // ORed combination of Flag constants.
-
-  CppExpr(CppExprAtom e1, CppOperator op, CppExprAtom e2 = CppExprAtom())
-    : CppExpr(e1, op, e2, 0)
-  {
+    return expressionType_;
   }
 
-  CppExpr(CppExprAtom e1, short flags)
-    : CppExpr(e1, kNone, CppExprAtom(), flags)
-  {
-  }
-
-  // CppExpr(CppExprAtom e1, CppOperator op, short flags)
-  //   : CppExpr(e1, op, CppExprAtom(), flags)
-  // {
-  // }
-
-  CppExpr(CppExprAtom e1, CppOperator op, CppExprAtom e2, short flags)
+public:
+  CppExpression(CppExpressionType expressionType)
     : CppEntity(EntityType())
-    , expr1_(e1)
-    , expr2_(e2)
-    , oper_(op)
-    , flags_(flags)
+    , expressionType_(expressionType)
   {
   }
 
-  CppExpr(CppExprAtom e1, CppExprAtom e2, CppExprAtom e3)
-    : CppEntity(EntityType())
-    , expr1_(e1)
-    , expr2_(e2)
-    , expr3_(e3)
-    , oper_(kTertiaryOperator)
-    , flags_(0)
+private:
+  const CppExpressionType expressionType_;
+};
+
+enum class CppAtomicExpressionType
+{
+  STRING_LITERAL,
+  CHAR_LITERAL,
+  NUMBER_LITEREL,
+  NAME,
+  VARTYPE,
+  LAMBDA,
+};
+
+template <CppAtomicExpressionType _AtomicExprType>
+class CppAtomicExpression : public CppExpression
+{
+public:
+  static constexpr auto ExpressionType()
   {
+    return CppExpressionType::ATOMIC;
   }
 
-  explicit CppExpr(std::string name)
-    : CppExpr(CppExprAtom(std::move(name)), CppOperator::kNone)
+  static constexpr auto AtomicExpressionType()
   {
+    return _AtomicExprType;
   }
 
-  explicit CppExpr(CppLambda* l)
-    : CppEntity(EntityType())
-    , expr1_(l)
-    , oper_(kNone)
-    , flags_(0)
+public:
+  CppAtomicExpression()
+    : CppExpression(ExpressionType())
   {
-  }
-
-  ~CppExpr() override
-  {
-    expr1_.destroy();
-    expr2_.destroy();
-    expr3_.destroy();
   }
 };
 
-bool operator==(const CppExpr& expr1, const CppExpr& expr2);
-
-inline bool operator!=(const CppExpr& expr1, const CppExpr& expr2)
+template <CppAtomicExpressionType _AtomicExprType>
+class CppCommonAtomicExpressionBase : public CppAtomicExpression<_AtomicExprType>
 {
-  return !(expr1 == expr2);
-}
+public:
+  CppCommonAtomicExpressionBase(std::string atom)
+    : atom_(std::move(atom))
+  {
+  }
+
+  const std::string& value() const
+  {
+    return atom_;
+  }
+
+private:
+  std::string atom_;
+};
+
+class CppStringLiteralExpr : public CppCommonAtomicExpressionBase<CppAtomicExpressionType::STRING_LITERAL>
+{
+public:
+  using CppCommonAtomicExpressionBase<CppAtomicExpressionType::STRING_LITERAL>::CppCommonAtomicExpressionBase;
+};
+
+class CppCharLiteralExpr : public CppCommonAtomicExpressionBase<CppAtomicExpressionType::CHAR_LITERAL>
+{
+public:
+  using CppCommonAtomicExpressionBase<CppAtomicExpressionType::CHAR_LITERAL>::CppCommonAtomicExpressionBase;
+};
+
+class CppNumberLiteralExpr : public CppCommonAtomicExpressionBase<CppAtomicExpressionType::NUMBER_LITEREL>
+{
+public:
+  using CppCommonAtomicExpressionBase<CppAtomicExpressionType::NUMBER_LITEREL>::CppCommonAtomicExpressionBase;
+};
+
+class CppNameExpr : public CppCommonAtomicExpressionBase<CppAtomicExpressionType::NAME>
+{
+public:
+  using CppCommonAtomicExpressionBase<CppAtomicExpressionType::NAME>::CppCommonAtomicExpressionBase;
+};
+
+class CppVartypeExpression : public CppAtomicExpression<CppAtomicExpressionType::VARTYPE>
+{
+public:
+  CppVartypeExpression(std::unique_ptr<const CppVarType> atom)
+    : atom_(std::move(atom))
+  {
+  }
+
+  const CppVarType& value() const
+  {
+    return *atom_;
+  }
+
+private:
+  std::unique_ptr<const CppVarType> atom_;
+};
+
+// TODO: Eliminate CppLambda by merging to CppLambdaExpr.
+class CppLambdaExpr : public CppAtomicExpression<CppAtomicExpressionType::LAMBDA>
+{
+public:
+  CppLambdaExpr(std::unique_ptr<CppLambda> lambda)
+    : lambda_(std::move(lambda))
+  {
+  }
+
+public:
+  const CppLambda& lamda() const
+  {
+    return *lambda_;
+  }
+
+private:
+  const std::unique_ptr<CppLambda> lambda_;
+};
+
+class CppMonomialExpr : public CppExpression
+{
+public:
+  static constexpr auto ExpressionType()
+  {
+    return CppExpressionType::MONOMIAL;
+  }
+
+public:
+  CppMonomialExpr(CppUnaryOperator oper, std::unique_ptr<CppExpression> term)
+    : CppExpression(ExpressionType())
+    , oper_(oper)
+    , term_(std::move(term))
+  {
+  }
+
+public:
+  const CppExpression& term() const
+  {
+    return *term_;
+  }
+
+  CppUnaryOperator oper() const
+  {
+    return oper_;
+  }
+
+private:
+  const CppUnaryOperator               oper_;
+  const std::unique_ptr<CppExpression> term_;
+};
+
+class CppBinomialExpr : public CppExpression
+{
+public:
+  static constexpr auto ExpressionType()
+  {
+    return CppExpressionType::BINOMIAL;
+  }
+
+public:
+  CppBinomialExpr(CppBinaryOperator oper, std::unique_ptr<CppExpression> term1, std::unique_ptr<CppExpression> term2)
+    : CppExpression(ExpressionType())
+    , oper_(oper)
+    , term1_(std::move(term1))
+    , term2_(std::move(term2))
+  {
+  }
+
+public:
+  CppBinaryOperator oper() const
+  {
+    return oper_;
+  }
+
+  const CppExpression& term1() const
+  {
+    return *term1_;
+  }
+
+  const CppExpression& term2() const
+  {
+    return *term2_;
+  }
+
+private:
+  const CppBinaryOperator              oper_;
+  const std::unique_ptr<CppExpression> term1_;
+  const std::unique_ptr<CppExpression> term2_;
+};
+
+class CppTrinomialExpr : public CppExpression
+{
+public:
+  static constexpr auto ExpressionType()
+  {
+    return CppExpressionType::TRINOMIAL;
+  }
+
+public:
+  CppTrinomialExpr(CppTernaryOperator             oper,
+                   std::unique_ptr<CppExpression> term1,
+                   std::unique_ptr<CppExpression> term2,
+                   std::unique_ptr<CppExpression> term3)
+    : CppExpression(ExpressionType())
+    , oper_(oper)
+    , term1_(std::move(term1))
+    , term2_(std::move(term2))
+    , term3_(std::move(term3))
+  {
+  }
+
+public:
+  CppTernaryOperator oper() const
+  {
+    return oper_;
+  }
+
+  const CppExpression& term1() const
+  {
+    return *term1_;
+  }
+
+  const CppExpression& term2() const
+  {
+    return *term2_;
+  }
+
+  const CppExpression& term3() const
+  {
+    return *term3_;
+  }
+
+private:
+  const CppTernaryOperator             oper_;
+  const std::unique_ptr<CppExpression> term1_;
+  const std::unique_ptr<CppExpression> term2_;
+  const std::unique_ptr<CppExpression> term3_;
+};
+
+class CppFunctionCallExpr : public CppExpression
+{
+public:
+  static constexpr auto ExpressionType()
+  {
+    return CppExpressionType::FUNCTION_CALL;
+  }
+
+public:
+  CppFunctionCallExpr(std::unique_ptr<CppExpression> func, std::vector<std::unique_ptr<CppExpression>> args)
+    : CppExpression(ExpressionType())
+    , function_(std::move(func))
+    , arguments_(std::move(args))
+  {
+  }
+
+public:
+  const CppExpression& function() const
+  {
+    return *function_;
+  }
+
+  size_t numArgs() const
+  {
+    return arguments_.size();
+  }
+
+  const CppExpression& arg(size_t argIndex) const
+  {
+    return *(arguments_[argIndex]);
+  }
+
+private:
+  const std::unique_ptr<CppExpression>              function_;
+  const std::vector<std::unique_ptr<CppExpression>> arguments_;
+};
+
+class CppUniformInitializerExpr : public CppExpression
+{
+public:
+  static constexpr auto ExpressionType()
+  {
+    return CppExpressionType::UNIFORM_INITIALIZER;
+  }
+
+public:
+  CppUniformInitializerExpr(std::string name, std::vector<std::unique_ptr<CppExpression>> args)
+    : CppExpression(ExpressionType())
+    , name_(std::move(name))
+    , arguments_(std::move(args))
+  {
+  }
+
+public:
+  const std::string& name() const
+  {
+    return name_;
+  }
+
+  size_t numArgs() const
+  {
+    return arguments_.size();
+  }
+
+  const CppExpression& arg(size_t argIndex) const
+  {
+    return *(arguments_[argIndex]);
+  }
+
+private:
+  const std::string                                 name_;
+  const std::vector<std::unique_ptr<CppExpression>> arguments_;
+};
+
+class CppInitializerListExpr : public CppExpression
+{
+public:
+  static constexpr auto ExpressionType()
+  {
+    return CppExpressionType::INITIALIZER_LIST;
+  }
+
+public:
+  CppInitializerListExpr(std::vector<std::unique_ptr<CppExpression>> exprList)
+    : CppExpression(ExpressionType())
+    , exprList_(std::move(exprList))
+  {
+  }
+
+public:
+  size_t numArgs() const
+  {
+    return exprList_.size();
+  }
+
+  const CppExpression& arg(size_t argIndex) const
+  {
+    return *(exprList_[argIndex]);
+  }
+
+private:
+  const std::vector<std::unique_ptr<CppExpression>> exprList_;
+};
+
+template <CppTypecastType _TypecastType>
+class CppTypecastExpr : public CppExpression
+{
+public:
+  static constexpr auto ExpressionType()
+  {
+    return CppExpressionType::TYPECAST;
+  }
+
+public:
+  static constexpr auto TypecastType()
+  {
+    return _TypecastType;
+  }
+
+public:
+  CppTypecastExpr(std::unique_ptr<const CppVarType> targetType, std::unique_ptr<const CppExpression> expr)
+    : targetType_(targetType)
+    , expr_(expr)
+  {
+  }
+
+  const CppVarType& targetType() const
+  {
+    return *targetType_;
+  }
+
+  const CppExpression& inputExpresion() const
+  {
+    return *expr_;
+  }
+
+private:
+  const std::unique_ptr<const CppVarType>    targetType_;
+  const std::unique_ptr<const CppExpression> expr_;
+};
+
+class CppCStyleTypecastExpr : public CppTypecastExpr<CppTypecastType::C_STYLE_CAST>
+{
+public:
+  using CppTypecastExpr<CppTypecastType::C_STYLE_CAST>::CppTypecastExpr;
+};
+
+class CppFunctionStyleTypecastExpr : public CppTypecastExpr<CppTypecastType::FUNCTION_STYLE_CAST>
+{
+public:
+  using CppTypecastExpr<CppTypecastType::FUNCTION_STYLE_CAST>::CppTypecastExpr;
+};
+
+class CppStaticCastExpr : public CppTypecastExpr<CppTypecastType::STATIC_CAST>
+{
+public:
+  using CppTypecastExpr<CppTypecastType::STATIC_CAST>::CppTypecastExpr;
+};
+
+class CppConstCastExpr : public CppTypecastExpr<CppTypecastType::CONST_CAST>
+{
+public:
+  using CppTypecastExpr<CppTypecastType::CONST_CAST>::CppTypecastExpr;
+};
+
+class CppDynamiCastExpr : public CppTypecastExpr<CppTypecastType::DYNAMIC_CAST>
+{
+public:
+  using CppTypecastExpr<CppTypecastType::DYNAMIC_CAST>::CppTypecastExpr;
+};
+
+class CppReinterpretCastExpr : public CppTypecastExpr<CppTypecastType::REINTERPRET_CAST>
+{
+public:
+  using CppTypecastExpr<CppTypecastType::REINTERPRET_CAST>::CppTypecastExpr;
+};
 
 } // namespace cppast
 

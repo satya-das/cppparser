@@ -5,7 +5,7 @@
 
 namespace cppast {
 
-CppLambda::CppLambda(std::unique_ptr<CppExpr>                captures,
+CppLambda::CppLambda(std::unique_ptr<CppExpression>                captures,
                      std::vector<std::unique_ptr<CppEntity>> params,
                      std::unique_ptr<CppCompound>            defn,
                      std::unique_ptr<CppVarType>             retType)

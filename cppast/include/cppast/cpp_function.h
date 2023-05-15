@@ -15,7 +15,7 @@
 
 namespace cppast {
 
-class CppExpr;
+class CppExpression;
 class CppBlob;
 
 class CppFuncLikeBase : public CppEntity
@@ -201,13 +201,13 @@ public:
   }
 
 public:
-  CppLambda(std::unique_ptr<CppExpr>                captures,
+  CppLambda(std::unique_ptr<CppExpression>          captures,
             std::vector<std::unique_ptr<CppEntity>> params,
             std::unique_ptr<CppCompound>            defn,
             std::unique_ptr<CppVarType>             retType = nullptr);
 
 public:
-  const CppExpr* captures() const
+  const CppExpression* captures() const
   {
     return captures_.get();
   }
@@ -228,7 +228,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppExpr>                captures_;
+  const std::unique_ptr<CppExpression>          captures_;
   const std::vector<std::unique_ptr<CppEntity>> params_;
   const std::unique_ptr<CppVarType>             retType_;
   const std::unique_ptr<CppCompound>            defn_;
@@ -274,8 +274,8 @@ private:
  */
 struct CppMemberInit
 {
-  std::string              memberName;
-  std::unique_ptr<CppExpr> memberInitExpr;
+  std::string                    memberName;
+  std::unique_ptr<CppExpression> memberInitExpr;
 };
 
 /**

@@ -87,7 +87,9 @@ public:
                               std::ostream&                          stm,
                               CppIndent                              indentation = CppIndent()) const;
 
-  virtual void emitExpr(const cppast::CppExpr& exprObj, std::ostream& stm, CppIndent indentation = CppIndent()) const;
+  virtual void emitExpr(const cppast::CppExpression& exprObj,
+                        std::ostream&                stm,
+                        CppIndent                    indentation = CppIndent()) const;
   virtual void emitDefine(const cppast::CppMacroDefinition& defineObj, std::ostream& stm) const;
   virtual void emitUndef(const cppast::CppPreprocessorUndef& undefObj, std::ostream& stm) const;
   virtual void emitInclude(const cppast::CppPreprocessorInclude& includeObj, std::ostream& stm) const;
@@ -104,9 +106,6 @@ public:
 
   virtual void emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& stm) const;
   virtual void emitParamList(const std::vector<const cppast::CppEntity*>& paramListObj, std::ostream& stm) const;
-  virtual void emitExprAtom(const cppast::CppExprAtom& exprObj,
-                            std::ostream&              stm,
-                            CppIndent                  indentation = CppIndent()) const;
 
   virtual void emitIfBlock(const cppast::CppIfBlock& ifBlock,
                            std::ostream&             stm,

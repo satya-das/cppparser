@@ -19,9 +19,9 @@ enum class AssignType
   USING_BRACES
 };
 
-class CppExpr;
+class CppExpression;
 
-using CppArraySizes = std::vector<std::unique_ptr<CppExpr>>;
+using CppArraySizes = std::vector<std::unique_ptr<CppExpression>>;
 
 class CppVarDecl
 {
@@ -31,7 +31,7 @@ public:
   {
   }
 
-  CppVarDecl(std::string name, CppExpr* assign, AssignType assignType = AssignType::NONE);
+  CppVarDecl(std::string name, CppExpression* assign, AssignType assignType = AssignType::NONE);
 
   const std::string& name() const
   {
@@ -42,7 +42,7 @@ public:
     name_ = std::move(_name);
   }
 
-  const CppExpr* assignValue() const
+  const CppExpression* assignValue() const
   {
     return assignValue_.get();
   }
@@ -50,18 +50,18 @@ public:
   {
     return assignType_;
   }
-  void assign(CppExpr* assignVal, AssignType assignType)
+  void assign(CppExpression* assignVal, AssignType assignType)
   {
     assert(assignType_ == AssignType::NONE);
     assignValue_.reset(assignVal);
     assignType_ = assignType;
   }
 
-  const CppExpr* bitField() const
+  const CppExpression* bitField() const
   {
     return bitField_.get();
   }
-  void bitField(CppExpr* _bitField)
+  void bitField(CppExpression* _bitField)
   {
     bitField_.reset(_bitField);
   }
@@ -70,21 +70,21 @@ public:
   {
     return arraySizes_;
   }
-  void addArraySize(CppExpr* arraySize)
+  void addArraySize(CppExpression* arraySize)
   {
     arraySizes_.emplace_back(arraySize);
   }
 
 private:
   std::string              name_;
-  std::unique_ptr<CppExpr> assignValue_; // Value assigned at declaration.
+  std::unique_ptr<CppExpression> assignValue_; // Value assigned at declaration.
   AssignType               assignType_ {AssignType::NONE};
 
-  std::unique_ptr<CppExpr> bitField_;
+  std::unique_ptr<CppExpression> bitField_;
   CppArraySizes            arraySizes_;
 };
 
-inline CppVarDecl::CppVarDecl(std::string name, CppExpr* assign, AssignType assignType)
+inline CppVarDecl::CppVarDecl(std::string name, CppExpression* assign, AssignType assignType)
   : name_(std::move(name))
   , assignValue_(assign)
   , assignType_(assignType)

@@ -50,7 +50,7 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
 
   cppast::CppConstExprEPtr structAttrib = structAttribSeq.at(0);
   REQUIRE(structAttrib);
-  CHECK((*structAttrib) == cppast::CppExpr("xnet::ValidateData"));
+  CHECK((*structAttrib) == cppast::CppExpression("xnet::ValidateData"));
 
   const auto structMembers = GetAllOwnedEntities(*structDefn);
   REQUIRE(structMembers.size() == 1);
@@ -62,7 +62,7 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
 
   cppast::CppConstExprEPtr classAttrib0 = classAttribSeq.at(0);
   REQUIRE(classAttrib0);
-  CHECK((*classAttrib0) == cppast::CppExpr("xnet::HttpController"));
+  CHECK((*classAttrib0) == cppast::CppExpression("xnet::HttpController"));
 
   cppast::CppConstExprEPtr classAttrib1 = classAttribSeq.at(1);
   REQUIRE(classAttrib1);
@@ -88,7 +88,7 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
 
   cppast::CppConstExprEPtr methodAttrib0 = attribSeqGetPlakMpPlayers.at(0);
   REQUIRE(methodAttrib0);
-  CHECK((*methodAttrib0) == cppast::CppExpr("xnet::HttpGet"));
+  CHECK((*methodAttrib0) == cppast::CppExpression("xnet::HttpGet"));
 
   cppast::CppConstExprEPtr methodAttrib1 = attribSeqGetPlakMpPlayers.at(1);
   REQUIRE(methodAttrib1);

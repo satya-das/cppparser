@@ -16,7 +16,7 @@ void CppAttributeSpecifierSequenceContainer::attribSpecifierSequence(
 }
 
 void CppAttributeSpecifierSequenceContainer::visitAll(
-  const std::function<void(const CppExpr& attributeSpecifier)>& callback) const
+  const std::function<void(const CppExpression& attributeSpecifier)>& callback) const
 {
   visit([&callback](const auto& attributeSpecifier) {
     callback(attributeSpecifier);
@@ -25,7 +25,7 @@ void CppAttributeSpecifierSequenceContainer::visitAll(
 }
 
 bool CppAttributeSpecifierSequenceContainer::visit(
-  const std::function<bool(const CppExpr& attributeSpecifier)>& callback) const
+  const std::function<bool(const CppExpression& attributeSpecifier)>& callback) const
 {
   for (const auto& specifier : attribSpecifierSequence_)
   {

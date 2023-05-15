@@ -5,7 +5,7 @@
 
 namespace cppast {
 
-CppEnumItem::CppEnumItem(std::string name, std::unique_ptr<CppExpr> val)
+CppEnumItem::CppEnumItem(std::string name, std::unique_ptr<CppExpression> val)
   : name_(std::move(name))
   , val_(std::move(val))
 {
