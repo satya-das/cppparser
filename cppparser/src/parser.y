@@ -18,7 +18,6 @@
 #include "cpp_entity_builders.h"
 
 #include "cppast/cppast.h"
-#include "cppvarinit.h"
 #include "optional.h"
 #include "parser.tab.h"
 #include "parser.l.h"
@@ -150,8 +149,8 @@ using namespace cppast;
 
 %union {
   struct CppToken                                  str;
-  struct CppFunctionData                        funcDeclData;
-  struct CppMemberInitData                      memInit;
+  struct CppFunctionData                           funcDeclData;
+  struct CppMemberInitData*                        memInit;
   cppast::CppEntity*                               cppEntity;
   cppast::CppEntityAccessSpecifier*                accessSpecifier;
   cppast::CppTypeModifier                          typeModifier;
@@ -172,7 +171,8 @@ using namespace cppast;
   cppast::CppForwardClassDecl*                     fwdDeclObj;
   cppast::CppVarList*                              cppVarObjList;
   cppast::CppPreprocessorUnrecognized*             unRecogPreProObj;
-  cppast::CppExpression*                                 cppExprObj;
+  cppast::CppExpression*                           cppExprObj;
+  cppast::CppCallArgs*                             exprList;
   cppast::CppLambda*                               cppLambda;
   cppast::CppFunction*                             cppFuncObj;
   cppast::CppFunctionPointer*                      cppFuncPointerObj;
@@ -217,7 +217,7 @@ using namespace cppast;
   cppast::CppGotoStatement*                        gotoStmt;
   cppast::CppBlob*                                 blob;
   cppast::CppLabel*                                label;
-  CppVarAssign                                     cppVarAssign;
+  cppast::CppVarInitInfo*                          cppVarInitInfo;
 }
 
 %token  <str>   tknName tknID tknStrLit tknCharLit tknNumber tknMacro tknApiDecor
@@ -278,7 +278,7 @@ using namespace cppast;
 %type  <fwdDeclObj>         fwddecl
 %type  <cppVarType>         vartype
 %type  <cppVarObj>          vardecl varinit vardeclstmt
-%type  <cppVarAssign>       varassign optvarassign
+%type  <cppVarInitInfo>     varassign optvarassign
 %type  <varOrFuncPtr>       param
 %type  <str>                funcobjstr /* Identify funcobjstr as str, at least for time being */
 %type  <templateArg>        templatearg templatearglist /* For time being. We may need to make it more robust in future. */
@@ -294,7 +294,8 @@ using namespace cppast;
 %type  <templateParamList>  templatespecifier templateparamlist
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>         expr exprlist exprorlist funcargs exprstmt optexpr lambdacapture captureallbyref captureallbyval
+%type  <cppExprObj>         expr exprstmt optexpr lambdacapture captureallbyref captureallbyval
+%type  <exprList>           exprlist optexprlist
 %type  <cppExprObj>         objcarg objcarglist
 %type  <cppLambda>          lambda
 %type  <ifBlock>            ifblock;
@@ -602,9 +603,9 @@ optexpr           : {
                   | expr [ZZLOG;] {
                     $$ = $1;
                   }
-                  | exprlist [ZZLOG;] {
+                  /* | exprlist [ZZLOG;] {
                     $$ = $1;
-                  }
+                  } */
                   ;
 
 define            : tknPreProHash tknDefine name name          [ZZLOG;] {
@@ -856,11 +857,11 @@ vardeclstmt       : vardecl ';'                   [ZZVALID;] { $$ = $1; }
 
 vardecllist       : optfunctype varinit ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $2->addAttr($1);
-                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5, $6.assignValue_, $6.assignType_}));
+                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5, Obj($6)}));
                   }
                   | optfunctype vardecl ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $2->addAttr($1);
-                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5, $6.assignValue_, $6.assignType_}));
+                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5, Obj($6)}));
                   }
                   | optfunctype vardecl ',' opttypemodifier name '[' expr ']' [ZZLOG;] {
                     $2->addAttr($1);
@@ -876,7 +877,7 @@ vardecllist       : optfunctype varinit ',' opttypemodifier name optvarassign [Z
                   }
                   | vardecllist ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $$ = $1;
-                    $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4, $5.assignValue_, $5.assignType_}));
+                    $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4, Obj($5)}));
                   }
                   | vardecllist ',' opttypemodifier name optvarassign ':' expr [ZZLOG;] {
                     $$ = $1;
@@ -894,7 +895,7 @@ varinit           : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.
                   | vardecl '(' ')'                        [ZZERROR;]                       { /*FuncDeclHack*/ $$ = nullptr; }
                   | vardecl varassign           [ZZLOG;] {
                     $$ = $1;
-                    $$->assign($2.assignValue_, $2.assignType_);
+                    $$->initialize(Obj($2));
                   }
                   | tknConstExpr varinit        [ZZLOG;] {
                     $$ = $2;
@@ -903,17 +904,17 @@ varinit           : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.
                   ;
 
 varassign         : '=' expr            [ZZLOG;] {
-                    $$ = CppVarAssign{$2, cppast::AssignType::USING_EQUAL};
+                    $$ = new cppast::CppVarInitInfo(Ptr($2));
                   }
-                  | '(' exprorlist ')'  [ZZLOG;] {
-                    $$ = CppVarAssign{$2, cppast::AssignType::USING_PARENTHESES};
+                  | '(' optexprlist ')'  [ZZLOG;] {
+                    $$ = new cppast::CppVarInitInfo(CppConstructorCallInfo{Obj($2), CppConstructorCallStyle::USING_PARENTHESES});
                   }
-                  | '{' funcargs '}'    [ZZLOG;] {
-                    $$ = CppVarAssign{$2, cppast::AssignType::USING_BRACES};
+                  | '{' optexprlist '}'    [ZZLOG;] {
+                    $$ = new cppast::CppVarInitInfo(CppConstructorCallInfo{Obj($2), CppConstructorCallStyle::USING_BRACES});
                   }
                   ;
 
-optvarassign      :                     [ZZLOG;]  { $$ = CppVarAssign{nullptr, cppast::AssignType::NONE}; }
+optvarassign      :                     [ZZLOG;]  { $$ = nullptr; }
                   | varassign           [ZZLOG;]  { $$ = $1; }
                   ;
 
@@ -1314,7 +1315,7 @@ param             : varinit                        [ZZLOG;] { $$ = $1; $1->addAt
                   | vartype '=' expr               [ZZLOG;] {
                     auto var = new cppast::CppVar($1, std::string());
                     var->addAttr(kFuncParam);
-                    var->assign($3, cppast::AssignType::USING_EQUAL);
+                    var->initialize(Ptr($3));
                     $$ = var;
                   }
                   | vardecl                         [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam);  }
@@ -1484,19 +1485,19 @@ meminitlist       :                          [ZZLOG;] {
                   }
                   | ':' meminit              [ZZLOG;] {
                     $$ = new cppast::CppMemberInits;
-                    $$->memInitList.push_back(cppast::CppMemberInit{$2.mem, Ptr($2.init)});
+                    $$->memInitList.push_back(cppast::CppMemberInit{$2->mem, std::move($2->initInfo)});
                   }
                   | ':' blob                 [ZZLOG;] { $$ = new CppMemberInits{{}, Ptr($2)}; }
                   | meminitlist ',' meminit  [ZZLOG;] {
                     $$ = $1;
-                    $$->memInitList.push_back(cppast::CppMemberInit{$3.mem, Ptr($3.init)});
+                    $$->memInitList.push_back(cppast::CppMemberInit{$3->mem, std::move($3->initInfo)});
                   }
                   ;
 
-meminit           : identifier '(' exprorlist ')'    [ZZLOG;] { $$ = CppMemberInitData{$1, $3}; }
-                  | identifier '(' ')'               [ZZLOG;] { $$ = CppMemberInitData{$1, nullptr}; }
-                  | identifier '{' exprorlist '}'    [ZZLOG;] { $$ = CppMemberInitData{$1, $3}; }
-                  | identifier '{' '}'               [ZZLOG;] { $$ = CppMemberInitData{$1, nullptr}; }
+meminit           : identifier '(' exprlist ')'    [ZZLOG;] { $$ = new CppMemberInitData{$1, Obj($3), cppast::CppConstructorCallStyle::USING_PARENTHESES}; }
+                  | identifier '(' ')'             [ZZLOG;] { $$ = new CppMemberInitData{$1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_PARENTHESES}; }
+                  | identifier '{' exprlist '}'    [ZZLOG;] { $$ = new CppMemberInitData{$1, Obj($3), cppast::CppConstructorCallStyle::USING_BRACES}; }
+                  | identifier '{' '}'             [ZZLOG;] { $$ = new CppMemberInitData{$1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_BRACES}; }
                   ;
 
 dtordeclstmt      : dtordecl ';'    [ZZVALID;]     { $$ = $1; }
@@ -1904,37 +1905,37 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                   | expr '.' funcname                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, $3);                     }
                   | expr '.' '*' funcname                                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, mergeCppToken($3, $4));                     }
                   | expr tknArrow funcname                                [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, $3);      }
-                  | expr tknArrowStar funcname                            [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROWSTAR, $1, $3);  }
+                  | expr tknArrowStar funcname                            [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW_STAR, $1, $3);  }
                   | expr '.' '~' funcname                                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, mergeCppToken($3, $4));                     }
                   | expr tknArrow '~' funcname                            [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, mergeCppToken($3, $4));      }
                   | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARRAY_INDEX, $1, $3);               }
                   /*| expr '[' ']' %prec SUBSCRIPT                          [ZZLOG;] { $$ = BinomialExpr($1, kArrayElem);                   }*/
-                  | expr '(' funcargs ')' %prec FUNCCALL                  [ZZLOG;] { $$ = FuncCallExpr($1, $3);            }
-                  | funcname '(' funcargs ')' %prec FUNCCALL              [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
+                  | expr '(' optexprlist ')' %prec FUNCCALL                  [ZZLOG;] { $$ = FuncCallExpr($1, $3);            }
+                  | funcname '(' optexprlist ')' %prec FUNCCALL              [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
                   | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, FuncCallExpr(NameExpr(mergeCppToken($3, $4)))); }
                   | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = TrinomialExpr(cppast::CppTernaryOperator::CONDITIONAL, $1, $3, $5);                       }
-                  | identifier '{' funcargs '}' %prec FUNCCALL            [ZZLOG;] { $$ = UniformInitExpr($1, $3);            }
+                  | identifier '{' optexprlist '}' %prec FUNCCALL            [ZZLOG;] { $$ = UniformInitExpr($1, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                 [ZZLOG;] { $$ = CStyleCastExpr($2, $4);              }
                   | tknConstCast tknLT vartype tknGT '(' expr ')'         [ZZLOG;] { $$ = ConstCastExpr($3, $6);               }
                   | tknStaticCast tknLT vartype tknGT '(' expr ')'        [ZZLOG;] { $$ = StaticCastExpr($3, $6);              }
                   | tknDynamicCast tknLT vartype tknGT '(' expr ')'       [ZZLOG;] { $$ = DynamiCastExpr($3, $6);             }
                   | tknReinterpretCast tknLT vartype tknGT '(' expr ')'   [ZZLOG;] { $$ = ReinterpretCastExpr($3, $6);         }
-                  | '(' exprorlist ')'                                    [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::PARENTHESIZE, $2);         }
-                  | tknNew typeidentifier opttypemodifier                 [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::NEW, VartypeExpr($2, $3));  }
+                  | '(' expr ')'                                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::PARENTHESIZE, $2);         }
+                  | tknNew typeidentifier opttypemodifier                 [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::NEW, VarTypeExpr($2, $3));  }
                   | tknNew expr                                           [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::NEW, $2);  }
-                  | tknNew '(' expr ')' expr %prec tknNew                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PLACEMENT_NEW, $4, $6);            }
+                  | tknNew '(' expr ')' expr %prec tknNew                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PLACEMENT_NEW, $3, $5);            }
                   | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::GLOBAL_PLACEMENT_NEW, $4, $6);            }
                   | tknDelete  expr                                       [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DELETE, $2);            }
-                  | tknDelete  '[' ']' expr %prec tknDelete               [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DELETE_AARAY, $2);       }
-                  | tknSizeOf '(' vartype ')'                             [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::SIZE_OF, $2);            }
-                  | tknSizeOf '(' expr ')'                                [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::SIZE_OF, $2);            }
-                  | tknSizeOf tknEllipsis '(' vartype ')'                 [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC_SIZEOF, $4);            }
-                  | tknSizeOf tknEllipsis '(' expr ')'                    [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC_SIZEOF, $4);            }
+                  | tknDelete  '[' ']' expr %prec tknDelete               [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DELETE_AARAY, $4);       }
+                  | tknSizeOf '(' vartype ')'                             [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::SIZE_OF, VarTypeExpr($3));            }
+                  | tknSizeOf '(' expr ')'                                [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::SIZE_OF, $3);            }
+                  | tknSizeOf tknEllipsis '(' vartype ')'                 [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC_SIZE_OF, VarTypeExpr($4));            }
+                  | tknSizeOf tknEllipsis '(' expr ')'                    [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC_SIZE_OF, $4);            }
                   | expr tknEllipsis                                      [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC, $1);            }
                   | lambda                                                [ZZLOG;] { $$ = LambdaExpression($1);                               }
 
                   /* This is to parse implementation of string user literal, see https://en.cppreference.com/w/cpp/language/user_literal */
-                  | tknNumber name                                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::USER_LITERAL, $1, $2);                     }
+                  | tknNumber name                                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::USER_LITERAL, NumberLiteralExpr($1), NameExpr($2));                     }
                   /* Objective C expressions */
                   /* This will need improvements, as of now the aim is just to mainly parse C++ content. */
                   | '[' expr expr ']'                                     [ZZLOG;] { $$ = $2;          }
@@ -1948,27 +1949,31 @@ objcarglist       : objcarg { $$ = $1; }
                   | objcarglist objcarg { $$ = $1; }
                   ;
 
-exprlist          : expr ',' expr %prec COMMA                             [ZZLOG;] { $$ = new cppast::CppExpression($1, kComma, $3);                   }
-                  | exprlist ',' expr %prec COMMA                         [ZZLOG;] { $$ = new cppast::CppExpression($1, kComma, $3);                   }
+exprlist          : expr ',' expr %prec COMMA                             [ZZLOG;] {
+                     $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+                     $$->emplace_back($1);
+                     $$->emplace_back($3);
+                  }
+                  | exprlist ',' expr %prec COMMA                         [ZZLOG;] { $1->emplace_back($3); $$ = $1;                   }
                   | doccommentstr exprlist                                [ZZLOG;] { $$ = $2; }
                   ;
 
-exprorlist        : expr                        [ZZLOG;] { $$ = $1; }
+/* exprorlist        : expr                        [ZZLOG;] { $$ = $1; }
                   | exprlist                    [ZZLOG;] { $$ = $1; }
                   | doccommentstr exprorlist    [ZZLOG;] { $$ = $2; }
+                  ; */
+
+optexprlist       :           [ZZLOG;] { $$ = nullptr; }
+                  | exprlist  [ZZLOG;] { $$ = $1;      }
+                  ;
+/* TODO: Improve lambda capture types. As of now use of use of MonomialExpr and  BinomialExpr are hacks. */
+captureallbyref   : '&'  [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::REFER, NameExpr("")); }
                   ;
 
-funcargs          :             [ZZLOG;] { $$ = nullptr; }
-                  | exprorlist  [ZZLOG;] { $$ = $1;      }
+captureallbyval   : '='  [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::EQUAL, NameExpr(""), NameExpr("")); }
                   ;
 
-captureallbyref   : '&'  [ZZLOG;] { $$ = new cppast::CppExpression("", kRefer); }
-                  ;
-
-captureallbyval   : '='  [ZZLOG;] { $$ = new cppast::CppExpression("", kEqual, ""); }
-                  ;
-
-lambdacapture     : funcargs           [ZZLOG;]
+lambdacapture     : optexprlist        [ZZLOG;]
                   | captureallbyref    [ZZLOG;]
                   | captureallbyval    [ZZLOG;]
                   ;
@@ -1976,15 +1981,15 @@ lambdacapture     : funcargs           [ZZLOG;]
 exprstmt          : expr ';'           [ZZLOG;] { $$ = $1; }
                   ;
 
-returnstmt        : tknReturn  exprorlist  [ZZLOG;] { $$ = new CppReturnStatement(Ptr($2));         }
-                  | tknReturn              [ZZLOG;] { $$ = new CppReturnStatement();         }
+returnstmt        : tknReturn  expr        [ZZLOG;] { $$ = new cppast::CppReturnStatement(Ptr($2));         }
+                  | tknReturn              [ZZLOG;] { $$ = new cppast::CppReturnStatement();         }
                   ;
 
-throwstmt         : tknThrow  expr         [ZZLOG;] { $$ = new CppThrowStatement(Ptr($2));             }
-                  | tknThrow               [ZZLOG;] { $$ = new CppThrowStatement();             }
+throwstmt         : tknThrow  expr         [ZZLOG;] { $$ = new cppast::CppThrowStatement(Ptr($2));             }
+                  | tknThrow               [ZZLOG;] { $$ = new cppast::CppThrowStatement();             }
                   ;
 
-gotostmt          : tknGoto expr           [ZZLOG;] { $$ = new cppast::GotoStatement(Ptr($2));               }
+gotostmt          : tknGoto expr           [ZZLOG;] { $$ = new cppast::CppGotoStatement(Ptr($2));               }
                   ;
 
 %%

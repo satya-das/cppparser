@@ -271,19 +271,19 @@ void CppWriter::emitVarDecl(std::ostream& stm, const cppast::CppVarDecl& varDecl
       emitExpr(*arrSize, stm);
     stm << ']';
   }
-  if (varDecl.assignType() == cppast::AssignType::USING_EQUAL)
+  if (varDecl.assignType() == cppast::CppVarInitializeType::USING_EQUAL)
   {
     stm << " = ";
     emit(*varDecl.assignValue(), stm, CppIndent(), true);
   }
-  else if (varDecl.assignType() == cppast::AssignType::USING_PARENTHESES)
+  else if (varDecl.assignType() == cppast::CppVarInitializeType::USING_PARENTHESES)
   {
     stm << '(';
     if (varDecl.assignValue())
       emit(*varDecl.assignValue(), stm, CppIndent(), true);
     stm << ')';
   }
-  else if (varDecl.assignType() == cppast::AssignType::USING_BRACES)
+  else if (varDecl.assignType() == cppast::CppVarInitializeType::USING_BRACES)
   {
     stm << '{';
     if (varDecl.assignValue())
@@ -924,150 +924,6 @@ inline void emitOperator(std::ostream& stm, cppast::CppOperator op)
   }
 }
 
-void CppWriter::emitExpr(const cppast::CppExpression& exprObj, std::ostream& stm, CppIndent indentation) const
-{
-  stm << indentation;
-  if (exprObj.flags_ & cppast::CppExpression::kReturn)
-    stm << "return ";
-  if (exprObj.flags_ & cppast::CppExpression::kThrow)
-    stm << "throw ";
-  if (exprObj.flags_ & cppast::CppExpression::kInitializer)
-    stm << "{";
-  if (exprObj.flags_ & cppast::CppExpression::kBracketed)
-    stm << '(';
-  if (exprObj.flags_ & cppast::CppExpression::kNew)
-    stm << "new ";
-  if (exprObj.flags_ & cppast::CppExpression::kSizeOf)
-    stm << "sizeof(";
-  else if (exprObj.flags_ & cppast::CppExpression::kDelete)
-    stm << "delete ";
-  else if (exprObj.flags_ & cppast::CppExpression::kDeleteArray)
-    stm << "delete[] ";
-  if (exprObj.oper_ == cppast::CppOperator::kNone)
-  {
-    if (exprObj.expr1_.isValid())
-    {
-      emitExprAtom(exprObj.expr1_, stm);
-    }
-  }
-  else if (exprObj.oper_ > cppast::CppOperator::kUnariPrefixOperatorStart
-           && exprObj.oper_ < cppast::CppOperator::kUnariSufixOperatorStart)
-  {
-    emitOperator(stm, exprObj.oper_);
-    emitExprAtom(exprObj.expr1_, stm);
-  }
-  else if (exprObj.oper_ > cppast::CppOperator::kUnariSufixOperatorStart
-           && exprObj.oper_ < cppast::CppOperator::kBinaryOperatorStart)
-  {
-    emitExprAtom(exprObj.expr1_, stm);
-    emitOperator(stm, exprObj.oper_);
-  }
-  else if (exprObj.oper_ > cppast::CppOperator::kBinaryOperatorStart
-           && exprObj.oper_ < cppast::CppOperator::kDerefOperatorStart)
-  {
-    emitExprAtom(exprObj.expr1_, stm);
-    if (exprObj.oper_ != cppast::CppOperator::kComma)
-      stm << ' ';
-    emitOperator(stm, exprObj.oper_);
-    stm << ' ';
-    emitExprAtom(exprObj.expr2_, stm);
-  }
-  else if (exprObj.oper_ > cppast::CppOperator::kDerefOperatorStart
-           && exprObj.oper_ < cppast::CppOperator::kSpecialOperations)
-  {
-    emitExprAtom(exprObj.expr1_, stm);
-    emitOperator(stm, exprObj.oper_);
-    emitExprAtom(exprObj.expr2_, stm);
-  }
-  else if (exprObj.oper_ == cppast::CppOperator::kFunctionCall)
-  {
-    emitExprAtom(exprObj.expr1_, stm);
-    stm << '(';
-    if (exprObj.expr2_.isValid())
-    {
-      emitExprAtom(exprObj.expr2_, stm);
-    }
-    stm << ')';
-  }
-  else if (exprObj.oper_ == cppast::CppOperator::kUniformInitCall)
-  {
-    emitExprAtom(exprObj.expr1_, stm);
-    stm << '{';
-    if (exprObj.expr2_.isValid())
-    {
-      emitExprAtom(exprObj.expr2_, stm);
-    }
-    stm << '}';
-  }
-  else if (exprObj.oper_ == cppast::CppOperator::kArrayElem)
-  {
-    emitExprAtom(exprObj.expr1_, stm);
-    stm << '[';
-    if (exprObj.expr2_.isValid())
-    {
-      emitExprAtom(exprObj.expr2_, stm);
-    }
-    stm << ']';
-  }
-  else if (exprObj.oper_ == cppast::CppOperator::kCStyleCast)
-  {
-    stm << '(';
-    emitExprAtom(exprObj.expr1_, stm);
-    stm << ") ";
-    if (exprObj.expr2_.isValid())
-    {
-      emitExprAtom(exprObj.expr2_, stm);
-    }
-  }
-  else if (exprObj.oper_ >= cppast::CppOperator::kConstCast && exprObj.oper_ <= cppast::CppOperator::kReinterpretCast)
-  {
-    if (exprObj.oper_ == cppast::CppOperator::kConstCast)
-      stm << "const_cast";
-    else if (exprObj.oper_ == cppast::CppOperator::kStaticCast)
-      stm << "static_cast";
-    else if (exprObj.oper_ == cppast::CppOperator::kDynamicCast)
-      stm << "dynamic_cast";
-    else if (exprObj.oper_ == cppast::CppOperator::kReinterpretCast)
-      stm << "reinterpret_cast";
-    stm << '<';
-    if (exprObj.expr1_.isValid())
-    {
-      emitExprAtom(exprObj.expr1_, stm);
-    }
-    stm << ">(";
-    if (exprObj.expr2_.isValid())
-    {
-      emitExprAtom(exprObj.expr2_, stm);
-    }
-    stm << ')';
-  }
-  else if (exprObj.oper_ == cppast::CppOperator::kTertiaryOperator)
-  {
-    emitExprAtom(exprObj.expr1_, stm);
-    stm << " ? ";
-    emitExprAtom(exprObj.expr2_, stm);
-    stm << " : ";
-    emitExprAtom(exprObj.expr3_, stm);
-  }
-  else if (exprObj.oper_ == cppast::CppOperator::kPlacementNew)
-  {
-    stm << "new (";
-    emitExprAtom(exprObj.expr1_, stm);
-    stm << ") ";
-    emitExprAtom(exprObj.expr2_, stm);
-  }
-
-  if (exprObj.flags_ & cppast::CppExpression::kBracketed)
-    stm << ')';
-  if (exprObj.flags_ & cppast::CppExpression::kInitializer)
-    stm << "}";
-  if (exprObj.flags_ & cppast::CppExpression::kSizeOf)
-    stm << ')';
-
-  if (exprObj.flags_ & cppast::CppExpression::kVariadicPack)
-    stm << "...";
-}
-
 void CppWriter::emitIfBlock(const cppast::CppIfBlock& ifBlock, std::ostream& stm, CppIndent indentation) const
 {
   stm << indentation;
@@ -1169,6 +1025,273 @@ void CppWriter::emitSwitchBlock(const cppast::CppSwitchBlock& switchBlock,
     --indentation;
   }
   stm << --indentation << "}\n";
+}
+
+void CppWriter::emitMonomialExpr(const cppast::CppMonomialExpr& expr, std::ostream& stm) const
+{
+  // clang-format off
+  switch(expr.oper())
+  {
+  case cppast::CppUnaryOperator::UNARY_PLUS           : stm << "+" ; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::UNARY_MINUS          : stm << "-" ; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::PREFIX_INCREMENT     : stm << "++"; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::PREFIX_DECREMENT     : stm << "--"; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::BIT_TOGGLE           : stm << "~" ; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::LOGICAL_NOT          : stm << "!" ; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::DEREFER              : stm << "*" ; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::REFER                : stm << "&" ; emitExpr(expr.term(), stm); break;
+
+  case cppast::CppUnaryOperator::POSTFIX_INCREMENT    : emitExpr(expr.term(), stm); stm << "++"; break;
+  case cppast::CppUnaryOperator::POSTFIX_DECREMENT    : emitExpr(expr.term(), stm); stm << "--"; break;
+
+  case cppast::CppUnaryOperator::VARIADIC             : emitExpr(expr.term(), stm); stm << "..."; break;
+
+  case cppast::CppUnaryOperator::NEW                  : stm << "new "       ; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::DELETE               : stm << "delete "    ; emitExpr(expr.term(), stm); break;
+  case cppast::CppUnaryOperator::DELETE_AARAY         : stm << "delete[] "  ; emitExpr(expr.term(), stm); break;
+
+  case cppast::CppUnaryOperator::PARENTHESIZE         : stm << '('          ; emitExpr(expr.term(), stm); stm << ')'; break;
+  case cppast::CppUnaryOperator::SIZE_OF              : stm << "siezeof("   ; emitExpr(expr.term(), stm); stm << ')'; break;
+  case cppast::CppUnaryOperator::VARIADIC_SIZE_OF     : stm << "sizeof...(" ; emitExpr(expr.term(), stm); stm << ')'; break;
+  }
+  // clang-format on
+}
+
+void CppWriter::emitAtomicExpr(const cppast::CppAtomicExpression& expr, std::ostream& stm) const
+{
+  switch (expr.atomicExpressionType())
+  {
+    case cppast::CppAtomicExpressionType::STRING_LITERAL:
+      emitStringLiteralExpr(static_cast<const cppast::CppStringLiteralExpr&>(expr), stm);
+      break;
+    case cppast::CppAtomicExpressionType::CHAR_LITERAL:
+      emitCharLiteralExpr(static_cast<const cppast::CppCharLiteralExpr&>(expr), stm);
+      break;
+    case cppast::CppAtomicExpressionType::NUMBER_LITEREL:
+      emitNumberLiteralExpr(static_cast<const cppast::CppNumberLiteralExpr&>(expr), stm);
+      break;
+    case cppast::CppAtomicExpressionType::NAME:
+      emitNameExpr(static_cast<const cppast::CppNameExpr&>(expr), stm);
+      break;
+    case cppast::CppAtomicExpressionType::VARTYPE:
+      emitVartypeExpr(static_cast<const cppast::CppVartypeExpression&>(expr), stm);
+      break;
+    case cppast::CppAtomicExpressionType::LAMBDA:
+      emitLambdaExpr(static_cast<const cppast::CppLambdaExpr&>(expr), stm);
+      break;
+  }
+}
+
+void CppWriter::emitStringLiteralExpr(const cppast::CppStringLiteralExpr& expr, std::ostream& stm) const
+{
+  stm << expr.value();
+}
+void CppWriter::emitCharLiteralExpr(const cppast::CppCharLiteralExpr& expr, std::ostream& stm) const
+{
+  stm << expr.value();
+}
+void CppWriter::emitNumberLiteralExpr(const cppast::CppNumberLiteralExpr& expr, std::ostream& stm) const
+{
+  stm << expr.value();
+}
+void CppWriter::emitNameExpr(const cppast::CppNameExpr& expr, std::ostream& stm) const
+{
+  stm << expr.value();
+}
+void CppWriter::emitVartypeExpr(const cppast::CppVartypeExpression& expr, std::ostream& stm) const
+{
+  emitVarType(expr.value(), stm);
+}
+void CppWriter::emitLambdaExpr(const cppast::CppLambdaExpr& expr, std::ostream& stm) const
+{
+  // emitLambda(expr.value(), stm);
+}
+
+void CppWriter::emitBinomialExpr(const cppast::CppBinomialExpr& expr, std::ostream& stm) const
+{
+  // clang-format off
+  switch (expr.oper())
+  {
+  case cppast::CppBinaryOperator::PLUS:                     emitExpr(expr.term1(), stm); stm << " + "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::MINUS:                    emitExpr(expr.term1(), stm); stm << " - "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::MUL:                      emitExpr(expr.term1(), stm); stm << " * "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::DIV:                      emitExpr(expr.term1(), stm); stm << " / "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::PERCENT:                  emitExpr(expr.term1(), stm); stm << " % "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::AND:                      emitExpr(expr.term1(), stm); stm << " & "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::OR:                       emitExpr(expr.term1(), stm); stm << " | "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::XOR:                      emitExpr(expr.term1(), stm); stm << " ^ "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::ASSIGN:                   emitExpr(expr.term1(), stm); stm << " = "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::LESS:                     emitExpr(expr.term1(), stm); stm << " < "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::GREATER:                  emitExpr(expr.term1(), stm); stm << " > "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::COMMA:                    emitExpr(expr.term1(), stm); stm << " , "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::DOT:                      emitExpr(expr.term1(), stm); stm << " . "; emitExpr(expr.term2(), stm);
+
+  case cppast::CppBinaryOperator::LOGICAL_AND:              emitExpr(expr.term1(), stm); stm << " && "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::LOGICAL_OR:               emitExpr(expr.term1(), stm); stm << " || "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::PLUS_ASSIGN:              emitExpr(expr.term1(), stm); stm << " += "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::MINUS_ASSIGN:             emitExpr(expr.term1(), stm); stm << " -= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::MUL_ASSIGN:               emitExpr(expr.term1(), stm); stm << " *= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::DIV_ASSIGN:               emitExpr(expr.term1(), stm); stm << " /= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::PERCENT_ASSIGN:           emitExpr(expr.term1(), stm); stm << " %= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::XOR_ASSIGN:               emitExpr(expr.term1(), stm); stm << " ^= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::AND_ASSIGN:               emitExpr(expr.term1(), stm); stm << " &= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::OR_ASSIGN:                emitExpr(expr.term1(), stm); stm << " |= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::LEFT_SHIFT:               emitExpr(expr.term1(), stm); stm << " << "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::INSERTION:                emitExpr(expr.term1(), stm); stm << " << "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::RIGHT_SHIFT:              emitExpr(expr.term1(), stm); stm << " >> "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::EXTRACTION:               emitExpr(expr.term1(), stm); stm << " >> "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::EQUAL:                    emitExpr(expr.term1(), stm); stm << " == "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::NOT_EQUAL:                emitExpr(expr.term1(), stm); stm << " != "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::LESS_EQUAL:               emitExpr(expr.term1(), stm); stm << " <= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::GREATER_EQUAL:            emitExpr(expr.term1(), stm); stm << " >= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::ARROW:                    emitExpr(expr.term1(), stm); stm << " -> "; emitExpr(expr.term2(), stm);
+
+  case cppast::CppBinaryOperator::LOGICAL_AND_ASSIGN:       emitExpr(expr.term1(), stm); stm << " &&= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::LOGICAL_OR_ASSIGN:        emitExpr(expr.term1(), stm); stm << " ||= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::LSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " <<= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::RSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " >>= "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::THREE_WAY_CMP:            emitExpr(expr.term1(), stm); stm << " <=> "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::ARROW_STAR:               emitExpr(expr.term1(), stm); stm << " ->* "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::ARRAY_INDEX:              emitExpr(expr.term1(), stm); stm << '['; emitExpr(expr.term2(), stm); stm << ']';
+
+  case cppast::CppBinaryOperator::PLACEMENT_NEW:        stm << "new (";   emitExpr(expr.term1(), stm); stm << ") "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::GLOBAL_PLACEMENT_NEW: stm << "::new ("; emitExpr(expr.term1(), stm); stm << ") "; emitExpr(expr.term2(), stm);
+
+  case cppast::CppBinaryOperator::USER_LITERAL: emitExpr(expr.term1(), stm); emitExpr(expr.term2(), stm);
+  }
+  // clang-format on
+}
+
+void CppWriter::emitTrinomialExpr(const cppast::CppTrinomialExpr& expr, std::ostream& stm) const
+{
+  switch (expr.oper())
+  {
+    case cppast::CppTernaryOperator::CONDITIONAL:
+      emitExpr(expr.term1(), stm);
+      stm << " ? ";
+      emitExpr(expr.term2(), stm);
+      stm << " : ";
+      emitExpr(expr.term3(), stm);
+  }
+}
+
+void CppWriter::emitFuncCallExpr(const cppast::CppFunctionCallExpr& expr, std::ostream& stm) const
+{
+  emitExpr(expr.function(), stm);
+  stm << '(';
+  const char* sep = "";
+  for (size_t i = 0; i < expr.numArgs(); ++i)
+  {
+    stm << sep;
+    emitExpr(expr.arg(i), stm);
+    sep = ", ";
+  }
+  stm << ')';
+}
+
+void CppWriter::emitUniformInitializerExpr(const cppast::CppUniformInitializerExpr& expr, std::ostream& stm) const
+{
+  stm << expr.name();
+  stm << '{';
+  const char* sep = "";
+  for (size_t i = 0; i < expr.numArgs(); ++i)
+  {
+    stm << sep;
+    emitExpr(expr.arg(i), stm);
+    sep = ", ";
+  }
+  stm << '}';
+}
+
+void CppWriter::emitInitializerListExpr(const cppast::CppInitializerListExpr& expr, std::ostream& stm) const
+{
+  stm << '{';
+  const char* sep = "";
+  for (size_t i = 0; i < expr.numArgs(); ++i)
+  {
+    stm << sep;
+    emitExpr(expr.arg(i), stm);
+    sep = ", ";
+  }
+  stm << '}';
+}
+
+void CppWriter::emitCStyleTypecastExpr(const cppast::CppCStyleTypecastExpr& expr, std::ostream& stm) const
+{
+  stm << "(";
+  emitVarType(expr.targetType(), stm);
+  stm << ")";
+  emitExpr(expr.inputExpresion(), stm);
+}
+void CppWriter::emitFunctionStyleTypecastExpr(const cppast::CppFunctionStyleTypecastExpr& expr, std::ostream& stm) const
+{
+  emitVarType(expr.targetType(), stm);
+  stm << ">(";
+  emitExpr(expr.inputExpresion(), stm);
+  stm << ')';
+}
+void CppWriter::emitStaticCastExpr(const cppast::CppStaticCastExpr& expr, std::ostream& stm) const
+{
+  stm << "static_cast<";
+  emitVarType(expr.targetType(), stm);
+  stm << ">(";
+  emitExpr(expr.inputExpresion(), stm);
+  stm << ')';
+}
+void CppWriter::emitConstCastExpr(const cppast::CppConstCastExpr& expr, std::ostream& stm) const
+{
+  stm << "const_cast<";
+  emitVarType(expr.targetType(), stm);
+  stm << ">(";
+  emitExpr(expr.inputExpresion(), stm);
+  stm << ')';
+}
+void CppWriter::emitDynamiCastExpr(const cppast::CppDynamiCastExpr& expr, std::ostream& stm) const
+{
+  stm << "dynamic_cast<";
+  emitVarType(expr.targetType(), stm);
+  stm << ">(";
+  emitExpr(expr.inputExpresion(), stm);
+  stm << ')';
+}
+void CppWriter::emitReinterpretCastExpr(const cppast::CppReinterpretCastExpr& expr, std::ostream& stm) const
+{
+  stm << "reinterpret_cast<";
+  emitVarType(expr.targetType(), stm);
+  stm << ">(";
+  emitExpr(expr.inputExpresion(), stm);
+  stm << ')';
+}
+
+void CppWriter::emitExpr(const cppast::CppExpression& expr, std::ostream& stm, CppIndent indentation) const
+{
+  stm << indentation;
+  switch (expr.expressionType())
+  {
+    case cppast::CppExpressionType::ATOMIC:
+      emitAtomicExpr(static_cast<const cppast::CppAtomicExpression&>(expr), stm);
+      break;
+    case cppast::CppExpressionType::MONOMIAL:
+      emitMonomialExpr(static_cast<const cppast::CppMonomialExpr&>(expr), stm);
+      break;
+    case cppast::CppExpressionType::BINOMIAL:
+      emitBinomialExpr(static_cast<const cppast::CppBinomialExpr&>(expr), stm);
+      break;
+    case cppast::CppExpressionType::TRINOMIAL:
+      emitTrinomialExpr(static_cast<const cppast::CppTrinomialExpr&>(expr), stm);
+      break;
+    case cppast::CppExpressionType::FUNCTION_CALL:
+      emitFuncCallExpr(static_cast<const cppast::CppFunctionCallExpr&>(expr), stm);
+      break;
+    case cppast::CppExpressionType::UNIFORM_INITIALIZER:
+      emitUniformInitializerExpr(static_cast<const cppast::CppUniformInitializerExpr&>(expr), stm);
+      break;
+    case cppast::CppExpressionType::INITIALIZER_LIST:
+      emitInitializerListExpr(static_cast<const cppast::CppInitializerListExpr&>(expr), stm);
+      break;
+    case cppast::CppExpressionType::TYPECAST:
+      break;
+  }
 }
 
 } // namespace cppcodegen

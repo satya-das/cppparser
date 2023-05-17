@@ -17,6 +17,12 @@ namespace cppast {
 class CppFunctionPointer;
 class CppEnum;
 
+/**
+ * @brief Models variable type in C++.
+ *
+ * It can be used to define a variable or function parameter.
+ * @see CppVar.
+ */
 class CppVarType : public CppEntity
 {
 public:

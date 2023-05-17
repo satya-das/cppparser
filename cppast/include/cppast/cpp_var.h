@@ -11,8 +11,8 @@
 namespace cppast {
 
 /**
- * Class to represent C++ variable definition.
- * A variable can be global, local or member of a class, class, namespace, or union.
+ * Represents C++ variable definition.
+ * A variable can be global, local or member of a class, namespace, or union.
  * It can also be a function parameter.
  */
 class CppVar : public CppEntity, public CppTemplatableEntity
@@ -45,6 +45,11 @@ public:
   {
   }
 
+  void initialize(CppVarInitInfo initInfo)
+  {
+    varDecl_.initialize(std::move(initInfo));
+  }
+
   const CppVarType& varType() const
   {
     return *varType_;
@@ -74,17 +79,25 @@ public:
     return varDecl_;
   }
 
+  bool isInitialized() const
+  {
+    return varDecl_.isInitialized();
+  }
+
+  std::optional<CppVarInitializeType> initializeType() const
+  {
+    return varDecl_.initializeType();
+  }
+
+  /**
+   * @brief Gets the value assigned to variable.
+   *
+   * @return value assigned to variable.
+   * @note The returned value can be nullptr.
+   */
   const CppExpression* assignValue() const
   {
     return varDecl_.assignValue();
-  }
-  AssignType assignType() const
-  {
-    return varDecl_.assignType();
-  }
-  void assign(CppExpression* assignVal, AssignType assignType)
-  {
-    varDecl_.assign(assignVal, assignType);
   }
 
   const CppExpression* bitField() const

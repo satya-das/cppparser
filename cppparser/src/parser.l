@@ -17,7 +17,6 @@ For this very reason this file does not use any class that are defined in cppast
 #define register
 
 #include "cpptoken.h"
-#include "cppvarinit.h"
 #include "parser.l.h"
 #include "lexer-helper.h"
 #include <iostream>

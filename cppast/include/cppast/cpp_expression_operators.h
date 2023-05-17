@@ -27,7 +27,6 @@ enum class CppUnaryOperator : std::uint8_t
   DELETE_AARAY,
   SIZE_OF,
   VARIADIC_SIZE_OF,
-  GOTO,
 };
 
 enum class CppBinaryOperator : std::uint8_t

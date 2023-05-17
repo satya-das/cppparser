@@ -20,13 +20,13 @@ public:
   }
 
 public:
-  CppReturnStatement(std::unique_ptr<CppExpression> expr)
+  CppReturnStatement(std::unique_ptr<const CppExpression> expr)
     : CppEntity(EntityType())
     , expr_(std::move(expr))
   {
   }
   CppReturnStatement()
-    : CppReturnStatement(std::unique_ptr<CppExpression>())
+    : CppReturnStatement(std::unique_ptr<const CppExpression>())
   {
   }
 
@@ -42,7 +42,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppExpression> expr_;
+  const std::unique_ptr<const CppExpression> expr_;
 };
 
 } // namespace cppast

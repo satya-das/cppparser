@@ -57,7 +57,6 @@ enum class CppAtomicExpressionType
   LAMBDA,
 };
 
-template <CppAtomicExpressionType _AtomicExprType>
 class CppAtomicExpression : public CppExpression
 {
 public:
@@ -66,23 +65,43 @@ public:
     return CppExpressionType::ATOMIC;
   }
 
+  auto atomicExpressionType() const
+  {
+    return atomicExprType_;
+  }
+
+protected:
+  CppAtomicExpression(CppAtomicExpressionType atomicExprType)
+    : CppExpression(ExpressionType())
+    , atomicExprType_(atomicExprType)
+  {
+  }
+
+private:
+  const CppAtomicExpressionType atomicExprType_;
+};
+
+template <CppAtomicExpressionType _AtomicExprType>
+class CppAtomicExpressionImplBase : public CppAtomicExpression
+{
+public:
   static constexpr auto AtomicExpressionType()
   {
     return _AtomicExprType;
   }
 
 public:
-  CppAtomicExpression()
-    : CppExpression(ExpressionType())
+  CppAtomicExpressionImplBase()
+    : CppAtomicExpression(AtomicExpressionType())
   {
   }
 };
 
 template <CppAtomicExpressionType _AtomicExprType>
-class CppCommonAtomicExpressionBase : public CppAtomicExpression<_AtomicExprType>
+class CppCommonAtomicExpressionImplBase : public CppAtomicExpressionImplBase<_AtomicExprType>
 {
 public:
-  CppCommonAtomicExpressionBase(std::string atom)
+  CppCommonAtomicExpressionImplBase(std::string atom)
     : atom_(std::move(atom))
   {
   }
@@ -96,31 +115,31 @@ private:
   std::string atom_;
 };
 
-class CppStringLiteralExpr : public CppCommonAtomicExpressionBase<CppAtomicExpressionType::STRING_LITERAL>
+class CppStringLiteralExpr : public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::STRING_LITERAL>
 {
 public:
-  using CppCommonAtomicExpressionBase<CppAtomicExpressionType::STRING_LITERAL>::CppCommonAtomicExpressionBase;
+  using CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::STRING_LITERAL>::CppCommonAtomicExpressionImplBase;
 };
 
-class CppCharLiteralExpr : public CppCommonAtomicExpressionBase<CppAtomicExpressionType::CHAR_LITERAL>
+class CppCharLiteralExpr : public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::CHAR_LITERAL>
 {
 public:
-  using CppCommonAtomicExpressionBase<CppAtomicExpressionType::CHAR_LITERAL>::CppCommonAtomicExpressionBase;
+  using CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::CHAR_LITERAL>::CppCommonAtomicExpressionImplBase;
 };
 
-class CppNumberLiteralExpr : public CppCommonAtomicExpressionBase<CppAtomicExpressionType::NUMBER_LITEREL>
+class CppNumberLiteralExpr : public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::NUMBER_LITEREL>
 {
 public:
-  using CppCommonAtomicExpressionBase<CppAtomicExpressionType::NUMBER_LITEREL>::CppCommonAtomicExpressionBase;
+  using CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::NUMBER_LITEREL>::CppCommonAtomicExpressionImplBase;
 };
 
-class CppNameExpr : public CppCommonAtomicExpressionBase<CppAtomicExpressionType::NAME>
+class CppNameExpr : public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::NAME>
 {
 public:
-  using CppCommonAtomicExpressionBase<CppAtomicExpressionType::NAME>::CppCommonAtomicExpressionBase;
+  using CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::NAME>::CppCommonAtomicExpressionImplBase;
 };
 
-class CppVartypeExpression : public CppAtomicExpression<CppAtomicExpressionType::VARTYPE>
+class CppVartypeExpression : public CppAtomicExpressionImplBase<CppAtomicExpressionType::VARTYPE>
 {
 public:
   CppVartypeExpression(std::unique_ptr<const CppVarType> atom)
@@ -138,10 +157,10 @@ private:
 };
 
 // TODO: Eliminate CppLambda by merging to CppLambdaExpr.
-class CppLambdaExpr : public CppAtomicExpression<CppAtomicExpressionType::LAMBDA>
+class CppLambdaExpr : public CppAtomicExpressionImplBase<CppAtomicExpressionType::LAMBDA>
 {
 public:
-  CppLambdaExpr(std::unique_ptr<CppLambda> lambda)
+  CppLambdaExpr(std::unique_ptr<const CppLambda> lambda)
     : lambda_(std::move(lambda))
   {
   }
@@ -153,7 +172,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppLambda> lambda_;
+  const std::unique_ptr<const CppLambda> lambda_;
 };
 
 class CppMonomialExpr : public CppExpression
@@ -285,7 +304,7 @@ public:
   }
 
 public:
-  CppFunctionCallExpr(std::unique_ptr<CppExpression> func, std::vector<std::unique_ptr<CppExpression>> args)
+  CppFunctionCallExpr(std::unique_ptr<const CppExpression> func, std::vector<std::unique_ptr<const CppExpression>> args)
     : CppExpression(ExpressionType())
     , function_(std::move(func))
     , arguments_(std::move(args))
@@ -309,8 +328,8 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppExpression>              function_;
-  const std::vector<std::unique_ptr<CppExpression>> arguments_;
+  const std::unique_ptr<const CppExpression>              function_;
+  const std::vector<std::unique_ptr<const CppExpression>> arguments_;
 };
 
 class CppUniformInitializerExpr : public CppExpression
@@ -322,7 +341,7 @@ public:
   }
 
 public:
-  CppUniformInitializerExpr(std::string name, std::vector<std::unique_ptr<CppExpression>> args)
+  CppUniformInitializerExpr(std::string name, std::vector<std::unique_ptr<const CppExpression>> args)
     : CppExpression(ExpressionType())
     , name_(std::move(name))
     , arguments_(std::move(args))
@@ -346,8 +365,8 @@ public:
   }
 
 private:
-  const std::string                                 name_;
-  const std::vector<std::unique_ptr<CppExpression>> arguments_;
+  const std::string                                       name_;
+  const std::vector<std::unique_ptr<const CppExpression>> arguments_;
 };
 
 class CppInitializerListExpr : public CppExpression
@@ -359,7 +378,7 @@ public:
   }
 
 public:
-  CppInitializerListExpr(std::vector<std::unique_ptr<CppExpression>> exprList)
+  CppInitializerListExpr(std::vector<std::unique_ptr<const CppExpression>> exprList)
     : CppExpression(ExpressionType())
     , exprList_(std::move(exprList))
   {
@@ -377,10 +396,9 @@ public:
   }
 
 private:
-  const std::vector<std::unique_ptr<CppExpression>> exprList_;
+  const std::vector<std::unique_ptr<const CppExpression>> exprList_;
 };
 
-template <CppTypecastType _TypecastType>
 class CppTypecastExpr : public CppExpression
 {
 public:
@@ -390,18 +408,12 @@ public:
   }
 
 public:
-  static constexpr auto TypecastType()
+  auto typecastType() const
   {
-    return _TypecastType;
+    return typecastType_;
   }
 
 public:
-  CppTypecastExpr(std::unique_ptr<const CppVarType> targetType, std::unique_ptr<const CppExpression> expr)
-    : targetType_(targetType)
-    , expr_(expr)
-  {
-  }
-
   const CppVarType& targetType() const
   {
     return *targetType_;
@@ -412,45 +424,73 @@ public:
     return *expr_;
   }
 
+protected:
+  CppTypecastExpr(CppTypecastType                      typecastType,
+                  std::unique_ptr<const CppVarType>    targetType,
+                  std::unique_ptr<const CppExpression> expr)
+    : CppExpression(ExpressionType())
+    , typecastType_(typecastType)
+    , targetType_(std::move(targetType))
+    , expr_(std::move(expr))
+  {
+  }
+
 private:
+  const CppTypecastType                      typecastType_;
   const std::unique_ptr<const CppVarType>    targetType_;
   const std::unique_ptr<const CppExpression> expr_;
 };
 
-class CppCStyleTypecastExpr : public CppTypecastExpr<CppTypecastType::C_STYLE_CAST>
+template <CppTypecastType _TypecastType>
+class CppTypecastExprImplBase : public CppTypecastExpr
 {
 public:
-  using CppTypecastExpr<CppTypecastType::C_STYLE_CAST>::CppTypecastExpr;
+  static constexpr auto TypecastType()
+  {
+    return _TypecastType;
+  }
+
+public:
+  CppTypecastExprImplBase(std::unique_ptr<const CppVarType> targetType, std::unique_ptr<const CppExpression> expr)
+    : CppTypecastExpr(TypecastType(), std::move(targetType), std::move(expr))
+  {
+  }
 };
 
-class CppFunctionStyleTypecastExpr : public CppTypecastExpr<CppTypecastType::FUNCTION_STYLE_CAST>
+class CppCStyleTypecastExpr : public CppTypecastExprImplBase<CppTypecastType::C_STYLE_CAST>
 {
 public:
-  using CppTypecastExpr<CppTypecastType::FUNCTION_STYLE_CAST>::CppTypecastExpr;
+  using CppTypecastExprImplBase<CppTypecastType::C_STYLE_CAST>::CppTypecastExprImplBase;
 };
 
-class CppStaticCastExpr : public CppTypecastExpr<CppTypecastType::STATIC_CAST>
+class CppFunctionStyleTypecastExpr : public CppTypecastExprImplBase<CppTypecastType::FUNCTION_STYLE_CAST>
 {
 public:
-  using CppTypecastExpr<CppTypecastType::STATIC_CAST>::CppTypecastExpr;
+  using CppTypecastExprImplBase<CppTypecastType::FUNCTION_STYLE_CAST>::CppTypecastExprImplBase;
 };
 
-class CppConstCastExpr : public CppTypecastExpr<CppTypecastType::CONST_CAST>
+class CppStaticCastExpr : public CppTypecastExprImplBase<CppTypecastType::STATIC_CAST>
 {
 public:
-  using CppTypecastExpr<CppTypecastType::CONST_CAST>::CppTypecastExpr;
+  using CppTypecastExprImplBase<CppTypecastType::STATIC_CAST>::CppTypecastExprImplBase;
 };
 
-class CppDynamiCastExpr : public CppTypecastExpr<CppTypecastType::DYNAMIC_CAST>
+class CppConstCastExpr : public CppTypecastExprImplBase<CppTypecastType::CONST_CAST>
 {
 public:
-  using CppTypecastExpr<CppTypecastType::DYNAMIC_CAST>::CppTypecastExpr;
+  using CppTypecastExprImplBase<CppTypecastType::CONST_CAST>::CppTypecastExprImplBase;
 };
 
-class CppReinterpretCastExpr : public CppTypecastExpr<CppTypecastType::REINTERPRET_CAST>
+class CppDynamiCastExpr : public CppTypecastExprImplBase<CppTypecastType::DYNAMIC_CAST>
 {
 public:
-  using CppTypecastExpr<CppTypecastType::REINTERPRET_CAST>::CppTypecastExpr;
+  using CppTypecastExprImplBase<CppTypecastType::DYNAMIC_CAST>::CppTypecastExprImplBase;
+};
+
+class CppReinterpretCastExpr : public CppTypecastExprImplBase<CppTypecastType::REINTERPRET_CAST>
+{
+public:
+  using CppTypecastExprImplBase<CppTypecastType::REINTERPRET_CAST>::CppTypecastExprImplBase;
 };
 
 } // namespace cppast

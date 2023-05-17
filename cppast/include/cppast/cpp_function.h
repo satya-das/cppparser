@@ -8,6 +8,7 @@
 #include "cppast/cpp_entity.h"
 #include "cppast/cpp_expression.h"
 #include "cppast/cpp_template_param.h"
+#include "cppast/cpp_var_decl.h"
 #include "cppast/cpp_var_type.h"
 
 #include <functional>
@@ -274,8 +275,8 @@ private:
  */
 struct CppMemberInit
 {
-  std::string                    memberName;
-  std::unique_ptr<CppExpression> memberInitExpr;
+  std::string            memberName;
+  CppConstructorCallInfo memberInitInfo;
 };
 
 /**

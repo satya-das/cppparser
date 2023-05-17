@@ -6,7 +6,6 @@
 
 #include "cpp_entity_builders.h"
 #include "cpptoken.h"
-#include "cppvarinit.h"
 #include "optional.h"
 #include "parser.tab.h"
 

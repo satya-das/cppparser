@@ -87,9 +87,6 @@ public:
                               std::ostream&                          stm,
                               CppIndent                              indentation = CppIndent()) const;
 
-  virtual void emitExpr(const cppast::CppExpression& exprObj,
-                        std::ostream&                stm,
-                        CppIndent                    indentation = CppIndent()) const;
   virtual void emitDefine(const cppast::CppMacroDefinition& defineObj, std::ostream& stm) const;
   virtual void emitUndef(const cppast::CppPreprocessorUndef& undefObj, std::ostream& stm) const;
   virtual void emitInclude(const cppast::CppPreprocessorInclude& includeObj, std::ostream& stm) const;
@@ -122,6 +119,32 @@ public:
   virtual void emitSwitchBlock(const cppast::CppSwitchBlock& switchBlock,
                                std::ostream&                 stm,
                                CppIndent                     indentation = CppIndent()) const;
+
+  virtual void emitAtomicExpr(const cppast::CppAtomicExpression& expr, std::ostream& stm) const;
+  virtual void emitStringLiteralExpr(const cppast::CppStringLiteralExpr& expr, std::ostream& stm) const;
+  virtual void emitCharLiteralExpr(const cppast::CppCharLiteralExpr& expr, std::ostream& stm) const;
+  virtual void emitNumberLiteralExpr(const cppast::CppNumberLiteralExpr& expr, std::ostream& stm) const;
+  virtual void emitNameExpr(const cppast::CppNameExpr& expr, std::ostream& stm) const;
+  virtual void emitVartypeExpr(const cppast::CppVartypeExpression& expr, std::ostream& stm) const;
+  virtual void emitLambdaExpr(const cppast::CppLambdaExpr& expr, std::ostream& stm) const;
+
+  virtual void emitMonomialExpr(const cppast::CppMonomialExpr& expr, std::ostream& stm) const;
+  virtual void emitBinomialExpr(const cppast::CppBinomialExpr& expr, std::ostream& stm) const;
+  virtual void emitTrinomialExpr(const cppast::CppTrinomialExpr& expr, std::ostream& stm) const;
+  virtual void emitFuncCallExpr(const cppast::CppFunctionCallExpr& expr, std::ostream& stm) const;
+  virtual void emitUniformInitializerExpr(const cppast::CppUniformInitializerExpr& expr, std::ostream& stm) const;
+  virtual void emitInitializerListExpr(const cppast::CppInitializerListExpr& expr, std::ostream& stm) const;
+
+  virtual void emitCStyleTypecastExpr(const cppast::CppCStyleTypecastExpr& expr, std::ostream& stm) const;
+  virtual void emitFunctionStyleTypecastExpr(const cppast::CppFunctionStyleTypecastExpr& expr, std::ostream& stm) const;
+  virtual void emitStaticCastExpr(const cppast::CppStaticCastExpr& expr, std::ostream& stm) const;
+  virtual void emitConstCastExpr(const cppast::CppConstCastExpr& expr, std::ostream& stm) const;
+  virtual void emitDynamiCastExpr(const cppast::CppDynamiCastExpr& expr, std::ostream& stm) const;
+  virtual void emitReinterpretCastExpr(const cppast::CppReinterpretCastExpr& expr, std::ostream& stm) const;
+
+  virtual void emitExpr(const cppast::CppExpression& exprObj,
+                        std::ostream&                stm,
+                        CppIndent                    indentation = CppIndent()) const;
 
 public:
   void emitVar(const cppast::CppVar& varObj, std::ostream& stm, bool skipName) const;

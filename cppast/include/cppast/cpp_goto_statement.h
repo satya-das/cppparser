@@ -20,7 +20,7 @@ public:
   }
 
 public:
-  CppGotoStatement(std::unique_ptr<CppExpression> expr)
+  CppGotoStatement(std::unique_ptr<const CppExpression> expr)
     : CppEntity(EntityType())
     , expr_(std::move(expr))
   {
@@ -33,7 +33,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppExpression> expr_;
+  const std::unique_ptr<const CppExpression> expr_;
 };
 
 } // namespace cppast
