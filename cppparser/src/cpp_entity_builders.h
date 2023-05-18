@@ -68,9 +68,22 @@ inline auto FuncCallExpr(cppast::CppExpression* func)
   return new cppast::CppFunctionCallExpr(Ptr(func), {});
 }
 
+inline auto FuncCallExpr(cppast::CppExpression* func, const cppast::CppExpression* arg)
+{
+  cppast::CppCallArgs args;
+  if (arg)
+    args.emplace_back(arg);
+  return new cppast::CppFunctionCallExpr(Ptr(func), std::move(args));
+}
+
+inline auto FuncCallExpr(cppast::CppExpression* func, cppast::CppCallArgs args)
+{
+  return new cppast::CppFunctionCallExpr(Ptr(func), std::move(args));
+}
+
 inline auto FuncCallExpr(cppast::CppExpression* func, cppast::CppCallArgs* args)
 {
-  return new cppast::CppFunctionCallExpr(Ptr(func), Obj(args));
+  return new cppast::CppFunctionCallExpr(Ptr(func), args ? Obj(args) : cppast::CppCallArgs());
 }
 
 inline auto UniformInitExpr(std::string name, cppast::CppCallArgs* args)

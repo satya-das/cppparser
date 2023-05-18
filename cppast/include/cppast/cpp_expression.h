@@ -148,6 +148,11 @@ class CppNameExpr : public CppCommonAtomicExpressionImplBase<CppAtomicExpression
 {
 public:
   using CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::NAME>::CppCommonAtomicExpressionImplBase;
+
+  friend bool operator==(const CppNameExpr& lhs, const CppNameExpr& rhs)
+  {
+    return lhs.value() == rhs.value();
+  }
 };
 
 class CppVartypeExpression : public CppAtomicExpressionImplBase<CppAtomicExpressionType::VARTYPE>

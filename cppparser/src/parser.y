@@ -1912,6 +1912,7 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                   /*| expr '[' ']' %prec SUBSCRIPT                        [ZZLOG;] { $$ = BinomialExpr($1, kArrayElem);                   }*/
                   | expr '(' optexprlist ')' %prec FUNCCALL               [ZZLOG;] { $$ = FuncCallExpr($1, $3);            }
                   | funcname '(' optexprlist ')' %prec FUNCCALL           [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
+                  | funcname '(' optexpr ')' %prec FUNCCALL               [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
                   | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, FuncCallExpr(NameExpr(mergeCppToken($3, $4)))); }
                   | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = TrinomialExpr(cppast::CppTernaryOperator::CONDITIONAL, $1, $3, $5);                       }
                   | identifier '{' optexprlist '}' %prec FUNCCALL         [ZZLOG;] { $$ = UniformInitExpr($1, $3);            }

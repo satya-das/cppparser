@@ -48,9 +48,9 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
   const auto structAttribSeq = GetAllAttributeSpecifiers(*structDefn);
   REQUIRE(structAttribSeq.size() == 1);
 
-  cppast::CppConstStringLiteralExprEPtr structAttrib = structAttribSeq.at(0);
+  cppast::CppConstNameExprEPtr structAttrib = structAttribSeq.at(0);
   REQUIRE(structAttrib);
-  CHECK((*structAttrib) == cppast::CppStringLiteralExpr("xnet::ValidateData"));
+  CHECK((*structAttrib) == cppast::CppNameExpr("xnet::ValidateData"));
 
   const auto structMembers = GetAllOwnedEntities(*structDefn);
   REQUIRE(structMembers.size() == 1);
@@ -60,9 +60,9 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
   const auto classAttribSeq = GetAllAttributeSpecifiers(*classDefn);
   REQUIRE(classAttribSeq.size() == 2);
 
-  cppast::CppConstStringLiteralExprEPtr classAttrib0 = classAttribSeq.at(0);
+  cppast::CppConstNameExprEPtr classAttrib0 = classAttribSeq.at(0);
   REQUIRE(classAttrib0);
-  CHECK((*classAttrib0) == cppast::CppStringLiteralExpr("xnet::HttpController"));
+  CHECK((*classAttrib0) == cppast::CppNameExpr("xnet::HttpController"));
 
   cppast::CppConstFunctionCallExprEPtr classAttrib1 = classAttribSeq.at(1);
   /* TODO: Enable this
