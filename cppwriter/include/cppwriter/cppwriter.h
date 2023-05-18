@@ -178,6 +178,8 @@ private:
 
   void emitVarDecl(std::ostream& stm, const cppast::CppVarDecl& varDecl, bool skipName) const;
 
+  void emitCallArgs(const cppast::CppCallArgs& args, std::ostream& stm) const;
+
 private:
   mutable CppIndent preproIndent_;
 

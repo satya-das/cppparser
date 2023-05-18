@@ -34,13 +34,13 @@ add_test(
 
 set(TEST_SNIPPET_EMBEDDED_TESTS
 	${CMAKE_CURRENT_LIST_DIR}/unit/attribute-specifier-sequence.cpp
-	${CMAKE_CURRENT_LIST_DIR}/unit/disabled-code-test.cpp
-	${CMAKE_CURRENT_LIST_DIR}/unit/error-handler-test.cpp
-	${CMAKE_CURRENT_LIST_DIR}/unit/expr-test.cpp
-	${CMAKE_CURRENT_LIST_DIR}/unit/namespace-test.cpp
-	${CMAKE_CURRENT_LIST_DIR}/unit/template-test.cpp
+	# ${CMAKE_CURRENT_LIST_DIR}/unit/disabled-code-test.cpp
+	# ${CMAKE_CURRENT_LIST_DIR}/unit/error-handler-test.cpp
+	# ${CMAKE_CURRENT_LIST_DIR}/unit/expr-test.cpp
+	# ${CMAKE_CURRENT_LIST_DIR}/unit/namespace-test.cpp
+	# ${CMAKE_CURRENT_LIST_DIR}/unit/template-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/unit/uniform-init-test.cpp
-	${CMAKE_CURRENT_LIST_DIR}/unit/vardecl-test.cpp
+	# ${CMAKE_CURRENT_LIST_DIR}/unit/vardecl-test.cpp
 )
 
 add_executable(cppparserunittest

@@ -1834,7 +1834,7 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                         ZZLOG;
                       }
                     ]                                 [ZZLOG;] { $$ = NameExpr($1);          }
-                  | exprlist                          [ZZLOG;] { $$ = InitializerListExpr($1);        }
+                  | '{' exprlist '}'                  [ZZLOG;] { $$ = InitializerListExpr($2);        }
                   | '+' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_PLUS, $2);          }
                   | '-' expr %prec UNARYMINUS         [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_MINUS, $2);                  }
                   | '~' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::BIT_TOGGLE, $2);                   }
@@ -1909,12 +1909,12 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                   | expr '.' '~' funcname                                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, mergeCppToken($3, $4));                     }
                   | expr tknArrow '~' funcname                            [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, mergeCppToken($3, $4));      }
                   | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARRAY_INDEX, $1, $3);               }
-                  /*| expr '[' ']' %prec SUBSCRIPT                          [ZZLOG;] { $$ = BinomialExpr($1, kArrayElem);                   }*/
-                  | expr '(' optexprlist ')' %prec FUNCCALL                  [ZZLOG;] { $$ = FuncCallExpr($1, $3);            }
-                  | funcname '(' optexprlist ')' %prec FUNCCALL              [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
+                  /*| expr '[' ']' %prec SUBSCRIPT                        [ZZLOG;] { $$ = BinomialExpr($1, kArrayElem);                   }*/
+                  | expr '(' optexprlist ')' %prec FUNCCALL               [ZZLOG;] { $$ = FuncCallExpr($1, $3);            }
+                  | funcname '(' optexprlist ')' %prec FUNCCALL           [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
                   | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, FuncCallExpr(NameExpr(mergeCppToken($3, $4)))); }
                   | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = TrinomialExpr(cppast::CppTernaryOperator::CONDITIONAL, $1, $3, $5);                       }
-                  | identifier '{' optexprlist '}' %prec FUNCCALL            [ZZLOG;] { $$ = UniformInitExpr($1, $3);            }
+                  | identifier '{' optexprlist '}' %prec FUNCCALL         [ZZLOG;] { $$ = UniformInitExpr($1, $3);            }
                   | '(' vartype ')' expr %prec CSTYLECAST                 [ZZLOG;] { $$ = CStyleCastExpr($2, $4);              }
                   | tknConstCast tknLT vartype tknGT '(' expr ')'         [ZZLOG;] { $$ = ConstCastExpr($3, $6);               }
                   | tknStaticCast tknLT vartype tknGT '(' expr ')'        [ZZLOG;] { $$ = StaticCastExpr($3, $6);              }

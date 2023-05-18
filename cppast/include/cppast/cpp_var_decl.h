@@ -31,7 +31,7 @@ enum class CppConstructorCallStyle : bool
 
 struct CppConstructorCallInfo
 {
-  CppCallArgs             params;
+  CppCallArgs             args;
   CppConstructorCallStyle style;
 };
 
@@ -104,6 +104,11 @@ public:
   CppConstructorCallStyle directConstructorCallStyle() const
   {
     return std::get<CppConstructorCallInfo>(initInfo_.value()).style;
+  }
+
+  const CppCallArgs& constructorCallArgs() const
+  {
+    return std::get<CppConstructorCallInfo>(initInfo_.value()).args;
   }
 
   const CppExpression* bitField() const

@@ -57,6 +57,12 @@ enum class CppAtomicExpressionType
   LAMBDA,
 };
 
+/**
+ * @brief Atomic expression is an expression that involves no operator.
+ *
+ * Expressions like string literal or number literals are atomic expressions.
+ * @see CppAtomicExpressionType.
+ */
 class CppAtomicExpression : public CppExpression
 {
 public:
@@ -119,6 +125,11 @@ class CppStringLiteralExpr : public CppCommonAtomicExpressionImplBase<CppAtomicE
 {
 public:
   using CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::STRING_LITERAL>::CppCommonAtomicExpressionImplBase;
+
+  friend bool operator==(const CppStringLiteralExpr& lhs, const CppStringLiteralExpr& rhs)
+  {
+    return lhs.value() == rhs.value();
+  }
 };
 
 class CppCharLiteralExpr : public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::CHAR_LITERAL>

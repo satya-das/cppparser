@@ -59,7 +59,7 @@ cleanup:
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 4);
 
-  cppast::CppConstExprEPtr gotoStmt = members[1];
+  cppast::CppConstExpressionEPtr gotoStmt = members[1];
   REQUIRE(gotoStmt);
   CHECK(gotoStmt->flags_ == cppast::CppExpression::kGoto);
 
@@ -83,7 +83,7 @@ TEST_CASE_METHOD(ExpressionTest, "a == b ? c : d")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExprEPtr topLevelOp = members[1];
+  cppast::CppConstExpressionEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
   CHECK(topLevelOp->oper_ == cppast::CppOperator::kTertiaryOperator);
 
@@ -107,7 +107,7 @@ TEST_CASE_METHOD(ExpressionTest, "a * b < c")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExprEPtr topLevelOp = members[1];
+  cppast::CppConstExpressionEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
   CHECK(topLevelOp->oper_ == cppast::CppOperator::kLess);
 
@@ -131,7 +131,7 @@ TEST_CASE_METHOD(ExpressionTest, "a * b > c")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExprEPtr topLevelOp = members[1];
+  cppast::CppConstExpressionEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
   CHECK(topLevelOp->oper_ == cppast::CppOperator::kGreater);
 
@@ -155,7 +155,7 @@ TEST_CASE_METHOD(ExpressionTest, "a * b + c")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExprEPtr topLevelOp = members[1];
+  cppast::CppConstExpressionEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
   CHECK(topLevelOp->oper_ == cppast::CppOperator::kPlus);
 
@@ -179,7 +179,7 @@ TEST_CASE_METHOD(ExpressionTest, "a + b * c")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExprEPtr topLevelOp = members[1];
+  cppast::CppConstExpressionEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
   CHECK(topLevelOp->oper_ == cppast::CppOperator::kPlus);
 
@@ -203,6 +203,6 @@ TEST_CASE_METHOD(ExpressionTest, "b = x > y")
 
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 3);
-  cppast::CppConstExprEPtr expr = members[1];
+  cppast::CppConstExpressionEPtr expr = members[1];
   REQUIRE(expr);
 }

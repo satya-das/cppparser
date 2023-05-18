@@ -1,7 +1,7 @@
 #include <catch/catch.hpp>
 
+#include "cppast/cppast.h"
 #include "cppparser/cppparser.h"
-
 #include "embedded-snippet-test-base.h"
 
 class UniformInitTest : public EmbeddedSnippetTestBase
@@ -30,7 +30,6 @@ TEST_CASE_METHOD(UniformInitTest, "uniform init test")
   cppast::CppConstVarEPtr var = members[0];
   REQUIRE(var);
 
-  cppast::CppConstExprEPtr assignExpr = var->assignValue();
+  cppast::CppConstUniformInitializerExprEPtr assignExpr = var->assignValue();
   REQUIRE(assignExpr);
-  CHECK(assignExpr->oper_ == cppast::CppOperator::kUniformInitCall);
 }

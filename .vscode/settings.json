@@ -70,7 +70,9 @@
     "strstream": "cpp",
     "cfenv": "cpp",
     "complex": "cpp",
-    "typeindex": "cpp"
+    "typeindex": "cpp",
+    "csignal": "cpp",
+    "*.ipp": "cpp"
   },
   "git.ignoreLimitWarning": true
 }

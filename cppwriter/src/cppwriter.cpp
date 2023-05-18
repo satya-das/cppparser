@@ -260,6 +260,17 @@ void CppWriter::emitVar(const cppast::CppVar& varObj, std::ostream& stm, CppInde
   emitVar(varObj, stm, indentation, false);
 }
 
+void CppWriter::emitCallArgs(const cppast::CppCallArgs& args, std::ostream& stm) const
+{
+  const char* sep = "";
+  for (size_t i = 0; i < args.size(); ++i)
+  {
+    stm << sep;
+    emitExpr(*args[i], stm);
+    sep = ", ";
+  }
+}
+
 void CppWriter::emitVarDecl(std::ostream& stm, const cppast::CppVarDecl& varDecl, bool skipName) const
 {
   if (!skipName && !varDecl.name().empty())
@@ -271,24 +282,20 @@ void CppWriter::emitVarDecl(std::ostream& stm, const cppast::CppVarDecl& varDecl
       emitExpr(*arrSize, stm);
     stm << ']';
   }
-  if (varDecl.assignType() == cppast::CppVarInitializeType::USING_EQUAL)
+
+  if (!varDecl.isInitialized())
+    return;
+
+  if (varDecl.initializeType() == cppast::CppVarInitializeType::USING_EQUAL)
   {
     stm << " = ";
     emit(*varDecl.assignValue(), stm, CppIndent(), true);
   }
-  else if (varDecl.assignType() == cppast::CppVarInitializeType::USING_PARENTHESES)
+  else if (varDecl.initializeType() == cppast::CppVarInitializeType::DIRECT_CONSTRUCTOR_CALL)
   {
-    stm << '(';
-    if (varDecl.assignValue())
-      emit(*varDecl.assignValue(), stm, CppIndent(), true);
-    stm << ')';
-  }
-  else if (varDecl.assignType() == cppast::CppVarInitializeType::USING_BRACES)
-  {
-    stm << '{';
-    if (varDecl.assignValue())
-      emit(*varDecl.assignValue(), stm, CppIndent(), true);
-    stm << '}';
+    stm << (varDecl.directConstructorCallStyle() == cppast::CppConstructorCallStyle::USING_BRACES) ? '{' : '(';
+    emitCallArgs(varDecl.constructorCallArgs(), stm);
+    stm << (varDecl.directConstructorCallStyle() == cppast::CppConstructorCallStyle::USING_BRACES) ? '}' : ')';
   }
 }
 
@@ -697,12 +704,11 @@ void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,
       for (const auto& memInit : ctorObj.memberInits().memInitList)
       {
         stm << '\n';
-        stm << indentation << sep << ' ' << memInit.memberName << '(';
-        if (memInit.memberInitExpr)
-        {
-          emitExpr(*memInit.memberInitExpr, stm);
-        }
-        stm << ')';
+        stm << indentation << sep << ' ' << memInit.memberName;
+        const auto& memberInitInfo = memInit.memberInitInfo;
+        stm << (memberInitInfo.style == cppast::CppConstructorCallStyle::USING_BRACES) ? '{' : '(';
+        emitCallArgs(memberInitInfo.args, stm);
+        stm << (memberInitInfo.style == cppast::CppConstructorCallStyle::USING_BRACES) ? '}' : ')';
         sep = ',';
       }
     }

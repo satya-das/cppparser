@@ -26,6 +26,7 @@ public:
   {
   }
 
+  /* TODO: Remove custom cast functions, we can use dynamic_cast and it is simple.
   template <typename = std::enable_if_t<!std::is_const_v<T>>>
   CppEntityPtr(CppEntity* entityPtr)
     : ptr_(cpp_entity_cast<T*>(entityPtr))
@@ -37,7 +38,18 @@ public:
     : ptr_(cpp_entity_cast<T*>(entityPtr))
   {
   }
+  /*/
+  CppEntityPtr(CppEntity* entityPtr)
+    : ptr_(dynamic_cast<T*>(entityPtr))
+  {
+  }
 
+  template <typename = std::enable_if_t<std::is_const_v<T>>>
+  CppEntityPtr(const CppEntity* entityPtr)
+    : ptr_(dynamic_cast<T*>(entityPtr))
+  {
+  }
+  //*/
   T* operator->() const
   {
     return ptr_;
