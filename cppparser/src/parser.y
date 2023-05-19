@@ -1835,6 +1835,7 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                       }
                     ]                                 [ZZLOG;] { $$ = NameExpr($1);          }
                   | '{' exprlist '}'                  [ZZLOG;] { $$ = InitializerListExpr($2);        }
+                  | '{' exprlist ',' '}'              [ZZLOG;] { $$ = InitializerListExpr($2);        }
                   | '+' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_PLUS, $2);          }
                   | '-' expr %prec UNARYMINUS         [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_MINUS, $2);                  }
                   | '~' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::BIT_TOGGLE, $2);                   }
