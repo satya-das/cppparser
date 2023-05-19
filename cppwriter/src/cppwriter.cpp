@@ -1118,52 +1118,52 @@ void CppWriter::emitBinomialExpr(const cppast::CppBinomialExpr& expr, std::ostre
   // clang-format off
   switch (expr.oper())
   {
-  case cppast::CppBinaryOperator::PLUS:                     emitExpr(expr.term1(), stm); stm << " + "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::MINUS:                    emitExpr(expr.term1(), stm); stm << " - "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::MUL:                      emitExpr(expr.term1(), stm); stm << " * "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::DIV:                      emitExpr(expr.term1(), stm); stm << " / "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::PERCENT:                  emitExpr(expr.term1(), stm); stm << " % "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::AND:                      emitExpr(expr.term1(), stm); stm << " & "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::OR:                       emitExpr(expr.term1(), stm); stm << " | "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::XOR:                      emitExpr(expr.term1(), stm); stm << " ^ "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::ASSIGN:                   emitExpr(expr.term1(), stm); stm << " = "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::LESS:                     emitExpr(expr.term1(), stm); stm << " < "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::GREATER:                  emitExpr(expr.term1(), stm); stm << " > "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::COMMA:                    emitExpr(expr.term1(), stm); stm << " , "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::DOT:                      emitExpr(expr.term1(), stm); stm << " . "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::PLUS:                     emitExpr(expr.term1(), stm); stm << " + "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::MINUS:                    emitExpr(expr.term1(), stm); stm << " - "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::MUL:                      emitExpr(expr.term1(), stm); stm << " * "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::DIV:                      emitExpr(expr.term1(), stm); stm << " / "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::PERCENT:                  emitExpr(expr.term1(), stm); stm << " % "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::AND:                      emitExpr(expr.term1(), stm); stm << " & "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::OR:                       emitExpr(expr.term1(), stm); stm << " | "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::XOR:                      emitExpr(expr.term1(), stm); stm << " ^ "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::ASSIGN:                   emitExpr(expr.term1(), stm); stm << " = "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::LESS:                     emitExpr(expr.term1(), stm); stm << " < "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::GREATER:                  emitExpr(expr.term1(), stm); stm << " > "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::COMMA:                    emitExpr(expr.term1(), stm); stm << " , "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::DOT:                      emitExpr(expr.term1(), stm); stm << " . "; emitExpr(expr.term2(), stm); break;
 
-  case cppast::CppBinaryOperator::LOGICAL_AND:              emitExpr(expr.term1(), stm); stm << " && "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::LOGICAL_OR:               emitExpr(expr.term1(), stm); stm << " || "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::PLUS_ASSIGN:              emitExpr(expr.term1(), stm); stm << " += "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::MINUS_ASSIGN:             emitExpr(expr.term1(), stm); stm << " -= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::MUL_ASSIGN:               emitExpr(expr.term1(), stm); stm << " *= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::DIV_ASSIGN:               emitExpr(expr.term1(), stm); stm << " /= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::PERCENT_ASSIGN:           emitExpr(expr.term1(), stm); stm << " %= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::XOR_ASSIGN:               emitExpr(expr.term1(), stm); stm << " ^= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::AND_ASSIGN:               emitExpr(expr.term1(), stm); stm << " &= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::OR_ASSIGN:                emitExpr(expr.term1(), stm); stm << " |= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::LEFT_SHIFT:               emitExpr(expr.term1(), stm); stm << " << "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::INSERTION:                emitExpr(expr.term1(), stm); stm << " << "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::RIGHT_SHIFT:              emitExpr(expr.term1(), stm); stm << " >> "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::EXTRACTION:               emitExpr(expr.term1(), stm); stm << " >> "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::EQUAL:                    emitExpr(expr.term1(), stm); stm << " == "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::NOT_EQUAL:                emitExpr(expr.term1(), stm); stm << " != "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::LESS_EQUAL:               emitExpr(expr.term1(), stm); stm << " <= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::GREATER_EQUAL:            emitExpr(expr.term1(), stm); stm << " >= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::ARROW:                    emitExpr(expr.term1(), stm); stm << " -> "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::LOGICAL_AND:              emitExpr(expr.term1(), stm); stm << " && "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::LOGICAL_OR:               emitExpr(expr.term1(), stm); stm << " || "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::PLUS_ASSIGN:              emitExpr(expr.term1(), stm); stm << " += "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::MINUS_ASSIGN:             emitExpr(expr.term1(), stm); stm << " -= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::MUL_ASSIGN:               emitExpr(expr.term1(), stm); stm << " *= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::DIV_ASSIGN:               emitExpr(expr.term1(), stm); stm << " /= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::PERCENT_ASSIGN:           emitExpr(expr.term1(), stm); stm << " %= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::XOR_ASSIGN:               emitExpr(expr.term1(), stm); stm << " ^= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::AND_ASSIGN:               emitExpr(expr.term1(), stm); stm << " &= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::OR_ASSIGN:                emitExpr(expr.term1(), stm); stm << " |= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::LEFT_SHIFT:               emitExpr(expr.term1(), stm); stm << " << "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::INSERTION:                emitExpr(expr.term1(), stm); stm << " << "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::RIGHT_SHIFT:              emitExpr(expr.term1(), stm); stm << " >> "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::EXTRACTION:               emitExpr(expr.term1(), stm); stm << " >> "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::EQUAL:                    emitExpr(expr.term1(), stm); stm << " == "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::NOT_EQUAL:                emitExpr(expr.term1(), stm); stm << " != "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::LESS_EQUAL:               emitExpr(expr.term1(), stm); stm << " <= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::GREATER_EQUAL:            emitExpr(expr.term1(), stm); stm << " >= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::ARROW:                    emitExpr(expr.term1(), stm); stm << " -> "; emitExpr(expr.term2(), stm); break;
 
-  case cppast::CppBinaryOperator::LOGICAL_AND_ASSIGN:       emitExpr(expr.term1(), stm); stm << " &&= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::LOGICAL_OR_ASSIGN:        emitExpr(expr.term1(), stm); stm << " ||= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::LSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " <<= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::RSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " >>= "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::THREE_WAY_CMP:            emitExpr(expr.term1(), stm); stm << " <=> "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::ARROW_STAR:               emitExpr(expr.term1(), stm); stm << " ->* "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::ARRAY_INDEX:              emitExpr(expr.term1(), stm); stm << '['; emitExpr(expr.term2(), stm); stm << ']';
+  case cppast::CppBinaryOperator::LOGICAL_AND_ASSIGN:       emitExpr(expr.term1(), stm); stm << " &&= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::LOGICAL_OR_ASSIGN:        emitExpr(expr.term1(), stm); stm << " ||= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::LSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " <<= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::RSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " >>= "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::THREE_WAY_CMP:            emitExpr(expr.term1(), stm); stm << " <=> "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::ARROW_STAR:               emitExpr(expr.term1(), stm); stm << " ->* "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::ARRAY_INDEX:              emitExpr(expr.term1(), stm); stm << '['; emitExpr(expr.term2(), stm); stm << ']'; break;
 
-  case cppast::CppBinaryOperator::PLACEMENT_NEW:        stm << "new (";   emitExpr(expr.term1(), stm); stm << ") "; emitExpr(expr.term2(), stm);
-  case cppast::CppBinaryOperator::GLOBAL_PLACEMENT_NEW: stm << "::new ("; emitExpr(expr.term1(), stm); stm << ") "; emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::PLACEMENT_NEW:        stm << "new (";   emitExpr(expr.term1(), stm); stm << ") "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::GLOBAL_PLACEMENT_NEW: stm << "::new ("; emitExpr(expr.term1(), stm); stm << ") "; emitExpr(expr.term2(), stm); break;
 
-  case cppast::CppBinaryOperator::USER_LITERAL: emitExpr(expr.term1(), stm); emitExpr(expr.term2(), stm);
+  case cppast::CppBinaryOperator::USER_LITERAL: emitExpr(expr.term1(), stm); emitExpr(expr.term2(), stm); break;
   }
   // clang-format on
 }
