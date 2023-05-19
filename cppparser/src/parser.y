@@ -857,11 +857,11 @@ vardeclstmt       : vardecl ';'                   [ZZVALID;] { $$ = $1; }
 
 vardecllist       : optfunctype varinit ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $2->addAttr($1);
-                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5, Obj($6)}));
+                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, VarDecl($5, $6)));
                   }
                   | optfunctype vardecl ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $2->addAttr($1);
-                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5, Obj($6)}));
+                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, VarDecl($5, $6)));
                   }
                   | optfunctype vardecl ',' opttypemodifier name '[' expr ']' [ZZLOG;] {
                     $2->addAttr($1);
@@ -877,7 +877,7 @@ vardecllist       : optfunctype varinit ',' opttypemodifier name optvarassign [Z
                   }
                   | vardecllist ',' opttypemodifier name optvarassign [ZZLOG;] {
                     $$ = $1;
-                    $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4, Obj($5)}));
+                    $$->addVarDecl(CppVarDeclInList($3, VarDecl($4, $5)));
                   }
                   | vardecllist ',' opttypemodifier name optvarassign ':' expr [ZZLOG;] {
                     $$ = $1;
@@ -891,8 +891,8 @@ varinit           : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.
                   | vardecl '(' typeidentifier '*' '&' name  [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
                   | vardecl '(' typeidentifier '&' name      [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
                   | vardecl '(' typeidentifier tknAnd name   [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl '(' typeidentifier ')'         [gParamModPos = $3.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl '(' ')'                        [ZZERROR;]                       { /*FuncDeclHack*/ $$ = nullptr; }
+                  | vardecl '(' typeidentifier ')'           [gParamModPos = $3.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+                  | vardecl '(' ')'                          [ZZERROR;]                       { /*FuncDeclHack*/ $$ = nullptr; }
                   | vardecl varassign           [ZZLOG;] {
                     $$ = $1;
                     $$->initialize(Obj($2));
@@ -904,13 +904,13 @@ varinit           : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.
                   ;
 
 varassign         : '=' expr            [ZZLOG;] {
-                    $$ = new cppast::CppVarInitInfo(Ptr($2));
+                    $$ = VarInitInfo($2);
                   }
                   | '(' optexprlist ')'  [ZZLOG;] {
-                    $$ = new cppast::CppVarInitInfo(CppConstructorCallInfo{Obj($2), CppConstructorCallStyle::USING_PARENTHESES});
+                    $$ = VarInitInfo($2, CppConstructorCallStyle::USING_PARENTHESES);
                   }
                   | '{' optexprlist '}'    [ZZLOG;] {
-                    $$ = new cppast::CppVarInitInfo(CppConstructorCallInfo{Obj($2), CppConstructorCallStyle::USING_BRACES});
+                    $$ = VarInitInfo($2, CppConstructorCallStyle::USING_BRACES);
                   }
                   ;
 

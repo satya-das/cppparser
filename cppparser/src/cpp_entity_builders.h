@@ -1,3 +1,6 @@
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
+
 #ifndef E7E01B9C_F9F8_41CC_947E_80D6A1262373
 #define E7E01B9C_F9F8_41CC_947E_80D6A1262373
 
@@ -139,6 +142,21 @@ inline auto NewExpr(const cppast::CppVarType* vartype)
 inline auto LambdaExpression(const cppast::CppLambda* lambda)
 {
   return new cppast::CppLambdaExpr(Ptr(lambda));
+}
+
+inline auto VarDecl(std::string name, cppast::CppVarInitInfo* initInfo)
+{
+  return initInfo ? cppast::CppVarDecl(name, Obj(initInfo)) : cppast::CppVarDecl(name);
+}
+
+inline auto VarInitInfo(const cppast::CppExpression* expr)
+{
+  return new cppast::CppVarInitInfo(Ptr(expr));
+}
+
+inline auto VarInitInfo(cppast::CppCallArgs* args, cppast::CppConstructorCallStyle style)
+{
+  return new cppast::CppVarInitInfo(cppast::CppConstructorCallInfo {args ? Obj(args) : cppast::CppCallArgs(), style});
 }
 
 #endif /* E7E01B9C_F9F8_41CC_947E_80D6A1262373 */

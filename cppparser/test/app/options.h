@@ -116,7 +116,7 @@ public:
 
   std::string extractSingleFilePath() const
   {
-    return vm_["parse-single-file"].as<std::string>();
+    return vm_["parse-file"].as<std::string>();
   }
 
   void emitError() const
