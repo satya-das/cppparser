@@ -693,24 +693,15 @@ void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,
   {
     char sep = ':';
     ++indentation;
-    if (ctorObj.memberInits().blob)
+    for (const auto& memInit : ctorObj.memberInits())
     {
       stm << '\n';
-      stm << indentation << sep << ' ';
-      emitBlob(*ctorObj.memberInits().blob, stm, true, indentation.resetted());
-    }
-    else
-    {
-      for (const auto& memInit : ctorObj.memberInits().memInitList)
-      {
-        stm << '\n';
-        stm << indentation << sep << ' ' << memInit.memberName;
-        const auto& memberInitInfo = memInit.memberInitInfo;
-        stm << (memberInitInfo.style == cppast::CppConstructorCallStyle::USING_BRACES) ? '{' : '(';
-        emitCallArgs(memberInitInfo.args, stm);
-        stm << (memberInitInfo.style == cppast::CppConstructorCallStyle::USING_BRACES) ? '}' : ')';
-        sep = ',';
-      }
+      stm << indentation << sep << ' ' << memInit.memberName;
+      const auto& memberInitInfo = memInit.memberInitInfo;
+      stm << ((memberInitInfo.style == cppast::CppConstructorCallStyle::USING_BRACES) ? '{' : '(');
+      emitCallArgs(memberInitInfo.args, stm);
+      stm << ((memberInitInfo.style == cppast::CppConstructorCallStyle::USING_BRACES) ? '}' : ')');
+      sep = ',';
     }
     --indentation;
   }

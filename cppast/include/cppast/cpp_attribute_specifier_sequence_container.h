@@ -13,7 +13,7 @@ namespace cppast {
 
 class CppExpression;
 
-using CppAttributeSpecifierSequence = std::vector<std::unique_ptr<CppExpression>>;
+using CppAttributeSpecifierSequence = std::vector<std::unique_ptr<const CppExpression>>;
 
 /**
  * @brief A mixin class to allow objects to have attribute specifier sequence

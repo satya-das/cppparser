@@ -41,10 +41,7 @@ public:
   }
 
 protected:
-  CppFuncLikeBase(CppEntityType type)
-    : CppEntity(type)
-  {
-  }
+  using CppEntity::CppEntity;
 
 private:
   std::unique_ptr<CppCompound> defn_; // If it is nullptr then this object is just for declaration.
@@ -281,15 +278,8 @@ struct CppMemberInit
 
 /**
  * Entire member initialization list.
- *
- * @note only one field is used at a time.
  */
-struct CppMemberInits
-{
-  std::list<CppMemberInit> memInitList;
-  /// If not null then the entire member initialization part of constructor is just a blob of code.
-  std::unique_ptr<CppBlob> blob;
-};
+using CppMemberInits = std::list<CppMemberInit>;
 
 class CppConstructor : public CppFuncCtorBase
 {
@@ -299,17 +289,15 @@ public:
     return CppEntityType::CONSTRUCTOR;
   }
 
-public:
   CppConstructor(std::string                             name,
                  std::vector<std::unique_ptr<CppEntity>> params,
                  CppMemberInits                          memInitList,
                  std::uint32_t                           attr);
   ~CppConstructor() override;
 
-public:
   bool hasMemberInitList() const
   {
-    return !memInits_.memInitList.empty() || memInits_.blob.get();
+    return memInits_.has_value();
   }
 
   void memberInits(CppMemberInits memInits)
@@ -319,11 +307,11 @@ public:
 
   const CppMemberInits& memberInits() const
   {
-    return memInits_;
+    return memInits_.value();
   }
 
 private:
-  CppMemberInits memInits_;
+  std::optional<CppMemberInits> memInits_;
 };
 
 class CppDestructor : public CppFunctionBase

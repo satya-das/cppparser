@@ -150,7 +150,7 @@ using namespace cppast;
 %union {
   struct CppToken                                  str;
   struct CppFunctionData                           funcDeclData;
-  struct CppMemberInitData*                        memInit;
+  cppast::CppMemberInit*                           memInit;
   cppast::CppEntity*                               cppEntity;
   cppast::CppEntityAccessSpecifier*                accessSpecifier;
   cppast::CppTypeModifier                          typeModifier;
@@ -193,8 +193,8 @@ using namespace cppast;
   cppast::CppRefType                               refType;
   unsigned int                                     attr;
   Optional<cppast::CppAccessType>                  objAccessType;
-  cppast::CppExpression*                                 attribSpecifier;
-  std::vector<std::unique_ptr<cppast::CppExpression>>*   attribSpecifiers;
+  cppast::CppExpression*                           attribSpecifier;
+  cppast::CppCallArgs*                             attribSpecifiers;
   cppast::CppIfBlock*                              ifBlock;
   cppast::CppWhileBlock*                           whileBlock;
   cppast::CppDoWhileBlock*                         doWhileBlock;
@@ -1485,19 +1485,21 @@ meminitlist       :                          [ZZLOG;] {
                   }
                   | ':' meminit              [ZZLOG;] {
                     $$ = new cppast::CppMemberInits;
-                    $$->memInitList.push_back(cppast::CppMemberInit{$2->mem, std::move($2->initInfo)});
+                    $$->push_back(Obj($2));
                   }
-                  | ':' blob                 [ZZLOG;] { $$ = new CppMemberInits{{}, Ptr($2)}; }
+                  /* | ':' blob                 [ZZLOG;] { $$ = new CppMemberInits{{}, Ptr($2)}; } */
                   | meminitlist ',' meminit  [ZZLOG;] {
                     $$ = $1;
-                    $$->memInitList.push_back(cppast::CppMemberInit{$3->mem, std::move($3->initInfo)});
+                    $$->push_back(Obj($3));
                   }
                   ;
 
-meminit           : identifier '(' exprlist ')'    [ZZLOG;] { $$ = new CppMemberInitData{$1, Obj($3), cppast::CppConstructorCallStyle::USING_PARENTHESES}; }
-                  | identifier '(' ')'             [ZZLOG;] { $$ = new CppMemberInitData{$1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_PARENTHESES}; }
-                  | identifier '{' exprlist '}'    [ZZLOG;] { $$ = new CppMemberInitData{$1, Obj($3), cppast::CppConstructorCallStyle::USING_BRACES}; }
-                  | identifier '{' '}'             [ZZLOG;] { $$ = new CppMemberInitData{$1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_BRACES}; }
+meminit           : identifier '(' exprlist ')'    [ZZLOG;] { $$ = MemberInit($1, Obj($3), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
+                  | identifier '(' ')'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
+                  | identifier '{' exprlist '}'    [ZZLOG;] { $$ = MemberInit($1, Obj($3), cppast::CppConstructorCallStyle::USING_BRACES); }
+                  | identifier '{' '}'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_BRACES); }
+                  | identifier '{' expr '}'        [ZZLOG;] { $$ = MemberInit($1, $3, cppast::CppConstructorCallStyle::USING_BRACES); }
+                  | identifier '(' expr ')'        [ZZLOG;] { $$ = MemberInit($1, $3, cppast::CppConstructorCallStyle::USING_PARENTHESES); }
                   ;
 
 dtordeclstmt      : dtordecl ';'    [ZZVALID;]     { $$ = $1; }

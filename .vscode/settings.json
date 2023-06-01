@@ -74,5 +74,6 @@
     "csignal": "cpp",
     "*.ipp": "cpp"
   },
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "sonarlint.pathToCompileCommands": "${workspaceFolder}/build/compile_commands.json"
 }

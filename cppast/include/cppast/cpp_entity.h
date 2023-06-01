@@ -57,7 +57,7 @@ public:
   }
 
 protected:
-  CppEntity(CppEntityType type)
+  explicit CppEntity(CppEntityType type)
     : entityType_(type)
   {
   }

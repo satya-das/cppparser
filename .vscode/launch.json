@@ -11,7 +11,7 @@
       "program": "${workspaceFolder}/build/cppparser/test/cppparsertest",
       // "args": [
       //   "-p",
-      //   "/home/dassat/github/cppparser/test/e2e/test_input/wxWidgets/include/wx/generic/private/grid.h"
+      //   "/home/dassat/github/cppparser/cppparser/test/e2e/test_input/ObjectArxHeaders/AcFdUtil.h"
       // ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build/cppparser/test/",
@@ -38,7 +38,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/build/cppparser/test/cppparserunittest",
       "args": [
-        // "vardecl-or-expr-ambiguity"
+        "Attribute specifier sequence"
       ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build/cppparser/test/",

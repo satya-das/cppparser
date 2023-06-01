@@ -13,13 +13,6 @@
 
 struct CppExpression;
 
-/* Non-terminal for member initializer */
-struct CppMemberInitData
-{
-  CppToken                       mem;
-  cppast::CppConstructorCallInfo initInfo;
-};
-
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 class CppEntity;
@@ -157,6 +150,20 @@ inline auto VarInitInfo(const cppast::CppExpression* expr)
 inline auto VarInitInfo(cppast::CppCallArgs* args, cppast::CppConstructorCallStyle style)
 {
   return new cppast::CppVarInitInfo(cppast::CppConstructorCallInfo {args ? Obj(args) : cppast::CppCallArgs(), style});
+}
+
+inline auto MemberInit(std::string memberName, const cppast::CppExpression* arg, cppast::CppConstructorCallStyle style)
+{
+  cppast::CppCallArgs args;
+  if (arg)
+    args.emplace_back(arg);
+  return new cppast::CppMemberInit {std::move(memberName), cppast::CppConstructorCallInfo {std::move(args), style}};
+}
+
+inline auto MemberInit(std::string memberName, cppast::CppCallArgs* args, cppast::CppConstructorCallStyle style)
+{
+  return new cppast::CppMemberInit {std::move(memberName),
+                                    cppast::CppConstructorCallInfo {args ? Obj(args) : cppast::CppCallArgs(), style}};
 }
 
 #endif /* E7E01B9C_F9F8_41CC_947E_80D6A1262373 */
