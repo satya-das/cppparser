@@ -5,6 +5,7 @@
 #define C5550546_B6DB_4E84_BDAF_2F464ECB56A2
 
 #include "cppast/cpp_entity.h"
+#include <string>
 
 namespace cppast {
 

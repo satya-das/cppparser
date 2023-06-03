@@ -11,6 +11,8 @@
 #include "cppast/cpp_typecast_type.h"
 #include "cppast/cpp_var_type.h"
 
+#include <string>
+
 namespace cppast {
 
 class CppExpression;

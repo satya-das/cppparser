@@ -44,9 +44,8 @@ public:
   {
   }
 
-  template <typename = std::enable_if_t<std::is_const_v<T>>>
   CppEntityPtr(const CppEntity* entityPtr)
-    : ptr_(dynamic_cast<T*>(entityPtr))
+    : ptr_(std::is_const_v<T> ? dynamic_cast<T*>(entityPtr) : nullptr)
   {
   }
   //*/
