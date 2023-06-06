@@ -22,6 +22,8 @@ build/
 builds/
 [Bb]in/
 [Oo]bj/
+cmake-build-*/
+.idea/
 
 # Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
 !packages/*/build/
