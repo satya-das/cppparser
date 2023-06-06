@@ -210,3 +210,33 @@ if(NOT ${MARKDOWN_PP} MATCHES "MARKDOWN_PP-NOTFOUND")
 else()
   message("Markdown-pp NOT FOUND: README cannot be updated.")
 endif()
+
+
+###################################################
+# Doxygen
+find_package(Doxygen)
+
+if(DOXYGEN_FOUND)
+	set(PLANTUML_DIR_HINTS /usr/share/java/plantuml;/usr/share/java)
+	include(cmake/FindPlantUML.cmake)
+	include(cmake/FindDot.cmake)
+
+	set(doxyfile_in Doxyfile.in)
+	set(doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+	set(DOXY_INPUTS_
+			${CMAKE_CURRENT_SOURCE_DIR}/pub
+			${CMAKE_CURRENT_SOURCE_DIR}/src
+			${CMAKE_CURRENT_SOURCE_DIR}/test
+			#${CMAKE_CURRENT_SOURCE_DIR}/third_party
+	)
+	string(REPLACE ";" " \\\n" DOXY_INPUTS "${DOXY_INPUTS_}")
+	message("1: ${DOXY_INPUTS_}")
+	message("2: ${DOXY_INPUTS}")
+	configure_file(${doxyfile_in} ${doxyfile} @ONLY)
+
+	add_custom_target(doc
+			COMMAND ${DOXYGEN_EXECUTABLE} ${doxyfile}
+			WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+			COMMENT "Generating API documentation with Doxygen"
+			VERBATIM)
+endif()
