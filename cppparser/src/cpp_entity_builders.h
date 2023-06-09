@@ -84,7 +84,7 @@ inline auto FuncCallExpr(cppast::CppExpression* func, cppast::CppCallArgs* args)
 
 inline auto UniformInitExpr(std::string name, cppast::CppCallArgs* args)
 {
-  return new cppast::CppUniformInitializerExpr(std::move(name), Obj(args));
+  return new cppast::CppUniformInitializerExpr(std::move(name), args ? Obj(args) : cppast::CppCallArgs());
 }
 
 inline auto InitializerListExpr(cppast::CppCallArgs* exprList)
@@ -164,6 +164,12 @@ inline auto MemberInit(std::string memberName, cppast::CppCallArgs* args, cppast
 {
   return new cppast::CppMemberInit {std::move(memberName),
                                     cppast::CppConstructorCallInfo {args ? Obj(args) : cppast::CppCallArgs(), style}};
+}
+
+inline auto MemberInit(std::string memberName, cppast::CppConstructorCallStyle style)
+{
+  return new cppast::CppMemberInit {std::move(memberName),
+                                    cppast::CppConstructorCallInfo {cppast::CppCallArgs(), style}};
 }
 
 #endif /* E7E01B9C_F9F8_41CC_947E_80D6A1262373 */

@@ -1603,13 +1603,13 @@ attribspecifier   : '[' '[' expr ']' ']' {
                   ;
 
 optattribspecifiers : {
-                    $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
+                    $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
                   }
                   | attribspecifiers { $$ = $1; }
                   ;
 
 attribspecifiers  : attribspecifier {
-                    $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
+                    $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
                     $$->push_back(Ptr($1));
                   }
                   | attribspecifiers attribspecifier {
