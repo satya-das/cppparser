@@ -6,9 +6,9 @@ name: Doxygen Action
 # events but only for the master branch
 on:
   push:
-    branches: [ main ]
+    branches: [ my-master ]
   pull_request:
-    branches: [ main ]
+    branches: [ my-master ]
 
 
   
