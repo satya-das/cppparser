@@ -14,7 +14,8 @@ parser.lex.cpp
 parser.tab.*
 
 # Build results
-
+cmake-build-*
+.idea
 [Dd]ebug/
 [Rr]elease/
 x64/
