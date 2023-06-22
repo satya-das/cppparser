@@ -57,21 +57,40 @@ add_custom_command(
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.tab.h
 )
 
-set(CPPPARSER_SOURCES
-	src/cppparser.cpp
-	src/cppast.cpp
-	src/cppprog.cpp
-	src/cppwriter.cpp
-	src/cppobjfactory.cpp
-	src/lexer-helper.cpp
-	src/parser.l
-	src/parser.y
-	src/parser.lex.cpp
-	src/parser.tab.cpp
-	src/utils.cpp
+add_library(cppparser STATIC "")
+
+target_sources(cppparser
+		PUBLIC
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppast.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppcompound-info-accessor.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppconst.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppeasyptr.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppfunc-info-accessor.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppindent.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppobj-info-accessor.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppobjfactory.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppparser.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppprog.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cpptypetree.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cpputil.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppvar-info-accessor.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/cppwriter.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/string-utils.h
+			${CMAKE_CURRENT_LIST_DIR}/pub/typemodifier.h
+		PRIVATE
+			${CMAKE_CURRENT_LIST_DIR}/src/cppparser.cpp
+			${CMAKE_CURRENT_LIST_DIR}/src/cppast.cpp
+			${CMAKE_CURRENT_LIST_DIR}/src/cppprog.cpp
+			${CMAKE_CURRENT_LIST_DIR}/src/cppwriter.cpp
+			${CMAKE_CURRENT_LIST_DIR}/src/cppobjfactory.cpp
+			${CMAKE_CURRENT_LIST_DIR}/src/lexer-helper.cpp
+			${CMAKE_CURRENT_LIST_DIR}/src/parser.l
+			${CMAKE_CURRENT_LIST_DIR}/src/parser.y
+			${CMAKE_CURRENT_LIST_DIR}/src/parser.lex.cpp
+			${CMAKE_CURRENT_LIST_DIR}/src/parser.tab.cpp
+			${CMAKE_CURRENT_LIST_DIR}/src/utils.cpp
 )
 
-add_library(cppparser STATIC ${CPPPARSER_SOURCES})
 add_dependencies(cppparser btyacc boost_filesystem boost_program_options)
 target_link_libraries(cppparser
 	PUBLIC
