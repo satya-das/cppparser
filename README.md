@@ -85,7 +85,6 @@ TEST_CASE("Parsing hello world program")
 ### Get the source
 
 ```sh
-git clone https://github.com/satya-das/common.git
 git clone https://github.com/satya-das/CppParser.git
 ```
 
