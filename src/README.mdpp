@@ -39,7 +39,6 @@ Below is the program written as unit-test for validating the correctness of gene
 ### Get the source
 
 ```sh
-git clone https://github.com/satya-das/common.git
 git clone https://github.com/satya-das/CppParser.git
 ```
 

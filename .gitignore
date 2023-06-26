@@ -11,10 +11,14 @@ y.output
 
 # Lex and yacc generated files
 parser.lex.cpp
-parser.tab.*
+parser.tab.h
+parser.tab.cpp
+
+src/catch
 
 # Build results
-
+cmake-build-*
+.idea
 [Dd]ebug/
 [Rr]elease/
 x64/

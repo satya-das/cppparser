@@ -1,5 +1,3 @@
-include("../../../common/cmake/conf.cmake")
-
 project(btyacc)
 
 if(${CMAKE_CXX_COMPILER_ID} STREQUAL "MSVC")

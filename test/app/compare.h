@@ -25,6 +25,9 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include <iostream>
 #include <sstream>
+#include<fstream>
+#include<string>
+#include<iterator>
 
 #include <boost/filesystem.hpp>
 #include <boost/program_options.hpp>
