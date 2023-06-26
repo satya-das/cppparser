@@ -13,6 +13,8 @@ y.output
 parser.lex.cpp
 parser.tab.*
 
+src/catch
+
 # Build results
 cmake-build-*
 .idea
