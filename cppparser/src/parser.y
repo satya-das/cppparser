@@ -1905,10 +1905,10 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                       }
                     ]                                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::AND, $1, $3);                     }
                   | expr tknOr expr                                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::OR, $1, $3);                      }
-                  | expr '.' funcname                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, $3);                     }
-                  | expr '.' '*' funcname                                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, mergeCppToken($3, $4));                     }
-                  | expr tknArrow funcname                                [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, $3);      }
-                  | expr tknArrowStar funcname                            [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW_STAR, $1, $3);  }
+                  | expr '.' expr                                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, $3);                     }
+                  | expr '.' '*' expr                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, MonomialExpr(cppast::CppUnaryOperator::DEREFER, $4));                     }
+                  | expr tknArrow expr                                    [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, $3);      }
+                  | expr tknArrowStar expr                                [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW_STAR, $1, $3);  }
                   | expr '.' '~' funcname                                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, mergeCppToken($3, $4));                     }
                   | expr tknArrow '~' funcname                            [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, mergeCppToken($3, $4));      }
                   | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARRAY_INDEX, $1, $3);               }
