@@ -11,10 +11,6 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-struct CppExpression;
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-
 class CppEntity;
 
 struct CppFunctionData
@@ -152,18 +148,19 @@ inline auto VarInitInfo(cppast::CppCallArgs* args, cppast::CppConstructorCallSty
   return new cppast::CppVarInitInfo(cppast::CppConstructorCallInfo {args ? Obj(args) : cppast::CppCallArgs(), style});
 }
 
-inline auto MemberInit(std::string memberName, const cppast::CppExpression* arg, cppast::CppConstructorCallStyle style)
+inline auto MemberInit(std::string                                  memberName,
+                       std::unique_ptr<const cppast::CppExpression> arg,
+                       cppast::CppConstructorCallStyle              style)
 {
   cppast::CppCallArgs args;
   if (arg)
-    args.emplace_back(arg);
+    args.emplace_back(arg.release());
   return new cppast::CppMemberInit {std::move(memberName), cppast::CppConstructorCallInfo {std::move(args), style}};
 }
 
-inline auto MemberInit(std::string memberName, cppast::CppCallArgs* args, cppast::CppConstructorCallStyle style)
+inline auto MemberInit(std::string memberName, cppast::CppCallArgs args, cppast::CppConstructorCallStyle style)
 {
-  return new cppast::CppMemberInit {std::move(memberName),
-                                    cppast::CppConstructorCallInfo {args ? Obj(args) : cppast::CppCallArgs(), style}};
+  return new cppast::CppMemberInit {std::move(memberName), cppast::CppConstructorCallInfo {std::move(args), style}};
 }
 
 inline auto MemberInit(std::string memberName, cppast::CppConstructorCallStyle style)

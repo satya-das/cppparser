@@ -1,3 +1,6 @@
+// Copyright (C) 2022 Satya Das and CppParser contributors
+// SPDX-License-Identifier: MIT
+
 #ifndef B1A7BAF0_1D5C_4F41_9DF8_07895208C0BC
 #define B1A7BAF0_1D5C_4F41_9DF8_07895208C0BC
 

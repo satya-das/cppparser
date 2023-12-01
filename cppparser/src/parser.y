@@ -1498,8 +1498,8 @@ meminit           : identifier '(' exprlist ')'    [ZZLOG;] { $$ = MemberInit($1
                   | identifier '(' ')'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
                   | identifier '{' exprlist '}'    [ZZLOG;] { $$ = MemberInit($1, Obj($3), cppast::CppConstructorCallStyle::USING_BRACES); }
                   | identifier '{' '}'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_BRACES); }
-                  | identifier '{' expr '}'        [ZZLOG;] { $$ = MemberInit($1, $3, cppast::CppConstructorCallStyle::USING_BRACES); }
-                  | identifier '(' expr ')'        [ZZLOG;] { $$ = MemberInit($1, $3, cppast::CppConstructorCallStyle::USING_PARENTHESES); }
+                  | identifier '{' expr '}'        [ZZLOG;] { $$ = MemberInit($1, Ptr($3), cppast::CppConstructorCallStyle::USING_BRACES); }
+                  | identifier '(' expr ')'        [ZZLOG;] { $$ = MemberInit($1, Ptr($3), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
                   ;
 
 dtordeclstmt      : dtordecl ';'    [ZZVALID;]     { $$ = $1; }
