@@ -15,9 +15,9 @@ class CppEntity;
 
 struct CppFunctionData
 {
-  CppToken                                         funcName;
-  std::vector<std::unique_ptr<cppast::CppEntity>>* paramList;
-  unsigned int                                     funcAttr;
+  CppToken                                               funcName;
+  std::vector<std::unique_ptr<const cppast::CppEntity>>* paramList;
+  unsigned int                                           funcAttr;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

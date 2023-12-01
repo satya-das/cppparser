@@ -5,10 +5,10 @@
 
 namespace cppast {
 
-CppConstructor::CppConstructor(std::string                             name,
-                               std::vector<std::unique_ptr<CppEntity>> params,
-                               CppMemberInits                          memInitList,
-                               std::uint32_t                           attr)
+CppConstructor::CppConstructor(std::string                                   name,
+                               std::vector<std::unique_ptr<const CppEntity>> params,
+                               CppMemberInits                                memInitList,
+                               std::uint32_t                                 attr)
   : CppFuncCtorBase(EntityType(), name, std::move(params), attr)
   , memInits_(std::move(memInitList))
 {

@@ -177,7 +177,7 @@ using namespace cppast;
   cppast::CppFunction*                             cppFuncObj;
   cppast::CppFunctionPointer*                      cppFuncPointerObj;
   cppast::CppEntity*                               varOrFuncPtr;
-  std::vector<std::unique_ptr<cppast::CppEntity>>* paramList;
+  std::vector<std::unique_ptr<const cppast::CppEntity>>* paramList;
   cppast::CppConstructor*                          cppCtorObj;
   cppast::CppDestructor*                           cppDtorObj;
   cppast::CppTypeConverter*                        cppTypeConverter;
@@ -938,7 +938,7 @@ vardecl           : vartype varidentifier       [ZZLOG;]         {
                   }
                   | vardecl ':' expr            [ZZLOG;] {
                     $$ = $1;
-                    $$->bitField($3);
+                    $$->bitField(Ptr($3));
                   }
                   | templatespecifier vardecl   [ZZLOG;] {
                     $$ = $2;
@@ -1299,10 +1299,10 @@ operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken(
                   ;
 
 paramlist         :                     [ZZLOG;] {
-                    $$ = new std::vector<std::unique_ptr<cppast::CppEntity>>;
+                    $$ = new std::vector<std::unique_ptr<const cppast::CppEntity>>;
                   }
                   | param               [ZZLOG;] {
-                    $$ = new std::vector<std::unique_ptr<cppast::CppEntity>>;
+                    $$ = new std::vector<std::unique_ptr<const cppast::CppEntity>>;
                     $$->emplace_back($1);
                   }
                   | paramlist ',' param [ZZLOG;] {
@@ -1977,9 +1977,9 @@ captureallbyref   : '&'  [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::
 captureallbyval   : '='  [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::EQUAL, NameExpr(""), NameExpr("")); }
                   ;
 
-lambdacapture     : optexprlist        [ZZLOG;]
-                  | captureallbyref    [ZZLOG;]
-                  | captureallbyval    [ZZLOG;]
+lambdacapture     : optexprlist        [ZZLOG;] { $$ = nullptr; }
+                  | captureallbyref    [ZZLOG;] { $$ = nullptr; }
+                  | captureallbyval    [ZZLOG;] { $$ = nullptr; }
                   ;
 
 exprstmt          : expr ';'           [ZZLOG;] { $$ = $1; }

@@ -115,9 +115,9 @@ public:
   {
     return bitField_.get();
   }
-  void bitField(CppExpression* _bitField)
+  void bitField(std::unique_ptr<const CppExpression> _bitField)
   {
-    bitField_.reset(_bitField);
+    bitField_ = std::move(_bitField);
   }
 
   const CppArraySizes& arraySizes() const
@@ -133,8 +133,8 @@ private:
   std::string                   name_;
   std::optional<CppVarInitInfo> initInfo_;
 
-  std::unique_ptr<CppExpression> bitField_;
-  CppArraySizes                  arraySizes_;
+  std::unique_ptr<const CppExpression> bitField_;
+  CppArraySizes                        arraySizes_;
 };
 
 } // namespace cppast

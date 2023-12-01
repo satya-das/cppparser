@@ -104,9 +104,9 @@ public:
   {
     return varDecl_.bitField();
   }
-  void bitField(CppExpression* _bitField)
+  void bitField(std::unique_ptr<const CppExpression> _bitField)
   {
-    varDecl_.bitField(_bitField);
+    varDecl_.bitField(std::move(_bitField));
   }
 
   const CppArraySizes& arraySizes() const
