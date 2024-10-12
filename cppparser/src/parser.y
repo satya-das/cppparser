@@ -909,8 +909,20 @@ varassign         : '=' expr            [ZZLOG;] {
                   | '(' optexprlist ')'  [ZZLOG;] {
                     $$ = VarInitInfo($2, CppConstructorCallStyle::USING_PARENTHESES);
                   }
+                  | '(' optexpr ')'  [ZZLOG;] {
+                    auto arg = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+                    if ($2)
+                      arg->emplace_back($2);
+                    $$ = VarInitInfo(arg, CppConstructorCallStyle::USING_PARENTHESES);
+                  }
                   | '{' optexprlist '}'    [ZZLOG;] {
                     $$ = VarInitInfo($2, CppConstructorCallStyle::USING_BRACES);
+                  }
+                  | '{' optexpr '}'  [ZZLOG;] {
+                    auto arg = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+                    if ($2)
+                      arg->emplace_back($2);
+                    $$ = VarInitInfo(arg, CppConstructorCallStyle::USING_PARENTHESES);
                   }
                   ;
 
@@ -1985,8 +1997,8 @@ lambdacapture     : optexprlist        [ZZLOG;] { $$ = nullptr; }
 exprstmt          : expr ';'           [ZZLOG;] { $$ = $1; }
                   ;
 
-returnstmt        : tknReturn  expr        [ZZLOG;] { $$ = new cppast::CppReturnStatement(Ptr($2));         }
-                  | tknReturn              [ZZLOG;] { $$ = new cppast::CppReturnStatement();         }
+returnstmt        : tknReturn  expr ';'       [ZZLOG;] { $$ = new cppast::CppReturnStatement(Ptr($2));         }
+                  | tknReturn  ';'            [ZZLOG;] { $$ = new cppast::CppReturnStatement();         }
                   ;
 
 throwstmt         : tknThrow  expr         [ZZLOG;] { $$ = new cppast::CppThrowStatement(Ptr($2));             }
