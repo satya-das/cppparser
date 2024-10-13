@@ -690,6 +690,7 @@ typeidentifier    : identifier                            [ZZLOG;] { $$ = $1; }
                   | tknScopeResOp identifier %prec GLOBAL [ZZLOG;] { $$ = mergeCppToken($1, $2); }
                   | typeidentifier tknScopeResOp typeidentifier [ZZLOG;] { $$ = mergeCppToken($1, $3); }
                   | numbertype                            [ZZLOG;] { $$ = $1; }
+                  | typeidentifier '[' ']'                [ZZLOG;] { $$ = mergeCppToken($1, $3); }
                   | tknAuto                               [ZZLOG;] { $$ = $1; }
                   | tknVoid                               [ZZLOG;] { $$ = $1; }
                   | tknEnum  identifier                   [ZZLOG;] { $$ = mergeCppToken($1, $2); }
