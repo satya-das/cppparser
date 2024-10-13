@@ -83,6 +83,8 @@ public:
   }
 };
 
+using CppExpressions = std::vector<std::unique_ptr<const CppExpression>>;
+
 class CppForBlock : public CppEntity
 {
 public:
@@ -93,8 +95,8 @@ public:
 
 public:
   CppForBlock(std::unique_ptr<CppEntity> start,
-              std::unique_ptr<CppExpression>   stop,
-              std::unique_ptr<CppExpression>   step,
+              CppExpressions             stop,
+              CppExpressions             step,
               std::unique_ptr<CppEntity> body)
     : CppEntity(EntityType())
     , start_(std::move(start))
@@ -109,14 +111,14 @@ public:
     return start_.get();
   }
 
-  const CppExpression* stop() const
+  const CppExpressions& stop() const
   {
-    return stop_.get();
+    return stop_;
   }
 
-  const CppExpression* step() const
+  const CppExpressions& step() const
   {
-    return step_.get();
+    return step_;
   }
 
   const CppEntity* body() const
@@ -126,8 +128,8 @@ public:
 
 private:
   const std::unique_ptr<CppEntity> start_;
-  const std::unique_ptr<CppExpression>   stop_;
-  const std::unique_ptr<CppExpression>   step_;
+  const CppExpressions             stop_;
+  const CppExpressions             step_;
   const std::unique_ptr<CppEntity> body_;
 };
 
@@ -165,9 +167,9 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppVar>    var_;
-  const std::unique_ptr<CppExpression>   expr_;
-  const std::unique_ptr<CppEntity> body_;
+  const std::unique_ptr<CppVar>        var_;
+  const std::unique_ptr<CppExpression> expr_;
+  const std::unique_ptr<CppEntity>     body_;
 };
 
 class CppCase
@@ -191,8 +193,8 @@ public:
   }
 
 private:
-  std::unique_ptr<CppExpression>     case_;
-  std::unique_ptr<CppCompound> body_;
+  std::unique_ptr<CppExpression> case_;
+  std::unique_ptr<CppCompound>   body_;
 };
 
 class CppSwitchBlock : public CppEntity
@@ -224,7 +226,7 @@ public:
 
 private:
   const std::unique_ptr<CppExpression> cond_;
-  const std::vector<CppCase>     body_;
+  const std::vector<CppCase>           body_;
 };
 
 } // namespace cppast

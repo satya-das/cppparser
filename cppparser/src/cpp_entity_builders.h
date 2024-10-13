@@ -78,14 +78,40 @@ inline auto FuncCallExpr(cppast::CppExpression* func, cppast::CppCallArgs* args)
   return new cppast::CppFunctionCallExpr(Ptr(func), args ? Obj(args) : cppast::CppCallArgs());
 }
 
+inline auto UniformInitExpr(std::string name, cppast::CppCallArgs args)
+{
+  return new cppast::CppUniformInitializerExpr(std::move(name), std::move(args));
+}
+
 inline auto UniformInitExpr(std::string name, cppast::CppCallArgs* args)
 {
-  return new cppast::CppUniformInitializerExpr(std::move(name), args ? Obj(args) : cppast::CppCallArgs());
+  return UniformInitExpr(std::move(name), args ? Obj(args) : cppast::CppCallArgs());
+}
+
+inline auto UniformInitExpr(std::string name, const cppast::CppExpression* arg)
+{
+  cppast::CppCallArgs args;
+  if (arg)
+    args.emplace_back(arg);
+  return UniformInitExpr(std::move(name), std::move(args));
+}
+
+inline auto InitializerListExpr(cppast::CppCallArgs exprList)
+{
+  return new cppast::CppInitializerListExpr(std::move(exprList));
 }
 
 inline auto InitializerListExpr(cppast::CppCallArgs* exprList)
 {
-  return new cppast::CppInitializerListExpr(Obj(exprList));
+  return InitializerListExpr(exprList ? Obj(exprList) : cppast::CppCallArgs());
+}
+
+inline auto InitializerListExpr(cppast::CppExpression* expr)
+{
+  cppast::CppCallArgs args;
+  if (expr)
+    args.emplace_back(expr);
+  return new cppast::CppInitializerListExpr(std::move(args));
 }
 
 inline auto CStyleCastExpr(const cppast::CppVarType* targetType, const cppast::CppExpression* expr)

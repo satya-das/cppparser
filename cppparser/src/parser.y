@@ -567,14 +567,14 @@ dowhileblock      : tknDo stmt tknWhile '(' expr ')' [ZZLOG;] {
                   }
                   ;
 
-forblock          : tknFor '(' optexpr ';' optexpr ';' optexpr ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
+forblock          : tknFor '(' optexpr ';' optexprlist ';' optexprlist ')' stmt [ZZLOG;] {
+                    $$ = new cppast::CppForBlock(Ptr($3), Obj($5), Obj($7), Ptr($9));
                   }
-                  | tknFor '(' varinit ';' optexpr ';' optexpr ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
+                  | tknFor '(' varinit ';' optexprlist ';' optexprlist ')' stmt [ZZLOG;] {
+                    $$ = new cppast::CppForBlock(Ptr($3), Obj($5), Obj($7), Ptr($9));
                   }
-                  | tknFor '(' vardecllist ';' optexpr ';' optexpr ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
+                  | tknFor '(' vardecllist ';' optexprlist ';' optexprlist ')' stmt [ZZLOG;] {
+                    $$ = new cppast::CppForBlock(Ptr($3), Obj($5), Obj($7), Ptr($9));
                   }
                   ;
 
@@ -909,20 +909,8 @@ varassign         : '=' expr            [ZZLOG;] {
                   | '(' optexprlist ')'  [ZZLOG;] {
                     $$ = VarInitInfo($2, CppConstructorCallStyle::USING_PARENTHESES);
                   }
-                  | '(' optexpr ')'  [ZZLOG;] {
-                    auto arg = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
-                    if ($2)
-                      arg->emplace_back($2);
-                    $$ = VarInitInfo(arg, CppConstructorCallStyle::USING_PARENTHESES);
-                  }
                   | '{' optexprlist '}'    [ZZLOG;] {
                     $$ = VarInitInfo($2, CppConstructorCallStyle::USING_BRACES);
-                  }
-                  | '{' optexpr '}'  [ZZLOG;] {
-                    auto arg = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
-                    if ($2)
-                      arg->emplace_back($2);
-                    $$ = VarInitInfo(arg, CppConstructorCallStyle::USING_PARENTHESES);
                   }
                   ;
 
@@ -1510,8 +1498,6 @@ meminit           : identifier '(' exprlist ')'    [ZZLOG;] { $$ = MemberInit($1
                   | identifier '(' ')'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
                   | identifier '{' exprlist '}'    [ZZLOG;] { $$ = MemberInit($1, Obj($3), cppast::CppConstructorCallStyle::USING_BRACES); }
                   | identifier '{' '}'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_BRACES); }
-                  | identifier '{' expr '}'        [ZZLOG;] { $$ = MemberInit($1, Ptr($3), cppast::CppConstructorCallStyle::USING_BRACES); }
-                  | identifier '(' expr ')'        [ZZLOG;] { $$ = MemberInit($1, Ptr($3), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
                   ;
 
 dtordeclstmt      : dtordecl ';'    [ZZVALID;]     { $$ = $1; }
@@ -1848,8 +1834,8 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                         ZZLOG;
                       }
                     ]                                 [ZZLOG;] { $$ = NameExpr($1);          }
-                  | '{' exprlist '}'                  [ZZLOG;] { $$ = InitializerListExpr($2);        }
-                  | '{' exprlist ',' '}'              [ZZLOG;] { $$ = InitializerListExpr($2);        }
+                  | '{' optexprlist '}'               [ZZLOG;] { $$ = InitializerListExpr($2);        }
+                  | '{' optexprlist ',' '}'           [ZZLOG;] { $$ = InitializerListExpr($2);        }
                   | '+' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_PLUS, $2);          }
                   | '-' expr %prec UNARYMINUS         [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_MINUS, $2);                  }
                   | '~' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::BIT_TOGGLE, $2);                   }
@@ -1926,9 +1912,7 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                   | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARRAY_INDEX, $1, $3);               }
                   /*| expr '[' ']' %prec SUBSCRIPT                        [ZZLOG;] { $$ = BinomialExpr($1, kArrayElem);                   }*/
                   | expr '(' optexprlist ')' %prec FUNCCALL               [ZZLOG;] { $$ = FuncCallExpr($1, $3);            }
-                  | expr '(' optexpr ')' %prec FUNCCALL                   [ZZLOG;] { $$ = FuncCallExpr($1, $3);            }
                   | funcname '(' optexprlist ')' %prec FUNCCALL           [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
-                  | funcname '(' optexpr ')' %prec FUNCCALL               [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
                   | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, FuncCallExpr(NameExpr(mergeCppToken($3, $4)))); }
                   | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = TrinomialExpr(cppast::CppTernaryOperator::CONDITIONAL, $1, $3, $5);                       }
                   | identifier '{' optexprlist '}' %prec FUNCCALL         [ZZLOG;] { $$ = UniformInitExpr($1, $3);            }
@@ -1966,10 +1950,9 @@ objcarglist       : objcarg { $$ = $1; }
                   | objcarglist objcarg { $$ = $1; }
                   ;
 
-exprlist          : expr ',' expr %prec COMMA                             [ZZLOG;] {
+exprlist          : expr                                                  [ZZLOG;] {
                      $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
                      $$->emplace_back($1);
-                     $$->emplace_back($3);
                   }
                   | exprlist ',' expr %prec COMMA                         [ZZLOG;] { $1->emplace_back($3); $$ = $1;                   }
                   | doccommentstr exprlist                                [ZZLOG;] { $$ = $2; }

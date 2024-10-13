@@ -260,13 +260,14 @@ void CppWriter::emitVar(const cppast::CppVar& varObj, std::ostream& stm, CppInde
   emitVar(varObj, stm, indentation, false);
 }
 
-void CppWriter::emitCallArgs(const cppast::CppCallArgs& args, std::ostream& stm) const
+void CppWriter::emitExpressions(const std::vector<std::unique_ptr<const cppast::CppExpression>>& exprs,
+                                std::ostream&                                                    stm) const
 {
   const char* sep = "";
-  for (size_t i = 0; i < args.size(); ++i)
+  for (size_t i = 0; i < exprs.size(); ++i)
   {
     stm << sep;
-    emitExpr(*args[i], stm);
+    emitExpr(*exprs[i], stm);
     sep = ", ";
   }
 }
@@ -294,7 +295,7 @@ void CppWriter::emitVarDecl(std::ostream& stm, const cppast::CppVarDecl& varDecl
   else if (varDecl.initializeType() == cppast::CppVarInitializeType::DIRECT_CONSTRUCTOR_CALL)
   {
     stm << (varDecl.directConstructorCallStyle() == cppast::CppConstructorCallStyle::USING_BRACES) ? '{' : '(';
-    emitCallArgs(varDecl.constructorCallArgs(), stm);
+    emitExpressions(varDecl.constructorCallArgs(), stm);
     stm << (varDecl.directConstructorCallStyle() == cppast::CppConstructorCallStyle::USING_BRACES) ? '}' : ')';
   }
 }
@@ -699,7 +700,7 @@ void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,
       stm << indentation << sep << ' ' << memInit.memberName;
       const auto& memberInitInfo = memInit.memberInitInfo;
       stm << ((memberInitInfo.style == cppast::CppConstructorCallStyle::USING_BRACES) ? '{' : '(');
-      emitCallArgs(memberInitInfo.args, stm);
+      emitExpressions(memberInitInfo.args, stm);
       stm << ((memberInitInfo.style == cppast::CppConstructorCallStyle::USING_BRACES) ? '}' : ')');
       sep = ',';
     }
@@ -977,17 +978,11 @@ void CppWriter::emitForBlock(const cppast::CppForBlock& forBlock, std::ostream& 
   if (forBlock.start())
     emit(*forBlock.start(), stm, CppIndent(), true);
   stm << ';';
-  if (forBlock.stop())
-  {
-    stm << ' ';
-    emitExpr(*forBlock.stop(), stm);
-  }
+  stm << ' ';
+  emitExpressions(forBlock.stop(), stm);
   stm << ';';
-  if (forBlock.step())
-  {
-    stm << ' ';
-    emitExpr(*forBlock.step(), stm);
-  }
+  stm << ' ';
+  emitExpressions(forBlock.step(), stm);
   stm << ")\n";
   stm << indentation << "{\n";
   ++indentation;
