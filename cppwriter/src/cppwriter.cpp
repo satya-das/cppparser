@@ -1169,7 +1169,7 @@ void CppWriter::emitBinomialExpr(const cppast::CppBinomialExpr& expr, std::ostre
   case cppast::CppBinaryOperator::ASSIGN:                   emitExpr(expr.term1(), stm); stm << " = "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::LESS:                     emitExpr(expr.term1(), stm); stm << " < "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::GREATER:                  emitExpr(expr.term1(), stm); stm << " > "; emitExpr(expr.term2(), stm); break;
-  case cppast::CppBinaryOperator::COMMA:                    emitExpr(expr.term1(), stm); stm << " , "; emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::COMMA:                    emitExpr(expr.term1(), stm); stm << ", ";  emitExpr(expr.term2(), stm); break;
 
   case cppast::CppBinaryOperator::LOGICAL_AND:              emitExpr(expr.term1(), stm); stm << " && "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::LOGICAL_OR:               emitExpr(expr.term1(), stm); stm << " || "; emitExpr(expr.term2(), stm); break;
