@@ -73,7 +73,7 @@ public:
     wxShadowObjectFields::iterator it = m_fields.find(name);
     if (it == m_fields.end())
     {
-      return ;
+      return;
     }
     it->second = value;
   }

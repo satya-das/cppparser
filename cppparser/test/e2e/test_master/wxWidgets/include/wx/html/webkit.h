@@ -11,6 +11,8 @@
 #  define _WX_WEBKIT_H
 #  if  wxUSE_WEBKIT
 #    if  !defined(__WXMAC__)
+#      undef error "wxWebKitCtrl not implemented for this platform"
+
 #    endif
 #    include "wx/control.h"
 // ----------------------------------------------------------------------------

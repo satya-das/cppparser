@@ -52,7 +52,7 @@ public:
     if (fScheduledUpload)
     {
             // Multiple references to the owning proxy may have caused us to already execute
-      return ;
+      return;
     }
     auto uploadMask = ;
     flushState->addASAPUpload(std::move(uploadMask));

@@ -6,6 +6,7 @@
  */
 #ifndef GrMtlCommandBuffer_DEFINED
 #  define GrMtlCommandBuffer_DEFINED
+#  import <Metal/Metal.h>
 #  include "include/core/SkRefCnt.h"
 #  include "src/gpu/mtl/GrMtlUtil.h"
 class GrMtlGpu;

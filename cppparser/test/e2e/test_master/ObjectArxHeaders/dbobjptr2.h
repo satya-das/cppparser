@@ -240,7 +240,7 @@ public:
     if (NULL == pObj)
     {
       mEs = Acad::eNullObjectPointer;
-      return ;
+      return;
     }
     mEs = Acad::eNotOpenForWrite;
     if (enableNow)

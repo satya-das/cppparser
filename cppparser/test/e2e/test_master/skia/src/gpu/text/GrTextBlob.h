@@ -237,7 +237,7 @@ default:
   std::unique_ptr<GrDrawOp> test_makeOp(int glyphCount, uint16_t run, uint16_t subRun, const SkMatrix& viewMatrix, SkScalar x, SkScalar y, const SkPaint& paint, const SkPMColor4f& filteredColor, const SkSurfaceProps&, const GrDistanceFieldAdjustTable*, GrTextTarget*);
 private:
   GrTextBlob(GrStrikeCache* strikeCache)
-    : fStrikeCache(strikeCache)
+    : fStrikeCache{strikeCache}
   {
   }
     // This function will only be called when we are generating a blob from scratch. We record the
@@ -263,9 +263,9 @@ private:
   {
   public:
     SubRun(Run* run, const SkStrikeSpec& strikeSpec, GrColor color)
-      : fColor(color)
-      , fRun(run)
-      , fStrikeSpec(strikeSpec)
+      : fColor{color}
+      , fRun{run}
+      , fStrikeSpec{strikeSpec}
     {
     }
         // When used with emplace_back, this constructs a SubRun from the last SubRun in an array.
@@ -471,8 +471,8 @@ private:
   struct Run
   {
     explicit Run(GrTextBlob* blob, GrColor color)
-      : fBlob(blob)
-      , fColor(color)
+      : fBlob{blob}
+      , fColor{color}
     {
             // To ensure we always have one subrun, we push back a fresh run here
       fSubRunInfo.emplace_back(this, fStrikeSpec, color);

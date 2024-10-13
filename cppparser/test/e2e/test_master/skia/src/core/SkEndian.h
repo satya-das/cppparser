@@ -13,8 +13,12 @@
     big and little endian formats.
 */
 #  if  defined(SK_CPU_LENDIAN) && defined(SK_CPU_BENDIAN)
+#    undef error "can't have both LENDIAN and BENDIAN defined"
+
 #  endif
 #  if  !defined(SK_CPU_LENDIAN) && !defined(SK_CPU_BENDIAN)
+#    undef error "need either LENDIAN or BENDIAN defined"
+
 #  endif
 /** Swap the two bytes in the low 16bits of the parameters.
     e.g. 0x1234 -> 0x3412
@@ -129,6 +133,8 @@ static void SkEndianSwap64s(uint64_t array[], int count)
 #    define SkEndian_Byte3Shift	0
 #  endif
 #  if  defined(SK_UINT8_BITFIELD_LENDIAN) && defined(SK_UINT8_BITFIELD_BENDIAN)
+#    undef error "can't have both bitfield LENDIAN and BENDIAN defined"
+
 #  endif
 #  if  !defined(SK_UINT8_BITFIELD_LENDIAN) && !defined(SK_UINT8_BITFIELD_BENDIAN)
 #    ifdef SK_CPU_LENDIAN

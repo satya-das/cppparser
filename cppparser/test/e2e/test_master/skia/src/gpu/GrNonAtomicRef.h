@@ -53,7 +53,7 @@ public:
     if (0 == fRefCnt)
     {
       GrTDeleteNonAtomicRef(static_cast<const TSubclass*>(this));
-      return ;
+      return;
     }
   }
 private:

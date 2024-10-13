@@ -836,7 +836,7 @@ public:
     ++tmp;
     if (it == first || it == tmp)
     {
-      return ;
+      return;
     }
     insert(it, *first);
     l.erase(first);

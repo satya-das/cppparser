@@ -38,12 +38,12 @@ public:
     wxControl::UpdateWindowUI(flags);
     if (!IsShown())
     {
-      return ;
+      return;
     }
     wxWindow* tlw = wxGetTopLevelParent(this);
     if (tlw && wxPendingDelete.Member(tlw))
     {
-      return ;
+      return;
     }
     wxUpdateUIEvent event(GetId());
     event.SetEventObject(this);

@@ -43,11 +43,11 @@ struct SkPackedGlyphID
         kFixedPointSubPixelPosBits = kFixedPointBinaryPointPos - kSubPixelPosLen,
   };
   explicit SkPackedGlyphID(SkGlyphID glyphID)
-    : fID(glyphID)
+    : fID{glyphID}
   {
   }
   SkPackedGlyphID(SkGlyphID glyphID, SkFixed x, SkFixed y)
-    : fID(PackIDXY(glyphID, x, y))
+    : fID{PackIDXY(glyphID, x, y)}
   {
     SkASSERT(fID != kImpossibleID);
   }
@@ -56,7 +56,7 @@ struct SkPackedGlyphID
   {
   }
   SkPackedGlyphID()
-    : fID(kImpossibleID)
+    : fID{kImpossibleID}
   {
   }
   bool operator==(const SkPackedGlyphID& that) const
@@ -119,7 +119,7 @@ class SkGlyph
 public:
   static constexpr SkFixed kSubpixelRound = SK_FixedHalf >> SkPackedGlyphID::kSubPixelPosLen;
   explicit SkGlyph(SkPackedGlyphID id)
-    : fID(id)
+    : fID{id}
   {
   }
   explicit SkGlyph(const SkGlyphPrototype& p);

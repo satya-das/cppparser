@@ -8,6 +8,7 @@
 #  define GrMtlBuffer_DEFINED
 #  include "src/gpu/GrGpuBuffer.h"
 #  include "src/gpu/mtl/GrMtlUniformHandler.h"
+#  import <Metal/Metal.h>
 class GrMtlCaps;
 class GrMtlGpu;
 class GrMtlBuffer : public GrGpuBuffer

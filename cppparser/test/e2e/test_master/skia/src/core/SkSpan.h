@@ -13,19 +13,19 @@ class SkSpan
 {
 public:
   SkSpan()
-    : fPtr(nullptr)
-    , fSize(0)
+    : fPtr{nullptr}
+    , fSize{0}
   {
   }
   SkSpan(T* ptr, size_t size)
-    : fPtr(ptr)
-    , fSize(size)
+    : fPtr{ptr}
+    , fSize{size}
   {
   }
   template <typename U, typename  = typename std::enable_if<std::is_same<const U, T>::value>::type>
   SkSpan(const SkSpan<U>& that)
     : fPtr(that.data())
-    , fSize(that.size())
+    , fSize{that.size()}
   {
   }
   SkSpan(const SkSpan& o);

@@ -83,12 +83,12 @@ private:
   uint16_t fKey;
 };
 GrSwizzle::GrSwizzle(const char c[4])
-  : fSwiz(c[0], c[1], c[2], c[3], '\0')
+  : fSwiz{c[0], c[1], c[2], c[3], '\0'}
   , fKey((CToI(c[0]) << 0) | (CToI(c[1]) << 4) | (CToI(c[2]) << 8) | (CToI(c[3]) << 12))
 {
 }
 GrSwizzle::GrSwizzle(const GrSwizzle& that)
-  : fSwiz(that.fSwiz[0], that.fSwiz[1], that.fSwiz[2], that.fSwiz[3], '\0')
+  : fSwiz{that.fSwiz[0], that.fSwiz[1], that.fSwiz[2], that.fSwiz[3], '\0'}
   , fKey(that.fKey)
 {
 }

@@ -71,6 +71,8 @@ class WXDLLIMPEXP_FWD_BASE wxString;
 #      define wxNO_UNSAFE_WXSTRING_CONV
 #    endif
 #    if  wxUSE_UTF8_LOCALE_ONLY
+#      undef error wxNO_IMPLICIT_WXSTRING_ENCODING cannot be used in UTF-8 only builds
+
 #    endif
 #  endif
 namespace wxPrivate
@@ -1551,7 +1553,7 @@ public:
     const size_t len = length();
     if (nSize == len)
     {
-      return ;
+      return;
     }
 #  if  wxUSE_UNICODE_UTF8
     if (nSize < len)
@@ -1560,7 +1562,7 @@ public:
         // we can't use wxStringImpl::resize() for truncating the string as it
         // counts in bytes, not characters
       erase(nSize);
-      return ;
+      return;
     }
     // we also can't use (presumably more efficient) resize() if we have to
     // append characters taking more than one byte

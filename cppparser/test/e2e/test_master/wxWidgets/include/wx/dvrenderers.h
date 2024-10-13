@@ -265,6 +265,8 @@ private:
 #    elif  defined(__WXQT__)
 #      include "wx/qt/dvrenderer.h"
 #    else 
+#      undef error "unknown native wxDataViewCtrl implementation"
+
 #    endif
 #    define wxDataViewCustomRendererRealBase	wxDataViewRenderer
 #  endif
@@ -351,6 +353,8 @@ private:
 #  elif  defined(__WXQT__)
 #    include "wx/qt/dvrenderers.h"
 #  else 
+#    undef error "unknown native wxDataViewCtrl implementation"
+
 #  endif
 #  if  wxUSE_SPINCTRL
 // ----------------------------------------------------------------------------

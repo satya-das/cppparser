@@ -20,7 +20,7 @@ public:
   }
   GrImageInfo(GrColorType ct, SkAlphaType at, sk_sp<SkColorSpace> cs, int w, int h)
     : fColorInfo(ct, at, std::move(cs))
-    , fDimensions(w, h)
+    , fDimensions{w, h}
   {
   }
   GrImageInfo(GrColorType ct, SkAlphaType at, sk_sp<SkColorSpace> cs, const SkISize& dimensions)

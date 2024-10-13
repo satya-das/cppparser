@@ -21,6 +21,8 @@
 #      include <tr1/unordered_set>
 #      define WX_HASH_SET_BASE_TEMPLATE	std::tr1::unordered_set
 #    else 
+#      undef error Update this code: unordered_set is available, but I do not know where.
+
 #    endif
 #  elif  wxUSE_STD_CONTAINERS && defined(HAVE_STL_HASH_MAP)
 #    if  defined(HAVE_EXT_HASH_MAP)

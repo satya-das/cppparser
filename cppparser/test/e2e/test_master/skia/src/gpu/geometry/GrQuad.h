@@ -36,9 +36,9 @@ public:
   static const int kTypeCount = static_cast<int>(Type::kLast) + 1;
   GrQuad();
   explicit GrQuad(const SkRect& rect)
-    : fX(rect.fLeft, rect.fLeft, rect.fRight, rect.fRight)
-    , fY(rect.fTop, rect.fBottom, rect.fTop, rect.fBottom)
-    , fW(1.f, 1.f, 1.f, 1.f)
+    : fX{rect.fLeft, rect.fLeft, rect.fRight, rect.fRight}
+    , fY{rect.fTop, rect.fBottom, rect.fTop, rect.fBottom}
+    , fW{1.f, 1.f, 1.f, 1.f}
     , fType(Type::kAxisAligned)
   {
   }

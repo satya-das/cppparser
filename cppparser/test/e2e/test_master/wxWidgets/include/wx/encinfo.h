@@ -46,6 +46,8 @@ struct WXDLLIMPEXP_CORE wxNativeEncodingInfo
 #  elif  defined(wxHAS_UTF8_FONTS)
     // ports using UTF-8 for text don't need encoding information for fonts
 #  else 
+#    undef error "Unsupported toolkit"
+
 #  endif
     // this struct is saved in config by wxFontMapper, so it should know to
     // serialise itself (implemented in platform-specific code)

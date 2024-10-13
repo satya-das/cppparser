@@ -213,18 +213,18 @@ inline void GrMesh::sendToGpu(SendToGpuImpl* impl) const
     {
       impl->sendIndexedInstancedMeshToGpu(fPrimitiveType, fIndexBuffer.get(), fInstanceIndexData.fIndexCount, 0, fVertexBuffer.get(), fBaseVertex, fInstanceBuffer.get(), fInstanceData.fInstanceCount, fInstanceData.fBaseInstance, this->primitiveRestart());
     }
-    return ;
+    return;
   }
   if (!this->isIndexed())
   {
     SkASSERT(fNonIndexNonInstanceData.fVertexCount > 0);
     impl->sendMeshToGpu(fPrimitiveType, fVertexBuffer.get(), fNonIndexNonInstanceData.fVertexCount, fBaseVertex);
-    return ;
+    return;
   }
   if (0 == fIndexData.fPatternRepeatCount)
   {
     impl->sendIndexedMeshToGpu(fPrimitiveType, fIndexBuffer.get(), fIndexData.fIndexCount, fNonPatternIndexData.fBaseIndex, fNonPatternIndexData.fMinIndexValue, fNonPatternIndexData.fMaxIndexValue, fVertexBuffer.get(), fBaseVertex, this->primitiveRestart());
-    return ;
+    return;
   }
   SkASSERT(fIndexData.fPatternRepeatCount > 0);
   int baseRepetition = 0;

@@ -15,6 +15,7 @@
 #  include "src/gpu/mtl/GrMtlResourceProvider.h"
 #  include "src/gpu/mtl/GrMtlStencilAttachment.h"
 #  include "src/gpu/mtl/GrMtlUtil.h"
+#  import <Metal/Metal.h>
 class GrMtlOpsRenderPass;
 class GrMtlTexture;
 class GrSemaphore;

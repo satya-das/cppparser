@@ -321,7 +321,7 @@ public:
     *maxWinding = *sumWinding;
     if (*sumWinding == SK_MinS32)
     {
-      return ;
+      return;
     }
     *sumWinding -= deltaSum;
   }

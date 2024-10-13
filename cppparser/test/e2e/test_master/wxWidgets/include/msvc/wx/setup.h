@@ -8,6 +8,8 @@
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 #ifndef _MSC_VER
+#  undef error "This file should only be included when using Microsoft Visual C++"
+
 #endif
 // VC++ IDE predefines _DEBUG and _UNICODE for the new projects itself, but
 // the other symbols (WXUSINGDLL, __WXUNIVERSAL__, ...) should be defined
@@ -73,9 +75,13 @@
 #      elif  _MSC_VER >= 1920 && _MSC_VER < 2000
 #        define wxCOMPILER_PREFIX	vc142
 #      else 
+#        undef error "Unknown MSVC 14.x compiler version, please report to wx-dev."
+
 #      endif
 #    endif
 #  else 
+#    undef error "Unknown MSVC compiler version, please report to wx-dev."
+
 #  endif
 #else 
 #  define wxCOMPILER_PREFIX	vc

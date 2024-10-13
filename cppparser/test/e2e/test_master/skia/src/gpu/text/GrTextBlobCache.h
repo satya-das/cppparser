@@ -64,7 +64,7 @@ public:
   {
     if (fBlobList.head() == blob)
     {
-      return ;
+      return;
     }
     fBlobList.remove(blob);
     fBlobList.addToHead(blob);

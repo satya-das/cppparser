@@ -117,7 +117,7 @@ public:
     SkASSERT(getRefCnt() > 0);
     SkASSERT(getWeakCnt() > 0);
         // No barrier required.
-    (void) fWeakCnt.fetch_add(1, std::memory_order_relaxed);
+    (void) fWeakCnt.fetch_add(+1, std::memory_order_relaxed);
   }
     /** Decrement the weak reference count. If the weak reference count is 1
         before the decrement, then call delete on the object. Note that if this

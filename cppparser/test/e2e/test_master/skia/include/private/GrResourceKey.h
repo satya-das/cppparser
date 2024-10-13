@@ -131,7 +131,7 @@ protected:
     {
       if (nullptr == fKey)
       {
-        return ;
+        return;
       }
       GR_STATIC_ASSERT(0 == kHash_MetaDataIdx);
       uint32_t* hash = &fKey->fKey[kHash_MetaDataIdx];

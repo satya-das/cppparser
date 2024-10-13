@@ -132,7 +132,7 @@ private:
             // simpler and it doesn't cost us much here.
       if (child)
       {
-        (child.*func)(arg);
+        (child->*func)(arg);
       }
     }
   }
@@ -176,7 +176,7 @@ private:
         // before "m_child" is assigned.
     if (child->GetParent() != this)
     {
-      return ;
+      return;
     }
     child->Bind(wxEVT_SET_FOCUS, &wxCompositeWindow::OnSetFocus, this);
     child->Bind(wxEVT_KILL_FOCUS, &wxCompositeWindow::OnKillFocus, this);
@@ -189,7 +189,7 @@ private:
     {
       if (win->IsTopLevel())
       {
-        return ;
+        return;
       }
       win = win->GetParent();
     }
@@ -229,7 +229,7 @@ private:
       if (win == this)
       {
         event.Skip();
-        return ;
+        return;
       }
             // Note that we don't use IsTopLevel() check here, because we do
             // want to ignore focus changes going to toplevel window that have

@@ -68,7 +68,7 @@ public:
     : fRefCnt(1)
   {
 #  ifdef SK_TRACE_VK_RESOURCES
-    fKey = fKeyCounter.fetch_add(1, std::memory_order_relaxed);
+    fKey = fKeyCounter.fetch_add(+1, std::memory_order_relaxed);
     GetTrace()->add(this);
 #  endif
   }
@@ -105,7 +105,7 @@ public:
   void ref() const
   {
         // No barrier required.
-    fRefCnt.fetch_add(1, std::memory_order_relaxed);
+    fRefCnt.fetch_add(+1, std::memory_order_relaxed);
     SkASSERT(newRefCount >= 1);
   }
     /** Decrement the reference count. If the reference count is 1 before the

@@ -40,6 +40,8 @@
 #  include "wx/platform.h"
 /*  Make sure the environment is set correctly */
 #  if  defined(__WXMSW__) && defined(__X__)
+#    undef error "Target can't be both X and MSW"
+
 #  elif  !defined(__WXMOTIF__) && \
          !defined(__WXMSW__)   && \
          !defined(__WXGTK__)   && \
@@ -51,6 +53,10 @@
          !defined(__WXQT__)    && \
           wxUSE_GUI
 #    ifdef __UNIX__
+#      undef error "No Target! You should use wx-config program for compilation flags!"
+
+#      undef error "No Target! You should use supplied makefiles for compilation!"
+
 #    endif
 #  endif
 #  ifndef __WXWINDOWS__
@@ -2381,6 +2387,8 @@ as a struct in Objective-C(++) mode.
 #      define DECLARE_WXCOCOA_OBJC_CLASS(klass)	 \
 typedef struct klass *WX_##klass
 #    else 
+#      undef warning "Objective-C types will not be checked by the compiler."
+
 /*  NOTE: typedef struct objc_object *id; */
 /*  IOW, we're declaring these using the id type without using that name, */
 /*  since "id" is used extensively not only within wxWidgets itself, but */

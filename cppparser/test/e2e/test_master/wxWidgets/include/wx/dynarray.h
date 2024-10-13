@@ -378,7 +378,7 @@ public:
   {
     if (nInsert == 0)
     {
-      return ;
+      return;
     }
     T* const pItem = Traits::Clone(item);
     const size_t nOldSize = size();
@@ -407,7 +407,7 @@ public:
   {
     if (nInsert == 0)
     {
-      return ;
+      return;
     }
     T* const pItem = Traits::Clone(item);
     if (pItem != NULL)

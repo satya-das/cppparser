@@ -273,7 +273,7 @@ public:
     if (containsCoinEnd(coin))
     {
       SkASSERT(coin->containsCoinEnd(this));
-      return ;
+      return;
     }
     debugValidate();
     SkASSERT(this != coin);
@@ -458,7 +458,7 @@ public:
     if (containsCoincidence(coin))
     {
       SkASSERT(coin->containsCoincidence(this));
-      return ;
+      return;
     }
     debugValidate();
     SkASSERT(this != coin);

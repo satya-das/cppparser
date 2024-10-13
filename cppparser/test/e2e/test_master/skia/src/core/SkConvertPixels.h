@@ -17,7 +17,7 @@ static void SkRectMemcpy(void* dst, size_t dstRB, const void* src, size_t srcRB,
   if (trimRowBytes == dstRB && trimRowBytes == srcRB)
   {
     memcpy(dst, src, trimRowBytes * rowCount);
-    return ;
+    return;
   }
   for (int i = 0; i < rowCount; ++i)
   {

@@ -2027,6 +2027,8 @@ inline void wxWindowBase::SetInitialBestSize(const wxSize& size)
 // for the native ports we already have defined it above
 #  if  defined(__WXUNIVERSAL__)
 #    ifndef wxWindowNative
+#      undef error "wxWindowNative must be defined above!"
+
 #    endif
 #    include "wx/univ/window.h"
 #  endif

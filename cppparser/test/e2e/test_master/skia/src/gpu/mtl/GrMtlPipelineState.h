@@ -11,6 +11,7 @@
 #  include "src/gpu/glsl/GrGLSLProgramBuilder.h"
 #  include "src/gpu/mtl/GrMtlBuffer.h"
 #  include "src/gpu/mtl/GrMtlPipelineStateDataManager.h"
+#  import <Metal/Metal.h>
 class GrMtlGpu;
 class GrMtlPipelineStateDataManager;
 class GrMtlSampler;

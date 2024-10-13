@@ -12,6 +12,7 @@
 #  include "src/gpu/mtl/GrMtlDepthStencil.h"
 #  include "src/gpu/mtl/GrMtlPipelineStateBuilder.h"
 #  include "src/gpu/mtl/GrMtlSampler.h"
+#  import <Metal/Metal.h>
 class GrMtlGpu;
 class GrMtlCommandBuffer;
 class GrMtlResourceProvider

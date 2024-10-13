@@ -338,7 +338,7 @@ public:
     using std::swap;
     if (this == &that)
     {
-      return ;
+      return;
     }
     if (fOwnMemory && that.fOwnMemory)
     {
@@ -606,7 +606,7 @@ private:
     bool shouldShrink = fAllocCount > 3 * newCount && fOwnMemory && !fReserved;
     if (!mustGrow && !shouldShrink)
     {
-      return ;
+      return;
     }
         // Whether we're growing or shrinking, we leave at least 50% extra space for future growth.
     int64_t newAllocCount = newCount + ((newCount + 1) >> 1);
@@ -616,7 +616,7 @@ private:
         // At small sizes the old and new alloc count can both be kMinHeapAllocCount.
     if (newAllocCount == fAllocCount)
     {
-      return ;
+      return;
     }
     fAllocCount = Sk64_pin_to_s32(newAllocCount);
     SkASSERT(fAllocCount >= newCount);

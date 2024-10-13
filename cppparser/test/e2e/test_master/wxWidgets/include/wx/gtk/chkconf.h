@@ -9,6 +9,8 @@
 #ifndef __WXUNIVERSAL__
 #  if  wxUSE_MDI_ARCHITECTURE && !wxUSE_MENUS
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "MDI requires wxUSE_MENUS in wxGTK"
+
 #    else 
 #      undef wxUSE_MENUS
 #      define wxUSE_MENUS	1
@@ -18,6 +20,8 @@
 #if  wxUSE_JOYSTICK
 #  if  !wxUSE_THREADS
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxJoystick requires threads in wxGTK"
+
 #    else 
 #      undef wxUSE_JOYSTICK
 #      define wxUSE_JOYSTICK	0
@@ -70,6 +74,8 @@
 #ifdef __WXGTK3__
 #  if  !wxUSE_GRAPHICS_CONTEXT
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "GTK+ 3 support requires wxGraphicsContext"
+
 #    else 
 #      undef wxUSE_GRAPHICS_CONTEXT
 #      define wxUSE_GRAPHICS_CONTEXT	1

@@ -85,7 +85,7 @@ public:
     SkMatrix::TypeMask tm = mx.getType();
     if (SkMatrix::kIdentity_Mask == tm)
     {
-      return ;
+      return;
     }
     if (SkMatrix::kTranslate_Mask == tm)
     {
@@ -97,7 +97,7 @@ public:
         (Sk2s::Load(&pts->fX) + trans).store(&pts->fX);
         pts = (SkPoint*) ((intptr_t) pts + stride);
       }
-      return ;
+      return;
     }
         // Insert other special-cases here (e.g. scale+translate)
 

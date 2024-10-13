@@ -260,7 +260,7 @@ public:
   {
     if (!layoutQualifier || !strlen(layoutQualifier))
     {
-      return ;
+      return;
     }
     if (fLayoutQualifier.isEmpty())
     {

@@ -168,6 +168,7 @@ namespace CatchCppUnit
     };
   }
 }
+using namespace CatchCppUnit;
 // Helpers used in the implementation of the macros below.
 namespace wxPrivate
 {

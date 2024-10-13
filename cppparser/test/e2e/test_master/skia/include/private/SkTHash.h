@@ -147,7 +147,7 @@ public:
         {
                     // We're done shuffling elements around.  Clear the last empty slot.
           emptySlot = Slot();
-          return ;
+          return;
         }
         originalIndex = s.hash & (fCapacity - 1);
       } while ((index <= originalIndex && originalIndex < emptyIndex) || (originalIndex < emptyIndex && emptyIndex < index) || (emptyIndex < index && index <= originalIndex));
@@ -243,7 +243,7 @@ private:
   struct Slot
   {
     Slot()
-      : val()
+      : val{}
       , hash(0)
     {
     }

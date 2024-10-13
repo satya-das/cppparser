@@ -810,7 +810,7 @@ public:
   {
     if (!wxLog::IsAllowedTraceMask(mask))
     {
-      return ;
+      return;
     }
     Store(wxLOG_KEY_TRACE_MASK, mask);
     LogV(format, argptr);
@@ -880,7 +880,7 @@ private:
   {
     if (!wxLog::IsLevelEnabled(level, wxASCII_STR(m_info.component)))
     {
-      return ;
+      return;
     }
     va_list argptr;
     va_start(argptr, format);
@@ -891,7 +891,7 @@ private:
   {
     if (!wxLog::IsAllowedTraceMask(mask))
     {
-      return ;
+      return;
     }
     Store(wxLOG_KEY_TRACE_MASK, mask);
     va_list argptr;
@@ -928,7 +928,7 @@ private:
   {
     if (!wxLog::IsLevelEnabled(level, wxASCII_STR(m_info.component)))
     {
-      return ;
+      return;
     }
     va_list argptr;
     va_start(argptr, format);
@@ -939,7 +939,7 @@ private:
   {
     if (!wxLog::IsAllowedTraceMask(mask))
     {
-      return ;
+      return;
     }
     Store(wxLOG_KEY_TRACE_MASK, mask);
     va_list argptr;

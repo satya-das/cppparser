@@ -26,7 +26,7 @@ public:
     {
       if (!wxDir::Exists(winfo.GetPath()))
       {
-        return ;
+        return;
       }
       wxDir dir(winfo.GetPath());
       wxCHECK_RET(dir.IsOpened(), wxString::Format(wxASCII_STR("Unable to open dir '%s'"), winfo.GetPath()));

@@ -682,7 +682,7 @@ public:
     wxASSERT_MSG( !IsVirtual(), "Can be called for non virtual lists only" );
     if (IsSingleSel())
     {
-      return ;
+      return;
     }
     selected ? ++m_selCount : --m_selCount;
   }

@@ -308,6 +308,8 @@ public:
 #    elif  defined(__WXQT__)
 #      include "wx/qt/glcanvas.h"
 #    else 
+#      undef error "wxGLCanvas not supported in this wxWidgets port"
+
 #    endif
 // wxMac and wxMSW don't need anything extra in wxGLAppBase, so declare it here
 #    ifndef wxGL_APP_DEFINED

@@ -197,12 +197,12 @@ void SkTIntroSort(int depth, T* left, T* right, C lessThan)
     if (right - left < 32)
     {
       SkTInsertionSort(left, right, lessThan);
-      return ;
+      return;
     }
     if (depth == 0)
     {
       SkTHeapSort<T>(left, right - left + 1, lessThan);
-      return ;
+      return;
     }
     --depth;
     T* pivot = left + ((right - left) >> 1);
@@ -223,7 +223,7 @@ void SkTQSort(T* left, T* right, C lessThan)
 {
   if (left >= right)
   {
-    return ;
+    return;
   }
     // Limit Intro Sort recursion depth to no more than 2 * ceil(log2(n)).
   int depth = 2 * SkNextLog2(SkToU32(right - left));

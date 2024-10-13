@@ -239,12 +239,12 @@ inline Adesk::UInt32 AcDbHandle::high() const
 inline void AcDbHandle::setLow(Adesk::UInt32 low)
 {
   mHandle.mLow = low;
-  return ;
+  return;
 }
 inline void AcDbHandle::setHigh(Adesk::UInt32 high)
 {
   mHandle.mHigh = high;
-  return ;
+  return;
 }
 #  pragma  pack (pop)
 #endif

@@ -108,7 +108,7 @@ public:
   {
     if (width == m_width)
     {
-      return ;
+      return;
     }
     m_width = width;
     UpdateWidth();

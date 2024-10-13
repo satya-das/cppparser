@@ -381,7 +381,7 @@ public:
         // the real (run-time) type of event is EventClass and we checked in
         // the ctor that EventClass can be converted to EventArg, so this cast
         // is always valid
-    (realHandler.*m_method)(static_cast<EventArg&>(event));
+    (realHandler->*m_method)(static_cast<EventArg&>(event));
   }
   bool IsMatching(const wxEventFunctor& functor) const override
   {
@@ -1294,7 +1294,7 @@ public:
   }
   void Execute() override
   {
-    (m_object.*m_method)();
+    (m_object->*m_method)();
   }
 private:
   ObjectType* const m_object;
@@ -1328,7 +1328,7 @@ public:
   }
   void Execute() override
   {
-    (m_object.*m_method)(m_param1);
+    (m_object->*m_method)(m_param1);
   }
 private:
   ObjectType* const m_object;
@@ -1366,7 +1366,7 @@ public:
   }
   void Execute() override
   {
-    (m_object.*m_method)(m_param1, m_param2);
+    (m_object->*m_method)(m_param1, m_param2);
   }
 private:
   ObjectType* const m_object;
@@ -4067,7 +4067,7 @@ WX_DEFINE_ARRAY_WITH_DECL_PTR(wxEvtHandler *, wxEvtHandlerArray, class WXDLLIMPE
 inline void wxObjectEventFunctor::operator()(wxEvtHandler* handler, wxEvent& event)
 {
   wxEvtHandler* const realHandler = m_handler ? m_handler : handler;
-  (realHandler.*m_method)(event);
+  (realHandler->*m_method)(event);
 }
 // ----------------------------------------------------------------------------
 // wxEventConnectionRef represents all connections between two event handlers

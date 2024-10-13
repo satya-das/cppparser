@@ -10,6 +10,7 @@
 #  include "src/gpu/GrOpFlushState.h"
 #  include "src/gpu/GrOpsRenderPass.h"
 #  include "src/gpu/mtl/GrMtlGpu.h"
+#  import <Metal/Metal.h>
 typedef uint32_t GrColor;
 class GrMtlBuffer;
 class GrMtlPipelineState;

@@ -39,11 +39,11 @@ class SkTypefaceProxy : public SkTypeface
 {
 public:
   SkTypefaceProxy(SkFontID fontId, int glyphCount, const SkFontStyle& style, bool isFixed, sk_sp<SkStrikeClient::DiscardableHandleManager> manager, bool isLogging = true)
-    : INHERITED(style, false)
-    , fFontId(fontId)
-    , fGlyphCount(glyphCount)
-    , fIsLogging(isLogging)
-    , fDiscardableManager(std::move(manager))
+    : INHERITED{style, false}
+    , fFontId{fontId}
+    , fGlyphCount{glyphCount}
+    , fIsLogging{isLogging}
+    , fDiscardableManager{std::move(manager)}
   {
   }
   SkFontID remoteTypefaceID() const

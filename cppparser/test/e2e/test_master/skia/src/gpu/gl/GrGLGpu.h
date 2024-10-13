@@ -388,7 +388,7 @@ public:
     if (!gpu->glCaps().vertexArrayObjectSupport())
     {
       SkASSERT(0 == arrayID);
-      return ;
+      return;
     }
     if (!fBoundVertexArrayIDIsValid || arrayID != fBoundVertexArrayID)
     {

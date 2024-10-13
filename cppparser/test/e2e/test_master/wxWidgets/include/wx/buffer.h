@@ -181,7 +181,7 @@ protected:
   {
     if (m_data == GetNullData())
     {
-      return ;
+      return;
     }
     m_data->m_ref++;
   }
@@ -189,7 +189,7 @@ protected:
   {
     if (m_data == GetNullData())
     {
-      return ;
+      return;
     }
     if (--m_data->m_ref == 0)
     {
@@ -447,7 +447,7 @@ private:
                 // pointer in the function calling us than overflowing the
                 // buffer which couldn't be made big enough.
         free(release());
-        return ;
+        return;
       }
       m_data = data;
       m_size = newSize + wxMemoryBufferData::DefBufSize;

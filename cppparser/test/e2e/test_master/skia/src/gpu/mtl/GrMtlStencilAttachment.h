@@ -7,6 +7,7 @@
 #ifndef GrMtlStencil_DEFINED
 #  define GrMtlStencil_DEFINED
 #  include "src/gpu/GrStencilAttachment.h"
+#  import <Metal/Metal.h>
 class GrMtlImageView;
 class GrMtlGpu;
 class GrMtlStencilAttachment : public GrStencilAttachment

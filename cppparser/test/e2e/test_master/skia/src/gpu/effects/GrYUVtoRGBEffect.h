@@ -39,7 +39,7 @@ public:
 private:
   GrYUVtoRGBEffect(const sk_sp<GrTextureProxy> proxies[], const SkSize scales[], const GrSamplerState::Filter filterModes[], int numPlanes, const SkYUVAIndex yuvaIndices[4], SkYUVColorSpace yuvColorSpace, const SkMatrix& localMatrix, const SkRect* domain)
     : INHERITED(kGrYUVtoRGBEffect_ClassID, kNone_OptimizationFlags)
-    , fDomains(GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain())
+    , fDomains{GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain(), GrTextureDomain::IgnoredDomain()}
     , fYUVColorSpace(yuvColorSpace)
   {
     for (int i = 0; i < numPlanes; ++i)

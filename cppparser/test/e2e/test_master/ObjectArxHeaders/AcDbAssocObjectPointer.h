@@ -348,7 +348,7 @@ inline void AcDbAssocObjectPointer<ACDB_CLASS>::setup(AcDbAssocAction* pActionBe
   mSubstituteObjectErrorStatus = Acad::eNullObjectId;
   if (mObjectId.isNull())
   {
-    return ;
+    return;
   }
   if (pActionBeingEvaluated != NULL)
   {
@@ -379,7 +379,7 @@ inline AcDbAssocObjectPointer<ACDB_CLASS>::~AcDbAssocObjectPointer()
 {
   if (mObjectId.isNull() && mpSubstituteObject == NULL)
   {
-    return ;
+    return;
   }
   if (mpActionBeingEvaluated != NULL)
   {

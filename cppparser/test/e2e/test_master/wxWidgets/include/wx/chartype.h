@@ -113,6 +113,8 @@ typedef wchar_t wxUChar;
 #if wxUSE_UNICODE
     /* FIXME-UTF8: what would be better place for this? */
 #  if  defined(wxUSE_UTF8_LOCALE_ONLY) && !defined(wxUSE_UNICODE_UTF8)
+#    undef error "wxUSE_UTF8_LOCALE_ONLY only makes sense with wxUSE_UNICODE_UTF8"
+
 #  endif
 #  ifndef wxUSE_UTF8_LOCALE_ONLY
 #    define wxUSE_UTF8_LOCALE_ONLY	0
@@ -125,6 +127,8 @@ typedef wchar_t wxUChar;
 #    define wxUSE_UNICODE_WCHAR	1
 #  endif
 #  ifndef SIZEOF_WCHAR_T
+#    undef error "SIZEOF_WCHAR_T must be defined before including this file in wx/defs.h"
+
 #  endif
 #  if  wxUSE_UNICODE_WCHAR && SIZEOF_WCHAR_T == 2
 #    define wxUSE_UNICODE_UTF16	1

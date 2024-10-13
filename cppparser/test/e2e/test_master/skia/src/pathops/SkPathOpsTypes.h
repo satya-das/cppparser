@@ -166,7 +166,7 @@ public:
   {
     if (SkOpPhase::kNoChange == phase)
     {
-      return ;
+      return;
     }
     SkASSERT(fPhase != phase);
     fPhase = phase;

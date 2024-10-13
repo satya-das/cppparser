@@ -9,6 +9,8 @@
 // More strictly, this header should be the first thing in a translation unit,
 // since it is effectively negating build flags.
 #  if  defined(_WINDOWS_) || defined(DWRITE_3_H_INCLUDED)
+#    undef error Must include SkDWriteNTDDI_VERSION.h before any Windows or DWrite headers.
+
 #  endif
 // If the build defines NTDDI_VERSION, pretend it didn't.
 // This also requires resetting _WIN32_WINNT and WINVER.

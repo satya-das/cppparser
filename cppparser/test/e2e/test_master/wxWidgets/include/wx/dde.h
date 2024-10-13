@@ -19,6 +19,8 @@ WX_DECLARE_USER_EXPORTED_LIST(wxDDEConnection, wxDDEConnectionList, WXDLLIMPEXP_
 #  if  defined(__WINDOWS__)
 #    include "wx/msw/dde.h"
 #  else 
+#    undef error DDE is only supported under Windows
+
 #  endif
 #endif
     // _WX_DDE_H_BASE_

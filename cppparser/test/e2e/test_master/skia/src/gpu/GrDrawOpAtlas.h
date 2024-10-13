@@ -362,7 +362,7 @@ private:
   {
     if (fPages[pageIdx].fPlotList.head() == plot)
     {
-      return ;
+      return;
     }
     fPages[pageIdx].fPlotList.remove(plot);
     fPages[pageIdx].fPlotList.addToHead(plot);

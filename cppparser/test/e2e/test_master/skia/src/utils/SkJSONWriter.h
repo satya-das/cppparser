@@ -81,7 +81,7 @@ public:
   {
     if (!name)
     {
-      return ;
+      return;
     }
     SkASSERT(Scope::kObject == this->scope());
     SkASSERT(State::kObjectBegin == fState || State::kObjectValue == fState);

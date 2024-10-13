@@ -6,10 +6,13 @@
  */
 #ifndef GrMtlUtil_DEFINED
 #  define GrMtlUtil_DEFINED
+#  import <Metal/Metal.h>
 #  include "include/gpu/GrBackendSurface.h"
 #  include "include/private/GrTypesPriv.h"
 #  include "src/sksl/ir/SkSLProgram.h"
 #  if  !__has_feature(objc_arc)
+#    undef error This file must be compiled with Arc. Use -fobjc-arc flag
+
 #  endif
 class GrMtlGpu;
 class GrSurface;

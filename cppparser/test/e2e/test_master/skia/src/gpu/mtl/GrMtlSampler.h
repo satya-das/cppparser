@@ -6,6 +6,7 @@
  */
 #ifndef GrMtlSampler_DEFINED
 #  define GrMtlSampler_DEFINED
+#  import <Metal/Metal.h>
 #  include "src/core/SkOpts.h"
 #  include <atomic>
 class GrSamplerState;

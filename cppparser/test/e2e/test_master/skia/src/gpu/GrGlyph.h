@@ -42,10 +42,10 @@ default:
     return skGlyph.maskFormat() == SkMask::kSDF_Format ? GrGlyph::MaskStyle::kDistance_MaskStyle : GrGlyph::MaskStyle::kCoverage_MaskStyle;
   }
   GrGlyph(const SkGlyph& skGlyph)
-    : fPackedID(skGlyph.getPackedID())
-    , fMaskFormat(FormatFromSkGlyph(skGlyph.maskFormat()))
-    , fMaskStyle(MaskStyleFromSkGlyph(skGlyph))
-    , fBounds(GrIRect16::Make(skGlyph.iRect()))
+    : fPackedID{skGlyph.getPackedID()}
+    , fMaskFormat{FormatFromSkGlyph(skGlyph.maskFormat())}
+    , fMaskStyle{MaskStyleFromSkGlyph(skGlyph)}
+    , fBounds{GrIRect16::Make(skGlyph.iRect())}
   {
   }
   SkRect destRect(SkPoint origin)

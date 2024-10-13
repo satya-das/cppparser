@@ -33,6 +33,10 @@
     // broken compilers don't like it, so we have to disable it in this case
     // <sigh>
 #      ifdef __GNUC__
+#        undef warning "Your compiler does not appear to support 64 bit "\
+                 "integers, using emulation class instead.\n" \
+                 "Please report your compiler version to " \
+                 "wx-dev@googlegroups.com!"
 #      else 
 #        pragma  warning "Your compiler does not appear to support 64 bit "\
                         "integers, using emulation class instead.\n" \

@@ -56,7 +56,7 @@ public:
     if (1 == fArray.count())
     {
       fArray.pop();
-      return ;
+      return;
     }
     fArray[0] = fArray[fArray.count() - 1];
     this->setIndex(0);
@@ -84,7 +84,7 @@ public:
     if (index == fArray.count() - 1)
     {
       fArray.pop();
-      return ;
+      return;
     }
     fArray[index] = fArray[fArray.count() - 1];
     fArray.pop();
@@ -183,7 +183,7 @@ private:
       {
                 // We're a leaf.
         this->setIndex(index);
-        return ;
+        return;
       }
       if (child + 1 >= fArray.count())
       {
@@ -194,7 +194,7 @@ private:
           swap(fArray[child], fArray[index]);
           this->setIndex(child);
           this->setIndex(index);
-          return ;
+          return;
         }
       }
       else 
@@ -217,7 +217,7 @@ private:
       {
                 // We're less than both our children.
         this->setIndex(index);
-        return ;
+        return;
       }
       this->validate(index);
     } while (true);

@@ -9,6 +9,7 @@
 #  include "src/core/SkAutoMalloc.h"
 #  include "src/gpu/glsl/GrGLSLProgramDataManager.h"
 #  include "src/gpu/mtl/GrMtlUniformHandler.h"
+#  import <Metal/Metal.h>
 class GrMtlBuffer;
 class GrMtlGpu;
 class GrMtlPipelineStateDataManager : public GrGLSLProgramDataManager

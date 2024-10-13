@@ -10,6 +10,8 @@
 #ifndef __CHECKLST__H_
 #  define __CHECKLST__H_
 #  if  !wxUSE_OWNER_DRAWN
+#    undef error  "wxCheckListBox class requires owner-drawn functionality."
+
 #  endif
 class WXDLLIMPEXP_FWD_CORE wxOwnerDrawn;
 class WXDLLIMPEXP_FWD_CORE wxCheckListBoxItem;

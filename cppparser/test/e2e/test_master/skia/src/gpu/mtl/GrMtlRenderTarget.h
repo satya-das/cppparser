@@ -8,6 +8,7 @@
 #  define GrMtlRenderTarget_DEFINED
 #  include "src/gpu/GrRenderTarget.h"
 #  include "include/gpu/GrBackendSurface.h"
+#  import <Metal/Metal.h>
 class GrMtlGpu;
 class GrMtlRenderTarget : public GrRenderTarget
 {

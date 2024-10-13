@@ -12,6 +12,7 @@
 #  include "src/gpu/mtl/GrMtlUniformHandler.h"
 #  include "src/gpu/mtl/GrMtlVaryingHandler.h"
 #  include "src/sksl/SkSLCompiler.h"
+#  import <Metal/Metal.h>
 class GrMtlGpu;
 class GrMtlPipelineState;
 class GrMtlPipelineStateBuilder : public GrGLSLProgramBuilder

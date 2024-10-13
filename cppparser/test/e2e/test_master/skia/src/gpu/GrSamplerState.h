@@ -32,12 +32,12 @@ public:
   {
   }
   GrSamplerState(WrapMode wrapXAndY, Filter filter)
-    : fWrapModes(wrapXAndY, wrapXAndY)
+    : fWrapModes{wrapXAndY, wrapXAndY}
     , fFilter(filter)
   {
   }
   GrSamplerState(const WrapMode wrapModes[2], Filter filter)
-    : fWrapModes(wrapModes[0], wrapModes[1])
+    : fWrapModes{wrapModes[0], wrapModes[1]}
     , fFilter(filter)
   {
   }

@@ -49,12 +49,12 @@ private:
     }
     const T& operator[](int i) const
     {
-      SkASSERT(i >= 0 && i < (fFP.*COUNT)());
+      SkASSERT(i >= 0 && i < (fFP->*COUNT)());
       return fTs[i];
     }
     int count() const
     {
-      return (fFP.*COUNT)();
+      return (fFP->*COUNT)();
     }
     BuilderInputProvider childInputs(int childIdx) const
     {
@@ -68,7 +68,7 @@ private:
         {
           return BuilderInputProvider(child, fTs + numToSkip);
         }
-        numToSkip += (fp.*COUNT)();
+        numToSkip += (fp->*COUNT)();
       }
     }
   private:

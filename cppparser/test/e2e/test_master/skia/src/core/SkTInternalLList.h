@@ -109,7 +109,7 @@ public:
     if (nullptr == existingEntry)
     {
       this->addToTail(newEntry);
-      return ;
+      return;
     }
     SkASSERT(this->isInList(existingEntry));
     newEntry->fNext = existingEntry;
@@ -140,7 +140,7 @@ public:
     if (nullptr == existingEntry)
     {
       this->addToHead(newEntry);
-      return ;
+      return;
     }
     SkASSERT(this->isInList(existingEntry));
     newEntry->fPrev = existingEntry;
@@ -164,7 +164,7 @@ public:
   {
     if (list.isEmpty())
     {
-      return ;
+      return;
     }
     list.fHead->fPrev = fTail;
     if (!fHead)

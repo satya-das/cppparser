@@ -70,7 +70,7 @@ namespace wxPrivate
       T* mem = (T*) ::operator new(newCapacity * sizeof(T));
       for (size_t i = 0; i < occupiedSize; i++)
       {
-        new (mem + i) T(old[i]);
+        ::new (mem + i) T(old[i]);
         old[i].~T();
       }
       ::operator delete(old);
@@ -83,7 +83,7 @@ namespace wxPrivate
       T* sourceptr = source;
       for (size_t i = count; i > 0; --i, ++destptr, ++sourceptr)
       {
-        new (destptr) T(*sourceptr);
+        ::new (destptr) T(*sourceptr);
         sourceptr->~T();
       }
     }
@@ -94,7 +94,7 @@ namespace wxPrivate
       T* sourceptr = source + count - 1;
       for (size_t i = count; i > 0; --i, --destptr, --sourceptr)
       {
-        new (destptr) T(*sourceptr);
+        ::new (destptr) T(*sourceptr);
         sourceptr->~T();
       }
     }
@@ -446,7 +446,7 @@ public:
   {
     if (n <= m_capacity)
     {
-      return ;
+      return;
     }
         // increase the size twice, unless we're already too big or unless
         // more is requested
@@ -540,7 +540,7 @@ public:
         // use placement new to initialize new object in preallocated place in
         // m_values and store 'v' in it:
     void* const place = m_values + m_size;
-    new (place) value_type(v);
+    ::new (place) value_type(v);
         // only increase m_size if the ctor didn't throw an exception; notice
         // that if it _did_ throw, everything is OK, because we only increased
         // vector's capacity so far and possibly written some data to
@@ -643,7 +643,7 @@ public:
         // m_values and store 'v' in it:
     for (size_type i = 0; i < count; i++)
     {
-      new (place + i) value_type(v);
+      ::new (place + i) value_type(v);
     }
         // now that we did successfully add the new element, increment the size
         // and disable moving the items back

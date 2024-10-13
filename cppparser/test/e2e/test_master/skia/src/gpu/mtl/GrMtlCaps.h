@@ -9,6 +9,7 @@
 #  include "include/private/SkTDArray.h"
 #  include "src/gpu/GrCaps.h"
 #  include "src/gpu/mtl/GrMtlStencilAttachment.h"
+#  import <Metal/Metal.h>
 class GrShaderCaps;
 /**
  * Stores some capabilities of a Mtl backend.

@@ -29,12 +29,12 @@ class SkZip
     using reference = value_type;
     using iterator_category = std::input_iterator_tag;
     Iterator(const SkZip* zip, size_t index)
-      : fZip(zip)
-      , fIndex(index)
+      : fZip{zip}
+      , fIndex{index}
     {
     }
     Iterator(const Iterator& that)
-      : Iterator(that.fZip, that.fIndex)
+      : Iterator{that.fZip, that.fIndex}
     {
     }
     constexpr Iterator& operator++()
@@ -71,14 +71,14 @@ class SkZip
 public:
   SkZip(size_t) = delete;
   SkZip(size_t size, Ts*... ts)
-    : fPointers(ts...)
-    , fSize(size)
+    : fPointers{ts...}
+    , fSize{size}
   {
   }
   template <typename... Us>
   SkZip(const SkZip<Us...>& that)
-    : fPointers(that.fPointers)
-    , fSize(that.fSize)
+    : fPointers{that.fPointers}
+    , fSize{that.fSize}
   {
   }
   constexpr ReturnTuple operator[](size_t i) const

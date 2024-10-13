@@ -418,7 +418,7 @@ public:
     if (contour == this)
     {
       SkASSERT(this->count() == 0);
-      return ;
+      return;
     }
     SkASSERT(contour->next() == nullptr);
     SkOpContour* prev = this;

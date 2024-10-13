@@ -314,6 +314,8 @@ protected:
 };
 #  pragma  pack (pop)
 #  ifdef GE_LOCATED_NEW
+#    undef error AcArray.h doesn't expect GE_LOCATED_NEW!
+
 #  endif
 #  pragma  pack (push, 8)
 // Inline methods.
@@ -880,7 +882,7 @@ AcArray<T,R>& AcArray<T,R>::setPhysicalLength(int n)
       T* pNewBuf = mpArray;
       for (int i = 0; i < mPhysicalLen; i++)
       {
-        new (pNewBuf++) T;
+        ::new (pNewBuf++) T;
       }
             // Now move the old values from the old buf to the new buf
       R::moveItems(mpArray, mPhysicalLen, pOldArray, mLogicalLen, false);

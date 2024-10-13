@@ -259,7 +259,7 @@ private:
         }
         fCount++;
         fArray[index] = newEntry;
-        return ;
+        return;
       }
       index = this->nextIndex(index, round);
     }
@@ -278,7 +278,7 @@ private:
         fDeleted++;
         fCount--;
         fArray[index] = Deleted();
-        return ;
+        return;
       }
       index = this->nextIndex(index, round);
     }

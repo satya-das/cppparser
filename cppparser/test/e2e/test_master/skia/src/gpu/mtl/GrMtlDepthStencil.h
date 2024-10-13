@@ -6,6 +6,7 @@
  */
 #ifndef GrMtlDepthStencil_DEFINED
 #  define GrMtlDepthStencil_DEFINED
+#  import <Metal/Metal.h>
 #  include "include/gpu/GrTypes.h"
 #  include "src/core/SkOpts.h"
 #  include <atomic>

@@ -968,6 +968,8 @@ typedef void (*wxDataViewEventFunction) (wxDataViewEvent&);
 #    elif  defined(__WXQT__)
 #      include "wx/qt/dataview.h"
 #    else 
+#      undef error "unknown native wxDataViewCtrl implementation"
+
 #    endif
 //-----------------------------------------------------------------------------
 // wxDataViewListStore

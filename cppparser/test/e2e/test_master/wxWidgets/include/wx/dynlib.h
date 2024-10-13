@@ -26,6 +26,8 @@ typedef void* wxDllType;
 #      include <CodeFragments.h>
 typedef CFragConnectionID wxDllType;
 #    else 
+#      undef error "Dynamic Loading classes can't be compiled on this platform, sorry."
+
 #    endif
 // ----------------------------------------------------------------------------
 // constants

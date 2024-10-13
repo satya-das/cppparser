@@ -133,19 +133,19 @@ struct GrUserStencilSettings
     // constant and to make use of static asserts.
   template <uint16_t Ref, GrUserStencilTest Test, uint16_t TestMask, GrUserStencilOp PassOp, GrUserStencilOp FailOp, uint16_t WriteMask, typename Attrs = Attrs<Test, PassOp, FailOp>>
   explicit GrUserStencilSettings(const Init<Ref, Test, TestMask, PassOp, FailOp, WriteMask>&)
-    : fFrontFlags((uint16_t) (Attrs::Flags(false) | kSingleSided_StencilFlag), (uint16_t) (Attrs::Flags(true) | kSingleSided_StencilFlag))
-    , fFront(Ref, Test, Attrs::EffectiveTestMask(TestMask), PassOp, FailOp, Attrs::EffectiveWriteMask(WriteMask))
-    , fBackFlags((uint16_t) (Attrs::Flags(false) | kSingleSided_StencilFlag), (uint16_t) (Attrs::Flags(true) | kSingleSided_StencilFlag))
-    , fBack(Ref, Test, Attrs::EffectiveTestMask(TestMask), PassOp, FailOp, Attrs::EffectiveWriteMask(WriteMask))
+    : fFrontFlags{(uint16_t) (Attrs::Flags(false) | kSingleSided_StencilFlag), (uint16_t) (Attrs::Flags(true) | kSingleSided_StencilFlag)}
+    , fFront{Ref, Test, Attrs::EffectiveTestMask(TestMask), PassOp, FailOp, Attrs::EffectiveWriteMask(WriteMask)}
+    , fBackFlags{(uint16_t) (Attrs::Flags(false) | kSingleSided_StencilFlag), (uint16_t) (Attrs::Flags(true) | kSingleSided_StencilFlag)}
+    , fBack{Ref, Test, Attrs::EffectiveTestMask(TestMask), PassOp, FailOp, Attrs::EffectiveWriteMask(WriteMask)}
   {
   }
   template <uint16_t FtRef, uint16_t BkRef, GrUserStencilTest FtTest, GrUserStencilTest BkTest, uint16_t FtTestMask, uint16_t BkTestMask, GrUserStencilOp FtPassOp, GrUserStencilOp BkPassOp, GrUserStencilOp FtFailOp, GrUserStencilOp BkFailOp, uint16_t FtWriteMask, uint16_t BkWriteMask, typename FtAttrs = Attrs<FtTest, FtPassOp, FtFailOp>, typename BkAttrs = Attrs<BkTest, BkPassOp, BkFailOp>>
   explicit GrUserStencilSettings(const InitSeparate<FtRef, BkRef, FtTest, BkTest, FtTestMask, BkTestMask,
                                FtPassOp, BkPassOp, FtFailOp, BkFailOp, FtWriteMask, BkWriteMask>&)
-    : fFrontFlags(FtAttrs::Flags(false), FtAttrs::Flags(true))
-    , fFront(FtRef, FtTest, FtAttrs::EffectiveTestMask(FtTestMask), FtPassOp, FtFailOp, FtAttrs::EffectiveWriteMask(FtWriteMask))
-    , fBackFlags(BkAttrs::Flags(false), BkAttrs::Flags(true))
-    , fBack(BkRef, BkTest, BkAttrs::EffectiveTestMask(BkTestMask), BkPassOp, BkFailOp, BkAttrs::EffectiveWriteMask(BkWriteMask))
+    : fFrontFlags{FtAttrs::Flags(false), FtAttrs::Flags(true)}
+    , fFront{FtRef, FtTest, FtAttrs::EffectiveTestMask(FtTestMask), FtPassOp, FtFailOp, FtAttrs::EffectiveWriteMask(FtWriteMask)}
+    , fBackFlags{BkAttrs::Flags(false), BkAttrs::Flags(true)}
+    , fBack{BkRef, BkTest, BkAttrs::EffectiveTestMask(BkTestMask), BkPassOp, BkFailOp, BkAttrs::EffectiveWriteMask(BkWriteMask)}
   {
   }
     // This struct can only be constructed with static initializers.

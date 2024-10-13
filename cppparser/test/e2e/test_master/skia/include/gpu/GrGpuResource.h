@@ -36,7 +36,7 @@ public:
         // Only the cache should be able to add the first ref to a resource.
     SkASSERT(this->getRefCnt() > 0);
         // No barrier required.
-    (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
+    (void) fRefCnt.fetch_add(+1, std::memory_order_relaxed);
   }
   void unref() const
   {
@@ -45,7 +45,7 @@ public:
     {
             // At this point we better be the only thread accessing this resource.
             // Trick out the notifyRefCntWillBeZero() call by adding back one more ref.
-      fRefCnt.fetch_add(1, std::memory_order_relaxed);
+      fRefCnt.fetch_add(+1, std::memory_order_relaxed);
       static_cast<const DERIVED*>(this)->notifyRefCntWillBeZero();
             // notifyRefCntWillBeZero() could have done anything, including re-refing this and
             // passing on to another thread. Take away the ref-count we re-added above and see
@@ -79,7 +79,7 @@ protected:
   {
     SkASSERT(fRefCnt >= 0);
         // No barrier required.
-    (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
+    (void) fRefCnt.fetch_add(+1, std::memory_order_relaxed);
   }
 private:
   int32_t getRefCnt() const

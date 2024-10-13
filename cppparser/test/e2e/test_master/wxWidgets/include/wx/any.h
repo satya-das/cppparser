@@ -184,7 +184,7 @@ namespace wxPrivate
     {
         // Use placement new
       void* const place = buf.m_buffer;
-      new (place) T(value);
+      ::new (place) T(value);
     }
     static const T& GetValue(const wxAnyValueBuffer& buf)
     {
@@ -926,7 +926,7 @@ private:
     wxVariantData* data = variant.GetData();
     if (data && data->GetAsAny(this))
     {
-      return ;
+      return;
     }
     m_type->DeleteValue(m_buffer);
     if (variant.IsNull())

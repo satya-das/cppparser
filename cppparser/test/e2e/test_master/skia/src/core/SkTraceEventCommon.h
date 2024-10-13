@@ -51,6 +51,8 @@
 //                  "bytesAllocated", g_myCounterValue[1]);
 // The tracing UI will show these counters in a single graph, as a summed area chart.
 #  if  defined(TRACE_EVENT0)
+#    undef error "Another copy of this file has already been included."
+
 #  endif
 #  define TRACE_EMPTY	do {} while (0)
 #  ifdef SK_BUILD_FOR_ANDROID_FRAMEWORK
@@ -70,7 +72,7 @@ public:
   {
     if (CC_LIKELY((!gEnableAndroidTracing) || (!ATRACE_ENABLED())))
     {
-      return ;
+      return;
     }
     const int BUFFER_SIZE = 256;
     va_list ap;

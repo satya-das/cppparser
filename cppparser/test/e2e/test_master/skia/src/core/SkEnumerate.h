@@ -25,8 +25,8 @@ class SkEnumerate
     using reference = value_type;
     using iterator_category = std::input_iterator_tag;
     Iterator(ptrdiff_t index, Iter it)
-      : fIndex(index)
-      , fIt(it)
+      : fIndex{index}
+      , fIt{it}
     {
     }
     Iterator(const Iterator&);
@@ -60,14 +60,14 @@ class SkEnumerate
   };
 public:
   SkEnumerate(Iter begin, Iter end)
-    : fBegin(begin)
-    , fEnd(end)
+    : fBegin{begin}
+    , fEnd{end}
   {
   }
   explicit SkEnumerate(C&& c)
-    : fCollection(std::move(c))
-    , fBegin(std::begin(fCollection))
-    , fEnd(std::end(fCollection))
+    : fCollection{std::move(c)}
+    , fBegin{std::begin(fCollection)}
+    , fEnd{std::end(fCollection)}
   {
   }
   SkEnumerate(const SkEnumerate& that);
