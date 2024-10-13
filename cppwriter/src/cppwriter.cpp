@@ -978,11 +978,17 @@ void CppWriter::emitForBlock(const cppast::CppForBlock& forBlock, std::ostream& 
   if (forBlock.start())
     emit(*forBlock.start(), stm, CppIndent(), true);
   stm << ';';
-  stm << ' ';
-  emitExpressions(forBlock.stop(), stm);
+  if (forBlock.stop())
+  {
+    stm << ' ';
+    emitExpr(*forBlock.stop(), stm);
+  }
   stm << ';';
-  stm << ' ';
-  emitExpressions(forBlock.step(), stm);
+  if (forBlock.step())
+  {
+    stm << ' ';
+    emitExpr(*forBlock.step(), stm);
+  }
   stm << ")\n";
   stm << indentation << "{\n";
   ++indentation;

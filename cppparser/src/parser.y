@@ -294,7 +294,7 @@ using namespace cppast;
 %type  <templateParamList>  templatespecifier templateparamlist
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>         expr exprstmt optexpr lambdacapture captureallbyref captureallbyval exprorlist
+%type  <cppExprObj>         expr exprstmt optexpr lambdacapture captureallbyref captureallbyval exprorlist optexprorlist
 %type  <exprList>           exprlist optexprlist
 %type  <cppExprObj>         objcarg objcarglist
 %type  <cppLambda>          lambda
@@ -567,14 +567,14 @@ dowhileblock      : tknDo stmt tknWhile '(' expr ')' [ZZLOG;] {
                   }
                   ;
 
-forblock          : tknFor '(' optexpr ';' optexprlist ';' optexprlist ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Obj($5), Obj($7), Ptr($9));
+forblock          : tknFor '(' optexprorlist ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
+                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
                   }
-                  | tknFor '(' varinit ';' optexprlist ';' optexprlist ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Obj($5), Obj($7), Ptr($9));
+                  | tknFor '(' varinit ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
+                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
                   }
-                  | tknFor '(' vardecllist ';' optexprlist ';' optexprlist ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Obj($5), Obj($7), Ptr($9));
+                  | tknFor '(' vardecllist ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
+                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
                   }
                   ;
 
@@ -1959,14 +1959,19 @@ exprlist          : expr                                                  [ZZLOG
                   | doccommentstr exprlist                                [ZZLOG;] { $$ = $2; }
                   ;
 
+optexprlist       :           [ZZLOG;] { $$ = nullptr; }
+                  | exprlist  [ZZLOG;] { $$ = $1;      }
+                  ;
+
 exprorlist        : expr                        [ZZLOG;] { $$ = $1; }
                   | exprlist                    [ZZLOG;] { $$ = ExpressionListExpr(Obj($1)); }
                   | doccommentstr exprorlist    [ZZLOG;] { $$ = $2; }
                   ;
 
-optexprlist       :           [ZZLOG;] { $$ = nullptr; }
-                  | exprlist  [ZZLOG;] { $$ = $1;      }
+optexprorlist     :             [ZZLOG;] { $$ = nullptr; }
+                  | exprorlist  [ZZLOG;] { $$ = $1;      }
                   ;
+
 /* TODO: Improve lambda capture types. As of now use of use of MonomialExpr and  BinomialExpr are hacks. */
 captureallbyref   : '&'  [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::REFER, NameExpr("")); }
                   ;

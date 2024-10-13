@@ -94,10 +94,10 @@ public:
   }
 
 public:
-  CppForBlock(std::unique_ptr<CppEntity> start,
-              CppExpressions             stop,
-              CppExpressions             step,
-              std::unique_ptr<CppEntity> body)
+  CppForBlock(std::unique_ptr<CppEntity>           start,
+              std::unique_ptr<const CppExpression> stop,
+              std::unique_ptr<const CppExpression> step,
+              std::unique_ptr<CppEntity>           body)
     : CppEntity(EntityType())
     , start_(std::move(start))
     , stop_(std::move(stop))
@@ -111,14 +111,14 @@ public:
     return start_.get();
   }
 
-  const CppExpressions& stop() const
+  const CppExpression* stop() const
   {
-    return stop_;
+    return stop_.get();
   }
 
-  const CppExpressions& step() const
+  const CppExpression* step() const
   {
-    return step_;
+    return step_.get();
   }
 
   const CppEntity* body() const
@@ -127,10 +127,10 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppEntity> start_;
-  const CppExpressions             stop_;
-  const CppExpressions             step_;
-  const std::unique_ptr<CppEntity> body_;
+  const std::unique_ptr<CppEntity>           start_;
+  const std::unique_ptr<const CppExpression> step_;
+  const std::unique_ptr<const CppExpression> stop_;
+  const std::unique_ptr<CppEntity>           body_;
 };
 
 class CppRangeForBlock : public CppEntity
