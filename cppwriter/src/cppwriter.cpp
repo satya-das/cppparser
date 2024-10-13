@@ -342,9 +342,9 @@ void CppWriter::emitVarDecl(std::ostream& stm, const cppast::CppVarDecl& varDecl
   }
   else if (varDecl.initializeType() == cppast::CppVarInitializeType::DIRECT_CONSTRUCTOR_CALL)
   {
-    stm << (varDecl.directConstructorCallStyle() == cppast::CppConstructorCallStyle::USING_BRACES) ? '{' : '(';
+    stm << ((varDecl.directConstructorCallStyle() == cppast::CppConstructorCallStyle::USING_BRACES) ? '{' : '(');
     emitExpressions(varDecl.constructorCallArgs(), stm);
-    stm << (varDecl.directConstructorCallStyle() == cppast::CppConstructorCallStyle::USING_BRACES) ? '}' : ')';
+    stm << ((varDecl.directConstructorCallStyle() == cppast::CppConstructorCallStyle::USING_BRACES) ? '}' : ')');
   }
 }
 
