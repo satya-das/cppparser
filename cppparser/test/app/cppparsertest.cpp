@@ -473,6 +473,7 @@ cppparser::CppParser constructCppParserForTest()
                          "WX_USE_THEME",
                          "WX_USE_THEME_IMPL",
                          "wxUSTRING_COMP_OPERATORS",
+                         "WXDLLIMPEXP_DATA_CORE",
                          "WX_VARARG_VFOO_IMPL"});
 
   parser.addIgnorableMacros({"SkDEBUGCODE",
@@ -516,7 +517,6 @@ cppparser::CppParser constructCppParserForTest()
                              "wxDEPRECATED_BUT_USED_INTERNALLY_INLINE",
                              "wxDEPRECATED_CONSTRUCTOR",
                              "wxDEPRECATED_INLINE",
-                             "WXDLLIMPEXP_DATA_CORE",
                              "wxGCC_WARNING_RESTORE",
                              "wxGCC_WARNING_SUPPRESS",
                              "wxMEMBER_DELETE",
