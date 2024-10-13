@@ -294,7 +294,7 @@ using namespace cppast;
 %type  <templateParamList>  templatespecifier templateparamlist
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>         expr exprstmt optexpr lambdacapture captureallbyref captureallbyval
+%type  <cppExprObj>         expr exprstmt optexpr lambdacapture captureallbyref captureallbyval exprorlist
 %type  <exprList>           exprlist optexprlist
 %type  <cppExprObj>         objcarg objcarglist
 %type  <cppLambda>          lambda
@@ -1834,6 +1834,7 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                         ZZLOG;
                       }
                     ]                                 [ZZLOG;] { $$ = NameExpr($1);          }
+                  | '(' exprlist ')'                  [ZZLOG;] { $$ = ExpressionListExpr(Obj($2)); };
                   | '{' optexprlist '}'               [ZZLOG;] { $$ = InitializerListExpr($2);        }
                   | '{' optexprlist ',' '}'           [ZZLOG;] { $$ = InitializerListExpr($2);        }
                   | '+' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_PLUS, $2);          }
@@ -1958,10 +1959,10 @@ exprlist          : expr                                                  [ZZLOG
                   | doccommentstr exprlist                                [ZZLOG;] { $$ = $2; }
                   ;
 
-/* exprorlist        : expr                        [ZZLOG;] { $$ = $1; }
-                  | exprlist                    [ZZLOG;] { $$ = $1; }
+exprorlist        : expr                        [ZZLOG;] { $$ = $1; }
+                  | exprlist                    [ZZLOG;] { $$ = ExpressionListExpr(Obj($1)); }
                   | doccommentstr exprorlist    [ZZLOG;] { $$ = $2; }
-                  ; */
+                  ;
 
 optexprlist       :           [ZZLOG;] { $$ = nullptr; }
                   | exprlist  [ZZLOG;] { $$ = $1;      }
@@ -1981,7 +1982,7 @@ lambdacapture     : optexprlist        [ZZLOG;] { $$ = nullptr; }
 exprstmt          : expr ';'           [ZZLOG;] { $$ = $1; }
                   ;
 
-returnstmt        : tknReturn  expr ';'       [ZZLOG;] { $$ = new cppast::CppReturnStatement(Ptr($2));         }
+returnstmt        : tknReturn  exprorlist ';' [ZZLOG;] { $$ = new cppast::CppReturnStatement(Ptr($2));         }
                   | tknReturn  ';'            [ZZLOG;] { $$ = new cppast::CppReturnStatement();         }
                   ;
 

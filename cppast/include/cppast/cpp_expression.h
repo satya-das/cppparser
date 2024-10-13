@@ -234,7 +234,9 @@ public:
   }
 
 public:
-  CppBinomialExpr(CppBinaryOperator oper, std::unique_ptr<CppExpression> term1, std::unique_ptr<CppExpression> term2)
+  CppBinomialExpr(CppBinaryOperator                    oper,
+                  std::unique_ptr<const CppExpression> term1,
+                  std::unique_ptr<const CppExpression> term2)
     : CppExpression(ExpressionType())
     , oper_(oper)
     , term1_(std::move(term1))
@@ -259,9 +261,9 @@ public:
   }
 
 private:
-  const CppBinaryOperator              oper_;
-  const std::unique_ptr<CppExpression> term1_;
-  const std::unique_ptr<CppExpression> term2_;
+  const CppBinaryOperator                    oper_;
+  const std::unique_ptr<const CppExpression> term1_;
+  const std::unique_ptr<const CppExpression> term2_;
 };
 
 class CppTrinomialExpr : public CppExpression

@@ -159,6 +159,35 @@ inline auto LambdaExpression(const cppast::CppLambda* lambda)
   return new cppast::CppLambdaExpr(Ptr(lambda));
 }
 
+/**
+ * An Expression-list expression is an expression that uses ',' as operator.
+ * e.g.:
+ *  1) int x = 2, 3;
+ *  2) gcd((3, 4, 6), 4);
+ *  3) return 9, 10;
+ * In these examples we see expression-lists are expressions.
+ */
+template <typename ExprItr>
+inline cppast::CppExpression* ExpressionListExpr(ExprItr first, ExprItr end)
+{
+  static_assert(
+    std::is_same_v<std::unique_ptr<const cppast::CppExpression>, std::remove_reference_t<decltype(*first)>>);
+  assert(first != end);
+  auto second = first + 1;
+  if (second == end)
+    return const_cast<cppast::CppExpression*>(first->release());
+  auto result = new cppast::CppBinomialExpr(cppast::CppBinaryOperator::COMMA, std::move(*first), std::move(*second));
+  auto next   = second + 1;
+  if (next == end)
+    return result;
+  return new cppast::CppBinomialExpr(cppast::CppBinaryOperator::COMMA, Ptr(result), Ptr(ExpressionListExpr(next, end)));
+}
+
+inline auto ExpressionListExpr(std::vector<std::unique_ptr<const cppast::CppExpression>> exprList)
+{
+  return ExpressionListExpr(exprList.begin(), exprList.end());
+}
+
 inline auto VarDecl(std::string name, cppast::CppVarInitInfo* initInfo)
 {
   return initInfo ? cppast::CppVarDecl(name, Obj(initInfo)) : cppast::CppVarDecl(name);
