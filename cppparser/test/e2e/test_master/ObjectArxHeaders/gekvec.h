@@ -28,7 +28,7 @@ public:
   GE_DLLDATAEXIMP static double globalKnotTolerance;
   GE_DLLEXPIMPORT AcGeKnotVector(double eps = globalKnotTolerance);
   GE_DLLEXPIMPORT AcGeKnotVector(int size, int growSize, double eps = globalKnotTolerance);
-  GE_DLLEXPIMPORT AcGeKnotVector(int size, const double[], double eps = globalKnotTolerance);
+  GE_DLLEXPIMPORT AcGeKnotVector(int size, const double [], double eps = globalKnotTolerance);
 	// Elevates multiplicity of each DISTINCT knot by plusMult;
 	// Contract: plusMul >= 0;
   GE_DLLEXPIMPORT AcGeKnotVector(int plusMult, const AcGeKnotVector& src);
@@ -88,7 +88,7 @@ public:
     //
   GE_DLLEXPIMPORT const double* asArrayPtr() const;
   GE_DLLEXPIMPORT double* asArrayPtr();
-  GE_DLLEXPIMPORT AcGeKnotVector& set(int size, const double[], double eps = globalKnotTolerance);
+  GE_DLLEXPIMPORT AcGeKnotVector& set(int size, const double [], double eps = globalKnotTolerance);
 protected:
   AcGeDoubleArray mData;
   double mTolerance;
