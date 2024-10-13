@@ -1044,7 +1044,7 @@ template <typename ObjType>
 inline Acad::ErrorStatus acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const, ACHAR*& pOutput)
 {
   AcString sOutput;
-  const Acad::ErrorStatus es = (pObj.*pFunc)(sOutput);
+  const Acad::ErrorStatus es = (pObj->*pFunc)(sOutput);
   if (es != Acad::eOk)
   {
     pOutput = nullptr;
@@ -1056,7 +1056,7 @@ template <typename ObjType>
 inline ACHAR* acutGetAcStringConvertToAChar(const ObjType* pObj, Acad::ErrorStatus (*pFunc) (AcString&) const)
 {
   AcString sOutput;
-  const Acad::ErrorStatus es = (pObj.*pFunc)(sOutput);
+  const Acad::ErrorStatus es = (pObj->*pFunc)(sOutput);
   ACHAR* pRet = nullptr;
   if (es == Acad::eOk)
   {

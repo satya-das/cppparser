@@ -15,6 +15,8 @@
 // This file should only be included by .cpp files.  If it's
 // included twice, we assume it's because it is being included
 // by .h file(s), and so we complain.
+#  undef error "acdbabbES.h included more than once!  Is it included by a .h file?"
+
 #endif
 #define AD_ACDBABBES_H	1
 #include "acadstrc.h"

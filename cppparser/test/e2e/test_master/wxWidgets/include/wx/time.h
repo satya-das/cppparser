@@ -52,6 +52,8 @@ wxLongLong WXDLLIMPEXP_BASE wxGetUTCTimeUSec();
 WXDLLIMPEXP_BASE struct tm* wxLocaltime_r(const time_t*, struct tm*);
 #    if  wxUSE_THREADS && !defined(__WINDOWS__)
      // On Windows, localtime _is_ threadsafe!
+#      undef warning using pseudo thread-safe wrapper for localtime to emulate localtime_r
+
 #    endif
 #  endif
 #  ifdef HAVE_GMTIME_R
@@ -60,6 +62,8 @@ WXDLLIMPEXP_BASE struct tm* wxLocaltime_r(const time_t*, struct tm*);
 WXDLLIMPEXP_BASE struct tm* wxGmtime_r(const time_t*, struct tm*);
 #    if  wxUSE_THREADS && !defined(__WINDOWS__)
      // On Windows, gmtime _is_ threadsafe!
+#      undef warning using pseudo thread-safe wrapper for gmtime to emulate gmtime_r
+
 #    endif
 #  endif
 #endif

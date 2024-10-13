@@ -289,6 +289,7 @@ has ## T_TABLE( \
   DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION(Viewport)
 #  undef DBSYMUTL_MAKE_HASSYMBOLNAME_FUNCTION
 }
+namespace AcDbSymbolUtilities = AcDbSymUtil;
 ACDBCORE2D_PORT Acad::ErrorStatus getTableStyleNameFromDbById(const AcDbObjectId& objId, AcString& sName);
 // This overload which allocates an ACHAR buffer is deprecated and will be removed.
 // Please use the above overload which takes an AcString & arg.

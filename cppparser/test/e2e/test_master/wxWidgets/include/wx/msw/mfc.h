@@ -9,6 +9,8 @@
 #ifndef _WX_MSW_MFC_H_
 #  define _WX_MSW_MFC_H_
 #  ifndef __AFXWIN_H__
+#    undef error "MFC headers must be included before including this file."
+
 #  endif
 #  include "wx/app.h"
 #  include "wx/evtloop.h"

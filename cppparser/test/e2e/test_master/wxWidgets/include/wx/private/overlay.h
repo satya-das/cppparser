@@ -16,6 +16,8 @@
 #    elif  defined(__WXDFB__)
 #      include "wx/dfb/private/overlay.h"
 #    else 
+#      undef error "unknown native wxOverlay implementation"
+
 #    endif
 #  else 
 #    include "wx/bitmap.h"

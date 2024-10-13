@@ -18,7 +18,7 @@ double sub(double x, double y)
 void proc()
 {
   printf("Test test and more test\n");
-  return ;
+  return;
 }
 // Function call tests
 void variousFunctionCallingTests()

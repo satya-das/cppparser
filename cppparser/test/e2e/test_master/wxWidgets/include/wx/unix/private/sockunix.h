@@ -33,7 +33,7 @@ public:
         // Events are only ever used for non-blocking sockets.
     if (GetSocketFlags() & wxSOCKET_BLOCK)
     {
-      return ;
+      return;
     }
         // enable the notifications about input/output being available again in
         // case they were disabled by OnRead/WriteWaiting()

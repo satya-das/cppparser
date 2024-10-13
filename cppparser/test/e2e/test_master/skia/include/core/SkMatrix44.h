@@ -12,6 +12,8 @@
 #  include <cstring>
 #  ifdef SK_MSCALAR_IS_DOUBLE
 #    ifdef SK_MSCALAR_IS_FLOAT
+#      undef error "can't define MSCALAR both as DOUBLE and FLOAT"
+
 #    endif
 typedef double SkMScalar;
 static double SkFloatToMScalar(float x)
@@ -44,6 +46,8 @@ static const SkMScalar SK_MScalarNaN = SK_DoubleNaN;
 #    define SkMScalarRoundToInt(x)	      sk_double_round2int(x)
 #  elif  defined SK_MSCALAR_IS_FLOAT
 #    ifdef SK_MSCALAR_IS_DOUBLE
+#      undef error "can't define MSCALAR both as DOUBLE and FLOAT"
+
 #    endif
 typedef float SkMScalar;
 static float SkFloatToMScalar(float x)
@@ -144,17 +148,17 @@ public:
   {
   }
   SkMatrix44(Identity_Constructor)
-    : fMat({1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1})
+    : fMat{{1, 0, 0, 0}, {0, 1, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 1}}
     , fTypeMask(kIdentity_Mask)
   {
   }
   SkMatrix44(NaN_Constructor)
-    : fMat({SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN}, {SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN}, {SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN}, {SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN})
+    : fMat{{SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN}, {SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN}, {SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN}, {SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN, SK_MScalarNaN}}
     , fTypeMask(kTranslate_Mask | kScale_Mask | kAffine_Mask | kPerspective_Mask)
   {
   }
   SkMatrix44()
-    : SkMatrix44(kIdentity_Constructor)
+    : SkMatrix44{kIdentity_Constructor}
   {
   }
   SkMatrix44(const SkMatrix44& src);

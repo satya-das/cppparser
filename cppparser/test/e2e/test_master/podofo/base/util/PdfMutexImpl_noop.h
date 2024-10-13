@@ -33,6 +33,8 @@
 #include "../PdfDefines.h"
 #include "../PdfDefinesPrivate.h"
 #if  defined(PODOFO_MULTI_THREAD)
+#  undef error "Multi-thread build, a real PdfMutex implementation should be used instead"
+
 #endif
 namespace PoDoFo
 {

@@ -9,7 +9,7 @@
 /////////////////////////////////////////////////////////////////////////////
 #ifndef _WX_CONTROL_H_
 #  define _WX_CONTROL_H_
-wxControlNameStr[];
+WXDLLIMPEXP_DATA_CORE(extern const char) wxControlNameStr[];
 // General item class
 class WXDLLIMPEXP_CORE wxControl : public wxControlBase
 {

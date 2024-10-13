@@ -117,7 +117,7 @@ protected:
   {
     if (m_pobj == pobj)
     {
-      return ;
+      return;
     }
     Release();
         // Now set new trackable object
@@ -205,7 +205,7 @@ protected:
   {
     if (m_pobj == pobj)
     {
-      return ;
+      return;
     }
     Release();
         // Now set new trackable object

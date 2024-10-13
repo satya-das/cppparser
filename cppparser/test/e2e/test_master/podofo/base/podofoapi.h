@@ -111,6 +111,8 @@
 #  endif
 /* Sanity check - can't be both compiling and using shared podofo */
 #  if  defined(COMPILING_SHARED_PODOFO) && defined(USING_SHARED_PODOFO)
+#    undef error "Both COMPILING_SHARED_PODOFO and USING_SHARED_PODOFO defined!"
+
 #  endif
 /*
  * Define COMPILING_SHARED_PODOFO when building the PoDoFo library as a

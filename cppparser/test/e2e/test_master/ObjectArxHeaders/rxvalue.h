@@ -101,7 +101,7 @@ public:
       }
 #pragma  push_macro("new")
 #undef new
-      new ((Storage*) this) AcRxValue(rhs, !isInlined() && !rhs.isInlined());
+      ::new ((Storage*) this) AcRxValue(rhs, !isInlined() && !rhs.isInlined());
 #pragma  pop_macro("new")
       return *this;
     }
@@ -497,7 +497,7 @@ private:
     if (blittable && inlined)
     {
       memcpy_s(&m_value, sizeof(m_value), &rhs.m_value, sizeof(m_value));
-      return ;
+      return;
     }
         /*
         inlined,non-blittable
@@ -635,7 +635,7 @@ template <typename T>
 inline void AcRxValue::InitNonBlittable< T, true>::init(AcRxValue& rxValue, const T& value)
 {
     //call global placement new defined above so that we can call copy constructor
-  new ((Storage*) (rxValue.inlineValuePtr())) T(value);
+  ::new ((Storage*) (rxValue.inlineValuePtr())) T(value);
 }
 template <typename T>
 inline void AcRxValue::InitNonBlittable< T, false>::init(AcRxValue& rxValue, const T& value)

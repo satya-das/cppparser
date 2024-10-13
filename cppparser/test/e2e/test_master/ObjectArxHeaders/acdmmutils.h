@@ -274,7 +274,7 @@ inline void AcDMMWideString::Alloc(PCWIDESTR pwsz)
   assert(pwsz != NULL);
   if (pwsz == NULL)
   {
-    return ;
+    return;
   }
   Alloc(pwsz, wcslen(pwsz));
 }

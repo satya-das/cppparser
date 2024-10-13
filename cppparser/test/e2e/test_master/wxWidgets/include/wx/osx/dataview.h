@@ -8,6 +8,8 @@
 #ifndef _WX_DATAVIEWCTRL_OSX_H_
 #  define _WX_DATAVIEWCTRL_OSX_H_
 #  ifdef __WXMAC_CLASSIC__
+#    undef error "Native wxDataViewCtrl for classic environment not defined. Please use generic control."
+
 #  endif
 // --------------------------------------------------------
 // Class declarations to mask native types

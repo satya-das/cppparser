@@ -1699,7 +1699,7 @@ private:
   SkScalar fMat[9];
   mutable uint32_t fTypeMask;
   SkMatrix(SkScalar sx, SkScalar kx, SkScalar tx, SkScalar ky, SkScalar sy, SkScalar ty, SkScalar p0, SkScalar p1, SkScalar p2, uint32_t typeMask)
-    : fMat(sx, kx, tx, ky, sy, ty, p0, p1, p2)
+    : fMat{sx, kx, tx, ky, sy, ty, p0, p1, p2}
     , fTypeMask(typeMask)
   {
   }

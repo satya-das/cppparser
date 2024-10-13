@@ -14,6 +14,8 @@ typedef WXFontStructPtr wxNativeFont;
 #  elif  defined(__WXGTK__)
 typedef GdkFont* wxNativeFont;
 #  else 
+#    undef error "Unsupported toolkit"
+
 #  endif
 // returns the handle of the nearest available font or 0
 extern wxNativeFont wxLoadQueryNearestFont(double pointSize, wxFontFamily family, wxFontStyle style, int weight, bool underlined, const wxString& facename, wxFontEncoding encoding, wxString* xFontName = NULL);

@@ -253,6 +253,8 @@
 #  elif  defined(__WINDOWS__)
     /* to be changed for Win64! */
 #    ifndef __WIN32__
+#      undef error "__WIN32__ should be defined for Win32 and Win64, Win16 is not supported"
+
 #    endif
     /* size_t is the same as unsigned int for all Windows compilers we know, */
     /* so define it if it hadn't been done by configure yet */
@@ -260,6 +262,8 @@
 #      define wxSIZE_T_IS_UINT
 #    endif
 #  else 
+#    undef error "Unknown platform."
+
 #  endif
 /*
    if we're on a Unix system but didn't use configure (so that setup.h didn't
@@ -314,6 +318,8 @@
 #    undef WORDS_BIGENDIAN
 #  elif  defined(__WXMAC__) && !defined(WORDS_BIGENDIAN)
 /*  According to Stefan even ancient Mac compilers defined __BIG_ENDIAN__ */
+#    undef warning "Compiling wxMac with probably wrong endianness"
+
 #  endif
 /* also the 32/64 bit universal builds must be handled accordingly */
 #  ifdef __DARWIN__
@@ -362,11 +368,17 @@
 #    include <TargetConditionals.h>
 #    if  defined(__WXOSX_IPHONE__)
 #      if  !( defined(TARGET_OS_IPHONE) && TARGET_OS_IPHONE )
+#        undef error "incorrect SDK for an iPhone build"
+
 #      endif
 #    else 
 #      if  wxUSE_GUI && !defined(__WXOSX_COCOA__)
+#        undef error "one of __WXOSX_IPHONE__ or __WXOSX_COCOA__ must be defined for the GUI build"
+
 #      endif
 #      if  !( defined(TARGET_OS_MAC) && TARGET_OS_MAC )
+#        undef error "incorrect SDK for a Mac OS X build"
+
 #      endif
 #      define __WXOSX_MAC__	1
 #    endif
@@ -425,6 +437,8 @@
 #        endif
 #      endif
 #    else 
+#      undef error "only mach-o configurations are supported"
+
 #    endif
 #  endif
 /*

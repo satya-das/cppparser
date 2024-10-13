@@ -76,7 +76,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleChangeEvent(this, event))
     {
@@ -92,7 +92,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleCloseEvent(this, event))
     {
@@ -108,7 +108,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleContextMenuEvent(this, event))
     {
@@ -127,7 +127,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleEnterEvent(this, event))
     {
@@ -143,7 +143,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleFocusEvent(this, event))
     {
@@ -159,7 +159,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleFocusEvent(this, event))
     {
@@ -175,7 +175,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleShowEvent(this, event))
     {
@@ -191,7 +191,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleKeyEvent(this, event))
     {
@@ -207,7 +207,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleKeyEvent(this, event))
     {
@@ -223,7 +223,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleEnterEvent(this, event))
     {
@@ -239,7 +239,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleMouseEvent(this, event))
     {
@@ -255,7 +255,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleMouseEvent(this, event))
     {
@@ -271,7 +271,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleMouseEvent(this, event))
     {
@@ -287,7 +287,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleMouseEvent(this, event))
     {
@@ -303,7 +303,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleMoveEvent(this, event))
     {
@@ -319,7 +319,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandlePaintEvent(this, event))
     {
@@ -335,7 +335,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleResizeEvent(this, event))
     {
@@ -351,7 +351,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleShowEvent(this, event))
     {
@@ -367,7 +367,7 @@ protected:
   {
     if (!this->GetHandler())
     {
-      return ;
+      return;
     }
     if (!this->GetHandler()->QtHandleWheelEvent(this, event))
     {

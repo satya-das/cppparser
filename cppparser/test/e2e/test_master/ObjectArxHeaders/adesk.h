@@ -207,11 +207,15 @@ struct Adesk
 #  elif  defined(__clang__)
 #    define ADESK_UNREFED_PARAM(x) (void)(x);
 #  else 
+#    undef error Unknown compiler.
+
 #  endif
 #  ifdef _MSC_VER
 #    define ADESK_UNREACHABLE	__assume(false)
 #  elif  defined(__clang__)
 #    define ADESK_UNREACHABLE	__builtin_unreachable()
 #  else 
+#    undef error Unknown compiler.
+
 #  endif
 #endif

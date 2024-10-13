@@ -52,7 +52,7 @@ public:
         //we will tolerate sysvars that are missing
     if (var == nullptr)
     {
-      return ;
+      return;
     }
     var->addReactor(this);
     Acad::ErrorStatus es = var->getValue(m_cache);
@@ -66,7 +66,7 @@ public:
     auto var = AcRxVariablesDictionary::get()->getVariable(m_name.kwszPtr());
     if (var == nullptr)
     {
-      return ;
+      return;
     }
     var->removeReactor(this);
   }

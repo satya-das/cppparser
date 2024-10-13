@@ -34,6 +34,8 @@
 #    include <math.h>
 #    undef __inline
 #    if  !defined(_INC_MATH)
+#      undef error Hmm.  Looks like math.h has changed its header guards.
+
 #    endif
 #    define INC_MATH_IS_SAFE_NOW
 #  else 

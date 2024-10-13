@@ -60,6 +60,7 @@ namespace AcEdSymbolUtilities
     return pSymUtil;
   }
 }
+namespace AcEdSymbolUtilities = AcEdSymUtil;
 typedef AcEdSymbolUtilities::Services AcEdSymUtilServices;
 inline const AcEdSymUtilServices* acedSymUtil()
 {

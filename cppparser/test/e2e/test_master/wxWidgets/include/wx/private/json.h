@@ -63,6 +63,8 @@ namespace wxJSON
               ch += 4;
             }
 #  else 
+#    undef error Implement correct surrogate handling.
+
 #  endif
             break;
 default:

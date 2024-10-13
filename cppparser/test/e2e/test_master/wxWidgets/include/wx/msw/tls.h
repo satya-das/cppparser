@@ -86,7 +86,7 @@ public:
   {
     if (!IsOk())
     {
-      return ;
+      return;
     }
         // Win32 API doesn't have the equivalent of pthread's destructor, so we
         // have to keep track of all allocated values and destroy them manually;

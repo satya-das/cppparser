@@ -75,7 +75,7 @@ public:
     {
       m_iLen = -length - 1;
       m_pBuffer = (wchar_t*) text;
-      return ;
+      return;
     }
     if (length != -1)
     {
@@ -109,7 +109,7 @@ public:
         if (!m_pBuffer)
         {
           m_bValid = false;
-          return ;
+          return;
         }
       }
       else 

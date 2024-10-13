@@ -16,20 +16,36 @@
 #    endif
 #  endif
 #  if  defined(SK_DEBUG) && defined(SK_RELEASE)
+#    undef error "cannot define both SK_DEBUG and SK_RELEASE"
+
 #  elif  !defined(SK_DEBUG) && !defined(SK_RELEASE)
+#    undef error "must define either SK_DEBUG or SK_RELEASE"
+
 #  endif
 /**
  * Matrix calculations may be float or double.
  * The default is float, as that's what Chromium's using.
  */
 #  if  defined(SK_MSCALAR_IS_DOUBLE) && defined(SK_MSCALAR_IS_FLOAT)
+#    undef error "cannot define both SK_MSCALAR_IS_DOUBLE and SK_MSCALAR_IS_FLOAT"
+
 #  elif  !defined(SK_MSCALAR_IS_DOUBLE) && !defined(SK_MSCALAR_IS_FLOAT)
 #    define SK_MSCALAR_IS_FLOAT
 #  endif
 #  if  defined(SK_CPU_LENDIAN) && defined(SK_CPU_BENDIAN)
+#    undef error "cannot define both SK_CPU_LENDIAN and SK_CPU_BENDIAN"
+
 #  elif  !defined(SK_CPU_LENDIAN) && !defined(SK_CPU_BENDIAN)
+#    undef error "must define either SK_CPU_LENDIAN or SK_CPU_BENDIAN"
+
 #  endif
 #  if  defined(SK_CPU_BENDIAN) && !defined(I_ACKNOWLEDGE_SKIA_DOES_NOT_SUPPORT_BIG_ENDIAN)
+#    undef error "The Skia team is not endian-savvy enough to support big-endian CPUs."
+
+#    undef error "If you still want to use Skia,"
+
+#    undef error "please define I_ACKNOWLEDGE_SKIA_DOES_NOT_SUPPORT_BIG_ENDIAN."
+
 #  endif
 #  if  !defined(SK_HAS_COMPILER_FEATURE)
 #    if  defined(__has_feature)
@@ -61,6 +77,8 @@
 #  if  !defined(SK_SUPPORT_ATLAS_TEXT)
 #    define SK_SUPPORT_ATLAS_TEXT	0
 #  elif  SK_SUPPORT_ATLAS_TEXT && !SK_SUPPORT_GPU
+#    undef error "SK_SUPPORT_ATLAS_TEXT requires SK_SUPPORT_GPU"
+
 #  endif
 /**
  * The clang static analyzer likes to know that when the program is not

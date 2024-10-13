@@ -9,6 +9,8 @@
 #  include "include/core/SkTypes.h"
 #  include "include/gpu/vk/GrVkVulkan.h"
 #  ifndef VK_VERSION_1_1
+#    undef error Skia requires the use of Vulkan 1.1 headers
+
 #  endif
 #  include <functional>
 #  include "include/gpu/GrTypes.h"

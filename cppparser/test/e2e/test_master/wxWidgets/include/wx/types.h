@@ -40,6 +40,8 @@ typedef wxUint8 wxByte;
 /*  16bit */
 #  ifdef SIZEOF_SHORT
 #    if  SIZEOF_SHORT != 2
+#      undef error "wxWidgets assumes sizeof(short) == 2, please fix the code"
+
 #    endif
 #  else 
 #    define SIZEOF_SHORT	2
@@ -113,6 +115,8 @@ typedef unsigned int wxUint32;
 #        endif
 #      endif
 #    else 
+#      undef error "Unsupported Windows version"
+
 #    endif
 #  else 
     /*  SIZEOF_XXX are normally defined by configure */
@@ -120,17 +124,23 @@ typedef unsigned int wxUint32;
 #      if  SIZEOF_INT == 8
             /*  must be ILP64 data model, there is normally a special 32 bit */
             /*  type in it but we don't know what it is... */
+#        undef error "No 32bit int type on this platform"
+
 #      elif  SIZEOF_INT == 4
 typedef int wxInt32;
 typedef unsigned int wxUint32;
 #      elif  SIZEOF_INT == 2
             /*  must be LP32 */
 #        if  SIZEOF_LONG != 4
+#          undef error "No 32bit int type on this platform"
+
 #        endif
 typedef long wxInt32;
 typedef unsigned long wxUint32;
 #      else 
             /*  wxWidgets is not ready for 128bit systems yet... */
+#        undef error "Unknown sizeof(int) value, what are you compiling for?"
+
 #      endif
 #    else 
         /*  assume default 32bit machine -- what else can we do? */
@@ -156,6 +166,8 @@ wxCOMPILE_TIME_ASSERT(sizeof(wchar_t) == 2, Wchar_tMustBeExactly2Bytes);
 #    endif
 #  endif
 #  ifndef SIZEOF_WCHAR_T
+#    undef error "SIZEOF_WCHAR_T must be defined, but isn't"
+
 #  endif
 /* also define C99-like sized MIN/MAX constants */
 #  define wxINT8_MIN	CHAR_MIN
@@ -173,6 +185,8 @@ wxCOMPILE_TIME_ASSERT(sizeof(wchar_t) == 2, Wchar_tMustBeExactly2Bytes);
 #    define wxINT32_MAX	LONG_MAX
 #    define wxUINT32_MAX	ULONG_MAX
 #  else 
+#    undef error "Unknown 32 bit type"
+
 #  endif
 typedef wxUint32 wxDword;
 #  ifdef LLONG_MAX
@@ -279,6 +293,8 @@ typedef wxInt32 ssize_t;
 #    elif  SIZEOF_SIZE_T == 8
 typedef wxInt64 ssize_t;
 #    else 
+#      undef error "error defining ssize_t, size_t is not 4 or 8 bytes"
+
 #    endif
     /* prevent ssize_t redefinitions in other libraries */
 #    define HAVE_SSIZE_T
@@ -320,5 +336,7 @@ typedef size_t wxUIntPtr;
        This should never happen for the current architectures but if you're
        using one where it does, please contact wx-dev@googlegroups.com.
      */
+#    undef error "Pointers can't be stored inside integer types."
+
 #  endif
 #endif

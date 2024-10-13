@@ -65,12 +65,16 @@ enum GrPixelConfig {
 static const int kGrPixelConfigCnt = kLast_GrPixelConfig + 1;
 // Aliases for pixel configs that match skia's byte order.
 #  ifndef SK_CPU_LENDIAN
+#    undef error "Skia gpu currently assumes little endian"
+
 #  endif
 #  if  SK_PMCOLOR_BYTE_ORDER(B,G,R,A)
 static const GrPixelConfig kSkia8888_GrPixelConfig = kBGRA_8888_GrPixelConfig;
 #  elif  SK_PMCOLOR_BYTE_ORDER(R,G,B,A)
 static const GrPixelConfig kSkia8888_GrPixelConfig = kRGBA_8888_GrPixelConfig;
 #  else 
+#    undef error "SK_*32_SHIFT values must correspond to GL_BGRA or GL_RGBA format."
+
 #  endif
 /**
  * Geometric primitives used for drawing.

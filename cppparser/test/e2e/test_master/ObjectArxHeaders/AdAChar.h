@@ -18,6 +18,8 @@
 #define AD_UNICODE	1
 // Acad APIs expect clients to be building with "native" wchar_t type.
 #if  defined(__cplusplus) && defined(_MSC_VER) && !defined(_NATIVE_WCHAR_T_DEFINED)
+#  undef error Please use native wchar_t type (/Zc:wchar_t)
+
 #endif
 typedef wchar_t ACHAR;
 // Same mechanism as tchar.h's ACRX_T() macro.  We redirect this to a

@@ -13,9 +13,13 @@
 #  define _WX_X11_CHKCONF_H_
 /* wxPalette is always needed */
 #  if  !wxUSE_PALETTE
+#    undef error "wxX11 requires wxUSE_PALETTE=1"
+
 #  endif
 #  if  wxUSE_SOCKETS && !wxUSE_SELECT_DISPATCHER
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxSocket requires wxSelectDispatcher in wxX11"
+
 #    else 
 #      undef wxUSE_SELECT_DISPATCHER
 #      define wxUSE_SELECT_DISPATCHER	1

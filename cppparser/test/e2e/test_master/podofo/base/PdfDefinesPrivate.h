@@ -1,6 +1,8 @@
 #ifndef _PDF_DEFINES_PRIVATE_H_
 #  define _PDF_DEFINES_PRIVATE_H_
 #  ifndef BUILDING_PODOFO
+#    undef error PdfDefinesPrivate.h is only available for use in the core PoDoFo src/ build .cpp files
+
 #  endif
 // Right now, just pulls in the private parts of the compiler compat hacks.
 #  include "PdfCompilerCompatPrivate.h"

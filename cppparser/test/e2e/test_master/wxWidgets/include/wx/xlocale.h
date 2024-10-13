@@ -48,6 +48,8 @@ typedef _locale_t wxXLocale_t;
 typedef locale_t wxXLocale_t;
 #        define wxXLOCALE_IDENT(name)	 name
 #      else 
+#        undef error "Unknown xlocale support"
+
 #      endif
 #    endif
 // wxXLocale is a wrapper around the native type representing a locale.

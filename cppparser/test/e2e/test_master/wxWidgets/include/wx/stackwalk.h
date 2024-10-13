@@ -150,6 +150,8 @@ protected:
 #    elif  defined(__UNIX__)
 #      include "wx/unix/stackwalk.h"
 #    else 
+#      undef error "wxStackWalker is not supported, set wxUSE_STACKWALKER to 0"
+
 #    endif
 #  endif
 #endif

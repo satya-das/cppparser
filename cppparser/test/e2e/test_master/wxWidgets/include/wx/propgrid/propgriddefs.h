@@ -625,7 +625,7 @@ inline void wxPGRemoveItemFromVector(wxVector<T>& vector, const T& item)
     if (*it == item)
     {
       vector.erase(it);
-      return ;
+      return;
     }
   }
 #    endif

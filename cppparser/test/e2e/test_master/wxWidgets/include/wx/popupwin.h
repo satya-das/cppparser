@@ -67,6 +67,8 @@ public:
 #    elif  defined(__WXQT__)
 #      include "wx/qt/popupwin.h"
 #    else 
+#      undef error "wxPopupWindow is not supported under this platform."
+
 #    endif
 // ----------------------------------------------------------------------------
 // wxPopupTransientWindow: a wxPopupWindow which disappears automatically

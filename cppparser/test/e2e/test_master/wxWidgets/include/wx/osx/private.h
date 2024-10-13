@@ -6,5 +6,7 @@
 #  elif  wxOSX_USE_COCOA
 #    include "wx/osx/cocoa/private.h"
 #  elif  wxUSE_GUI
+#    undef error "Must include wx/defs.h first"
+
 #  endif
 #endif

@@ -22,6 +22,8 @@
         without them being defined, better give a clearer error right now.
      */
 #    if  !defined(UNICODE)
+#      undef error "UNICODE must be defined before including this header."
+
 #    endif
     /*
         MinGW 5.3.0 (and presumably later) predefines _WIN32_WINNT and WINVER

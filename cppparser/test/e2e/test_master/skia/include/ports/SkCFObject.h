@@ -7,6 +7,7 @@
 #ifndef SkCFObject_DEFINED
 #  define SkCFObject_DEFINED
 #  if  defined(SK_BUILD_FOR_MAC) || defined(SK_BUILD_FOR_IOS)
+#    import <CoreFoundation/CoreFoundation.h>
 /**
  * Wrapper class for managing lifetime of CoreFoundation objects. It will call
  * CFRetain and CFRelease appropriately on creation, assignment, and deletion.

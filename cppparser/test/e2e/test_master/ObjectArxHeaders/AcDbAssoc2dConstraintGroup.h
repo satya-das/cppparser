@@ -668,7 +668,7 @@ public:
     UNREFERENCED_PARAMETER(type);
     UNREFERENCED_PARAMETER(geometries);
     UNREFERENCED_PARAMETER(priority);
-    return ;
+    return;
   }
   /// <summary>
   /// define order of the constraints type in which it can be used for autoConstrain.

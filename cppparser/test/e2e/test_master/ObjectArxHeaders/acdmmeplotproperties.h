@@ -88,7 +88,7 @@ public:
   {
     if (NULL == property)
     {
-      return ;
+      return;
     }
     m_properties.append(*property);
   }

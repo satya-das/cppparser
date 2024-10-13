@@ -33,6 +33,8 @@
 #ifndef _PDF_COMPILERCOMPAT_PRIVATE_H
 #  define _PDF_COMPILERCOMPAT_PRIVATE_H
 #  ifndef _PDF_DEFINES_PRIVATE_H_
+#    undef error Include PdfDefinesPrivate.h instead
+
 #  endif
 #  if  defined(__BORLANDC__) || defined( __TURBOC__)
    // Borland Turbo C has a broken "<cmath>" but provides a usable "math.h"
@@ -72,6 +74,8 @@
 #  ifdef PODOFO_MULTI_THREAD
 #    if  defined(_WIN32) || defined(_WIN64)
 #      if  defined(_MSC_VER) && !defined(_WINSOCK2API_)
+#        undef error <winsock2.h> must be included before <windows.h>, config problem?
+
 #      endif
 #      ifndef _WIN32_WINNT
 #        define _WIN32_WINNT	0x0400 // Make the TryEnterCriticalSection method available

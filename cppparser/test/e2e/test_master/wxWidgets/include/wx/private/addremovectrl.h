@@ -68,7 +68,7 @@ private:
         {
           m_adaptor->OnAdd();
         }
-        return ;
+        return;
       case '-':
       case WXK_DELETE:
       case WXK_NUMPAD_DELETE:
@@ -76,7 +76,7 @@ private:
         {
           m_adaptor->OnRemove();
         }
-        return ;
+        return;
     }
     event.Skip();
   }

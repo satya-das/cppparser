@@ -211,7 +211,7 @@ inline AcAxObjectRefPtr<T_OBJECT>::AcAxObjectRefPtr(AcAxObjectRef* const pRef, A
   if (NULL == pRef)
   {
     this->m_status = Acad::eNullObjectPointer;
-    return ;
+    return;
   }
     // Acquire the reference as either an objectId or pointer
   AcDbObjectId objId = pRef->objectId();

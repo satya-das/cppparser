@@ -181,6 +181,8 @@ public:
   Acad::ErrorStatus readItem(Adesk::Boolean* pVal);
   Acad::ErrorStatus writeItem(Adesk::Boolean val);
 #  if  !defined(Adesk_Boolean_is_bool) 
+#    undef error "Unexpected Adesk::Boolean is not bool"
+
             // We only need this when Adesk_Boolean_is_bool is
             // not defined since we have it covered already in
             // the Adesk::Boolean overload.

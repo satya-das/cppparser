@@ -24,5 +24,7 @@
     // attributes to exclude symbols we don't want to export.
 #    define ACBASE_PORT
 #  else 
+#    undef error Visual C++ or Clang compiler is required.
+
 #  endif
 #endif

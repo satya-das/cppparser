@@ -21,6 +21,8 @@
 #    elif  defined(__WXMSW__)
 #      include "wx/msw/webviewhistoryitem_ie.h"
 #    else 
+#      undef error "wxWebView not implemented on this platform."
+
 #    endif
 class wxFSFile;
 class wxFileSystem;

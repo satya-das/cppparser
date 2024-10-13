@@ -12,6 +12,8 @@
 #    include "wx/osx/private.h"
 #    include "wx/datetime.h"
 #    if  !wxOSX_USE_COCOA
+#      undef error "Unsupported platform"
+
 #    endif
 enum wxDateTimeWidgetKind {
     wxDateTimeWidget_YearMonthDay,

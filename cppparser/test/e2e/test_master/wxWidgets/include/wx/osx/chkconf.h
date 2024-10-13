@@ -18,6 +18,8 @@
  */
 #  if  wxUSE_GUI && (!wxUSE_GRAPHICS_CONTEXT || \
     ( defined( wxMAC_USE_CORE_GRAPHICS ) && !wxMAC_USE_CORE_GRAPHICS ))
+#    undef error "OS X builds use CoreGraphics in this wx version, you cannot turn back to QuickDraw completely"
+
 #  endif
 /*
  * using mixins of cocoa functionality
@@ -42,6 +44,8 @@
  */
 #  ifdef __LP64__
 #    if  wxOSX_USE_CARBON
+#      undef error "Carbon does not support 64bit"
+
 #    endif
 #  endif
 /*

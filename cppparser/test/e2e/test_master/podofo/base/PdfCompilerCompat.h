@@ -36,6 +36,8 @@
 // *** THIS HEADER IS INCLUDED BY PdfDefines.h ***
 // *** DO NOT INCLUDE DIRECTLY ***
 #  ifndef _PDF_DEFINES_H_
+#    undef error Please include PdfDefines.h instead
+
 #  endif
 #  include "podofo_config.h"
 #  ifndef PODOFO_COMPILE_RC

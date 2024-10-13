@@ -382,6 +382,8 @@ private:
 #    elif  defined(__WXQT__)
 #      include "wx/qt/treectrl.h"
 #    else 
+#      undef error "unknown native wxTreeCtrl implementation"
+
 #    endif
 #  endif
 #endif

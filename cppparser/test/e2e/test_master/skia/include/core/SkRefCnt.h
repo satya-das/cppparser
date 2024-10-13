@@ -62,7 +62,7 @@ public:
   {
     SkASSERT(this->getRefCnt() > 0);
         // No barrier required.
-    (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
+    (void) fRefCnt.fetch_add(+1, std::memory_order_relaxed);
   }
     /** Decrement the reference count. If the reference count is 1 before the
         decrement, then delete the object. Note that if this is the case, then
@@ -185,7 +185,7 @@ public:
   }
   void ref() const
   {
-    (void) fRefCnt.fetch_add(1, std::memory_order_relaxed);
+    (void) fRefCnt.fetch_add(+1, std::memory_order_relaxed);
   }
   void unref() const
   {

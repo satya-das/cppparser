@@ -52,6 +52,8 @@ extern "C" {
 #      include "wx/unix/tls.h"
 #    else 
         // TODO: we could emulate TLS for such platforms...
+#      undef error Neither compiler nor OS support thread-specific variables.
+
 #    endif
 #    include <stdlib.h>
     // wxTlsValue<T> represents a thread-specific value of type T but, unlike

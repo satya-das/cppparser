@@ -93,5 +93,6 @@
 #  include "doc/PdfTilingPattern.h"
 #  include "doc/PdfXObject.h"
 #  ifdef _PODOFO_NO_NAMESPACE_
+using namespace PoDoFo;
 #  endif
 #endif

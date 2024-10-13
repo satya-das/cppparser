@@ -122,7 +122,7 @@ public:
 default:
       wxFAIL_MSG( "unsupported socket address family" );
       InitUnspec();
-      return ;
+      return;
   }
     InitFromSockaddr(addr, len);
   }

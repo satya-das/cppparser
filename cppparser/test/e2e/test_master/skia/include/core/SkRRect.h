@@ -151,7 +151,7 @@ public:
   {
     if (!this->initializeRect(rect))
     {
-      return ;
+      return;
     }
     memset(fRadii, 0, sizeof(fRadii));
     fType = kRect_Type;
@@ -218,7 +218,7 @@ public:
   {
     if (!this->initializeRect(oval))
     {
-      return ;
+      return;
     }
     SkScalar xRad = SkScalarHalf(fRect.width());
     SkScalar yRad = SkScalarHalf(fRect.height());
@@ -504,7 +504,7 @@ private:
   static bool AreRectAndRadiiValid(const SkRect&, const SkVector[4]);
   SkRRect(const SkRect& rect, const SkVector radii[4], int32_t type)
     : fRect(rect)
-    , fRadii(radii[0], radii[1], radii[2], radii[3])
+    , fRadii{radii[0], radii[1], radii[2], radii[3]}
     , fType(type)
   {
   }

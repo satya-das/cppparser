@@ -12,6 +12,8 @@
 // Only wxMSW currently defines a separate XPM handler, since
 // mostly Windows apps won't need XPMs.
 #  if  defined(__WXMSW__)
+#    undef error xpmhand.h is no longer needed since wxImage now handles XPMs.
+
 #  endif
 #endif
     // _WX_XPMHAND_H_BASE_

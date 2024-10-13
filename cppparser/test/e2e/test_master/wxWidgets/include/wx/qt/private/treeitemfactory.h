@@ -40,7 +40,7 @@ public:
     if (guard.IsInside())
     {
       event.Skip();
-      return ;
+      return;
     }
     const QPoint eventPos = wxQtConvertPoint(event.GetPosition());
     const QPoint globalPos = m_actualParent->mapToGlobal(eventPos);

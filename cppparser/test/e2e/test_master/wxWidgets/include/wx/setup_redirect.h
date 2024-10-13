@@ -11,4 +11,6 @@
 #ifdef __WXMSW__
 #  include "wx/msw/setup.h"
 #else 
+#  undef error Please adjust your include path to pick up the wx/setup.h file under lib first.
+
 #endif

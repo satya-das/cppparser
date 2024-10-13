@@ -25,6 +25,7 @@ using std::max;
 #    pragma  warning(disable:4458) // declaration of 'xxx' hides class member
 #  endif
 #  include <gdiplus.h>
+using namespace Gdiplus;
 #  ifdef __VISUALC__
 #    pragma  warning(pop)
 #  endif

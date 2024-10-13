@@ -221,7 +221,7 @@ public:
   void SetStatusText(const wxString&, int = 0) override
   {
   }
-  void SetStatusWidths(int, const int[]) override
+  void SetStatusWidths(int, const int WXUNUSED(widths)[]) override
   {
   }
 #    endif

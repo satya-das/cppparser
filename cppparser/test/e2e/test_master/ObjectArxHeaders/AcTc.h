@@ -167,6 +167,7 @@ namespace AcTc
         kItemOptionMenuRemoveImage      = (0x1 << 4),
   };
 }
+using namespace AcTc;
 struct ACTC_IMAGE_INFO
 {
   SIZE mSize;

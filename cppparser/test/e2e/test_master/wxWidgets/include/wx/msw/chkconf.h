@@ -14,89 +14,119 @@
 /* ensure that CPU parameter is specified (only nmake .vc makefile) */
 #  ifdef _MSC_VER
 #    if  defined(_WIN64) && defined(TARGET_CPU_COMPFLAG) && (TARGET_CPU_COMPFLAG == 0)
+#      undef error CPU must be defined
+
 #    endif
 #  endif
 /* ensure that MSW-specific settings are defined */
 #  ifndef wxUSE_ACTIVEX
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_ACTIVEX must be defined."
+
 #    else 
 #      define wxUSE_ACTIVEX	0
 #    endif
 #  endif
 #  ifndef wxUSE_WINRT
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_WINRT must be defined."
+
 #    else 
 #      define wxUSE_WINRT	0
 #    endif
 #  endif
 #  ifndef wxUSE_CRASHREPORT
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_CRASHREPORT must be defined."
+
 #    else 
 #      define wxUSE_CRASHREPORT	0
 #    endif
 #  endif
 #  ifndef wxUSE_DBGHELP
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_DBGHELP must be defined"
+
 #    else 
 #      define wxUSE_DBGHELP	1
 #    endif
 #  endif
 #  ifndef wxUSE_DC_CACHEING
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_DC_CACHEING must be defined"
+
 #    else 
 #      define wxUSE_DC_CACHEING	1
 #    endif
 #  endif
 #  ifndef wxUSE_DIALUP_MANAGER
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_DIALUP_MANAGER must be defined."
+
 #    else 
 #      define wxUSE_DIALUP_MANAGER	0
 #    endif
 #  endif
 #  ifndef wxUSE_MS_HTML_HELP
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_MS_HTML_HELP must be defined."
+
 #    else 
 #      define wxUSE_MS_HTML_HELP	0
 #    endif
 #  endif
 #  ifndef wxUSE_INICONF
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_INICONF must be defined."
+
 #    else 
 #      define wxUSE_INICONF	0
 #    endif
 #  endif
 #  ifndef wxUSE_OLE
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_OLE must be defined."
+
 #    else 
 #      define wxUSE_OLE	0
 #    endif
 #  endif
 #  ifndef wxUSE_OLE_AUTOMATION
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_OLE_AUTOMATION must be defined."
+
 #    else 
 #      define wxUSE_OLE_AUTOMATION	0
 #    endif
 #  endif
 #  ifndef wxUSE_TASKBARICON_BALLOONS
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_TASKBARICON_BALLOONS must be defined."
+
 #    else 
 #      define wxUSE_TASKBARICON_BALLOONS	0
 #    endif
 #  endif
 #  ifndef wxUSE_TASKBARBUTTON
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_TASKBARBUTTON must be defined."
+
 #    else 
 #      define wxUSE_TASKBARBUTTON	0
 #    endif
 #  endif
 #  ifndef wxUSE_UXTHEME
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_UXTHEME must be defined."
+
 #    else 
 #      define wxUSE_UXTHEME	0
 #    endif
 #  endif
 #  ifndef wxUSE_WINSOCK2
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_WINSOCK2 must be defined."
+
 #    else 
 #      define wxUSE_WINSOCK2	0
 #    endif
@@ -151,6 +181,8 @@
 #  if  wxUSE_SPINCTRL
 #    if  !wxUSE_SPINBTN
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxSpinCtrl requires wxSpinButton on MSW"
+
 #      else 
 #        undef wxUSE_SPINBTN
 #        define wxUSE_SPINBTN	1
@@ -192,6 +224,8 @@
 /* check settings consistency for MSW-specific ones */
 #  if  wxUSE_CRASHREPORT && !wxUSE_ON_FATAL_EXCEPTION
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_CRASHREPORT requires wxUSE_ON_FATAL_EXCEPTION"
+
 #    else 
 #      undef wxUSE_CRASHREPORT
 #      define wxUSE_CRASHREPORT	0
@@ -200,6 +234,8 @@
 #  if  !wxUSE_VARIANT
 #    if  wxUSE_ACTIVEX
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxActiveXContainer requires wxVariant"
+
 #      else 
 #        undef wxUSE_ACTIVEX
 #        define wxUSE_ACTIVEX	0
@@ -207,6 +243,8 @@
 #    endif
 #    if  wxUSE_OLE_AUTOMATION
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxAutomationObject requires wxVariant"
+
 #      else 
 #        undef wxUSE_OLE_AUTOMATION
 #        define wxUSE_OLE_AUTOMATION	0
@@ -216,6 +254,8 @@
 #  if  !wxUSE_DATAOBJ
 #    if  wxUSE_OLE
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_OLE requires wxDataObject"
+
 #      else 
 #        undef wxUSE_OLE
 #        define wxUSE_OLE	0
@@ -225,6 +265,8 @@
 #  if  !wxUSE_DYNAMIC_LOADER
 #    if  wxUSE_MS_HTML_HELP
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_MS_HTML_HELP requires wxUSE_DYNAMIC_LOADER."
+
 #      else 
 #        undef wxUSE_MS_HTML_HELP
 #        define wxUSE_MS_HTML_HELP	0
@@ -232,6 +274,8 @@
 #    endif
 #    if  wxUSE_DIALUP_MANAGER
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_DIALUP_MANAGER requires wxUSE_DYNAMIC_LOADER."
+
 #      else 
 #        undef wxUSE_DIALUP_MANAGER
 #        define wxUSE_DIALUP_MANAGER	0
@@ -241,6 +285,8 @@
 #  if  !wxUSE_DYNLIB_CLASS
 #    if  wxUSE_DBGHELP
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_DBGHELP requires wxUSE_DYNLIB_CLASS"
+
 #      else 
 #        undef wxUSE_DBGHELP
 #        define wxUSE_DBGHELP	0
@@ -248,6 +294,8 @@
 #    endif
 #    if  wxUSE_DC_TRANSFORM_MATRIX
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_DC_TRANSFORM_MATRIX requires wxUSE_DYNLIB_CLASS"
+
 #      else 
 #        undef wxUSE_DC_TRANSFORM_MATRIX
 #        define wxUSE_DC_TRANSFORM_MATRIX	0
@@ -255,6 +303,8 @@
 #    endif
 #    if  wxUSE_UXTHEME
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_UXTHEME requires wxUSE_DYNLIB_CLASS"
+
 #      else 
 #        undef wxUSE_UXTHEME
 #        define wxUSE_UXTHEME	0
@@ -262,6 +312,8 @@
 #    endif
 #    if  wxUSE_MEDIACTRL
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_MEDIACTRL requires wxUSE_DYNLIB_CLASS"
+
 #      else 
 #        undef wxUSE_MEDIACTRL
 #        define wxUSE_MEDIACTRL	0
@@ -269,6 +321,8 @@
 #    endif
 #    if  wxUSE_INKEDIT
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_INKEDIT requires wxUSE_DYNLIB_CLASS"
+
 #      else 
 #        undef wxUSE_INKEDIT
 #        define wxUSE_INKEDIT	0
@@ -278,6 +332,8 @@
 #  if  !wxUSE_OLE
 #    if  wxUSE_ACTIVEX
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxActiveXContainer requires wxUSE_OLE"
+
 #      else 
 #        undef wxUSE_ACTIVEX
 #        define wxUSE_ACTIVEX	0
@@ -285,17 +341,23 @@
 #    endif
 #    if  wxUSE_OLE_AUTOMATION
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxAutomationObject requires wxUSE_OLE"
+
 #      else 
 #        undef wxUSE_OLE_AUTOMATION
 #        define wxUSE_OLE_AUTOMATION	0
 #      endif
 #    endif
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_DRAG_AND_DROP requires wxUSE_OLE"
+
 #      undef wxUSE_DRAG_AND_DROP
 #      define wxUSE_DRAG_AND_DROP	0
 #    endif
 #    if  wxUSE_ACCESSIBILITY
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxUSE_ACCESSIBILITY requires wxUSE_OLE"
+
 #      else 
 #        undef wxUSE_ACCESSIBILITY
 #        define wxUSE_ACCESSIBILITY	0
@@ -305,6 +367,8 @@
 #  if  !wxUSE_ACTIVEX
 #    if  wxUSE_MEDIACTRL
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxMediaCtl requires wxActiveXContainer"
+
 #      else 
 #        undef wxUSE_MEDIACTRL
 #        define wxUSE_MEDIACTRL	0
@@ -312,6 +376,8 @@
 #    endif
 #    if  wxUSE_WEBVIEW
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxWebView requires wxActiveXContainer under MSW"
+
 #      else 
 #        undef wxUSE_WEBVIEW
 #        define wxUSE_WEBVIEW	0
@@ -320,6 +386,8 @@
 #  endif
 #  if  wxUSE_ACTIVITYINDICATOR && !wxUSE_GRAPHICS_CONTEXT
 #    ifdef wxABORT_ON_CONFIG_ERROR
+#      undef error "wxUSE_ACTIVITYINDICATOR requires wxGraphicsContext"
+
 #    else 
 #      undef wxUSE_ACTIVITYINDICATOR
 #      define wxUSE_ACTIVITYINDICATOR	0
@@ -343,6 +411,8 @@
 #  if  !wxUSE_THREADS
 #    if  wxUSE_FSWATCHER
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxFileSystemWatcher requires wxThread under MSW"
+
 #      else 
 #        undef wxUSE_FSWATCHER
 #        define wxUSE_FSWATCHER	0
@@ -350,6 +420,8 @@
 #    endif
 #    if  wxUSE_JOYSTICK
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxJoystick requires wxThread under MSW"
+
 #      else 
 #        undef wxUSE_JOYSTICK
 #        define wxUSE_JOYSTICK	0
@@ -359,6 +431,8 @@
 #  if  !wxUSE_OLE_AUTOMATION
 #    if  wxUSE_WEBVIEW
 #      ifdef wxABORT_ON_CONFIG_ERROR
+#        undef error "wxWebView requires wxUSE_OLE_AUTOMATION under MSW"
+
 #      else 
 #        undef wxUSE_WEBVIEW
 #        define wxUSE_WEBVIEW	0

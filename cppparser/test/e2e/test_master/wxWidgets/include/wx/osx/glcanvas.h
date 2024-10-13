@@ -10,6 +10,8 @@
 #ifndef _WX_GLCANVAS_H_
 #  define _WX_GLCANVAS_H_
 #  ifdef __WXOSX_IPHONE__
+#    import <OpenGLES/ES1/gl.h>
+#    import <OpenGLES/ES1/glext.h>
 #    define wxUSE_OPENGL_EMULATION	1
 #  else 
 #    ifndef GL_SILENCE_DEPRECATION

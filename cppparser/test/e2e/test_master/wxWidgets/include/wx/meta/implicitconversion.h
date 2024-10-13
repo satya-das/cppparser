@@ -68,6 +68,8 @@ namespace wxPrivate
   {
   };
 #    else 
+#      undef error "weird wchar_t size, please update this code"
+
 #    endif
 #  endif
 #  undef WX_TYPE_HIERARCHY_LEVEL

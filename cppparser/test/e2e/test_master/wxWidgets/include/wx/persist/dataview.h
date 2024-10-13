@@ -67,7 +67,7 @@ public:
         // column sort keys.
     if (control->IsMultiColumnSortAllowed())
     {
-      return ;
+      return;
     }
         // Save the sort key and direction if there is a valid sort.
     if (sortColumn)

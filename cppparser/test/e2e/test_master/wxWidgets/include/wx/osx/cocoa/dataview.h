@@ -9,6 +9,7 @@
 #  define _WX_DATAVIEWCTRL_COCOOA_H_
 #  ifdef __WXOSX__
 #    include "wx/defs.h"
+#    import <Cocoa/Cocoa.h>
 #    include "wx/osx/core/dataview.h"
 #    include "wx/osx/private.h"
 // Forward declaration

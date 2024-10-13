@@ -48,7 +48,7 @@ public:
       if (*pprn == prn)
       {
         *pprn = prn->m_nxt;
-        return ;
+        return;
       }
     }
     wxFAIL_MSG( "removing invalid tracker node" );

@@ -44,7 +44,7 @@ public:
   {
   }
   SkFontStyle()
-    : SkFontStyle(kNormal_Weight, kNormal_Width, kUpright_Slant)
+    : SkFontStyle{kNormal_Weight, kNormal_Width, kUpright_Slant}
   {
   }
   bool operator==(const SkFontStyle& rhs) const
