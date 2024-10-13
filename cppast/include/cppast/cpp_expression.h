@@ -428,9 +428,9 @@ public:
   }
 
 public:
-  auto typecastType() const
+  auto castType() const
   {
-    return typecastType_;
+    return castType_;
   }
 
 public:
@@ -449,14 +449,14 @@ protected:
                   std::unique_ptr<const CppVarType>    targetType,
                   std::unique_ptr<const CppExpression> expr)
     : CppExpression(ExpressionType())
-    , typecastType_(typecastType)
+    , castType_(typecastType)
     , targetType_(std::move(targetType))
     , expr_(std::move(expr))
   {
   }
 
 private:
-  const CppTypecastType                      typecastType_;
+  const CppTypecastType                      castType_;
   const std::unique_ptr<const CppVarType>    targetType_;
   const std::unique_ptr<const CppExpression> expr_;
 };
@@ -477,40 +477,40 @@ public:
   }
 };
 
-class CppCStyleTypecastExpr : public CppTypecastExprImplBase<CppTypecastType::C_STYLE_CAST>
+class CppCStyleTypecastExpr : public CppTypecastExprImplBase<CppTypecastType::C_STYLE>
 {
 public:
-  using CppTypecastExprImplBase<CppTypecastType::C_STYLE_CAST>::CppTypecastExprImplBase;
+  using CppTypecastExprImplBase<CppTypecastType::C_STYLE>::CppTypecastExprImplBase;
 };
 
-class CppFunctionStyleTypecastExpr : public CppTypecastExprImplBase<CppTypecastType::FUNCTION_STYLE_CAST>
+class CppFunctionStyleTypecastExpr : public CppTypecastExprImplBase<CppTypecastType::FUNCTION_STYLE>
 {
 public:
-  using CppTypecastExprImplBase<CppTypecastType::FUNCTION_STYLE_CAST>::CppTypecastExprImplBase;
+  using CppTypecastExprImplBase<CppTypecastType::FUNCTION_STYLE>::CppTypecastExprImplBase;
 };
 
-class CppStaticCastExpr : public CppTypecastExprImplBase<CppTypecastType::STATIC_CAST>
+class CppStaticCastExpr : public CppTypecastExprImplBase<CppTypecastType::STATIC>
 {
 public:
-  using CppTypecastExprImplBase<CppTypecastType::STATIC_CAST>::CppTypecastExprImplBase;
+  using CppTypecastExprImplBase<CppTypecastType::STATIC>::CppTypecastExprImplBase;
 };
 
-class CppConstCastExpr : public CppTypecastExprImplBase<CppTypecastType::CONST_CAST>
+class CppConstCastExpr : public CppTypecastExprImplBase<CppTypecastType::CONST>
 {
 public:
-  using CppTypecastExprImplBase<CppTypecastType::CONST_CAST>::CppTypecastExprImplBase;
+  using CppTypecastExprImplBase<CppTypecastType::CONST>::CppTypecastExprImplBase;
 };
 
-class CppDynamiCastExpr : public CppTypecastExprImplBase<CppTypecastType::DYNAMIC_CAST>
+class CppDynamiCastExpr : public CppTypecastExprImplBase<CppTypecastType::DYNAMIC>
 {
 public:
-  using CppTypecastExprImplBase<CppTypecastType::DYNAMIC_CAST>::CppTypecastExprImplBase;
+  using CppTypecastExprImplBase<CppTypecastType::DYNAMIC>::CppTypecastExprImplBase;
 };
 
-class CppReinterpretCastExpr : public CppTypecastExprImplBase<CppTypecastType::REINTERPRET_CAST>
+class CppReinterpretCastExpr : public CppTypecastExprImplBase<CppTypecastType::REINTERPRET>
 {
 public:
-  using CppTypecastExprImplBase<CppTypecastType::REINTERPRET_CAST>::CppTypecastExprImplBase;
+  using CppTypecastExprImplBase<CppTypecastType::REINTERPRET>::CppTypecastExprImplBase;
 };
 
 } // namespace cppast

@@ -88,7 +88,10 @@ public:
                               CppIndent                              indentation = CppIndent()) const;
 
   virtual void emitDefine(const cppast::CppMacroDefinition& defineObj, std::ostream& stm) const;
+  virtual void emitError(const cppast::CppPreprocessorError& errorObj, std::ostream& stm) const;
+  virtual void emitImport(const cppast::CppPreprocessorImport& importObj, std::ostream& stm) const;
   virtual void emitUndef(const cppast::CppPreprocessorUndef& undefObj, std::ostream& stm) const;
+  virtual void emitWarning(const cppast::CppPreprocessorWarning& warningObj, std::ostream& stm) const;
   virtual void emitInclude(const cppast::CppPreprocessorInclude& includeObj, std::ostream& stm) const;
   virtual void emitHashIf(const cppast::CppPreprocessorConditional& hashIfObj, std::ostream& stm) const;
   virtual void emitHashIf(cppast::PreprocessorConditionalType condType,
@@ -101,6 +104,12 @@ public:
                         bool                   formatLineStarts,
                         CppIndent              indentation) const;
 
+  virtual void emitNamespaceAlias(const cppast::CppNamespaceAlias& nsAliasObj,
+                                  std::ostream&                    stm,
+                                  CppIndent                        indentation = CppIndent()) const;
+  virtual void emitUsingNamespace(const cppast::CppUsingNamespaceDecl& usingNsObj,
+                                  std::ostream&                        stm,
+                                  CppIndent                            indentation = CppIndent()) const;
   virtual void emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& stm) const;
   virtual void emitParamList(const std::vector<const cppast::CppEntity*>& paramListObj, std::ostream& stm) const;
 
@@ -135,6 +144,7 @@ public:
   virtual void emitUniformInitializerExpr(const cppast::CppUniformInitializerExpr& expr, std::ostream& stm) const;
   virtual void emitInitializerListExpr(const cppast::CppInitializerListExpr& expr, std::ostream& stm) const;
 
+  virtual void emitTypecastExpr(const cppast::CppTypecastExpr& expr, std::ostream& stm) const;
   virtual void emitCStyleTypecastExpr(const cppast::CppCStyleTypecastExpr& expr, std::ostream& stm) const;
   virtual void emitFunctionStyleTypecastExpr(const cppast::CppFunctionStyleTypecastExpr& expr, std::ostream& stm) const;
   virtual void emitStaticCastExpr(const cppast::CppStaticCastExpr& expr, std::ostream& stm) const;
@@ -145,6 +155,15 @@ public:
   virtual void emitExpr(const cppast::CppExpression& exprObj,
                         std::ostream&                stm,
                         CppIndent                    indentation = CppIndent()) const;
+  virtual void emitGotoStatement(const cppast::CppGotoStatement& gotoStmtObj,
+                                 std::ostream&                   stm,
+                                 CppIndent                       indentation = CppIndent()) const;
+  virtual void emitReturnStatement(const cppast::CppReturnStatement& returnStmtObj,
+                                   std::ostream&                     stm,
+                                   CppIndent                         indentation = CppIndent()) const;
+  virtual void emitThrowStatement(const cppast::CppThrowStatement& throwStmtObj,
+                                  std::ostream&                    stm,
+                                  CppIndent                        indentation = CppIndent()) const;
 
 public:
   void emitVar(const cppast::CppVar& varObj, std::ostream& stm, bool skipName) const;

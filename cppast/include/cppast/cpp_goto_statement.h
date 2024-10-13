@@ -27,7 +27,7 @@ public:
   }
 
 public:
-  const CppExpression& returnValue() const
+  const CppExpression& label() const
   {
     return *expr_;
   }

@@ -56,17 +56,31 @@ void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppI
 {
   switch (cppEntity.entityType())
   {
-    case cppast::CppEntityType::PREPROCESSOR_DEFINE:
-      return emitDefine((const cppast::CppMacroDefinition&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_UNDEF:
-      return emitUndef((const cppast::CppPreprocessorUndef&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_INCLUDE:
-      return emitInclude((const cppast::CppPreprocessorInclude&) cppEntity, stm);
+    case cppast::CppEntityType::DOCUMENTATION_COMMENT:
+      return emitDocComment((const cppast::CppDocumentationComment&) cppEntity, stm, indentation);
+
     case cppast::CppEntityType::PREPROCESSOR_CONDITIONAL:
       return emitHashIf((const cppast::CppPreprocessorConditional&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_DEFINE:
+      return emitDefine((const cppast::CppMacroDefinition&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_ERROR:
+      return emitError((const cppast::CppPreprocessorError&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_IMPORT:
+      return emitImport((const cppast::CppPreprocessorImport&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_INCLUDE:
+      return emitInclude((const cppast::CppPreprocessorInclude&) cppEntity, stm);
     case cppast::CppEntityType::PREPROCESSOR_PRAGMA:
       return emitPragma((const cppast::CppPreprocessorPragma&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_UNDEF:
+      return emitUndef((const cppast::CppPreprocessorUndef&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR_WARNING:
+      return emitWarning((const cppast::CppPreprocessorWarning&) cppEntity, stm);
 
+    case cppast::CppEntityType::ENTITY_ACCESS_SPECIFIER:
+      return emitEntityAccessSpecifier(
+        (const cppast::CppEntityAccessSpecifier&) cppEntity, stm, indentation, !noNewLine);
+    case cppast::CppEntityType::COMPOUND:
+      return emitCompound((const cppast::CppCompound&) cppEntity, stm, indentation, !noNewLine);
     case cppast::CppEntityType::VAR_TYPE:
       return emitVarType((const cppast::CppVarType&) cppEntity, stm);
     case cppast::CppEntityType::VAR:
@@ -78,21 +92,18 @@ void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppI
     }
     case cppast::CppEntityType::VAR_LIST:
       return emitVarList((const cppast::CppVarList&) cppEntity, stm, indentation);
-    case cppast::CppEntityType::ENUM:
-      return emitEnum((const cppast::CppEnum&) cppEntity, stm, !noNewLine, indentation);
-    case cppast::CppEntityType::DOCUMENTATION_COMMENT:
-      return emitDocComment((const cppast::CppDocumentationComment&) cppEntity, stm, indentation);
-    case cppast::CppEntityType::USING_DECL:
-      return emitUsingDecl((const cppast::CppUsingDecl&) cppEntity, stm, indentation);
     case cppast::CppEntityType::TYPEDEF_DECL:
       return emitTypedef((const cppast::CppTypedefName&) cppEntity, stm, indentation);
     case cppast::CppEntityType::TYPEDEF_DECL_LIST:
       return emitTypedefList((const cppast::CppTypedefList&) cppEntity, stm, indentation);
-    case cppast::CppEntityType::ENTITY_ACCESS_SPECIFIER:
-      return emitEntityAccessSpecifier(
-        (const cppast::CppEntityAccessSpecifier&) cppEntity, stm, indentation, !noNewLine);
-    case cppast::CppEntityType::COMPOUND:
-      return emitCompound((const cppast::CppCompound&) cppEntity, stm, indentation, !noNewLine);
+    case cppast::CppEntityType::NAMESPACE_ALIAS:
+      return emitNamespaceAlias((const cppast::CppNamespaceAlias&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::USING_NAMESPACE:
+      return emitUsingNamespace((const cppast::CppUsingNamespaceDecl&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::USING_DECL:
+      return emitUsingDecl((const cppast::CppUsingDecl&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::ENUM:
+      return emitEnum((const cppast::CppEnum&) cppEntity, stm, !noNewLine, indentation);
     case cppast::CppEntityType::FORWARD_CLASS_DECL:
       return emitFwdDecl((const cppast::CppForwardClassDecl&) cppEntity, stm, indentation);
     case cppast::CppEntityType::FUNCTION:
@@ -105,28 +116,35 @@ void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppI
       return emitTypeConverter((const cppast::CppTypeConverter&) cppEntity, stm, indentation);
     case cppast::CppEntityType::FUNCTION_PTR:
       return emitFunctionPtr((const cppast::CppFunctionPointer&) cppEntity, stm, !noNewLine, indentation);
-    case cppast::CppEntityType::IF_BLOCK:
-      return emitIfBlock((const cppast::CppIfBlock&) cppEntity, stm, indentation);
-    case cppast::CppEntityType::WHILE_BLOCK:
-      return emitWhileBlock((const cppast::CppWhileBlock&) cppEntity, stm, indentation);
-    case cppast::CppEntityType::DO_WHILE_BLOCK:
-      return emitDoBlock((const cppast::CppDoWhileBlock&) cppEntity, stm, indentation);
-    case cppast::CppEntityType::FOR_BLOCK:
-      return emitForBlock((const cppast::CppForBlock&) cppEntity, stm, indentation);
     case cppast::CppEntityType::EXPRESSION:
       emitExpr((const cppast::CppExpression&) cppEntity, stm, indentation);
       if (!noNewLine)
         stm << ";\n";
       break;
-    case cppast::CppEntityType::SWITCH_BLOCK:
-      return emitSwitchBlock(static_cast<const cppast::CppSwitchBlock&>(cppEntity), stm, indentation);
+    case cppast::CppEntityType::GOTO_STATEMENT:
+      return emitGotoStatement(static_cast<const cppast::CppGotoStatement&>(cppEntity), stm, indentation);
+    case cppast::CppEntityType::RETURN_STATEMENT:
+      return emitReturnStatement(static_cast<const cppast::CppReturnStatement&>(cppEntity), stm, indentation);
+    case cppast::CppEntityType::THROW_STATEMENT:
+      return emitThrowStatement(static_cast<const cppast::CppThrowStatement&>(cppEntity), stm, indentation);
     case cppast::CppEntityType::MACRO_CALL:
       return emitMacroCall(static_cast<const cppast::CppMacroCall&>(cppEntity), stm, indentation);
+    case cppast::CppEntityType::IF_BLOCK:
+      return emitIfBlock((const cppast::CppIfBlock&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::FOR_BLOCK:
+      return emitForBlock((const cppast::CppForBlock&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::WHILE_BLOCK:
+      return emitWhileBlock((const cppast::CppWhileBlock&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::DO_WHILE_BLOCK:
+      return emitDoBlock((const cppast::CppDoWhileBlock&) cppEntity, stm, indentation);
+    case cppast::CppEntityType::SWITCH_BLOCK:
+      return emitSwitchBlock(static_cast<const cppast::CppSwitchBlock&>(cppEntity), stm, indentation);
 
     case cppast::CppEntityType::BLOB:
       return emitBlob((const cppast::CppBlob&) cppEntity, stm, true, indentation);
 
     default:
+      // assert(false && "The control should not reach here.");
       break;
   }
 }
@@ -148,6 +166,21 @@ void CppWriter::emitDefine(const cppast::CppMacroDefinition& defObj, std::ostrea
   stm << '\n';
 }
 
+void CppWriter::emitError(const cppast::CppPreprocessorError& errorObj, std::ostream& stm) const
+{
+  stm << '#' << preproIndent_ << "undef " << errorObj.error() << '\n';
+}
+
+void CppWriter::emitImport(const cppast::CppPreprocessorImport& importObj, std::ostream& stm) const
+{
+  stm << '#' << preproIndent_ << "import " << importObj.name() << '\n';
+}
+
+void CppWriter::emitWarning(const cppast::CppPreprocessorWarning& warningObj, std::ostream& stm) const
+{
+  stm << '#' << preproIndent_ << "undef " << warningObj.warning() << '\n';
+}
+
 void CppWriter::emitUndef(const cppast::CppPreprocessorUndef& undefObj, std::ostream& stm) const
 {
   stm << '#' << preproIndent_ << "undef " << undefObj.name() << '\n';
@@ -157,6 +190,7 @@ void CppWriter::emitInclude(const cppast::CppPreprocessorInclude& includeObj, st
 {
   stm << '#' << preproIndent_ << "include " << includeObj.name() << '\n';
 }
+
 void CppWriter::emitHashIf(const cppast::CppPreprocessorConditional& hashIfObj, std::ostream& stm) const
 {
   emitHashIf(hashIfObj.conditionalType(), hashIfObj.condition(), stm);
@@ -235,6 +269,20 @@ void CppWriter::emitBlob(const cppast::CppBlob& blobObj,
   {
     stm << blobObj.Blob();
   }
+}
+
+void CppWriter::emitNamespaceAlias(const cppast::CppNamespaceAlias& nsAliasObj,
+                                   std::ostream&                    stm,
+                                   CppIndent                        indentation) const
+{
+  stm << indentation << "namespace " << nsAliasObj.alias() << " = " << nsAliasObj.name() << ";\n";
+}
+
+void CppWriter::emitUsingNamespace(const cppast::CppUsingNamespaceDecl& usingNsObj,
+                                   std::ostream&                        stm,
+                                   CppIndent                            indentation) const
+{
+  stm << indentation << "using namespace " << usingNsObj.name() << ";\n";
 }
 
 void CppWriter::emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& stm) const
@@ -1049,7 +1097,7 @@ void CppWriter::emitMonomialExpr(const cppast::CppMonomialExpr& expr, std::ostre
   case cppast::CppUnaryOperator::DELETE_AARAY         : stm << "delete[] "  ; emitExpr(expr.term(), stm); break;
 
   case cppast::CppUnaryOperator::PARENTHESIZE         : stm << '('          ; emitExpr(expr.term(), stm); stm << ')'; break;
-  case cppast::CppUnaryOperator::SIZE_OF              : stm << "siezeof("   ; emitExpr(expr.term(), stm); stm << ')'; break;
+  case cppast::CppUnaryOperator::SIZE_OF              : stm << "sizeof("   ; emitExpr(expr.term(), stm); stm << ')'; break;
   case cppast::CppUnaryOperator::VARIADIC_SIZE_OF     : stm << "sizeof...(" ; emitExpr(expr.term(), stm); stm << ')'; break;
   }
   // clang-format on
@@ -1122,7 +1170,6 @@ void CppWriter::emitBinomialExpr(const cppast::CppBinomialExpr& expr, std::ostre
   case cppast::CppBinaryOperator::LESS:                     emitExpr(expr.term1(), stm); stm << " < "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::GREATER:                  emitExpr(expr.term1(), stm); stm << " > "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::COMMA:                    emitExpr(expr.term1(), stm); stm << " , "; emitExpr(expr.term2(), stm); break;
-  case cppast::CppBinaryOperator::DOT:                      emitExpr(expr.term1(), stm); stm << " . "; emitExpr(expr.term2(), stm); break;
 
   case cppast::CppBinaryOperator::LOGICAL_AND:              emitExpr(expr.term1(), stm); stm << " && "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::LOGICAL_OR:               emitExpr(expr.term1(), stm); stm << " || "; emitExpr(expr.term2(), stm); break;
@@ -1142,20 +1189,22 @@ void CppWriter::emitBinomialExpr(const cppast::CppBinomialExpr& expr, std::ostre
   case cppast::CppBinaryOperator::NOT_EQUAL:                emitExpr(expr.term1(), stm); stm << " != "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::LESS_EQUAL:               emitExpr(expr.term1(), stm); stm << " <= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::GREATER_EQUAL:            emitExpr(expr.term1(), stm); stm << " >= "; emitExpr(expr.term2(), stm); break;
-  case cppast::CppBinaryOperator::ARROW:                    emitExpr(expr.term1(), stm); stm << " -> "; emitExpr(expr.term2(), stm); break;
 
   case cppast::CppBinaryOperator::LOGICAL_AND_ASSIGN:       emitExpr(expr.term1(), stm); stm << " &&= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::LOGICAL_OR_ASSIGN:        emitExpr(expr.term1(), stm); stm << " ||= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::LSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " <<= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::RSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " >>= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::THREE_WAY_CMP:            emitExpr(expr.term1(), stm); stm << " <=> "; emitExpr(expr.term2(), stm); break;
-  case cppast::CppBinaryOperator::ARROW_STAR:               emitExpr(expr.term1(), stm); stm << " ->* "; emitExpr(expr.term2(), stm); break;
-  case cppast::CppBinaryOperator::ARRAY_INDEX:              emitExpr(expr.term1(), stm); stm << '['; emitExpr(expr.term2(), stm); stm << ']'; break;
+  case cppast::CppBinaryOperator::ARRAY_INDEX:              emitExpr(expr.term1(), stm); stm << '[';     emitExpr(expr.term2(), stm); stm << ']'; break;
 
   case cppast::CppBinaryOperator::PLACEMENT_NEW:        stm << "new (";   emitExpr(expr.term1(), stm); stm << ") "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::GLOBAL_PLACEMENT_NEW: stm << "::new ("; emitExpr(expr.term1(), stm); stm << ") "; emitExpr(expr.term2(), stm); break;
 
   case cppast::CppBinaryOperator::USER_LITERAL: emitExpr(expr.term1(), stm); emitExpr(expr.term2(), stm); break;
+
+  case cppast::CppBinaryOperator::DOT:                      emitExpr(expr.term1(), stm); stm << ".";    emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::ARROW:                    emitExpr(expr.term1(), stm); stm << "->";   emitExpr(expr.term2(), stm); break;
+  case cppast::CppBinaryOperator::ARROW_STAR:               emitExpr(expr.term1(), stm); stm << "->*";  emitExpr(expr.term2(), stm); break;
   }
   // clang-format on
 }
@@ -1214,11 +1263,36 @@ void CppWriter::emitInitializerListExpr(const cppast::CppInitializerListExpr& ex
   stm << '}';
 }
 
+void CppWriter::emitTypecastExpr(const cppast::CppTypecastExpr& expr, std::ostream& stm) const
+{
+  switch (expr.castType())
+  {
+    case cppast::CppTypecastType::C_STYLE:
+      emitCStyleTypecastExpr(static_cast<const cppast::CppCStyleTypecastExpr&>(expr), stm);
+      break;
+    case cppast::CppTypecastType::FUNCTION_STYLE:
+      emitFunctionStyleTypecastExpr(static_cast<const cppast::CppFunctionStyleTypecastExpr&>(expr), stm);
+      break;
+    case cppast::CppTypecastType::STATIC:
+      emitStaticCastExpr(static_cast<const cppast::CppStaticCastExpr&>(expr), stm);
+      break;
+    case cppast::CppTypecastType::CONST:
+      emitConstCastExpr(static_cast<const cppast::CppConstCastExpr&>(expr), stm);
+      break;
+    case cppast::CppTypecastType::DYNAMIC:
+      emitDynamiCastExpr(static_cast<const cppast::CppDynamiCastExpr&>(expr), stm);
+      break;
+    case cppast::CppTypecastType::REINTERPRET:
+      emitReinterpretCastExpr(static_cast<const cppast::CppReinterpretCastExpr&>(expr), stm);
+      break;
+  }
+}
+
 void CppWriter::emitCStyleTypecastExpr(const cppast::CppCStyleTypecastExpr& expr, std::ostream& stm) const
 {
   stm << "(";
   emitVarType(expr.targetType(), stm);
-  stm << ")";
+  stm << ") ";
   emitExpr(expr.inputExpresion(), stm);
 }
 void CppWriter::emitFunctionStyleTypecastExpr(const cppast::CppFunctionStyleTypecastExpr& expr, std::ostream& stm) const
@@ -1288,8 +1362,44 @@ void CppWriter::emitExpr(const cppast::CppExpression& expr, std::ostream& stm, C
       emitInitializerListExpr(static_cast<const cppast::CppInitializerListExpr&>(expr), stm);
       break;
     case cppast::CppExpressionType::TYPECAST:
+      emitTypecastExpr(static_cast<const cppast::CppTypecastExpr&>(expr), stm);
       break;
   }
+}
+
+void CppWriter::emitGotoStatement(const cppast::CppGotoStatement& gotoStmt,
+                                  std::ostream&                   stm,
+                                  CppIndent                       indentation) const
+{
+  stm << indentation << "goto ";
+  emitExpr(gotoStmt.label(), stm);
+  stm << ";\n";
+}
+
+void CppWriter::emitReturnStatement(const cppast::CppReturnStatement& returnStmt,
+                                    std::ostream&                     stm,
+                                    CppIndent                         indentation) const
+{
+  stm << indentation << "return";
+  if (returnStmt.hasReturnValue())
+  {
+    stm << ' ';
+    emitExpr(returnStmt.returnValue(), stm);
+  }
+  stm << ";\n";
+}
+
+void CppWriter::emitThrowStatement(const cppast::CppThrowStatement& throwStmtObj,
+                                   std::ostream&                    stm,
+                                   CppIndent                        indentation) const
+{
+  stm << indentation << "throw";
+  if (throwStmtObj.hasException())
+  {
+    stm << ' ';
+    emitExpr(throwStmtObj.exception(), stm);
+  }
+  stm << ";\n";
 }
 
 } // namespace cppcodegen

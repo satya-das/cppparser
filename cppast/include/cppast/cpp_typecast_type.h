@@ -10,12 +10,12 @@ namespace cppast {
 
 enum class CppTypecastType : std::uint8_t
 {
-  C_STYLE_CAST,
-  FUNCTION_STYLE_CAST,
-  STATIC_CAST,
-  CONST_CAST,
-  DYNAMIC_CAST,
-  REINTERPRET_CAST,
+  C_STYLE,
+  FUNCTION_STYLE,
+  STATIC,
+  CONST,
+  DYNAMIC,
+  REINTERPRET,
 };
 
 }

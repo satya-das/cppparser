@@ -31,12 +31,12 @@ public:
   }
 
 public:
-  bool hasThrowValue() const
+  bool hasException() const
   {
     return expr_.get() != nullptr;
   }
 
-  const CppExpression& throwValue() const
+  const CppExpression& exception() const
   {
     return *expr_;
   }

@@ -1903,8 +1903,8 @@ expr              : strlit                            [ZZLOG;] { $$ = new cppast
                       } else {
                         ZZLOG;
                       }
-                    ]                                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::AND, $1, $3);                     }
-                  | expr tknOr expr                                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::OR, $1, $3);                      }
+                    ]                                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_AND, $1, $3);                     }
+                  | expr tknOr expr                                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_OR, $1, $3);                      }
                   | expr '.' expr                                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, $3);                     }
                   | expr '.' '*' expr                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, MonomialExpr(cppast::CppUnaryOperator::DEREFER, $4));                     }
                   | expr tknArrow expr                                    [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, $3);      }
