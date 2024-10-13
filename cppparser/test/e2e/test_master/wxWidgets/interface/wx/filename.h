@@ -100,7 +100,8 @@ enum
   wxFILE_EXISTS_DEVICE = 0x0008,
   wxFILE_EXISTS_FIFO = 0x0016,
   wxFILE_EXISTS_SOCKET = 0x0032,
-  wxFILE_EXISTS_NO_FOLLOW = 0x1000 = 0x1FFF,
+  wxFILE_EXISTS_NO_FOLLOW = 0x1000,
+  wxFILE_EXISTS_ANY = 0x1FFF,
 };
 /**
     The return value of wxFileName::GetSize() in case of error.

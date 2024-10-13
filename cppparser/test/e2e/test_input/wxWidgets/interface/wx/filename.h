@@ -109,7 +109,7 @@ enum
     wxFILE_EXISTS_DEVICE    = 0x0008,  //!< Check for existence of a device
     wxFILE_EXISTS_FIFO      = 0x0016,  //!< Check for existence of a FIFO
     wxFILE_EXISTS_SOCKET    = 0x0032,  //!< Check for existence of a socket
-    wxFILE_EXISTS_NO_FOLLOW = 0x1000   //!< Don't dereference a contained symbolic link
+    wxFILE_EXISTS_NO_FOLLOW = 0x1000,  //!< Don't dereference a contained symbolic link
     wxFILE_EXISTS_ANY       = 0x1FFF,  //!< Check for existence of anything
 };
 
