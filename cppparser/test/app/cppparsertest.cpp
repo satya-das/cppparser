@@ -188,6 +188,9 @@ cppparser::CppParser constructCppParserForTest()
                             "PODOFO_DOC_API",
                             "PODOFO_EXCEPTION_API_DOXYGEN",
 
+                            "DLLEXPORT",
+                            "DLLIMPORT",
+
                             "WXDLLEXPORT",
                             "WXDLLIMPEXP_ADV",
                             "WXDLLIMPEXP_AUI",
