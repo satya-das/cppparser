@@ -174,7 +174,7 @@ private:
   std::unique_ptr<const CppVarType> atom_;
 };
 
-// TODO: Eliminate CppLambdaExpr by merging to CppLambdaExpr.
+// TODO: Eliminate CppLambda by merging to CppLambdaExpr.
 class CppLambdaExpr : public CppAtomicExpressionImplBase<CppAtomicExpressionType::LAMBDA>
 {
 public:
