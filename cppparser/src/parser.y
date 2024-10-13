@@ -552,6 +552,7 @@ ifblock           : tknIf '(' expr ')' stmt [ZZLOG;] {
                   | tknIf '(' varinit ')' stmt tknElse stmt [ZZLOG;] {
                     $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5), Ptr($7));
                   }
+                  /* TODO: Add support for else-if: compare the if.cpp file and its output by e2e test. */
                   ;
 
 whileblock        : tknWhile '(' expr ')' stmt [ZZLOG;] {
@@ -907,7 +908,7 @@ varinit           : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.
 varassign         : '=' expr            [ZZLOG;] {
                     $$ = VarInitInfo($2);
                   }
-                  | '(' optexprlist ')'  [ZZLOG;] {
+                  | '(' exprlist ')'  [ZZLOG;] {
                     $$ = VarInitInfo($2, CppConstructorCallStyle::USING_PARENTHESES);
                   }
                   | '{' optexprlist '}'    [ZZLOG;] {
