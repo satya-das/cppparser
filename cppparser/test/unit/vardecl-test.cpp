@@ -33,9 +33,15 @@ TEST_CASE_METHOD(VarDeclTest, "int x = 5, y = 10;", "[vardecllist]")
   REQUIRE(members.size() == 1);
   cppast::CppConstVarListEPtr varlist = members[0];
   REQUIRE(varlist);
-  REQUIRE(varlist->firstVar()->assignValue() != nullptr);
-  CHECK(varlist->firstVar()->assignType() == cppast::CppVarInitializeType::USING_EQUAL);
+  const auto& firstVar = varlist->firstVar();
+  REQUIRE(varlist);
+  REQUIRE(firstVar->isInitialized());
+  CHECK(firstVar->initializeType() == cppast::CppVarInitializeType::USING_EQUAL);
+  const auto& firstVarAssignVal = firstVar->assignValue();
+  REQUIRE(firstVarAssignVal != nullptr);
   REQUIRE(varlist->varDeclList().size() == 1);
-  REQUIRE(varlist->varDeclList()[0].assignValue() != nullptr);
-  CHECK(varlist->varDeclList()[0].assignType() == cppast::CppVarInitializeType::USING_EQUAL);
+  const auto& secondVar = varlist->varDeclList()[0];
+  REQUIRE(secondVar.isInitialized());
+  CHECK(secondVar.initializeType() == cppast::CppVarInitializeType::USING_EQUAL);
+  REQUIRE(secondVar.assignValue() != nullptr);
 }

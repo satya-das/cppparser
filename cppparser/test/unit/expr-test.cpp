@@ -59,9 +59,12 @@ cleanup:
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 4);
 
-  cppast::CppConstExpressionEPtr gotoStmt = members[1];
+  cppast::CppConstGotoStatementEPtr gotoStmt = members[1];
   REQUIRE(gotoStmt);
-  CHECK(gotoStmt->flags_ == cppast::CppExpression::kGoto);
+  const auto&                  label     = gotoStmt->label();
+  cppast::CppConstNameExprEPtr labelExpr = &label;
+  REQUIRE(labelExpr);
+  CHECK(*labelExpr == cppast::CppNameExpr("cleanup"));
 
   cppast::CppConstLabelEPtr labelStmt = members[2];
   REQUIRE(labelStmt);
@@ -85,11 +88,16 @@ TEST_CASE_METHOD(ExpressionTest, "a == b ? c : d")
 
   cppast::CppConstExpressionEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == cppast::CppOperator::kTertiaryOperator);
-
-  const auto cond = topLevelOp->expr1_.expr;
-  REQUIRE(cond);
-  CHECK(cond->oper_ == cppast::CppOperator::kCmpEqual);
+  cppast::CppConstTrinomialExprEPtr trinomial = topLevelOp;
+  REQUIRE(trinomial);
+  CHECK(trinomial->oper() == cppast::CppTernaryOperator::CONDITIONAL);
+  cppast::CppConstBinomialExprEPtr term1 = &(trinomial->term1());
+  REQUIRE(term1);
+  CHECK(term1->oper() == cppast::CppBinaryOperator::EQUAL);
+  cppast::CppConstAtomicExpressionEPtr term2 = &(trinomial->term2());
+  REQUIRE(term2);
+  cppast::CppConstAtomicExpressionEPtr term3 = &(trinomial->term3());
+  REQUIRE(term3);
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a * b < c")
@@ -107,13 +115,13 @@ TEST_CASE_METHOD(ExpressionTest, "a * b < c")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExpressionEPtr topLevelOp = members[1];
+  cppast::CppConstBinomialExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == cppast::CppOperator::kLess);
+  CHECK(topLevelOp->oper() == cppast::CppBinaryOperator::LESS);
 
-  const auto left = topLevelOp->expr1_.expr;
+  cppast::CppConstBinomialExprEPtr left = &(topLevelOp->term1());
   REQUIRE(left);
-  CHECK(left->oper_ == cppast::CppOperator::kMul);
+  CHECK(left->oper() == cppast::CppBinaryOperator::MUL);
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a * b > c")
@@ -131,13 +139,13 @@ TEST_CASE_METHOD(ExpressionTest, "a * b > c")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExpressionEPtr topLevelOp = members[1];
+  cppast::CppConstBinomialExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == cppast::CppOperator::kGreater);
+  CHECK(topLevelOp->oper() == cppast::CppBinaryOperator::GREATER);
 
-  const auto left = topLevelOp->expr1_.expr;
+  cppast::CppConstBinomialExprEPtr left = &(topLevelOp->term1());
   REQUIRE(left);
-  CHECK(left->oper_ == cppast::CppOperator::kMul);
+  CHECK(left->oper() == cppast::CppBinaryOperator::MUL);
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a * b + c")
@@ -155,13 +163,13 @@ TEST_CASE_METHOD(ExpressionTest, "a * b + c")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExpressionEPtr topLevelOp = members[1];
+  cppast::CppConstBinomialExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == cppast::CppOperator::kPlus);
+  CHECK(topLevelOp->oper() == cppast::CppBinaryOperator::PLUS);
 
-  const auto left = topLevelOp->expr1_.expr;
+  cppast::CppConstBinomialExprEPtr left = &(topLevelOp->term1());
   REQUIRE(left);
-  CHECK(left->oper_ == cppast::CppOperator::kMul);
+  CHECK(left->oper() == cppast::CppBinaryOperator::MUL);
 }
 
 TEST_CASE_METHOD(ExpressionTest, "a + b * c")
@@ -179,13 +187,13 @@ TEST_CASE_METHOD(ExpressionTest, "a + b * c")
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  cppast::CppConstExpressionEPtr topLevelOp = members[1];
+  cppast::CppConstBinomialExprEPtr topLevelOp = members[1];
   REQUIRE(topLevelOp);
-  CHECK(topLevelOp->oper_ == cppast::CppOperator::kPlus);
+  CHECK(topLevelOp->oper() == cppast::CppBinaryOperator::PLUS);
 
-  const auto right = topLevelOp->expr2_.expr;
+  cppast::CppConstBinomialExprEPtr right = &(topLevelOp->term2());
   REQUIRE(right);
-  CHECK(right->oper_ == cppast::CppOperator::kMul);
+  CHECK(right->oper() == cppast::CppBinaryOperator::MUL);
 }
 
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
@@ -203,6 +211,11 @@ TEST_CASE_METHOD(ExpressionTest, "b = x > y")
 
   const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 3);
-  cppast::CppConstExpressionEPtr expr = members[1];
-  REQUIRE(expr);
+  cppast::CppConstBinomialExprEPtr topLevelOp = members[1];
+  REQUIRE(topLevelOp);
+  CHECK(topLevelOp->oper() == cppast::CppBinaryOperator::ASSIGN);
+
+  cppast::CppConstBinomialExprEPtr right = &(topLevelOp->term2());
+  REQUIRE(right);
+  CHECK(right->oper() == cppast::CppBinaryOperator::GREATER);
 }

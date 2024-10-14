@@ -48,6 +48,12 @@ public:
     : ptr_(std::is_const_v<T> ? dynamic_cast<T*>(entityPtr) : nullptr)
   {
   }
+
+  template <typename U>
+  CppEntityPtr(const CppEntityPtr<U>& other)
+    : CppEntityPtr(other.get())
+  {
+  }
   //*/
   T* operator->() const
   {

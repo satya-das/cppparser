@@ -65,16 +65,11 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
   CHECK((*classAttrib0) == cppast::CppNameExpr("xnet::HttpController"));
 
   cppast::CppConstFunctionCallExprEPtr classAttrib1 = classAttribSeq.at(1);
-  /* TODO: Enable this
   REQUIRE(classAttrib1);
-  REQUIRE(classAttrib1->expr1_.atom);
-  CHECK(*(classAttrib1->expr1_.atom) == "xnet::Route");
-  CHECK(classAttrib1->oper_ == cppast::CppOperator::kFunctionCall);
-  const auto funcArgs = classAttrib1->expr2_.expr;
-  REQUIRE(funcArgs);
-  CHECK(funcArgs->expr1_.type == cppast::CppExprAtom::kAtom);
-  REQUIRE(funcArgs->expr1_.atom);
-  CHECK(*(funcArgs->expr1_.atom) == "\"/plakmp\"");
+  REQUIRE(classAttrib1->numArgs() == 1);
+  cppast::CppConstStringLiteralExprEPtr classAttrib1Arg = &(classAttrib1->arg(0));
+  REQUIRE(classAttrib1Arg);
+  CHECK((*classAttrib1Arg) == cppast::CppStringLiteralExpr("\"/plakmp\""));
 
   const auto classMembers = GetAllOwnedEntities(*classDefn);
   REQUIRE(classMembers.size() == 4);
@@ -87,19 +82,17 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
   const auto attribSeqGetPlakMpPlayers = GetAllAttributeSpecifiers(*returnTypeGetPlakMpPlayers);
   REQUIRE(attribSeqGetPlakMpPlayers.size() == 2);
 
-  cppast::CppConstExpressionEPtr methodAttrib0 = attribSeqGetPlakMpPlayers.at(0);
+  cppast::CppConstNameExprEPtr methodAttrib0 = attribSeqGetPlakMpPlayers.at(0);
   REQUIRE(methodAttrib0);
-  CHECK((*methodAttrib0) == cppast::CppExpression("xnet::HttpGet"));
+  CHECK((*methodAttrib0) == cppast::CppNameExpr("xnet::HttpGet"));
 
-  cppast::CppConstExpressionEPtr methodAttrib1 = attribSeqGetPlakMpPlayers.at(1);
+  cppast::CppConstFunctionCallExprEPtr methodAttrib1 = attribSeqGetPlakMpPlayers.at(1);
   REQUIRE(methodAttrib1);
-  REQUIRE(methodAttrib1->expr1_.atom);
-  CHECK(*(methodAttrib1->expr1_.atom) == "xnet::Route");
-  CHECK(methodAttrib1->oper_ == cppast::CppOperator::kFunctionCall);
-  const auto funcArgs2 = methodAttrib1->expr2_.expr;
-  REQUIRE(funcArgs2);
-  CHECK(funcArgs2->expr1_.type == cppast::CppExprAtom::kAtom);
-  REQUIRE(funcArgs2->expr1_.atom);
-  CHECK(*(funcArgs2->expr1_.atom) == "\"/players\"");
-  */
+  cppast::CppConstNameExprEPtr methodAttrib1Func = &(methodAttrib1->function());
+  REQUIRE(methodAttrib1Func);
+  CHECK((*methodAttrib1Func) == cppast::CppNameExpr("xnet::Route"));
+  REQUIRE(methodAttrib1->numArgs() == 1);
+  cppast::CppConstStringLiteralExprEPtr methodAttrib1Arg = &(methodAttrib1->arg(0));
+  REQUIRE(methodAttrib1Arg);
+  CHECK((*methodAttrib1Arg) == cppast::CppStringLiteralExpr("\"/players\""));
 }
