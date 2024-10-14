@@ -4,21 +4,15 @@
 #ifndef BC97BFFF_ABE6_4D65_BB85_0BFE81A98146
 #define BC97BFFF_ABE6_4D65_BB85_0BFE81A98146
 
-#include "cppast/cpp_entity.h"
+#include "cppast/cpp_preprocessor.h"
 
 namespace cppast {
 
-class CppPreprocessorInclude : public CppEntity
+class CppPreprocessorInclude : public CppPreprocessor
 {
 public:
-  static constexpr auto EntityType()
-  {
-    return CppEntityType::PREPROCESSOR_INCLUDE;
-  }
-
-public:
   CppPreprocessorInclude(std::string name)
-    : CppEntity(EntityType())
+    : CppPreprocessor(CppPreprocessorType::INCLUDE)
     , name_(std::move(name))
   {
   }

@@ -140,8 +140,7 @@ inline bool isTypedefLike(const std::unique_ptr<CppEntity>& cppEntity)
 
 inline bool isPreProcessorType(const CppEntity& cppEntity)
 {
-  return cppEntity.entityType() > CppEntityType::_PREPROCESSOR_TYPE_STARTS
-         && cppEntity.entityType() < CppEntityType::_PREPROCESSOR_TYPE_ENDS;
+  return cppEntity.entityType() == CppEntityType::PREPROCESSOR;
 }
 
 inline bool isPreProcessorType(const std::unique_ptr<CppEntity>& cppEntity)

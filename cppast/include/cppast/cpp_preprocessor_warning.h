@@ -4,21 +4,15 @@
 #ifndef DB1B2C8A_BCA8_4701_A6B5_A7E02B37D32C
 #define DB1B2C8A_BCA8_4701_A6B5_A7E02B37D32C
 
-#include "cppast/cpp_entity.h"
+#include "cppast/cpp_preprocessor.h"
 
 namespace cppast {
 
-class CppPreprocessorWarning : public CppEntity
+class CppPreprocessorWarning : public CppPreprocessor
 {
 public:
-  static constexpr auto EntityType()
-  {
-    return CppEntityType::PREPROCESSOR_WARNING;
-  }
-
-public:
   CppPreprocessorWarning(std::string warningStr)
-    : CppEntity(EntityType())
+    : CppPreprocessor(CppPreprocessorType::WARNING)
     , warning_(std::move(warningStr))
   {
   }

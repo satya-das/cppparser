@@ -4,7 +4,7 @@
 #ifndef A21B28DB_1536_49E8_B573_458C95560210
 #define A21B28DB_1536_49E8_B573_458C95560210
 
-#include "cppast/cpp_entity.h"
+#include "cppast/cpp_preprocessor.h"
 
 namespace cppast {
 
@@ -24,17 +24,11 @@ enum class PreprocessorConditionalType
  * It includes #if, #ifdef, #ifndef.
  * It also includes #else, #elif, and #endif.
  */
-class CppPreprocessorConditional : public CppEntity
+class CppPreprocessorConditional : public CppPreprocessor
 {
 public:
-  static constexpr auto EntityType()
-  {
-    return CppEntityType::PREPROCESSOR_CONDITIONAL;
-  }
-
-public:
   CppPreprocessorConditional(PreprocessorConditionalType condType, std::string cond = std::string())
-    : CppEntity(EntityType())
+    : CppPreprocessor(CppPreprocessorType::CONDITIONAL)
     , condType_(condType)
     , cond_(std::move(cond))
   {

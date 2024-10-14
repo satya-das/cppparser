@@ -87,7 +87,8 @@ public:
                               std::ostream&                          stm,
                               CppIndent                              indentation = CppIndent()) const;
 
-  virtual void emitDefine(const cppast::CppMacroDefinition& defineObj, std::ostream& stm) const;
+  virtual void emitPreprocessor(const cppast::CppPreprocessor& preprocessorObj, std::ostream& stm) const;
+  virtual void emitDefine(const cppast::CppPreprocessorDefine& defineObj, std::ostream& stm) const;
   virtual void emitError(const cppast::CppPreprocessorError& errorObj, std::ostream& stm) const;
   virtual void emitImport(const cppast::CppPreprocessorImport& importObj, std::ostream& stm) const;
   virtual void emitUndef(const cppast::CppPreprocessorUndef& undefObj, std::ostream& stm) const;

@@ -4,21 +4,15 @@
 #ifndef AC0E36D5_D135_4787_BB9B_F3FB72DF023D
 #define AC0E36D5_D135_4787_BB9B_F3FB72DF023D
 
-#include "cppast/cpp_entity.h"
+#include "cppast/cpp_preprocessor.h"
 
 namespace cppast {
 
-class CppPreprocessorImport : public CppEntity
+class CppPreprocessorImport : public CppPreprocessor
 {
 public:
-  static constexpr auto EntityType()
-  {
-    return CppEntityType::PREPROCESSOR_IMPORT;
-  }
-
-public:
   CppPreprocessorImport(std::string name)
-    : CppEntity(EntityType())
+    : CppPreprocessor(CppPreprocessorType::IMPORT)
     , name_(std::move(name))
   {
   }

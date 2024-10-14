@@ -204,7 +204,7 @@ using namespace cppast;
   std::vector<cppast::CppCase>*                    switchBody;
   cppast::CppTryBlock*                             tryBlock;
   cppast::CppCatchBlock*                           catchBlock;
-  cppast::CppMacroDefinition*                      hashDefine;
+  cppast::CppPreprocessorDefine*                      hashDefine;
   cppast::CppPreprocessorUndef*                    hashUndef;
   cppast::CppPreprocessorInclude*                  hashInclude;
   cppast::CppPreprocessorImport*                   hashImport;
@@ -610,22 +610,22 @@ optexpr           : {
                   ;
 
 define            : tknPreProHash tknDefine name name          [ZZLOG;] {
-                    $$ = new cppast::CppMacroDefinition(cppast::CppMacroDefinitionType::RENAME, $3, $4);
+                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::RENAME, $3, $4);
                   }
                   | tknPreProHash tknDefine name               [ZZLOG;] {
-                    $$ = new cppast::CppMacroDefinition(cppast::CppMacroDefinitionType::RENAME, $3);
+                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::RENAME, $3);
                   }
                   | tknPreProHash tknDefine name tknNumber     [ZZLOG;] {
-                    $$ = new cppast::CppMacroDefinition(cppast::CppMacroDefinitionType::NUMBER, $3, $4);
+                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::NUMBER, $3, $4);
                   }
                   | tknPreProHash tknDefine name tknStrLit     [ZZLOG;] {
-                    $$ = new cppast::CppMacroDefinition(cppast::CppMacroDefinitionType::STRING, $3, $4);
+                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::STRING, $3, $4);
                   }
                   | tknPreProHash tknDefine name tknCharLit    [ZZLOG;] {
-                    $$ = new cppast::CppMacroDefinition(cppast::CppMacroDefinitionType::CHARACTER, $3, $4);
+                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::CHARACTER, $3, $4);
                   }
                   | tknPreProHash tknDefine name tknPreProDef  [ZZLOG;] {
-                    $$ = new cppast::CppMacroDefinition(cppast::CppMacroDefinitionType::COMPLEX_DEFN, $3, $4);
+                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::COMPLEX_DEFN, $3, $4);
                   }
                   ;
 

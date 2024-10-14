@@ -59,22 +59,8 @@ void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppI
     case cppast::CppEntityType::DOCUMENTATION_COMMENT:
       return emitDocComment((const cppast::CppDocumentationComment&) cppEntity, stm, indentation);
 
-    case cppast::CppEntityType::PREPROCESSOR_CONDITIONAL:
-      return emitHashIf((const cppast::CppPreprocessorConditional&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_DEFINE:
-      return emitDefine((const cppast::CppMacroDefinition&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_ERROR:
-      return emitError((const cppast::CppPreprocessorError&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_IMPORT:
-      return emitImport((const cppast::CppPreprocessorImport&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_INCLUDE:
-      return emitInclude((const cppast::CppPreprocessorInclude&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_PRAGMA:
-      return emitPragma((const cppast::CppPreprocessorPragma&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_UNDEF:
-      return emitUndef((const cppast::CppPreprocessorUndef&) cppEntity, stm);
-    case cppast::CppEntityType::PREPROCESSOR_WARNING:
-      return emitWarning((const cppast::CppPreprocessorWarning&) cppEntity, stm);
+    case cppast::CppEntityType::PREPROCESSOR:
+      return emitPreprocessor((const cppast::CppPreprocessor&) cppEntity, stm);
 
     case cppast::CppEntityType::ENTITY_ACCESS_SPECIFIER:
       return emitEntityAccessSpecifier(
@@ -149,7 +135,30 @@ void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppI
   }
 }
 
-void CppWriter::emitDefine(const cppast::CppMacroDefinition& defObj, std::ostream& stm) const
+void CppWriter::emitPreprocessor(const cppast::CppPreprocessor& preprocessorObj, std::ostream& stm) const
+{
+  switch (preprocessorObj.preprocessorType())
+  {
+    case cppast::CppPreprocessorType::CONDITIONAL:
+      return emitHashIf((const cppast::CppPreprocessorConditional&) preprocessorObj, stm);
+    case cppast::CppPreprocessorType::DEFINE:
+      return emitDefine((const cppast::CppPreprocessorDefine&) preprocessorObj, stm);
+    case cppast::CppPreprocessorType::ERROR:
+      return emitError((const cppast::CppPreprocessorError&) preprocessorObj, stm);
+    case cppast::CppPreprocessorType::IMPORT:
+      return emitImport((const cppast::CppPreprocessorImport&) preprocessorObj, stm);
+    case cppast::CppPreprocessorType::INCLUDE:
+      return emitInclude((const cppast::CppPreprocessorInclude&) preprocessorObj, stm);
+    case cppast::CppPreprocessorType::PRAGMA:
+      return emitPragma((const cppast::CppPreprocessorPragma&) preprocessorObj, stm);
+    case cppast::CppPreprocessorType::UNDEF:
+      return emitUndef((const cppast::CppPreprocessorUndef&) preprocessorObj, stm);
+    case cppast::CppPreprocessorType::WARNING:
+      return emitWarning((const cppast::CppPreprocessorWarning&) preprocessorObj, stm);
+  }
+}
+
+void CppWriter::emitDefine(const cppast::CppPreprocessorDefine& defObj, std::ostream& stm) const
 {
   stm << '#' << preproIndent_ << "define " << defObj.name();
   if (!defObj.definition().empty())

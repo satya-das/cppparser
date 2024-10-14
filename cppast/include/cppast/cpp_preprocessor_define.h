@@ -4,11 +4,13 @@
 #ifndef BE744AC2_52B3_46C4_A40D_9DB23E75A1F2
 #define BE744AC2_52B3_46C4_A40D_9DB23E75A1F2
 
-#include "cppast/cpp_entity.h"
+#include "cppast/cpp_preprocessor.h"
+
+#include <string>
 
 namespace cppast {
 
-enum class CppMacroDefinitionType
+enum class CppPreprocessorDefineType
 {
   RENAME,
   NUMBER,
@@ -20,24 +22,18 @@ enum class CppMacroDefinitionType
 /**
  * @brief A macro definition.
  */
-class CppMacroDefinition : public CppEntity
+class CppPreprocessorDefine : public CppPreprocessor
 {
 public:
-  static constexpr auto EntityType()
-  {
-    return CppEntityType::MACRO_DEFINITION;
-  }
-
-public:
-  CppMacroDefinition(CppMacroDefinitionType defType, std::string name, std::string defn = std::string())
-    : CppEntity(EntityType())
+  CppPreprocessorDefine(CppPreprocessorDefineType defType, std::string name, std::string defn = std::string())
+    : CppPreprocessor(CppPreprocessorType::DEFINE)
     , defType_(defType)
     , name_(std::move(name))
     , defn_(std::move(defn))
   {
   }
 
-  CppMacroDefinitionType definitionType() const
+  CppPreprocessorDefineType definitionType() const
   {
     return defType_;
   }
@@ -53,9 +49,9 @@ public:
   }
 
 private:
-  const CppMacroDefinitionType defType_;
-  const std::string            name_;
-  const std::string            defn_; ///< This will contain everything after name.
+  const CppPreprocessorDefineType defType_;
+  const std::string               name_;
+  const std::string               defn_; ///< This will contain everything after name.
 };
 
 } // namespace cppast

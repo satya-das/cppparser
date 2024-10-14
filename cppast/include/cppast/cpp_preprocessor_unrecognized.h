@@ -4,7 +4,7 @@
 #ifndef B53E618A_F2E7_4C5F_A58E_4C1065A96113
 #define B53E618A_F2E7_4C5F_A58E_4C1065A96113
 
-#include "cppast/cpp_entity.h"
+#include "cppast/cpp_preprocessor.h"
 
 namespace cppast {
 
@@ -12,17 +12,11 @@ namespace cppast {
  * Any other C/C++ preprocessor for which there is no
  * class defined yet.
  */
-class CppPreprocessorUnrecognized : public CppEntity
+class CppPreprocessorUnrecognized : public CppPreprocessor
 {
 public:
-  static constexpr auto EntityType()
-  {
-    return CppEntityType::PREPROCESSOR_UNRECOGNIZED;
-  }
-
-public:
   CppPreprocessorUnrecognized(std::string name, std::string defn)
-    : CppEntity(EntityType())
+    : CppPreprocessor(CppPreprocessorType::UNRECOGNIZED)
     , name_(std::move(name))
     , defn_(std::move(defn))
   {
