@@ -27,27 +27,11 @@
 
 #include <cstdio>
 #include <iostream>
-#include <map>
+#include <unordered_map>
 #include <stack>
 #include <vector>
 
 //////////////////////////////////////////////////////////////////////////
-
-int GetKeywordId(const std::string& keyword) {
-  // TODO: use yacc generated yyname to populate the map.
-  // TODO: use unordered_map instead.
-  static const std::map<std::string, int> keywordToIdMap =
-  {
-      {"virtual",   tknVirtual},
-      {"final",     tknFinal},
-      {"override",  tknOverride},
-      {"const",     tknConst},
-      {"noexcept",  tknNoExcept}
-  };
-
-  auto itr = keywordToIdMap.find(keyword);
-  return (itr != keywordToIdMap.end()) ? itr->second : -1;
-}
 
 #ifndef NDEBUG
 #  define YYDEBUG 1
@@ -406,1599 +390,1733 @@ CTORDECL and DTORDECL solve this problem by giving constructor and destructor de
 %%
 
 /* A program unit is a source file, be it header file or implementation file */
-progunit          : optstmtlist [ZZLOG;] {
-                    gProgUnit = $$ = $1;
-                    if (gProgUnit)
-                      gProgUnit->compoundType(CppCompoundType::FILE);
-                  }
-                  ;
+progunit
+  : optstmtlist [ZZLOG;] {
+    gProgUnit = $$ = $1;
+    if (gProgUnit)
+      gProgUnit->compoundType(CppCompoundType::FILE);
+    }
+  ;
 
-optstmtlist       : [ZZLOG;] {
-                    $$ = nullptr;
-                  }
-                  | stmtlist [ZZLOG;] {
-                    $$ = $1;
-                  }
-                  ;
+optstmtlist
+  : [ZZLOG;] {
+    $$ = nullptr;
+  }
+  | stmtlist [ZZLOG;] {
+    $$ = $1;
+  }
+  ;
 
-stmtlist          : stmt [ZZLOG;] {
-                    $$ = new cppast::CppCompound();
-                    if ($1)
-                    {
-                      $$->add(Ptr($1));
-                    } // Avoid 'comment-btyacc-constructs.sh' to act on this
-                  }
-                  | stmtlist stmt [ZZLOG;] {
-                    $$ = ($1 == 0) ? new cppast::CppCompound() : $1;
-                    if ($2)
-                    {
-                      $$->add(Ptr($2));
-                    } // Avoid 'comment-btyacc-constructs.sh' to act on this
-                  }
-                  ;
+stmtlist
+  : stmt [ZZLOG;] {
+    $$ = new cppast::CppCompound();
+    if ($1)
+    {
+      $$->add(Ptr($1));
+    } // Avoid 'comment-btyacc-constructs.sh' to act on this
+  }
+  | stmtlist stmt [ZZLOG;] {
+    $$ = ($1 == 0) ? new cppast::CppCompound() : $1;
+    if ($2)
+    {
+        $$->add(Ptr($2));
+    } // Avoid 'comment-btyacc-constructs.sh' to act on this
+  }
+  ;
 
-stmt              : vardeclstmt         [ZZLOG;] { $$ = $1; }
-                  | vardeclliststmt     [ZZLOG;] { $$ = $1; }
-                  | enumdefnstmt        [ZZLOG;] { $$ = $1; }
-                  | enumfwddecl         [ZZLOG;] { $$ = $1; }
-                  | typedefnamestmt     [ZZLOG;] { $$ = $1; }
-                  | typedefliststmt     [ZZLOG;] { $$ = $1; }
-                  | classdefnstmt       [ZZLOG;] { $$ = $1; }
-                  | namespacedefn       [ZZLOG;] { $$ = $1; }
-                  | fwddecl             [ZZLOG;] { $$ = $1; }
-                  | doccomment          [ZZLOG;] { $$ = $1; }
-                  | exprstmt            [ZZLOG;] { $$ = $1; }
-                  | ifblock             [ZZLOG;] { $$ = $1; }
-                  | whileblock          [ZZLOG;] { $$ = $1; }
-                  | dowhileblock        [ZZLOG;] { $$ = $1; }
-                  | forblock            [ZZLOG;] { $$ = $1; }
-                  | forrangeblock       [ZZLOG;] { $$ = $1; }
-                  | funcpointerdecl     [ZZLOG;] { $$ = $1; }
-                  | funcdeclstmt        [ZZLOG;] { $$ = $1; }
-                  | funcdefn            [ZZLOG;] { $$ = $1; }
-                  | ctordeclstmt        [ZZLOG;] { $$ = $1; }
-                  | ctordefn            [ZZLOG;] { $$ = $1; }
-                  | dtordeclstmt        [ZZLOG;] { $$ = $1; }
-                  | dtordefn            [ZZLOG;] { $$ = $1; }
-                  | typeconverterstmt   [ZZLOG;] { $$ = $1; }
-                  | externcblock        [ZZLOG;] { $$ = $1; }
-                  | funcptrtypedef      [ZZLOG;] { $$ = $1; }
-                  | preprocessor        [ZZLOG;] { $$ = $1; }
-                  | block               [ZZLOG;] { $$ = $1; }
-                  | switchstmt          [ZZLOG;] { $$ = $1; }
-                  | tryblock            [ZZLOG;] { $$ = $1; }
-                  | usingdecl           [ZZLOG;] { $$ = $1; }
-                  | usingnamespacedecl  [ZZLOG;] { $$ = $1; }
-                  | namespacealias      [ZZLOG;] { $$ = $1; }
-                  | macrocall           [ZZLOG;] { $$ = new cppast::CppMacroCall($1); }
-                  | macrocall ';'       [ZZLOG;] { $$ = new cppast::CppMacroCall(mergeCppToken($1, $2)); }
-                  | apidecortokensq macrocall [ZZLOG;] { $$ = new cppast::CppMacroCall(mergeCppToken($1, $2)); }
-                  | ';'                 [ZZLOG;] { $$ = nullptr; }  /* blank statement */
-                  | asmblock            [ZZLOG;] { $$ = $1; }
-                  | blob                [ZZLOG;] { $$ = $1; }
-                  | label               [ZZLOG;] { $$ = $1; }
-                  | returnstmt          [ZZLOG;] { $$ = $1; }
-                  | throwstmt           [ZZLOG;] { $$ = $1; }
-                  | gotostmt            [ZZLOG;] { $$ = $1; }
-                  | entityaccessspecifier     [ZZLOG;] { $$ = $1; }
-                  ;
+stmt
+  : vardeclstmt         [ZZLOG;] { $$ = $1; }
+  | vardeclliststmt     [ZZLOG;] { $$ = $1; }
+  | enumdefnstmt        [ZZLOG;] { $$ = $1; }
+  | enumfwddecl         [ZZLOG;] { $$ = $1; }
+  | typedefnamestmt     [ZZLOG;] { $$ = $1; }
+  | typedefliststmt     [ZZLOG;] { $$ = $1; }
+  | classdefnstmt       [ZZLOG;] { $$ = $1; }
+  | namespacedefn       [ZZLOG;] { $$ = $1; }
+  | fwddecl             [ZZLOG;] { $$ = $1; }
+  | doccomment          [ZZLOG;] { $$ = $1; }
+  | exprstmt            [ZZLOG;] { $$ = $1; }
+  | ifblock             [ZZLOG;] { $$ = $1; }
+  | whileblock          [ZZLOG;] { $$ = $1; }
+  | dowhileblock        [ZZLOG;] { $$ = $1; }
+  | forblock            [ZZLOG;] { $$ = $1; }
+  | forrangeblock       [ZZLOG;] { $$ = $1; }
+  | funcpointerdecl     [ZZLOG;] { $$ = $1; }
+  | funcdeclstmt        [ZZLOG;] { $$ = $1; }
+  | funcdefn            [ZZLOG;] { $$ = $1; }
+  | ctordeclstmt        [ZZLOG;] { $$ = $1; }
+  | ctordefn            [ZZLOG;] { $$ = $1; }
+  | dtordeclstmt        [ZZLOG;] { $$ = $1; }
+  | dtordefn            [ZZLOG;] { $$ = $1; }
+  | typeconverterstmt   [ZZLOG;] { $$ = $1; }
+  | externcblock        [ZZLOG;] { $$ = $1; }
+  | funcptrtypedef      [ZZLOG;] { $$ = $1; }
+  | preprocessor        [ZZLOG;] { $$ = $1; }
+  | block               [ZZLOG;] { $$ = $1; }
+  | switchstmt          [ZZLOG;] { $$ = $1; }
+  | tryblock            [ZZLOG;] { $$ = $1; }
+  | usingdecl           [ZZLOG;] { $$ = $1; }
+  | usingnamespacedecl  [ZZLOG;] { $$ = $1; }
+  | namespacealias      [ZZLOG;] { $$ = $1; }
+  | macrocall           [ZZLOG;] { $$ = new cppast::CppMacroCall($1); }
+  | macrocall ';'       [ZZLOG;] { $$ = new cppast::CppMacroCall(mergeCppToken($1, $2)); }
+  | apidecortokensq macrocall [ZZLOG;] { $$ = new cppast::CppMacroCall(mergeCppToken($1, $2)); }
+  | ';'                 [ZZLOG;] { $$ = nullptr; }  /* blank statement */
+  | asmblock            [ZZLOG;] { $$ = $1; }
+  | blob                [ZZLOG;] { $$ = $1; }
+  | label               [ZZLOG;] { $$ = $1; }
+  | returnstmt          [ZZLOG;] { $$ = $1; }
+  | throwstmt           [ZZLOG;] { $$ = $1; }
+  | gotostmt            [ZZLOG;] { $$ = $1; }
+  | entityaccessspecifier     [ZZLOG;] { $$ = $1; }
+  ;
 
-label             : name ':'            [ZZLOG;] { $$ = new cppast::CppLabel($1); }
-                  ;
+label
+  : name ':'            [ZZLOG;] { $$ = new cppast::CppLabel($1); }
+  ;
 
-preprocessor      : define              [ZZLOG;] { $$ = $1; }
-                  | undef               [ZZLOG;] { $$ = $1; }
-                  | include             [ZZLOG;] { $$ = $1; }
-                  | import              [ZZLOG;] { $$ = $1; }
-                  | hashif              [ZZLOG;] { $$ = $1; }
-                  | hasherror           [ZZLOG;] { $$ = $1; }
-                  | hashwarning         [ZZLOG;] { $$ = $1; }
-                  | pragma              [ZZLOG;] { $$ = $1; }
-                  ;
+preprocessor
+  : define              [ZZLOG;] { $$ = $1; }
+  | undef               [ZZLOG;] { $$ = $1; }
+  | include             [ZZLOG;] { $$ = $1; }
+  | import              [ZZLOG;] { $$ = $1; }
+  | hashif              [ZZLOG;] { $$ = $1; }
+  | hasherror           [ZZLOG;] { $$ = $1; }
+  | hashwarning         [ZZLOG;] { $$ = $1; }
+  | pragma              [ZZLOG;] { $$ = $1; }
+  ;
 
-asmblock          : tknAsm              [ZZLOG;] { $$ = new cppast::CppAsmBlock($1); }
-                  ;
+asmblock
+  : tknAsm              [ZZLOG;] { $$ = new cppast::CppAsmBlock($1); }
+  ;
 
-macrocall         : tknMacro [ZZLOG; $$ = $1;] {}
-                  | macrocall '(' ')' [ZZLOG; $$ = mergeCppToken($1, $3); ] {}
-                  | macrocall '(' expr ')' [
-                    ZZLOG;
-                    $$ = mergeCppToken($1, $4);
-                    delete $3;
-                  ] {}
-                  ;
+macrocall
+  : tknMacro [ZZLOG; $$ = $1;] {}
+  | macrocall '(' ')' [ZZLOG; $$ = mergeCppToken($1, $3); ] {}
+  | macrocall '(' expr ')' [
+    ZZLOG;
+    $$ = mergeCppToken($1, $4);
+    delete $3;
+  ] {}
+  ;
 
-switchstmt        : tknSwitch '(' expr ')' '{' caselist '}' [ZZLOG;] {
-                    $$ = new cppast::CppSwitchBlock(Ptr($3), std::move(*Ptr($6)));
-                  }
-                  ;
+switchstmt
+  : tknSwitch '(' expr ')' '{' caselist '}' [ZZLOG;] {
+    $$ = new cppast::CppSwitchBlock(Ptr($3), std::move(*Ptr($6)));
+  }
+  ;
 
-caselist          : [ZZLOG;] {
-                    $$ = new std::vector<cppast::CppCase>;
-                  }
-                  | caselist tknCase expr ':' optstmtlist [ZZLOG;] {
-                    $$ = $1;
-                    $$->emplace_back(Ptr($3), Ptr($5));
-                  }
-                  | caselist tknDefault ':' optstmtlist [ZZLOG;] {
-                    $$ = $1;
-                    $$->emplace_back(nullptr, Ptr($4));
-                  }
-                  | doccommentstr caselist [ZZLOG;] { $$ = $2; }
-                  | caselist doccommentstr [ZZLOG;] { $$ = $1; }
-                  ;
+caselist
+  : [ZZLOG;] {
+    $$ = new std::vector<cppast::CppCase>;
+  }
+  | caselist tknCase expr ':' optstmtlist [ZZLOG;] {
+    $$ = $1;
+    $$->emplace_back(Ptr($3), Ptr($5));
+  }
+  | caselist tknDefault ':' optstmtlist [ZZLOG;] {
+    $$ = $1;
+    $$->emplace_back(nullptr, Ptr($4));
+  }
+  | doccommentstr caselist [ZZLOG;] { $$ = $2; }
+  | caselist doccommentstr [ZZLOG;] { $$ = $1; }
+  ;
 
-block             : '{' optstmtlist '}' [ZZLOG;] {
-                    $$ = $2;
-                    if ($$ == nullptr)
-                      $$ = new cppast::CppCompound(CppCompoundType::BLOCK);
-                    else
-                      $$->compoundType(CppCompoundType::BLOCK);
-                  }
-                  | doccomment block [ZZLOG;] {
-                    $$ = $2;
-                  }
-                  ;
+block
+  : '{' optstmtlist '}' [ZZLOG;] {
+    $$ = $2;
+    if ($$ == nullptr)
+      $$ = new cppast::CppCompound(CppCompoundType::BLOCK);
+    else
+      $$->compoundType(CppCompoundType::BLOCK);
+  }
+  | doccomment block [ZZLOG;] {
+    $$ = $2;
+  }
+  ;
 
-ifblock           : tknIf '(' expr ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5));
-                  }
-                  | tknIf '(' expr ')' stmt tknElse stmt [ZZLOG;] {
-                    $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5), Ptr($7));
-                  }
-                  | tknIf '(' varinit ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5));
-                  }
-                  | tknIf '(' varinit ')' stmt tknElse stmt [ZZLOG;] {
-                    $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5), Ptr($7));
-                  }
-                  /* TODO: Add support for else-if: compare the if.cpp file and its output by e2e test. */
-                  ;
+ifblock
+  : tknIf '(' expr ')' stmt [ZZLOG;] {
+    $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5));
+  }
+  | tknIf '(' expr ')' stmt tknElse stmt [ZZLOG;] {
+    $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5), Ptr($7));
+  }
+  | tknIf '(' varinit ')' stmt [ZZLOG;] {
+    $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5));
+  }
+  | tknIf '(' varinit ')' stmt tknElse stmt [ZZLOG;] {
+    $$ = new cppast::CppIfBlock(Ptr($3), Ptr($5), Ptr($7));
+  }
+  /* TODO: Add support for else-if: compare the if.cpp file and its output by e2e test. */
+  ;
 
-whileblock        : tknWhile '(' expr ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppWhileBlock(Ptr($3), Ptr($5));
-                  }
-                  | tknWhile '(' varinit ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppWhileBlock(Ptr($3), Ptr($5));
-                  }
-                  ;
+whileblock
+  : tknWhile '(' expr ')' stmt [ZZLOG;] {
+    $$ = new cppast::CppWhileBlock(Ptr($3), Ptr($5));
+  }
+  | tknWhile '(' varinit ')' stmt [ZZLOG;] {
+    $$ = new cppast::CppWhileBlock(Ptr($3), Ptr($5));
+  }
+  ;
 
-dowhileblock      : tknDo stmt tknWhile '(' expr ')' [ZZLOG;] {
-                    $$ = new cppast::CppDoWhileBlock(Ptr($5), Ptr($2));
-                  }
-                  ;
+dowhileblock
+  : tknDo stmt tknWhile '(' expr ')' [ZZLOG;] {
+    $$ = new cppast::CppDoWhileBlock(Ptr($5), Ptr($2));
+  }
+  ;
 
-forblock          : tknFor '(' optexprorlist ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
-                  }
-                  | tknFor '(' varinit ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
-                  }
-                  | tknFor '(' vardecllist ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
-                  }
-                  ;
+forblock
+  : tknFor '(' optexprorlist ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
+    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
+  }
+  | tknFor '(' varinit ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
+    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
+  }
+  | tknFor '(' vardecllist ';' optexprorlist ';' optexprorlist ')' stmt [ZZLOG;] {
+    $$ = new cppast::CppForBlock(Ptr($3), Ptr($5), Ptr($7), Ptr($9));
+  }
+  ;
 
-forrangeblock     : tknFor '(' vardecl ':' expr ')' stmt [ZZLOG;] {
-                    $$ = new cppast::CppRangeForBlock(Ptr($3), Ptr($5), Ptr($7));
-                  }
-                  ;
+forrangeblock
+  : tknFor '(' vardecl ':' expr ')' stmt [ZZLOG;] {
+    $$ = new cppast::CppRangeForBlock(Ptr($3), Ptr($5), Ptr($7));
+  }
+  ;
 
-tryblock          : tknTry block catchblock [ZZLOG;] {
-                    $$ = new cppast::CppTryBlock(Ptr($2), Ptr($3));
-                  }
-                  | tryblock catchblock [ZZLOG;] {
-                    $$ = $1;
-                    $$->addCatchBlock(Ptr($2));
-                  }
-                  ;
+tryblock
+  : tknTry block catchblock [ZZLOG;] {
+    $$ = new cppast::CppTryBlock(Ptr($2), Ptr($3));
+  }
+  | tryblock catchblock [ZZLOG;] {
+    $$ = $1;
+    $$->addCatchBlock(Ptr($2));
+  }
+  ;
 
-catchblock        : tknCatch '(' vartype optname ')' block [ZZLOG;] {
-                    $$ = new cppast::CppCatchBlock{Ptr($3), $4, Ptr($6)};
-                  }
-                  ;
+catchblock
+  : tknCatch '(' vartype optname ')' block [ZZLOG;] {
+    $$ = new cppast::CppCatchBlock{Ptr($3), $4, Ptr($6)};
+  }
+  ;
 
-optexpr           : {
-                    $$ = nullptr;
-                  }
-                  | expr [ZZLOG;] {
-                    $$ = $1;
-                  }
-                  /* | exprlist [ZZLOG;] {
-                    $$ = $1;
-                  } */
-                  ;
+optexpr
+  : {
+    $$ = nullptr;
+  }
+  | expr [ZZLOG;] {
+    $$ = $1;
+  }
+  /* | exprlist [ZZLOG;] {
+    $$ = $1;
+  } */
+  ;
 
-define            : tknPreProHash tknDefine name name          [ZZLOG;] {
-                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::RENAME, $3, $4);
-                  }
-                  | tknPreProHash tknDefine name               [ZZLOG;] {
-                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::RENAME, $3);
-                  }
-                  | tknPreProHash tknDefine name tknNumber     [ZZLOG;] {
-                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::NUMBER, $3, $4);
-                  }
-                  | tknPreProHash tknDefine name tknStrLit     [ZZLOG;] {
-                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::STRING, $3, $4);
-                  }
-                  | tknPreProHash tknDefine name tknCharLit    [ZZLOG;] {
-                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::CHARACTER, $3, $4);
-                  }
-                  | tknPreProHash tknDefine name tknPreProDef  [ZZLOG;] {
-                    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::COMPLEX_DEFN, $3, $4);
-                  }
-                  ;
+define
+  : tknPreProHash tknDefine name name [ZZLOG;] {
+    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::RENAME, $3, $4);
+  }
+  | tknPreProHash tknDefine name [ZZLOG;] {
+    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::RENAME, $3);
+  }
+  | tknPreProHash tknDefine name tknNumber [ZZLOG;] {
+    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::NUMBER, $3, $4);
+  }
+  | tknPreProHash tknDefine name tknStrLit [ZZLOG;] {
+    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::STRING, $3, $4);
+  }
+  | tknPreProHash tknDefine name tknCharLit [ZZLOG;] {
+    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::CHARACTER, $3, $4);
+  }
+  | tknPreProHash tknDefine name tknPreProDef [ZZLOG;] {
+    $$ = new cppast::CppPreprocessorDefine(cppast::CppPreprocessorDefineType::COMPLEX_DEFN, $3, $4);
+  }
+  ;
 
-undef             : tknPreProHash tknUndef name                 [ZZLOG;]  { $$ = new cppast::CppPreprocessorUndef($3); }
-                  ;
+undef
+  : tknPreProHash tknUndef name                 [ZZLOG;]  { $$ = new cppast::CppPreprocessorUndef($3); }
+  ;
 
-include           : tknPreProHash tknInclude tknStrLit          [ZZLOG;]  { $$ = new cppast::CppPreprocessorInclude($3); }
-                  | tknPreProHash tknInclude tknStdHdrInclude   [ZZLOG;]  { $$ = new cppast::CppPreprocessorInclude($3); }
-                  ;
+include
+  : tknPreProHash tknInclude tknStrLit          [ZZLOG;]  { $$ = new cppast::CppPreprocessorInclude($3); }
+  | tknPreProHash tknInclude tknStdHdrInclude   [ZZLOG;]  { $$ = new cppast::CppPreprocessorInclude($3); }
+  ;
 
-import            : tknPreProHash tknImport tknStrLit           [ZZLOG;]  { $$ = new cppast::CppPreprocessorImport($3); }
-                  | tknPreProHash tknImport tknStdHdrInclude    [ZZLOG;]  { $$ = new cppast::CppPreprocessorImport($3); }
-                  ;
+import
+  : tknPreProHash tknImport tknStrLit           [ZZLOG;]  { $$ = new cppast::CppPreprocessorImport($3); }
+  | tknPreProHash tknImport tknStdHdrInclude    [ZZLOG;]  { $$ = new cppast::CppPreprocessorImport($3); }
+  ;
 
-hashif            : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::IF,      $3); }
-                  | tknPreProHash tknIfDef name                 [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::IFDEF,   $3); }
-                  | tknPreProHash tknIfNDef name                [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::IFNDEF,  $3); }
-                  | tknPreProHash tknIfNDef tknApiDecor         [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::IFNDEF,  $3); }
-                  | tknPreProHash tknElse                       [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::ELSE       ); }
-                  | tknPreProHash tknElIf  tknPreProDef         [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::ELIF,    $3); }
-                  | tknPreProHash tknEndIf                      [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::ENDIF      ); }
-                  ;
+hashif
+  : tknPreProHash tknIf tknPreProDef            [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::IF,      $3); }
+  | tknPreProHash tknIfDef name                 [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::IFDEF,   $3); }
+  | tknPreProHash tknIfNDef name                [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::IFNDEF,  $3); }
+  | tknPreProHash tknIfNDef tknApiDecor         [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::IFNDEF,  $3); }
+  | tknPreProHash tknElse                       [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::ELSE       ); }
+  | tknPreProHash tknElIf  tknPreProDef         [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::ELIF,    $3); }
+  | tknPreProHash tknEndIf                      [ZZLOG;]  { $$ = new cppast::CppPreprocessorConditional(PreprocessorConditionalType::ENDIF      ); }
+  ;
 
-hasherror         : tknPreProHash tknHashError                  [ZZLOG;]  { $$ = new cppast::CppPreprocessorError($2); }
-                  | tknPreProHash tknHashError strlit           [ZZLOG;]  { $$ = new cppast::CppPreprocessorError(mergeCppToken($2, $3)); }
-                  ;
+hasherror
+  : tknPreProHash tknHashError                  [ZZLOG;]  { $$ = new cppast::CppPreprocessorError($2); }
+  | tknPreProHash tknHashError strlit           [ZZLOG;]  { $$ = new cppast::CppPreprocessorError(mergeCppToken($2, $3)); }
+  ;
 
-hashwarning       : tknPreProHash tknHashWarning                [ZZLOG;]  { $$ = new cppast::CppPreprocessorWarning($2); }
-                  | tknPreProHash tknHashWarning strlit         [ZZLOG;]  { $$ = new cppast::CppPreprocessorWarning(mergeCppToken($2, $3)); }
-                  ;
+hashwarning
+  : tknPreProHash tknHashWarning                [ZZLOG;]  { $$ = new cppast::CppPreprocessorWarning($2); }
+  | tknPreProHash tknHashWarning strlit         [ZZLOG;]  { $$ = new cppast::CppPreprocessorWarning(mergeCppToken($2, $3)); }
+  ;
 
-pragma            : tknPreProHash tknPragma tknPreProDef        [ZZLOG;]  { $$ = new cppast::CppPreprocessorPragma($3); }
-                  ;
+pragma
+  : tknPreProHash tknPragma tknPreProDef        [ZZLOG;]  { $$ = new cppast::CppPreprocessorPragma($3); }
+  ;
 
-doccomment        : doccommentstr                               [ZZLOG;]  { $$ = new cppast::CppDocumentationComment((std::string) $1); }
-                  ;
+doccomment
+  : doccommentstr                               [ZZLOG;]  { $$ = new cppast::CppDocumentationComment((std::string) $1); }
+  ;
 
-doccommentstr     : tknFreeStandingBlockComment                          [ZZLOG;]  { $$ = $1; }
-                  | tknFreeStandingLineComment                           [ZZLOG;]  { $$ = $1; }
-                  | doccommentstr tknFreeStandingBlockComment            [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
-                  | doccommentstr tknFreeStandingLineComment             [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
-                  ;
+doccommentstr
+  : tknFreeStandingBlockComment                          [ZZLOG;]  { $$ = $1; }
+  | tknFreeStandingLineComment                           [ZZLOG;]  { $$ = $1; }
+  | doccommentstr tknFreeStandingBlockComment            [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
+  | doccommentstr tknFreeStandingLineComment             [ZZLOG;]  { $$ = mergeCppToken($1, $2); }
+  ;
 
-identifier        : name                                          [ZZLOG; $$ = $1; ] {}
-                  | identifier tknScopeResOp identifier           [ZZLOG; $$ = mergeCppToken($1, $3); ] {}
-                  | id                                            [ZZLOG; $$ = $1; ] {}
-                  | templidentifier                               [ZZLOG; $$ = $1; ] {}
-                  | tknOverride                                   [ZZLOG; $$ = $1;] { /* override is not a reserved keyword */ }
-                  | identifier tknEllipsis                        [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
-                  | macrocall                                     [ZZLOG; $$ = $1; ] {}
-                  | templqualifiedid                              [ZZLOG; $$ = $1; ] {}
-                  ;
+identifier
+  : name                                          [ZZLOG; $$ = $1; ] {}
+  | identifier tknScopeResOp identifier           [ZZLOG; $$ = mergeCppToken($1, $3); ] {}
+  | id                                            [ZZLOG; $$ = $1; ] {}
+  | templidentifier                               [ZZLOG; $$ = $1; ] {}
+  | tknOverride                                   [ZZLOG; $$ = $1;] { /* override is not a reserved keyword */ }
+  | identifier tknEllipsis                        [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
+  | macrocall                                     [ZZLOG; $$ = $1; ] {}
+  | templqualifiedid                              [ZZLOG; $$ = $1; ] {}
+  ;
 
-numbertype        : tknInteger                            [ZZLOG;] { $$ = $1; }
-                  | tknFloat                              [ZZLOG;] { $$ = $1; }
-                  | tknDouble                             [ZZLOG;] { $$ = $1; }
-                  | tknChar                               [ZZLOG;] { $$ = $1; }
-                  | tknNumSignSpec                        [ZZLOG;] { $$ = $1; }
-                  | tknNumSignSpec numbertype             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  ;
+numbertype
+  : tknInteger                            [ZZLOG;] { $$ = $1; }
+  | tknFloat                              [ZZLOG;] { $$ = $1; }
+  | tknDouble                             [ZZLOG;] { $$ = $1; }
+  | tknChar                               [ZZLOG;] { $$ = $1; }
+  | tknNumSignSpec                        [ZZLOG;] { $$ = $1; }
+  | tknNumSignSpec numbertype             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  ;
 
-typeidentifier    : identifier                            [ZZLOG;] { $$ = $1; }
-                  | tknScopeResOp identifier %prec GLOBAL [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | typeidentifier tknScopeResOp typeidentifier [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  | numbertype                            [ZZLOG;] { $$ = $1; }
-                  | typeidentifier '[' ']'                [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  | tknAuto                               [ZZLOG;] { $$ = $1; }
-                  | tknVoid                               [ZZLOG;] { $$ = $1; }
-                  | tknEnum  identifier                   [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknTypename identifier  [
+typeidentifier
+  : identifier                            [ZZLOG;] { $$ = $1; }
+  | tknScopeResOp identifier %prec GLOBAL [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | typeidentifier tknScopeResOp typeidentifier [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+  | numbertype                            [ZZLOG;] { $$ = $1; }
+  | typeidentifier '[' ']'                [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+  | tknAuto                               [ZZLOG;] { $$ = $1; }
+  | tknVoid                               [ZZLOG;] { $$ = $1; }
+  | tknEnum  identifier                   [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknTypename identifier  [
                     if (gTemplateParamStart == $1.sz)
                       ZZERROR;
                     else
                       ZZLOG;
                   ]                                       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknEllipsis                           [ZZLOG;] { $$ = $1; }
-                  | tknTypename tknEllipsis               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknClass tknEllipsis                  [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | typeidentifier tknEllipsis            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknDecltype '(' expr ')'              [ZZLOG;] { $$ = mergeCppToken($1, $4); delete $3; }
-                  ;
+  | tknEllipsis                           [ZZLOG;] { $$ = $1; }
+  | tknTypename tknEllipsis               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknClass tknEllipsis                  [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | typeidentifier tknEllipsis            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknDecltype '(' expr ')'              [ZZLOG;] { $$ = mergeCppToken($1, $4); delete $3; }
+  ;
 
-templidentifier   : identifier tknLT templatearglist tknGT    [ZZLOG; $$ = mergeCppToken($1, $4); ] {}
+templidentifier
+  : identifier tknLT templatearglist tknGT    [ZZLOG; $$ = mergeCppToken($1, $4); ] {}
 // The following rule is needed to parse an ambiguous input as template identifier,
 // see the test "vardecl-or-expr-ambiguity".
-                  | identifier tknLT expr tknNotEq expr tknGT [ZZLOG; $$ = mergeCppToken($1, $6); ] {}
+  | identifier tknLT expr tknNotEq expr tknGT [ZZLOG; $$ = mergeCppToken($1, $6); ] {}
 // The following rule is needed to parse a template identifier which otherwise fails to parse
 // because of higher precedence of tknLT and tknGT,
 // see the test "C<Class, v != 0> x;".
-                  | identifier tknLT templatearglist ',' expr tknNotEq expr tknGT
-                                                              [ZZLOG; $$ = mergeCppToken($1, $8); ] {}
-                  ;
+  | identifier tknLT templatearglist ',' expr tknNotEq expr tknGT [ZZLOG; $$ = mergeCppToken($1, $8); ] {}
+  ;
 
-templqualifiedid  : tknTemplate templidentifier               [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
-                  ;
+templqualifiedid
+  : tknTemplate templidentifier               [ZZLOG; $$ = mergeCppToken($1, $2); ] {}
+  ;
 
-name              : tknName  [ZZLOG; $$ = $1;] {}
-                  ;
+name
+  : tknName  [ZZLOG; $$ = $1;] {}
+  ;
 
-id                : tknID  [ZZLOG; $$ = $1; ] {}
-                  ;
+id
+  : tknID  [ZZLOG; $$ = $1; ] {}
+  ;
 
-optname           :         [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
-                  | name    [ZZLOG;] { $$ = $1; }
+optname
+  :         [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
+  | name    [ZZLOG;] { $$ = $1; }
 
-optidentifier     :             [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
-                  | identifier  [ZZLOG;] { $$ = $1; }
-                  ;
+optidentifier
+  :             [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
+  | identifier  [ZZLOG;] { $$ = $1; }
+  ;
 
-enumitem          : name            [ZZLOG;]   { $$ = new cppast::CppEnumItem($1);     }
-                  | name '=' expr   [ZZLOG;]   { $$ = new cppast::CppEnumItem($1, Ptr($3)); }
-                  | doccomment      [ZZLOG;]   { $$ = new cppast::CppEnumItem(Ptr($1));     }
-                  | preprocessor    [ZZLOG;]   { $$ = new cppast::CppEnumItem(Ptr($1));     }
-                  | macrocall       [ZZLOG;]   { $$ = new cppast::CppEnumItem(Ptr(new cppast::CppMacroCall($1)));     }
-                  | blob            [ZZLOG;]   { $$ = new cppast::CppEnumItem(Ptr($1));     }
-                  ;
+enumitem
+  : name            [ZZLOG;]   { $$ = new cppast::CppEnumItem($1); }
+  | name '=' expr   [ZZLOG;]   { $$ = new cppast::CppEnumItem($1, Ptr($3)); }
+  | doccomment      [ZZLOG;]   { $$ = new cppast::CppEnumItem(Ptr($1)); }
+  | preprocessor    [ZZLOG;]   { $$ = new cppast::CppEnumItem(Ptr($1)); }
+  | macrocall       [ZZLOG;]   { $$ = new cppast::CppEnumItem(Ptr(new cppast::CppMacroCall($1))); }
+  | blob            [ZZLOG;]   { $$ = new cppast::CppEnumItem(Ptr($1)); }
+  ;
 
-blob              : tknBlob      [ZZLOG;]   { $$ = new cppast::CppBlob($1);         }
-                  ;
+blob
+  : tknBlob      [ZZLOG;]   { $$ = new cppast::CppBlob($1); }
+  ;
 
-enumitemlist      :                           [ZZLOG;] { $$ = 0; }
-                  | enumitemlist enumitem     [ZZLOG;] {
-                    $$ = $1 ? $1 : new std::list<cppast::CppEnumItem>;
-                    $$->push_back(Obj($2));
-                  }
-                  | enumitemlist ',' enumitem [ZZLOG;] {
-                    $$ = $1 ? $1 : new std::list<cppast::CppEnumItem>;
-                    $$->push_back(Obj($3));
-                  }
-                  | enumitemlist ','          [ZZLOG;] {
-                    $$ = $1;
-                  }
-                  ;
+enumitemlist
+  :                           [ZZLOG;] { $$ = 0; }
+  | enumitemlist enumitem [ZZLOG;] {
+    $$ = $1 ? $1 : new std::list<cppast::CppEnumItem>;
+    $$->push_back(Obj($2));
+  }
+  | enumitemlist ',' enumitem [ZZLOG;] {
+    $$ = $1 ? $1 : new std::list<cppast::CppEnumItem>;
+    $$->push_back(Obj($3));
+  }
+  | enumitemlist ',' [ZZLOG;] {
+    $$ = $1;
+  }
+  ;
 
-enumdefn          : tknEnum optname '{' enumitemlist '}'                                        [ZZVALID;] {
-                    $$ = new cppast::CppEnum($2, Obj($4));
-                  }
-                  | tknEnum optapidecor name ':' typeidentifier '{' enumitemlist '}'            [ZZVALID;] {
-                    $$ = new cppast::CppEnum($3, Obj($7), false, $5);
-                  };
-                  | tknEnum ':' typeidentifier '{' enumitemlist '}'                           [ZZVALID;] {
-                    $$ = new cppast::CppEnum("", Obj($5), false, $3);
-                  };
-                  | tknEnum optapidecor name '{' enumitemlist '}'                               [ZZVALID;] {
-                    $$ = new cppast::CppEnum($3, Obj($5), false);
-                  };
-                  | tknEnum tknClass optapidecor name ':' typeidentifier '{' enumitemlist '}'   [ZZVALID;] {
-                    $$ = new cppast::CppEnum($4, Obj($8), true, $6);
-                  }
-                  | tknEnum tknClass optapidecor name '{' enumitemlist '}'                      [ZZVALID;] {
-                    $$ = new cppast::CppEnum($4, Obj($6), true);
-                  }
-                  | tknTypedef tknEnum optapidecor optname '{' enumitemlist '}' name              [ZZVALID;] {
-                    $$ = new cppast::CppEnum($8, Obj($6));
-                  }
-                  ;
+enumdefn
+  : tknEnum optname '{' enumitemlist '}' [ZZVALID;] {
+    $$ = new cppast::CppEnum($2, Obj($4));
+  }
+  | tknEnum optapidecor name ':' typeidentifier '{' enumitemlist '}' [ZZVALID;] {
+    $$ = new cppast::CppEnum($3, Obj($7), false, $5);
+  };
+  | tknEnum ':' typeidentifier '{' enumitemlist '}' [ZZVALID;] {
+    $$ = new cppast::CppEnum("", Obj($5), false, $3);
+  };
+  | tknEnum optapidecor name '{' enumitemlist '}' [ZZVALID;] {
+    $$ = new cppast::CppEnum($3, Obj($5), false);
+  };
+  | tknEnum tknClass optapidecor name ':' typeidentifier '{' enumitemlist '}' [ZZVALID;] {
+    $$ = new cppast::CppEnum($4, Obj($8), true, $6);
+  }
+  | tknEnum tknClass optapidecor name '{' enumitemlist '}' [ZZVALID;] {
+    $$ = new cppast::CppEnum($4, Obj($6), true);
+  }
+  | tknTypedef tknEnum optapidecor optname '{' enumitemlist '}' name [ZZVALID;] {
+    $$ = new cppast::CppEnum($8, Obj($6));
+  }
+  ;
 
-enumdefnstmt      : enumdefn ';' [ZZLOG;] { $$ = $1; }
-                  ;
+enumdefnstmt
+  : enumdefn ';' [ZZLOG;] { $$ = $1; }
+  ;
 
-enumfwddecl       : tknEnum name ':' typeidentifier ';'                                 [ZZVALID;] {
-                    $$ = new cppast::CppEnum($2, {}, false, $4);
-                  }
-                  | tknEnum tknClass name ':' typeidentifier ';'                        [ZZVALID;] {
-                    $$ = new cppast::CppEnum($3, {}, true, $5);
-                  }
-                  | tknEnum tknClass name ';'                                           [ZZVALID;] {
-                    $$ = new cppast::CppEnum($3, {}, true);
-                  }
-                  ;
+enumfwddecl
+  : tknEnum name ':' typeidentifier ';' [ZZVALID;] {
+    $$ = new cppast::CppEnum($2, {}, false, $4);
+  }
+  | tknEnum tknClass name ':' typeidentifier ';' [ZZVALID;] {
+    $$ = new cppast::CppEnum($3, {}, true, $5);
+  }
+  | tknEnum tknClass name ';' [ZZVALID;] {
+    $$ = new cppast::CppEnum($3, {}, true);
+  }
+  ;
 
-funcptrtypedef    : tknTypedef functionpointer ';' [ZZVALID;] {
-                    $2->addAttr(kTypedef);
-                    $$ = $2;
-                  }
+funcptrtypedef
+  : tknTypedef functionpointer ';' [ZZVALID;] {
+    $2->addAttr(kTypedef);
+    $$ = $2;
+  }
 
-typedefnamestmt   : typedefname ';'     [ZZVALID;] { $$ = $1; }
-                  ;
+typedefnamestmt
+  : typedefname ';'     [ZZVALID;] { $$ = $1; }
+  ;
 
-typedefliststmt   : typedeflist ';'     [ZZVALID;] { $$ = $1; }
-                  ;
+typedefliststmt
+  : typedeflist ';'     [ZZVALID;] { $$ = $1; }
+  ;
 
-typedeflist       : tknTypedef vardecllist  [ZZLOG;] { $$ = new cppast::CppTypedefList(Ptr($2)); }
-                  ;
+typedeflist
+  : tknTypedef vardecllist  [ZZLOG;] { $$ = new cppast::CppTypedefList(Ptr($2)); }
+  ;
 
-typedefname       : tknTypedef vardecl      [ZZLOG;] { $$ = new cppast::CppTypedefName(Ptr($2)); }
-                  ;
+typedefname
+  : tknTypedef vardecl      [ZZLOG;] { $$ = new cppast::CppTypedefName(Ptr($2)); }
+  ;
 
-usingdecl         : tknUsing name '=' vartype ';'         [ZZLOG;] {
-                    $$ = new cppast::CppUsingDecl($2, Ptr($4));
-                  }
-                  | tknUsing name '=' functionptrtype ';' [ZZLOG;] {
-                    $$ = new cppast::CppUsingDecl($2, Ptr($4));
-                  }
-                  | tknUsing name '=' funcobj ';'         [ZZLOG;] {
-                    $$ = new cppast::CppUsingDecl($2, Ptr($4));
-                  }
-                  | tknUsing name '=' classdefn ';'       [ZZLOG;] {
-                    $$ = new cppast::CppUsingDecl($2, Ptr($4));
-                  }
-                  | templatespecifier usingdecl         [ZZLOG;] {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  | tknUsing identifier ';'             [ZZLOG;] {
-                    $$ = new cppast::CppUsingDecl($2);
-                  }
-                  ;
-                  ;
+usingdecl
+  : tknUsing name '=' vartype ';' [ZZLOG;] {
+    $$ = new cppast::CppUsingDecl($2, Ptr($4));
+  }
+  | tknUsing name '=' functionptrtype ';' [ZZLOG;] {
+    $$ = new cppast::CppUsingDecl($2, Ptr($4));
+  }
+  | tknUsing name '=' funcobj ';' [ZZLOG;] {
+    $$ = new cppast::CppUsingDecl($2, Ptr($4));
+  }
+  | tknUsing name '=' classdefn ';' [ZZLOG;] {
+    $$ = new cppast::CppUsingDecl($2, Ptr($4));
+  }
+  | templatespecifier usingdecl [ZZLOG;] {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  | tknUsing identifier ';' [ZZLOG;] {
+    $$ = new cppast::CppUsingDecl($2);
+  }
+  ;
 
-namespacealias    : tknNamespace name '=' identifier ';'    [ZZLOG;] {
-                    $$ = new cppast::CppNamespaceAlias($2, $4);
-                  }
-                  ;
+namespacealias
+  : tknNamespace name '=' identifier ';' [ZZLOG;] {
+    $$ = new cppast::CppNamespaceAlias($2, $4);
+  }
+  ;
 
-usingnamespacedecl: tknUsing tknNamespace identifier ';'  [ZZLOG;] {
-                    $$ = new cppast::CppUsingNamespaceDecl($3);
-                  }
-                  ;
+usingnamespacedecl
+  : tknUsing tknNamespace identifier ';' [ZZLOG;] {
+    $$ = new cppast::CppUsingNamespaceDecl($3);
+  }
+  ;
 
-vardeclliststmt   : vardecllist ';' [ZZVALID;] { $$ = $1; }
-                  | exptype vardecllist ';' [ZZVALID;] { $$ = $2; }
-                  ;
+vardeclliststmt
+  : vardecllist ';' [ZZVALID;] { $$ = $1; }
+  | exptype vardecllist ';' [ZZVALID;] { $$ = $2; }
+  ;
 
-vardeclstmt       : vardecl ';'                   [ZZVALID;] { $$ = $1; }
-                  | varinit ';'                   [ZZVALID;] { $$ = $1; }
-                  | apidecor vardeclstmt          [ZZVALID;] { $$ = $2; $$->apidecor($1); }
-                  | exptype vardeclstmt           [ZZVALID;] { $$ = $2; $$->addAttr($1); }
-                  | varattrib vardeclstmt         [ZZVALID;] { $$ = $2; $$->addAttr($1); }
-                  ;
+vardeclstmt
+  : vardecl ';'                   [ZZVALID;] { $$ = $1; }
+  | varinit ';'                   [ZZVALID;] { $$ = $1; }
+  | apidecor vardeclstmt          [ZZVALID;] { $$ = $2; $$->apidecor($1); }
+  | exptype vardeclstmt           [ZZVALID;] { $$ = $2; $$->addAttr($1); }
+  | varattrib vardeclstmt         [ZZVALID;] { $$ = $2; $$->addAttr($1); }
+  ;
 
-vardecllist       : optfunctype varinit ',' opttypemodifier name optvarassign [ZZLOG;] {
-                    $2->addAttr($1);
-                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, VarDecl($5, $6)));
-                  }
-                  | optfunctype vardecl ',' opttypemodifier name optvarassign [ZZLOG;] {
-                    $2->addAttr($1);
-                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, VarDecl($5, $6)));
-                  }
-                  | optfunctype vardecl ',' opttypemodifier name '[' expr ']' [ZZLOG;] {
-                    $2->addAttr($1);
-                    CppVarDecl var2($5);
-                    var2.addArraySize($7);
-                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, std::move(var2)));
-                    /* TODO: Use optvarassign as well */
-                  }
-                  | optfunctype vardecl ',' opttypemodifier name ':' expr [ZZLOG;] {
-                    $2->addAttr($1);
-                    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));
-                    /* TODO: Use optvarassign as well */
-                  }
-                  | vardecllist ',' opttypemodifier name optvarassign [ZZLOG;] {
-                    $$ = $1;
-                    $$->addVarDecl(CppVarDeclInList($3, VarDecl($4, $5)));
-                  }
-                  | vardecllist ',' opttypemodifier name optvarassign ':' expr [ZZLOG;] {
-                    $$ = $1;
-                    $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4}));
-                    /* TODO: Use optvarassign as well */
-                  }
-                  ;
+vardecllist
+  : optfunctype varinit ',' opttypemodifier name optvarassign [ZZLOG;] {
+    $2->addAttr($1);
+    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, VarDecl($5, $6)));
+  }
+  | optfunctype vardecl ',' opttypemodifier name optvarassign [ZZLOG;] {
+    $2->addAttr($1);
+    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, VarDecl($5, $6)));
+  }
+  | optfunctype vardecl ',' opttypemodifier name '[' expr ']' [ZZLOG;] {
+    $2->addAttr($1);
+    CppVarDecl var2($5);
+    var2.addArraySize($7);
+    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, std::move(var2)));
+    /* TODO: Use optvarassign as well */
+  }
+  | optfunctype vardecl ',' opttypemodifier name ':' expr [ZZLOG;] {
+    $2->addAttr($1);
+    $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));
+    /* TODO: Use optvarassign as well */
+  }
+  | vardecllist ',' opttypemodifier name optvarassign [ZZLOG;] {
+    $$ = $1;
+    $$->addVarDecl(CppVarDeclInList($3, VarDecl($4, $5)));
+  }
+  | vardecllist ',' opttypemodifier name optvarassign ':' expr [ZZLOG;] {
+    $$ = $1;
+    $$->addVarDecl(CppVarDeclInList($3, CppVarDecl{$4}));
+    /* TODO: Use optvarassign as well */
+  }
+  ;
 
-varinit           : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl '(' typeidentifier '*' '*' name  [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl '(' typeidentifier '*' '&' name  [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl '(' typeidentifier '&' name      [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl '(' typeidentifier tknAnd name   [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl '(' typeidentifier ')'           [gParamModPos = $3.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl '(' ')'                          [ZZERROR;]                       { /*FuncDeclHack*/ $$ = nullptr; }
-                  | vardecl varassign           [ZZLOG;] {
-                    $$ = $1;
-                    $$->initialize(Obj($2));
-                  }
-                  | tknConstExpr varinit        [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr(kConstExpr);
-                  }
-                  ;
+varinit
+  : vardecl '(' typeidentifier '*' name      [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+  | vardecl '(' typeidentifier '*' '*' name  [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+  | vardecl '(' typeidentifier '*' '&' name  [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+  | vardecl '(' typeidentifier '&' name      [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+  | vardecl '(' typeidentifier tknAnd name   [gParamModPos = $4.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+  | vardecl '(' typeidentifier ')'           [gParamModPos = $3.sz; ZZERROR;] { /*FuncDeclHack*/ $$ = nullptr; }
+  | vardecl '(' ')'                          [ZZERROR;]                       { /*FuncDeclHack*/ $$ = nullptr; }
+  | vardecl varassign [ZZLOG;] {
+    $$ = $1;
+    $$->initialize(Obj($2));
+  }
+  | tknConstExpr varinit [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr(kConstExpr);
+  }
+  ;
 
-varassign         : '=' expr            [ZZLOG;] {
+varassign
+  : '=' expr [ZZLOG;] {
                     $$ = VarInitInfo($2);
-                  }
-                  | '(' exprlist ')'  [ZZLOG;] {
+  }
+  | '(' exprlist ')' [ZZLOG;] {
                     $$ = VarInitInfo($2, CppConstructorCallStyle::USING_PARENTHESES);
-                  }
-                  | '{' optexprlist '}'    [ZZLOG;] {
+  }
+  | '{' optexprlist '}' [ZZLOG;] {
                     $$ = VarInitInfo($2, CppConstructorCallStyle::USING_BRACES);
-                  }
-                  ;
+  }
+  ;
 
-optvarassign      :                     [ZZLOG;]  { $$ = nullptr; }
-                  | varassign           [ZZLOG;]  { $$ = $1; }
-                  ;
+optvarassign
+  :                     [ZZLOG;]  { $$ = nullptr; }
+  | varassign           [ZZLOG;]  { $$ = $1; }
+  ;
 
-vardecl           : vartype varidentifier       [ZZLOG;]         {
-                    $$ = new cppast::CppVar($1, $2.toString());
-                  }
-                  | vartype apidecor varidentifier       [ZZLOG;]         {
-                    $$ = new cppast::CppVar($1, $3.toString());
-                    $$->apidecor($2);
-                  }
-                  | functionpointer             [ZZLOG;] {
-                    $$ = new cppast::CppVar($1, CppTypeModifier());
-                  }
-                  | vardecl '[' expr ']'        [ZZLOG;] {
-                    $$ = $1;
-                    $$->addArraySize($3);
-                  }
-                  | vardecl '[' ']'             [ZZLOG;] {
-                    $$ = $1;
-                    $$->addArraySize(nullptr);
-                  }
-                  | vardecl ':' expr            [ZZLOG;] {
-                    $$ = $1;
-                    $$->bitField(Ptr($3));
-                  }
-                  | templatespecifier vardecl   [ZZLOG;] {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  | varattrib vardecl           [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  ;
+vardecl
+  : vartype varidentifier       [ZZLOG;]         {
+    $$ = new cppast::CppVar($1, $2.toString());
+  }
+  | vartype apidecor varidentifier       [ZZLOG;]         {
+    $$ = new cppast::CppVar($1, $3.toString());
+    $$->apidecor($2);
+  }
+  | functionpointer [ZZLOG;] {
+    $$ = new cppast::CppVar($1, CppTypeModifier());
+  }
+  | vardecl '[' expr ']' [ZZLOG;] {
+    $$ = $1;
+    $$->addArraySize($3);
+  }
+  | vardecl '[' ']' [ZZLOG;] {
+    $$ = $1;
+    $$->addArraySize(nullptr);
+  }
+  | vardecl ':' expr [ZZLOG;] {
+    $$ = $1;
+    $$->bitField(Ptr($3));
+  }
+  | templatespecifier vardecl [ZZLOG;] {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  | varattrib vardecl [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr($1);
+  }
+  ;
 
-vartype           : attribspecifiers typeidentifier opttypemodifier    [ZZLOG;] {
-                    $$ = new cppast::CppVarType($2, $3);
-                    $$->attribSpecifierSequence(Obj($1));
-                  }
-                  | typeidentifier opttypemodifier    [ZZLOG;] {
-                    $$ = new cppast::CppVarType($1, $2);
-                  }
-                  | tknClass identifier opttypemodifier [
-                    if (gTemplateParamStart == $1.sz)
-                      ZZERROR;
-                    else
-                      ZZLOG;
-                  ] {
-                    $$ = new cppast::CppVarType(mergeCppToken($1, $2), $3);
-                  }
-                  | tknClass optapidecor identifier opttypemodifier                 [ZZLOG;] {
-                    $$ = new cppast::CppVarType(mergeCppToken($1, $3), $4);
-                  }
-                  | tknStruct optapidecor identifier opttypemodifier                 [ZZLOG;] {
-                    $$ = new cppast::CppVarType(mergeCppToken($1, $3), $4);
-                  }
-                  | tknUnion identifier opttypemodifier                  [ZZLOG;] {
-                    $$ = new cppast::CppVarType(mergeCppToken($1, $2), $3);
-                  }
-                  | functionptrtype                   [ZZLOG;] {
-                    $$ = new cppast::CppVarType($1, CppTypeModifier());
-                  }
-                  | classdefn                         [ZZLOG;] {
-                    $$ = new cppast::CppVarType($1, CppTypeModifier());
-                  }
-                  | classdefn typemodifier            [ZZLOG;] {
-                    $$ = new cppast::CppVarType($1, $2);
-                  }
-                  | enumdefn                          [ZZLOG;] {
-                    $$ = new cppast::CppVarType($1, CppTypeModifier());
-                  }
-                  | enumdefn typemodifier             [ZZLOG;] {
-                    $$ = new cppast::CppVarType($1, $2);
-                  }
-                  | varattrib vartype                 [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  | vartype tknEllipsis               [ZZLOG;] {
-                    $$ = $1;
-                    $$->parameterPack(true);
-                  }
-                  | typeidentifier typeidentifier tknScopeResOp typemodifier [ZZLOG;] {
-                    // reference to member declrations. E.g.:
-                    // int GrCCStrokeGeometry::InstanceTallies::* InstanceType
-                    $$ = new cppast::CppVarType(mergeCppToken($1, $3), $4);
-                  }
-                  ;
+vartype
+  : attribspecifiers typeidentifier opttypemodifier [ZZLOG;] {
+    $$ = new cppast::CppVarType($2, $3);
+    $$->attribSpecifierSequence(Obj($1));
+  }
+  | typeidentifier opttypemodifier [ZZLOG;] {
+    $$ = new cppast::CppVarType($1, $2);
+  }
+  | tknClass identifier opttypemodifier [
+    if (gTemplateParamStart == $1.sz)
+      ZZERROR;
+    else
+      ZZLOG;
+  ] {
+    $$ = new cppast::CppVarType(mergeCppToken($1, $2), $3);
+  }
+  | tknClass optapidecor identifier opttypemodifier [ZZLOG;] {
+    $$ = new cppast::CppVarType(mergeCppToken($1, $3), $4);
+  }
+  | tknStruct optapidecor identifier opttypemodifier [ZZLOG;] {
+    $$ = new cppast::CppVarType(mergeCppToken($1, $3), $4);
+  }
+  | tknUnion identifier opttypemodifier [ZZLOG;] {
+    $$ = new cppast::CppVarType(mergeCppToken($1, $2), $3);
+  }
+  | functionptrtype [ZZLOG;] {
+    $$ = new cppast::CppVarType($1, CppTypeModifier());
+  }
+  | classdefn [ZZLOG;] {
+    $$ = new cppast::CppVarType($1, CppTypeModifier());
+  }
+  | classdefn typemodifier [ZZLOG;] {
+    $$ = new cppast::CppVarType($1, $2);
+  }
+  | enumdefn [ZZLOG;] {
+    $$ = new cppast::CppVarType($1, CppTypeModifier());
+  }
+  | enumdefn typemodifier [ZZLOG;] {
+    $$ = new cppast::CppVarType($1, $2);
+  }
+  | varattrib vartype [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr($1);
+  }
+  | vartype tknEllipsis [ZZLOG;] {
+    $$ = $1;
+    $$->parameterPack(true);
+  }
+  | typeidentifier typeidentifier tknScopeResOp typemodifier [ZZLOG;] {
+    // reference to member declrations. E.g.:
+    // int GrCCStrokeGeometry::InstanceTallies::* InstanceType
+    $$ = new cppast::CppVarType(mergeCppToken($1, $3), $4);
+  }
+  ;
 
-varidentifier     : identifier          [ZZLOG;]  { $$ = $1; }
-                  | tknFinal            [ZZLOG;]  { $$ = $1; /* final is not a reserved keyword */ }
-                  | '(' '&' name ')'      [ZZLOG;]  { $$ = mergeCppToken($1, $4); }
-                  | '(' '*' name ')'      [ZZLOG;]  { $$ = mergeCppToken($1, $4); }
-                  | '(' '*' '*' name ')'  [ZZLOG;]  { $$ = mergeCppToken($1, $5); }
-                  ;
+varidentifier
+  : identifier          [ZZLOG;]  { $$ = $1; }
+  | tknFinal            [ZZLOG;]  { $$ = $1; /* final is not a reserved keyword */ }
+  | '(' '&' name ')'      [ZZLOG;]  { $$ = mergeCppToken($1, $4); }
+  | '(' '*' name ')'      [ZZLOG;]  { $$ = mergeCppToken($1, $4); }
+  | '(' '*' '*' name ')'  [ZZLOG;]  { $$ = mergeCppToken($1, $5); }
+  ;
 
-opttypemodifier   : [ZZLOG;] { $$ = CppTypeModifier(); }
-                  | typemodifier { $$ = $1; }
-                  | doccomment opttypemodifier { $$ = $2; }
-                  ;
+opttypemodifier
+  : [ZZLOG;] { $$ = CppTypeModifier(); }
+  | typemodifier { $$ = $1; }
+  | doccomment opttypemodifier { $$ = $2; }
+  ;
 
-typemodifier      : tknConst                              [ZZLOG;] {
-                    $$ = CppTypeModifier();
-                    $$.constBits_ |= (1 << $$.ptrLevel_);
-                  }
-                  | '*' %prec PTRDECL                     [ZZLOG;] {
-                    $$ = CppTypeModifier();
-                    $$.ptrLevel_++;
-                  }
-                  | '&' %prec REFDECL                     [ZZLOG;] {
-                    $$ = CppTypeModifier();
-                    $$.refType_ = CppRefType::BY_REF;
-                  }
-                  | tknAnd %prec REFDECL                  [ZZLOG;] {
-                    $$ = CppTypeModifier();
-                    $$.refType_ = CppRefType::RVAL_REF;
-                  }
-                  | typemodifier tknConst                 [ZZLOG;] {
-                    $$ = $1;
-                    $$.constBits_ |= (1 << $$.ptrLevel_);
-                  }
-                  | typemodifier '*' %prec PTRDECL        [ZZLOG;] {
-                    $$ = $1;
-                    $$.ptrLevel_++;
-                  }
-                  | typemodifier '&' %prec REFDECL        [ZZLOG;] {
-                    $$ = $1;
-                    $$.refType_ = CppRefType::BY_REF;
-                  }
-                  | typemodifier tknAnd %prec REFDECL     [ZZLOG;] {
-                    $$ = $1;
-                    $$.refType_ = CppRefType::RVAL_REF;
-                  }
+typemodifier
+  : tknConst [ZZLOG;] {
+    $$ = CppTypeModifier();
+    $$.constBits_ |= (1 << $$.ptrLevel_);
+  }
+  | '*' %prec PTRDECL [ZZLOG;] {
+    $$ = CppTypeModifier();
+    $$.ptrLevel_++;
+  }
+  | '&' %prec REFDECL [ZZLOG;] {
+    $$ = CppTypeModifier();
+    $$.refType_ = CppRefType::BY_REF;
+  }
+  | tknAnd %prec REFDECL [ZZLOG;] {
+    $$ = CppTypeModifier();
+    $$.refType_ = CppRefType::RVAL_REF;
+  }
+  | typemodifier tknConst [ZZLOG;] {
+    $$ = $1;
+    $$.constBits_ |= (1 << $$.ptrLevel_);
+  }
+  | typemodifier '*' %prec PTRDECL [ZZLOG;] {
+    $$ = $1;
+    $$.ptrLevel_++;
+  }
+  | typemodifier '&' %prec REFDECL [ZZLOG;] {
+    $$ = $1;
+    $$.refType_ = CppRefType::BY_REF;
+  }
+  | typemodifier tknAnd %prec REFDECL [ZZLOG;] {
+    $$ = $1;
+    $$.refType_ = CppRefType::RVAL_REF;
+  }
 
-                  ;
+  ;
 
-exptype           : tknStatic    [ZZLOG;] { $$ = kStatic;  }
-                  | tknExtern    [ZZLOG;] { $$ = kExtern;  }
-                  | tknExternC   [ZZLOG;] { $$ = kExternC; }
-                  ;
+exptype
+  : tknStatic    [ZZLOG;] { $$ = kStatic; }
+  | tknExtern    [ZZLOG;] { $$ = kExtern; }
+  | tknExternC   [ZZLOG;] { $$ = kExternC; }
+  ;
 
-varattrib         : tknConst     [ZZLOG;] { $$ = kConst;      }
-                  | tknVolatile  [ZZLOG;] { $$ = kVolatile;   }
-                  | tknMutable   [ZZLOG;] { $$ = kMutable;    }
-                  | tknConstExpr [ZZLOG;] { $$ = kConstExpr;  }
-                  ;
+varattrib
+  : tknConst     [ZZLOG;] { $$ = kConst; }
+  | tknVolatile  [ZZLOG;] { $$ = kVolatile; }
+  | tknMutable   [ZZLOG;] { $$ = kMutable; }
+  | tknConstExpr [ZZLOG;] { $$ = kConstExpr; }
+  ;
 
-typeconverter     : tknOperator vartype '(' optvoid ')'                           [ZZLOG;] {
-                    $$ = new cppast::CppTypeConverter($2, makeCppToken($1.sz, $3.sz));
-                  }
-                  | identifier tknScopeResOp tknOperator vartype '(' optvoid ')'  [ZZLOG;] {
-                    $$ = new cppast::CppTypeConverter($4, makeCppToken($1.sz, $5.sz));
-                  }
-                  | functype typeconverter                                        [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  | typeconverter tknConst                                        [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kConst);
-                  }
-                  | apidecor typeconverter                                        [ZZLOG;] {
-                    $$ = $2;
-                    $$->decor1($1);
-                  }
-                  | templatespecifier typeconverter                               [ZZLOG;] {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  ;
+typeconverter
+  : tknOperator vartype '(' optvoid ')' [ZZLOG;] {
+    $$ = new cppast::CppTypeConverter($2, makeCppToken($1.sz, $3.sz));
+  }
+  | identifier tknScopeResOp tknOperator vartype '(' optvoid ')' [ZZLOG;] {
+    $$ = new cppast::CppTypeConverter($4, makeCppToken($1.sz, $5.sz));
+  }
+  | functype typeconverter [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr($1);
+  }
+  | typeconverter tknConst [ZZLOG;] {
+    $$ = $1;
+    $$->addAttr(kConst);
+  }
+  | apidecor typeconverter [ZZLOG;] {
+    $$ = $2;
+    $$->decor1($1);
+  }
+  | templatespecifier typeconverter [ZZLOG;] {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  ;
 
-typeconverterstmt : typeconverter ';'   [ZZVALID;] {
-                    $$ = $1;
-                  }
-                  | typeconverter block [ZZVALID;] {
-                    $$ = $1;
-                    $$->defn(Ptr($2));
-                  }
-                  ;
+typeconverterstmt
+  : typeconverter ';' [ZZVALID;] {
+    $$ = $1;
+  }
+  | typeconverter block [ZZVALID;] {
+    $$ = $1;
+    $$->defn(Ptr($2));
+  }
+  ;
 
-funcdeclstmt      : funcdecl ';' [ZZVALID;] { $$ = $1; }
-                  ;
+funcdeclstmt
+  : funcdecl ';' [ZZVALID;] { $$ = $1; }
+  ;
 
-funcdefn          : funcdecl block [ZZVALID;] {
-                    $$ = $1;
-                    $$->defn(Ptr($2 ? $2 : new cppast::CppCompound(CppCompoundType::BLOCK)));
-                  }
-                  ;
+funcdefn
+  : funcdecl block [ZZVALID;] {
+    $$ = $1;
+    $$->defn(Ptr($2 ? $2 : new cppast::CppCompound(CppCompoundType::BLOCK)));
+  }
+  ;
 
-lambda            : '[' lambdacapture ']' lambdaparams block {
-                    $$ = new cppast::CppLambda(Ptr($2), Obj($4), Ptr($5));
-                  }
-                  | '[' lambdacapture ']' lambdaparams tknArrow vartype block {
-                    $$ = new cppast::CppLambda(Ptr($2), Obj($4), Ptr($7), Ptr($6));
-                  }
-                  ;
+lambda
+  : '[' lambdacapture ']' lambdaparams block {
+    $$ = new cppast::CppLambda(Ptr($2), Obj($4), Ptr($5));
+  }
+  | '[' lambdacapture ']' lambdaparams tknArrow vartype block {
+    $$ = new cppast::CppLambda(Ptr($2), Obj($4), Ptr($7), Ptr($6));
+  }
+  ;
 
-lambdaparams      :                   [ZZLOG;] { $$ = nullptr; }
-                  | '(' paramlist ')' [ZZLOG;] { $$ = $2; }
-                  ;
+lambdaparams
+  :                   [ZZLOG;] { $$ = nullptr; }
+  | '(' paramlist ')' [ZZLOG;] { $$ = $2; }
+  ;
 
-funcptrortype     : functype vartype '(' optapidecor identifier tknScopeResOp '*' optname ')' '(' paramlist ')' [ZZVALID;] {
-                    $$ = new cppast::CppFunctionPointer($8, Ptr($2), Obj($11), $1, mergeCppToken($5, $6));
-                    $$->decor2($4);
-                  }
-                  | vartype '(' optapidecor identifier tknScopeResOp '*' optname ')' '(' paramlist ')'          [ZZVALID;] {
-                    $$ = new cppast::CppFunctionPointer($7, Ptr($1), Obj($10), 0, mergeCppToken($4, $5));
-                    $$->decor2($3);
-                  }
-                  | functype vartype '(' optapidecor '*' optname ')' '(' paramlist ')'                          [ZZVALID;] {
-                    $$ = new cppast::CppFunctionPointer($6, Ptr($2), Obj($9), $1);
-                    $$->decor2($4);
-                  }
-                  | vartype '(' optapidecor '*' optname ')' '(' paramlist ')'                                   [ZZVALID;] {
-                    $$ = new cppast::CppFunctionPointer($5, Ptr($1), Obj($8), 0);
-                    $$->decor2($3);
-                  }
-                  | vartype '(' '*'  apidecor optname ')' '(' paramlist ')'                                     [ZZVALID;] {
-                    $$ = new cppast::CppFunctionPointer($5, Ptr($1), Obj($8), 0);
-                    $$->decor2($4);
-                  }
-                  | apidecor funcptrortype                                                                      [ZZVALID;] {
-                    $$ = $2;
-                    $$->decor1($1);
-                  }
-                  | funcptrortype optfuncattrib                                                                 [ZZVALID;] {
-                    $$ = $1;
-                    $$->addAttr($2);
-                  }
-                  ;
+funcptrortype
+  : functype vartype '(' optapidecor identifier tknScopeResOp '*' optname ')' '(' paramlist ')' [ZZVALID;] {
+    $$ = new cppast::CppFunctionPointer($8, Ptr($2), Obj($11), $1, mergeCppToken($5, $6));
+    $$->decor2($4);
+  }
+  | vartype '(' optapidecor identifier tknScopeResOp '*' optname ')' '(' paramlist ')' [ZZVALID;] {
+    $$ = new cppast::CppFunctionPointer($7, Ptr($1), Obj($10), 0, mergeCppToken($4, $5));
+    $$->decor2($3);
+  }
+  | functype vartype '(' optapidecor '*' optname ')' '(' paramlist ')' [ZZVALID;] {
+    $$ = new cppast::CppFunctionPointer($6, Ptr($2), Obj($9), $1);
+    $$->decor2($4);
+  }
+  | vartype '(' optapidecor '*' optname ')' '(' paramlist ')' [ZZVALID;] {
+    $$ = new cppast::CppFunctionPointer($5, Ptr($1), Obj($8), 0);
+    $$->decor2($3);
+  }
+  | vartype '(' '*'  apidecor optname ')' '(' paramlist ')' [ZZVALID;] {
+    $$ = new cppast::CppFunctionPointer($5, Ptr($1), Obj($8), 0);
+    $$->decor2($4);
+  }
+  | apidecor funcptrortype [ZZVALID;] {
+    $$ = $2;
+    $$->decor1($1);
+  }
+  | funcptrortype optfuncattrib [ZZVALID;] {
+    $$ = $1;
+    $$->addAttr($2);
+  }
+  ;
 
-functionpointer   : funcptrortype
-                    [
-                      if ($1->name().empty() == true) {
-                        ZZERROR;
-                      }
-                    ]
-                  ;
+functionpointer
+  : funcptrortype
+  [
+    if ($1->name().empty() == true) {
+      ZZERROR;
+    }
+  ]
+  ;
 
-functionptrtype   : funcptrortype
-                    [
-                      if ($1->name().empty() == false) {
-                        ZZERROR;
-                      }
-                    ]
-                  ;
+functionptrtype
+  : funcptrortype
+  [
+    if ($1->name().empty() == false) {
+      ZZERROR;
+    }
+  ]
+  ;
 
-funcobj           : vartype optapidecor '(' paramlist ')' [ZZLOG;] {
-                    $$ = new cppast::CppFunctionPointer("", Ptr($1), Obj($4), 0);
-                  }
-                  ;
+funcobj
+  : vartype optapidecor '(' paramlist ')' [ZZLOG;] {
+    $$ = new cppast::CppFunctionPointer("", Ptr($1), Obj($4), 0);
+  }
+  ;
 
-funcpointerdecl   : functionpointer ';' [ZZVALID;] { $$ = $1;}
-                  ;
+funcpointerdecl
+  : functionpointer ';' [ZZVALID;] { $$ = $1; }
+  ;
 
-funcdecldata      : funcname '(' paramlist ')' [ZZLOG;] {
-                    $$ = CppFunctionData{$1, $3, 0};
-                  }
-                  | funcname '(' paramlist ')' optfuncattrib [ZZLOG;] {
-                    $$ = CppFunctionData{$1, $3, $5};
-                  }
-                  ;
+funcdecldata
+  : funcname '(' paramlist ')' [ZZLOG;] {
+    $$ = CppFunctionData{$1, $3, 0};
+  }
+  | funcname '(' paramlist ')' optfuncattrib [ZZLOG;] {
+    $$ = CppFunctionData{$1, $3, $5};
+  }
+  ;
 
-funcdecl          : vartype apidecor funcdecldata                                   [ZZVALID;] {
-                    $$ = new cppast::CppFunction($3.funcName, Ptr($1), Obj($3.paramList), $3.funcAttr);
-                    $$->decor2($2);
-                  }
-                  | vartype funcdecldata                                            [ZZVALID;] {
-                    $$ = new cppast::CppFunction($2.funcName, Ptr($1), Obj($2.paramList), $2.funcAttr);
-                  }
-                  | vartype tknConstExpr funcdecldata                               [ZZVALID;] {
-                    $$ = new cppast::CppFunction($3.funcName, Ptr($1), Obj($3.paramList), $3.funcAttr | kConstExpr);
-                  }
-                  | tknAuto funcdecldata tknArrow vartype                           [ZZVALID;] {
-                    $$ = new cppast::CppFunction($2.funcName, Ptr($4), Obj($2.paramList), $2.funcAttr | kTrailingRet);
-                  }
-                  | tknAuto tknConstExpr funcdecldata tknArrow vartype              [ZZVALID;] {
-                    $$ = new cppast::CppFunction($3.funcName, Ptr($5), Obj($3.paramList), $3.funcAttr | kTrailingRet | kConstExpr);
-                  }
-                  | tknConstExpr funcdecl                                               [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr(kConstExpr);
-                  }
-                  | apidecor funcdecl                                                   [ZZLOG;] {
-                    $$ = $2;
-                    if (!$$->decor1().empty())
-                      $$->decor2($$->decor1());
-                    $$->decor1($1);
-                  }
-                  | templatespecifier funcdecl                                          [ZZLOG;] {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  | functype funcdecl                                                   [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  | funcdecl '=' tknDelete                                              [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kDelete);
-                  }
-                  | funcdecl '=' tknDefault                                             [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kDefault);
-                  }
-                  | funcdecl functhrowspec                                              [ZZLOG;] {
-                    $$ = $1;
-                    $$->throwSpec(Obj($2));
-                  }
-                  ;
+funcdecl
+  : vartype apidecor funcdecldata [ZZVALID;] {
+    $$ = new cppast::CppFunction($3.funcName, Ptr($1), Obj($3.paramList), $3.funcAttr);
+    $$->decor2($2);
+  }
+  | vartype funcdecldata [ZZVALID;] {
+    $$ = new cppast::CppFunction($2.funcName, Ptr($1), Obj($2.paramList), $2.funcAttr);
+  }
+  | vartype tknConstExpr funcdecldata [ZZVALID;] {
+    $$ = new cppast::CppFunction($3.funcName, Ptr($1), Obj($3.paramList), $3.funcAttr | kConstExpr);
+  }
+  | tknAuto funcdecldata tknArrow vartype [ZZVALID;] {
+    $$ = new cppast::CppFunction($2.funcName, Ptr($4), Obj($2.paramList), $2.funcAttr | kTrailingRet);
+  }
+  | tknAuto tknConstExpr funcdecldata tknArrow vartype [ZZVALID;] {
+    $$ = new cppast::CppFunction($3.funcName, Ptr($5), Obj($3.paramList), $3.funcAttr | kTrailingRet | kConstExpr);
+  }
+  | tknConstExpr funcdecl [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr(kConstExpr);
+  }
+  | apidecor funcdecl [ZZLOG;] {
+    $$ = $2;
+    if (!$$->decor1().empty())
+      $$->decor2($$->decor1());
+    $$->decor1($1);
+  }
+  | templatespecifier funcdecl [ZZLOG;] {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  | functype funcdecl [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr($1);
+  }
+  | funcdecl '=' tknDelete [ZZLOG;] {
+    $$ = $1;
+    $$->addAttr(kDelete);
+  }
+  | funcdecl '=' tknDefault [ZZLOG;] {
+    $$ = $1;
+    $$->addAttr(kDefault);
+  }
+  | funcdecl functhrowspec [ZZLOG;] {
+    $$ = $1;
+    $$->throwSpec(Obj($2));
+  }
+  ;
 
-funcobjstr        : typeidentifier optapidecor '(' paramlist ')' [ZZLOG;] {
-                    delete $4;
-                    $$ = mergeCppToken($1, $5);
-                  }
-                  ;
+funcobjstr
+  : typeidentifier optapidecor '(' paramlist ')' [ZZLOG;] {
+    delete $4;
+    $$ = mergeCppToken($1, $5);
+  }
+  ;
 
-funcname          : operfuncname                          [ZZLOG;] { $$ = $1; }
-                  | typeidentifier                        [ZZLOG;] { $$ = $1; }
-                  | tknScopeResOp operfuncname            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  /* final can be a function name too, see SkOpSpan.h :| */
-                  | tknFinal                              [ZZLOG;] { $$ = $1; }
-                  ;
+funcname
+  : operfuncname                          [ZZLOG;] { $$ = $1; }
+  | typeidentifier                        [ZZLOG;] { $$ = $1; }
+  | tknScopeResOp operfuncname            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  /* final can be a function name too, see SkOpSpan.h :| */
+  | tknFinal                              [ZZLOG;] { $$ = $1; }
+  ;
 
-rshift            : tknGT tknGT %prec RSHIFT [ if ($2.sz != ($1.sz + 1)) ZZERROR; ] { $$ = mergeCppToken($1, $2); }
-                  ;
+rshift
+  : tknGT tknGT %prec RSHIFT [ if ($2.sz != ($1.sz + 1)) ZZERROR; ] { $$ = mergeCppToken($1, $2); }
+  ;
 
-operfuncname      : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '-'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '*'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '/'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '%'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '^'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '&'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '|'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '~'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '!'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '='               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknLT             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknGT             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknPlusEq         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknMinusEq        [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknMulEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknDivEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknPerEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknXorEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknAndEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknOrEq           [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknLShift         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknRShift         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknLShiftEq       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknRShiftEq       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknCmpEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknNotEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknLessEq         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknGreaterEq      [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tkn3WayCmp        [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknAnd            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknOr             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknInc            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknDec            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator ','               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknArrow          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknArrowStar      [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator '(' ')'           [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  | tknOperator '[' ']'           [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  | tknOperator tknNew            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknNew '[' ']'    [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  | tknOperator tknDelete         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator tknDelete '[' ']' [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  | tknOperator typeidentifier    [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknOperator typeidentifier '*'       [ZZLOG;] { $$ = mergeCppToken($1, $3); }
-                  | identifier tknScopeResOp operfuncname [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+operfuncname
+  : tknOperator '+'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '-'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '*'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '/'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '%'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '^'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '&'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '|'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '~'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '!'               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '='               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknLT             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknGT             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknPlusEq         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknMinusEq        [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknMulEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknDivEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknPerEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknXorEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknAndEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknOrEq           [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknLShift         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknRShift         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknLShiftEq       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknRShiftEq       [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknCmpEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknNotEq          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknLessEq         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknGreaterEq      [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tkn3WayCmp        [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknAnd            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknOr             [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknInc            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknDec            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator ','               [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknArrow          [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknArrowStar      [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator '(' ')'           [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+  | tknOperator '[' ']'           [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+  | tknOperator tknNew            [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknNew '[' ']'    [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+  | tknOperator tknDelete         [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator tknDelete '[' ']' [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+  | tknOperator typeidentifier    [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknOperator typeidentifier '*'       [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+  | identifier tknScopeResOp operfuncname [ZZLOG;] { $$ = mergeCppToken($1, $3); }
 
-                  /* see https://en.cppreference.com/w/cpp/language/user_literal */
-                  | tknOperator tknStrLit name      [ZZLOG;] { $$ = mergeCppToken($1, $3); }
+  /* see https://en.cppreference.com/w/cpp/language/user_literal */
+  | tknOperator tknStrLit name      [ZZLOG;] { $$ = mergeCppToken($1, $3); }
 
-                  /* To fix something like:
-                      friend void* operator new<T>(size_t, GrTAllocator*);
-                  */
-                  | operfuncname tknLT templatearglist tknGT [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  ;
+  /* To fix something like:
+      friend void* operator new<T>(size_t, GrTAllocator*);
+  */
+  | operfuncname tknLT templatearglist tknGT [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+  ;
 
-paramlist         :                     [ZZLOG;] {
-                    $$ = new std::vector<std::unique_ptr<const cppast::CppEntity>>;
-                  }
-                  | param               [ZZLOG;] {
-                    $$ = new std::vector<std::unique_ptr<const cppast::CppEntity>>;
-                    $$->emplace_back($1);
-                  }
-                  | paramlist ',' param [ZZLOG;] {
-                    $1->emplace_back($3);
-                    $$ = $1;
-                  }
-                  ;
+paramlist
+  : [ZZLOG;] {
+    $$ = new std::vector<std::unique_ptr<const cppast::CppEntity>>;
+  }
+  | param [ZZLOG;] {
+    $$ = new std::vector<std::unique_ptr<const cppast::CppEntity>>;
+    $$->emplace_back($1);
+  }
+  | paramlist ',' param [ZZLOG;] {
+    $1->emplace_back($3);
+    $$ = $1;
+  }
+  ;
 
-param             : varinit                        [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam);  }
-                  | vartype '=' expr               [ZZLOG;] {
-                    auto var = new cppast::CppVar($1, std::string());
-                    var->addAttr(kFuncParam);
-                    var->initialize(Ptr($3));
-                    $$ = var;
-                  }
-                  | vardecl                         [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam);  }
-                  | vartype                         [ZZLOG;] {
-                    auto var = new cppast::CppVar($1, std::string());
-                    var->addAttr(kFuncParam);
-                    $$ = var;
-                  }
-                  | funcptrortype                   [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam);     }
-                  | doccomment param                [ZZLOG;] { $$ = $2; }
-                  | vartype '[' expr ']'            [ZZLOG;] {
-                    auto var = new cppast::CppVar($1, std::string());
-                    var->addAttr(kFuncParam);
-                    var->addArraySize($3);
-                    $$ = var;
-                  }
-                  | vartype '[' ']'                 [ZZLOG;] {
-                    auto var = new cppast::CppVar($1, std::string());
-                    var->addAttr(kFuncParam);
-                    var->addArraySize(nullptr);
-                    $$ = var;
-                  }
-                  ;
+param
+  : varinit                        [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam); }
+  | vartype '=' expr [ZZLOG;] {
+    auto var = new cppast::CppVar($1, std::string());
+    var->addAttr(kFuncParam);
+    var->initialize(Ptr($3));
+    $$ = var;
+  }
+  | vardecl                         [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam); }
+  | vartype [ZZLOG;] {
+    auto var = new cppast::CppVar($1, std::string());
+    var->addAttr(kFuncParam);
+    $$ = var;
+  }
+  | funcptrortype                   [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam); }
+  | doccomment param                [ZZLOG;] { $$ = $2; }
+  | vartype '[' expr ']' [ZZLOG;] {
+    auto var = new cppast::CppVar($1, std::string());
+    var->addAttr(kFuncParam);
+    var->addArraySize($3);
+    $$ = var;
+  }
+  | vartype '[' ']' [ZZLOG;] {
+    auto var = new cppast::CppVar($1, std::string());
+    var->addAttr(kFuncParam);
+    var->addArraySize(nullptr);
+    $$ = var;
+  }
+  ;
 
-templatearg       :                 [ZZLOG; $$ = nullptr;] { /*$$ = makeCppToken(nullptr, nullptr);*/ }
-                  | vartype         [ZZLOG; $$ = nullptr;] { /*$$ = mergeCppToken($1, $2);*/ }
-                  | funcobjstr      [ZZLOG; $$ = nullptr;] { /*$$ = $1;*/ }
-                  | expr            [ZZLOG; $$ = nullptr;] {}
-                  ;
+templatearg
+  :                 [ZZLOG; $$ = nullptr;] { /*$$ = makeCppToken(nullptr, nullptr);*/ }
+  | vartype         [ZZLOG; $$ = nullptr;] { /*$$ = mergeCppToken($1, $2);*/ }
+  | funcobjstr      [ZZLOG; $$ = nullptr;] { /*$$ = $1;*/ }
+  | expr            [ZZLOG; $$ = nullptr;] {}
+  ;
 
-templatearglist   : templatearg                      [ZZLOG; $$ = $1; ] {}
-                  | templatearglist ',' templatearg   [ZZLOG; $$ = $1;] { /*$$ = mergeCppToken($1, $3);*/ }
-                  | templatearglist ',' doccomment templatearg   [ZZLOG; $$ = $1;] { /*$$ = mergeCppToken($1, $3);*/ }
-                  ;
+templatearglist
+  : templatearg                      [ZZLOG; $$ = $1; ] {}
+  | templatearglist ',' templatearg   [ZZLOG; $$ = $1;] { /*$$ = mergeCppToken($1, $3);*/ }
+  | templatearglist ',' doccomment templatearg   [ZZLOG; $$ = $1;] { /*$$ = mergeCppToken($1, $3);*/ }
+  ;
 
-functype          : exptype        [ZZLOG;] { $$ = $1; }
-                  | tknInline      [ZZLOG;] { $$ = kInline;    }
-                  | tknVirtual     [ZZLOG;] { $$ = kVirtual;   }
-                  | tknExplicit    [ZZLOG;] { $$ = kExplicit;  }
-                  | tknFriend      [ZZLOG;] { $$ = kFriend;    }
-                  | tknConstExpr   [ZZLOG;] { $$ = kConstExpr; }
-                  ;
+functype
+  : exptype        [ZZLOG;] { $$ = $1; }
+  | tknInline      [ZZLOG;] { $$ = kInline; }
+  | tknVirtual     [ZZLOG;] { $$ = kVirtual; }
+  | tknExplicit    [ZZLOG;] { $$ = kExplicit; }
+  | tknFriend      [ZZLOG;] { $$ = kFriend; }
+  | tknConstExpr   [ZZLOG;] { $$ = kConstExpr; }
+  ;
 
-optfunctype       :                [ZZLOG;] { $$ = 0;}
-                  | functype       [ZZLOG;] { $$ = $1;}
-                  ;
+optfunctype
+  :                [ZZLOG;] { $$ = 0; }
+  | functype       [ZZLOG;] { $$ = $1; }
+  ;
 
-optfuncattrib     : tknConst                      [ZZLOG;] { $$ = kConst; }
-                  | tknOverride                   [ZZLOG;] { $$ = kOverride; }
-                  | tknFinal                      [ZZLOG;] { $$ = kFinal; }
-                  | tknNoExcept                   [ZZLOG;] { $$ = kNoExcept; }
-                  | '=' tknNumber  [if($2.len != 1 || $2.sz[0] != '0') YYABORT; else ZZVALID;]
-                                                  [ZZLOG;] { $$ = kPureVirtual; }
-                  | optfuncattrib tknConst        [ZZLOG;] { $$ = $1 | kConst; }
-                  | optfuncattrib tknOverride     [ZZLOG;] { $$ = $1 | kOverride; }
-                  | optfuncattrib tknFinal        [ZZLOG;] { $$ = $1 | kFinal; }
-                  | optfuncattrib tknNoExcept     [ZZLOG;] { $$ = $1 | kNoExcept; }
-                  | optfuncattrib '=' tknNumber   [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
-                                                  { $$ = $1 | kPureVirtual; }
-                  | tknMacro                      [ZZLOG;] { $$ = 0; } /* Ignore macros used as function attributes */
-                  ;
+optfuncattrib
+  : tknConst                      [ZZLOG;] { $$ = kConst; }
+  | tknOverride                   [ZZLOG;] { $$ = kOverride; }
+  | tknFinal                      [ZZLOG;] { $$ = kFinal; }
+  | tknNoExcept                   [ZZLOG;] { $$ = kNoExcept; }
+  | '=' tknNumber  [if($2.len != 1 || $2.sz[0] != '0') YYABORT; else ZZVALID;] [ZZLOG;]
+  {
+    $$ = kPureVirtual;
+  }
+  | optfuncattrib tknConst        [ZZLOG;] { $$ = $1 | kConst; }
+  | optfuncattrib tknOverride     [ZZLOG;] { $$ = $1 | kOverride; }
+  | optfuncattrib tknFinal        [ZZLOG;] { $$ = $1 | kFinal; }
+  | optfuncattrib tknNoExcept     [ZZLOG;] { $$ = $1 | kNoExcept; }
+  | optfuncattrib '=' tknNumber   [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
+  {
+    $$ = $1 | kPureVirtual;
+  }
+  | tknMacro                      [ZZLOG;] { $$ = 0; } /* Ignore macros used as function attributes */
+  ;
 
-optfuncthrowspec  :               [ZZLOG;] { $$ = new std::vector<std::string>; }
-                  | functhrowspec [ZZLOG;] { $$ = $1; }
-                  ;
+optfuncthrowspec
+  :               [ZZLOG;] { $$ = new std::vector<std::string>; }
+  | functhrowspec [ZZLOG;] { $$ = $1; }
+  ;
 
-functhrowspec     : tknThrow '(' identifierlist ')' [ZZLOG;] {
-                    $$ = $3 ? $3 : new std::vector<std::string>;
-                  }
-                  ;
+functhrowspec
+  : tknThrow '(' identifierlist ')' [ZZLOG;] {
+    $$ = $3 ? $3 : new std::vector<std::string>;
+  }
+  ;
 
-identifierlist    :                               [ZZLOG;] { $$ = nullptr; }
-                  | identifier                    [ZZLOG;] {
-                    $$ = new std::vector<std::string>;
-                    $$->push_back($1);
-                  }
-                  | identifierlist ',' identifier [ZZLOG;] {
-                    $$ = $1;
-                    $$->push_back($3);
-                  }
-                  ;
+identifierlist
+  :                               [ZZLOG;] { $$ = nullptr; }
+  | identifier [ZZLOG;] {
+    $$ = new std::vector<std::string>;
+    $$->push_back($1);
+  }
+  | identifierlist ',' identifier [ZZLOG;] {
+    $$ = $1;
+    $$->push_back($3);
+  }
+  ;
 
-ctordeclstmt      : ctordecl';'                 [ZZVALID;] { $$ = $1; }
-                  ;
+ctordeclstmt
+  : ctordecl';'                 [ZZVALID;] { $$ = $1; }
+  ;
 
-ctordefn          : ctordecl meminitlist block  [ZZVALID;]
-                  {
-                    $$ = $1;
-                    $$->memberInits(Obj($2));
-                    $$->defn(Ptr($3));
-                  }
-                  | name tknScopeResOp name [if($1 != $3) ZZERROR; else ZZVALID;]
+ctordefn
+  : ctordecl meminitlist block  [ZZVALID;]
+  {
+    $$ = $1;
+    $$->memberInits(Obj($2));
+    $$->defn(Ptr($3));
+  }
+  | name tknScopeResOp name [if($1 != $3) ZZERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
-                  {
-                    $$ = new cppast::CppConstructor(mergeCppToken($1, $3), Obj($6), Obj($9), 0);
-                    $$->defn(Ptr($10));
-                    $$->throwSpec(Obj($8));
-                  }
-                  | identifier tknScopeResOp name tknScopeResOp name [if($3 != $5) ZZERROR; else ZZVALID;]
+  {
+    $$ = new cppast::CppConstructor(mergeCppToken($1, $3), Obj($6), Obj($9), 0);
+    $$->defn(Ptr($10));
+    $$->throwSpec(Obj($8));
+  }
+  | identifier tknScopeResOp name tknScopeResOp name [if($3 != $5) ZZERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
-                  {
-                    $$ = new cppast::CppConstructor(mergeCppToken($1, $5), Obj($8), Obj($11), 0);
-                    $$->defn(Ptr($12));
-                    $$->throwSpec(Obj($10));
-                  }
-                  | name tknLT templatearglist tknGT tknScopeResOp name [if($1 != $6) ZZERROR; else ZZVALID;]
+  {
+    $$ = new cppast::CppConstructor(mergeCppToken($1, $5), Obj($8), Obj($11), 0);
+    $$->defn(Ptr($12));
+    $$->throwSpec(Obj($10));
+  }
+  | name tknLT templatearglist tknGT tknScopeResOp name [if($1 != $6) ZZERROR; else ZZVALID;]
                     '(' paramlist ')' optfuncthrowspec meminitlist block [ZZVALID;]
-                  {
-                    $$ = new cppast::CppConstructor(mergeCppToken($1, $6), Obj($9), Obj($12), 0);
-                    $$->defn(Ptr($13));
-                    $$->throwSpec(Obj($11));
-                  }
-                  | functype ctordefn           [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  | templatespecifier ctordefn  [ZZLOG;] {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  ;
+  {
+    $$ = new cppast::CppConstructor(mergeCppToken($1, $6), Obj($9), Obj($12), 0);
+    $$->defn(Ptr($13));
+    $$->throwSpec(Obj($11));
+  }
+  | functype ctordefn [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr($1);
+  }
+  | templatespecifier ctordefn [ZZLOG;] {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  ;
 
-ctordecl          : identifier '(' paramlist ')' %prec CTORDECL
-                  [
-                    if(gCompoundStack.empty())
-                      ZZERROR;
-                    if((gCompoundStack.top() != $1) && (classNameFromIdentifier(gCompoundStack.top()) != $1))
-                      ZZERROR;
-                    else
-                      ZZVALID;
-                  ]
-                  {
-                    $$ = new cppast::CppConstructor($1, Obj($3), {}, 0);
-                  }
-                  | functype ctordecl          [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  | templatespecifier ctordecl [ZZLOG;] {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  | ctordecl '=' tknDelete     [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kDelete);
-                  }
-                  | ctordecl '=' tknDefault    [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kDefault);
-                  }
-                  | ctordecl functhrowspec     [ZZLOG;] {
-                    $$ = $1;
-                    $$->throwSpec(Obj($2));
-                  }
-                  | ctordecl tknNoExcept     [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kNoExcept);
-                  }
-                  | apidecor ctordecl          [ZZLOG;] {
-                    $$ = $2;
-                    $$->decor1($1);
-                  }
-                  ;
+ctordecl
+  : identifier '(' paramlist ')' %prec CTORDECL
+  [
+    if(gCompoundStack.empty())
+      ZZERROR;
+    if((gCompoundStack.top() != $1) && (classNameFromIdentifier(gCompoundStack.top()) != $1))
+      ZZERROR;
+    else
+      ZZVALID;
+  ]
+  {
+    $$ = new cppast::CppConstructor($1, Obj($3), {}, 0);
+  }
+  | functype ctordecl [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr($1);
+  }
+  | templatespecifier ctordecl [ZZLOG;] {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  | ctordecl '=' tknDelete [ZZLOG;] {
+    $$ = $1;
+    $$->addAttr(kDelete);
+  }
+  | ctordecl '=' tknDefault [ZZLOG;] {
+    $$ = $1;
+    $$->addAttr(kDefault);
+  }
+  | ctordecl functhrowspec [ZZLOG;] {
+    $$ = $1;
+    $$->throwSpec(Obj($2));
+  }
+  | ctordecl tknNoExcept [ZZLOG;] {
+    $$ = $1;
+    $$->addAttr(kNoExcept);
+  }
+  | apidecor ctordecl [ZZLOG;] {
+    $$ = $2;
+    $$->decor1($1);
+  }
+  ;
 
-meminitlist       :                          [ZZLOG;] {
-                    $$ = new cppast::CppMemberInits;
-                  }
-                  | ':' meminit              [ZZLOG;] {
-                    $$ = new cppast::CppMemberInits;
-                    $$->push_back(Obj($2));
-                  }
-                  /* | ':' blob                 [ZZLOG;] { $$ = new CppMemberInits{{}, Ptr($2)}; } */
-                  | meminitlist ',' meminit  [ZZLOG;] {
-                    $$ = $1;
-                    $$->push_back(Obj($3));
-                  }
-                  ;
+meminitlist
+  : [ZZLOG;] {
+    $$ = new cppast::CppMemberInits;
+  }
+  | ':' meminit [ZZLOG;] {
+    $$ = new cppast::CppMemberInits;
+    $$->push_back(Obj($2));
+  }
+/*| ':' blob                 [ZZLOG;] { $$ = new CppMemberInits{{}, Ptr($2)}; } */
+  | meminitlist ',' meminit [ZZLOG;] {
+    $$ = $1;
+    $$->push_back(Obj($3));
+  }
+  ;
 
-meminit           : identifier '(' exprlist ')'    [ZZLOG;] { $$ = MemberInit($1, Obj($3), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
-                  | identifier '(' ')'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
-                  | identifier '{' exprlist '}'    [ZZLOG;] { $$ = MemberInit($1, Obj($3), cppast::CppConstructorCallStyle::USING_BRACES); }
-                  | identifier '{' '}'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_BRACES); }
-                  ;
+meminit
+  : identifier '(' exprlist ')'    [ZZLOG;] { $$ = MemberInit($1, Obj($3), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
+  | identifier '(' ')'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_PARENTHESES); }
+  | identifier '{' exprlist '}'    [ZZLOG;] { $$ = MemberInit($1, Obj($3), cppast::CppConstructorCallStyle::USING_BRACES); }
+  | identifier '{' '}'             [ZZLOG;] { $$ = MemberInit($1, cppast::CppCallArgs(), cppast::CppConstructorCallStyle::USING_BRACES); }
+  ;
 
-dtordeclstmt      : dtordecl ';'    [ZZVALID;]     { $$ = $1; }
-                  ;
+dtordeclstmt
+  : dtordecl ';'    [ZZVALID;]     { $$ = $1; }
+  ;
 
-dtordefn          : dtordecl block  [ZZVALID;]
-                  {
-                    $$ = $1;
-                    $$->defn(Ptr($2 ? $2 : new cppast::CppCompound(CppCompoundType::BLOCK)));
-                  }
-                  | name tknScopeResOp '~' name [if($1 != $4) ZZERROR; else ZZVALID;]
-                    '(' ')' block
-                  {
-                    $$ = new cppast::CppDestructor(mergeCppToken($1, $4), 0);
-                    $$->defn(Ptr($8 ? $8 : new cppast::CppCompound(CppCompoundType::BLOCK)));
-                  }
-                  | identifier tknScopeResOp name tknScopeResOp '~' name [if($3 != $6) ZZERROR; else ZZVALID;]
-                    '(' ')' block
-                  {
-                    $$ = new cppast::CppDestructor(mergeCppToken($1, $6), 0);
-                    $$->defn(Ptr($10 ? $10 : new cppast::CppCompound(CppCompoundType::BLOCK)));
-                  }
-                  | name tknLT templatearglist tknGT tknScopeResOp '~' name [if($1 != $7) ZZERROR; else ZZVALID;]
-                    '(' ')' block
-                  {
-                    $$ = new cppast::CppDestructor(mergeCppToken($1, $7), 0);
-                    $$->defn(Ptr($11 ? $11 : new cppast::CppCompound(CppCompoundType::BLOCK)));
-                  }
-                  | templatespecifier dtordefn  [ZZLOG;] {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  | functype dtordefn           [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  ;
+dtordefn
+  : dtordecl block  [ZZVALID;]
+  {
+    $$ = $1;
+    $$->defn(Ptr($2 ? $2 : new cppast::CppCompound(CppCompoundType::BLOCK)));
+  }
+  | name tknScopeResOp '~' name [if($1 != $4) ZZERROR; else ZZVALID;] '(' ')' block
+  {
+    $$ = new cppast::CppDestructor(mergeCppToken($1, $4), 0);
+    $$->defn(Ptr($8 ? $8 : new cppast::CppCompound(CppCompoundType::BLOCK)));
+  }
+  | identifier tknScopeResOp name tknScopeResOp '~' name [if($3 != $6) ZZERROR; else ZZVALID;] '(' ')' block
+  {
+    $$ = new cppast::CppDestructor(mergeCppToken($1, $6), 0);
+    $$->defn(Ptr($10 ? $10 : new cppast::CppCompound(CppCompoundType::BLOCK)));
+  }
+  | name tknLT templatearglist tknGT tknScopeResOp '~' name [if($1 != $7) ZZERROR; else ZZVALID;] '(' ')' block
+  {
+    $$ = new cppast::CppDestructor(mergeCppToken($1, $7), 0);
+    $$->defn(Ptr($11 ? $11 : new cppast::CppCompound(CppCompoundType::BLOCK)));
+  }
+  | templatespecifier dtordefn [ZZLOG;] {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  | functype dtordefn [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr($1);
+  }
+  ;
 
-dtordecl          : '~' name '(' optvoid ')' %prec DTORDECL [ZZLOG;]
-                  [
-                    if(gCompoundStack.empty())
-                      ZZERROR;
-                    if(classNameFromIdentifier(gCompoundStack.top()) != $2)
-                      ZZERROR;
-                    else
-                      ZZVALID;
-                  ]
-                  {
-                    const char* tildaStartPos = $2.sz-1;
-                    while(*tildaStartPos != '~') --tildaStartPos;
-                    $$ = new cppast::CppDestructor(makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
-                  }
-                  | apidecor dtordecl         [ZZLOG;] {
-                    $$ = $2;
-                    $$->decor1($1);
-                  }
-                  | functype dtordecl         [ZZLOG;] {
-                    $$ = $2;
-                    $$->addAttr($1);
-                  }
-                  | dtordecl optfuncattrib    [ZZLOG;]
-                  {
-                    $$ = $1;
-                    $$->addAttr($2);
-                  }
-                  | dtordecl '=' tknNumber    [ZZLOG;]
-                  {
-                    $$ = $1;
-                    $$->addAttr(kPureVirtual);
-                  }
-                  | dtordecl '=' tknDelete    [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kDelete);
-                  }
-                  | dtordecl '=' tknDefault   [ZZLOG;] {
-                    $$ = $1;
-                    $$->addAttr(kDefault);
-                  }
-                  | dtordecl functhrowspec    [ZZLOG;] {
-                    $$ = $1;
-                    $$->throwSpec(Obj($2));
-                  }
-                  ;
+dtordecl
+  : '~' name '(' optvoid ')' %prec DTORDECL [ZZLOG;]
+  [
+    if(gCompoundStack.empty())
+      ZZERROR;
+    if(classNameFromIdentifier(gCompoundStack.top()) != $2)
+      ZZERROR;
+    else
+      ZZVALID;
+  ]
+  {
+    const char* tildaStartPos = $2.sz-1;
+    while(*tildaStartPos != '~') --tildaStartPos;
+    $$ = new cppast::CppDestructor(makeCppToken(tildaStartPos, $2.sz+$2.len-tildaStartPos), 0);
+  }
+  | apidecor dtordecl [ZZLOG;] {
+    $$ = $2;
+    $$->decor1($1);
+  }
+  | functype dtordecl [ZZLOG;] {
+    $$ = $2;
+    $$->addAttr($1);
+  }
+  | dtordecl optfuncattrib    [ZZLOG;]
+  {
+    $$ = $1;
+    $$->addAttr($2);
+  }
+  | dtordecl '=' tknNumber    [ZZLOG;]
+  {
+    $$ = $1;
+    $$->addAttr(kPureVirtual);
+  }
+  | dtordecl '=' tknDelete [ZZLOG;] {
+    $$ = $1;
+    $$->addAttr(kDelete);
+  }
+  | dtordecl '=' tknDefault [ZZLOG;] {
+    $$ = $1;
+    $$->addAttr(kDefault);
+  }
+  | dtordecl functhrowspec [ZZLOG;] {
+    $$ = $1;
+    $$->throwSpec(Obj($2));
+  }
+  ;
 
-optvoid           :          [ZZLOG;]
-                  | tknVoid  [ZZLOG;]
-                  ;
+optvoid
+  :          [ZZLOG;]
+  | tknVoid  [ZZLOG;]
+  ;
 
-optcomment        :            [ZZLOG;]{
-                  }
-                  | doccomment [ZZVALID;] {
-                  }
-                  ;
+optcomment
+  :            [ZZLOG;]{
+  }
+  | doccomment [ZZVALID;] {
+  }
+  ;
 
-classdefnstmt     : classdefn ';' [ZZVALID;] { $$ = $1;}
-                  ;
+classdefnstmt
+  : classdefn ';' [ZZVALID;] { $$ = $1; }
+  ;
 
-attribspecifier   : '[' '[' expr ']' ']' {
-                    $$ = $3;
-                  }
-                  ;
+attribspecifier
+  : '[' '[' expr ']' ']' {
+    $$ = $3;
+  }
+  ;
 
-optattribspecifiers : {
-                    $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
-                  }
-                  | attribspecifiers { $$ = $1; }
-                  ;
+optattribspecifiers
+  : {
+    $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+  }
+  | attribspecifiers { $$ = $1; }
+  ;
 
-attribspecifiers  : attribspecifier {
-                    $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
-                    $$->push_back(Ptr($1));
-                  }
-                  | attribspecifiers attribspecifier {
-                    $$ = $1;
-                    $$->push_back(Ptr($2));
-                  }
-                  ;
+attribspecifiers
+  : attribspecifier {
+    $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+    $$->push_back(Ptr($1));
+  }
+  | attribspecifiers attribspecifier {
+    $$ = $1;
+    $$->push_back(Ptr($2));
+  }
+  ;
 
-classdefn         : classspecifier optapidecor optattribspecifiers identifier optfinal optinheritlist optcomment '{'
-                  [
-                    ZZVALID;
-                    gCompoundStack.push($4);
-                  ]
-                  optstmtlist '}'
-                  [
-                    ZZVALID;
-                    gCompoundStack.pop();
-                  ]
-                  {
-                    $$ = $10 ? $10 : new cppast::CppCompound();
-                    $$->compoundType($1);
-                    $$->apidecor($2);
-                    $$->attribSpecifierSequence(Obj($3));
-                    $$->name(pruneClassName($4));
-                    $$->inheritanceList(Obj($6));
-                    $$->addAttr($5);
-                  }
-                  | classspecifier optattribspecifiers optinheritlist optcomment
-                    '{'
-                      optstmtlist
-                    '}' [ZZVALID;]
-                  {
-                    $$ = $6 ? $6 : new cppast::CppCompound();
-                    $$->compoundType($1);
-                    $$->attribSpecifierSequence(Obj($2));
-                    $$->inheritanceList(Obj($3));
-                  }
-                  | templatespecifier classdefn [ZZLOG;]
-                  {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  ;
+classdefn
+  : classspecifier optapidecor optattribspecifiers identifier optfinal optinheritlist optcomment '{'
+  [
+    ZZVALID;
+    gCompoundStack.push($4);
+  ]
+  optstmtlist '}'
+  [
+    ZZVALID;
+    gCompoundStack.pop();
+  ]
+  {
+    $$ = $10 ? $10 : new cppast::CppCompound();
+    $$->compoundType($1);
+    $$->apidecor($2);
+    $$->attribSpecifierSequence(Obj($3));
+    $$->name(pruneClassName($4));
+    $$->inheritanceList(Obj($6));
+    $$->addAttr($5);
+  }
+  | classspecifier optattribspecifiers optinheritlist optcomment
+    '{'
+      optstmtlist
+    '}' [ZZVALID;]
+  {
+    $$ = $6 ? $6 : new cppast::CppCompound();
+    $$->compoundType($1);
+    $$->attribSpecifierSequence(Obj($2));
+    $$->inheritanceList(Obj($3));
+  }
+  | templatespecifier classdefn [ZZLOG;]
+  {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  ;
 
-namespacedefn     : tknNamespace optidentifier '{'
-                  [
-                    ZZVALID;
-                    gCompoundStack.push(classNameFromIdentifier($2));
-                  ]
-                  optstmtlist '}'
-                  [
-                    ZZVALID;
-                    gCompoundStack.pop();
-                  ]
-                  {
-                    $$ = $5 ? $5 : new cppast::CppCompound();
-                    $$->compoundType(CppCompoundType::NAMESPACE);
-                    $$->name($2);
-                  }
-                  ;
+namespacedefn
+  : tknNamespace optidentifier '{'
+  [
+    ZZVALID;
+    gCompoundStack.push(classNameFromIdentifier($2));
+  ]
+  optstmtlist '}'
+  [
+    ZZVALID;
+    gCompoundStack.pop();
+  ]
+  {
+    $$ = $5 ? $5 : new cppast::CppCompound();
+    $$->compoundType(CppCompoundType::NAMESPACE);
+    $$->name($2);
+  }
+  ;
 
-optfinal          :          [ZZLOG;] { $$ = 0; }
-                  | tknFinal [ZZLOG;] { $$ = kFinal; }
-                  ;
+optfinal
+  :          [ZZLOG;] { $$ = 0; }
+  | tknFinal [ZZLOG;] { $$ = kFinal; }
+  ;
 
-optinheritlist    :                                                             [ZZLOG;] {
-                    $$ = new std::list<CppInheritanceInfo>;
-                  }
-                  | ':' protlevel optinherittype typeidentifier                 [ZZVALID;] {
-                    $$ = new std::list<CppInheritanceInfo>; $$->push_back({(std::string) $4, $2, $3});
-                  }
-                  | optinheritlist ',' protlevel optinherittype typeidentifier  [ZZVALID;] {
-                    $$ = $1; $$->push_back({(std::string) $5, $3, $4});
-                  }
-                  | ':' optinherittype protlevel typeidentifier                 [ZZVALID;] {
-                    $$ = new std::list<CppInheritanceInfo>; $$->push_back({(std::string) $4, $3, $2});
-                  }
-                  | optinheritlist ',' optinherittype protlevel typeidentifier  [ZZVALID;] {
-                    $$ = $1; $$->push_back({(std::string) $5, $4, $3});
-                  }
-                  ;
+optinheritlist
+  : [ZZLOG;] {
+    $$ = new std::list<CppInheritanceInfo>;
+  }
+  | ':' protlevel optinherittype typeidentifier [ZZVALID;] {
+    $$ = new std::list<CppInheritanceInfo>; $$->push_back({(std::string) $4, $2, $3});
+  }
+  | optinheritlist ',' protlevel optinherittype typeidentifier [ZZVALID;] {
+    $$ = $1; $$->push_back({(std::string) $5, $3, $4});
+  }
+  | ':' optinherittype protlevel typeidentifier [ZZVALID;] {
+    $$ = new std::list<CppInheritanceInfo>; $$->push_back({(std::string) $4, $3, $2});
+  }
+  | optinheritlist ',' optinherittype protlevel typeidentifier [ZZVALID;] {
+    $$ = $1; $$->push_back({(std::string) $5, $4, $3});
+  }
+  ;
 
-protlevel         : { Init($$); }
-                  | tknPublic     [ZZLOG;] { Init($$, CppAccessType::PUBLIC);     }
-                  | tknProtected  [ZZLOG;] { Init($$, CppAccessType::PROTECTED);  }
-                  | tknPrivate    [ZZLOG;] { Init($$, CppAccessType::PRIVATE);    }
-                  ;
+protlevel
+  : { Init($$); }
+  | tknPublic     [ZZLOG;] { Init($$, CppAccessType::PUBLIC); }
+  | tknProtected  [ZZLOG;] { Init($$, CppAccessType::PROTECTED); }
+  | tknPrivate    [ZZLOG;] { Init($$, CppAccessType::PRIVATE); }
+  ;
 
-optinherittype    :             [ZZLOG;] { $$ = false; }
-                  | tknVirtual  [ZZLOG;] { $$ = true; }
-                  ;
+optinherittype
+  :             [ZZLOG;] { $$ = false; }
+  | tknVirtual  [ZZLOG;] { $$ = true; }
+  ;
 
-fwddecl           : classspecifier typeidentifier ';'          [ZZVALID;] { $$ = new cppast::CppForwardClassDecl($2, $1); }
-                  | classspecifier optapidecor identifier ';'  [ZZVALID;] { $$ = new cppast::CppForwardClassDecl($3, $2, $1); }
-                  | templatespecifier fwddecl [ZZLOG;] {
-                    $$ = $2;
-                    $$->templateSpecification(Obj($1));
-                  }
-                  | tknFriend typeidentifier ';'  [ZZVALID;] { $$ = new cppast::CppForwardClassDecl($2); $$->addAttr(kFriend); }
-                  | tknFriend fwddecl             [ZZVALID;] { $$ = $2; $$->addAttr(kFriend); }
-                  ;
+fwddecl
+  : classspecifier typeidentifier ';'          [ZZVALID;] { $$ = new cppast::CppForwardClassDecl($2, $1); }
+  | classspecifier optapidecor identifier ';'  [ZZVALID;] { $$ = new cppast::CppForwardClassDecl($3, $2, $1); }
+  | templatespecifier fwddecl [ZZLOG;] {
+    $$ = $2;
+    $$->templateSpecification(Obj($1));
+  }
+  | tknFriend typeidentifier ';'  [ZZVALID;] { $$ = new cppast::CppForwardClassDecl($2); $$->addAttr(kFriend); }
+  | tknFriend fwddecl             [ZZVALID;] { $$ = $2; $$->addAttr(kFriend); }
+  ;
 
-classspecifier    : tknClass      [ZZLOG;] { $$ = CppCompoundType::CLASS;     }
-                  | tknStruct     [ZZLOG;] { $$ = CppCompoundType::STRUCT;    }
-                  | tknUnion      [ZZLOG;] { $$ = CppCompoundType::UNION;     }
-                  ;
+classspecifier
+  : tknClass      [ZZLOG;] { $$ = CppCompoundType::CLASS; }
+  | tknStruct     [ZZLOG;] { $$ = CppCompoundType::STRUCT; }
+  | tknUnion      [ZZLOG;] { $$ = CppCompoundType::UNION; }
+  ;
 
-templatespecifier : tknTemplate tknLT       [gInTemplateSpec = true;  ZZLOG;   ]
-                    templateparamlist tknGT [gInTemplateSpec = false; ZZVALID; ]
-                  {
-                    $$ = $4;
-                  }
-                  ;
+templatespecifier
+  : tknTemplate tknLT       [gInTemplateSpec = true;  ZZLOG;   ]
+    templateparamlist tknGT [gInTemplateSpec = false; ZZVALID; ]
+  {
+    $$ = $4;
+  }
+  ;
 
-templateparamlist :                                       [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParams;
-                  }
-                  | templateparam                         [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParams;
-                    $$->emplace_back(Obj($1));
-                  }
-                  | templateparamlist ',' templateparam   [ZZLOG;] {
-                    $$ = $1;
-                    $$->emplace_back(Obj($3));
-                  }
-                  ;
+templateparamlist
+  : [ZZLOG;] {
+    $$ = new cppast::CppTemplateParams;
+  }
+  | templateparam [ZZLOG;] {
+    $$ = new cppast::CppTemplateParams;
+    $$->emplace_back(Obj($1));
+  }
+  | templateparamlist ',' templateparam [ZZLOG;] {
+    $$ = $1;
+    $$->emplace_back(Obj($3));
+  }
+  ;
 
-templateparam     : tknTypename optname             [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParam($2);
-                  }
-                  | tknTypename optname '=' vartype [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParam($2, Ptr($4));
-                  }
-                  | tknClass optname                [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParam($2);
-                  }
-                  | tknClass optname '=' vartype    [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParam($2, Ptr($4));
-                  }
-                  | vartype name                    [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParam(Ptr($1), $2);
-                  }
-                  | vartype name '=' expr  %prec TEMPLATE          [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParam(Ptr($1), $2, Ptr($4));
-                  }
-                  | functionpointer               [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParam(Ptr($1), std::string());
-                  }
-                  | functionpointer '=' expr  %prec TEMPLATE         [ZZLOG;] {
-                    $$ = new cppast::CppTemplateParam(Ptr($1), std::string(), Ptr($3));
-                  }
-                  | vartype                       [ZZLOG;] { // Can happen when forward declaring
-                    $$ = new cppast::CppTemplateParam(Ptr($1), std::string());
-                  }
-                  | vartype '=' expr              [ZZLOG;] { // Can happen when forward declaring
-                    $$ = new cppast::CppTemplateParam(Ptr($1), std::string(), Ptr($3));
-                  }
-                  // <TemplateParamHack>
-                  | tknTypename name ',' [
-                    if (gInTemplateSpec)
-                      gTemplateParamStart = $1.sz;
-                    ZZERROR;
-                  ] { $$ = nullptr; }
-                  | tknTypename name '=' [
-                    if (gInTemplateSpec)
-                      gTemplateParamStart = $1.sz;
-                    ZZERROR;
-                  ] { $$ = nullptr; }
-                  | tknTypename name tknGT [
-                    if (gInTemplateSpec)
-                      gTemplateParamStart = $1.sz;
-                    ZZERROR;
-                  ] { $$ = nullptr; }
-                  | tknClass name ',' [
-                    if (gInTemplateSpec)
-                      gTemplateParamStart = $1.sz;
-                    ZZERROR;
-                  ] { $$ = nullptr; }
-                  | tknClass name tknGT [
-                    if (gInTemplateSpec)
-                      gTemplateParamStart = $1.sz;
-                    ZZERROR;
-                  ] { $$ = nullptr; }
-                  // </TemplateParamHack>
-                  ;
+templateparam
+  : tknTypename optname [ZZLOG;] {
+    $$ = new cppast::CppTemplateParam($2);
+  }
+  | tknTypename optname '=' vartype [ZZLOG;] {
+    $$ = new cppast::CppTemplateParam($2, Ptr($4));
+  }
+  | tknClass optname [ZZLOG;] {
+    $$ = new cppast::CppTemplateParam($2);
+  }
+  | tknClass optname '=' vartype [ZZLOG;] {
+    $$ = new cppast::CppTemplateParam($2, Ptr($4));
+  }
+  | vartype name [ZZLOG;] {
+    $$ = new cppast::CppTemplateParam(Ptr($1), $2);
+  }
+  | vartype name '=' expr  %prec TEMPLATE [ZZLOG;] {
+    $$ = new cppast::CppTemplateParam(Ptr($1), $2, Ptr($4));
+  }
+  | functionpointer [ZZLOG;] {
+    $$ = new cppast::CppTemplateParam(Ptr($1), std::string());
+  }
+  | functionpointer '=' expr  %prec TEMPLATE [ZZLOG;] {
+    $$ = new cppast::CppTemplateParam(Ptr($1), std::string(), Ptr($3));
+  }
+  | vartype                       [ZZLOG;] { // Can happen when forward declaring
+    $$ = new cppast::CppTemplateParam(Ptr($1), std::string());
+  }
+  | vartype '=' expr              [ZZLOG;] { // Can happen when forward declaring
+    $$ = new cppast::CppTemplateParam(Ptr($1), std::string(), Ptr($3));
+  }
+// <TemplateParamHack>
+  | tknTypename name ',' [
+    if (gInTemplateSpec)
+      gTemplateParamStart = $1.sz;
+    ZZERROR;
+  ] { $$ = nullptr; }
+  | tknTypename name '=' [
+    if (gInTemplateSpec)
+      gTemplateParamStart = $1.sz;
+    ZZERROR;
+  ] { $$ = nullptr; }
+  | tknTypename name tknGT [
+    if (gInTemplateSpec)
+      gTemplateParamStart = $1.sz;
+    ZZERROR;
+  ] { $$ = nullptr; }
+  | tknClass name ',' [
+    if (gInTemplateSpec)
+      gTemplateParamStart = $1.sz;
+    ZZERROR;
+  ] { $$ = nullptr; }
+  | tknClass name tknGT [
+    if (gInTemplateSpec)
+      gTemplateParamStart = $1.sz;
+    ZZERROR;
+  ] { $$ = nullptr; }
+// </TemplateParamHack>
+  ;
 
-optapidecor       :             [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
-                  | apidecor    [ZZLOG;] { $$ = $1; }
-                  ;
+optapidecor
+  :             [ZZLOG;] { $$ = makeCppToken(nullptr, nullptr); }
+  | apidecor    [ZZLOG;] { $$ = $1; }
+  ;
 
-apidecor          : apidecortokensq                     [ZZLOG;] { $$ = $1; }
-                  | apidecortokensq '(' name ')'          [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  | apidecortokensq '(' tknNumber ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  | apidecortokensq '(' strlit ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  ;
+apidecor
+  : apidecortokensq                     [ZZLOG;] { $$ = $1; }
+  | apidecortokensq '(' name ')'          [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+  | apidecortokensq '(' tknNumber ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+  | apidecortokensq '(' strlit ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+  ;
 
-apidecortokensq   : tknApiDecor                  [ZZLOG;] { $$ = $1; }
-                  | apidecortokensq tknApiDecor  [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  | tknApiDecor '(' strlit ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
-                  ;
+apidecortokensq
+  : tknApiDecor                  [ZZLOG;] { $$ = $1; }
+  | apidecortokensq tknApiDecor  [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  | tknApiDecor '(' strlit ')'   [ZZLOG;] { $$ = mergeCppToken($1, $4); }
+  ;
 
-entityaccessspecifier   : tknPublic     ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PUBLIC);     }
-                  | tknProtected  ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PROTECTED);  }
-                  | tknPrivate    ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PRIVATE);    }
-                  ;
+entityaccessspecifier
+  : tknPublic     ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PUBLIC); }
+  | tknProtected  ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PROTECTED); }
+  | tknPrivate    ':'  [ZZVALID;] { $$ = new cppast::CppEntityAccessSpecifier(CppAccessType::PRIVATE); }
+  ;
 
-externcblock      : tknExternC block   [ZZVALID;] {$$ = $2; $$->compoundType(CppCompoundType::EXTERN_C_BLOCK); }
-                  ;
+externcblock
+  : tknExternC block   [ZZVALID;] {$$ = $2; $$->compoundType(CppCompoundType::EXTERN_C_BLOCK); }
+  ;
 
-strlit            : tknStrLit          [ZZLOG;] { $$ = $1; }
-                  | strlit tknStrLit   [ZZLOG;] { $$ = mergeCppToken($1, $2); }
-                  ;
+strlit
+                  : tknStrLit          [ZZLOG;] { $$ = $1; }
+  | strlit tknStrLit   [ZZLOG;] { $$ = mergeCppToken($1, $2); }
+  ;
 
-/* TODO: Use no format to save space. */
-expr              : strlit                            [ZZLOG;] { $$ = new cppast::CppStringLiteralExpr($1);          }
-                  | tknCharLit                        [ZZLOG;] { $$ = new cppast::CppCharLiteralExpr($1);          }
-                  | tknNumber                         [ZZLOG;] { $$ = new cppast::CppNumberLiteralExpr($1);          }
-                  | identifier
-                    [
-                      if ($1.sz == gParamModPos) {
-                        gParamModPos = nullptr;
-                        ZZERROR;
-                      } else {
-                        ZZLOG;
-                      }
-                    ]                                 [ZZLOG;] { $$ = NameExpr($1);          }
-                  | '(' exprlist ')'                  [ZZLOG;] { $$ = ExpressionListExpr(Obj($2)); };
-                  | '{' optexprlist '}'               [ZZLOG;] { $$ = InitializerListExpr($2);        }
-                  | '{' optexprlist ',' '}'           [ZZLOG;] { $$ = InitializerListExpr($2);        }
-                  | '+' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_PLUS, $2);          }
-                  | '-' expr %prec UNARYMINUS         [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_MINUS, $2);                  }
-                  | '~' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::BIT_TOGGLE, $2);                   }
-                  | '!' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::LOGICAL_NOT, $2);                      }
-                  | '*' expr %prec DEREF              [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DEREFER, $2);                     }
-                  | '&' expr %prec ADDRESSOF          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::REFER, $2);                       }
-                  | '&' operfuncname %prec ADDRESSOF  [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::REFER, NameExpr($2));          }
-                  | tknInc expr  %prec PREINCR        [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::PREFIX_INCREMENT, $2);                }
-                  | tknDec expr  %prec PREDECR        [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::PREFIX_DECREMENT, $2);                }
-                  | expr tknInc  %prec POSTINCR       [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::POSTFIX_INCREMENT, $1);               }
-                  | expr tknDec  %prec POSTDECR       [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::POSTFIX_DECREMENT, $1);               }
-                  | expr '+' expr                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PLUS, $1, $3);                    }
-                  | expr '-' expr                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MINUS, $1, $3);                   }
-                  | expr '*' expr
-                    [
-                      if ($2.sz == gParamModPos) {
-                        gParamModPos = nullptr;
-                        ZZERROR;
-                      } else {
-                        ZZLOG;
-                      }
-                    ]                                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MUL, $1, $3);                     }
-                  | expr '/' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DIV, $1, $3);                     }
-                  | expr '%' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PERCENT, $1, $3);                 }
-                  | expr '&' expr
-                    [
-                      if ($2.sz == gParamModPos) {
-                        gParamModPos = nullptr;
-                        ZZERROR;
-                      } else {
-                        ZZLOG;
-                      }
-                    ]                                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::AND, $1, $3);                  }
-                  | expr '|' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::OR, $1, $3);                   }
-                  | expr '^' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::XOR, $1, $3);                     }
-                  | expr '=' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ASSIGN, $1, $3);                   }
-                  | expr tknLT expr                           [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LESS, $1, $3);                    }
-                  | expr tknGT expr                           [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::GREATER, $1, $3);                 }
-                  | expr tknPlusEq expr                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PLUS_ASSIGN, $1, $3);               }
-                  | expr tknMinusEq expr                      [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MINUS_ASSIGN, $1, $3);              }
-                  | expr tknMulEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MUL_ASSIGN, $1, $3);                }
-                  | expr tknDivEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DIV_ASSIGN, $1, $3);                }
-                  | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PERCENT_ASSIGN, $1, $3);                }
-                  | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_AND_ASSIGN, $1, $3);                }
-                  | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_OR_ASSIGN, $1, $3);                }
-                  | expr tknXorEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::XOR_ASSIGN, $1, $3);                }
-                  | expr tknAndEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::AND_ASSIGN, $1, $3);                }
-                  | expr tknOrEq expr                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::OR_ASSIGN, $1, $3);                 }
-                  | expr tknLShift expr                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LEFT_SHIFT, $1, $3);               }
-                  | expr rshift expr                          [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::RIGHT_SHIFT, $1, $3);              }
-                  | expr tknLShiftEq expr                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LSHIFT_ASSIGN, $1, $3);             }
-                  | expr tknRShiftEq expr                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::RSHIFT_ASSIGN, $1, $3);             }
-                  | expr tknCmpEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::EQUAL, $1, $3);                }
-                  | expr tknNotEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::NOT_EQUAL, $1, $3);                }
-                  | expr tknLessEq expr                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LESS_EQUAL, $1, $3);               }
-                  | expr tknGreaterEq expr                    [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::GREATER_EQUAL, $1, $3);            }
-                  | expr tkn3WayCmp expr                      [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::THREE_WAY_CMP, $1, $3);                 }
-                  | expr tknAnd expr
-                    [
-                      if ($2.sz == gParamModPos) {
-                        gParamModPos = nullptr;
-                        ZZERROR;
-                      } else {
-                        ZZLOG;
-                      }
-                    ]                                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_AND, $1, $3);                     }
-                  | expr tknOr expr                                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_OR, $1, $3);                      }
-                  | expr '.' expr                                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, $3);                     }
-                  | expr '.' '*' expr                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, MonomialExpr(cppast::CppUnaryOperator::DEREFER, $4));                     }
-                  | expr tknArrow expr                                    [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, $3);      }
-                  | expr tknArrowStar expr                                [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW_STAR, $1, $3);  }
-                  | expr '.' '~' funcname                                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, mergeCppToken($3, $4));                     }
-                  | expr tknArrow '~' funcname                            [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, mergeCppToken($3, $4));      }
-                  | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARRAY_INDEX, $1, $3);               }
-                  /*| expr '[' ']' %prec SUBSCRIPT                        [ZZLOG;] { $$ = BinomialExpr($1, kArrayElem);                   }*/
-                  | expr '(' optexprlist ')' %prec FUNCCALL               [ZZLOG;] { $$ = FuncCallExpr($1, $3);            }
-                  | funcname '(' optexprlist ')' %prec FUNCCALL           [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3);            }
-                  | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, FuncCallExpr(NameExpr(mergeCppToken($3, $4)))); }
-                  | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = TrinomialExpr(cppast::CppTernaryOperator::CONDITIONAL, $1, $3, $5);                       }
-                  | identifier '{' optexprlist '}' %prec FUNCCALL         [ZZLOG;] { $$ = UniformInitExpr($1, $3);            }
-                  | '(' vartype ')' expr %prec CSTYLECAST                 [ZZLOG;] { $$ = CStyleCastExpr($2, $4);              }
-                  | tknConstCast tknLT vartype tknGT '(' expr ')'         [ZZLOG;] { $$ = ConstCastExpr($3, $6);               }
-                  | tknStaticCast tknLT vartype tknGT '(' expr ')'        [ZZLOG;] { $$ = StaticCastExpr($3, $6);              }
-                  | tknDynamicCast tknLT vartype tknGT '(' expr ')'       [ZZLOG;] { $$ = DynamiCastExpr($3, $6);             }
-                  | tknReinterpretCast tknLT vartype tknGT '(' expr ')'   [ZZLOG;] { $$ = ReinterpretCastExpr($3, $6);         }
-                  | '(' expr ')'                                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::PARENTHESIZE, $2);         }
-                  | tknNew typeidentifier opttypemodifier                 [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::NEW, VarTypeExpr($2, $3));  }
-                  | tknNew expr                                           [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::NEW, $2);  }
-                  | tknNew '(' expr ')' expr %prec tknNew                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PLACEMENT_NEW, $3, $5);            }
-                  | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::GLOBAL_PLACEMENT_NEW, $4, $6);            }
-                  | tknDelete  expr                                       [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DELETE, $2);            }
-                  | tknDelete  '[' ']' expr %prec tknDelete               [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DELETE_AARAY, $4);       }
-                  | tknSizeOf '(' vartype ')'                             [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::SIZE_OF, VarTypeExpr($3));            }
-                  | tknSizeOf '(' expr ')'                                [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::SIZE_OF, $3);            }
-                  | tknSizeOf tknEllipsis '(' vartype ')'                 [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC_SIZE_OF, VarTypeExpr($4));            }
-                  | tknSizeOf tknEllipsis '(' expr ')'                    [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC_SIZE_OF, $4);            }
-                  | expr tknEllipsis                                      [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC, $1);            }
-                  | lambda                                                [ZZLOG;] { $$ = LambdaExpression($1);                               }
+expr
+  : strlit                            [ZZLOG;] { $$ = new cppast::CppStringLiteralExpr($1); }
+  | tknCharLit                        [ZZLOG;] { $$ = new cppast::CppCharLiteralExpr($1); }
+  | tknNumber                         [ZZLOG;] { $$ = new cppast::CppNumberLiteralExpr($1); }
+  | identifier
+    [
+      if ($1.sz == gParamModPos) {
+        gParamModPos = nullptr;
+        ZZERROR;
+      } else {
+        ZZLOG;
+      }
+    ]                                 [ZZLOG;] { $$ = NameExpr($1); }
+  | '(' exprlist ')'                  [ZZLOG;] { $$ = ExpressionListExpr(Obj($2)); };
+  | '{' optexprlist '}'               [ZZLOG;] { $$ = InitializerListExpr($2); }
+  | '{' optexprlist ',' '}'           [ZZLOG;] { $$ = InitializerListExpr($2); }
+  | '+' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_PLUS, $2); }
+  | '-' expr %prec UNARYMINUS         [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::UNARY_MINUS, $2); }
+  | '~' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::BIT_TOGGLE, $2); }
+  | '!' expr                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::LOGICAL_NOT, $2); }
+  | '*' expr %prec DEREF              [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DEREFER, $2); }
+  | '&' expr %prec ADDRESSOF          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::REFER, $2); }
+  | '&' operfuncname %prec ADDRESSOF  [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::REFER, NameExpr($2)); }
+  | tknInc expr  %prec PREINCR        [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::PREFIX_INCREMENT, $2); }
+  | tknDec expr  %prec PREDECR        [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::PREFIX_DECREMENT, $2); }
+  | expr tknInc  %prec POSTINCR       [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::POSTFIX_INCREMENT, $1); }
+  | expr tknDec  %prec POSTDECR       [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::POSTFIX_DECREMENT, $1); }
+  | expr '+' expr                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PLUS, $1, $3); }
+  | expr '-' expr                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MINUS, $1, $3); }
+  | expr '*' expr
+    [
+      if ($2.sz == gParamModPos) {
+        gParamModPos = nullptr;
+        ZZERROR;
+      } else {
+        ZZLOG;
+      }
+    ]                                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MUL, $1, $3); }
+  | expr '/' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DIV, $1, $3); }
+  | expr '%' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PERCENT, $1, $3); }
+  | expr '&' expr
+    [
+      if ($2.sz == gParamModPos) {
+        gParamModPos = nullptr;
+        ZZERROR;
+      } else {
+        ZZLOG;
+      }
+    ]                                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::AND, $1, $3); }
+  | expr '|' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::OR, $1, $3); }
+  | expr '^' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::XOR, $1, $3); }
+  | expr '=' expr                             [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ASSIGN, $1, $3); }
+  | expr tknLT expr                           [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LESS, $1, $3); }
+  | expr tknGT expr                           [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::GREATER, $1, $3); }
+  | expr tknPlusEq expr                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PLUS_ASSIGN, $1, $3); }
+  | expr tknMinusEq expr                      [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MINUS_ASSIGN, $1, $3); }
+  | expr tknMulEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MUL_ASSIGN, $1, $3); }
+  | expr tknDivEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DIV_ASSIGN, $1, $3); }
+  | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PERCENT_ASSIGN, $1, $3); }
+  | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_AND_ASSIGN, $1, $3); }
+  | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_OR_ASSIGN, $1, $3); }
+  | expr tknXorEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::XOR_ASSIGN, $1, $3); }
+  | expr tknAndEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::AND_ASSIGN, $1, $3); }
+  | expr tknOrEq expr                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::OR_ASSIGN, $1, $3); }
+  | expr tknLShift expr                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LEFT_SHIFT, $1, $3); }
+  | expr rshift expr                          [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::RIGHT_SHIFT, $1, $3); }
+  | expr tknLShiftEq expr                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LSHIFT_ASSIGN, $1, $3); }
+  | expr tknRShiftEq expr                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::RSHIFT_ASSIGN, $1, $3); }
+  | expr tknCmpEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::EQUAL, $1, $3); }
+  | expr tknNotEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::NOT_EQUAL, $1, $3); }
+  | expr tknLessEq expr                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LESS_EQUAL, $1, $3); }
+  | expr tknGreaterEq expr                    [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::GREATER_EQUAL, $1, $3); }
+  | expr tkn3WayCmp expr                      [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::THREE_WAY_CMP, $1, $3); }
+  | expr tknAnd expr
+    [
+      if ($2.sz == gParamModPos) {
+        gParamModPos = nullptr;
+        ZZERROR;
+      } else {
+        ZZLOG;
+      }
+    ]                                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_AND, $1, $3); }
+  | expr tknOr expr                                       [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_OR, $1, $3); }
+  | expr '.' expr                                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, $3); }
+  | expr '.' '*' expr                                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, MonomialExpr(cppast::CppUnaryOperator::DEREFER, $4)); }
+  | expr tknArrow expr                                    [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, $3); }
+  | expr tknArrowStar expr                                [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW_STAR, $1, $3); }
+  | expr '.' '~' funcname                                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DOT, $1, mergeCppToken($3, $4)); }
+  | expr tknArrow '~' funcname                            [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, mergeCppToken($3, $4)); }
+  | expr '[' expr ']' %prec SUBSCRIPT                     [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARRAY_INDEX, $1, $3); }
+  /*| expr '[' ']' %prec SUBSCRIPT                        [ZZLOG;] { $$ = BinomialExpr($1, kArrayElem); }*/
+  | expr '(' optexprlist ')' %prec FUNCCALL               [ZZLOG;] { $$ = FuncCallExpr($1, $3); }
+  | funcname '(' optexprlist ')' %prec FUNCCALL           [ZZLOG;] { $$ = FuncCallExpr(NameExpr($1), $3); }
+  | expr tknArrow '~' identifier '(' ')' %prec FUNCCALL   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ARROW, $1, FuncCallExpr(NameExpr(mergeCppToken($3, $4)))); }
+  | expr '?' expr ':' expr %prec TERNARYCOND              [ZZLOG;] { $$ = TrinomialExpr(cppast::CppTernaryOperator::CONDITIONAL, $1, $3, $5); }
+  | identifier '{' optexprlist '}' %prec FUNCCALL         [ZZLOG;] { $$ = UniformInitExpr($1, $3); }
+  | '(' vartype ')' expr %prec CSTYLECAST                 [ZZLOG;] { $$ = CStyleCastExpr($2, $4); }
+  | tknConstCast tknLT vartype tknGT '(' expr ')'         [ZZLOG;] { $$ = ConstCastExpr($3, $6); }
+  | tknStaticCast tknLT vartype tknGT '(' expr ')'        [ZZLOG;] { $$ = StaticCastExpr($3, $6); }
+  | tknDynamicCast tknLT vartype tknGT '(' expr ')'       [ZZLOG;] { $$ = DynamiCastExpr($3, $6); }
+  | tknReinterpretCast tknLT vartype tknGT '(' expr ')'   [ZZLOG;] { $$ = ReinterpretCastExpr($3, $6); }
+  | '(' expr ')'                                          [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::PARENTHESIZE, $2); }
+  | tknNew typeidentifier opttypemodifier                 [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::NEW, VarTypeExpr($2, $3)); }
+  | tknNew expr                                           [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::NEW, $2); }
+  | tknNew '(' expr ')' expr %prec tknNew                 [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PLACEMENT_NEW, $3, $5); }
+  | tknScopeResOp tknNew '(' expr ')' expr %prec tknNew   [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::GLOBAL_PLACEMENT_NEW, $4, $6); }
+  | tknDelete  expr                                       [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DELETE, $2); }
+  | tknDelete  '[' ']' expr %prec tknDelete               [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::DELETE_AARAY, $4); }
+  | tknSizeOf '(' vartype ')'                             [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::SIZE_OF, VarTypeExpr($3)); }
+  | tknSizeOf '(' expr ')'                                [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::SIZE_OF, $3); }
+  | tknSizeOf tknEllipsis '(' vartype ')'                 [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC_SIZE_OF, VarTypeExpr($4)); }
+  | tknSizeOf tknEllipsis '(' expr ')'                    [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC_SIZE_OF, $4); }
+  | expr tknEllipsis                                      [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::VARIADIC, $1); }
+  | lambda                                                [ZZLOG;] { $$ = LambdaExpression($1); }
+  /* This is to parse implementation of string user literal, see https://en.cppreference.com/w/cpp/language/user_literal */
+  | tknNumber name                                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::USER_LITERAL, NumberLiteralExpr($1), NameExpr($2)); }
+  /* Objective C expressions */
+  /* This will need improvements, as of now the aim is just to mainly parse C++ content. */
+  | '[' expr expr ']'                                     [ZZLOG;] { $$ = $2; }
+  | '[' expr objcarglist ']'                              [ZZLOG;] { $$ = $2; }
+  ;
 
-                  /* This is to parse implementation of string user literal, see https://en.cppreference.com/w/cpp/language/user_literal */
-                  | tknNumber name                                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::USER_LITERAL, NumberLiteralExpr($1), NameExpr($2));                     }
-                  /* Objective C expressions */
-                  /* This will need improvements, as of now the aim is just to mainly parse C++ content. */
-                  | '[' expr expr ']'                                     [ZZLOG;] { $$ = $2;          }
-                  | '[' expr objcarglist ']'                              [ZZLOG;] { $$ = $2;          }
-                  ;
+objcarg
+  : name ':' expr { $$ = $3; }
+  ;
 
-objcarg           : name ':' expr { $$ = $3; }
-                  ;
+objcarglist
+  : objcarg { $$ = $1; }
+  | objcarglist objcarg { $$ = $1; }
+  ;
 
-objcarglist       : objcarg { $$ = $1; }
-                  | objcarglist objcarg { $$ = $1; }
-                  ;
+exprlist
+  : expr [ZZLOG;] {
+     $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+     $$->emplace_back($1);
+  }
+  | exprlist ',' expr %prec COMMA                         [ZZLOG;] { $1->emplace_back($3); $$ = $1; }
+  | doccommentstr exprlist                                [ZZLOG;] { $$ = $2; }
+  ;
 
-exprlist          : expr                                                  [ZZLOG;] {
-                     $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
-                     $$->emplace_back($1);
-                  }
-                  | exprlist ',' expr %prec COMMA                         [ZZLOG;] { $1->emplace_back($3); $$ = $1;                   }
-                  | doccommentstr exprlist                                [ZZLOG;] { $$ = $2; }
-                  ;
+optexprlist
+  :           [ZZLOG;] { $$ = nullptr; }
+  | exprlist  [ZZLOG;] { $$ = $1; }
+  ;
 
-optexprlist       :           [ZZLOG;] { $$ = nullptr; }
-                  | exprlist  [ZZLOG;] { $$ = $1;      }
-                  ;
+exprorlist
+  : expr                        [ZZLOG;] { $$ = $1; }
+  | exprlist                    [ZZLOG;] { $$ = ExpressionListExpr(Obj($1)); }
+  | doccommentstr exprorlist    [ZZLOG;] { $$ = $2; }
+  ;
 
-exprorlist        : expr                        [ZZLOG;] { $$ = $1; }
-                  | exprlist                    [ZZLOG;] { $$ = ExpressionListExpr(Obj($1)); }
-                  | doccommentstr exprorlist    [ZZLOG;] { $$ = $2; }
-                  ;
-
-optexprorlist     :             [ZZLOG;] { $$ = nullptr; }
-                  | exprorlist  [ZZLOG;] { $$ = $1;      }
-                  ;
+optexprorlist
+  :             [ZZLOG;] { $$ = nullptr; }
+  | exprorlist  [ZZLOG;] { $$ = $1; }
+  ;
 
 /* TODO: Improve lambda capture types. As of now use of use of MonomialExpr and  BinomialExpr are hacks. */
-captureallbyref   : '&'  [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::REFER, NameExpr("")); }
-                  ;
+captureallbyref
+  : '&'  [ZZLOG;] { $$ = MonomialExpr(cppast::CppUnaryOperator::REFER, NameExpr("")); }
+  ;
 
-captureallbyval   : '='  [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::EQUAL, NameExpr(""), NameExpr("")); }
-                  ;
+captureallbyval
+  : '='  [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::EQUAL, NameExpr(""), NameExpr("")); }
+  ;
 
-lambdacapture     : optexprlist        [ZZLOG;] { $$ = nullptr; }
-                  | captureallbyref    [ZZLOG;] { $$ = nullptr; }
-                  | captureallbyval    [ZZLOG;] { $$ = nullptr; }
-                  ;
+lambdacapture
+  : optexprlist        [ZZLOG;] { $$ = nullptr; }
+  | captureallbyref    [ZZLOG;] { $$ = nullptr; }
+  | captureallbyval    [ZZLOG;] { $$ = nullptr; }
+  ;
 
-exprstmt          : expr ';'           [ZZLOG;] { $$ = $1; }
-                  ;
+exprstmt
+  : expr ';'           [ZZLOG;] { $$ = $1; }
+  ;
 
-returnstmt        : tknReturn  exprorlist ';' [ZZLOG;] { $$ = new cppast::CppReturnStatement(Ptr($2));         }
-                  | tknReturn  ';'            [ZZLOG;] { $$ = new cppast::CppReturnStatement();         }
-                  ;
+returnstmt
+  : tknReturn  exprorlist ';' [ZZLOG;] { $$ = new cppast::CppReturnStatement(Ptr($2)); }
+  | tknReturn  ';'            [ZZLOG;] { $$ = new cppast::CppReturnStatement(); }
+  ;
 
-throwstmt         : tknThrow  expr         [ZZLOG;] { $$ = new cppast::CppThrowStatement(Ptr($2));             }
-                  | tknThrow               [ZZLOG;] { $$ = new cppast::CppThrowStatement();             }
-                  ;
+throwstmt
+  : tknThrow  expr         [ZZLOG;] { $$ = new cppast::CppThrowStatement(Ptr($2)); }
+  | tknThrow               [ZZLOG;] { $$ = new cppast::CppThrowStatement(); }
+  ;
 
-gotostmt          : tknGoto expr           [ZZLOG;] { $$ = new cppast::CppGotoStatement(Ptr($2));               }
-                  ;
+gotostmt
+  : tknGoto expr           [ZZLOG;] { $$ = new cppast::CppGotoStatement(Ptr($2)); }
+  ;
 
 %%
 
@@ -2008,11 +2126,12 @@ gotostmt          : tknGoto expr           [ZZLOG;] { $$ = new cppast::CppGotoSt
 
 #include "parser.h"
 
-extern LexerData g;
+  extern LexerData g;
 
 extern const char* contextNameFromState(int ctx);
 
-enum class ParseStatus {
+enum class ParseStatus
+{
   NotAvailable,
   Success,
   Failure
@@ -2022,21 +2141,28 @@ ParseStatus gParseStatus = ParseStatus::NotAvailable;
 
 void defaultErrorHandler(const char* errLineText, size_t lineNum, size_t errorStartPos, int lexerContext)
 {
-  constexpr size_t bufsize = 1024;
-  char spacechars[bufsize] = {0};
-  for(size_t i = 0; i < errorStartPos; ++i)
+  constexpr size_t bufsize             = 1024;
+  char             spacechars[bufsize] = {0};
+  for (size_t i = 0; i < errorStartPos; ++i)
     spacechars[i] = (errLineText[i] == '\t') ? '\t' : ' ';
-  char errmsg[bufsize];
-  const auto* errText = errLineText+errorStartPos;
+  char        errmsg[bufsize];
+  const auto* errText         = errLineText + errorStartPos;
   const auto* strLexerContext = contextNameFromState(lexerContext);
 
-  std::sprintf(errmsg, "Error: Unexpected '%.*s', while in context=%.*s(%d), found at line#%ld\n"
-    "%.*s\n"   // Line that contains the error.
-    "%.*s^\n",  // A ^ below the beginning of unexpected token.
-    static_cast<int>(strlen(errText)), errText,
-    static_cast<int>(strlen(strLexerContext)), strLexerContext, lexerContext, lineNum,
-    static_cast<int>(strlen(errLineText)), errLineText,
-    static_cast<int>(strlen(spacechars)), spacechars);
+  std::sprintf(errmsg,
+               "Error: Unexpected '%.*s', while in context=%.*s(%d), found at line#%ld\n"
+               "%.*s\n"   // Line that contains the error.
+               "%.*s^\n", // A ^ below the beginning of unexpected token.
+               static_cast<int>(strlen(errText)),
+               errText,
+               static_cast<int>(strlen(strLexerContext)),
+               strLexerContext,
+               lexerContext,
+               lineNum,
+               static_cast<int>(strlen(errLineText)),
+               errLineText,
+               static_cast<int>(strlen(spacechars)),
+               spacechars);
 
   printf("%s", errmsg);
 }
@@ -2046,30 +2172,26 @@ ErrorHandler gErrorHandler = defaultErrorHandler;
 /**
  * yyparser() invokes this function when it encounters unexpected token.
  */
-void yyerror_detailed  (  char* text,
-              int errt,
-              YYSTYPE& errt_value,
-              YYPOSN& errt_posn
-            )
+void yyerror_detailed(char* text, int errt, YYSTYPE& errt_value, YYPOSN& errt_posn)
 {
   extern int getLexerContext();
 
   const char* lineStart = errt_posn;
   const char* buffStart = g.mInputBuffer;
-  while(lineStart > buffStart)
+  while (lineStart > buffStart)
   {
-    if(lineStart[-1] == '\n' || lineStart[-1] == '\r')
+    if (lineStart[-1] == '\n' || lineStart[-1] == '\r')
       break;
     --lineStart;
   }
-  char* lineEnd = errt_posn;
-  char endReplaceChar = 0;
-  while(*lineEnd)
+  char* lineEnd        = errt_posn;
+  char  endReplaceChar = 0;
+  while (*lineEnd)
   {
-    if(*lineEnd == '\r' || *lineEnd == '\n')
+    if (*lineEnd == '\r' || *lineEnd == '\n')
     {
       endReplaceChar = *lineEnd;
-      *lineEnd = '\0'; // So that printing of lineStart does not print things beyond current line.
+      *lineEnd       = '\0'; // So that printing of lineStart does not print things beyond current line.
     }
     else
     {
@@ -2079,11 +2201,12 @@ void yyerror_detailed  (  char* text,
   gParseStatus = ParseStatus::Failure;
   gErrorHandler(lineStart, g.mLineNo, errt_posn - lineStart, getLexerContext());
   // Replace back the end char
-  if(endReplaceChar)
+  if (endReplaceChar)
     *lineEnd = endReplaceChar;
 }
 
-enum {
+enum
+{
   kNoLog    = 0x000,
   kLexLog   = 0x001,
   kParseLog = 0x002,
@@ -2094,12 +2217,13 @@ static void setupEnv()
 {
 #if YYDEBUG
   const char* yys = getenv("ZZDEBUG");
-  if (yys) {
+  if (yys)
+  {
     const int yyn = *yys - '0';
 
     gParseLog = ((yyn & kParseLog) ? 1 : 0);
-    g.mLexLog = ((yyn & kLexLog)   ? 1 : 0);
-    yydebug   = ((yyn & kYaccLog)  ? 1 : 0);
+    g.mLexLog = ((yyn & kLexLog) ? 1 : 0);
+    yydebug   = ((yyn & kYaccLog) ? 1 : 0);
   }
 #endif
 }
@@ -2114,6 +2238,18 @@ void resetErrorHandler()
   gErrorHandler = defaultErrorHandler;
 }
 
+int GetKeywordId(const std::string& keyword)
+{
+  static const std::unordered_map<std::string, int> keywordToIdMap = {{"virtual", tknVirtual},
+                                                                      {"final", tknFinal},
+                                                                      {"override", tknOverride},
+                                                                      {"const", tknConst},
+                                                                      {"noexcept", tknNoExcept}};
+
+  auto itr = keywordToIdMap.find(keyword);
+  return (itr != keywordToIdMap.end()) ? itr->second : -1;
+}
+
 std::unique_ptr<CppCompound> parseStream(char* stm, size_t stmSize)
 {
   gProgUnit = nullptr;
@@ -2123,10 +2259,10 @@ std::unique_ptr<CppCompound> parseStream(char* stm, size_t stmSize)
   setupScanBuffer(stm, stmSize);
   setupEnv();
   gTemplateParamStart = nullptr;
-  gParamModPos = nullptr;
-  gInTemplateSpec = false;
-  gDisableYyValid = 0;
-  gParseStatus = ParseStatus::NotAvailable;
+  gParamModPos        = nullptr;
+  gInTemplateSpec     = false;
+  gDisableYyValid     = 0;
+  gParseStatus        = ParseStatus::NotAvailable;
   yyparse();
   cleanupScanBuffer();
   CppCompoundStack tmpStack;

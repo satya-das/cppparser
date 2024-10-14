@@ -7,7 +7,6 @@
 #include "cppast/cpp_entity.h"
 #include "cppast/cpp_expression_operators.h"
 #include "cppast/cpp_expression_type.h"
-#include "cppast/cpp_operator.h"
 #include "cppast/cpp_typecast_type.h"
 #include "cppast/cpp_var_type.h"
 
