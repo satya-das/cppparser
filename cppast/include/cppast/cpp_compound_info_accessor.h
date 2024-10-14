@@ -8,10 +8,6 @@
 //       - Setup clang-tidy to achieve it.
 
 #include "cppast/cpp_compound.h"
-#include "cppast/cpp_entity_info_accessor.h"
-#include "cppast/cppconst.h"
-
-#include <functional>
 
 namespace cppast {
 

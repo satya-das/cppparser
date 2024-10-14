@@ -4,8 +4,6 @@
 #ifndef B3AB0DD0_7FBB_4455_8B74_3DB850581596
 #define B3AB0DD0_7FBB_4455_8B74_3DB850581596
 
-#include "cppast/helper/cpp_entity_cast.h"
-
 #include <type_traits>
 
 namespace cppast::helper {
@@ -26,19 +24,6 @@ public:
   {
   }
 
-  /* TODO: Remove custom cast functions, we can use dynamic_cast and it is simple.
-  template <typename = std::enable_if_t<!std::is_const_v<T>>>
-  CppEntityPtr(CppEntity* entityPtr)
-    : ptr_(cpp_entity_cast<T*>(entityPtr))
-  {
-  }
-
-  template <typename = std::enable_if_t<std::is_const_v<T>>>
-  CppEntityPtr(const CppEntity* entityPtr)
-    : ptr_(cpp_entity_cast<T*>(entityPtr))
-  {
-  }
-  /*/
   CppEntityPtr(CppEntity* entityPtr)
     : ptr_(dynamic_cast<T*>(entityPtr))
   {
