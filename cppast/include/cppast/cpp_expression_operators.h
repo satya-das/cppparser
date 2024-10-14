@@ -55,7 +55,7 @@ enum class CppBinaryOperator : std::uint8_t
   AND_ASSIGN,
   OR_ASSIGN,
   LEFT_SHIFT,
-  INSERTION,
+  INSERTION = LEFT_SHIFT,
   RIGHT_SHIFT,
   EXTRACTION,
   LSHIFT_ASSIGN,

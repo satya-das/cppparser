@@ -22,7 +22,7 @@ I am using it to develop [cib](https://github.com/satya-das/cib/) which implemen
 ## Example
 
 To begin with we will see an example of parsing a hello-world program and see what is the AST that `CppParser` creates:
-!INCLUDECODE "cppparser/test/unit/test-files/hello-world.cpp" (c++)
+!INCLUDECODE "../test/unit/test-files/hello-world.cpp" (c++)
 
 For the above hello-world program we can expect that when it is parsed the generated AST should look like following:
 ![AST for Hello World program](https://github.com/satya-das/cppparser/blob/master/src/readme-assets/HelloWorldAST.svg "AST for Hello World program")
@@ -30,7 +30,7 @@ For the above hello-world program we can expect that when it is parsed the gener
 So, how we are going to access these elements of AST using `CppParser`?
 Below is the program written as unit-test for validating the correctness of generated AST:
 
-!INCLUDECODE "cppparser/test/unit/test-hello-world.cpp" (c++)
+!INCLUDECODE "../test/unit/test-hello-world.cpp" (c++)
 
 **This example is a real one and is part of actual unit test of CppParser**.
 
