@@ -38,7 +38,7 @@ public:
     return expressionType_;
   }
 
-public:
+protected:
   CppExpression(CppExpressionType expressionType)
     : CppEntity(EntityType())
     , expressionType_(expressionType)
@@ -98,7 +98,7 @@ public:
     return _AtomicExprType;
   }
 
-public:
+protected:
   CppAtomicExpressionImplBase()
     : CppAtomicExpression(AtomicExpressionType())
   {
