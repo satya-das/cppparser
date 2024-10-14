@@ -11,20 +11,20 @@ namespace {
 
 static void emitAttribute(std::uint32_t attr, std::ostream& stm)
 {
-  if (attr & cppast::CppIdentifierAttrib::kStatic)
+  if (attr & cppast::CppIdentifierAttrib::STATIC)
     stm << "static ";
-  else if (attr & cppast::CppIdentifierAttrib::kExtern)
+  else if (attr & cppast::CppIdentifierAttrib::EXTERN)
     stm << "extern ";
-  else if (attr & cppast::CppIdentifierAttrib::kExternC)
+  else if (attr & cppast::CppIdentifierAttrib::EXTERN_C)
     stm << "extern C ";
 
-  if (attr & cppast::CppIdentifierAttrib::kConst)
+  if (attr & cppast::CppIdentifierAttrib::CONST)
     stm << "const ";
-  if (attr & cppast::CppIdentifierAttrib::kConstExpr)
+  if (attr & cppast::CppIdentifierAttrib::CONST_EXPR)
     stm << "constexpr ";
-  if (attr & cppast::CppIdentifierAttrib::kVolatile)
+  if (attr & cppast::CppIdentifierAttrib::VOLATILE)
     stm << "volatile ";
-  if (attr & cppast::CppIdentifierAttrib::kMutable)
+  if (attr & cppast::CppIdentifierAttrib::MUTABLE)
     stm << "mutable ";
 }
 
@@ -296,7 +296,7 @@ void CppWriter::emitUsingNamespace(const cppast::CppUsingNamespaceDecl& usingNsO
 
 void CppWriter::emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& stm) const
 {
-  const auto attr = varTypeObj.typeAttr() | (isConst(varTypeObj) ? cppast::CppIdentifierAttrib::kConst : 0);
+  const auto attr = varTypeObj.typeAttr() | (isConst(varTypeObj) ? cppast::CppIdentifierAttrib::CONST : 0);
   emitAttribute(attr, stm);
   if (varTypeObj.compound())
     emit(*varTypeObj.compound(), stm, CppIndent(), true);
@@ -470,7 +470,7 @@ void CppWriter::emitFwdDecl(const cppast::CppForwardClassDecl& fwdDeclObj,
   if (fwdDeclObj.isTemplated())
     emitTemplSpec(fwdDeclObj.templateSpecification().value(), stm, indentation);
   stm << indentation;
-  if (fwdDeclObj.attr() & cppast::CppIdentifierAttrib::kFriend)
+  if (fwdDeclObj.attr() & cppast::CppIdentifierAttrib::FRIEND)
     stm << "friend ";
   if (fwdDeclObj.compoundType() != cppast::CppCompoundType::UNKNOWN)
     stm << fwdDeclObj.compoundType() << ' ';
@@ -539,7 +539,7 @@ void CppWriter::emitCompound(const cppast::CppCompound& compoundObj,
     if (!compoundObj.apidecor().empty())
       stm << compoundObj.apidecor() << ' ';
     stm << compoundObj.name();
-    if (compoundObj.hasAttr(cppast::CppIdentifierAttrib::kFinal))
+    if (compoundObj.hasAttr(cppast::CppIdentifierAttrib::FINAL))
       stm << " final";
   }
   if (!compoundObj.inheritanceList().empty())
@@ -625,27 +625,27 @@ void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
   if (funcObj.isTemplated())
     emitTemplSpec(funcObj.templateSpecification().value(), stm, indentation);
 
-  if ((funcObj.attr() & (cppast::CppIdentifierAttrib::kFuncParam | cppast::CppIdentifierAttrib::kTypedef)) == 0)
+  if ((funcObj.attr() & (cppast::CppIdentifierAttrib::FUNC_PARAM | cppast::CppIdentifierAttrib::TYPEDEF)) == 0)
     stm << indentation;
   if (!funcObj.decor1().empty())
     stm << funcObj.decor1() << ' ';
-  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kStatic))
+  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::STATIC))
     stm << "static ";
-  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kExtern))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::EXTERN))
     stm << "extern ";
-  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kVirtual)
-           && !(funcObj.hasAttr(cppast::CppIdentifierAttrib::kOverride)
-                || funcObj.hasAttr(cppast::CppIdentifierAttrib::kFinal)))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::VIRTUAL)
+           && !(funcObj.hasAttr(cppast::CppIdentifierAttrib::OVERRIDE)
+                || funcObj.hasAttr(cppast::CppIdentifierAttrib::FINAL)))
     stm << "virtual ";
-  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kInline))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::INLINE))
     stm << "inline ";
-  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kExplicit))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::EXPLICIT))
     stm << "explicit ";
-  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kFriend))
+  else if (funcObj.hasAttr(cppast::CppIdentifierAttrib::FRIEND))
     stm << "friend ";
-  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kConstExpr))
+  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::CONST_EXPR))
     stm << "constexpr ";
-  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::kTrailingRet))
+  if (funcObj.hasAttr(cppast::CppIdentifierAttrib::TRAILING_RETURN))
     stm << "auto";
   else if (funcObj.returnType())
     emitVarType(*funcObj.returnType(), stm);
@@ -671,16 +671,16 @@ void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
     emitParamList(params, stm, skipParamName);
   stm << ')';
 
-  if ((funcObj.attr() & cppast::CppIdentifierAttrib::kConst) == cppast::CppIdentifierAttrib::kConst)
+  if ((funcObj.attr() & cppast::CppIdentifierAttrib::CONST) == cppast::CppIdentifierAttrib::CONST)
     stm << " const";
-  if ((funcObj.attr() & cppast::CppIdentifierAttrib::kPureVirtual) == cppast::CppIdentifierAttrib::kPureVirtual)
+  if ((funcObj.attr() & cppast::CppIdentifierAttrib::PURE_VIRTUAL) == cppast::CppIdentifierAttrib::PURE_VIRTUAL)
     stm << " = 0";
-  else if ((funcObj.attr() & cppast::CppIdentifierAttrib::kOverride) == cppast::CppIdentifierAttrib::kOverride)
+  else if ((funcObj.attr() & cppast::CppIdentifierAttrib::OVERRIDE) == cppast::CppIdentifierAttrib::OVERRIDE)
     stm << " override";
-  else if ((funcObj.attr() & cppast::CppIdentifierAttrib::kFinal) == cppast::CppIdentifierAttrib::kFinal)
+  else if ((funcObj.attr() & cppast::CppIdentifierAttrib::FINAL) == cppast::CppIdentifierAttrib::FINAL)
     stm << " final";
 
-  if (funcObj.attr() & cppast::CppIdentifierAttrib::kTrailingRet)
+  if (funcObj.attr() & cppast::CppIdentifierAttrib::TRAILING_RETURN)
   {
     stm << " . ";
     emitVarType(*funcObj.returnType(), stm);
@@ -701,7 +701,7 @@ void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
       stm << --indentation << "}\n";
     }
   }
-  else if (emitNewLine && ((funcObj.attr() & cppast::CppIdentifierAttrib::kFuncParam) == 0))
+  else if (emitNewLine && ((funcObj.attr() & cppast::CppIdentifierAttrib::FUNC_PARAM) == 0))
   {
     stm << ";\n";
   }
@@ -720,7 +720,7 @@ void CppWriter::emitFunctionPtr(const cppast::CppFunctionPointer& funcPtrObj,
                                 bool                              emitNewLine,
                                 CppIndent                         indentation) const
 {
-  if (funcPtrObj.attr() & cppast::CppIdentifierAttrib::kTypedef)
+  if (funcPtrObj.attr() & cppast::CppIdentifierAttrib::TYPEDEF)
     stm << indentation << "typedef ";
   emitFunction((const cppast::CppFunction&) funcPtrObj, stm, emitNewLine, indentation);
 }
@@ -737,9 +737,9 @@ void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,
   stm << indentation;
   if (!ctorObj.decor1().empty())
     stm << ctorObj.decor1() << ' ';
-  if (ctorObj.attr() & cppast::CppIdentifierAttrib::kInline)
+  if (ctorObj.attr() & cppast::CppIdentifierAttrib::INLINE)
     stm << "inline ";
-  else if (ctorObj.attr() & cppast::CppIdentifierAttrib::kExplicit)
+  else if (ctorObj.attr() & cppast::CppIdentifierAttrib::EXPLICIT)
     stm << "explicit ";
   stm << ctorObj.name();
   stm << '(';
@@ -789,11 +789,11 @@ void CppWriter::emitDestructor(const cppast::CppDestructor& dtorObj, std::ostrea
   stm << indentation;
   if (!dtorObj.decor1().empty())
     stm << dtorObj.decor1() << ' ';
-  if (dtorObj.attr() & cppast::CppIdentifierAttrib::kInline)
+  if (dtorObj.attr() & cppast::CppIdentifierAttrib::INLINE)
     stm << "inline ";
-  else if (dtorObj.attr() & cppast::CppIdentifierAttrib::kExplicit)
+  else if (dtorObj.attr() & cppast::CppIdentifierAttrib::EXPLICIT)
     stm << "explicit ";
-  else if (dtorObj.attr() & cppast::CppIdentifierAttrib::kVirtual)
+  else if (dtorObj.attr() & cppast::CppIdentifierAttrib::VIRTUAL)
     stm << "virtual ";
   stm << dtorObj.name() << "()";
 
@@ -818,9 +818,9 @@ void CppWriter::emitTypeConverter(const cppast::CppTypeConverter& typeConverterO
   stm << indentation << "operator ";
   emitVarType(*typeConverterObj.targetType(), stm);
   stm << "()";
-  if (typeConverterObj.attr() & cppast::CppIdentifierAttrib::kConst)
+  if (typeConverterObj.attr() & cppast::CppIdentifierAttrib::CONST)
     stm << " const";
-  if (typeConverterObj.attr() & cppast::CppIdentifierAttrib::kConstExpr)
+  if (typeConverterObj.attr() & cppast::CppIdentifierAttrib::CONST_EXPR)
     stm << " constexpr";
   if (typeConverterObj.defn())
   {

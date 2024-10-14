@@ -231,7 +231,7 @@ inline void CppWriter::emitFunctionPtr(const cppast::CppFunctionPointer& funcPtr
                                        bool                              skipName,
                                        bool                              emitNewLine) const
 {
-  if (funcPtrObj.attr() & cppast::CppIdentifierAttrib::kTypedef)
+  if (funcPtrObj.attr() & cppast::CppIdentifierAttrib::TYPEDEF)
     return; // Typedef of funcptr without name makes no sense.
   emitFunction(funcPtrObj, stm, CppIndent(), skipName, skipName, emitNewLine);
 }

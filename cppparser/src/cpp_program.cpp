@@ -87,7 +87,7 @@ void CppProgram::loadType(const cppast::CppCompound& cppCompound, CppTypeTreeNod
     else if (isFwdClsDecl(mem))
     {
       const auto& fwdCls = static_cast<const cppast::CppForwardClassDecl&>(mem);
-      if (!(fwdCls.attr() & cppast::CppIdentifierAttrib::kFriend))
+      if (!(fwdCls.attr() & cppast::CppIdentifierAttrib::FRIEND))
       {
         CppTypeTreeNode& childNode = typeNode.children[fwdCls.name()];
         childNode.cppEntitySet.insert(&mem);

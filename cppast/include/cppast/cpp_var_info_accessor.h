@@ -99,7 +99,7 @@ inline bool isByRValueRef(const std::unique_ptr<CppVarType>& varType)
 
 inline bool isConst(const CppVarType& varType)
 {
-  return ((varType.typeAttr() & kConst) == kConst) || (varType.typeModifier().constBits_ & 1);
+  return ((varType.typeAttr() & CONST) == CONST) || (varType.typeModifier().constBits_ & 1);
 }
 
 inline bool isConst(const std::unique_ptr<CppVarType>& varType)

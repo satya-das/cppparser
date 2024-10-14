@@ -60,7 +60,7 @@ public:
   }
   void addAttr(std::uint32_t attr)
   {
-    if ((attr & CppIdentifierAttrib::kConst) == 0)
+    if ((attr & CppIdentifierAttrib::CONST) == 0)
       typeAttr_ |= attr;
     else
       typeModifier_.constBits_ |= 1;

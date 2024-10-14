@@ -826,7 +826,7 @@ enumfwddecl
 
 funcptrtypedef
   : tknTypedef functionpointer ';' [ZZVALID;] {
-    $2->addAttr(kTypedef);
+    $2->addAttr(TYPEDEF);
     $$ = $2;
   }
 
@@ -938,7 +938,7 @@ varinit
   }
   | tknConstExpr varinit [ZZLOG;] {
     $$ = $2;
-    $$->addAttr(kConstExpr);
+    $$->addAttr(CONST_EXPR);
   }
   ;
 
@@ -1098,16 +1098,16 @@ typemodifier
   ;
 
 exptype
-  : tknStatic    [ZZLOG;] { $$ = kStatic; }
-  | tknExtern    [ZZLOG;] { $$ = kExtern; }
-  | tknExternC   [ZZLOG;] { $$ = kExternC; }
+  : tknStatic    [ZZLOG;] { $$ = STATIC; }
+  | tknExtern    [ZZLOG;] { $$ = EXTERN; }
+  | tknExternC   [ZZLOG;] { $$ = EXTERN_C; }
   ;
 
 varattrib
-  : tknConst     [ZZLOG;] { $$ = kConst; }
-  | tknVolatile  [ZZLOG;] { $$ = kVolatile; }
-  | tknMutable   [ZZLOG;] { $$ = kMutable; }
-  | tknConstExpr [ZZLOG;] { $$ = kConstExpr; }
+  : tknConst     [ZZLOG;] { $$ = CONST; }
+  | tknVolatile  [ZZLOG;] { $$ = VOLATILE; }
+  | tknMutable   [ZZLOG;] { $$ = MUTABLE; }
+  | tknConstExpr [ZZLOG;] { $$ = CONST_EXPR; }
   ;
 
 typeconverter
@@ -1123,7 +1123,7 @@ typeconverter
   }
   | typeconverter tknConst [ZZLOG;] {
     $$ = $1;
-    $$->addAttr(kConst);
+    $$->addAttr(CONST);
   }
   | apidecor typeconverter [ZZLOG;] {
     $$ = $2;
@@ -1247,17 +1247,17 @@ funcdecl
     $$ = new cppast::CppFunction($2.funcName, Ptr($1), Obj($2.paramList), $2.funcAttr);
   }
   | vartype tknConstExpr funcdecldata [ZZVALID;] {
-    $$ = new cppast::CppFunction($3.funcName, Ptr($1), Obj($3.paramList), $3.funcAttr | kConstExpr);
+    $$ = new cppast::CppFunction($3.funcName, Ptr($1), Obj($3.paramList), $3.funcAttr | CONST_EXPR);
   }
   | tknAuto funcdecldata tknArrow vartype [ZZVALID;] {
-    $$ = new cppast::CppFunction($2.funcName, Ptr($4), Obj($2.paramList), $2.funcAttr | kTrailingRet);
+    $$ = new cppast::CppFunction($2.funcName, Ptr($4), Obj($2.paramList), $2.funcAttr | TRAILING_RETURN);
   }
   | tknAuto tknConstExpr funcdecldata tknArrow vartype [ZZVALID;] {
-    $$ = new cppast::CppFunction($3.funcName, Ptr($5), Obj($3.paramList), $3.funcAttr | kTrailingRet | kConstExpr);
+    $$ = new cppast::CppFunction($3.funcName, Ptr($5), Obj($3.paramList), $3.funcAttr | TRAILING_RETURN | CONST_EXPR);
   }
   | tknConstExpr funcdecl [ZZLOG;] {
     $$ = $2;
-    $$->addAttr(kConstExpr);
+    $$->addAttr(CONST_EXPR);
   }
   | apidecor funcdecl [ZZLOG;] {
     $$ = $2;
@@ -1275,11 +1275,11 @@ funcdecl
   }
   | funcdecl '=' tknDelete [ZZLOG;] {
     $$ = $1;
-    $$->addAttr(kDelete);
+    $$->addAttr(DELETE);
   }
   | funcdecl '=' tknDefault [ZZLOG;] {
     $$ = $1;
-    $$->addAttr(kDefault);
+    $$->addAttr(DEFAULT);
   }
   | funcdecl functhrowspec [ZZLOG;] {
     $$ = $1;
@@ -1378,30 +1378,30 @@ paramlist
   ;
 
 param
-  : varinit                        [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam); }
+  : varinit                        [ZZLOG;] { $$ = $1; $1->addAttr(FUNC_PARAM); }
   | vartype '=' expr [ZZLOG;] {
     auto var = new cppast::CppVar($1, std::string());
-    var->addAttr(kFuncParam);
+    var->addAttr(FUNC_PARAM);
     var->initialize(Ptr($3));
     $$ = var;
   }
-  | vardecl                         [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam); }
+  | vardecl                         [ZZLOG;] { $$ = $1; $1->addAttr(FUNC_PARAM); }
   | vartype [ZZLOG;] {
     auto var = new cppast::CppVar($1, std::string());
-    var->addAttr(kFuncParam);
+    var->addAttr(FUNC_PARAM);
     $$ = var;
   }
-  | funcptrortype                   [ZZLOG;] { $$ = $1; $1->addAttr(kFuncParam); }
+  | funcptrortype                   [ZZLOG;] { $$ = $1; $1->addAttr(FUNC_PARAM); }
   | doccomment param                [ZZLOG;] { $$ = $2; }
   | vartype '[' expr ']' [ZZLOG;] {
     auto var = new cppast::CppVar($1, std::string());
-    var->addAttr(kFuncParam);
+    var->addAttr(FUNC_PARAM);
     var->addArraySize($3);
     $$ = var;
   }
   | vartype '[' ']' [ZZLOG;] {
     auto var = new cppast::CppVar($1, std::string());
-    var->addAttr(kFuncParam);
+    var->addAttr(FUNC_PARAM);
     var->addArraySize(nullptr);
     $$ = var;
   }
@@ -1422,11 +1422,11 @@ templatearglist
 
 functype
   : exptype        [ZZLOG;] { $$ = $1; }
-  | tknInline      [ZZLOG;] { $$ = kInline; }
-  | tknVirtual     [ZZLOG;] { $$ = kVirtual; }
-  | tknExplicit    [ZZLOG;] { $$ = kExplicit; }
-  | tknFriend      [ZZLOG;] { $$ = kFriend; }
-  | tknConstExpr   [ZZLOG;] { $$ = kConstExpr; }
+  | tknInline      [ZZLOG;] { $$ = INLINE; }
+  | tknVirtual     [ZZLOG;] { $$ = VIRTUAL; }
+  | tknExplicit    [ZZLOG;] { $$ = EXPLICIT; }
+  | tknFriend      [ZZLOG;] { $$ = FRIEND; }
+  | tknConstExpr   [ZZLOG;] { $$ = CONST_EXPR; }
   ;
 
 optfunctype
@@ -1435,21 +1435,21 @@ optfunctype
   ;
 
 optfuncattrib
-  : tknConst                      [ZZLOG;] { $$ = kConst; }
-  | tknOverride                   [ZZLOG;] { $$ = kOverride; }
-  | tknFinal                      [ZZLOG;] { $$ = kFinal; }
-  | tknNoExcept                   [ZZLOG;] { $$ = kNoExcept; }
+  : tknConst                      [ZZLOG;] { $$ = CONST; }
+  | tknOverride                   [ZZLOG;] { $$ = OVERRIDE; }
+  | tknFinal                      [ZZLOG;] { $$ = FINAL; }
+  | tknNoExcept                   [ZZLOG;] { $$ = NO_EXCEPT; }
   | '=' tknNumber  [if($2.len != 1 || $2.sz[0] != '0') YYABORT; else ZZVALID;] [ZZLOG;]
   {
-    $$ = kPureVirtual;
+    $$ = PURE_VIRTUAL;
   }
-  | optfuncattrib tknConst        [ZZLOG;] { $$ = $1 | kConst; }
-  | optfuncattrib tknOverride     [ZZLOG;] { $$ = $1 | kOverride; }
-  | optfuncattrib tknFinal        [ZZLOG;] { $$ = $1 | kFinal; }
-  | optfuncattrib tknNoExcept     [ZZLOG;] { $$ = $1 | kNoExcept; }
+  | optfuncattrib tknConst        [ZZLOG;] { $$ = $1 | CONST; }
+  | optfuncattrib tknOverride     [ZZLOG;] { $$ = $1 | OVERRIDE; }
+  | optfuncattrib tknFinal        [ZZLOG;] { $$ = $1 | FINAL; }
+  | optfuncattrib tknNoExcept     [ZZLOG;] { $$ = $1 | NO_EXCEPT; }
   | optfuncattrib '=' tknNumber   [if($3.len != 1 || $3.sz[0] != '0') YYABORT; else ZZVALID;]
   {
-    $$ = $1 | kPureVirtual;
+    $$ = $1 | PURE_VIRTUAL;
   }
   | tknMacro                      [ZZLOG;] { $$ = 0; } /* Ignore macros used as function attributes */
   ;
@@ -1542,11 +1542,11 @@ ctordecl
   }
   | ctordecl '=' tknDelete [ZZLOG;] {
     $$ = $1;
-    $$->addAttr(kDelete);
+    $$->addAttr(DELETE);
   }
   | ctordecl '=' tknDefault [ZZLOG;] {
     $$ = $1;
-    $$->addAttr(kDefault);
+    $$->addAttr(DEFAULT);
   }
   | ctordecl functhrowspec [ZZLOG;] {
     $$ = $1;
@@ -1554,7 +1554,7 @@ ctordecl
   }
   | ctordecl tknNoExcept [ZZLOG;] {
     $$ = $1;
-    $$->addAttr(kNoExcept);
+    $$->addAttr(NO_EXCEPT);
   }
   | apidecor ctordecl [ZZLOG;] {
     $$ = $2;
@@ -1650,15 +1650,15 @@ dtordecl
   | dtordecl '=' tknNumber    [ZZLOG;]
   {
     $$ = $1;
-    $$->addAttr(kPureVirtual);
+    $$->addAttr(PURE_VIRTUAL);
   }
   | dtordecl '=' tknDelete [ZZLOG;] {
     $$ = $1;
-    $$->addAttr(kDelete);
+    $$->addAttr(DELETE);
   }
   | dtordecl '=' tknDefault [ZZLOG;] {
     $$ = $1;
-    $$->addAttr(kDefault);
+    $$->addAttr(DEFAULT);
   }
   | dtordecl functhrowspec [ZZLOG;] {
     $$ = $1;
@@ -1763,7 +1763,7 @@ namespacedefn
 
 optfinal
   :          [ZZLOG;] { $$ = 0; }
-  | tknFinal [ZZLOG;] { $$ = kFinal; }
+  | tknFinal [ZZLOG;] { $$ = FINAL; }
   ;
 
 optinheritlist
@@ -1803,8 +1803,8 @@ fwddecl
     $$ = $2;
     $$->templateSpecification(Obj($1));
   }
-  | tknFriend typeidentifier ';'  [ZZVALID;] { $$ = new cppast::CppForwardClassDecl($2); $$->addAttr(kFriend); }
-  | tknFriend fwddecl             [ZZVALID;] { $$ = $2; $$->addAttr(kFriend); }
+  | tknFriend typeidentifier ';'  [ZZVALID;] { $$ = new cppast::CppForwardClassDecl($2); $$->addAttr(FRIEND); }
+  | tknFriend fwddecl             [ZZVALID;] { $$ = $2; $$->addAttr(FRIEND); }
   ;
 
 classspecifier

@@ -14,35 +14,35 @@ namespace cppast {
 
 inline bool isConst(const CppFunctionBase& func)
 {
-  return (func.attr() & kConst) == kConst;
+  return (func.attr() & CONST) == CONST;
 }
 inline bool isVirtual(const CppFunctionBase& func)
 {
-  return (func.attr() & (kVirtual | kOverride)) == kVirtual;
+  return (func.attr() & (VIRTUAL | OVERRIDE)) == VIRTUAL;
 }
 inline bool isPureVirtual(const CppFunctionBase& func)
 {
-  return (func.attr() & kPureVirtual) == kPureVirtual;
+  return (func.attr() & PURE_VIRTUAL) == PURE_VIRTUAL;
 }
 inline bool isStatic(const CppFunctionBase& func)
 {
-  return (func.attr() & kStatic) == kStatic;
+  return (func.attr() & STATIC) == STATIC;
 }
 inline bool isInline(const CppFunctionBase& func)
 {
-  return (func.attr() & kInline) == kInline;
+  return (func.attr() & INLINE) == INLINE;
 }
 inline bool isOverride(const CppFunctionBase& func)
 {
-  return (func.attr() & kOverride) == kOverride;
+  return (func.attr() & OVERRIDE) == OVERRIDE;
 }
 inline bool isDeleted(const CppFunctionBase& func)
 {
-  return (func.attr() & kDelete) == kDelete;
+  return (func.attr() & DELETE) == DELETE;
 }
 inline bool isFinal(const CppFunctionBase& func)
 {
-  return (func.attr() & kFinal) == kFinal;
+  return (func.attr() & FINAL) == FINAL;
 }
 
 inline std::vector<const CppEntity*> GetAllParams(const CppFuncCtorBase& func)
