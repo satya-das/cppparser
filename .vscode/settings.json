@@ -1,6 +1,8 @@
 {
   "files.associations": {
     "*.mdpp": "markdown",
+    "*.i": "Swig interface",
+    "*.cmake": "cmake",
     "array": "cpp",
     "atomic": "cpp",
     "hash_map": "cpp",
@@ -64,7 +66,24 @@
     "bitset": "cpp",
     "regex": "cpp",
     "iomanip": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "strstream": "cpp",
+    "cfenv": "cpp",
+    "complex": "cpp",
+    "typeindex": "cpp",
+    "csignal": "cpp",
+    "*.ipp": "cpp",
+    "bit": "cpp",
+    "compare": "cpp",
+    "concepts": "cpp",
+    "__bit_reference": "cpp",
+    "__bits": "cpp",
+    "__config": "cpp",
+    "__debug": "cpp",
+    "__split_buffer": "cpp",
+    "__tuple": "cpp",
+    "__verbose_abort": "cpp"
   },
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "sonarlint.pathToCompileCommands": "${workspaceFolder}/build/compile_commands.json"
 }

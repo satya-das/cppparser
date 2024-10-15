@@ -35,7 +35,7 @@ int main()
 ```
 
 For the above hello-world program we can expect that when it is parsed the generated AST should look like following:
-![AST for Hello World program](https://github.com/satya-das/cppparser/blob/master/src/readme-assets/HelloWorldAST.svg "AST for Hello World program")
+![AST for Hello World program](https://github.com/satya-das/cppparser/blob/master/cppparser/src/readme-assets/HelloWorldAST.svg "AST for Hello World program")
 
 So, how we are going to access these elements of AST using `CppParser`?
 Below is the program written as unit-test for validating the correctness of generated AST:
@@ -43,7 +43,7 @@ Below is the program written as unit-test for validating the correctness of gene
 ```c++
 #include <catch/catch.hpp>
 
-#include "cppparser.h"
+#include "cppparser/cppparser.h"
 
 #include <boost/filesystem.hpp>
 
@@ -51,29 +51,29 @@ namespace fs = boost::filesystem;
 
 TEST_CASE("Parsing hello world program")
 {
-  CppParser  parser;
-  const auto testFilePath = fs::path(__FILE__).parent_path() / "test-files/hello-world.cpp";
-  const auto ast          = parser.parseFile(testFilePath.string());
-  REQUIRE(ast != nullptr);
+  cppparser::CppParser parser;
+  const auto           testFilePath = fs::path(__FILE__).parent_path() / "test-files/hello-world.cpp";
+  const auto           ast          = parser.parseFile(testFilePath.string());
+  REQUIRE(ast);
 
-  const auto& members = ast->members();
+  const auto members = GetAllOwnedEntities(*ast);
   REQUIRE(members.size() == 2);
 
-  CppIncludeEPtr hashInclude = members[0];
+  const cppast::CppConstPreprocessorIncludeEPtr hashInclude = members[0];
   REQUIRE(hashInclude);
-  CHECK(hashInclude->name_ == "<iostream>");
+  CHECK(hashInclude->name() == "<iostream>");
 
-  CppFunctionEPtr func = members[1];
+  cppast::CppConstFunctionEPtr func = members[1];
   REQUIRE(func);
-  CHECK(func->name_ == "main");
+  CHECK(func->name() == "main");
 
   REQUIRE(func->defn());
-  const auto& mainBodyMembers = func->defn()->members();
+  const auto mainBodyMembers = GetAllOwnedEntities(*func->defn());
   REQUIRE(mainBodyMembers.size() == 2);
 
-  CppExprEPtr coutHelloWorld = mainBodyMembers[0];
+  cppast::CppConstBinomialExprEPtr coutHelloWorld = mainBodyMembers[0];
   REQUIRE(coutHelloWorld);
-  CHECK(coutHelloWorld->oper_ == CppOperator::kInsertion);
+  CHECK(coutHelloWorld->oper() == cppast::CppBinaryOperator::INSERTION);
 }
 
 ```
