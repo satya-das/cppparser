@@ -6,8 +6,6 @@
 
 #include <memory>
 
-// TODO: run valgrind to check memory leaks
-
 template <typename T>
 auto Ptr(T* p)
 {
