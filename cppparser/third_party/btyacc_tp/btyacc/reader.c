@@ -2010,6 +2010,39 @@ void print_grammar()
 	putc('\n', f); }
 }
 
+void print_grammar_ebnf()
+{
+    register int i, j, k, skip_rule;
+    int spacing = 0;
+    register FILE *f = ebnf_file;
+    const char *name;
+
+    if (!ebnfflag) return;
+    
+    fprintf(f, "\n//EBNF to create railroad diagram\n");
+
+    k = 1;
+    for (i = 2; i < nrules; ++i) {
+        name = symbol_name[rlhs[i]];
+        skip_rule = name[0] == '$';
+        if(!skip_rule) {
+            if (rlhs[i] != rlhs[i-1]) {
+                if (i != 2) fprintf(f, "\n");
+                fprintf(f, "%s ::=", name);
+                spacing = strlen(name) + 1; }
+            else {
+                j = spacing;
+                while (--j >= 0) putc(' ', f);
+                putc('|', f); }
+        }
+	while (ritem[k] >= 0) {
+	    if(!skip_rule && symbol_name[ritem[k]][0] != '$') fprintf(f, " %s", symbol_name[ritem[k]]);
+	    ++k; }
+	++k;
+	putc('\n', f); }
+    fputs("\n", f);
+}
+
 extern int read_errs;
 
 void reader() {
@@ -2027,5 +2060,6 @@ void reader() {
   free_tags();
   pack_grammar();
   free_symbols();
+  print_grammar_ebnf();
   print_grammar();
 }

@@ -23,8 +23,13 @@ btyacc is backwards compatible with the POSIX yacc specification in
 IEEE 1003.2.  A copy of the relevant specification may be available at
 ftp://ftp.fi.netbsd.org/ftp/pub/doc/posix/p1003.2/d11.2/a.3
 
-http://www.siber.com/btyacc/ is the current home of BtYacc.
-It is provided courtesy of Siber Systems http://www.siber.com/.
+http://www.siber.com/btyacc/ is an old home of BtYacc, but appears
+to no longer be active.  It was provided courtesy of Siber Systems
+http://www.siber.com/.
+
+The current version of btyacc can be accessed at
+https://github.com/ChrisDodd/btyacc
+
 
 		Building BtYacc
 		---------------

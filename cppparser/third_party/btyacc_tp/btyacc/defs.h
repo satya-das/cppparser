@@ -69,6 +69,7 @@ typedef int Yshort;
 #define CODE_SUFFIX     ".code.c"
 #endif /* MSDOS */
 #define VERBOSE_SUFFIX  ".output"
+#define EBNF_SUFFIX     ".ebnf"
 
 /* keyword codes */
 
@@ -254,6 +255,7 @@ extern char rflag;
 extern char tflag;
 extern char vflag;
 extern char include_defines;
+extern char ebnfflag;
 
 extern char *myname;
 extern char *symbol_prefix;
@@ -278,6 +280,7 @@ extern FILE *output_file;
 extern FILE *text_file;
 extern FILE *union_file;
 extern FILE *verbose_file;
+extern FILE *ebnf_file;
 
 extern int nitems;
 extern int nrules;
@@ -534,6 +537,7 @@ void check_symbols(void);
 void pack_symbols(void);
 void pack_grammar(void);
 void print_grammar(void);
+void print_grammar_ebnf(void);
 void reader(void);
 
 /* readskel.c */

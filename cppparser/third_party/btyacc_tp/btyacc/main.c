@@ -1,13 +1,18 @@
 #include "defs.h"
 #include <signal.h>
 #include <stdio.h>
+#ifdef _WIN32
+#include <io.h>
+#else
 #include <unistd.h>
+#endif
 
 char dflag;
 char lflag;
 char rflag;
 char tflag;
 char vflag;
+char ebnfflag;
 int Eflag = 0;
 
 char *symbol_prefix = "yy";
@@ -33,6 +38,7 @@ char *output_file_name;
 char *text_file_name;
 char *union_file_name;
 char *verbose_file_name;
+char *ebnf_file_name;
 
 FILE *action_file;	/*  a temp file, used to save actions associated    */
 			/*  with rules until the parser is written	    */
@@ -45,6 +51,7 @@ FILE *union_file;	/*  a temp file, used to save the union		    */
 			/*  definition until all symbol have been	    */
 			/*  defined					    */
 FILE *verbose_file;	/*  y.output					    */
+FILE *ebnf_file;	/*  y.ebnf					    */
 
 int nitems;
 int nrules;
@@ -101,7 +108,7 @@ void set_signals()
 
 void usage()
 {
-    fprintf(stderr, "usage: %s [-dlrtv] [-b file_prefix] [-S skeleton file] "
+    fprintf(stderr, "usage: %s [-delrtv] [-b file_prefix] [-S skeleton file] "
 		    "[-p symbol_prefix] filename\n", myname);
     exit(1);
 }
@@ -167,6 +174,10 @@ void getargs(int argc, char **argv)
 	    }
 	    continue;
 
+	case 'e':
+	    ebnfflag = 1;
+	    break;
+
 	case 'E':
 	    Eflag = 1;
 	    break;
@@ -213,6 +224,10 @@ void getargs(int argc, char **argv)
 
 	    case 'd':
 		dflag = 1;
+		break;
+
+	    case 'e':
+		ebnfflag = 1;
 		break;
 
 	    case 'l':
@@ -375,6 +390,15 @@ void create_file_names()
 	strcpy(defines_file_name + len, DEFINES_SUFFIX);
     }
 
+    if (ebnfflag)
+    {
+	ebnf_file_name = MALLOC(len + 8);
+	if (ebnf_file_name == 0)
+	    no_space();
+	strcpy(ebnf_file_name, file_prefix);
+	strcpy(ebnf_file_name + len, EBNF_SUFFIX);
+    }
+
     if (vflag)
     {
 	verbose_file_name = MALLOC(len + 8);
@@ -403,6 +427,13 @@ void open_files()
 	verbose_file = fopen(verbose_file_name, "w");
 	if (verbose_file == 0)
 	    open_error(verbose_file_name);
+    }
+
+    if (ebnfflag)
+    {
+	ebnf_file = fopen(ebnf_file_name, "w");
+	if (ebnf_file == 0)
+	    open_error(ebnf_file_name);
     }
 
     if (dflag)
