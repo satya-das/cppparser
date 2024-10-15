@@ -8,7 +8,6 @@ add_subdirectory(third_party/btyacc_tp)
 
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 
-# TODO: Use submodule rather than using files outside of project's root.
 add_subdirectory(../../common/third_party/boost_tp/cmake  ${CMAKE_BINARY_DIR}/boost)
 
 include_directories(../../common/third_party)
