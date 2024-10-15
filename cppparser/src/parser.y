@@ -2270,9 +2270,5 @@ std::unique_ptr<CppCompound> parseStream(char* stm, size_t stmSize)
   std::unique_ptr<CppCompound> ret(gProgUnit);
   gProgUnit = nullptr;
 
-  // TODO: Make better error  handling
-  /* if (gParseStatus == ParseStatus::Failure)
-    throw std::runtime_error("Parsing error"); */
-
   return ret;
 }

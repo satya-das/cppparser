@@ -54,11 +54,6 @@ public:
   {
     return *varType_;
   }
-  // TODO: Do we need it?
-  void varType(std::unique_ptr<CppVarType> _varType)
-  {
-    varType_ = std::move(_varType);
-  }
 
   const std::string& name() const
   {
