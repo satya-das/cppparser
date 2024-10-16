@@ -1993,8 +1993,6 @@ expr
   | expr tknMulEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::MUL_ASSIGN, $1, $3); }
   | expr tknDivEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::DIV_ASSIGN, $1, $3); }
   | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::PERCENT_ASSIGN, $1, $3); }
-  | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_AND_ASSIGN, $1, $3); }
-  | expr tknPerEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::LOGICAL_OR_ASSIGN, $1, $3); }
   | expr tknXorEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::XOR_ASSIGN, $1, $3); }
   | expr tknAndEq expr                        [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::AND_ASSIGN, $1, $3); }
   | expr tknOrEq expr                         [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::OR_ASSIGN, $1, $3); }

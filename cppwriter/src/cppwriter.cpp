@@ -1063,8 +1063,6 @@ void CppWriter::emitBinomialExpr(const cppast::CppBinomialExpr& expr, std::ostre
   case cppast::CppBinaryOperator::LESS_EQUAL:               emitExpr(expr.term1(), stm); stm << " <= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::GREATER_EQUAL:            emitExpr(expr.term1(), stm); stm << " >= "; emitExpr(expr.term2(), stm); break;
 
-  case cppast::CppBinaryOperator::LOGICAL_AND_ASSIGN:       emitExpr(expr.term1(), stm); stm << " &&= "; emitExpr(expr.term2(), stm); break;
-  case cppast::CppBinaryOperator::LOGICAL_OR_ASSIGN:        emitExpr(expr.term1(), stm); stm << " ||= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::LSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " <<= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::RSHIFT_ASSIGN:            emitExpr(expr.term1(), stm); stm << " >>= "; emitExpr(expr.term2(), stm); break;
   case cppast::CppBinaryOperator::THREE_WAY_CMP:            emitExpr(expr.term1(), stm); stm << " <=> "; emitExpr(expr.term2(), stm); break;

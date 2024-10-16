@@ -49,8 +49,6 @@ enum class CppBinaryOperator : std::uint8_t
   MUL_ASSIGN,
   DIV_ASSIGN,
   PERCENT_ASSIGN,
-  LOGICAL_AND_ASSIGN,
-  LOGICAL_OR_ASSIGN,
   XOR_ASSIGN,
   AND_ASSIGN,
   OR_ASSIGN,
