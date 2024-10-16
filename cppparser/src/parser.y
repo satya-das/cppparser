@@ -908,6 +908,12 @@ vardecllist
     var2.addArraySize($7);
     $$ = new cppast::CppVarList($2, CppVarDeclInList($4, std::move(var2)));
   }
+  | vardecllist ',' opttypemodifier name '[' expr ']' [ZZLOG;] {
+    $$ = $1;
+    CppVarDecl var2($4);
+    var2.addArraySize($6);
+    $$->addVarDecl(CppVarDeclInList($3, std::move(var2)));
+  }
   | optfunctype vardecl ',' opttypemodifier name ':' expr [ZZLOG;] {
     $2->addAttr($1);
     $$ = new cppast::CppVarList($2, CppVarDeclInList($4, CppVarDecl{$5}));

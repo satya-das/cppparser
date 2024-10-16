@@ -8,6 +8,7 @@
 #include "cppast/cpp_enum.h"
 #include "cppast/cpp_function.h"
 #include "cppast/cpp_type_modifier.h"
+#include "cppast/cpp_var_type.h"
 #include "cppast/cppconst.h"
 
 #include <string>

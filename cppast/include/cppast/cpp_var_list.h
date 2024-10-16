@@ -5,6 +5,7 @@
 #define E9679E26_EB4E_4C8F_952F_FEDCCFB07380
 
 #include "cppast/cpp_entity.h"
+#include "cppast/cpp_var.h"
 
 namespace cppast {
 
