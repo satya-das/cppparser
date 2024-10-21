@@ -251,7 +251,7 @@ using namespace cppast;
 %type  <str>                optapidecor apidecor apidecortokensq
 %type  <str>                identifier optidentifier numbertype typeidentifier varidentifier optname id name operfuncname funcname
 %type  <str>                templidentifier templqualifiedid
-%type  <str>                doccommentstr
+%type  <str>                doccommentstr optdoccommentstr
 %type  <str>                rshift
 %type  <str>                macrocall
 %type  <cppEntity>          stmt
@@ -673,6 +673,11 @@ pragma
 
 doccomment
   : doccommentstr                               [ZZLOG;]  { $$ = new cppast::CppDocumentationComment((std::string) $1); }
+  ;
+
+optdoccommentstr
+  :               [ZZLOG;] { $$ = CppToken{nullptr, 0}; }
+  | doccommentstr [ZZLOG;] { $$ = $1; }
   ;
 
 doccommentstr
@@ -2068,8 +2073,9 @@ exprlist
      $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
      $$->emplace_back($1);
   }
-  | exprlist ',' expr %prec COMMA                         [ZZLOG;] { $1->emplace_back($3); $$ = $1; }
-  | doccommentstr exprlist                                [ZZLOG;] { $$ = $2; }
+  | exprlist optdoccommentstr ',' optdoccommentstr expr %prec COMMA [ZZLOG;] { $1->emplace_back($5); $$ = $1; }
+  | doccommentstr exprlist [ZZLOG;] { $$ = $2; }
+  | exprlist doccommentstr [ZZLOG;] { $$ = $1; }
   ;
 
 optexprlist
