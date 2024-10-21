@@ -227,7 +227,7 @@ using namespace cppast;
 %token  <str>   tknLShift tknRShift tknLShiftEq tknRShiftEq tknCmpEq tknNotEq tknLessEq tknGreaterEq
 %token  <str>   tkn3WayCmp tknAnd tknOr tknInc tknDec tknArrow tknArrowStar
 %token  <str>   tknLT tknGT // We will need the position of these operators in stream when used for declaring template instance.
-%token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';'
+%token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';' '.'
 %token  <str>   tknNew tknDelete
 %token  <str>   tknConst tknConstExpr // For templatearg parsing it is made as str type.
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
@@ -249,7 +249,7 @@ using namespace cppast;
 
 %type  <str>                strlit
 %type  <str>                optapidecor apidecor apidecortokensq
-%type  <str>                identifier optidentifier numbertype typeidentifier varidentifier optname id name operfuncname funcname
+%type  <str>                identifier optidentifier numbertype typeidentifier varidentifier optname id name designatedname operfuncname funcname
 %type  <str>                templidentifier templqualifiedid
 %type  <str>                doccommentstr optdoccommentstr
 %type  <str>                rshift
@@ -278,7 +278,7 @@ using namespace cppast;
 %type  <templateParamList>  templatespecifier templateparamlist
 %type  <templateParam>      templateparam
 %type  <docCommentObj>      doccomment
-%type  <cppExprObj>         expr exprstmt optexpr lambdacapture captureallbyref captureallbyval exprorlist optexprorlist
+%type  <cppExprObj>         expr exprstmt optexpr lambdacapture captureallbyref captureallbyval exprorlist optexprorlist desinatedinitialization
 %type  <exprList>           exprlist optexprlist
 %type  <cppExprObj>         objcarg objcarglist
 %type  <cppLambda>          lambda
@@ -746,6 +746,10 @@ templqualifiedid
 
 name
   : tknName  [ZZLOG; $$ = $1;] {}
+  ;
+
+designatedname
+  : '.' name [ZZLOG;] {$$ = mergeCppToken($1, $2);}
   ;
 
 id
@@ -2073,9 +2077,18 @@ exprlist
      $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
      $$->emplace_back($1);
   }
+  | desinatedinitialization [ZZLOG;] {
+     $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+     $$->emplace_back($1);
+  }
   | exprlist optdoccommentstr ',' optdoccommentstr expr %prec COMMA [ZZLOG;] { $1->emplace_back($5); $$ = $1; }
+  | exprlist optdoccommentstr ',' optdoccommentstr desinatedinitialization %prec COMMA [ZZLOG;] { $1->emplace_back($5); $$ = $1; }
   | doccommentstr exprlist [ZZLOG;] { $$ = $2; }
   | exprlist doccommentstr [ZZLOG;] { $$ = $1; }
+  ;
+
+desinatedinitialization
+  : designatedname '=' expr [ZZLOG;] { $$ = BinomialExpr(cppast::CppBinaryOperator::ASSIGN, NameExpr($1), $3); }
   ;
 
 optexprlist
