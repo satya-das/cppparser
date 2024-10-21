@@ -27,7 +27,7 @@ To begin with we will see an example of parsing a hello-world program and see wh
 
 int main()
 {
-  std::cout << "Hello World!\n";
+  std::cout << "Hello, World!\n";
 
   return 0;
 }
@@ -74,6 +74,14 @@ TEST_CASE("Parsing hello world program")
   cppast::CppConstBinomialExprEPtr coutHelloWorld = mainBodyMembers[0];
   REQUIRE(coutHelloWorld);
   CHECK(coutHelloWorld->oper() == cppast::CppBinaryOperator::INSERTION);
+
+  cppast::CppConstNameExprEPtr coutOperand1 = &(coutHelloWorld->term1());
+  REQUIRE(coutOperand1);
+  CHECK(coutOperand1->value() == "std::cout");
+
+  cppast::CppConstStringLiteralExprEPtr coutOperand2 = &(coutHelloWorld->term2());
+  REQUIRE(coutOperand2);
+  CHECK(coutOperand2->value() == "\"Hello, World!\\n\"");
 }
 
 ```
