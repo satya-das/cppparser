@@ -59,7 +59,7 @@ protected:
    */
   std::string getTestSnippetParseStream(int lastSnippetBeforeLineNum) const
   {
-    return getTestSnippet(lastSnippetBeforeLineNum).append(3, '\0');
+    return getTestSnippet(lastSnippetBeforeLineNum).append(2, '\0');
   }
 };
 

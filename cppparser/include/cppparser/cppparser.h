@@ -45,6 +45,13 @@ public:
 
 public:
   std::unique_ptr<cppast::CppCompound> parseFile(const std::string& filename);
+  /**
+   * @brief Parses the given stream and returns the AST.
+   * @param stm The stream to parse.
+   * @param stmSize The size of the stream.
+   * @return The AST.
+   * @warning The stream \a stm must terminate with double null characters, i.e. the last 2 bytes must be '\0'.
+   */
   std::unique_ptr<cppast::CppCompound> parseStream(char* stm, size_t stmSize);
 
   void setErrorHandler(ErrorHandler errorHandler);

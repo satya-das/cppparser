@@ -111,8 +111,8 @@ std::unique_ptr<cppast::CppCompound> CppParser::parseFile(const std::string& fil
 
 std::unique_ptr<cppast::CppCompound> CppParser::parseStream(char* stm, size_t stmSize)
 {
-  if (stm == nullptr || stmSize == 0)
-    return nullptr;
+  if ((stm == nullptr) || (stmSize < 2) || (stm[stmSize - 1] != '\0') || (stm[stmSize - 2] != '\0'))
+    throw std::invalid_argument("Stream must be valid and it must terminate with double null characters");
   return ::parseStream(stm, stmSize);
 }
 
