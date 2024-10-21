@@ -2253,7 +2253,28 @@ int GetKeywordId(const std::string& keyword)
                                                                       {"final", tknFinal},
                                                                       {"override", tknOverride},
                                                                       {"const", tknConst},
-                                                                      {"noexcept", tknNoExcept}};
+                                                                      {"noexcept", tknNoExcept},
+                                                                      {"inline", tknInline},
+                                                                      {"explicit", tknExplicit},
+                                                                      {"friend", tknFriend},
+                                                                      {"public", tknPublic},
+                                                                      {"protected", tknProtected},
+                                                                      {"private", tknPrivate},
+                                                                      {"struct", tknStruct},
+                                                                      {"class", tknClass},
+                                                                      {"union", tknUnion},
+                                                                      {"namespace", tknNamespace},
+                                                                      {"typename", tknTypename},
+                                                                      {"template", tknTemplate},
+                                                                      {"extern", tknExtern},
+                                                                      {"extern", tknExtern},
+                                                                      {"static", tknStatic},
+                                                                      {"auto", tknAuto},
+                                                                      {"mutable", tknMutable},
+                                                                      {"volatile", tknVolatile},
+                                                                      {"constexpr", tknConstExpr},
+                                                                      {"constexpr", tknConstExpr},
+                                                                      {"typedef", tknTypedef}};
 
   auto itr = keywordToIdMap.find(keyword);
   return (itr != keywordToIdMap.end()) ? itr->second : -1;
