@@ -11,6 +11,7 @@
 #include <set>
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 // Unfortunately parser is not reentrant and has no way as of now to inject parameters.
 // So, we need globals.

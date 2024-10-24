@@ -14,7 +14,7 @@ For this very reason this file does not use any class that are defined in cppast
 
 %{
 // C++17 causes problem when register is used and flex uses register in generated code
-#define register
+// #define register
 
 #include "cpptoken.h"
 #include "parser.l.h"
@@ -238,7 +238,6 @@ static void updateMacroDependence()
 %option stack
 %option noyy_top_state
 %option noyywrap
-%option nounistd
 
 /************************************************************************/
 

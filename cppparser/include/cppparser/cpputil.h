@@ -4,12 +4,12 @@
 #ifndef FF2B85CA_C19B_482E_9B0F_5F098BF974A1
 #define FF2B85CA_C19B_482E_9B0F_5F098BF974A1
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 #include "cppast/cppast.h"
 #include "cppconst.h"
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 using CppProgFileSelecter = std::function<bool(const std::string&)>;
 

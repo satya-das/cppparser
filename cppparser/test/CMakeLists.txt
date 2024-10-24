@@ -15,9 +15,7 @@ target_link_libraries(cppparsertest
 	PRIVATE
 		cppparser
 		cppwriter
-		boost_filesystem
 		boost_program_options
-		boost_system
 )
 
 set(E2E_TEST_DIR ${CMAKE_CURRENT_LIST_DIR}/e2e)
@@ -58,9 +56,6 @@ target_include_directories(cppparserunittest
 target_link_libraries(cppparserunittest
 	PRIVATE
 		cppparser
-		boost_filesystem
-		boost_program_options
-		boost_system
 )
 set(UNIT_TEST_DIR ${CMAKE_CURRENT_LIST_DIR}/unit)
 add_test(
@@ -88,12 +83,18 @@ target_compile_definitions(cppparserembeddedsnippetvalidity
 target_link_libraries(cppparserembeddedsnippetvalidity
 	PRIVATE
 		cppparser
-		boost_filesystem
-		boost_program_options
-		boost_system
 )
 
-if(NOT MSVC)
+if(MSVC)
+	target_compile_options(cppparserembeddedsnippetvalidity
+		PRIVATE
+			# Igbore warning related to test snippets
+			/wd\"4101\"
+			/wd\"4552\"
+			/wd\"5030\"
+	)
+
+else()
 	target_compile_options(cppparserembeddedsnippetvalidity
 		PRIVATE
 			-Wno-unused-variable

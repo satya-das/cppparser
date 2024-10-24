@@ -6,12 +6,13 @@
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 #include <boost/program_options.hpp>
 #include <boost/system/config.hpp>
 
-namespace bfs = boost::filesystem;
+namespace fs = std::filesystem;
 namespace bpo = boost::program_options;
 
 template <typename _Itr1, typename _Itr2, typename _Pr>
@@ -71,7 +72,7 @@ enum FileCompareResult
   kDifferentFiles
 };
 
-inline FileCompareResult compareFiles(const bfs::path& path1, const bfs::path& path2, std::pair<int, int>& diffStartsAt)
+inline FileCompareResult compareFiles(const fs::path& path1, const fs::path& path2, std::pair<int, int>& diffStartsAt)
 {
   std::ifstream file1(path1.string(), std::ios_base::in);
   std::ifstream file2(path2.string(), std::ios_base::in);
@@ -87,8 +88,8 @@ inline FileCompareResult compareFiles(const bfs::path& path1, const bfs::path& p
 }
 
 inline void reportFileComparisonError(FileCompareResult    result,
-                                      const bfs::path&     path1,
-                                      const bfs::path&     path2,
+                                      const fs::path&     path1,
+                                      const fs::path&     path2,
                                       std::pair<int, int>& diffStartsAt)
 {
   if (result == kFailedToOpen1stFile)

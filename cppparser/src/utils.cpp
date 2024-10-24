@@ -4,12 +4,12 @@
 #include "utils.h"
 #include "cppparser/string-utils.h"
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
 #include <cassert>
 #include <fstream>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
 {

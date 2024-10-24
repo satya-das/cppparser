@@ -40,12 +40,14 @@ TEST_CASE_METHOD(InitializerListTest, "docstr in middle", "[initializerlist]")
 TEST_CASE_METHOD(InitializerListTest, "designated initializer", "[initializerlist]")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
+# if EVADE_COMPILER
   struct Point
   {
     int x;
     int y;
   };
   Point p = {.x = 4, .y = 0};
+# endif
 #endif
   auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
 
@@ -54,8 +56,8 @@ TEST_CASE_METHOD(InitializerListTest, "designated initializer", "[initializerlis
   REQUIRE(ast != nullptr);
 
   const auto members = GetAllOwnedEntities(*ast);
-  REQUIRE(members.size() == 2);
-  cppast::CppConstVarEPtr var = members[1];
+  REQUIRE(members.size() == 4);
+  cppast::CppConstVarEPtr var = members[2];
   REQUIRE(var);
   cppast::CppConstInitializerListExprEPtr assignExpr = var->assignValue();
   REQUIRE(assignExpr);

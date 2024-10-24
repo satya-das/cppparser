@@ -60,19 +60,18 @@ set(CPPPARSER_SOURCES
 )
 
 add_library(cppparser STATIC ${CPPPARSER_SOURCES})
-add_dependencies(cppparser btyacc boost_filesystem boost_program_options)
+add_dependencies(cppparser btyacc)
 target_link_libraries(cppparser
 	PUBLIC
 		cppast
-		boost_filesystem
-		boost_program_options
-		boost_system
 )
 target_include_directories(cppparser
 	PUBLIC
 		include
 		src
 		../../common/third_party/boost_tp
+	PRIVATE
+		src/win_hack
 )
 target_compile_definitions(cppparser
 	PRIVATE
