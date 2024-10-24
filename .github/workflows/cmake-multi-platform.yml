@@ -48,7 +48,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Setup
-      run: git clone git@github.com:satya-das/common.git ../common
+      run: git clone https://github.com/satya-das/common.git ../common
 
     - name: Set reusable strings
       # Turn repeated input strings (such as the build output directory) into step outputs. These step outputs can be used throughout the workflow file.
