@@ -19,6 +19,7 @@ parser.tab.*
 [Rr]elease/
 x64/
 build/
+build.*/
 builds/
 [Bb]in/
 [Oo]bj/

@@ -5,6 +5,7 @@
 #define B1A7BAF0_1D5C_4F41_9DF8_07895208C0BC
 
 #include <memory>
+#include <stdexcept>
 
 template <typename T>
 auto Ptr(T* p)
