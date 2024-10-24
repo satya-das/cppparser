@@ -14,7 +14,6 @@
 #include <boost/program_options.hpp>
 #include <boost/system/config.hpp>
 
-
 #include <filesystem>
 
 namespace fs = std::filesystem;
@@ -24,8 +23,8 @@ namespace bpo = boost::program_options;
 //////////////////////////////////////////////////////////////////////////
 
 static bool parseAndEmitFormatted(cppparser::CppParser&        parser,
-                                  const fs::path&             inputFilePath,
-                                  const fs::path&             outputFilePath,
+                                  const fs::path&              inputFilePath,
+                                  const fs::path&              outputFilePath,
                                   const cppcodegen::CppWriter& cppWriter)
 {
   auto progUnit = parser.parseFile(inputFilePath.string().c_str());
@@ -61,17 +60,17 @@ static std::pair<size_t, size_t> performTest(cppparser::CppParser& parser, const
        ++dirItr)
   {
     cppcodegen::CppWriter cppWriter;
-    fs::path             file = *dirItr;
+    fs::path              file = *dirItr;
     if (fs::is_regular_file(file))
     {
       ++numInputFiles;
       std::cout << "CppParserTest: Parsing " << file.string() << " ...\n";
-      auto      fileRelPath = file.string().substr(inputPathLen);
-      fs::path outfile     = params.outputPath / fileRelPath;
+      const auto fileRelPath = file.string().substr(inputPathLen + 1);
+      fs::path   outfile     = params.outputPath / fileRelPath;
       fs::remove(outfile);
       if (parseAndEmitFormatted(parser, file, outfile, cppWriter) && fs::exists(outfile))
       {
-        fs::path           masfile = params.masterPath / fileRelPath;
+        fs::path            masfile = params.masterPath / fileRelPath;
         std::pair<int, int> diffStartInfo;
         auto                rez = compareFiles(outfile, masfile, diffStartInfo);
         if (rez == kSameFiles)
