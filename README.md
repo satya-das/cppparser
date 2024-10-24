@@ -1,7 +1,7 @@
 CppParser
 =========
 
-[![Build Status](https://travis-ci.com/satya-das/cppparser.svg?branch=master)](https://travis-ci.com/satya-das/cppparser)
+[![Build Status](https://github.com/satya-das/cppparser/actions/workflows/cmake-multi-platform.yml/badge.svg?event=push)](https://github.com/satya-das/cppparser/actions/workflows/cmake-multi-platform.yml)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2a1f6c5c8c149be816f1514ec491c98)](https://www.codacy.com/app/satya-das/cppparser?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=satya-das/cppparser&amp;utm_campaign=Badge_Grade)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
@@ -45,9 +45,9 @@ Below is the program written as unit-test for validating the correctness of gene
 
 #include "cppparser/cppparser.h"
 
-#include <boost/filesystem.hpp>
+#include <filesystem>
 
-namespace fs = boost::filesystem;
+namespace fs = std::filesystem;
 
 TEST_CASE("Parsing hello world program")
 {
