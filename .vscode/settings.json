@@ -82,7 +82,10 @@
     "__debug": "cpp",
     "__split_buffer": "cpp",
     "__tuple": "cpp",
-    "__verbose_abort": "cpp"
+    "__verbose_abort": "cpp",
+    "__threading_support": "cpp",
+    "ios": "cpp",
+    "locale": "cpp"
   },
   "git.ignoreLimitWarning": true,
   "sonarlint.pathToCompileCommands": "${workspaceFolder}/build/compile_commands.json"
