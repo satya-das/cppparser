@@ -128,8 +128,8 @@ public:
 
 private:
   const std::unique_ptr<CppEntity>           start_;
-  const std::unique_ptr<const CppExpression> step_;
   const std::unique_ptr<const CppExpression> stop_;
+  const std::unique_ptr<const CppExpression> step_;
   const std::unique_ptr<CppEntity>           body_;
 };
 
