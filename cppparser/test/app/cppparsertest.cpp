@@ -12,7 +12,6 @@
 #include <utility>
 
 #include <boost/program_options.hpp>
-#include <boost/system/config.hpp>
 
 #include <filesystem>
 

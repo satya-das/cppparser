@@ -4,15 +4,14 @@
 #ifndef E6050C6F_BFEC_4B71_9B13_0EFF19B45EB4
 #define E6050C6F_BFEC_4B71_9B13_0EFF19B45EB4
 
+#include <fstream>
 #include <iostream>
 #include <sstream>
-#include <fstream>
 
-#include <filesystem>
 #include <boost/program_options.hpp>
-#include <boost/system/config.hpp>
+#include <filesystem>
 
-namespace fs = std::filesystem;
+namespace fs  = std::filesystem;
 namespace bpo = boost::program_options;
 
 template <typename _Itr1, typename _Itr2, typename _Pr>
@@ -88,8 +87,8 @@ inline FileCompareResult compareFiles(const fs::path& path1, const fs::path& pat
 }
 
 inline void reportFileComparisonError(FileCompareResult    result,
-                                      const fs::path&     path1,
-                                      const fs::path&     path2,
+                                      const fs::path&      path1,
+                                      const fs::path&      path2,
                                       std::pair<int, int>& diffStartsAt)
 {
   if (result == kFailedToOpen1stFile)
