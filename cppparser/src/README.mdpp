@@ -34,6 +34,8 @@ Below is the program written as unit-test for validating the correctness of gene
 
 **This example is a real one and is part of actual unit test of CppParser**.
 
+For AST traversing, see the [CppWriter](cppwriter), that uses the generated AST to create files.
+
 ## Building CppParser
 
 ### Get the source

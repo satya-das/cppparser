@@ -88,6 +88,8 @@ TEST_CASE("Parsing hello world program")
 
 **This example is a real one and is part of actual unit test of CppParser**.
 
+For AST traversing, see the [CppWriter](cppwriter), that uses the generated AST to create files.
+
 ## Building CppParser
 
 ### Get the source
