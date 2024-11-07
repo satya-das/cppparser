@@ -846,7 +846,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   RETURN(tknUndef);
 }
 
-<ctxPreprocessor>include/{WS} {
+<ctxPreprocessor>include/{TS} {
   LOG();
   ENDCONTEXT();
   setupToken();
