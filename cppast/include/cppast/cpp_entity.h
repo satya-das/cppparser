@@ -21,12 +21,6 @@ class CppCompound;
 class CppEntity : public CppAttributeSpecifierSequenceContainer
 {
 public:
-  class UserData
-  {
-  public:
-    virtual ~UserData() = default;
-  };
-
 public:
   virtual ~CppEntity() = default;
 
@@ -39,21 +33,6 @@ public:
   const CppCompound* owner() const
   {
     return owner_;
-  }
-
-  void userData(std::unique_ptr<UserData> data)
-  {
-    userData_ = std::move(data);
-  }
-
-  UserData* userData()
-  {
-    return userData_.get();
-  }
-
-  const UserData* userData() const
-  {
-    return userData_.get();
   }
 
 protected:
@@ -71,9 +50,8 @@ private:
   friend class CppCompound;
 
 private:
-  const CppEntityType       entityType_;
-  const CppCompound*        owner_ {nullptr};
-  std::unique_ptr<UserData> userData_;
+  const CppEntityType entityType_;
+  const CppCompound*  owner_ {nullptr};
 };
 
 } // namespace cppast
