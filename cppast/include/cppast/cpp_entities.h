@@ -25,7 +25,6 @@
 #include "cppast/cpp_preprocessor_unrecognized.h"
 #include "cppast/cpp_preprocessor_warning.h"
 #include "cppast/cpp_return_statement.h"
-#include "cppast/cpp_template_arg.h"
 #include "cppast/cpp_throw_statement.h"
 #include "cppast/cpp_try_block.h"
 #include "cppast/cpp_type_alias.h"

@@ -129,6 +129,12 @@ extern int yylex();
 
 using namespace cppast;
 
+// FIXME: Improve template arg parsing.
+// Template argument needs more robust support.
+// As of now we are treating them just as string.
+// But for parsing we need to have a type.
+class CppTemplateArg;
+
 %}
 
 %union {
@@ -170,7 +176,7 @@ using namespace cppast;
   bool                                             inheritType;
   std::vector<std::string>*                        identifierList;
   std::vector<std::string>*                        funcThrowSpec;
-  cppast::CppTemplateArg*                          templateArg;
+  class CppTemplateArg*                            templateArg;
   cppast::CppAsmBlock*                             asmBlock;
   cppast::CppCompoundType                          compoundType;
   unsigned short                                   ptrLevel;
