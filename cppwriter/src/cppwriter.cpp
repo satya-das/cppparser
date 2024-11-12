@@ -9,7 +9,7 @@ namespace cppcodegen {
 
 namespace {
 
-static void emitAttribute(std::uint32_t attr, std::ostream& stm)
+static void EmitAttribute(std::uint32_t attr, std::ostream& stm)
 {
   if (attr & cppast::CppIdentifierAttrib::STATIC)
     stm << "static ";
@@ -28,7 +28,7 @@ static void emitAttribute(std::uint32_t attr, std::ostream& stm)
     stm << "mutable ";
 }
 
-static void emitTypeModifier(const cppast::CppTypeModifier& modifier, std::ostream& stm)
+static void EmitTypeModifier(const cppast::CppTypeModifier& modifier, std::ostream& stm)
 {
   std::uint8_t constBit = 0;
   for (constBit = 0; constBit < modifier.ptrLevel_; ++constBit)
@@ -297,7 +297,7 @@ void CppWriter::emitUsingNamespace(const cppast::CppUsingNamespaceDecl& usingNsO
 void CppWriter::emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& stm) const
 {
   const auto attr = varTypeObj.typeAttr() | (IsConst(varTypeObj) ? cppast::CppIdentifierAttrib::CONST : 0);
-  emitAttribute(attr, stm);
+  EmitAttribute(attr, stm);
   if (varTypeObj.compound())
     emit(*varTypeObj.compound(), stm, CppIndent(), true);
   else
@@ -305,7 +305,7 @@ void CppWriter::emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& 
   const auto&                   origTypeModifier = varTypeObj.typeModifier();
   const cppast::CppTypeModifier typeModifier {
     origTypeModifier.refType_, origTypeModifier.ptrLevel_, origTypeModifier.constBits_ & ~1};
-  emitTypeModifier(typeModifier, stm);
+  EmitTypeModifier(typeModifier, stm);
   if (varTypeObj.parameterPack())
     stm << "...";
 }
@@ -378,7 +378,7 @@ void CppWriter::emitVarList(const cppast::CppVarList& varListObj, std::ostream& 
   {
     stm << ", ";
     const auto& decl = varDeclList[i];
-    emitTypeModifier(decl, stm);
+    EmitTypeModifier(decl, stm);
     emitVarDecl(stm, decl, false);
   }
 

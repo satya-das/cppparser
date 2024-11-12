@@ -17,5 +17,6 @@ target_include_directories(cppast
 	PUBLIC
 		include
 )
+set_target_properties(cppast PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 
 add_subdirectory(test)

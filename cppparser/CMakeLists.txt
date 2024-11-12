@@ -86,5 +86,4 @@ target_link_libraries(cppparser
 		cppparser_lex_and_yacc
 )
 
-set(CLANG_TIDY_COMMAND "clang-tidy" "--config-file=${CMAKE_CURRENT_SOURCE_DIR}/../.clang-tidy")
 set_target_properties(cppparser PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")

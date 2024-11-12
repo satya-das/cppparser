@@ -12,3 +12,4 @@ target_link_libraries(cppwriter
   PUBLIC
     cppast
 )
+set_target_properties(cppwriter PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
