@@ -99,9 +99,9 @@ public:
   {
     return varDecl_.bitField();
   }
-  void bitField(std::unique_ptr<const CppExpression> _bitField)
+  void bitField(std::unique_ptr<const CppExpression> bitFieldArg)
   {
-    varDecl_.bitField(std::move(_bitField));
+    varDecl_.bitField(std::move(bitFieldArg));
   }
 
   const CppArraySizes& arraySizes() const
@@ -117,9 +117,9 @@ public:
   {
     return apidecor_;
   }
-  void apidecor(std::string _apidecor)
+  void apidecor(std::string apidecorArg)
   {
-    apidecor_ = std::move(_apidecor);
+    apidecor_ = std::move(apidecorArg);
   }
 
 private:

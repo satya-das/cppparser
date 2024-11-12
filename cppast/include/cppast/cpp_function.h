@@ -26,18 +26,18 @@ public:
   {
     return throwSpec_;
   }
-  void throwSpec(std::vector<std::string> _throwSpec)
+  void throwSpec(std::vector<std::string> throwSpecArg)
   {
-    throwSpec_ = std::move(_throwSpec);
+    throwSpec_ = std::move(throwSpecArg);
   }
 
   const CppCompound* defn() const
   {
     return defn_.get();
   }
-  void defn(std::unique_ptr<CppCompound> _defn)
+  void defn(std::unique_ptr<CppCompound> defnArg)
   {
-    defn_ = std::move(_defn);
+    defn_ = std::move(defnArg);
   }
 
 protected:
@@ -63,31 +63,31 @@ public:
   {
     return attr_;
   }
-  void addAttr(std::uint32_t _attr)
+  void addAttr(std::uint32_t attrArg)
   {
-    attr_ |= _attr;
+    attr_ |= attrArg;
   }
-  bool hasAttr(std::uint32_t _attr) const
+  bool hasAttr(std::uint32_t attrArg) const
   {
-    return ((attr_ & _attr) == _attr);
+    return ((attr_ & attrArg) == attrArg);
   }
 
   const std::string& decor1() const
   {
     return decor1_;
   }
-  void decor1(std::string _decor)
+  void decor1(std::string decorArg)
   {
-    decor1_ = std::move(_decor);
+    decor1_ = std::move(decorArg);
   }
 
   const std::string& decor2() const
   {
     return decor2_;
   }
-  void decor2(std::string _decor)
+  void decor2(std::string decorArg)
   {
-    decor2_ = std::move(_decor);
+    decor2_ = std::move(decorArg);
   }
 
 protected:

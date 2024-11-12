@@ -11,7 +11,7 @@ extern std::set<std::string>      gUndefinedNames;
 extern std::set<std::string>      gIgnorableMacroNames;
 extern std::map<std::string, int> gRenamedKeywords;
 
-MacroDefineInfo getMacroDefineInfo(const std::string& id)
+MacroDefineInfo GetMacroDefineInfo(const std::string& id)
 {
   if (gUndefinedNames.count(id))
     return MacroDefineInfo::kUndefined;
@@ -22,7 +22,7 @@ MacroDefineInfo getMacroDefineInfo(const std::string& id)
   return MacroDefineInfo::kNoInfo;
 }
 
-std::optional<int> getIdValue(const std::string& id)
+std::optional<int> GetIdValue(const std::string& id)
 {
   if (gUndefinedNames.count(id))
     return std::nullopt;

@@ -115,9 +115,9 @@ public:
   {
     return bitField_.get();
   }
-  void bitField(std::unique_ptr<const CppExpression> _bitField)
+  void bitField(std::unique_ptr<const CppExpression> bitFieldArg)
   {
-    bitField_ = std::move(_bitField);
+    bitField_ = std::move(bitFieldArg);
   }
 
   const CppArraySizes& arraySizes() const

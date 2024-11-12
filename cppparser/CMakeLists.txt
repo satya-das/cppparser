@@ -48,14 +48,33 @@ add_custom_command(
 	DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.l ${CMAKE_CURRENT_SOURCE_DIR}/src/parser.tab.h
 )
 
-set(CPPPARSER_SOURCES
-	src/cpp_program.cpp
-	src/cppparser.cpp
-	src/lexer-helper.cpp
+add_library(cppparser_lex_and_yacc OBJECT
 	src/parser.l
 	src/parser.y
 	src/parser.lex.cpp
 	src/parser.tab.cpp
+)
+target_link_libraries(cppparser_lex_and_yacc
+	PUBLIC
+		cppast
+)
+target_include_directories(cppparser_lex_and_yacc
+	PUBLIC
+		include
+		src
+		../../common/third_party/boost_tp
+	PRIVATE
+		src/win_hack
+)
+target_compile_definitions(cppparser_lex_and_yacc
+	PRIVATE
+		YY_NO_UNPUT
+)
+
+set(CPPPARSER_SOURCES
+	src/cpp_program.cpp
+	src/cppparser.cpp
+	src/lexer-helper.cpp
 	src/utils.cpp
 )
 
@@ -64,16 +83,8 @@ add_dependencies(cppparser btyacc)
 target_link_libraries(cppparser
 	PUBLIC
 		cppast
+		cppparser_lex_and_yacc
 )
-target_include_directories(cppparser
-	PUBLIC
-		include
-		src
-		../../common/third_party/boost_tp
-	PRIVATE
-		src/win_hack
-)
-target_compile_definitions(cppparser
-	PRIVATE
-		YY_NO_UNPUT
-)
+
+set(CLANG_TIDY_COMMAND "clang-tidy" "--config-file=${CMAKE_CURRENT_SOURCE_DIR}/../.clang-tidy")
+set_target_properties(cppparser PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")

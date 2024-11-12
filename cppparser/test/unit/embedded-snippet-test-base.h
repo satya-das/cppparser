@@ -18,7 +18,7 @@ class EmbeddedSnippetTestBase
 
 protected:
   EmbeddedSnippetTestBase(const std::string& testProgramFile)
-    : testProgramFileContent(readFile(testProgramFile))
+    : testProgramFileContent(ReadFile(testProgramFile))
     , reverseContent(testProgramFileContent.rbegin(), testProgramFileContent.rend())
   {
   }

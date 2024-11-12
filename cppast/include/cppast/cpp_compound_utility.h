@@ -51,9 +51,9 @@ inline std::vector<const CppEntity*> GetAllOwnedEntities(const CppCompound& owne
  */
 inline std::string FullName(const CppCompound& compound)
 {
-  if (!isNamespaceLike(compound))
+  if (!IsNamespaceLike(compound))
     return "";
-  if (compound.owner() && isNamespaceLike(*compound.owner()))
+  if (compound.owner() && IsNamespaceLike(*compound.owner()))
     return FullName(*compound.owner()) + "::" + compound.name();
   else
     return compound.name();

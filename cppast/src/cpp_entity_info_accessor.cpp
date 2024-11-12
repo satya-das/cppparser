@@ -5,9 +5,9 @@
 
 namespace cppast {
 
-bool isClassLike(const CppEntity& cppEntity)
+bool IsClassLike(const CppEntity& cppEntity)
 {
-  if (!isCompound(cppEntity))
+  if (!IsCompound(cppEntity))
     return false;
   const auto& compound = static_cast<const CppCompound&>(cppEntity);
   return (compound.compoundType() >= CppCompoundType::CLASS) && (compound.compoundType() <= CppCompoundType::UNION);

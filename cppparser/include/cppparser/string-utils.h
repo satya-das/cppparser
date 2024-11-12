@@ -8,19 +8,19 @@
 #include <cstring>
 #include <string>
 
-inline size_t stripChar(char* s, size_t len, char c)
+inline size_t StripChar(char* s, size_t len, char c)
 {
   auto* end = std::remove(s, s + len, c);
   return end - s;
 }
 
-inline void stripChar(std::string& s, char c)
+inline void StripChar(std::string& s, char c)
 {
-  auto len = stripChar(&s[0], s.length(), c);
+  auto len = StripChar(&s[0], s.length(), c);
   s.resize(len);
 }
 
-inline std::string& trimBlob(std::string& s)
+inline std::string& TrimBlob(std::string& s)
 {
   auto len = s.size();
 
@@ -46,9 +46,9 @@ inline std::string& trimBlob(std::string& s)
 }
 
 //! strips new-line char and collapses multiple white chars.
-inline std::string& cleanseIdentifier(std::string& id)
+inline std::string& CleanseIdentifier(std::string& id)
 {
-  stripChar(id, '\n');
+  StripChar(id, '\n');
   auto end = std::unique(id.begin(), id.end(), [](char c1, char c2) {
     return ((c1 == ' ' && c2 == ' ') || (c1 == '\t' && c2 == '\t') || (c1 == ' ' && c2 == '\t')
             || (c1 == '\t' && c2 == ' '));

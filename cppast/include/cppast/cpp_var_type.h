@@ -43,9 +43,9 @@ public:
   {
     return baseType_;
   }
-  void baseType(std::string _baseType)
+  void baseType(std::string baseTypeArg)
   {
-    baseType_ = std::move(_baseType);
+    baseType_ = std::move(baseTypeArg);
   }
   const CppEntity* compound() const
   {

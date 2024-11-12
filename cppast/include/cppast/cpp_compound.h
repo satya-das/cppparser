@@ -103,9 +103,9 @@ public:
   {
     return name_;
   }
-  void name(std::string _name)
+  void name(std::string nameArg)
   {
-    name_ = std::move(_name);
+    name_ = std::move(nameArg);
   }
 
   const std::string& apidecor() const
@@ -121,19 +121,19 @@ public:
   {
     return inheritanceList_;
   }
-  void inheritanceList(std::list<CppInheritanceInfo> _inheritanceList)
+  void inheritanceList(std::list<CppInheritanceInfo> inheritanceListArg)
   {
-    inheritanceList_ = std::move(_inheritanceList);
+    inheritanceList_ = std::move(inheritanceListArg);
   }
 
-  void addAttr(std::uint32_t _attr)
+  void addAttr(std::uint32_t attrArg)
   {
-    attr_ |= _attr;
+    attr_ |= attrArg;
   }
 
-  bool hasAttr(std::uint32_t _attr) const
+  bool hasAttr(std::uint32_t attrArg) const
   {
-    return (attr_ & _attr) == _attr;
+    return (attr_ & attrArg) == attrArg;
   }
 
 private:

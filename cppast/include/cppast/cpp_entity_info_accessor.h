@@ -11,99 +11,99 @@
 
 namespace cppast {
 
-inline bool isFunction(const CppEntity& cppEntity)
+inline bool IsFunction(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::FUNCTION;
 }
 
-inline bool isFunction(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsFunction(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isFunction(*cppEntity);
+  return IsFunction(*cppEntity);
 }
 
-inline bool isFunctionPtr(const CppEntity& cppEntity)
+inline bool IsFunctionPtr(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::FUNCTION_PTR;
 }
 
-inline bool isFunctionPtr(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsFunctionPtr(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isFunctionPtr(*cppEntity);
+  return IsFunctionPtr(*cppEntity);
 }
 
-inline bool isFunctionLike(const CppEntity& cppEntity)
+inline bool IsFunctionLike(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::FUNCTION || cppEntity.entityType() == CppEntityType::CONSTRUCTOR
          || cppEntity.entityType() == CppEntityType::DESTRUCTOR
          || cppEntity.entityType() == CppEntityType::TYPE_CONVERTER;
 }
 
-inline bool isFunctionLike(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsFunctionLike(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isFunctionLike(*cppEntity);
+  return IsFunctionLike(*cppEntity);
 }
 
-inline bool isDestructor(const CppEntity& cppEntity)
+inline bool IsDestructor(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::DESTRUCTOR;
 }
 
-inline bool isDestructor(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsDestructor(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isDestructor(*cppEntity);
+  return IsDestructor(*cppEntity);
 }
 
-inline bool isEnum(const CppEntity& cppEntity)
+inline bool IsEnum(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::ENUM;
 }
 
-inline bool isEnum(const std::unique_ptr<CppEntity> cppEntity)
+inline bool IsEnum(const std::unique_ptr<CppEntity> cppEntity)
 {
-  return isEnum(*cppEntity);
+  return IsEnum(*cppEntity);
 }
 
-inline bool isTypedefName(const CppEntity& cppEntity)
+inline bool IsTypedefName(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::TYPEDEF_DECL;
 }
 
-inline bool isTypedefName(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsTypedefName(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isTypedefName(*cppEntity);
+  return IsTypedefName(*cppEntity);
 }
 
-inline bool isUsingDecl(const CppEntity& cppEntity)
+inline bool IsUsingDecl(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::USING_DECL;
 }
 
-inline bool isUsingDecl(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsUsingDecl(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isUsingDecl(*cppEntity);
+  return IsUsingDecl(*cppEntity);
 }
 
-inline bool isCompound(const CppEntity& cppEntity)
+inline bool IsCompound(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::COMPOUND;
 }
 
-inline bool isCompound(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsCompound(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isCompound(*cppEntity);
+  return IsCompound(*cppEntity);
 }
 
-inline bool isFwdClsDecl(const CppEntity& cppEntity)
+inline bool IsFwdClsDecl(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::FORWARD_CLASS_DECL;
 }
 
-inline bool isFwdClsDecl(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsFwdClsDecl(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isFwdClsDecl(*cppEntity);
+  return IsFwdClsDecl(*cppEntity);
 }
 
-inline bool isNamespaceLike(const CppEntity& cppEntity)
+inline bool IsNamespaceLike(const CppEntity& cppEntity)
 {
   const helper::CppEntityPtr<const CppCompound> compound = &cppEntity;
   if (!compound)
@@ -115,74 +115,74 @@ inline bool isNamespaceLike(const CppEntity& cppEntity)
          && (compound->compoundType() <= CppCompoundType::UNION);
 }
 
-inline bool isNamespaceLike(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsNamespaceLike(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isNamespaceLike(*cppEntity);
+  return IsNamespaceLike(*cppEntity);
 }
 
-bool isClassLike(const CppEntity& cppEntity);
+bool IsClassLike(const CppEntity& cppEntity);
 
-inline bool isClassLike(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsClassLike(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isClassLike(*cppEntity);
+  return IsClassLike(*cppEntity);
 }
 
-inline bool isTypedefLike(const CppEntity& cppEntity)
+inline bool IsTypedefLike(const CppEntity& cppEntity)
 {
   return (cppEntity.entityType() == CppEntityType::TYPEDEF_DECL)
          || (cppEntity.entityType() == CppEntityType::USING_DECL);
 }
 
-inline bool isTypedefLike(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsTypedefLike(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isTypedefLike(*cppEntity);
+  return IsTypedefLike(*cppEntity);
 }
 
-inline bool isPreProcessorType(const CppEntity& cppEntity)
+inline bool IsPreProcessorType(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::PREPROCESSOR;
 }
 
-inline bool isPreProcessorType(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsPreProcessorType(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isPreProcessorType(*cppEntity);
+  return IsPreProcessorType(*cppEntity);
 }
 
-inline bool isVar(const CppEntity& cppEntity)
+inline bool IsVar(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::VAR;
 }
 
-inline bool isVar(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsVar(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isVar(*cppEntity);
+  return IsVar(*cppEntity);
 }
 
-inline bool isVarList(const CppEntity& cppEntity)
+inline bool IsVarList(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::VAR_LIST;
 }
 
-inline bool isVarList(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsVarList(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isVarList(*cppEntity);
+  return IsVarList(*cppEntity);
 }
 
-inline bool isExpr(const CppEntity& cppEntity)
+inline bool IsExpr(const CppEntity& cppEntity)
 {
   return cppEntity.entityType() == CppEntityType::EXPRESSION;
 }
 
-inline bool isExpr(const std::unique_ptr<CppEntity>& cppEntity)
+inline bool IsExpr(const std::unique_ptr<CppEntity>& cppEntity)
 {
-  return isExpr(*cppEntity);
+  return IsExpr(*cppEntity);
 }
 
-inline CppCompound* root(const CppEntity& cppEntity)
+inline CppCompound* Root(const CppEntity& cppEntity)
 {
   if (cppEntity.owner() == nullptr)
-    return isCompound(cppEntity) ? const_cast<CppCompound*>(static_cast<const CppCompound*>(&cppEntity)) : nullptr;
-  return root(*cppEntity.owner());
+    return IsCompound(cppEntity) ? const_cast<CppCompound*>(static_cast<const CppCompound*>(&cppEntity)) : nullptr;
+  return Root(*cppEntity.owner());
 }
 
 } // namespace cppast

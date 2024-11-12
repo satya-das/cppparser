@@ -15,9 +15,9 @@
 using ErrorHandler =
   std::function<void(const char* errLineText, size_t lineNum, size_t errorStartPos, int lexerContext)>;
 
-void setErrorHandler(ErrorHandler errorHandler);
-void resetErrorHandler();
+void SetErrorHandler(ErrorHandler errorHandler);
+void ResetErrorHandler();
 
-std::unique_ptr<cppast::CppCompound> parseStream(char* stm, size_t stmSize);
+std::unique_ptr<cppast::CppCompound> ParseStream(char* stm, size_t stmSize);
 
 #endif /* BD166B6E_821D_49A3_9593_70C58C59558D */

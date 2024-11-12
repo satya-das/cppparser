@@ -40,14 +40,14 @@ TEST_CASE_METHOD(InitializerListTest, "docstr in middle", "[initializerlist]")
 TEST_CASE_METHOD(InitializerListTest, "designated initializer", "[initializerlist]")
 {
 #if TEST_CASE_SNIPPET_STARTS_FROM_NEXT_LINE
-# if EVADE_COMPILER
+#  if EVADE_COMPILER
   struct Point
   {
     int x;
     int y;
   };
   Point p = {.x = 4, .y = 0};
-# endif
+#  endif
 #endif
   auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
 

@@ -49,9 +49,9 @@ class CppIfBlock : public CppControlBlockBase<CppEntityType::IF_BLOCK>
 public:
   CppIfBlock(std::unique_ptr<CppEntity> cond,
              std::unique_ptr<CppEntity> body,
-             std::unique_ptr<CppEntity> _else = nullptr)
+             std::unique_ptr<CppEntity> elseArg = nullptr)
     : CppControlBlockBase(std::move(cond), std::move(body))
-    , else_(std::move(_else))
+    , else_(std::move(elseArg))
   {
   }
 

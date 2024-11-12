@@ -9,9 +9,9 @@
 #include <algorithm>
 #include <map>
 #include <set>
+#include <stdexcept>
 #include <string>
 #include <vector>
-#include <stdexcept>
 
 // Unfortunately parser is not reentrant and has no way as of now to inject parameters.
 // So, we need globals.
@@ -102,8 +102,8 @@ void CppParser::parseFunctionBodyAsBlob(bool asBlob)
 
 std::unique_ptr<cppast::CppCompound> CppParser::parseFile(const std::string& filename)
 {
-  auto stm         = readFile(filename);
-  auto cppCompound = parseStream(stm.data(), stm.size());
+  auto stm         = ReadFile(filename);
+  auto cppCompound = ParseStream(stm.data(), stm.size());
   if (!cppCompound)
     return cppCompound;
   cppCompound->name(filename);
@@ -114,17 +114,17 @@ std::unique_ptr<cppast::CppCompound> CppParser::parseStream(char* stm, size_t st
 {
   if ((stm == nullptr) || (stmSize < 2) || (stm[stmSize - 1] != '\0') || (stm[stmSize - 2] != '\0'))
     throw std::invalid_argument("Stream must be valid and it must terminate with double null characters");
-  return ::parseStream(stm, stmSize);
+  return ::ParseStream(stm, stmSize);
 }
 
 void CppParser::setErrorHandler(ErrorHandler errorHandler)
 {
-  ::setErrorHandler(errorHandler);
+  ::SetErrorHandler(errorHandler);
 }
 
 void CppParser::resetErrorHandler()
 {
-  ::resetErrorHandler();
+  ::ResetErrorHandler();
 }
 
 } // namespace cppparser

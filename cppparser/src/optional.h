@@ -17,7 +17,7 @@ class Optional
 public:
   static_assert(std::is_trivially_constructible_v<T>);
 
-  bool has_value() const
+  bool hasValue() const
   {
     return initialized_;
   }

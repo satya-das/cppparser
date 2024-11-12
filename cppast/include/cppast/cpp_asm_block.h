@@ -31,7 +31,7 @@ public:
    *
    * @return Entire asm block including keyword asm.
    */
-  const std::string& Code() const
+  const std::string& code() const
   {
     return asm_;
   }

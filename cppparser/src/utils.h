@@ -9,18 +9,12 @@
 #include <iterator>
 #include <string>
 
-template <class Iter>
-inline std::reverse_iterator<Iter> rev(Iter i)
-{
-  return std::reverse_iterator<Iter>(i);
-}
+CppToken ClassNameFromIdentifier(const CppToken& identifier);
 
-CppToken classNameFromIdentifier(const CppToken& identifier);
+std::string PruneClassName(const CppToken& identifier);
 
-std::string pruneClassName(const CppToken& identifier);
+std::string ReadFile(const std::string& filename);
 
-std::string readFile(const std::string& filename);
-
-std::vector<CppToken> explode(CppToken token, const char* delim);
+std::vector<CppToken> Explode(CppToken token, const char* delim);
 
 #endif /* A531EBC7_86A1_42D5_91DA_9257FBF65184 */

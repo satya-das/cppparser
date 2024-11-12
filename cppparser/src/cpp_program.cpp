@@ -44,24 +44,24 @@ void CppProgram::addCompound(const cppast::CppCompound& compound, const cppast::
 
 void CppProgram::loadType(const cppast::CppCompound& cppCompound, CppTypeTreeNode& typeNode)
 {
-  if (isCppFile(cppCompound)) // Type node for file object should be the root itself.
+  if (IsCppFile(cppCompound)) // Type node for file object should be the root itself.
   {
     cppEntityToTypeNode_[&cppCompound] = &typeNode;
     typeNode.cppEntitySet.insert(&cppCompound);
   }
   cppCompound.visitAll([&](const cppast::CppEntity& mem) {
-    if (isCompound(mem))
+    if (IsCompound(mem))
     {
       addCompound(*static_cast<const cppast::CppCompound*>(&mem), typeNode);
     }
-    else if (isEnum(mem))
+    else if (IsEnum(mem))
     {
       CppTypeTreeNode& childNode = typeNode.children[((cppast::CppEnum&) mem).name()];
       childNode.cppEntitySet.insert(&mem);
       childNode.parent           = &typeNode;
       cppEntityToTypeNode_[&mem] = &childNode;
     }
-    else if (isTypedefName(mem))
+    else if (IsTypedefName(mem))
     {
       const auto&      typedefName = static_cast<const cppast::CppTypedefName&>(mem);
       CppTypeTreeNode& childNode   = typeNode.children[typedefName.var()->name()];
@@ -69,7 +69,7 @@ void CppProgram::loadType(const cppast::CppCompound& cppCompound, CppTypeTreeNod
       childNode.parent           = &typeNode;
       cppEntityToTypeNode_[&mem] = &childNode;
     }
-    else if (isUsingDecl(mem))
+    else if (IsUsingDecl(mem))
     {
       const auto&      usingDecl = static_cast<const cppast::CppUsingDecl&>(mem);
       CppTypeTreeNode& childNode = typeNode.children[usingDecl.name()];
@@ -77,14 +77,14 @@ void CppProgram::loadType(const cppast::CppCompound& cppCompound, CppTypeTreeNod
       childNode.parent           = &typeNode;
       cppEntityToTypeNode_[&mem] = &childNode;
     }
-    else if (isFunctionPtr(mem))
+    else if (IsFunctionPtr(mem))
     {
       CppTypeTreeNode& childNode = typeNode.children[((const cppast::CppFunctionPointer&) mem).name()];
       childNode.cppEntitySet.insert(&mem);
       childNode.parent           = &typeNode;
       cppEntityToTypeNode_[&mem] = &childNode;
     }
-    else if (isFwdClsDecl(mem))
+    else if (IsFwdClsDecl(mem))
     {
       const auto& fwdCls = static_cast<const cppast::CppForwardClassDecl&>(mem);
       if (!(fwdCls.attr() & cppast::CppIdentifierAttrib::FRIEND))

@@ -12,35 +12,35 @@
 
 namespace cppast {
 
-inline bool isConst(const CppFunctionBase& func)
+inline bool IsConst(const CppFunctionBase& func)
 {
   return (func.attr() & CONST) == CONST;
 }
-inline bool isVirtual(const CppFunctionBase& func)
+inline bool IsVirtual(const CppFunctionBase& func)
 {
   return (func.attr() & (VIRTUAL | OVERRIDE)) == VIRTUAL;
 }
-inline bool isPureVirtual(const CppFunctionBase& func)
+inline bool IsPureVirtual(const CppFunctionBase& func)
 {
   return (func.attr() & PURE_VIRTUAL) == PURE_VIRTUAL;
 }
-inline bool isStatic(const CppFunctionBase& func)
+inline bool IsStatic(const CppFunctionBase& func)
 {
   return (func.attr() & STATIC) == STATIC;
 }
-inline bool isInline(const CppFunctionBase& func)
+inline bool IsInline(const CppFunctionBase& func)
 {
   return (func.attr() & INLINE) == INLINE;
 }
-inline bool isOverride(const CppFunctionBase& func)
+inline bool IsOverride(const CppFunctionBase& func)
 {
   return (func.attr() & OVERRIDE) == OVERRIDE;
 }
-inline bool isDeleted(const CppFunctionBase& func)
+inline bool IsDeleted(const CppFunctionBase& func)
 {
   return (func.attr() & DELETE) == DELETE;
 }
-inline bool isFinal(const CppFunctionBase& func)
+inline bool IsFinal(const CppFunctionBase& func)
 {
   return (func.attr() & FINAL) == FINAL;
 }

@@ -45,24 +45,24 @@ struct CppToken
 /**
  * Since CppToken cannot have ctor (because it is intended to be used inside union).
  */
-inline CppToken makeCppToken(const char* sz, size_t len)
+inline CppToken MakeCppToken(const char* sz, size_t len)
 {
   CppToken tkn = {sz, len};
   return tkn;
 }
 
-inline CppToken makeCppToken(const char* beg, const char* end)
+inline CppToken MakeCppToken(const char* beg, const char* end)
 {
-  return makeCppToken(beg, end - beg);
+  return MakeCppToken(beg, end - beg);
 }
 
-inline CppToken mergeCppToken(const CppToken& token1, const CppToken& token2)
+inline CppToken MergeCppToken(const CppToken& token1, const CppToken& token2)
 {
   if (token1.sz == nullptr)
     return token2;
   else if (token2.sz == nullptr)
     return token1;
-  return makeCppToken(token1.sz, token2.sz + token2.len - token1.sz);
+  return MakeCppToken(token1.sz, token2.sz + token2.len - token1.sz);
 }
 
 template <typename _ST>

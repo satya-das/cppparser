@@ -24,7 +24,7 @@ public:
   {
   }
 
-  T ToObj()
+  T toObj()
   {
     if (p_ == nullptr)
       throw std::runtime_error("nullptr cannot be converted to an object");
@@ -44,7 +44,7 @@ public:
   {
   }
 
-  T ToObj()
+  T toObj()
   {
     if (p_ == nullptr)
       return T();
@@ -55,7 +55,7 @@ public:
 template <typename T>
 auto Obj(T* p)
 {
-  return ToObjHelper(p).ToObj();
+  return ToObjHelper(p).toObj();
 }
 
 #endif /* B1A7BAF0_1D5C_4F41_9DF8_07895208C0BC */

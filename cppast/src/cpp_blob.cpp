@@ -10,7 +10,7 @@ namespace {
 /**
  * @brief Trims traling spaces and leading empty lines.
  */
-std::string& trimBlob(std::string& s)
+std::string& TrimBlob(std::string& s)
 {
   auto len = s.size();
 
@@ -39,7 +39,7 @@ std::string& trimBlob(std::string& s)
 
 CppBlob::CppBlob(std::string blob)
   : CppEntity(EntityType())
-  , blob_(std::move(trimBlob(blob)))
+  , blob_(std::move(TrimBlob(blob)))
 {
 }
 

@@ -276,7 +276,7 @@ void CppWriter::emitBlob(const cppast::CppBlob& blobObj,
   // }
   // else
   {
-    stm << blobObj.Blob();
+    stm << blobObj.blob();
   }
 }
 
@@ -296,7 +296,7 @@ void CppWriter::emitUsingNamespace(const cppast::CppUsingNamespaceDecl& usingNsO
 
 void CppWriter::emitVarType(const cppast::CppVarType& varTypeObj, std::ostream& stm) const
 {
-  const auto attr = varTypeObj.typeAttr() | (isConst(varTypeObj) ? cppast::CppIdentifierAttrib::CONST : 0);
+  const auto attr = varTypeObj.typeAttr() | (IsConst(varTypeObj) ? cppast::CppIdentifierAttrib::CONST : 0);
   emitAttribute(attr, stm);
   if (varTypeObj.compound())
     emit(*varTypeObj.compound(), stm, CppIndent(), true);
@@ -529,7 +529,7 @@ void CppWriter::emitCompound(const cppast::CppCompound& compoundObj,
                              CppIndent                  indentation,
                              bool                       emitNewLine) const
 {
-  if (isNamespaceLike(compoundObj))
+  if (IsNamespaceLike(compoundObj))
   {
     if (compoundObj.isTemplated())
     {
@@ -559,7 +559,7 @@ void CppWriter::emitCompound(const cppast::CppCompound& compoundObj,
     }
     --indentation;
   }
-  if (isNamespaceLike(compoundObj))
+  if (IsNamespaceLike(compoundObj))
     stm << '\n' << indentation++ << "{\n";
   else if (compoundObj.compoundType() == cppast::CppCompoundType::EXTERN_C_BLOCK)
     stm << indentation++ << "extern \"C\" {\n";
@@ -572,13 +572,13 @@ void CppWriter::emitCompound(const cppast::CppCompound& compoundObj,
     return true;
   });
 
-  if (isNamespaceLike(compoundObj))
+  if (IsNamespaceLike(compoundObj))
   {
     stm << --indentation;
     stm << '}';
     if (emitNewLine)
     {
-      if (isClassLike(compoundObj))
+      if (IsClassLike(compoundObj))
         stm << ';';
       stm << '\n';
     }
@@ -771,7 +771,7 @@ void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,
   }
   else
   {
-    if (isDeleted(ctorObj))
+    if (IsDeleted(ctorObj))
       stm << " = delete";
     stm << ";\n";
   }

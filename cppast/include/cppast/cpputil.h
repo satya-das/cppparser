@@ -12,14 +12,14 @@
 
 namespace cppast {
 
-inline CppAccessType defaultAccessType(CppCompoundType type)
+inline CppAccessType DefaultAccessType(CppCompoundType type)
 {
   return (type == CppCompoundType::CLASS) ? CppAccessType::PRIVATE : CppAccessType::PUBLIC;
 }
 
-inline CppAccessType resolveInheritanceType(const std::optional<CppAccessType>& inheritanceType, CppCompoundType type)
+inline CppAccessType ResolveInheritanceType(const std::optional<CppAccessType>& inheritanceType, CppCompoundType type)
 {
-  return (inheritanceType.has_value()) ? inheritanceType.value() : defaultAccessType(type);
+  return (inheritanceType.has_value()) ? inheritanceType.value() : DefaultAccessType(type);
 }
 
 } // namespace cppast

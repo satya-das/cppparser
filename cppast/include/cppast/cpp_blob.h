@@ -24,7 +24,7 @@ public:
   CppBlob(std::string blob);
 
 public:
-  const std::string& Blob() const
+  const std::string& blob() const
   {
     return blob_;
   }

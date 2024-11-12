@@ -53,9 +53,9 @@ public:
   {
     return attr_;
   }
-  void addAttr(std::uint32_t _attr)
+  void addAttr(std::uint32_t attr)
   {
-    attr_ |= _attr;
+    attr_ |= attr;
   }
 
 private:

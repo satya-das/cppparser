@@ -11,12 +11,12 @@
 
 namespace fs = std::filesystem;
 
-static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
+static CppToken ClassNameFromTemplatedIdentifier(const CppToken& identifier)
 {
-  auto rbeg = rev(identifier.sz + identifier.len);
+  auto rbeg = std::reverse_iterator(identifier.sz + identifier.len);
   assert(*rbeg == '>');
 
-  auto rend     = rev(identifier.sz);
+  auto rend     = std::reverse_iterator(identifier.sz);
   int  numTempl = 1;
   for (++rbeg; rbeg != rend; ++rbeg)
   {
@@ -38,13 +38,13 @@ static CppToken classNameFromTemplatedIdentifier(const CppToken& identifier)
   return CppToken {nullptr, 0U};
 }
 
-CppToken classNameFromIdentifier(const CppToken& identifier)
+CppToken ClassNameFromIdentifier(const CppToken& identifier)
 {
   if (identifier.sz == nullptr)
     return identifier;
 
   if (identifier.sz[identifier.len - 1] == '>')
-    return classNameFromIdentifier(classNameFromTemplatedIdentifier(identifier));
+    return ClassNameFromIdentifier(ClassNameFromTemplatedIdentifier(identifier));
 
   const char* scopeResolutor = "::";
   const char* end            = identifier.sz + identifier.len;
@@ -58,7 +58,7 @@ CppToken classNameFromIdentifier(const CppToken& identifier)
   return CppToken {itr, clsNameLen};
 }
 
-std::string readFile(const std::string& filename)
+std::string ReadFile(const std::string& filename)
 {
   std::string   contents;
   std::ifstream in(filename, std::ios::in | std::ios::binary);
@@ -70,7 +70,7 @@ std::string readFile(const std::string& filename)
     in.seekg(0, std::ios::beg);
     in.read(contents.data(), size);
     in.close();
-    auto len = stripChar(contents.data(), size, '\r');
+    auto len = StripChar(contents.data(), size, '\r');
     assert(len <= size);
     contents.resize(len + 3);
     contents[len]     = '\n';
@@ -100,7 +100,7 @@ std::string readFile(const std::string& filename)
 //     std::sort(files.begin(), files.end());
 // }
 
-std::vector<CppToken> explode(CppToken token, const char* delim)
+std::vector<CppToken> Explode(CppToken token, const char* delim)
 {
   auto const            delimLen = strlen(delim);
   std::vector<CppToken> elems;
@@ -123,7 +123,7 @@ std::vector<CppToken> explode(CppToken token, const char* delim)
   return elems;
 }
 
-std::string pruneClassName(const CppToken& identifier)
+std::string PruneClassName(const CppToken& identifier)
 {
   std::string ret;
   for (size_t i = 0; i < identifier.len; ++i)

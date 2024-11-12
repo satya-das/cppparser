@@ -123,7 +123,7 @@ static void setupToken(const char* text, size_t len, TokenSetupFlag flag = Token
 {
   extern char* yyposn;
   yyposn = const_cast<char*>(text);
-  yylval.str = makeCppToken(text, len);
+  yylval.str = MakeCppToken(text, len);
 
   setCommentTokenizationState(flag);
 }
@@ -957,7 +957,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   std::string id(yyleng, '\0');
   sscanf(yytext, " # if %[a-zA-Z0-9_]", id.data());
   id.resize(strlen(id.data()));
-  const auto idVal = getIdValue(id);
+  const auto idVal = GetIdValue(id);
   if (!idVal.has_value()) {
     REJECT;
   }
@@ -980,7 +980,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   int n=0;
   sscanf(yytext, " # if %[a-zA-Z0-9_] >= %d", id.data(), &n);
   id.resize(strlen(id.data()));
-  const auto idVal = getIdValue(id);
+  const auto idVal = GetIdValue(id);
   if (!idVal.has_value()) {
     REJECT;
   }
@@ -1001,7 +1001,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   std::string id(yyleng, '\0');
   sscanf(yytext, " # if ! %[a-zA-Z0-9_]", id.data());
   id.resize(strlen(id.data()));
-  const auto idVal = getIdValue(id);
+  const auto idVal = GetIdValue(id);
 
   if (!idVal.has_value()) {
     REJECT;
@@ -1025,7 +1025,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   sscanf(yytext, " # ifdef %[a-zA-Z0-9_]", id.data());
   id.resize(strlen(id.data()));
 
-  const auto macroDefineInfo = getMacroDefineInfo(id);
+  const auto macroDefineInfo = GetMacroDefineInfo(id);
   if (macroDefineInfo == MacroDefineInfo::kNoInfo) {
     REJECT;
   }
@@ -1048,7 +1048,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   sscanf(yytext, " # if defined( %[a-zA-Z0-9_])", id.data());
   id.resize(strlen(id.data()));
 
-  const auto macroDefineInfo = getMacroDefineInfo(id);
+  const auto macroDefineInfo = GetMacroDefineInfo(id);
   if (macroDefineInfo == MacroDefineInfo::kNoInfo) {
     REJECT;
   }
@@ -1071,7 +1071,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
   sscanf(yytext, " # ifndef %[a-zA-Z0-9_]", id.data());
   id.resize(strlen(id.data()));
 
-  const auto macroDefineInfo = getMacroDefineInfo(id);
+  const auto macroDefineInfo = GetMacroDefineInfo(id);
   if (macroDefineInfo == MacroDefineInfo::kNoInfo) {
     REJECT;
   }
@@ -1096,7 +1096,7 @@ This context starts after #if, #elif, and #pragma to capture everyting till a ne
 
   LOG();
   if (g.currentCodeEnablementInfo.numHashIfInMacroDependentCode == 0) {
-    g.currentCodeEnablementInfo.macroDependentCodeEnablement = invert(g.currentCodeEnablementInfo.macroDependentCodeEnablement);
+    g.currentCodeEnablementInfo.macroDependentCodeEnablement = Invert(g.currentCodeEnablementInfo.macroDependentCodeEnablement);
     if (g.currentCodeEnablementInfo.macroDependentCodeEnablement == MacroDependentCodeEnablement::kDisabled) {
       BEGINCONTEXT(ctxDisabledCode);
     } else {
