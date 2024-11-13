@@ -1,0 +1,12 @@
+<map id="cppast::CppAtomicExprImplBase&lt; _AtomicExprType &gt;" name="cppast::CppAtomicExprImplBase&lt; _AtomicExprType &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="5,152,203,193"/>
+<area shape="rect" id="node2" href="$classcppast_1_1CppCommonAtomicExprImplBase.html" title=" " alt="" coords="251,5,461,47"/>
+<area shape="rect" id="node3" href="$classcppast_1_1CppCommonAtomicExprImplBase.html" title=" " alt="" coords="251,71,461,127"/>
+<area shape="rect" id="node5" href="$classcppast_1_1CppCommonAtomicExprImplBase.html" title=" " alt="" coords="251,152,461,193"/>
+<area shape="rect" id="node7" href="$classcppast_1_1CppCommonAtomicExprImplBase.html" title=" " alt="" coords="251,218,461,274"/>
+<area shape="rect" id="node9" href="$classcppast_1_1CppCommonAtomicExprImplBase.html" title=" " alt="" coords="251,298,461,354"/>
+<area shape="rect" id="node4" href="$classcppast_1_1CppCharLiteralExpr.html" title=" " alt="" coords="517,86,721,113"/>
+<area shape="rect" id="node6" href="$classcppast_1_1CppNameExpr.html" title=" " alt="" coords="541,159,696,186"/>
+<area shape="rect" id="node8" href="$classcppast_1_1CppNumberLiteralExpr.html" title=" " alt="" coords="509,233,728,259"/>
+<area shape="rect" id="node10" href="$classcppast_1_1CppStringLiteralExpr.html" title=" " alt="" coords="509,313,728,339"/>
+</map>

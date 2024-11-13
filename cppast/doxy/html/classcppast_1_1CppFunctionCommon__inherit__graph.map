@@ -1,0 +1,12 @@
+<map id="cppast::CppFunctionCommon" name="cppast::CppFunctionCommon">
+<area shape="rect" id="node1" title="Base class of constructor, destructor, and functions." alt="" coords="206,80,403,107"/>
+<area shape="rect" id="node4" href="$classcppast_1_1CppDestructor.html" title=" " alt="" coords="5,155,175,181"/>
+<area shape="rect" id="node5" href="$classcppast_1_1CppFuncOrCtorCommon.html" title=" " alt="" coords="199,155,410,181"/>
+<area shape="rect" id="node10" href="$classcppast_1_1CppTypeConverter.html" title=" " alt="" coords="435,155,625,181"/>
+<area shape="rect" id="node2" href="$classcppast_1_1CppFuncLike.html" title=" " alt="" coords="122,5,277,32"/>
+<area shape="rect" id="node3" href="$classcppast_1_1CppTemplatableEntity.html" title="A mixin class for templated C++ entities." alt="" coords="301,5,519,32"/>
+<area shape="rect" id="node6" href="$classcppast_1_1CppConstructor.html" title=" " alt="" coords="111,237,287,263"/>
+<area shape="rect" id="node7" href="$classcppast_1_1CppFunctionOrFuncPtrCommon.html" title=" " alt="" coords="311,229,509,271"/>
+<area shape="rect" id="node8" href="$classcppast_1_1CppFunction.html" title=" " alt="" coords="231,319,386,345"/>
+<area shape="rect" id="node9" href="$classcppast_1_1CppFunctionPointer.html" title=" " alt="" coords="411,319,615,345"/>
+</map>

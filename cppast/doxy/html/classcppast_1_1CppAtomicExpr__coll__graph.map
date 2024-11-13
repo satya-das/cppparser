@@ -1,0 +1,6 @@
+<map id="cppast::CppAtomicExpr" name="cppast::CppAtomicExpr">
+<area shape="rect" id="node1" title="Atomic expression is an expression that involves no operator." alt="" coords="33,244,203,271"/>
+<area shape="rect" id="node2" href="$classcppast_1_1CppExpression.html" title="An expression in a C/C++ program." alt="" coords="33,169,203,196"/>
+<area shape="rect" id="node3" href="$classcppast_1_1CppEntity.html" title=" " alt="" coords="47,95,189,121"/>
+<area shape="rect" id="node4" href="$classcppast_1_1CppAttributeSpecifierSequenceContainer.html" title="A mixin class to allow objects to have attribute specifier sequence as described at https://en...." alt="" coords="5,5,231,47"/>
+</map>
