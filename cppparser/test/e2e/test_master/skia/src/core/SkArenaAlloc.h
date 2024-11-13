@@ -142,7 +142,6 @@ private:
   }
   using Footer = int64_t;
   using FooterAction = char* (*) (char*);
-;
   static char* SkipPod(char* footerEnd);
   static void RunDtorsOnBlock(char* footerEnd);
   static char* NextBlock(char* footerEnd);

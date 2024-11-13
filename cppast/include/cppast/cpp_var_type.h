@@ -4,7 +4,6 @@
 #ifndef DEE52E89_9A5C_4A01_B51A_D0D4786BC7EF
 #define DEE52E89_9A5C_4A01_B51A_D0D4786BC7EF
 
-#include "cppast/cpp_entity.h"
 #include "cppast/cpp_enum.h"
 #include "cppast/cpp_function.h"
 #include "cppast/cpp_type_modifier.h"
@@ -24,14 +23,8 @@ class CppEnum;
  * It can be used to define a variable or function parameter.
  * @see CppVar.
  */
-class CppVarType : public CppEntity
+class CppVarType : public CppAttributeSpecifierSequenceContainer
 {
-public:
-  static constexpr auto EntityType()
-  {
-    return CppEntityType::VAR_TYPE;
-  }
-
 public:
   CppVarType(std::string baseType, CppTypeModifier modifier);
   CppVarType(CppCompound* compound, CppTypeModifier modifier);

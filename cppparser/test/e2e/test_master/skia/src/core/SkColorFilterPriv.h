@@ -10,7 +10,6 @@
 #    include "include/core/SkColorFilter.h"
 #    include "include/core/SkString.h"
 using SkRuntimeColorFilterFn = void (*) (float[4], const void*);
-;
 class SK_API SkRuntimeColorFilterFactory
 {
 public:

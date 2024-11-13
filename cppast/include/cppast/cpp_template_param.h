@@ -7,13 +7,16 @@
 #include "cppast/defs.h"
 
 #include <memory>
+#include <optional>
 #include <string>
+#include <variant>
 
 namespace cppast {
 
 class CppEntity;
 class CppVarType;
 class CppFunctionPointer;
+class CppExpression;
 
 /**
  * Parameter types that are used to define a templated C++ entity.
@@ -21,22 +24,21 @@ class CppFunctionPointer;
 class CppTemplateParam
 {
 public:
-  CppTemplateParam(std::string paramName, std::unique_ptr<const CppEntity> defArg = nullptr);
-  CppTemplateParam(std::unique_ptr<const CppVarType> paramType,
-                   std::string                       paramName,
-                   std::unique_ptr<const CppEntity>  defArg = nullptr);
-  CppTemplateParam(std::unique_ptr<const CppFunctionPointer> paramType,
-                   std::string                               paramName,
-                   std::unique_ptr<const CppEntity>          defArg = nullptr);
+  using ParamType = std::variant<std::unique_ptr<const CppVarType>, std::unique_ptr<const CppFunctionPointer>>;
+  using ArgType   = std::variant<std::unique_ptr<const CppVarType>, std::unique_ptr<const CppExpression>>;
+
+public:
+  CppTemplateParam(std::string paramName, ArgType defArg = ArgType());
+  CppTemplateParam(ParamType paramType, std::string paramName, ArgType defArg = ArgType());
 
   CppTemplateParam(CppTemplateParam&& rval) = default;
 
   ~CppTemplateParam();
 
 public:
-  const CppEntity* paramType() const
+  const std::optional<ParamType>& paramType() const
   {
-    return paramType_.get();
+    return paramType_;
   }
 
   const std::string& paramName() const
@@ -44,18 +46,22 @@ public:
     return paramName_;
   }
 
-  const CppEntity* defaultArg() const
+  const ArgType& defaultArg() const
   {
-    return defaultArg_.get();
+    return defaultArg_;
   }
 
 private:
-  // If not nullptr then template param is not of type typename/class
-  std::unique_ptr<const CppEntity> paramType_;
-  std::string                      paramName_;
-  std::unique_ptr<const CppEntity> defaultArg_; //< Can be CppVarType or CppExpression
+  // If initialized then template param is not of type typename/class
+  std::optional<ParamType> paramType_;
+  std::string              paramName_;
+  ArgType                  defaultArg_;
 };
 
 } // namespace cppast
+
+#include "cppast/cpp_expression.h"
+#include "cppast/cpp_function.h"
+#include "cppast/cpp_var_type.h"
 
 #endif /* A6947342_A917_4B84_B327_5878ACC690B3 */

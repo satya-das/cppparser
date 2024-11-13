@@ -12,22 +12,19 @@ CppVarType::CppVarType(std::string baseType, CppTypeModifier modifier)
 }
 
 CppVarType::CppVarType(CppCompound* compound, CppTypeModifier modifier)
-  : CppEntity(EntityType())
-  , compound_(compound)
+  : compound_(compound)
   , typeModifier_(modifier)
 {
 }
 
 CppVarType::CppVarType(CppFunctionPointer* compound, CppTypeModifier modifier)
-  : CppEntity(EntityType())
-  , compound_(compound)
+  : compound_(compound)
   , typeModifier_(modifier)
 {
 }
 
 CppVarType::CppVarType(CppEnum* enumObj, CppTypeModifier modifier)
-  : CppEntity(EntityType())
-  , compound_(enumObj)
+  : compound_(enumObj)
   , typeModifier_(modifier)
 {
 }
@@ -39,8 +36,7 @@ CppVarType::CppVarType(const CppVarType& varType)
 }
 
 CppVarType::CppVarType(std::string baseType, std::uint32_t typeAttr, CppTypeModifier modifier)
-  : CppEntity(EntityType())
-  , baseType_(std::move(baseType))
+  : baseType_(std::move(baseType))
   , typeModifier_(modifier)
   , typeAttr_(typeAttr)
 {

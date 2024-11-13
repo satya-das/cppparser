@@ -466,7 +466,6 @@ private:
   void addOp(std::unique_ptr<GrOp>);
     // Allows caller of addDrawOp to know which op list an op will be added to.
   using WillAddOpFn = void (*) (GrOp*, uint32_t opsTaskID);
-;
     // These perform processing specific to GrDrawOp-derived ops before recording them into an
     // op list. Before adding the op to an op list the WillAddOpFn is called. Note that it
     // will not be called in the event that the op is discarded. Moreover, the op may merge into

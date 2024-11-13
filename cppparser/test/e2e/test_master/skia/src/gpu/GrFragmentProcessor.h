@@ -199,7 +199,6 @@ public:
     SkSTArray<4, const GrFragmentProcessor*, true> fFPStack;
   };
   using Counter = int (*) () const;
-;
   using Getter = const T& (*) (int) const;
     /**
      * Iterates over all the Ts owned by a GrFragmentProcessor and its children or over all the Ts

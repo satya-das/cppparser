@@ -9,6 +9,18 @@ namespace cppcodegen {
 
 namespace {
 
+//<lifted>
+// Lifted from https://en.cppreference.com/w/cpp/utility/variant/visit
+template <class... Ts>
+struct Overloaded : Ts...
+{
+  using Ts::operator()...;
+};
+// explicit deduction guide (not needed as of C++20)
+template <class... Ts>
+Overloaded(Ts...)->Overloaded<Ts...>;
+//</lifted>
+
 static void EmitAttribute(std::uint32_t attr, std::ostream& stm)
 {
   if (attr & cppast::CppIdentifierAttrib::STATIC)
@@ -67,8 +79,6 @@ void CppWriter::emit(const cppast::CppEntity& cppEntity, std::ostream& stm, CppI
         (const cppast::CppEntityAccessSpecifier&) cppEntity, stm, indentation, !noNewLine);
     case cppast::CppEntityType::COMPOUND:
       return emitCompound((const cppast::CppCompound&) cppEntity, stm, indentation, !noNewLine);
-    case cppast::CppEntityType::VAR_TYPE:
-      return emitVarType((const cppast::CppVarType&) cppEntity, stm);
     case cppast::CppEntityType::VAR:
     {
       emitVar((const cppast::CppVar&) cppEntity, stm, indentation);
@@ -447,11 +457,33 @@ void CppWriter::emitUsingDecl(const cppast::CppUsingDecl& usingDecl, std::ostrea
   if (usingDecl.isTemplated())
     emitTemplSpec(usingDecl.templateSpecification().value(), stm, indentation);
   stm << indentation << "using " << usingDecl.name();
-  if (usingDecl.definition())
-  {
-    stm << " = ";
-    emit(*usingDecl.definition(), stm);
-  }
+  std::visit(Overloaded {[&](const std::unique_ptr<const cppast::CppVarType>& varType) {
+                           if (varType)
+                           {
+                             stm << " = ";
+                             emitVarType(*varType, stm);
+                           }
+                         },
+                         [&](const std::unique_ptr<const cppast::CppFunctionPointer>& funcPtr) {
+                           if (funcPtr)
+                           {
+                             stm << " = ";
+                             emitFunctionPtr(*funcPtr, stm, false);
+                           }
+                         },
+                         [&](const std::unique_ptr<const cppast::CppCompound>& compound) {
+                           if (compound)
+                           {
+                             stm << " = ";
+                             emit(*compound, stm, CppIndent());
+                           }
+                         }},
+             usingDecl.definition());
+  // if (usingDecl.definition())
+  // {
+  //   stm << " = ";
+  //   emit(*usingDecl.definition(), stm);
+  // }
   stm << ";\n";
 }
 
@@ -493,24 +525,38 @@ void CppWriter::emitTemplSpec(const cppast::CppTemplateParams& templSpec,
   for (const auto& param : templSpec)
   {
     stm << sep;
-    if (param.paramType())
+    if (param.paramType().has_value())
     {
-      if (const auto varType = cppast::CppConstVarTypeEPtr(param.paramType()))
-        emitVarType(*varType, stm);
-      else if (const auto funcPtr = cppast::CppConstFunctionPointerEPtr(param.paramType()))
-        emitFunctionPtr(*funcPtr, stm, false);
-      stm << ' ';
+      std::visit(Overloaded {[&](const std::unique_ptr<const cppast::CppVarType>& varType) {
+                               emitVarType(*varType, stm);
+                               stm << ' ';
+                             },
+                             [&](const std::unique_ptr<const cppast::CppFunctionPointer>& funcPtr) {
+                               emitFunctionPtr(*funcPtr, stm, false);
+                               stm << ' ';
+                             }},
+                 param.paramType().value());
     }
     else
     {
       stm << "typename ";
     }
     stm << param.paramName();
-    if (param.defaultArg())
-    {
-      stm << " = ";
-      emit(*param.defaultArg(), stm, CppIndent(), true);
-    }
+    std::visit(Overloaded {[&](const std::unique_ptr<const cppast::CppVarType>& varType) {
+                             if (varType)
+                             {
+                               stm << " = ";
+                               emitVarType(*varType, stm);
+                             }
+                           },
+                           [&](const std::unique_ptr<const cppast::CppExpression>& expr) {
+                             if (expr)
+                             {
+                               stm << " = ";
+                               emit(*expr, stm, CppIndent(), true);
+                             }
+                           }},
+               param.defaultArg());
     sep = ", ";
   }
   stm << ">\n";

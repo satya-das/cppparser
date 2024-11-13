@@ -108,7 +108,6 @@ protected:
   struct PixelTransferResult
   {
     using ConversionFn = void (*) (void* dst, const void* mappedBuffer);
-;
         // If null then the transfer could not be performed. Otherwise this buffer will contain
         // the pixel data when the transfer is complete.
     sk_sp<GrGpuBuffer> fTransferBuffer;

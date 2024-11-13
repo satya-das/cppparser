@@ -55,13 +55,10 @@ namespace skvm
     void sub(GP64, int imm);
         // All dst = x op y.
     using DstEqXOpY = void (*) (Ymm dst, Ymm x, Ymm y);
-;
     DstEqXOpY vpand, vpor, vpxor, vpandn, vpaddd, vpsubd, vpmulld, vpsubw, vpmullw, vaddps, vsubps, vmulps, vdivps, vfmadd132ps, vfmadd213ps, vfmadd231ps, vpackusdw, vpackuswb, vpcmpeqd, vpcmpgtd;
     using DstEqXOpImm = void (*) (Ymm dst, Ymm x, int imm);
-;
     DstEqXOpImm vpslld, vpsrld, vpsrad, vpsrlw, vpermq;
     using DstEqOpX = void (*) (Ymm dst, Ymm x);
-;
     DstEqOpX vmovdqa, vcvtdq2ps, vcvttps2dq;
     void vpblendvb(Ymm dst, Ymm x, Ymm y, Ymm z);
     struct Label
@@ -103,17 +100,14 @@ namespace skvm
 
         // d = op(n,m)
     using DOpNM = void (*) (V d, V n, V m);
-;
     DOpNM and16b, orr16b, eor16b, bic16b, add4s, sub4s, mul4s, sub8h, mul8h, fadd4s, fsub4s, fmul4s, fdiv4s, tbl;
         // d += n*m
     void fmla4s(V d, V n, V m);
         // d = op(n,imm)
     using DOpNImm = void (*) (V d, V n, int imm);
-;
     DOpNImm sli4s, shl4s, sshr4s, ushr4s, ushr8h;
         // d = op(n)
     using DOpN = void (*) (V d, V n);
-;
     DOpN scvtf4s, fcvtzs4s, xtns2h, xtnh2b, uxtlb2h, uxtlh2s;
         // TODO: both these platforms support rounding float->int (vcvtps2dq, fcvtns.4s)... use?
     void ret(X);

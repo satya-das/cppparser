@@ -48,11 +48,8 @@ public:
   std::unique_ptr<SkDeferredDisplayList> detach();
   using PromiseImageTextureContext = void*;
   using PromiseImageTextureFulfillProc = sk_sp<SkPromiseImageTexture> (*) (PromiseImageTextureContext);
-;
   using PromiseImageTextureReleaseProc = void (*) (PromiseImageTextureContext);
-;
   using PromiseImageTextureDoneProc = void (*) (PromiseImageTextureContext);
-;
   enum class PromiseImageApiVersion {
  kLegacy, kNew
   };

@@ -4,9 +4,8 @@
 #ifndef D94591D6_2473_4804_A403_3EF86D03DD28
 #define D94591D6_2473_4804_A403_3EF86D03DD28
 
-#include "cppast/cpp_template_param.h"
-
 #include <optional>
+#include <vector>
 
 namespace cppast {
 
@@ -32,5 +31,7 @@ private:
 };
 
 } // namespace cppast
+
+#include "cppast/cpp_template_param.h"
 
 #endif /* D94591D6_2473_4804_A403_3EF86D03DD28 */

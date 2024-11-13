@@ -1455,7 +1455,6 @@ class GrRefCntedCallback : public SkRefCnt
 public:
   using Context = void*;
   using Callback = void (*) (Context);
-;
   GrRefCntedCallback(Callback proc, Context ctx)
     : fReleaseProc(proc)
     , fReleaseCtx(ctx)

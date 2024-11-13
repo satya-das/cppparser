@@ -68,25 +68,15 @@ public:
     return CppEntityType::USING_DECL;
   }
 
+  using DeclData = std::variant<std::unique_ptr<const CppVarType>,
+                                std::unique_ptr<const CppFunctionPointer>,
+                                std::unique_ptr<const CppCompound>>;
+
 public:
-  CppUsingDecl(std::string name, std::unique_ptr<CppVarType> varType)
+  CppUsingDecl(std::string name, DeclData declData)
     : CppEntity(EntityType())
     , name_(std::move(name))
-    , cppEntity_(std::move(varType))
-  {
-  }
-
-  CppUsingDecl(std::string name, std::unique_ptr<CppFunctionPointer> fptr)
-    : CppEntity(EntityType())
-    , name_(std::move(name))
-    , cppEntity_(std::move(fptr))
-  {
-  }
-
-  CppUsingDecl(std::string name, std::unique_ptr<CppCompound> compound)
-    : CppEntity(EntityType())
-    , name_(std::move(name))
-    , cppEntity_(std::move(compound))
+    , declData_(std::move(declData))
   {
   }
 
@@ -102,14 +92,14 @@ public:
     return name_;
   }
 
-  const CppEntity* definition() const
+  const DeclData& definition() const
   {
-    return cppEntity_.get();
+    return declData_;
   }
 
 private:
-  const std::string                name_;
-  const std::unique_ptr<CppEntity> cppEntity_;
+  const std::string name_;
+  const DeclData    declData_;
 };
 
 } // namespace cppast

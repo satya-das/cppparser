@@ -7,24 +7,13 @@
 
 namespace cppast {
 
-CppTemplateParam::CppTemplateParam(std::string paramName, std::unique_ptr<const CppEntity> defArg)
+CppTemplateParam::CppTemplateParam(std::string paramName, ArgType defArg)
   : paramName_(std::move(paramName))
   , defaultArg_(std::move(defArg))
 {
 }
 
-CppTemplateParam::CppTemplateParam(std::unique_ptr<const CppVarType> paramType,
-                                   std::string                       paramName,
-                                   std::unique_ptr<const CppEntity>  defArg)
-  : paramType_(std::move(paramType))
-  , paramName_(std::move(paramName))
-  , defaultArg_(std::move(defArg))
-{
-}
-
-CppTemplateParam::CppTemplateParam(std::unique_ptr<const CppFunctionPointer> paramType,
-                                   std::string                               paramName,
-                                   std::unique_ptr<const CppEntity>          defArg)
+CppTemplateParam::CppTemplateParam(ParamType paramType, std::string paramName, ArgType defArg)
   : paramType_(std::move(paramType))
   , paramName_(std::move(paramName))
   , defaultArg_(std::move(defArg))

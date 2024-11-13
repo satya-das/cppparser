@@ -86,7 +86,6 @@ int acedSSName(const ads_name ss, int i, ads_name entres);
 int acedSSNameX(struct resbuf** rbpp, const ads_name ss, int i);
 int acedSSNameXEx(struct resbuf** rbpp, const ads_name ss, int i, unsigned int flags);
 using SSCallbackType = struct resbuf* (*) (const ACHAR*);
-;
 int acedSSGetKwordCallbackPtr(SSCallbackType* pFunc);
 int acedSSSetKwordCallbackPtr(SSCallbackType pFunc);
 int acedSSGetOtherCallbackPtr(SSCallbackType* pFunc);

@@ -74,7 +74,6 @@ class GrProcessorTestFactory : private SkNoncopyable
 public:
   using Processor = typename ProcessorSmartPtr::element_type;
   using MakeProc = ProcessorSmartPtr (*) (GrProcessorTestData*);
-;
   GrProcessorTestFactory(MakeProc makeProc)
   {
     fMakeProc = makeProc;
@@ -119,7 +118,6 @@ class GrXPFactoryTestFactory : private SkNoncopyable
 {
 public:
   using GetFn = const GrXPFactory* (*) (GrProcessorTestData*);
-;
   GrXPFactoryTestFactory(GetFn* getProc)
     : fGetProc(getProc)
   {

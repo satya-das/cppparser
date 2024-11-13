@@ -683,7 +683,6 @@ public:
          asyncRescaleAndReadPixelsYUV420() that is called when read result is ready or on failure.
      */
   using ReadPixelsCallback = void (*) (ReadPixelsContext, std::unique_ptr<const AsyncReadResult>);
-;
     /** Controls the gamma that rescaling occurs in for asyncRescaleAndReadPixels() and
         asyncRescaleAndReadPixelsYUV420().
      */
@@ -727,7 +726,6 @@ public:
         Deprecated.
      */
   using LegacyReadPixelsCallback = void (*) (ReadPixelsContext, const void* data, size_t rowBytes);
-;
   void asyncRescaleAndReadPixels(const SkImageInfo& info, const SkIRect& srcRect, RescaleGamma rescaleGamma, SkFilterQuality rescaleQuality, LegacyReadPixelsCallback callback, ReadPixelsContext context);
     /**
         Similar to asyncRescaleAndReadPixels but performs an additional conversion to YUV. The
@@ -764,7 +762,6 @@ public:
         Deprecated.
      */
   using LegacyReadPixelsCallbackYUV420 = void (*) (ReadPixelsContext, const void* data[3], size_t rowBytes[3]);
-;
   void asyncRescaleAndReadPixelsYUV420(SkYUVColorSpace yuvColorSpace, sk_sp<SkColorSpace> dstColorSpace, const SkIRect& srcRect, int dstW, int dstH, RescaleGamma rescaleGamma, SkFilterQuality rescaleQuality, LegacyReadPixelsCallbackYUV420 callback, ReadPixelsContext);
     /** Copies SkRect of pixels from the src SkPixmap to the SkSurface.
 

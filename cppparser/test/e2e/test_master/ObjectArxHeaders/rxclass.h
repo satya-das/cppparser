@@ -72,7 +72,6 @@ private:
   AcRxClass operator =(const AcRxClass&);
 };
 using PseudoConstructor = AcRxObject* (*) ();
-;
 ACBASE_PORT AcRxClass* newAcRxClass(const ACHAR* className, const ACHAR* parentClassName, int proxyFlags = 0, PseudoConstructor pseudoConstructor = NULL, const ACHAR* dxfName = NULL, const ACHAR* appName = NULL);
 ACBASE_PORT AcRxClass* newAcRxClass(const ACHAR* className, const ACHAR* parentClassName, int dwgVer, int maintVer, int proxyFlags = 0, PseudoConstructor pseudoConstructor = NULL, const ACHAR* dxfName = NULL, const ACHAR* appName = NULL, AppNameChangeFuncPtr func = NULL);
 ACBASE_PORT AcRxClass* newAcRxClass(const ACHAR* className, const ACHAR* parentClassName, int dwgVer, int maintVer, int proxyFlags, AcRxObject* (*pseudoConstructor) (), const ACHAR* dxfName, const ACHAR* appName, AppNameChangeFuncPtr func, AcRxMemberCollectionConstructorPtr makeMembers, void* userData = NULL);
