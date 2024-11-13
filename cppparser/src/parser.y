@@ -235,7 +235,7 @@ class CppTemplateArg;
 %token  <str>   tknLT tknGT // We will need the position of these operators in stream when used for declaring template instance.
 %token  <str>   '+' '-' '*' '/' '%' '^' '&' '|' '~' '!' '=' ',' '(' ')' '[' ']' ';' '.'
 %token  <str>   tknNew tknDelete
-%token  <str>   tknConst tknConstExpr // For templatearg parsing it is made as str type.
+%token  <str>   tknConst tknConstExpr
 %token  <str>   tknVoid // For the cases when void is used as function parameter.
 %token  <str>   tknOverride tknFinal // override, final are not a reserved keywords
 %token  <str>   tknAsm
