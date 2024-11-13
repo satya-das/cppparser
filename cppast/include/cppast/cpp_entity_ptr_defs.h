@@ -11,7 +11,7 @@
 namespace cppast {
 
 using CppAsmBlockEPtr                  = helper::CppEntityPtr<CppAsmBlock>;
-using CppAtomicExpressionEPtr          = helper::CppEntityPtr<CppAtomicExpression>;
+using CppAtomicExprEPtr                = helper::CppEntityPtr<CppAtomicExpr>;
 using CppBinomialExprEPtr              = helper::CppEntityPtr<CppBinomialExpr>;
 using CppBlobEPtr                      = helper::CppEntityPtr<CppBlob>;
 using CppCharLiteralExprEPtr           = helper::CppEntityPtr<CppCharLiteralExpr>;
@@ -74,11 +74,11 @@ using CppVarEPtr                       = helper::CppEntityPtr<CppVar>;
 using CppVarDeclInListEPtr             = helper::CppEntityPtr<CppVarDeclInList>;
 using CppVarListEPtr                   = helper::CppEntityPtr<CppVarList>;
 using CppVarTypeEPtr                   = helper::CppEntityPtr<CppVarType>;
-using CppVartypeExpressionEPtr         = helper::CppEntityPtr<CppVartypeExpression>;
+using CppVartypeExprEPtr               = helper::CppEntityPtr<CppVartypeExpr>;
 using CppWhileBlockEPtr                = helper::CppEntityPtr<CppWhileBlock>;
 
 using CppConstAsmBlockEPtr                  = helper::CppEntityPtr<const CppAsmBlock>;
-using CppConstAtomicExpressionEPtr          = helper::CppEntityPtr<const CppAtomicExpression>;
+using CppConstAtomicExprEPtr                = helper::CppEntityPtr<const CppAtomicExpr>;
 using CppConstBinomialExprEPtr              = helper::CppEntityPtr<const CppBinomialExpr>;
 using CppConstBlobEPtr                      = helper::CppEntityPtr<const CppBlob>;
 using CppConstCharLiteralExprEPtr           = helper::CppEntityPtr<const CppCharLiteralExpr>;
@@ -141,7 +141,7 @@ using CppConstVarEPtr                       = helper::CppEntityPtr<const CppVar>
 using CppConstVarDeclInListEPtr             = helper::CppEntityPtr<const CppVarDeclInList>;
 using CppConstVarListEPtr                   = helper::CppEntityPtr<const CppVarList>;
 using CppConstVarTypeEPtr                   = helper::CppEntityPtr<const CppVarType>;
-using CppConstVartypeExpressionEPtr         = helper::CppEntityPtr<const CppVartypeExpression>;
+using CppConstVartypeExprEPtr               = helper::CppEntityPtr<const CppVartypeExpr>;
 using CppConstWhileBlockEPtr                = helper::CppEntityPtr<const CppWhileBlock>;
 
 } // namespace cppast

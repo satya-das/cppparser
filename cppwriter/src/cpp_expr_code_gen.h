@@ -52,7 +52,7 @@ void CodeGenNameExpr(std::ostream& stm, const cppast::CppNameExpr& expr)
   stm << expr.value();
 };
 
-void CodeGenVartypeExpression(std::ostream& stm, const cppast::CppVartypeExpression& expr)
+void CodeGenVartypeExpr(std::ostream& stm, const cppast::CppVartypeExpr& expr)
 {
   stm << expr.value();
 };

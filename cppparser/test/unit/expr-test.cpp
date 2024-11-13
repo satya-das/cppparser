@@ -94,9 +94,9 @@ TEST_CASE_METHOD(ExpressionTest, "a == b ? c : d")
   cppast::CppConstBinomialExprEPtr term1 = &(trinomial->term1());
   REQUIRE(term1);
   CHECK(term1->oper() == cppast::CppBinaryOperator::EQUAL);
-  cppast::CppConstAtomicExpressionEPtr term2 = &(trinomial->term2());
+  cppast::CppConstAtomicExprEPtr term2 = &(trinomial->term2());
   REQUIRE(term2);
-  cppast::CppConstAtomicExpressionEPtr term3 = &(trinomial->term3());
+  cppast::CppConstAtomicExprEPtr term3 = &(trinomial->term3());
   REQUIRE(term3);
 }
 

@@ -48,7 +48,7 @@ private:
   const CppExpressionType expressionType_;
 };
 
-enum class CppAtomicExpressionType
+enum class CppAtomicExprType
 {
   STRING_LITERAL,
   CHAR_LITERAL,
@@ -62,9 +62,9 @@ enum class CppAtomicExpressionType
  * @brief Atomic expression is an expression that involves no operator.
  *
  * Expressions like string literal or number literals are atomic expressions.
- * @see CppAtomicExpressionType.
+ * @see CppAtomicExprType.
  */
-class CppAtomicExpression : public CppExpression
+class CppAtomicExpr : public CppExpression
 {
 public:
   static constexpr auto ExpressionType()
@@ -78,31 +78,31 @@ public:
   }
 
 protected:
-  CppAtomicExpression(CppAtomicExpressionType atomicExprType)
+  CppAtomicExpr(CppAtomicExprType atomicExprType)
     : CppExpression(ExpressionType())
     , atomicExprType_(atomicExprType)
   {
   }
 
 private:
-  const CppAtomicExpressionType atomicExprType_;
+  const CppAtomicExprType atomicExprType_;
 };
 
-template <CppAtomicExpressionType _AtomicExprType>
-class CppAtomicExpressionImplBase
+template <CppAtomicExprType _AtomicExprType>
+class CppAtomicExprImplBase
 {
 public:
-  static constexpr auto AtomicExpressionType()
+  static constexpr auto AtomicExprType()
   {
     return _AtomicExprType;
   }
 
 protected:
-  CppAtomicExpressionImplBase() {}
+  CppAtomicExprImplBase() {}
 };
 
-template <CppAtomicExpressionType _AtomicExprType>
-class CppCommonAtomicExpressionImplBase : public CppAtomicExpressionImplBase<_AtomicExprType>
+template <CppAtomicExprType _AtomicExprType>
+class CppCommonAtomicExprImplBase : public CppAtomicExprImplBase<_AtomicExprType>
 {
 public:
   const std::string& value() const
@@ -111,7 +111,7 @@ public:
   }
 
 protected:
-  CppCommonAtomicExpressionImplBase(std::string atom)
+  CppCommonAtomicExprImplBase(std::string atom)
     : atom_(std::move(atom))
   {
   }
@@ -120,13 +120,12 @@ private:
   std::string atom_;
 };
 
-class CppStringLiteralExpr : public CppAtomicExpression,
-                             public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::STRING_LITERAL>
+class CppStringLiteralExpr : public CppAtomicExpr, public CppCommonAtomicExprImplBase<CppAtomicExprType::STRING_LITERAL>
 {
 public:
   CppStringLiteralExpr(std::string atom)
-    : CppAtomicExpression(AtomicExpressionType())
-    , CppCommonAtomicExpressionImplBase(std::move(atom))
+    : CppAtomicExpr(AtomicExprType())
+    , CppCommonAtomicExprImplBase(std::move(atom))
   {
   }
 
@@ -136,34 +135,32 @@ public:
   }
 };
 
-class CppCharLiteralExpr : public CppAtomicExpression,
-                           public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::CHAR_LITERAL>
+class CppCharLiteralExpr : public CppAtomicExpr, public CppCommonAtomicExprImplBase<CppAtomicExprType::CHAR_LITERAL>
 {
 public:
   CppCharLiteralExpr(std::string atom)
-    : CppAtomicExpression(AtomicExpressionType())
-    , CppCommonAtomicExpressionImplBase(std::move(atom))
+    : CppAtomicExpr(AtomicExprType())
+    , CppCommonAtomicExprImplBase(std::move(atom))
   {
   }
 };
 
-class CppNumberLiteralExpr : public CppAtomicExpression,
-                             public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::NUMBER_LITEREL>
+class CppNumberLiteralExpr : public CppAtomicExpr, public CppCommonAtomicExprImplBase<CppAtomicExprType::NUMBER_LITEREL>
 {
 public:
   CppNumberLiteralExpr(std::string atom)
-    : CppAtomicExpression(AtomicExpressionType())
-    , CppCommonAtomicExpressionImplBase(std::move(atom))
+    : CppAtomicExpr(AtomicExprType())
+    , CppCommonAtomicExprImplBase(std::move(atom))
   {
   }
 };
 
-class CppNameExpr : public CppAtomicExpression, public CppCommonAtomicExpressionImplBase<CppAtomicExpressionType::NAME>
+class CppNameExpr : public CppAtomicExpr, public CppCommonAtomicExprImplBase<CppAtomicExprType::NAME>
 {
 public:
   CppNameExpr(std::string atom)
-    : CppAtomicExpression(AtomicExpressionType())
-    , CppCommonAtomicExpressionImplBase(std::move(atom))
+    : CppAtomicExpr(AtomicExprType())
+    , CppCommonAtomicExprImplBase(std::move(atom))
   {
   }
 
@@ -173,12 +170,11 @@ public:
   }
 };
 
-class CppVartypeExpression : public CppAtomicExpression,
-                             public CppAtomicExpressionImplBase<CppAtomicExpressionType::VARTYPE>
+class CppVartypeExpr : public CppAtomicExpr, public CppAtomicExprImplBase<CppAtomicExprType::VARTYPE>
 {
 public:
-  CppVartypeExpression(std::unique_ptr<const CppVarType> atom)
-    : CppAtomicExpression(AtomicExpressionType())
+  CppVartypeExpr(std::unique_ptr<const CppVarType> atom)
+    : CppAtomicExpr(AtomicExprType())
     , atom_(std::move(atom))
   {
   }
@@ -193,11 +189,11 @@ private:
 };
 
 // TODO: Eliminate CppLambda by merging to CppLambdaExpr.
-class CppLambdaExpr : public CppAtomicExpression, public CppAtomicExpressionImplBase<CppAtomicExpressionType::LAMBDA>
+class CppLambdaExpr : public CppAtomicExpr, public CppAtomicExprImplBase<CppAtomicExprType::LAMBDA>
 {
 public:
   CppLambdaExpr(std::unique_ptr<const CppLambda> lambda)
-    : CppAtomicExpression(AtomicExpressionType())
+    : CppAtomicExpr(AtomicExprType())
     , lambda_(std::move(lambda))
   {
   }

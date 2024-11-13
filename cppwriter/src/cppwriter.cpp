@@ -978,26 +978,26 @@ void CppWriter::emitMonomialExpr(const cppast::CppMonomialExpr& expr, std::ostre
   // clang-format on
 }
 
-void CppWriter::emitAtomicExpr(const cppast::CppAtomicExpression& expr, std::ostream& stm) const
+void CppWriter::emitAtomicExpr(const cppast::CppAtomicExpr& expr, std::ostream& stm) const
 {
   switch (expr.atomicExpressionType())
   {
-    case cppast::CppAtomicExpressionType::STRING_LITERAL:
+    case cppast::CppAtomicExprType::STRING_LITERAL:
       emitStringLiteralExpr(static_cast<const cppast::CppStringLiteralExpr&>(expr), stm);
       break;
-    case cppast::CppAtomicExpressionType::CHAR_LITERAL:
+    case cppast::CppAtomicExprType::CHAR_LITERAL:
       emitCharLiteralExpr(static_cast<const cppast::CppCharLiteralExpr&>(expr), stm);
       break;
-    case cppast::CppAtomicExpressionType::NUMBER_LITEREL:
+    case cppast::CppAtomicExprType::NUMBER_LITEREL:
       emitNumberLiteralExpr(static_cast<const cppast::CppNumberLiteralExpr&>(expr), stm);
       break;
-    case cppast::CppAtomicExpressionType::NAME:
+    case cppast::CppAtomicExprType::NAME:
       emitNameExpr(static_cast<const cppast::CppNameExpr&>(expr), stm);
       break;
-    case cppast::CppAtomicExpressionType::VARTYPE:
-      emitVartypeExpr(static_cast<const cppast::CppVartypeExpression&>(expr), stm);
+    case cppast::CppAtomicExprType::VARTYPE:
+      emitVartypeExpr(static_cast<const cppast::CppVartypeExpr&>(expr), stm);
       break;
-    case cppast::CppAtomicExpressionType::LAMBDA:
+    case cppast::CppAtomicExprType::LAMBDA:
       emitLambdaExpr(static_cast<const cppast::CppLambdaExpr&>(expr), stm);
       break;
   }
@@ -1019,7 +1019,7 @@ void CppWriter::emitNameExpr(const cppast::CppNameExpr& expr, std::ostream& stm)
 {
   stm << expr.value();
 }
-void CppWriter::emitVartypeExpr(const cppast::CppVartypeExpression& expr, std::ostream& stm) const
+void CppWriter::emitVartypeExpr(const cppast::CppVartypeExpr& expr, std::ostream& stm) const
 {
   emitVarType(expr.value(), stm);
 }
@@ -1213,7 +1213,7 @@ void CppWriter::emitExpr(const cppast::CppExpression& expr, std::ostream& stm, C
   switch (expr.expressionType())
   {
     case cppast::CppExpressionType::ATOMIC:
-      emitAtomicExpr(static_cast<const cppast::CppAtomicExpression&>(expr), stm);
+      emitAtomicExpr(static_cast<const cppast::CppAtomicExpr&>(expr), stm);
       break;
     case cppast::CppExpressionType::MONOMIAL:
       emitMonomialExpr(static_cast<const cppast::CppMonomialExpr&>(expr), stm);

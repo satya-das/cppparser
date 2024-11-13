@@ -141,7 +141,7 @@ inline auto ReinterpretCastExpr(const cppast::CppVarType* targetType, const cppa
 
 inline auto VarTypeExpr(const cppast::CppVarType* vartype)
 {
-  return new cppast::CppVartypeExpression(Ptr(vartype));
+  return new cppast::CppVartypeExpr(Ptr(vartype));
 }
 
 inline auto VarTypeExpr(std::string baseType, cppast::CppTypeModifier modifier)
@@ -151,7 +151,7 @@ inline auto VarTypeExpr(std::string baseType, cppast::CppTypeModifier modifier)
 
 inline auto NewExpr(const cppast::CppVarType* vartype)
 {
-  return new cppast::CppVartypeExpression(Ptr(vartype));
+  return new cppast::CppVartypeExpr(Ptr(vartype));
 }
 
 inline auto LambdaExpression(const cppast::CppLambda* lambda)

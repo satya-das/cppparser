@@ -130,12 +130,12 @@ public:
                                std::ostream&                 stm,
                                CppIndent                     indentation = CppIndent()) const;
 
-  virtual void emitAtomicExpr(const cppast::CppAtomicExpression& expr, std::ostream& stm) const;
+  virtual void emitAtomicExpr(const cppast::CppAtomicExpr& expr, std::ostream& stm) const;
   virtual void emitStringLiteralExpr(const cppast::CppStringLiteralExpr& expr, std::ostream& stm) const;
   virtual void emitCharLiteralExpr(const cppast::CppCharLiteralExpr& expr, std::ostream& stm) const;
   virtual void emitNumberLiteralExpr(const cppast::CppNumberLiteralExpr& expr, std::ostream& stm) const;
   virtual void emitNameExpr(const cppast::CppNameExpr& expr, std::ostream& stm) const;
-  virtual void emitVartypeExpr(const cppast::CppVartypeExpression& expr, std::ostream& stm) const;
+  virtual void emitVartypeExpr(const cppast::CppVartypeExpr& expr, std::ostream& stm) const;
   virtual void emitLambdaExpr(const cppast::CppLambdaExpr& expr, std::ostream& stm) const;
 
   virtual void emitMonomialExpr(const cppast::CppMonomialExpr& expr, std::ostream& stm) const;
