@@ -185,12 +185,13 @@ private:
                        CppIndent                         indentation,
                        bool                              skipName,
                        bool                              emitNewLine) const;
-  void emitFunction(const cppast::CppFunction& funcObj,
-                    std::ostream&              stm,
-                    CppIndent                  indentation,
-                    bool                       skipName,
-                    bool                       skipParamName,
-                    bool                       emitNewLine) const;
+  void emitFunctionOrFuncPtrCommon(const cppast::CppFunctionOrFuncPtrCommon& funcObj,
+                                   bool                                      isFuncPtr,
+                                   std::ostream&                             stm,
+                                   CppIndent                                 indentation,
+                                   bool                                      skipName,
+                                   bool                                      skipParamName,
+                                   bool                                      emitNewLine) const;
   void emitConstructor(const cppast::CppConstructor& ctorObj,
                        std::ostream&                 stm,
                        CppIndent                     indentation,
@@ -233,7 +234,7 @@ inline void CppWriter::emitFunctionPtr(const cppast::CppFunctionPointer& funcPtr
 {
   if (funcPtrObj.attr() & cppast::CppIdentifierAttrib::TYPEDEF)
     return; // Typedef of funcptr without name makes no sense.
-  emitFunction(funcPtrObj, stm, CppIndent(), skipName, skipName, emitNewLine);
+  emitFunctionOrFuncPtrCommon(funcPtrObj, true, stm, CppIndent(), skipName, skipName, emitNewLine);
 }
 
 inline void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
@@ -241,7 +242,7 @@ inline void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
                                     bool                       skipParamName,
                                     bool                       emitNewLine) const
 {
-  emitFunction(funcObj, stm, CppIndent(), false, skipParamName, emitNewLine);
+  emitFunctionOrFuncPtrCommon(funcObj, false, stm, CppIndent(), false, skipParamName, emitNewLine);
 }
 
 inline void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,

@@ -615,12 +615,13 @@ void CppWriter::emitParamList(const std::vector<const cppast::CppEntity*>& param
   }
 }
 
-void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
-                             std::ostream&              stm,
-                             CppIndent                  indentation,
-                             bool                       skipName,
-                             bool                       skipParamName,
-                             bool                       emitNewLine) const
+void CppWriter::emitFunctionOrFuncPtrCommon(const cppast::CppFunctionOrFuncPtrCommon& funcObj,
+                                            bool                                      isFuncPtr,
+                                            std::ostream&                             stm,
+                                            CppIndent                                 indentation,
+                                            bool                                      skipName,
+                                            bool                                      skipParamName,
+                                            bool                                      emitNewLine) const
 {
   if (funcObj.isTemplated())
     emitTemplSpec(funcObj.templateSpecification().value(), stm, indentation);
@@ -649,13 +650,13 @@ void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
     stm << "auto";
   else if (funcObj.returnType())
     emitVarType(*funcObj.returnType(), stm);
-  if (funcObj.entityType() == cppast::CppEntityType::FUNCTION_PTR)
+  if (isFuncPtr)
     stm << " (";
   else
     stm << ' ';
   if (!funcObj.decor2().empty())
     stm << funcObj.decor2() << ' ';
-  if (funcObj.entityType() == cppast::CppEntityType::FUNCTION_PTR)
+  if (isFuncPtr)
   {
     stm << '*';
     if (!skipName)
@@ -712,7 +713,7 @@ void CppWriter::emitFunction(const cppast::CppFunction& funcObj,
                              bool                       emitNewLine,
                              CppIndent                  indentation) const
 {
-  return emitFunction(funcObj, stm, indentation, false, false, emitNewLine);
+  return emitFunctionOrFuncPtrCommon(funcObj, false, stm, indentation, false, false, emitNewLine);
 }
 
 void CppWriter::emitFunctionPtr(const cppast::CppFunctionPointer& funcPtrObj,
@@ -722,7 +723,7 @@ void CppWriter::emitFunctionPtr(const cppast::CppFunctionPointer& funcPtrObj,
 {
   if (funcPtrObj.attr() & cppast::CppIdentifierAttrib::TYPEDEF)
     stm << indentation << "typedef ";
-  emitFunction((const cppast::CppFunction&) funcPtrObj, stm, emitNewLine, indentation);
+  emitFunctionOrFuncPtrCommon(funcPtrObj, true, stm, indentation, false, false, emitNewLine);
 }
 
 void CppWriter::emitConstructor(const cppast::CppConstructor& ctorObj,

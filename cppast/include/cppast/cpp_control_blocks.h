@@ -13,7 +13,7 @@ namespace cppast {
 /// Some blocks have common structure like if, while, and do-while.
 /// They all contain a body and an expression of condition.
 template <CppEntityType _EntityType>
-class CppControlBlockBase : public CppEntity
+class CppControlBlockBase
 {
 public:
   static constexpr auto EntityType()
@@ -33,8 +33,7 @@ public:
 
 protected:
   CppControlBlockBase(std::unique_ptr<CppEntity> cond, std::unique_ptr<CppEntity> body)
-    : CppEntity(EntityType())
-    , cond_(std::move(cond))
+    : cond_(std::move(cond))
     , body_(std::move(body))
   {
   }
@@ -44,13 +43,14 @@ private:
   const std::unique_ptr<CppEntity> body_;
 };
 
-class CppIfBlock : public CppControlBlockBase<CppEntityType::IF_BLOCK>
+class CppIfBlock : public CppEntity, public CppControlBlockBase<CppEntityType::IF_BLOCK>
 {
 public:
   CppIfBlock(std::unique_ptr<CppEntity> cond,
              std::unique_ptr<CppEntity> body,
              std::unique_ptr<CppEntity> elseArg = nullptr)
-    : CppControlBlockBase(std::move(cond), std::move(body))
+    : CppEntity(EntityType())
+    , CppControlBlockBase(std::move(cond), std::move(body))
     , else_(std::move(elseArg))
   {
   }
@@ -65,20 +65,22 @@ private:
   const std::unique_ptr<CppEntity> else_;
 };
 
-class CppWhileBlock : public CppControlBlockBase<CppEntityType::WHILE_BLOCK>
+class CppWhileBlock : public CppEntity, public CppControlBlockBase<CppEntityType::WHILE_BLOCK>
 {
 public:
   CppWhileBlock(std::unique_ptr<CppEntity> cond, std::unique_ptr<CppEntity> body)
-    : CppControlBlockBase(std::move(cond), std::move(body))
+    : CppEntity(EntityType())
+    , CppControlBlockBase(std::move(cond), std::move(body))
   {
   }
 };
 
-class CppDoWhileBlock : public CppControlBlockBase<CppEntityType::DO_WHILE_BLOCK>
+class CppDoWhileBlock : public CppEntity, public CppControlBlockBase<CppEntityType::DO_WHILE_BLOCK>
 {
 public:
   CppDoWhileBlock(std::unique_ptr<CppEntity> cond, std::unique_ptr<CppEntity> body)
-    : CppControlBlockBase(std::move(cond), std::move(body))
+    : CppEntity(EntityType())
+    , CppControlBlockBase(std::move(cond), std::move(body))
   {
   }
 };

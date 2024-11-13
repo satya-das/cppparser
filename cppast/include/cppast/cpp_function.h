@@ -19,7 +19,7 @@ namespace cppast {
 class CppExpression;
 class CppBlob;
 
-class CppFuncLikeBase : public CppEntity
+class CppFuncLike
 {
 public:
   const std::vector<std::string>& throwSpec() const
@@ -40,9 +40,6 @@ public:
     defn_ = std::move(defnArg);
   }
 
-protected:
-  using CppEntity::CppEntity;
-
 private:
   std::unique_ptr<CppCompound> defn_; // If it is nullptr then this object is just for declaration.
   std::vector<std::string>     throwSpec_;
@@ -51,7 +48,7 @@ private:
 /**
  * @brief Base class of constructor, destructor, and functions.
  */
-class CppFunctionBase : public CppFuncLikeBase, public CppTemplatableEntity
+class CppFunctionCommon : public CppFuncLike, public CppTemplatableEntity
 {
 public:
   const std::string& name() const
@@ -91,9 +88,8 @@ public:
   }
 
 protected:
-  CppFunctionBase(CppEntityType type, std::string name, std::uint32_t attr)
-    : CppFuncLikeBase(type)
-    , name_(std::move(name))
+  CppFunctionCommon(std::string name, std::uint32_t attr)
+    : name_(std::move(name))
     , attr_(attr)
   {
   }
@@ -105,7 +101,7 @@ private:
   std::string       decor2_; // e.g. __stdcall
 };
 
-class CppFuncCtorBase : public CppFunctionBase
+class CppFuncOrCtorCommon : public CppFunctionCommon
 {
 public:
   bool hasParams() const
@@ -135,11 +131,8 @@ public:
   }
 
 protected:
-  CppFuncCtorBase(CppEntityType                                 type,
-                  std::string                                   name,
-                  std::vector<std::unique_ptr<const CppEntity>> params,
-                  std::uint32_t                                 attr)
-    : CppFunctionBase(type, std::move(name), attr)
+  CppFuncOrCtorCommon(std::string name, std::vector<std::unique_ptr<const CppEntity>> params, std::uint32_t attr)
+    : CppFunctionCommon(std::move(name), attr)
     , params_(std::move(params))
   {
   }
@@ -151,7 +144,29 @@ protected:
 
 class CppVarType;
 
-class CppFunction : public CppFuncCtorBase
+class CppFunctionOrFuncPtrCommon : public CppFuncOrCtorCommon
+{
+public:
+  const CppVarType* returnType() const
+  {
+    return retType_.get();
+  }
+
+protected:
+  CppFunctionOrFuncPtrCommon(std::string                                   name,
+                             std::unique_ptr<CppVarType>                   retType,
+                             std::vector<std::unique_ptr<const CppEntity>> params,
+                             std::uint32_t                                 attr)
+    : CppFuncOrCtorCommon(std::move(name), std::move(params), attr)
+    , retType_(std::move(retType))
+  {
+  }
+
+private:
+  const std::unique_ptr<CppVarType> retType_;
+};
+
+class CppFunction : public CppEntity, public CppFunctionOrFuncPtrCommon
 {
 public:
   static constexpr auto EntityType()
@@ -164,30 +179,10 @@ public:
               std::unique_ptr<CppVarType>                   retType,
               std::vector<std::unique_ptr<const CppEntity>> params,
               std::uint32_t                                 attr)
-    : CppFuncCtorBase(EntityType(), std::move(name), std::move(params), attr)
-    , retType_(std::move(retType))
+    : CppEntity(EntityType())
+    , CppFunctionOrFuncPtrCommon(std::move(name), std::move(retType), std::move(params), attr)
   {
   }
-
-public:
-  const CppVarType* returnType() const
-  {
-    return retType_.get();
-  }
-
-protected:
-  CppFunction(CppEntityType                                 type,
-              std::string                                   name,
-              std::unique_ptr<CppVarType>                   retType,
-              std::vector<std::unique_ptr<const CppEntity>> params,
-              std::uint32_t                                 attr)
-    : CppFuncCtorBase(type, std::move(name), std::move(params), attr)
-    , retType_(std::move(retType))
-  {
-  }
-
-private:
-  const std::unique_ptr<CppVarType> retType_;
 };
 
 class CppLambda : public CppEntity
@@ -237,7 +232,7 @@ private:
 
  * It has all the attributes of a function object and so it is simply derived from CppFunction.
  */
-class CppFunctionPointer : public CppFunction
+class CppFunctionPointer : public CppEntity, public CppFunctionOrFuncPtrCommon
 {
 public:
   static constexpr auto EntityType()
@@ -251,7 +246,8 @@ public:
                      std::vector<std::unique_ptr<const CppEntity>> params,
                      std::uint32_t                                 attr,
                      std::string                                   ownerName = std::string())
-    : CppFunction(EntityType(), std::move(name), std::move(retType), std::move(params), attr)
+    : CppEntity(EntityType())
+    , CppFunctionOrFuncPtrCommon(std::move(name), std::move(retType), std::move(params), attr)
     , ownerName_(std::move(ownerName))
   {
   }
@@ -281,7 +277,7 @@ struct CppMemberInit
  */
 using CppMemberInits = std::list<CppMemberInit>;
 
-class CppConstructor : public CppFuncCtorBase
+class CppConstructor : public CppEntity, public CppFuncOrCtorCommon
 {
 public:
   static constexpr auto EntityType()
@@ -314,7 +310,7 @@ private:
   std::optional<CppMemberInits> memInits_;
 };
 
-class CppDestructor : public CppFunctionBase
+class CppDestructor : public CppEntity, public CppFunctionCommon
 {
 public:
   static constexpr auto EntityType()
@@ -324,12 +320,13 @@ public:
 
 public:
   CppDestructor(std::string name, std::uint32_t attr)
-    : CppFunctionBase(EntityType(), name, attr)
+    : CppEntity(EntityType())
+    , CppFunctionCommon(name, attr)
   {
   }
 };
 
-class CppTypeConverter : public CppFunctionBase
+class CppTypeConverter : public CppEntity, public CppFunctionCommon
 {
 public:
   static constexpr auto EntityType()
@@ -339,7 +336,8 @@ public:
 
 public:
   CppTypeConverter(CppVarType* type, std::string name)
-    : CppFunctionBase(EntityType(), std::move(name), 0)
+    : CppEntity(EntityType())
+    , CppFunctionCommon(std::move(name), 0)
     , targetType_(type)
   {
   }

@@ -12,40 +12,40 @@
 
 namespace cppast {
 
-inline bool IsConst(const CppFunctionBase& func)
+inline bool IsConst(const CppFunctionCommon& func)
 {
   return (func.attr() & CONST) == CONST;
 }
-inline bool IsVirtual(const CppFunctionBase& func)
+inline bool IsVirtual(const CppFunctionCommon& func)
 {
   return (func.attr() & (VIRTUAL | OVERRIDE)) == VIRTUAL;
 }
-inline bool IsPureVirtual(const CppFunctionBase& func)
+inline bool IsPureVirtual(const CppFunctionCommon& func)
 {
   return (func.attr() & PURE_VIRTUAL) == PURE_VIRTUAL;
 }
-inline bool IsStatic(const CppFunctionBase& func)
+inline bool IsStatic(const CppFunctionCommon& func)
 {
   return (func.attr() & STATIC) == STATIC;
 }
-inline bool IsInline(const CppFunctionBase& func)
+inline bool IsInline(const CppFunctionCommon& func)
 {
   return (func.attr() & INLINE) == INLINE;
 }
-inline bool IsOverride(const CppFunctionBase& func)
+inline bool IsOverride(const CppFunctionCommon& func)
 {
   return (func.attr() & OVERRIDE) == OVERRIDE;
 }
-inline bool IsDeleted(const CppFunctionBase& func)
+inline bool IsDeleted(const CppFunctionCommon& func)
 {
   return (func.attr() & DELETE) == DELETE;
 }
-inline bool IsFinal(const CppFunctionBase& func)
+inline bool IsFinal(const CppFunctionCommon& func)
 {
   return (func.attr() & FINAL) == FINAL;
 }
 
-inline std::vector<const CppEntity*> GetAllParams(const CppFuncCtorBase& func)
+inline std::vector<const CppEntity*> GetAllParams(const CppFuncOrCtorCommon& func)
 {
   std::vector<const CppEntity*> result;
   func.visitAllParams([&result](const auto& param) { result.push_back(&param); });
