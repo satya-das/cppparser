@@ -5,7 +5,7 @@ endif()
 
 add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 
-include_directories(../../../common/third_party)
+include_directories(../../../common/third_party ../src)
 
 add_executable(cppparsertest
 	app/cppparsertest.cpp

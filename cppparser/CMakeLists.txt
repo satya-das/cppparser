@@ -51,8 +51,8 @@ add_custom_command(
 add_library(cppparser_lex_and_yacc OBJECT
 	src/parser.l
 	src/parser.y
-	src/parser.lex.cpp
-	src/parser.tab.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/parser.lex.cpp
+	${CMAKE_CURRENT_SOURCE_DIR}/src/parser.tab.cpp
 )
 target_link_libraries(cppparser_lex_and_yacc
 	PUBLIC
@@ -60,10 +60,10 @@ target_link_libraries(cppparser_lex_and_yacc
 )
 target_include_directories(cppparser_lex_and_yacc
 	PUBLIC
-		include
-		src
-		../../common/third_party/boost_tp
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+		$<INSTALL_INTERFACE:include>
 	PRIVATE
+		../../common/third_party/boost_tp
 		src/win_hack
 )
 target_compile_definitions(cppparser_lex_and_yacc
@@ -86,4 +86,12 @@ target_link_libraries(cppparser
 		cppparser_lex_and_yacc
 )
 
+target_include_directories(cppparser
+	PUBLIC
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+		$<INSTALL_INTERFACE:include>
+)
+
 set_target_properties(cppparser PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+
+install(DIRECTORY "include/cppparser" DESTINATION "include" COMPONENT Development)
