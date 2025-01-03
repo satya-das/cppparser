@@ -52,6 +52,7 @@ TEST_CASE_METHOD(ErrorHandlerTest, "Error line and column")
   }();
 
   CHECK(errHandlerCalled);
+  parser.resetErrorHandler();
   // CHECK(exceptionThrown);
   (void) exceptionThrown;
 }
