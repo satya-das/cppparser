@@ -14,9 +14,12 @@ add_library(cppast STATIC
   src/cppast.cpp
 )
 target_include_directories(cppast
-	PUBLIC
-		include
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:${CPPPARSER_INSTALL_INCLUDE_DIR}>
 )
 set_target_properties(cppast PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 
 add_subdirectory(test)
+
+install(DIRECTORY "include/cppast" DESTINATION "include")
