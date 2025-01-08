@@ -1129,6 +1129,7 @@ varattrib
   | tknVolatile  [ZZLOG;] { $$ = VOLATILE; }
   | tknMutable   [ZZLOG;] { $$ = MUTABLE; }
   | tknConstExpr [ZZLOG;] { $$ = CONST_EXPR; }
+  | tknInline    [ZZLOG;] { $$ = INLINE; }
   ;
 
 typeconverter
