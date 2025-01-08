@@ -38,6 +38,8 @@ static void EmitAttribute(std::uint32_t attr, std::ostream& stm)
     stm << "volatile ";
   if (attr & cppast::CppIdentifierAttrib::MUTABLE)
     stm << "mutable ";
+  if (attr & cppast::CppIdentifierAttrib::INLINE)
+    stm << "inline ";
 }
 
 static void EmitTypeModifier(const cppast::CppTypeModifier& modifier, std::ostream& stm)
