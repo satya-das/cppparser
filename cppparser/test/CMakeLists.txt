@@ -38,6 +38,7 @@ set(TEST_SNIPPET_EMBEDDED_TESTS
 	${CMAKE_CURRENT_LIST_DIR}/unit/initializer-list-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/unit/namespace-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/unit/preprocessor-test.cpp
+	${CMAKE_CURRENT_LIST_DIR}/unit/structured-binding-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/unit/template-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/unit/uniform-init-test.cpp
 	${CMAKE_CURRENT_LIST_DIR}/unit/vardecl-test.cpp
