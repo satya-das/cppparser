@@ -5,6 +5,8 @@
 
 #include "cppast/cppast.h"
 
+#include <algorithm>
+
 namespace cppcodegen {
 
 namespace {
