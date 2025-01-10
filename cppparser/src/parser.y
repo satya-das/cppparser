@@ -1122,6 +1122,7 @@ exptype
   : tknStatic    [ZZLOG;] { $$ = STATIC; }
   | tknExtern    [ZZLOG;] { $$ = EXTERN; }
   | tknExternC   [ZZLOG;] { $$ = EXTERN_C; }
+  | tknInline    [ZZLOG;] { $$ = INLINE; }
   ;
 
 varattrib
@@ -1129,7 +1130,6 @@ varattrib
   | tknVolatile  [ZZLOG;] { $$ = VOLATILE; }
   | tknMutable   [ZZLOG;] { $$ = MUTABLE; }
   | tknConstExpr [ZZLOG;] { $$ = CONST_EXPR; }
-  | tknInline    [ZZLOG;] { $$ = INLINE; }
   ;
 
 typeconverter
@@ -1444,7 +1444,6 @@ templatearglist
 
 functype
   : exptype        [ZZLOG;] { $$ = $1; }
-  | tknInline      [ZZLOG;] { $$ = INLINE; }
   | tknVirtual     [ZZLOG;] { $$ = VIRTUAL; }
   | tknExplicit    [ZZLOG;] { $$ = EXPLICIT; }
   | tknFriend      [ZZLOG;] { $$ = FRIEND; }
