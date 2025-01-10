@@ -39,8 +39,8 @@ protected:
   }
 
 private:
-  const std::unique_ptr<CppEntity> cond_;
-  const std::unique_ptr<CppEntity> body_;
+  std::unique_ptr<CppEntity> cond_;
+  std::unique_ptr<CppEntity> body_;
 };
 
 class CppIfBlock : public CppEntity, public CppControlBlockBase<CppEntityType::IF_BLOCK>
@@ -62,7 +62,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppEntity> else_;
+  std::unique_ptr<CppEntity> else_;
 };
 
 class CppWhileBlock : public CppEntity, public CppControlBlockBase<CppEntityType::WHILE_BLOCK>
@@ -85,8 +85,6 @@ public:
   }
 };
 
-using CppExpressions = std::vector<std::unique_ptr<const CppExpression>>;
-
 class CppForBlock : public CppEntity
 {
 public:
@@ -97,8 +95,8 @@ public:
 
 public:
   CppForBlock(std::unique_ptr<CppEntity>           start,
-              std::unique_ptr<const CppExpression> stop,
-              std::unique_ptr<const CppExpression> step,
+              std::unique_ptr<CppExpression> stop,
+              std::unique_ptr<CppExpression> step,
               std::unique_ptr<CppEntity>           body)
     : CppEntity(EntityType())
     , start_(std::move(start))
@@ -129,10 +127,10 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppEntity>           start_;
-  const std::unique_ptr<const CppExpression> stop_;
-  const std::unique_ptr<const CppExpression> step_;
-  const std::unique_ptr<CppEntity>           body_;
+  std::unique_ptr<CppEntity>           start_;
+  std::unique_ptr<CppExpression> stop_;
+  std::unique_ptr<CppExpression> step_;
+  std::unique_ptr<CppEntity>           body_;
 };
 
 class CppRangeForBlock : public CppEntity
@@ -169,9 +167,9 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppVar>        var_;
-  const std::unique_ptr<CppExpression> expr_;
-  const std::unique_ptr<CppEntity>     body_;
+  std::unique_ptr<CppVar>        var_;
+  std::unique_ptr<CppExpression> expr_;
+  std::unique_ptr<CppEntity>     body_;
 };
 
 class CppCase
@@ -227,8 +225,8 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppExpression> cond_;
-  const std::vector<CppCase>           body_;
+  std::unique_ptr<CppExpression> cond_;
+  std::vector<CppCase>           body_;
 };
 
 } // namespace cppast

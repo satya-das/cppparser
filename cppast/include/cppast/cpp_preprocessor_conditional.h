@@ -46,8 +46,8 @@ public:
   }
 
 private:
-  const PreprocessorConditionalType condType_;
-  const std::string                 cond_;
+  PreprocessorConditionalType condType_;
+  std::string                 cond_;
 };
 
 } // namespace cppast

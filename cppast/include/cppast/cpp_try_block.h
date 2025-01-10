@@ -14,9 +14,9 @@ namespace cppast {
 
 struct CppCatchBlock
 {
-  const std::unique_ptr<CppVarType>  exceptionType_;
-  const std::string                  exceptionName_;
-  const std::unique_ptr<CppCompound> catchStmt_;
+  std::unique_ptr<CppVarType>  exceptionType_;
+  std::string                  exceptionName_;
+  std::unique_ptr<CppCompound> catchStmt_;
 };
 
 using CppCatchBlockPtr = std::unique_ptr<CppCatchBlock>;
@@ -45,7 +45,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppCompound> tryStmt_;
+  std::unique_ptr<CppCompound> tryStmt_;
   CppCatchBlocks                     catchBlocks_;
 };
 

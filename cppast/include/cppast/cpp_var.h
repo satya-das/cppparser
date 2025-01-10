@@ -99,7 +99,7 @@ public:
   {
     return varDecl_.bitField();
   }
-  void bitField(std::unique_ptr<const CppExpression> bitFieldArg)
+  void bitField(std::unique_ptr<CppExpression> bitFieldArg)
   {
     varDecl_.bitField(std::move(bitFieldArg));
   }

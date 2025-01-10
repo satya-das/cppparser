@@ -33,7 +33,7 @@ public:
   }
 
 private:
-  const std::string doc_; ///< Entire comment text
+  std::string doc_; ///< Entire comment text
 };
 
 } // namespace cppast

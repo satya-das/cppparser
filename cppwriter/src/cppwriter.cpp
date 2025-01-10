@@ -331,7 +331,7 @@ void CppWriter::emitVar(const cppast::CppVar& varObj, std::ostream& stm, CppInde
   emitVar(varObj, stm, indentation, false);
 }
 
-void CppWriter::emitExpressions(const std::vector<std::unique_ptr<const cppast::CppExpression>>& exprs,
+void CppWriter::emitExpressions(const std::vector<std::unique_ptr<cppast::CppExpression>>& exprs,
                                 std::ostream&                                                    stm) const
 {
   const char* sep = "";
@@ -461,21 +461,21 @@ void CppWriter::emitUsingDecl(const cppast::CppUsingDecl& usingDecl, std::ostrea
   if (usingDecl.isTemplated())
     emitTemplSpec(usingDecl.templateSpecification().value(), stm, indentation);
   stm << indentation << "using " << usingDecl.name();
-  std::visit(Overloaded {[&](const std::unique_ptr<const cppast::CppVarType>& varType) {
+  std::visit(Overloaded {[&](const std::unique_ptr<cppast::CppVarType>& varType) {
                            if (varType)
                            {
                              stm << " = ";
                              emitVarType(*varType, stm);
                            }
                          },
-                         [&](const std::unique_ptr<const cppast::CppFunctionPointer>& funcPtr) {
+                         [&](const std::unique_ptr<cppast::CppFunctionPointer>& funcPtr) {
                            if (funcPtr)
                            {
                              stm << " = ";
                              emitFunctionPtr(*funcPtr, stm, false);
                            }
                          },
-                         [&](const std::unique_ptr<const cppast::CppCompound>& compound) {
+                         [&](const std::unique_ptr<cppast::CppCompound>& compound) {
                            if (compound)
                            {
                              stm << " = ";
@@ -531,11 +531,11 @@ void CppWriter::emitTemplSpec(const cppast::CppTemplateParams& templSpec,
     stm << sep;
     if (param.paramType().has_value())
     {
-      std::visit(Overloaded {[&](const std::unique_ptr<const cppast::CppVarType>& varType) {
+      std::visit(Overloaded {[&](const std::unique_ptr<cppast::CppVarType>& varType) {
                                emitVarType(*varType, stm);
                                stm << ' ';
                              },
-                             [&](const std::unique_ptr<const cppast::CppFunctionPointer>& funcPtr) {
+                             [&](const std::unique_ptr<cppast::CppFunctionPointer>& funcPtr) {
                                emitFunctionPtr(*funcPtr, stm, false);
                                stm << ' ';
                              }},
@@ -546,14 +546,14 @@ void CppWriter::emitTemplSpec(const cppast::CppTemplateParams& templSpec,
       stm << "typename ";
     }
     stm << param.paramName();
-    std::visit(Overloaded {[&](const std::unique_ptr<const cppast::CppVarType>& varType) {
+    std::visit(Overloaded {[&](const std::unique_ptr<cppast::CppVarType>& varType) {
                              if (varType)
                              {
                                stm << " = ";
                                emitVarType(*varType, stm);
                              }
                            },
-                           [&](const std::unique_ptr<const cppast::CppExpression>& expr) {
+                           [&](const std::unique_ptr<cppast::CppExpression>& expr) {
                              if (expr)
                              {
                                stm << " = ";

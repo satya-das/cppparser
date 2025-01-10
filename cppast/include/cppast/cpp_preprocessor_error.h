@@ -24,7 +24,7 @@ public:
   }
 
 private:
-  const std::string err_;
+  std::string err_;
 };
 
 } // namespace cppast

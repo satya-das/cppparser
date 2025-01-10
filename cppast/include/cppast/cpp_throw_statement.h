@@ -42,7 +42,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppExpression> expr_;
+  std::unique_ptr<CppExpression> expr_;
 };
 
 } // namespace cppast

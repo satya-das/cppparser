@@ -37,7 +37,7 @@ public:
   }
 
 private:
-  const std::string asm_;
+  std::string asm_;
 };
 
 } // namespace cppast

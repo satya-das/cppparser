@@ -20,7 +20,7 @@ enum class CppVarInitializeType
 
 class CppExpression;
 
-using CppCallArgs   = std::vector<std::unique_ptr<const CppExpression>>;
+using CppCallArgs   = std::vector<std::unique_ptr<CppExpression>>;
 using CppArraySizes = CppCallArgs;
 
 enum class CppConstructorCallStyle : bool
@@ -36,7 +36,7 @@ struct CppConstructorCallInfo
 };
 
 using CppVarInitInfo = std::variant<    // Variable can be initialized using different ways.
-  std::unique_ptr<const CppExpression>, // Variable is initialized using '='.
+  std::unique_ptr<CppExpression>, // Variable is initialized using '='.
   CppConstructorCallInfo                // Variable is initialized using direct constructor call.
   >;
 
@@ -54,7 +54,7 @@ public:
   {
   }
 
-  CppVarDecl(std::string name, std::unique_ptr<const CppExpression> assignExpr)
+  CppVarDecl(std::string name, std::unique_ptr<CppExpression> assignExpr)
     : CppVarDecl(std::move(name), CppVarInitInfo(std::move(assignExpr)))
   {
   }
@@ -98,7 +98,7 @@ public:
   {
     if (initializeType() != CppVarInitializeType::USING_EQUAL)
       return nullptr;
-    return std::get<std::unique_ptr<const CppExpression>>(initInfo_.value()).get();
+    return std::get<std::unique_ptr<CppExpression>>(initInfo_.value()).get();
   }
 
   CppConstructorCallStyle directConstructorCallStyle() const
@@ -115,7 +115,7 @@ public:
   {
     return bitField_.get();
   }
-  void bitField(std::unique_ptr<const CppExpression> bitFieldArg)
+  void bitField(std::unique_ptr<CppExpression> bitFieldArg)
   {
     bitField_ = std::move(bitFieldArg);
   }
@@ -133,7 +133,7 @@ private:
   std::string                   name_;
   std::optional<CppVarInitInfo> initInfo_;
 
-  std::unique_ptr<const CppExpression> bitField_;
+  std::unique_ptr<CppExpression> bitField_;
   CppArraySizes                        arraySizes_;
 };
 

@@ -6,7 +6,7 @@
 namespace cppast {
 
 CppConstructor::CppConstructor(std::string                                   name,
-                               std::vector<std::unique_ptr<const CppEntity>> params,
+                               std::vector<std::unique_ptr<CppEntity>> params,
                                CppMemberInits                                memInitList,
                                std::uint32_t                                 attr)
   : CppEntity(EntityType())

@@ -47,7 +47,7 @@ protected:
   }
 
 private:
-  const CppPreprocessorType preprocessorType_;
+  CppPreprocessorType preprocessorType_;
 };
 
 } // namespace cppast

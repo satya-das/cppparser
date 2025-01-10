@@ -16,7 +16,7 @@ class CppEntity;
 struct CppFunctionData
 {
   CppToken                                               funcName;
-  std::vector<std::unique_ptr<const cppast::CppEntity>>* paramList;
+  std::vector<std::unique_ptr<cppast::CppEntity>>* paramList;
   unsigned int                                           funcAttr;
 };
 
@@ -60,7 +60,7 @@ inline auto FuncCallExpr(cppast::CppExpression* func)
   return new cppast::CppFunctionCallExpr(Ptr(func), {});
 }
 
-inline auto FuncCallExpr(cppast::CppExpression* func, const cppast::CppExpression* arg)
+inline auto FuncCallExpr(cppast::CppExpression* func, cppast::CppExpression* arg)
 {
   cppast::CppCallArgs args;
   if (arg)
@@ -88,7 +88,7 @@ inline auto UniformInitExpr(std::string name, cppast::CppCallArgs* args)
   return UniformInitExpr(std::move(name), args ? Obj(args) : cppast::CppCallArgs());
 }
 
-inline auto UniformInitExpr(std::string name, const cppast::CppExpression* arg)
+inline auto UniformInitExpr(std::string name, cppast::CppExpression* arg)
 {
   cppast::CppCallArgs args;
   if (arg)
@@ -114,32 +114,32 @@ inline auto InitializerListExpr(cppast::CppExpression* expr)
   return new cppast::CppInitializerListExpr(std::move(args));
 }
 
-inline auto CStyleCastExpr(const cppast::CppVarType* targetType, const cppast::CppExpression* expr)
+inline auto CStyleCastExpr(cppast::CppVarType* targetType, cppast::CppExpression* expr)
 {
   return new cppast::CppCStyleTypecastExpr(Ptr(targetType), Ptr(expr));
 }
 
-inline auto StaticCastExpr(const cppast::CppVarType* targetType, const cppast::CppExpression* expr)
+inline auto StaticCastExpr(cppast::CppVarType* targetType, cppast::CppExpression* expr)
 {
   return new cppast::CppStaticCastExpr(Ptr(targetType), Ptr(expr));
 }
 
-inline auto ConstCastExpr(const cppast::CppVarType* targetType, const cppast::CppExpression* expr)
+inline auto ConstCastExpr(cppast::CppVarType* targetType, cppast::CppExpression* expr)
 {
   return new cppast::CppConstCastExpr(Ptr(targetType), Ptr(expr));
 }
 
-inline auto DynamiCastExpr(const cppast::CppVarType* targetType, const cppast::CppExpression* expr)
+inline auto DynamiCastExpr(cppast::CppVarType* targetType, cppast::CppExpression* expr)
 {
   return new cppast::CppDynamiCastExpr(Ptr(targetType), Ptr(expr));
 }
 
-inline auto ReinterpretCastExpr(const cppast::CppVarType* targetType, const cppast::CppExpression* expr)
+inline auto ReinterpretCastExpr(cppast::CppVarType* targetType, cppast::CppExpression* expr)
 {
   return new cppast::CppReinterpretCastExpr(Ptr(targetType), Ptr(expr));
 }
 
-inline auto VarTypeExpr(const cppast::CppVarType* vartype)
+inline auto VarTypeExpr(cppast::CppVarType* vartype)
 {
   return new cppast::CppVartypeExpr(Ptr(vartype));
 }
@@ -149,12 +149,12 @@ inline auto VarTypeExpr(std::string baseType, cppast::CppTypeModifier modifier)
   return VarTypeExpr(new cppast::CppVarType(std::move(baseType), modifier));
 }
 
-inline auto NewExpr(const cppast::CppVarType* vartype)
+inline auto NewExpr(cppast::CppVarType* vartype)
 {
   return new cppast::CppVartypeExpr(Ptr(vartype));
 }
 
-inline auto LambdaExpression(const cppast::CppLambda* lambda)
+inline auto LambdaExpression(cppast::CppLambda* lambda)
 {
   return new cppast::CppLambdaExpr(Ptr(lambda));
 }
@@ -171,7 +171,7 @@ template <typename ExprItr>
 inline cppast::CppExpression* ExpressionListExpr(ExprItr first, ExprItr end)
 {
   static_assert(
-    std::is_same_v<std::unique_ptr<const cppast::CppExpression>, std::remove_reference_t<decltype(*first)>>);
+    std::is_same_v<std::unique_ptr<cppast::CppExpression>, std::remove_reference_t<decltype(*first)>>);
   assert(first != end);
   auto second = first + 1;
   if (second == end)
@@ -183,7 +183,7 @@ inline cppast::CppExpression* ExpressionListExpr(ExprItr first, ExprItr end)
   return new cppast::CppBinomialExpr(cppast::CppBinaryOperator::COMMA, Ptr(result), Ptr(ExpressionListExpr(next, end)));
 }
 
-inline auto ExpressionListExpr(std::vector<std::unique_ptr<const cppast::CppExpression>> exprList)
+inline auto ExpressionListExpr(std::vector<std::unique_ptr<cppast::CppExpression>> exprList)
 {
   return ExpressionListExpr(exprList.begin(), exprList.end());
 }
@@ -193,7 +193,7 @@ inline auto VarDecl(std::string name, cppast::CppVarInitInfo* initInfo)
   return initInfo ? cppast::CppVarDecl(name, Obj(initInfo)) : cppast::CppVarDecl(name);
 }
 
-inline auto VarInitInfo(const cppast::CppExpression* expr)
+inline auto VarInitInfo(cppast::CppExpression* expr)
 {
   return new cppast::CppVarInitInfo(Ptr(expr));
 }
@@ -204,7 +204,7 @@ inline auto VarInitInfo(cppast::CppCallArgs* args, cppast::CppConstructorCallSty
 }
 
 inline auto MemberInit(std::string                                  memberName,
-                       std::unique_ptr<const cppast::CppExpression> arg,
+                       std::unique_ptr<cppast::CppExpression> arg,
                        cppast::CppConstructorCallStyle              style)
 {
   cppast::CppCallArgs args;

@@ -30,7 +30,7 @@ public:
   }
 
 private:
-  const std::string name_;
+  std::string name_;
 };
 
 } // namespace cppast

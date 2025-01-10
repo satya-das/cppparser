@@ -24,8 +24,8 @@ class CppExpression;
 class CppTemplateParam
 {
 public:
-  using ParamType = std::variant<std::unique_ptr<const CppVarType>, std::unique_ptr<const CppFunctionPointer>>;
-  using ArgType   = std::variant<std::unique_ptr<const CppVarType>, std::unique_ptr<const CppExpression>>;
+  using ParamType = std::variant<std::unique_ptr<CppVarType>, std::unique_ptr<CppFunctionPointer>>;
+  using ArgType   = std::variant<std::unique_ptr<CppVarType>, std::unique_ptr<CppExpression>>;
 
 public:
   CppTemplateParam(std::string paramName, ArgType defArg = ArgType());

@@ -95,7 +95,7 @@ protected:
   }
 
 private:
-  const std::string name_;
+  std::string name_;
   std::uint32_t     attr_;   // e.g.: const, static, virtual, inline, constexpr, etc.
   std::string       decor1_; // e.g. __declspec(dllexport)
   std::string       decor2_; // e.g. __stdcall
@@ -131,7 +131,7 @@ public:
   }
 
 protected:
-  CppFuncOrCtorCommon(std::string name, std::vector<std::unique_ptr<const CppEntity>> params, std::uint32_t attr)
+  CppFuncOrCtorCommon(std::string name, std::vector<std::unique_ptr<CppEntity>> params, std::uint32_t attr)
     : CppFunctionCommon(std::move(name), attr)
     , params_(std::move(params))
   {
@@ -139,7 +139,7 @@ protected:
 
 protected:
   // FIXME: Not all CppEntity objects can be function parameters. Chose a more suitable type.
-  const std::vector<std::unique_ptr<const CppEntity>> params_;
+  std::vector<std::unique_ptr<CppEntity>> params_;
 };
 
 class CppVarType;
@@ -155,7 +155,7 @@ public:
 protected:
   CppFunctionOrFuncPtrCommon(std::string                                   name,
                              std::unique_ptr<CppVarType>                   retType,
-                             std::vector<std::unique_ptr<const CppEntity>> params,
+                             std::vector<std::unique_ptr<CppEntity>> params,
                              std::uint32_t                                 attr)
     : CppFuncOrCtorCommon(std::move(name), std::move(params), attr)
     , retType_(std::move(retType))
@@ -163,7 +163,7 @@ protected:
   }
 
 private:
-  const std::unique_ptr<CppVarType> retType_;
+  std::unique_ptr<CppVarType> retType_;
 };
 
 class CppFunction : public CppEntity, public CppFunctionOrFuncPtrCommon
@@ -177,7 +177,7 @@ public:
 public:
   CppFunction(std::string                                   name,
               std::unique_ptr<CppVarType>                   retType,
-              std::vector<std::unique_ptr<const CppEntity>> params,
+              std::vector<std::unique_ptr<CppEntity>> params,
               std::uint32_t                                 attr)
     : CppEntity(EntityType())
     , CppFunctionOrFuncPtrCommon(std::move(name), std::move(retType), std::move(params), attr)
@@ -194,10 +194,10 @@ public:
   }
 
 public:
-  CppLambda(std::unique_ptr<const CppExpression>          captures,
-            std::vector<std::unique_ptr<const CppEntity>> params,
-            std::unique_ptr<const CppCompound>            defn,
-            std::unique_ptr<const CppVarType>             retType = nullptr);
+  CppLambda(std::unique_ptr<CppExpression>          captures,
+            std::vector<std::unique_ptr<CppEntity>> params,
+            std::unique_ptr<CppCompound>            defn,
+            std::unique_ptr<CppVarType>             retType = nullptr);
 
 public:
   const CppExpression* captures() const
@@ -205,7 +205,7 @@ public:
     return captures_.get();
   }
 
-  const std::vector<std::unique_ptr<const CppEntity>>& params() const
+  const std::vector<std::unique_ptr<CppEntity>>& params() const
   {
     return params_;
   }
@@ -221,10 +221,10 @@ public:
   }
 
 private:
-  const std::unique_ptr<const CppExpression>          captures_;
-  const std::vector<std::unique_ptr<const CppEntity>> params_;
-  const std::unique_ptr<const CppVarType>             retType_;
-  const std::unique_ptr<const CppCompound>            defn_;
+  std::unique_ptr<CppExpression>          captures_;
+  std::vector<std::unique_ptr<CppEntity>> params_;
+  std::unique_ptr<CppVarType>             retType_;
+  std::unique_ptr<CppCompound>            defn_;
 };
 
 /**
@@ -243,7 +243,7 @@ public:
 public:
   CppFunctionPointer(std::string                                   name,
                      std::unique_ptr<CppVarType>                   retType,
-                     std::vector<std::unique_ptr<const CppEntity>> params,
+                     std::vector<std::unique_ptr<CppEntity>> params,
                      std::uint32_t                                 attr,
                      std::string                                   ownerName = std::string())
     : CppEntity(EntityType())
@@ -259,7 +259,7 @@ public:
   }
 
 private:
-  const std::string ownerName_;
+  std::string ownerName_;
 };
 
 /**
@@ -286,7 +286,7 @@ public:
   }
 
   CppConstructor(std::string                                   name,
-                 std::vector<std::unique_ptr<const CppEntity>> params,
+                 std::vector<std::unique_ptr<CppEntity>> params,
                  CppMemberInits                                memInitList,
                  std::uint32_t                                 attr);
   ~CppConstructor() override;
@@ -349,7 +349,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppVarType> targetType_;
+  std::unique_ptr<CppVarType> targetType_;
 };
 
 } // namespace cppast

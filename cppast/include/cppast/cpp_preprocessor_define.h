@@ -49,9 +49,9 @@ public:
   }
 
 private:
-  const CppPreprocessorDefineType defType_;
-  const std::string               name_;
-  const std::string               defn_; ///< This will contain everything after name.
+  CppPreprocessorDefineType defType_;
+  std::string               name_;
+  std::string               defn_; ///< This will contain everything after name.
 };
 
 } // namespace cppast

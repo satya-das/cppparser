@@ -32,7 +32,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppVar> var_;
+  std::unique_ptr<CppVar> var_;
 };
 
 class CppTypedefList : public CppEntity
@@ -57,7 +57,7 @@ public:
   }
 
 private:
-  const std::unique_ptr<CppVarList> varList_;
+  std::unique_ptr<CppVarList> varList_;
 };
 
 class CppUsingDecl : public CppEntity, public CppTemplatableEntity
@@ -68,9 +68,9 @@ public:
     return CppEntityType::USING_DECL;
   }
 
-  using DeclData = std::variant<std::unique_ptr<const CppVarType>,
-                                std::unique_ptr<const CppFunctionPointer>,
-                                std::unique_ptr<const CppCompound>>;
+  using DeclData = std::variant<std::unique_ptr<CppVarType>,
+                                std::unique_ptr<CppFunctionPointer>,
+                                std::unique_ptr<CppCompound>>;
 
 public:
   CppUsingDecl(std::string name, DeclData declData)
@@ -98,8 +98,8 @@ public:
   }
 
 private:
-  const std::string name_;
-  const DeclData    declData_;
+  std::string name_;
+  DeclData    declData_;
 };
 
 } // namespace cppast

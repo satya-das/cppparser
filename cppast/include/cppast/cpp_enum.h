@@ -111,10 +111,10 @@ public:
   }
 
 private:
-  const std::string            name_;     // Can be empty for anonymous enum.
-  const std::list<CppEnumItem> itemList_; // Can be nullptr for forward declared enum.
-  const bool                   isClass_;
-  const std::string            underlyingType_;
+  std::string            name_;     // Can be empty for anonymous enum.
+  std::list<CppEnumItem> itemList_; // Can be nullptr for forward declared enum.
+  bool                   isClass_;
+  std::string            underlyingType_;
 };
 
 } // namespace cppast

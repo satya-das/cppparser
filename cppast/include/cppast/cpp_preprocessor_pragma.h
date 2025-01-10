@@ -24,7 +24,7 @@ public:
   }
 
 private:
-  const std::string defn_;
+  std::string defn_;
 };
 
 } // namespace cppast

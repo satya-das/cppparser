@@ -38,4 +38,27 @@ bool CppAttributeSpecifierSequenceContainer::visit(
   return true;
 }
 
+void CppAttributeSpecifierSequenceContainer::visitAll(
+  const std::function<void(CppExpression& attributeSpecifier)>& callback)
+{
+  visit([&callback](CppExpression& attributeSpecifier) {
+    callback(attributeSpecifier);
+    return true;
+  });
+}
+
+bool CppAttributeSpecifierSequenceContainer::visit(
+  const std::function<bool(CppExpression& attributeSpecifier)>& callback)
+{
+  for (const auto& specifier : attribSpecifierSequence_)
+  {
+    if (!callback(*specifier))
+    {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 } // namespace cppast

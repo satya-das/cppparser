@@ -36,8 +36,8 @@ public:
   }
 
 private:
-  const std::string name_;
-  const std::string alias_;
+  std::string name_;
+  std::string alias_;
 };
 
 } // namespace cppast

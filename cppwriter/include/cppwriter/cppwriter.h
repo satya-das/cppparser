@@ -199,7 +199,7 @@ private:
 
   void emitVarDecl(std::ostream& stm, const cppast::CppVarDecl& varDecl, bool skipName) const;
 
-  void emitExpressions(const std::vector<std::unique_ptr<const cppast::CppExpression>>& exprs, std::ostream& stm) const;
+  void emitExpressions(const std::vector<std::unique_ptr<cppast::CppExpression>>& exprs, std::ostream& stm) const;
 
 private:
   mutable CppIndent preproIndent_;

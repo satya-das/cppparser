@@ -32,4 +32,17 @@ bool CppCompound::visitAll(const Visitor<const CppEntity&>& callback) const
   return true;
 }
 
+bool CppCompound::visitAll(const Visitor<CppEntity&>& callback)
+{
+  for (auto& entity : entities_)
+  {
+    if (!callback(*entity))
+    {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 } // namespace cppast

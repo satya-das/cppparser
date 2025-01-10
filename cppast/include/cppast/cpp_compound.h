@@ -34,9 +34,9 @@ enum class CppCompoundType : std::uint8_t
 
 struct CppInheritanceInfo
 {
-  const std::string                  baseName;
-  const std::optional<CppAccessType> inhType;
-  const bool                         isVirtual {false};
+  std::string                  baseName;
+  std::optional<CppAccessType> inhType;
+  bool                         isVirtual {false};
 };
 
 /**
@@ -96,6 +96,16 @@ public:
   {
     return visitAll([&callback](const CppEntity& entity) {
       return (entity.entityType() != _EntityClass::EntityType()) || callback(static_cast<const _EntityClass&>(entity));
+    });
+  }
+
+  bool visitAll(const Visitor<CppEntity&>& callback);
+
+  template <typename _EntityClass>
+  bool visit(const Visitor<_EntityClass&>& callback)
+  {
+    return visitAll([&callback](CppEntity& entity) {
+      return (entity.entityType() != _EntityClass::EntityType()) || callback(static_cast<_EntityClass&>(entity));
     });
   }
 

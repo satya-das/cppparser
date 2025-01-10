@@ -33,8 +33,6 @@ public:
   }
 
 public:
-  const std::unique_ptr<CppVar> firstVar_;
-
   CppVarList(CppVar* firstVar, CppVarDeclInList varDecl)
     : CppEntity(EntityType())
     , firstVar_(firstVar)
@@ -55,6 +53,7 @@ public:
   }
 
 private:
+  std::unique_ptr<CppVar> firstVar_;
   CppVarDeclList varDeclList_;
 };
 

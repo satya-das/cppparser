@@ -30,7 +30,7 @@ public:
   }
 
 private:
-  const std::string macroCall_;
+  std::string macroCall_;
 };
 
 } // namespace cppast

@@ -59,9 +59,9 @@ public:
   }
 
 private:
-  const CppCompoundType compoundType_;
-  const std::string     name_;
-  const std::string     apidecor_;
+  CppCompoundType compoundType_;
+  std::string     name_;
+  std::string     apidecor_;
   std::uint32_t         attr_ {0};
 };
 

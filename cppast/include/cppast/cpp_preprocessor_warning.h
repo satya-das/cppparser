@@ -24,7 +24,7 @@ public:
   }
 
 private:
-  const std::string warning_;
+  std::string warning_;
 };
 
 } // namespace cppast

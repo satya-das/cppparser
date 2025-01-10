@@ -30,7 +30,7 @@ public:
   }
 
 private:
-  const std::string label_;
+  std::string label_;
 };
 
 } // namespace cppast

@@ -167,7 +167,7 @@ class CppTemplateArg;
   cppast::CppFunction*                             cppFuncObj;
   cppast::CppFunctionPointer*                      cppFuncPointerObj;
   cppast::CppEntity*                               varOrFuncPtr;
-  std::vector<std::unique_ptr<const cppast::CppEntity>>* paramList;
+  std::vector<std::unique_ptr<cppast::CppEntity>>* paramList;
   cppast::CppConstructor*                          cppCtorObj;
   cppast::CppDestructor*                           cppDtorObj;
   cppast::CppTypeConverter*                        cppTypeConverter;
@@ -1387,10 +1387,10 @@ operfuncname
 
 paramlist
   : [ZZLOG;] {
-    $$ = new std::vector<std::unique_ptr<const cppast::CppEntity>>;
+    $$ = new std::vector<std::unique_ptr<cppast::CppEntity>>;
   }
   | param [ZZLOG;] {
-    $$ = new std::vector<std::unique_ptr<const cppast::CppEntity>>;
+    $$ = new std::vector<std::unique_ptr<cppast::CppEntity>>;
     $$->emplace_back($1);
   }
   | paramlist ',' param [ZZLOG;] {
@@ -1711,14 +1711,14 @@ attribspecifier
 
 optattribspecifiers
   : {
-    $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+    $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
   }
   | attribspecifiers { $$ = $1; }
   ;
 
 attribspecifiers
   : attribspecifier {
-    $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+    $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
     $$->push_back(Ptr($1));
   }
   | attribspecifiers attribspecifier {
@@ -2080,11 +2080,11 @@ objcarglist
 
 exprlist
   : expr [ZZLOG;] {
-     $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+     $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
      $$->emplace_back($1);
   }
   | desinatedinitialization [ZZLOG;] {
-     $$ = new std::vector<std::unique_ptr<const cppast::CppExpression>>;
+     $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
      $$->emplace_back($1);
   }
   | exprlist optdoccommentstr ',' optdoccommentstr expr %prec COMMA [ZZLOG;] { $1->emplace_back($5); $$ = $1; }
