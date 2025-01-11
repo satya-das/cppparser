@@ -12,7 +12,7 @@ An easy, fast, and robust library to parse C/C++ source.
 - Most comments are preserved too.
 - Developed from scratch and uses back-tracking yacc (BtYacc) to write C++ grammer, that means **no dependency on libclang**.
 - The result of parsing is an AST where elements of a file are arranged in a tree.
-- Minimum dependency. Only external dependency is a [lexer](https://github.com/westes/flex) which is by default available on unix like platforms and can be easily [get on Windows](http://gnuwin32.sourceforge.net/packages/flex.htm).
+- Minimum dependency. Only external dependency is a [lexer](https://github.com/westes/flex) which is by default available on unix like platforms (Linux, Mac, etc.) and [Flex for Windows](http://gnuwin32.sourceforge.net/packages/flex.htm) is bundled with the project so it works out of the box on all Windows platforms too.
 - Parsing of multi-file program is supported too.
 
 ## Motivation 
