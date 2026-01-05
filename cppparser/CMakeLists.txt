@@ -3,14 +3,17 @@ if(MSVC)
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd\"4996\"")
 endif()
 
-add_subdirectory(test)
 add_subdirectory(third_party/btyacc_tp)
 
-add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
+if (CPPPARSER_BUILD_TESTS)
+	add_subdirectory(test)
 
-add_subdirectory(../../common/third_party/boost_tp/cmake  ${CMAKE_BINARY_DIR}/boost)
+	add_definitions(-DBOOST_AUTO_LINK_NOMANGLE)
 
-include_directories(../../common/third_party)
+	add_subdirectory(../../common/third_party/boost_tp/cmake  ${CMAKE_BINARY_DIR}/boost)
+
+	include_directories(../../common/third_party)
+endif()
 
 #############################################
 ## CppParser

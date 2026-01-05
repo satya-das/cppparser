@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.5)
 enable_testing()
 
 project(cppparser VERSION 1.0.0)
@@ -13,6 +13,8 @@ if(MSVC)
 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd\"4996\"")
 	SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /wd\"4996\"")
 endif()
+
+option(CPPPARSER_BUILD_TESTS "Build tests" OFF)
 
 add_subdirectory(cppast)
 add_subdirectory(cppparser)

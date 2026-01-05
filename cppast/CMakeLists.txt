@@ -20,6 +20,8 @@ target_include_directories(cppast
 )
 set_target_properties(cppast PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 
-add_subdirectory(test)
+if (CPPPARSER_BUILD_TESTS)
+  add_subdirectory(test)
+endif()
 
 install(DIRECTORY "include/cppast" DESTINATION "include")
