@@ -41,7 +41,6 @@ For AST traversing, see the [CppWriter](cppwriter), that uses the generated AST 
 ### Get the source
 
 ```sh
-git clone https://github.com/satya-das/common.git
 git clone https://github.com/satya-das/CppParser.git
 ```
 
@@ -52,7 +51,7 @@ cd cppparser
 mkdir builds
 cd builds
 cmake ..
-make && make test
+make
 ```
 
 *Alternatively, if you prefer `Ninja` instead of `make`*:
@@ -62,6 +61,27 @@ cd cppparser
 mkdir builds
 cd builds
 cmake -G Ninja ..
+ninja
+```
+
+## For contributors who need to run tests
+
+Make sure you also clone the dependencies. Run the following command in the parent directory of root of the `cppparser`.
+
+```sh
+git clone https://github.com/satya-das/common.git
+```
+
+After this command the `common` and `cppparser` should be in the same folder.
+
+## Configure and run test
+
+```sh
+cd cppparser
+mkdir builds
+cd builds
+cmake -G Ninja .. -DCPPPARSER_BUILD_TESTS=ON
 ninja && ninja test
 ```
 
+Modify the command by removing `-G Ninja` if you prefer `make`.

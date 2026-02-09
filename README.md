@@ -138,4 +138,4 @@ cmake -G Ninja .. -DCPPPARSER_BUILD_TESTS=ON
 ninja && ninja test
 ```
 
-Modify the command if you prefer `make`.
+Modify the command by removing `-G Ninja` if you prefer `make`.
