@@ -5,23 +5,23 @@ CppParser
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e2a1f6c5c8c149be816f1514ec491c98)](https://www.codacy.com/app/satya-das/cppparser?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=satya-das/cppparser&amp;utm_campaign=Badge_Grade)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-An easy, fast, and robust library to parse C/C++ source.
+An easy, fast, and robust library to parse C/C++ source code.
 
 ## Features
-- No pre-processing, and preprocessors are part of the ast.
-- Most comments are preserved too.
-- Developed from scratch and uses back-tracking yacc (BtYacc) to write C++ grammer, that means **no dependency on libclang**.
-- The result of parsing is an AST where elements of a file are arranged in a tree.
-- Minimum dependency. Only external dependency is a [lexer](https://github.com/westes/flex) which is by default available on unix like platforms (Linux, Mac, etc.) and [Flex for Windows](http://gnuwin32.sourceforge.net/packages/flex.htm) is bundled with the project so it works out of the box on all Windows platforms too.
-- Parsing of multi-file program is supported too.
+- No preprocessing; preprocessor constructs are part of the AST.
+- Preserves most comments.
+- Implemented from scratch using backtracking Yacc (BtYacc), so **no dependency on libclang**.
+- Parses into a structured AST where file elements form a tree.
+- Minimal dependencies: [Flex](https://github.com/westes/flex) on Unix-like platforms (Linux, macOS, etc.). On Windows, [Flex for Windows](http://gnuwin32.sourceforge.net/packages/flex.htm) is bundled for out-of-the-box usage.
+- Supports parsing multi-file programs.
 
-## Motivation 
+## Motivation
 CppParser can be used to build tools that need parsing of C/C++ files.
-I am using it to develop [cib](https://github.com/satya-das/cib/) which implements ABI stable SDK architecture for C++ library.
+It is also used to develop [cib](https://github.com/satya-das/cib/), which implements ABI-stable SDK architecture for C++ libraries.
 
 ## Example
 
-To begin with we will see an example of parsing a hello-world program and see what is the AST that `CppParser` creates:
+To begin with we will see an example of parsing a hello-world program and see the AST that `CppParser` creates:
 ```c++
 #include <iostream>
 
@@ -34,11 +34,11 @@ int main()
 
 ```
 
-For the above hello-world program we can expect that when it is parsed the generated AST should look like following:
+For the above hello-world program we can expect the generated AST to look like the following:
 ![AST for Hello World program](https://github.com/satya-das/cppparser/blob/master/cppparser/src/readme-assets/HelloWorldAST.svg "AST for Hello World program")
 
-So, how we are going to access these elements of AST using `CppParser`?
-Below is the program written as unit-test for validating the correctness of generated AST:
+So, how do we access these elements of AST using `CppParser`?
+Below is the program written as a unit test for validating the correctness of the generated AST:
 
 ```c++
 #include <catch/catch.hpp>
@@ -86,9 +86,9 @@ TEST_CASE("Parsing hello world program")
 
 ```
 
-**This example is a real one and is part of actual unit test of CppParser**.
+**This example is real and is part of the actual unit tests for CppParser**.
 
-For AST traversing, see the [CppWriter](cppwriter), that uses the generated AST to create files.
+For AST traversal, see [CppWriter](cppwriter), which uses the generated AST to create files.
 
 ## Building CppParser
 
@@ -120,15 +120,15 @@ ninja
 
 ## For contributors who need to run tests
 
-Make sure you also clone the dependencies. Run the following command in the parent directory of root of the `cppparser`.
+Make sure you also clone the dependencies. Run the following command in the parent directory of the root of `cppparser`.
 
 ```sh
 git clone https://github.com/satya-das/common.git
 ```
 
-After this command the `common` and `cppparser` should be in the same folder.
+After this command the `common` and `cppparser` folders should be side by side.
 
-## Configure and run test
+## Configure and run tests
 
 ```sh
 cd cppparser
