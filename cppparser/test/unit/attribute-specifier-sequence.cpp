@@ -32,6 +32,10 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
 
     [[xnet::HttpPost]] [[xnet::Route("/register")]] std::string CreateAccount(
       [[xnet::FromBody]] [[xnet::EnsureValid]] SignUpRequest request);
+
+    [[xnet::HttpGet, xnet::Route("/entities"), xnet::Route("/entity")]] std::string GetEntities();
+
+    [[]] [[]] void UnannotatedHelper();
   };
 #endif
   auto testSnippet = getTestSnippetParseStream(__LINE__ - 2);
@@ -72,7 +76,7 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
   CHECK((*classAttrib1Arg) == cppast::CppStringLiteralExpr("\"/plakmp\""));
 
   const auto classMembers = GetAllOwnedEntities(*classDefn);
-  REQUIRE(classMembers.size() == 4);
+  REQUIRE(classMembers.size() == 6);
 
   const cppast::CppConstFunctionEPtr methodGetPlakMpPlayers = classMembers[1];
   REQUIRE(methodGetPlakMpPlayers);
@@ -95,4 +99,44 @@ TEST_CASE_METHOD(CppAtributeTest, "Attribute specifier sequence")
   cppast::CppConstStringLiteralExprEPtr methodAttrib1Arg = &(methodAttrib1->arg(0));
   REQUIRE(methodAttrib1Arg);
   CHECK((*methodAttrib1Arg) == cppast::CppStringLiteralExpr("\"/players\""));
+
+  const cppast::CppConstFunctionEPtr methodGetEntities = classMembers[4];
+  REQUIRE(methodGetEntities);
+  const auto* returnTypeGetEntities = methodGetEntities->returnType();
+  REQUIRE(returnTypeGetEntities);
+
+  const auto attribSeqGetEntities = GetAllAttributeSpecifiers(*returnTypeGetEntities);
+  REQUIRE(attribSeqGetEntities.size() == 3);
+
+  cppast::CppConstNameExprEPtr method2Attrib0 = attribSeqGetEntities.at(0);
+  REQUIRE(method2Attrib0);
+  CHECK((*method2Attrib0) == cppast::CppNameExpr("xnet::HttpGet"));
+
+  cppast::CppConstFunctionCallExprEPtr method2Attrib1 = attribSeqGetEntities.at(1);
+  REQUIRE(method2Attrib1);
+  cppast::CppConstNameExprEPtr method2Attrib1Func = &(method2Attrib1->function());
+  REQUIRE(method2Attrib1Func);
+  CHECK((*method2Attrib1Func) == cppast::CppNameExpr("xnet::Route"));
+  REQUIRE(method2Attrib1->numArgs() == 1);
+  cppast::CppConstStringLiteralExprEPtr method2Attrib1Arg = &(method2Attrib1->arg(0));
+  REQUIRE(method2Attrib1Arg);
+  CHECK((*method2Attrib1Arg) == cppast::CppStringLiteralExpr("\"/entities\""));
+
+  cppast::CppConstFunctionCallExprEPtr method2Attrib2 = attribSeqGetEntities.at(2);
+  REQUIRE(method2Attrib2);
+  cppast::CppConstNameExprEPtr method2Attrib2Func = &(method2Attrib2->function());
+  REQUIRE(method2Attrib2Func);
+  CHECK((*method2Attrib2Func) == cppast::CppNameExpr("xnet::Route"));
+  REQUIRE(method2Attrib2->numArgs() == 1);
+  cppast::CppConstStringLiteralExprEPtr method2Attrib2Arg = &(method2Attrib2->arg(0));
+  REQUIRE(method2Attrib2Arg);
+  CHECK((*method2Attrib2Arg) == cppast::CppStringLiteralExpr("\"/entity\""));
+
+  const cppast::CppConstFunctionEPtr methodUnannotatedHelper = classMembers[5];
+  REQUIRE(methodUnannotatedHelper);
+  const auto* returnTypeUnannotatedHelper = methodUnannotatedHelper->returnType();
+  REQUIRE(returnTypeUnannotatedHelper);
+
+  const auto attribSeqUnannotatedHelper = GetAllAttributeSpecifiers(*returnTypeUnannotatedHelper);
+  REQUIRE(attribSeqUnannotatedHelper.size() == 0);
 }

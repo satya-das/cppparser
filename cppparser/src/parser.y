@@ -183,7 +183,6 @@ class CppTemplateArg;
   cppast::CppRefType                               refType;
   unsigned int                                     attr;
   Optional<cppast::CppAccessType>                  objAccessType;
-  cppast::CppExpression*                           attribSpecifier;
   cppast::CppCallArgs*                             attribSpecifiers;
   cppast::CppIfBlock*                              ifBlock;
   cppast::CppWhileBlock*                           whileBlock;
@@ -313,8 +312,7 @@ class CppTemplateArg;
 %type  <accessSpecifier>    entityaccessspecifier
 %type  <identifierList>     identifierlist
 %type  <funcThrowSpec>      functhrowspec optfuncthrowspec
-%type  <attribSpecifier>    attribspecifier
-%type  <attribSpecifiers>   attribspecifiers optattribspecifiers
+%type  <attribSpecifiers>   attribs optattribs attribspecifier attribspecifiers optattribspecifiers
 %type  <hashDefine>         define
 %type  <hashUndef>          undef
 %type  <hashInclude>        include
@@ -1703,8 +1701,26 @@ classdefnstmt
   : classdefn ';' [ZZVALID;] { $$ = $1; }
   ;
 
+attribs
+  : expr {
+    $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
+    $$->push_back(Ptr($1));
+  }
+  | attribs ',' expr {
+    $$ = $1;
+    $$->push_back(Ptr($3));
+  }
+  ;
+
+optattribs
+  : {
+    $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
+  }
+  | attribs { $$ = $1; }
+  ;
+
 attribspecifier
-  : '[' '[' expr ']' ']' {
+  : '[' '[' optattribs ']' ']' {
     $$ = $3;
   }
   ;
@@ -1719,11 +1735,11 @@ optattribspecifiers
 attribspecifiers
   : attribspecifier {
     $$ = new std::vector<std::unique_ptr<cppast::CppExpression>>;
-    $$->push_back(Ptr($1));
+    $$->insert($$->end(), std::make_move_iterator($1->begin()), std::make_move_iterator($1->end()));
   }
   | attribspecifiers attribspecifier {
     $$ = $1;
-    $$->push_back(Ptr($2));
+    $$->insert($$->end(), std::make_move_iterator($2->begin()), std::make_move_iterator($2->end()));
   }
   ;
 
